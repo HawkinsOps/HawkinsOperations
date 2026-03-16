@@ -37,6 +37,7 @@ jobs:
         shell: pwsh
         run: |
           node .\scripts\verify\hosting-cloudflare-only.js
+          node .\scripts\verify\site-runtime-contract.js
 
       - name: Static site diagnosis gate
         shell: pwsh
@@ -65,4 +66,3 @@ jobs:
           name: wazuh-rules-bundle
           path: dist/wazuh/local_rules.xml
           retention-days: 30
-

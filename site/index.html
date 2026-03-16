@@ -31,265 +31,7 @@
 <link rel="stylesheet" href="/assets/base.css?v=03-15-2026-1">
 <link rel="stylesheet" href="/assets/modernize.css?v=03-15-2026-1">
 <link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
-<style>
-  .sf-home {
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    line-height: 1.5;
-  }
-
-  .sf-home h1,
-  .sf-home h2,
-  .sf-home h3 {
-    margin: 0 0 var(--space-2);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: var(--text);
-  }
-
-  .sf-home h1 {
-    font-size: 2rem;
-  }
-
-  .sf-home h2 {
-    font-size: 1.5rem;
-    line-height: 1.2;
-    margin: 10px 0 10px;
-  }
-
-  .sf-home h3 {
-    font-size: 1.1rem;
-    margin: 0 0 6px;
-  }
-
-  @media (min-width: 1024px) {
-    .sf-home h1 {
-      font-size: 2.6rem;
-    }
-  }
-
-  .sf-home p {
-    margin: 0;
-    color: var(--muted);
-  }
-
-  .sf-hero {
-    padding-top: 40px;
-  }
-
-  .sf-hero-grid,
-  .sf-proof-grid,
-  .sf-cta-grid {
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .sf-role-line {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-
-  .sf-role-tag {
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 12px;
-    border-radius: 999px;
-    background: rgba(122, 184, 255, 0.10);
-    color: #7ab8ff;
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-  }
-
-  .sf-trust {
-    margin-top: var(--space-2);
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .sf-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: var(--space-3);
-  }
-
-  .sf-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 44px;
-    padding: 0 18px;
-    border-radius: 8px;
-    border: 1px solid transparent;
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .sf-button-primary {
-    background: var(--brand);
-    color: #fff;
-  }
-
-  .sf-button-secondary {
-    background: transparent;
-    border-color: var(--brand);
-    color: var(--brand);
-  }
-
-  .sf-body {
-    max-width: 62ch;
-  }
-
-  .sf-status-list {
-    margin: var(--space-3) 0 0;
-    padding-left: 1.1rem;
-    color: var(--muted);
-  }
-
-  .sf-status-list li + li {
-    margin-top: 8px;
-  }
-
-  .sf-metrics {
-    display: grid;
-    gap: 16px;
-  }
-
-  .sf-metric {
-    padding: 22px;
-  }
-
-  .sf-metric-label {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--muted);
-    font-size: 0.82rem;
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .sf-metric-value {
-    display: block;
-    font-size: 1.8rem;
-    font-weight: 700;
-    line-height: 1.15;
-    color: var(--text);
-  }
-
-  .sf-metric-note {
-    margin-top: 8px;
-    font-size: 0.88rem;
-  }
-
-  .sf-pipeline {
-    overflow-x: auto;
-    padding: 16px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: linear-gradient(180deg, #0e1524 0%, #131d30 100%);
-  }
-
-  .sf-pipeline svg {
-    display: block;
-    width: 100%;
-    min-width: 760px;
-    height: auto;
-  }
-
-  .sf-proof-link {
-    display: block;
-    padding: 18px;
-    text-decoration: none;
-  }
-
-  .sf-proof-link strong {
-    display: block;
-    margin-bottom: 6px;
-    color: var(--text);
-  }
-
-  .sf-proof-link span {
-    display: block;
-    color: var(--muted);
-    font-size: 0.95rem;
-  }
-
-  .sf-section-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #3b8fd9;
-    margin-bottom: 6px;
-  }
-
-  .sf-route-grid {
-    display: grid;
-    gap: 16px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .sf-route-card {
-    display: block;
-    padding: 22px;
-    text-decoration: none;
-    transition: border-color 0.15s;
-  }
-
-  .sf-route-card:hover {
-    border-color: rgba(122, 184, 255, 0.28);
-  }
-
-  .sf-route-card h3 {
-    color: var(--text);
-  }
-
-  .sf-route-card p {
-    font-size: 0.92rem;
-    line-height: 1.5;
-  }
-
-  .sf-footer-line {
-    color: var(--muted);
-    font-size: 0.95rem;
-  }
-
-  .sf-philosophy {
-    max-width: 72ch;
-  }
-
-  @media (min-width: 768px) {
-    .sf-hero-grid,
-    .sf-proof-grid,
-    .sf-cta-grid {
-      grid-template-columns: 1.15fr 1fr;
-      align-items: start;
-    }
-
-    .sf-metrics {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .sf-route-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .sf-metrics {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-  }
-
-  @media (max-width: 600px) {
-    .sf-route-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
+<link rel="stylesheet" href="/assets/page-shells.css?v=03-16-2026-1">
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -331,8 +73,8 @@
         <span class="sf-role-tag">Detection Engineering</span>
         <span class="sf-role-tag">Security Automation</span>
       </div>
-      <p class="sf-body" style="font-size: 1.1rem; color: var(--text); margin-bottom: 12px;">Evidence-first cybersecurity portfolio built around an auto-updating SOC automation system.</p>
-      <p class="sf-body">Every count, metric, and status on this site is generated from repository artifacts and verified by CI. The flagship system — SignalFoundry — ingests real Wazuh alerts, applies policy-driven triage, and publishes redacted proof artifacts gated by coverage and reconciliation checks.</p>
+      <p class="sf-body sf-body-lead">Evidence-first cybersecurity portfolio built around a live SOC triage and proof pipeline.</p>
+      <p class="sf-body">Every public metric on this site is generated from repo artifacts and verified by CI. SignalFoundry ingests Wazuh alerts, applies policy-driven triage, enforces redaction, and publishes reviewable proof only after reconciliation and coverage checks pass.</p>
       <div class="sf-actions">
         <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Read Case Study</a>
         <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Review Proof</a>
@@ -347,10 +89,10 @@
     <section id="flagship" class="sf-section" aria-labelledby="flagship-title">
       <div class="sf-section-label">Flagship System</div>
       <div class="sf-proof-grid">
-        <div class="sf-card" style="padding: 24px;">
+        <div class="sf-card sf-panel">
           <h2 id="flagship-title">SignalFoundry</h2>
-          <p class="sf-body" style="margin-bottom: 12px;">A SOC triage and evidence pipeline that ingests Wazuh alerts, applies policy-driven classification, enforces mandatory redaction, and produces review-ready escalation packs — all gated by reconciliation checks and coverage requirements before anything is published.</p>
-          <p class="sf-body" style="margin-bottom: 16px;">The system runs against real alert volume from a multi-host Wazuh deployment, maintains ledger integrity across runs, and publishes its own proof artifacts to this repository.</p>
+          <p class="sf-body sf-copy-gap-sm">A SOC triage and evidence pipeline that ingests Wazuh alerts, applies policy-driven classification, enforces redaction, and produces review-ready escalation packs only after quality gates pass.</p>
+          <p class="sf-body sf-copy-gap-md">It runs against real alert volume from a multi-host Wazuh deployment, preserves ledger integrity across runs, and stages its own proof back into this repository.</p>
           <div class="sf-pipeline" aria-label="SignalFoundry pipeline diagram">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 230" role="img" aria-label="SignalFoundry workflow: ingest, triage, redact, pack, reconcile, gate, publish">
               <title>SignalFoundry Workflow</title>
@@ -383,12 +125,12 @@
               <rect class="box-accent" x="1110" y="52" width="132" height="124" rx="8"/><text class="num" x="1122" y="86">07</text><text class="kicker" x="1122" y="102">PUBLISH</text><text class="accent" x="1122" y="126">Proof Output</text><text class="meta" x="1122" y="146">repo + proof pack</text>
             </svg>
           </div>
-          <div class="sf-actions" style="margin-top: 16px;">
+          <div class="sf-actions sf-actions-compact">
             <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Full Case Study</a>
             <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof Artifacts</a>
           </div>
         </div>
-        <aside class="sf-card" style="padding: 24px;" aria-label="Detection inventory">
+        <aside class="sf-card sf-panel" aria-label="Detection inventory">
           <h2>Detection inventory</h2>
           <p class="sf-body">Published detection content verified against the repository. Counts are generated, not hand-edited.</p>
           <ul class="sf-status-list">
@@ -397,7 +139,7 @@
             <li><strong><span data-verified="splunk">8</span></strong> Splunk SPL queries</li>
             <li><strong><span data-verified="ir">10</span></strong> IR playbooks (7-step structured format)</li>
           </ul>
-          <p class="sf-body" style="margin-top: 16px; font-size: 0.88rem;">Source: <a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer" style="color: #3b8fd9;">VERIFIED_COUNTS.md</a></p>
+          <p class="sf-body sf-copy-gap-md" style="margin-top: 16px; font-size: 0.88rem;">Source: <a class="sf-inline-link" href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">VERIFIED_COUNTS.md</a></p>
         </aside>
       </div>
     </section>
@@ -410,7 +152,7 @@
       <!-- Group A: Current System Health -->
       <div class="sf-section-label">Current System Health</div>
       <h2 id="health-title">Most recent pipeline state</h2>
-      <p class="sf-body" style="margin-bottom: 20px;">Current operational signals from the most recent successful contract run.</p>
+      <p class="sf-body sf-copy-gap-lg">Current operational signals from the most recent successful contract run.</p>
       <div class="sf-metrics" role="status" aria-live="polite" aria-label="Current system health metrics">
         <article class="sf-card sf-metric" aria-label="Heartbeat status">
           <span class="sf-metric-label">Heartbeat Status</span>
@@ -435,28 +177,28 @@
       </div>
 
       <!-- Group B: Proof Inventory -->
-      <div class="sf-section-label" style="margin-top: 40px;">Proof Inventory</div>
+      <div class="sf-section-label sf-section-label-spaced">Proof Inventory</div>
       <h2>Lifetime pipeline output</h2>
-      <p class="sf-body" style="margin-bottom: 20px;">Cumulative totals across all published contract runs.</p>
+      <p class="sf-body sf-copy-gap-lg">Cumulative totals across all published contract runs.</p>
       <div class="sf-metrics" aria-label="Lifetime proof inventory">
         <article class="sf-card sf-metric" aria-label="Lifetime cases processed">
           <span class="sf-metric-label">Lifetime Cases Processed</span>
-          <span class="sf-metric-value"><span data-ops="total_cases">33459</span></span>
+          <span class="sf-metric-value"><span data-ops="total_cases">34206</span></span>
           <p class="sf-metric-note">Ledger-verified total across all runs.</p>
         </article>
         <article class="sf-card sf-metric" aria-label="Benign auto-closed">
           <span class="sf-metric-label">Benign Cases Auto-Closed</span>
-          <span class="sf-metric-value"><span data-ops="auto_closed_benign">20942</span></span>
+          <span class="sf-metric-value"><span data-ops="auto_closed_benign">0</span></span>
           <p class="sf-metric-note">Cases closed by policy as benign.</p>
         </article>
         <article class="sf-card sf-metric" aria-label="Known FPs suppressed">
           <span class="sf-metric-label">Known False Positives Suppressed</span>
-          <span class="sf-metric-value"><span data-ops="known_fp">4867</span></span>
+          <span class="sf-metric-value"><span data-ops="known_fp">4</span></span>
           <p class="sf-metric-note">Cases matched to known false-positive signatures.</p>
         </article>
         <article class="sf-card sf-metric" aria-label="Published escalation artifacts">
           <span class="sf-metric-label">Published Escalation Artifacts</span>
-          <span class="sf-metric-value"><span data-ops="escalated">2478</span></span>
+          <span class="sf-metric-value"><span data-ops="escalated">0</span></span>
           <p class="sf-metric-note">Cases packaged with evidence and committed to the proof repository.</p>
         </article>
       </div>
@@ -468,31 +210,31 @@
     <section id="routes" class="sf-section" aria-labelledby="routes-title">
       <div class="sf-section-label">Where to go next</div>
       <h2 id="routes-title">Reviewer paths</h2>
-      <p class="sf-body" style="margin-bottom: 20px;">Choose the entry point that fits your review goal.</p>
+      <p class="sf-body sf-copy-gap-lg">Choose the reviewer path that matches what you need to validate first.</p>
       <div class="sf-route-grid">
         <a class="sf-card sf-route-card sf-focus-ring" href="/start-here">
           <h3>Start Here</h3>
-          <p>3-minute guided path through the strongest proof artifacts. Best first stop for any reviewer.</p>
+          <p>Fastest path through the strongest proof artifacts. Best first stop for most reviewers.</p>
         </a>
         <a class="sf-card sf-route-card sf-focus-ring" href="/case-study-autosoc">
           <h3>AutoSOC Case Study</h3>
-          <p>Full walkthrough of the SignalFoundry pipeline: architecture, decision logic, outputs, and recovery.</p>
+          <p>SignalFoundry walkthrough covering architecture, triage logic, outputs, and recovery work.</p>
         </a>
         <a class="sf-card sf-route-card sf-focus-ring" href="/proof">
           <h3>Proof Pack</h3>
-          <p>Public evidence trail with verification commands and links to the canonical proof artifacts.</p>
+          <p>Canonical evidence trail with verification commands and direct proof links.</p>
         </a>
         <a class="sf-card sf-route-card sf-focus-ring" href="/detections">
           <h3>Detection Library</h3>
-          <p>Browse <span data-verified="sigma">103</span> Sigma rules, <span data-verified="wazuh">28</span> Wazuh rules, <span data-verified="splunk">8</span> Splunk queries, and <span data-verified="ir">10</span> IR playbooks.</p>
+          <p>Browse the verified rule and playbook inventory behind the flagship workflow.</p>
         </a>
         <a class="sf-card sf-route-card sf-focus-ring" href="/soc-lab">
           <h3>SOC Lab</h3>
-          <p>Proxmox-based validation environment with Wazuh, Splunk, and repeatable detection test runs.</p>
+          <p>Validation environment for repeatable telemetry, detections, and operational testing.</p>
         </a>
         <a class="sf-card sf-route-card sf-focus-ring" href="/resume">
           <h3>Resume</h3>
-          <p>SOC analyst resume with work history, skills, and certifications. PDF and ATS text available.</p>
+          <p>Resume, PDF, and ATS text for recruiter-speed review.</p>
         </a>
       </div>
     </section>
@@ -504,8 +246,8 @@
       <div class="sf-section-label">About this portfolio</div>
       <h2 id="about-title">Why this site exists</h2>
       <div class="sf-philosophy">
-        <p class="sf-body" style="margin-bottom: 12px;">This portfolio documents how I build, validate, and recover security automation systems under real operating conditions — not just what I claim to know, but what I can prove I have built and operated.</p>
-        <p class="sf-body" style="margin-bottom: 12px;">The site separates current system health from proof inventory so reviewers can assess both: is the system running, and how much evidence has it actually produced? Every count on this page is generated from repository artifacts and verified by CI.</p>
+        <p class="sf-body sf-copy-gap-sm">This portfolio shows how I build, validate, and recover security automation systems under real operating conditions.</p>
+        <p class="sf-body sf-copy-gap-sm">It separates current system health from proof inventory so reviewers can answer two questions quickly: is the system running, and how much evidence has it actually produced?</p>
         <p class="sf-body">Detection engineering, SOC triage, and security automation are what I do. The proof is public.</p>
       </div>
     </section>
