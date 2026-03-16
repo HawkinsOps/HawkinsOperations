@@ -11,29 +11,7 @@
   const OPS_TIMEOUT_MS = 1500;
   const isLocalDebugHost = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
 
-  // Theme toggle (saved preference, otherwise system preference)
-  const themeToggle = $('#themeToggle');
-  const savedTheme = localStorage.getItem('rh-theme');
-  const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const startTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-  html.setAttribute('data-theme', startTheme);
-
-  function updateThemeButton(theme) {
-    if (!themeToggle) return;
-    const next = theme === 'dark' ? 'light' : 'dark';
-    themeToggle.textContent = theme === 'dark' ? 'Light' : 'Dark';
-    themeToggle.setAttribute('aria-label', `Switch to ${next} mode`);
-  }
-  updateThemeButton(startTheme);
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const current = html.getAttribute('data-theme') || 'dark';
-      const next = current === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('rh-theme', next);
-      updateThemeButton(next);
-    });
-  }
+  html.setAttribute('data-theme', 'dark');
 
   // Mobile nav
   const mobBtn = $('#mobBtn');
