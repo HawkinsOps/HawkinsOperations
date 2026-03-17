@@ -39,7 +39,7 @@
     <ul class="nav-l">
       <li><a href="/">Home</a></li>
       <li><a href="/proof">Proof</a></li>
-      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
       <li><a href="/detections">Detections</a></li>
       <li><a href="/soc-lab">Lab</a></li>
       <li><a href="/resume">Resume</a></li>
@@ -50,7 +50,7 @@
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
   <a href="/">Home</a>
   <a href="/proof">Proof</a>
-  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
   <a href="/detections">Detections</a>
   <a href="/soc-lab">Lab</a>
   <a href="/resume">Resume</a>
@@ -76,6 +76,14 @@
         <span class="m-hero-signal">Outputs</span>
         <span class="m-hero-signal">Proof</span>
       </div>
+      <div class="m-proof-strip" style="margin-top:16px;">
+        <div class="m-proof-inline">
+          <strong>Last verified <span data-verified-date>03-15-2026</span></strong>
+          <strong>Heartbeat <span data-ops-status="heartbeat">SUCCESS</span></strong>
+          <strong>Coverage <span data-ops="coverage_ratio">8/8</span></strong>
+          <strong>Last contract <span data-ops="last_updated">03-15-2026</span></strong>
+        </div>
+      </div>
 
       <div class="m-kpi-grid" aria-label="SignalFoundry proof metrics">
         <article class="m-kpi">
@@ -94,7 +102,7 @@
           <p class="m-kpi-copy">Escalation outputs are backed by documented IR procedures instead of undocumented analyst habit.</p>
         </article>
       <article class="m-kpi">
-        <div class="m-kpi-value"><span data-verified-date>02-26-2026</span></div>
+        <div class="m-kpi-value"><span data-verified-date>03-15-2026</span></div>
           <div class="m-kpi-label">Last verified</div>
         <p class="m-kpi-copy">Counts and proof links stay tied to the same repository verification model used elsewhere on the site.</p>
       </article>
@@ -394,6 +402,7 @@ outcome: reduced false-positive pressure while preserving escalation path</pre>
 <!-- @include:footer:end -->
 <script src="/assets/fetch-utils.js" defer></script>
 <script src="/data/counts.js" defer></script>
+<script src="/data/ops-metrics.js" defer></script>
 <script src="/assets/app.js" defer></script>
 </body>
 </html>

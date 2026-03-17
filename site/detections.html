@@ -39,7 +39,7 @@
     <ul class="nav-l">
       <li><a href="/">Home</a></li>
       <li><a href="/proof">Proof</a></li>
-      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
       <li><a href="/detections">Detections</a></li>
       <li><a href="/soc-lab">Lab</a></li>
       <li><a href="/resume">Resume</a></li>
@@ -50,7 +50,7 @@
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
   <a href="/">Home</a>
   <a href="/proof">Proof</a>
-  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
   <a href="/detections">Detections</a>
   <a href="/soc-lab">Lab</a>
   <a href="/resume">Resume</a>
@@ -65,6 +65,14 @@
       <div class="sf-stage-lede">
         <p class="sf-body sf-body-lead">This page is built for fast reviewer validation: understand the strongest case studies, inspect the verified inventory, then pivot straight into the repo proof.</p>
         <p class="sf-body">Counts on this page are tied to <a class="sf-inline-link" href="/proof">Proof</a> and generated from repository artifacts. The goal is not to look broad; it is to be reproducible.</p>
+      </div>
+      <div class="m-proof-strip" style="margin-top:18px;">
+        <div class="m-proof-inline">
+          <strong>Last verified <span data-verified-date>03-15-2026</span></strong>
+          <strong>Heartbeat <span data-ops-status="heartbeat">SUCCESS</span></strong>
+          <strong>Coverage <span data-ops="coverage_ratio">8/8</span></strong>
+          <strong>Last contract <span data-ops="last_updated">03-15-2026</span></strong>
+        </div>
       </div>
       <div class="sf-kpi-grid" aria-label="Detection inventory snapshot">
         <article class="sf-card sf-kpi-card">
@@ -200,6 +208,7 @@
 <!-- @include:footer:end -->
 <script src="/assets/fetch-utils.js" defer></script>
 <script src="/data/counts.js" defer></script>
+<script src="/data/ops-metrics.js" defer></script>
 <script src="/assets/app.js" defer></script>
 <script type="module" src="/assets/portfolio-data.js"></script>
 </body>

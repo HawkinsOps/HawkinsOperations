@@ -49,6 +49,14 @@
     <div class="sf-eyebrow">Reviewer Path</div>
     <h1 style="font-size:clamp(2rem,4vw,3rem);margin:12px 0 16px;">Start here if you need to validate SignalFoundry fast.</h1>
     <p style="max-width:64ch;color:var(--muted);">This page is the shortest public path through the system story: what exists, what is verified, where the implementation lives, and how to reproduce the counts.</p>
+    <div class="m-proof-strip" style="margin-top:18px;">
+      <div class="m-proof-inline">
+        <strong>Last verified <span data-verified-date>03-15-2026</span></strong>
+        <strong>Heartbeat <span data-ops-status="heartbeat">SUCCESS</span></strong>
+        <strong>Coverage <span data-ops="coverage_ratio">8/8</span></strong>
+        <strong>Last contract <span data-ops="last_updated">03-15-2026</span></strong>
+      </div>
+    </div>
   </section>
   <section class="sf-section sf-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
     <article class="sf-card" style="padding:24px;">
@@ -82,6 +90,8 @@ python .\scripts\validate_metrics.py</pre>
     <p><b>HawkinsOps</b> • Eligible to obtain clearance; willing to pursue sponsorship.</p>
   </div>
 </footer>
+<script src="/data/counts.js" defer></script>
+<script src="/data/ops-metrics.js" defer></script>
 <script src="/assets/app.js" defer></script>
 </body>
 </html>
