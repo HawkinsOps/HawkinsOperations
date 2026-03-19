@@ -152,7 +152,7 @@
       <!-- Group A: Stable Benchmark -->
       <div class="sf-section-label">Stable Benchmark</div>
       <h2 id="health-title">Validated stable benchmark</h2>
-      <p class="sf-body sf-copy-gap-lg">Validated stable benchmark: 25,167-case corpus with 2,478 escalation artifacts, 8/8 host coverage in locked recovery state, and heartbeat SUCCESS.</p>
+      <p class="sf-body sf-copy-gap-lg"><span data-ops="stable_statement">Validated active benchmark sourced from the latest runtime proof artifacts.</span></p>
       <div class="sf-metrics" role="status" aria-live="polite" aria-label="Stable benchmark metrics">
         <article class="sf-card sf-metric" aria-label="Heartbeat status">
           <span class="sf-metric-label">Heartbeat Status</span>
@@ -167,11 +167,11 @@
         <article class="sf-card sf-metric" aria-label="Reconciliation status">
           <span class="sf-metric-label">Reconciliation Status</span>
           <span class="sf-metric-value"><span data-ops-status="reconciliation">PASS</span></span>
-          <p class="sf-metric-note">Ledger integrity check. Mismatch count: <span data-ops="reconciliation_mismatch">0</span>.</p>
+          <p class="sf-metric-note">Ledger integrity check. Mismatch count: <span data-ops="reconciliation_mismatch">0</span> (<span data-ops="reconciliation_mismatch_rate">0.00%</span> mismatch). Success rate: <span data-ops="reconciliation_success_rate">100.00%</span>.</p>
         </article>
         <article class="sf-card sf-metric" aria-label="Stable benchmark date">
           <span class="sf-metric-label">Stable Benchmark Date</span>
-          <span class="sf-metric-value"><span data-ops="last_updated">03-13-2026</span></span>
+          <span class="sf-metric-value"><span data-ops="last_updated">03-19-2026</span></span>
           <p class="sf-metric-note">Locked validation date for the stable benchmark snapshot.</p>
         </article>
       </div>
@@ -183,7 +183,7 @@
       <div class="sf-metrics" aria-label="Lifetime proof inventory">
         <article class="sf-card sf-metric" aria-label="Lifetime cases processed">
           <span class="sf-metric-label">Lifetime Cases Processed</span>
-          <span class="sf-metric-value"><span data-ops="lifetime_total_cases">46069</span></span>
+          <span class="sf-metric-value"><span data-ops="lifetime_total_cases">49548</span></span>
           <p class="sf-metric-note">Ledger-verified total across all runs.</p>
         </article>
         <article class="sf-card sf-metric" aria-label="Benign auto-closed">
@@ -193,7 +193,7 @@
         </article>
         <article class="sf-card sf-metric" aria-label="Known FPs suppressed">
           <span class="sf-metric-label">Known False Positives Suppressed</span>
-          <span class="sf-metric-value"><span data-ops="lifetime_known_fp">14861</span></span>
+          <span class="sf-metric-value"><span data-ops="lifetime_known_fp">18150</span></span>
           <p class="sf-metric-note">Cases matched to known false-positive signatures.</p>
         </article>
         <article class="sf-card sf-metric" aria-label="Published escalation artifacts">
