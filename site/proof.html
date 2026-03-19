@@ -55,9 +55,21 @@
       <div class="m-proof-strip" style="margin-top:12px;">
         <div class="m-proof-inline">
           <strong>Last verified <span data-verified-date>03-15-2026</span></strong>
-          <strong>Heartbeat <span data-ops-status="heartbeat">SUCCESS</span></strong>
-          <strong>Coverage <span data-ops="coverage_ratio">8/8</span></strong>
-          <strong>Last contract <span data-ops="last_updated">03-15-2026</span></strong>
+          <strong>Stable heartbeat <span data-ops-status="stable_heartbeat">SUCCESS</span></strong>
+          <strong>Stable coverage <span data-ops="stable_coverage_ratio">8/8</span></strong>
+          <strong>Stable cases <span data-ops="stable_total_cases">25167</span></strong>
+          <strong>Stable escalated <span data-ops="stable_escalated">2478</span></strong>
+          <strong>Stable known FP <span data-ops="stable_known_fp">1747</span></strong>
+          <strong>Stable date <span data-ops="last_updated">03-13-2026</span></strong>
+        </div>
+      </div>
+      <p class="m-copy" style="margin-top:12px;">Validated stable benchmark: 25,167-case corpus with 2,478 escalation artifacts, 8/8 host coverage in locked recovery state, and heartbeat SUCCESS.</p>
+      <div class="m-proof-strip" style="margin-top:12px;">
+        <div class="m-proof-inline">
+          <strong>Lifetime processed (runtime snapshot) <span data-ops="lifetime_total_cases">46069</span></strong>
+          <strong>Runtime escalated <span data-ops="lifetime_escalated">2478</span></strong>
+          <strong>Runtime known FP <span data-ops="lifetime_known_fp">14861</span></strong>
+          <strong>Runtime updated <span data-ops="lifetime_last_updated">03-19-2026</span></strong>
         </div>
       </div>
     </div>
@@ -70,13 +82,14 @@
         <ul class="m-list-tight">
           <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">VERIFIED_COUNTS.md</a></li>
           <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/technique_map.csv" target="_blank" rel="noopener noreferrer">technique_map.csv</a></li>
+          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/docs/execution/AUTOSOC_COVERAGE_TRUTH_SHIFT_SNIPPET_03-19-2026.md" target="_blank" rel="noopener noreferrer">AUTOSOC_COVERAGE_TRUTH_SHIFT_SNIPPET_03-19-2026.md</a></li>
           <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/scripts/check-md-links.sh" target="_blank" rel="noopener noreferrer">check-md-links.sh</a></li>
         </ul>
       </article>
       <article class="m-card">
         <div class="m-card-kicker">Verification</div>
         <h2>Validation path</h2>
-        <p class="m-copy">Clone the repository, run the public verification commands, then compare the output to the published proof artifacts.</p>
+        <p class="m-copy">Clone the repository, run the public verification commands, then compare the output to the published proof artifacts. The operational strip above reflects the latest committed proof snapshot, not a hand-maintained health claim.</p>
       </article>
     </div>
   </section>

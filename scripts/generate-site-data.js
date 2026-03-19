@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const childProcess = require("child_process");
 
 const root = process.cwd();
 const srcPath = path.join(root, "PROOF_PACK", "verified_counts.json");
@@ -13,6 +14,16 @@ const siteOpsJsonOutPath = path.join(root, "site", "assets", "data", "ops-metric
 const siteOpsJsOutPath = path.join(root, "site", "data", "ops-metrics.js");
 const detectionsDataPath = path.join(root, "site", "assets", "data", "detections.json");
 const withProofPack = process.argv.includes("--with-proof-pack");
+
+function regenerateMetrics() {
+  const result = childProcess.spawnSync(process.execPath, [path.join(root, "scripts", "generate-metrics.js")], {
+    cwd: root,
+    stdio: "inherit"
+  });
+  if (result.status !== 0) {
+    throw new Error("Failed to regenerate data/metrics.json from committed proof artifacts");
+  }
+}
 
 function parseVerifiedCountsJson(rawJson) {
   const parsed = JSON.parse(rawJson);
@@ -58,8 +69,16 @@ function parseMetricsJson(rawJson) {
   if (!parsed || typeof parsed !== "object") {
     throw new Error("Invalid data/metrics.json payload");
   }
+  const stableBenchmark = parsed.stable_benchmark;
+  const lifetimeRuntime = parsed.lifetime_runtime;
   const runningTotals = parsed.running_totals;
   const detectionInventory = parsed.detection_inventory;
+  if (!stableBenchmark || typeof stableBenchmark !== "object") {
+    throw new Error("Missing stable_benchmark object in data/metrics.json");
+  }
+  if (!lifetimeRuntime || typeof lifetimeRuntime !== "object") {
+    throw new Error("Missing lifetime_runtime object in data/metrics.json");
+  }
   if (!runningTotals || typeof runningTotals !== "object") {
     throw new Error("Missing running_totals object in data/metrics.json");
   }
@@ -91,24 +110,69 @@ function parseMetricsJson(rawJson) {
   const autoCloseCount = Number(runningTotals.auto_closed_benign) + Number(runningTotals.known_fp);
   const totalCases = Number(runningTotals.total_cases);
   const autoCloseRate = totalCases > 0 ? `${((autoCloseCount / totalCases) * 100).toFixed(2)}%` : "0.00%";
+  const stableAutoCloseCount = Number(stableBenchmark.auto_closed_benign) + Number(stableBenchmark.known_fp);
+  const stableAutoCloseRate = stableBenchmark.total_cases > 0
+    ? `${((stableAutoCloseCount / Number(stableBenchmark.total_cases)) * 100).toFixed(2)}%`
+    : "0.00%";
 
   return {
     generated_at_utc: parsed.last_updated,
     source_note: "Canonical SignalFoundry metrics generated from data/metrics.json.",
+    display_policy: parsed.display_policy && typeof parsed.display_policy === "object"
+      ? parsed.display_policy
+      : {
+          candidate_default: "stable_benchmark",
+          runtime_label: "Lifetime processed (runtime snapshot)"
+        },
+    stable_benchmark: {
+      total_cases: Number(stableBenchmark.total_cases),
+      auto_closed_benign: Number(stableBenchmark.auto_closed_benign),
+      known_fp: Number(stableBenchmark.known_fp),
+      escalated: Number(stableBenchmark.escalated),
+      coverage_ratio: String(stableBenchmark.coverage_ratio || ""),
+      heartbeat: String(stableBenchmark.heartbeat || ""),
+      locked_date: String(stableBenchmark.locked_date || "03-13-2026"),
+      statement: String(stableBenchmark.statement || "")
+    },
+    lifetime_runtime: {
+      total_cases: Number(lifetimeRuntime.total_cases),
+      auto_closed_benign: Number(lifetimeRuntime.auto_closed_benign),
+      known_fp: Number(lifetimeRuntime.known_fp),
+      escalated: Number(lifetimeRuntime.escalated),
+      review: Number(lifetimeRuntime.review),
+      staged_pending: Number(lifetimeRuntime.staged_pending),
+      coverage_ratio: String(lifetimeRuntime.coverage_ratio || parsed.host_coverage || ""),
+      heartbeat: String(lifetimeRuntime.heartbeat || parsed.heartbeat || ""),
+      last_updated: toMmDdYyyy(String(lifetimeRuntime.last_updated || parsed.last_updated || ""))
+    },
     metrics: {
-      total_cases: totalCases,
-      auto_close_rate: autoCloseRate,
-      escalated: Number(runningTotals.escalated),
+      total_cases: Number(stableBenchmark.total_cases),
+      auto_close_rate: stableAutoCloseRate,
+      escalated: Number(stableBenchmark.escalated),
       review: Number(runningTotals.review),
       staged_pending: Number(runningTotals.staged_pending),
-      known_fp: Number(runningTotals.known_fp),
-      auto_closed_benign: Number(runningTotals.auto_closed_benign),
+      known_fp: Number(stableBenchmark.known_fp),
+      auto_closed_benign: Number(stableBenchmark.auto_closed_benign),
       reconciliation: Number(parsed.reconciliation_mismatch) === 0 ? "PASS" : "FAIL",
       reconciliation_mismatch: Number(parsed.reconciliation_mismatch),
-      heartbeat: parsed.heartbeat,
-      coverage_ratio: parsed.host_coverage,
-      coverage_status: String(parsed.host_coverage).trim() === "8/8" ? "PASS" : "FAIL",
-      last_updated: toMmDdYyyy(parsed.last_updated),
+      heartbeat: String(stableBenchmark.heartbeat || parsed.heartbeat || ""),
+      coverage_ratio: String(stableBenchmark.coverage_ratio || parsed.host_coverage || ""),
+      coverage_status: String(stableBenchmark.coverage_ratio || parsed.host_coverage || "").trim() === "8/8" ? "PASS" : "FAIL",
+      last_updated: String(stableBenchmark.locked_date || "03-13-2026"),
+      stable_total_cases: Number(stableBenchmark.total_cases),
+      stable_auto_closed_benign: Number(stableBenchmark.auto_closed_benign),
+      stable_known_fp: Number(stableBenchmark.known_fp),
+      stable_escalated: Number(stableBenchmark.escalated),
+      stable_coverage_ratio: String(stableBenchmark.coverage_ratio || ""),
+      stable_heartbeat: String(stableBenchmark.heartbeat || ""),
+      stable_statement: String(stableBenchmark.statement || ""),
+      lifetime_total_cases: totalCases,
+      lifetime_auto_closed_benign: Number(runningTotals.auto_closed_benign),
+      lifetime_known_fp: Number(runningTotals.known_fp),
+      lifetime_escalated: Number(runningTotals.escalated),
+      lifetime_auto_close_rate: autoCloseRate,
+      lifetime_label: "Lifetime processed (runtime snapshot)",
+      lifetime_last_updated: toMmDdYyyy(parsed.last_updated),
       sigma: Number(detectionInventory.sigma),
       splunk: Number(detectionInventory.splunk),
       wazuh: Number(detectionInventory.wazuh_rule_blocks),
@@ -175,6 +239,8 @@ if (!fs.existsSync(srcPath)) {
   console.error(`Missing source file: ${srcPath}`);
   process.exit(1);
 }
+
+regenerateMetrics();
 
 const src = fs.readFileSync(srcPath, "utf8");
 const parsed = parseVerifiedCountsJson(src);
