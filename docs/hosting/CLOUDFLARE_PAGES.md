@@ -10,7 +10,7 @@ This repository is a static site deployment from `site/`.
 - Project name: `<your-pages-project-name>`
 - Production branch: `main`
 - Framework preset: `None`
-- Build command: `node scripts/generate-site-data.js && node scripts/generate-site-content.js && node scripts/generate-media-manifest.js && node scripts/verify/hosting-cloudflare-only.js`
+- Build command: `node scripts/generate-metrics.js && node scripts/generate-site-data.js && node scripts/generate-site-content.js && node scripts/generate-media-manifest.js && node scripts/verify/hosting-cloudflare-only.js`
 - Build output directory: `site`
 - Root directory: `/`
 - Node.js version: read from `.node-version`
@@ -38,4 +38,3 @@ Use CNAME flattening at apex, proxied through Cloudflare.
 - Validate routes: `/`, `/security`, `/projects`, `/resume`, `/proof`, `/lab`, `/triage`, `404`
 - Validate resume path: `/assets/Raylee_Hawkins_Resume.pdf`
 - Validate `_redirects` and `_headers` behavior after cutover
-

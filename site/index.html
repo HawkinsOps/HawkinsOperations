@@ -77,7 +77,8 @@
       <p class="sf-body">Every public metric on this site is generated from repo artifacts and verified by CI. SignalFoundry ingests Wazuh alerts, applies policy-driven triage, enforces redaction, and publishes reviewable proof only after reconciliation and coverage checks pass.</p>
       <div class="sf-actions">
         <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Read SignalFoundry Case Study</a>
-        <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Review Proof</a>
+        <a class="sf-button sf-button-secondary sf-focus-ring" href="/start-here">Start Here</a>
+        <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof Receipts</a>
         <a class="sf-button sf-button-secondary sf-focus-ring" href="/resume">Resume</a>
         <a class="sf-button sf-button-secondary sf-focus-ring" href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
@@ -153,6 +154,8 @@
       <div class="sf-section-label">Stable Benchmark</div>
       <h2 id="health-title">Validated stable benchmark</h2>
       <p class="sf-body sf-copy-gap-lg"><span data-ops="stable_statement">Validated active benchmark sourced from the latest runtime proof artifacts.</span></p>
+      <p class="sf-body" style="font-size:0.9rem">Public benchmark snapshot: <span data-ops="stable_total_cases">49774</span> stable cases at <span data-ops="stable_coverage_ratio">8/8</span> coverage. Runtime snapshot: <span data-ops="lifetime_total_cases">49774</span> lifetime processed.</p>
+      <p class="sf-body" style="font-size:0.86rem">Generated at <span data-ops="lifetime_last_updated">03-19-2026</span> from Source artifact <code>/assets/data/ops-metrics.json</code>.</p>
       <div class="sf-metrics" role="status" aria-live="polite" aria-label="Stable benchmark metrics">
         <article class="sf-card sf-metric" aria-label="Heartbeat status">
           <span class="sf-metric-label">Heartbeat Status</span>
@@ -183,7 +186,7 @@
       <div class="sf-metrics" aria-label="Lifetime proof inventory">
         <article class="sf-card sf-metric" aria-label="Lifetime cases processed">
           <span class="sf-metric-label">Lifetime Cases Processed</span>
-          <span class="sf-metric-value"><span data-ops="lifetime_total_cases">49548</span></span>
+          <span class="sf-metric-value"><span data-ops="lifetime_total_cases">49774</span></span>
           <p class="sf-metric-note">Ledger-verified total across all runs.</p>
         </article>
         <article class="sf-card sf-metric" aria-label="Benign auto-closed">
@@ -193,7 +196,7 @@
         </article>
         <article class="sf-card sf-metric" aria-label="Known FPs suppressed">
           <span class="sf-metric-label">Known False Positives Suppressed</span>
-          <span class="sf-metric-value"><span data-ops="lifetime_known_fp">18150</span></span>
+          <span class="sf-metric-value"><span data-ops="lifetime_known_fp">18366</span></span>
           <p class="sf-metric-note">Cases matched to known false-positive signatures.</p>
         </article>
         <article class="sf-card sf-metric" aria-label="Published escalation artifacts">
@@ -248,8 +251,8 @@
       <h2 id="about-title">Why this site exists</h2>
       <div class="sf-philosophy">
         <p class="sf-body sf-copy-gap-sm">This portfolio shows how I build, validate, and recover security automation systems under real operating conditions.</p>
-        <p class="sf-body sf-copy-gap-sm">It separates current system health from proof inventory so reviewers can answer two questions quickly: is the system running, and how much evidence has it actually produced?</p>
-        <p class="sf-body">Detection engineering, SOC triage, and security automation are what I do. The proof is public.</p>
+        <p class="sf-body sf-copy-gap-sm">SignalFoundry documents the full loop: signal-vs-noise triage, mandatory redaction, escalation discipline, and post-failure recovery with reconciliation gates.</p>
+        <p class="sf-body">The throughline from manufacturing operations to security is controlled process execution: repeatability, quality checks, and escalation under pressure. Detection engineering, SOC triage, and automation are my role fit; the public evidence is the trust contract.</p>
       </div>
     </section>
 

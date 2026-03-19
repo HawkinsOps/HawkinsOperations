@@ -64,7 +64,8 @@
       <h1 id="detections-title">Verified detections, with proof paths first</h1>
       <div class="sf-stage-lede">
         <p class="sf-body sf-body-lead">This page is built for fast reviewer validation: understand the strongest case studies, inspect the verified inventory, then pivot straight into the repo proof.</p>
-        <p class="sf-body">Counts on this page are tied to <a class="sf-inline-link" href="/proof">Proof</a> and generated from repository artifacts. The goal is not to look broad; it is to be reproducible.</p>
+        <p class="sf-body">Counts on this page are generated from repository artifacts and cross-checked in CI. The goal is not to look broad; it is to be reproducible.</p>
+        <p class="sf-body" style="font-size:0.9rem">Generated: <span data-verified-date>03-15-2026</span> | Source artifact: <code>/assets/verified-counts.json</code> | Command: <code>pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1</code></p>
       </div>
       <div class="sf-kpi-grid" aria-label="Detection inventory snapshot">
         <article class="sf-card sf-kpi-card">
@@ -167,10 +168,10 @@
           <ul class="sf-note-list">
             <li>Counts map to <code>PROOF_PACK/VERIFIED_COUNTS.md</code> and are rechecked by CI.</li>
             <li>Repo-facing evidence links stay visible so this page does not become a detached summary.</li>
-            <li>The strongest reviewer path is still case study -&gt; proof -&gt; repo artifacts.</li>
+            <li>Fastest validation path is case study -&gt; Start Here -&gt; repo artifacts (proof remains corroboration).</li>
           </ul>
           <p class="lupd">Local verification: <code>pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1</code></p>
-          <p class="lupd">Canonical public validation: <a class="sf-inline-link" href="/proof">/proof</a></p>
+          <p class="lupd">Canonical validation path: <a class="sf-inline-link" href="/start-here">/start-here</a> then <a class="sf-inline-link" href="/proof">/proof</a></p>
         </div>
       </aside>
     </div>

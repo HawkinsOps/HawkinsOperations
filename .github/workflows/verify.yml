@@ -29,6 +29,8 @@ jobs:
       - name: Generate site data artifacts
         shell: pwsh
         run: |
+          node .\scripts\generate-metrics.js
+          python .\scripts\validate_metrics.py
           node .\scripts\generate-site-data.js
           node .\scripts\generate-site-content.js
           node .\scripts\generate-media-manifest.js
