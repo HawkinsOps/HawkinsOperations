@@ -44,7 +44,7 @@
       <li><a href="/soc-lab">Lab</a></li>
       <li><a href="/resume">Resume</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/proof">Review Proof</a>
+    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
@@ -65,14 +65,6 @@
       <div class="sf-stage-lede">
         <p class="sf-body sf-body-lead">This page is built for fast reviewer validation: understand the strongest case studies, inspect the verified inventory, then pivot straight into the repo proof.</p>
         <p class="sf-body">Counts on this page are tied to <a class="sf-inline-link" href="/proof">Proof</a> and generated from repository artifacts. The goal is not to look broad; it is to be reproducible.</p>
-      </div>
-      <div class="m-proof-strip" style="margin-top:18px;">
-        <div class="m-proof-inline">
-          <strong>Last verified <span data-verified-date>03-15-2026</span></strong>
-          <strong>Heartbeat <span data-ops-status="heartbeat">SUCCESS</span></strong>
-          <strong>Coverage <span data-ops="coverage_ratio">8/8</span></strong>
-          <strong>Last contract <span data-ops="last_updated">03-15-2026</span></strong>
-        </div>
       </div>
       <div class="sf-kpi-grid" aria-label="Detection inventory snapshot">
         <article class="sf-card sf-kpi-card">
@@ -102,10 +94,10 @@
     <div class="sf-focus-grid">
       <a class="sf-card sf-focus-card sf-focus-ring" href="/case-study-soc-integration">
         <h3>Flagship SOC integration</h3>
-        <p>High-volume alert flow, live telemetry, and a detection-to-remediation loop that ends with verified closure.</p>
+        <p>High-volume alert flow, telemetry-backed evidence, and a detection-to-remediation loop that ends with verified closure.</p>
         <div class="sf-chip-row">
           <span class="sf-chip">Featured</span>
-          <span class="sf-chip">Live telemetry</span>
+          <span class="sf-chip">Telemetry evidence</span>
           <span class="sf-chip">CVE response</span>
         </div>
       </a>
@@ -158,13 +150,13 @@
       <aside class="sf-library-stack">
         <div class="panel-glass sf-chart-shell">
           <div class="section-intro">
-            <div class="kicker">Coverage Shape</div>
+            <div class="kicker">Tag Distribution</div>
             <h3>Tag concentration</h3>
             <p>Current detection tags cluster around portable detection, SOC process, SIEM deployment, and hunting-oriented content.</p>
           </div>
           <div id="detectionsChart"></div>
           <div id="securityTagMiniChart"></div>
-          <p id="mitre-coverage-status" class="lupd"></p>
+          <p id="mitre-tag-status" class="lupd"></p>
         </div>
 
         <div class="panel-glass sf-library-status" data-security-kpis>
@@ -208,7 +200,6 @@
 <!-- @include:footer:end -->
 <script src="/assets/fetch-utils.js" defer></script>
 <script src="/data/counts.js" defer></script>
-<script src="/data/ops-metrics.js" defer></script>
 <script src="/assets/app.js" defer></script>
 <script type="module" src="/assets/portfolio-data.js"></script>
 </body>

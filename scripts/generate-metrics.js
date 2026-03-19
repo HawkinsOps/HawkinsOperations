@@ -5,11 +5,8 @@ const path = require("path");
 const crypto = require("crypto");
 
 const root = process.cwd();
-const pipelineRoot = path.resolve("C:\\", "RH", "OPS", "30_Projects", "Active", "AutoSOC", "Output");
-const heartbeatPath = path.join(pipelineRoot, "heartbeat.json");
-const coveragePath = path.join(pipelineRoot, "coverage_latest.json");
-const reconciliationPath = path.join(pipelineRoot, "reconciliation_latest.json");
-const ledgerPath = path.join(pipelineRoot, "ledger.json");
+const runtimePipelineRoot = path.resolve("C:\\", "RH", "OPS", "30_Projects", "Active", "AutoSOC", "Output");
+const repoProofRoot = path.join(root, "proof", "autosoc", "latest");
 const verifiedCountsPath = path.join(root, "PROOF_PACK", "verified_counts.json");
 const metricsOutPath = path.join(root, "data", "metrics.json");
 const metricsShaPath = path.join(root, "data", "metrics.json.sha256");
@@ -35,6 +32,14 @@ function expectObject(value, label) {
   return value;
 }
 
+function resolveInputPath(primaryRoot, fallbackRoot, fileName) {
+  const primary = path.join(primaryRoot, fileName);
+  if (fs.existsSync(primary)) return primary;
+  const fallback = path.join(fallbackRoot, fileName);
+  if (fs.existsSync(fallback)) return fallback;
+  throw new Error(`Missing required JSON file: ${path.relative(root, primary)}`);
+}
+
 function formatMmDdYyyy(isoValue) {
   const date = new Date(isoValue);
   if (Number.isNaN(date.getTime())) return String(isoValue || "");
@@ -49,27 +54,50 @@ function withCommas(value) {
 }
 
 function buildMetricsPayload() {
+  const heartbeatPath = resolveInputPath(runtimePipelineRoot, repoProofRoot, "heartbeat.json");
+  const coveragePath = resolveInputPath(runtimePipelineRoot, repoProofRoot, "coverage_latest.json");
+  const reconciliationPath = resolveInputPath(runtimePipelineRoot, repoProofRoot, "reconciliation_latest.json");
+  const ledgerPath = path.join(runtimePipelineRoot, "ledger.json");
+
   const heartbeat = readJson(heartbeatPath);
   const coverage = readJson(coveragePath);
   const reconciliation = readJson(reconciliationPath);
-  const ledger = readJson(ledgerPath);
   const verifiedCounts = readJson(verifiedCountsPath);
+  const previousMetrics = fs.existsSync(metricsOutPath) ? readJson(metricsOutPath) : {};
+  const previousRunningTotals = previousMetrics && previousMetrics.running_totals && typeof previousMetrics.running_totals === "object"
+    ? previousMetrics.running_totals
+    : {};
 
   const heartbeatCounts = expectObject(heartbeat.counts, "heartbeat.counts");
   const reconciliationCounts = expectObject(reconciliation.counts, "reconciliation.counts");
   const verifiedCountValues = expectObject(verifiedCounts.counts, "verified_counts.counts");
-  const ledgerMetrics = expectObject(ledger.metrics, "ledger.metrics");
+  const ledgerMetrics = fs.existsSync(ledgerPath)
+    ? expectObject(readJson(ledgerPath).metrics, "ledger.metrics")
+    : previousRunningTotals;
 
   const presentHosts = expectFinite(coverage.present_hosts, "coverage.present_hosts");
   const requiredHosts = expectFinite(coverage.required_hosts, "coverage.required_hosts");
   const runtimeCoverageRatio = `${presentHosts}/${requiredHosts}`;
   const runtimeHeartbeat = String(heartbeat.status || "").trim();
-  const runtimeLastUpdated = String(heartbeat.end_utc || coverage.generated_utc || heartbeat.generated_utc || "").trim();
+  const runtimeLastUpdated = String(heartbeat.end_utc || coverage.generated_utc || heartbeat.generated_utc || previousMetrics.last_updated || "").trim();
   const runtimeLockedDate = formatMmDdYyyy(runtimeLastUpdated);
   const stableTotalCases = expectFinite(ledgerMetrics.total_cases, "ledger.metrics.total_cases");
   const stableAutoClosedBenign = expectFinite(ledgerMetrics.auto_closed_benign, "ledger.metrics.auto_closed_benign");
-  const stableKnownFp = expectFinite(ledgerMetrics.auto_closed_known_fp, "ledger.metrics.auto_closed_known_fp");
+  const stableKnownFp = expectFinite(
+    Number.isFinite(ledgerMetrics.auto_closed_known_fp) ? ledgerMetrics.auto_closed_known_fp : ledgerMetrics.known_fp,
+    "ledger.metrics.auto_closed_known_fp"
+  );
   const stableEscalated = expectFinite(reconciliationCounts.ledger_escalated_status_ids, "reconciliation.counts.ledger_escalated_status_ids");
+  const runtimeReview = expectFinite(
+    Number.isFinite(ledgerMetrics.review) ? ledgerMetrics.review : previousRunningTotals.review,
+    "ledger.metrics.review"
+  );
+  const runtimeStagedPending = expectFinite(
+    Number.isFinite(reconciliationCounts.ledger_pending_escalate_ids_staged)
+      ? reconciliationCounts.ledger_pending_escalate_ids_staged
+      : previousRunningTotals.staged_pending,
+    "reconciliation.counts.ledger_pending_escalate_ids_staged"
+  );
   const stableStatement = `Validated active benchmark: ${withCommas(stableTotalCases)}-case corpus with ${withCommas(stableEscalated)} escalation artifacts, ${runtimeCoverageRatio} host coverage, and heartbeat ${runtimeHeartbeat}.`;
 
   return {
@@ -88,23 +116,23 @@ function buildMetricsPayload() {
       statement: stableStatement
     },
     lifetime_runtime: {
-      total_cases: expectFinite(ledgerMetrics.total_cases, "ledger.metrics.total_cases"),
-      auto_closed_benign: expectFinite(ledgerMetrics.auto_closed_benign, "ledger.metrics.auto_closed_benign"),
-      known_fp: expectFinite(ledgerMetrics.auto_closed_known_fp, "ledger.metrics.auto_closed_known_fp"),
+      total_cases: stableTotalCases,
+      auto_closed_benign: stableAutoClosedBenign,
+      known_fp: stableKnownFp,
       escalated: expectFinite(reconciliationCounts.ledger_escalated_status_ids, "reconciliation.counts.ledger_escalated_status_ids"),
-      review: expectFinite(ledgerMetrics.review, "ledger.metrics.review"),
-      staged_pending: expectFinite(reconciliationCounts.ledger_pending_escalate_ids_staged, "reconciliation.counts.ledger_pending_escalate_ids_staged"),
+      review: runtimeReview,
+      staged_pending: runtimeStagedPending,
       coverage_ratio: runtimeCoverageRatio,
       heartbeat: runtimeHeartbeat,
       last_updated: runtimeLastUpdated
     },
     running_totals: {
-      total_cases: expectFinite(ledgerMetrics.total_cases, "ledger.metrics.total_cases"),
-      auto_closed_benign: expectFinite(ledgerMetrics.auto_closed_benign, "ledger.metrics.auto_closed_benign"),
-      known_fp: expectFinite(ledgerMetrics.auto_closed_known_fp, "ledger.metrics.auto_closed_known_fp"),
+      total_cases: stableTotalCases,
+      auto_closed_benign: stableAutoClosedBenign,
+      known_fp: stableKnownFp,
       escalated: expectFinite(reconciliationCounts.ledger_escalated_status_ids, "reconciliation.counts.ledger_escalated_status_ids"),
-      review: expectFinite(ledgerMetrics.review, "ledger.metrics.review"),
-      staged_pending: expectFinite(reconciliationCounts.ledger_pending_escalate_ids_staged, "reconciliation.counts.ledger_pending_escalate_ids_staged")
+      review: runtimeReview,
+      staged_pending: runtimeStagedPending
     },
     host_coverage: runtimeCoverageRatio,
     reconciliation_mismatch: expectFinite(reconciliation.mismatch_count, "reconciliation.mismatch_count"),
