@@ -42,7 +42,7 @@
       <li><a href="/soc-lab">Lab</a></li>
       <li><a href="/resume">Resume</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/proof">Review Proof</a>
+    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
@@ -87,7 +87,7 @@
     <div class="slbl">Architecture</div>
     <h2 class="stitle">What's running and why</h2>
     <p class="sdesc">
-      Single Proxmox host running multiple VMs. Windows 11 endpoint feeds Wazuh for detection, Splunk for search and investigation pivots.
+      Single Proxmox host running multiple VMs. Windows 11 endpoint feeds Wazuh for detection, while Splunk now operates as a live investigation layer for Windows telemetry pivots.
       Everything runs on isolated RFC1918 subnets — test traffic stays in the lab, evidence comes out.
     </p>
 
@@ -114,7 +114,7 @@
       </div>
       <div class="card">
         <div class="card-ttl">Search — Splunk</div>
-        <div class="card-sub">Splunk instance for SPL-based detection and investigation pivots. Queries designed around ES-style workflows even without a full ES license.</div>
+        <div class="card-sub">Splunk instance operating as a live investigation layer for Windows telemetry. Event ID 4688 process-creation data is searchable and validated through SPL-based pivots, while broader workflow packaging remains in progress.</div>
         <div class="card-meta"><span class="tag">Splunk</span><span class="tag">SPL</span><span class="tag">ES-style pivots</span></div>
       </div>
     </div>
@@ -249,7 +249,7 @@
           <li style="margin:6px 0">Wazuh Manager evaluates against custom rules (100000+ range)</li>
           <li style="margin:6px 0">Alert fires at configured severity level</li>
           <li style="margin:6px 0">Alert captured and validated as evidence artifact</li>
-          <li style="margin:6px 0">Splunk receives forwarded events for SPL pivot layer</li>
+          <li style="margin:6px 0">Current Phase 3 state: Splunk receives live Windows telemetry for investigation pivots; broader ingest coverage and a full alert-to-investigation artifact remain in progress</li>
         </ol>
       </div>
     </details>
@@ -274,6 +274,11 @@
         <div class="card-ttl">Verified counts output</div>
         <div class="card-sub">CI generates <code>PROOF_PACK/VERIFIED_COUNTS.md</code> on every push. Counts are reproducible by running the verify script against the public repo. No hand-waving required.</div>
         <div class="card-meta"><span class="tag">CI-generated</span><span class="tag">Reproducible</span><span class="tag">PROOF_PACK/VERIFIED_COUNTS.md</span></div>
+      </div>
+      <div class="card">
+        <div class="card-ttl">Splunk ingest validation</div>
+        <div class="card-sub">Reviewer-safe summaries for live Windows telemetry ingest and validated Event ID 4688 SPL pivots are stored in the VM 104 exports path. Internal addresses and raw UI details are intentionally omitted.</div>
+        <div class="card-meta"><span class="tag">Redacted</span><span class="tag">Splunk</span><span class="tag">Live ingest proof</span></div>
       </div>
     </div>
 
