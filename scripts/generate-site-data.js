@@ -114,6 +114,15 @@ function parseMetricsJson(rawJson) {
   const stableAutoCloseRate = stableBenchmark.total_cases > 0
     ? `${((stableAutoCloseCount / Number(stableBenchmark.total_cases)) * 100).toFixed(2)}%`
     : "0.00%";
+  const reconciliationMismatch = Number(parsed.reconciliation_mismatch);
+  const reconciliationBasisCount = Number(runningTotals.escalated);
+  const reconciliationReconciledCount = Math.max(reconciliationBasisCount - reconciliationMismatch, 0);
+  const reconciliationMismatchRate = reconciliationBasisCount > 0
+    ? `${((reconciliationMismatch / reconciliationBasisCount) * 100).toFixed(2)}%`
+    : "0.00%";
+  const reconciliationSuccessRate = reconciliationBasisCount > 0
+    ? `${((reconciliationReconciledCount / reconciliationBasisCount) * 100).toFixed(2)}%`
+    : "0.00%";
 
   return {
     generated_at_utc: parsed.last_updated,
@@ -131,7 +140,7 @@ function parseMetricsJson(rawJson) {
       escalated: Number(stableBenchmark.escalated),
       coverage_ratio: String(stableBenchmark.coverage_ratio || ""),
       heartbeat: String(stableBenchmark.heartbeat || ""),
-      locked_date: String(stableBenchmark.locked_date || "03-13-2026"),
+      locked_date: String(stableBenchmark.locked_date || toMmDdYyyy(String(parsed.last_updated || ""))),
       statement: String(stableBenchmark.statement || "")
     },
     lifetime_runtime: {
@@ -153,12 +162,17 @@ function parseMetricsJson(rawJson) {
       staged_pending: Number(runningTotals.staged_pending),
       known_fp: Number(stableBenchmark.known_fp),
       auto_closed_benign: Number(stableBenchmark.auto_closed_benign),
-      reconciliation: Number(parsed.reconciliation_mismatch) === 0 ? "PASS" : "FAIL",
-      reconciliation_mismatch: Number(parsed.reconciliation_mismatch),
+      reconciliation: reconciliationMismatch === 0 ? "PASS" : "FAIL",
+      reconciliation_mismatch: reconciliationMismatch,
+      reconciliation_basis_count: reconciliationBasisCount,
+      reconciliation_reconciled_count: reconciliationReconciledCount,
+      reconciliation_mismatch_rate: reconciliationMismatchRate,
+      reconciliation_success_rate: reconciliationSuccessRate,
       heartbeat: String(stableBenchmark.heartbeat || parsed.heartbeat || ""),
       coverage_ratio: String(stableBenchmark.coverage_ratio || parsed.host_coverage || ""),
       coverage_status: String(stableBenchmark.coverage_ratio || parsed.host_coverage || "").trim() === "8/8" ? "PASS" : "FAIL",
-      last_updated: String(stableBenchmark.locked_date || "03-13-2026"),
+      stable_locked_date: String(stableBenchmark.locked_date || toMmDdYyyy(String(parsed.last_updated || ""))),
+      last_updated: String(stableBenchmark.locked_date || toMmDdYyyy(String(parsed.last_updated || ""))),
       stable_total_cases: Number(stableBenchmark.total_cases),
       stable_auto_closed_benign: Number(stableBenchmark.auto_closed_benign),
       stable_known_fp: Number(stableBenchmark.known_fp),

@@ -13,16 +13,6 @@ const ledgerPath = path.join(pipelineRoot, "ledger.json");
 const verifiedCountsPath = path.join(root, "PROOF_PACK", "verified_counts.json");
 const metricsOutPath = path.join(root, "data", "metrics.json");
 const metricsShaPath = path.join(root, "data", "metrics.json.sha256");
-const STABLE_BENCHMARK = Object.freeze({
-  total_cases: 25167,
-  auto_closed_benign: 20942,
-  known_fp: 1747,
-  escalated: 2478,
-  coverage_ratio: "8/8",
-  heartbeat: "SUCCESS",
-  locked_date: "03-13-2026",
-  statement: "Validated stable benchmark: 25,167-case corpus with 2,478 escalation artifacts, 8/8 host coverage in locked recovery state, and heartbeat SUCCESS."
-});
 
 function readJson(filePath) {
   if (!fs.existsSync(filePath)) {
@@ -45,6 +35,19 @@ function expectObject(value, label) {
   return value;
 }
 
+function formatMmDdYyyy(isoValue) {
+  const date = new Date(isoValue);
+  if (Number.isNaN(date.getTime())) return String(isoValue || "");
+  const mm = String(date.getUTCMonth() + 1).padStart(2, "0");
+  const dd = String(date.getUTCDate()).padStart(2, "0");
+  const yyyy = String(date.getUTCFullYear());
+  return `${mm}-${dd}-${yyyy}`;
+}
+
+function withCommas(value) {
+  return new Intl.NumberFormat("en-US").format(Number(value));
+}
+
 function buildMetricsPayload() {
   const heartbeat = readJson(heartbeatPath);
   const coverage = readJson(coveragePath);
@@ -62,6 +65,12 @@ function buildMetricsPayload() {
   const runtimeCoverageRatio = `${presentHosts}/${requiredHosts}`;
   const runtimeHeartbeat = String(heartbeat.status || "").trim();
   const runtimeLastUpdated = String(heartbeat.end_utc || coverage.generated_utc || heartbeat.generated_utc || "").trim();
+  const runtimeLockedDate = formatMmDdYyyy(runtimeLastUpdated);
+  const stableTotalCases = expectFinite(ledgerMetrics.total_cases, "ledger.metrics.total_cases");
+  const stableAutoClosedBenign = expectFinite(ledgerMetrics.auto_closed_benign, "ledger.metrics.auto_closed_benign");
+  const stableKnownFp = expectFinite(ledgerMetrics.auto_closed_known_fp, "ledger.metrics.auto_closed_known_fp");
+  const stableEscalated = expectFinite(reconciliationCounts.ledger_escalated_status_ids, "reconciliation.counts.ledger_escalated_status_ids");
+  const stableStatement = `Validated active benchmark: ${withCommas(stableTotalCases)}-case corpus with ${withCommas(stableEscalated)} escalation artifacts, ${runtimeCoverageRatio} host coverage, and heartbeat ${runtimeHeartbeat}.`;
 
   return {
     display_policy: {
@@ -69,14 +78,14 @@ function buildMetricsPayload() {
       runtime_label: "Lifetime processed (runtime snapshot)"
     },
     stable_benchmark: {
-      total_cases: STABLE_BENCHMARK.total_cases,
-      auto_closed_benign: STABLE_BENCHMARK.auto_closed_benign,
-      known_fp: STABLE_BENCHMARK.known_fp,
-      escalated: STABLE_BENCHMARK.escalated,
-      coverage_ratio: STABLE_BENCHMARK.coverage_ratio,
-      heartbeat: STABLE_BENCHMARK.heartbeat,
-      locked_date: STABLE_BENCHMARK.locked_date,
-      statement: STABLE_BENCHMARK.statement
+      total_cases: stableTotalCases,
+      auto_closed_benign: stableAutoClosedBenign,
+      known_fp: stableKnownFp,
+      escalated: stableEscalated,
+      coverage_ratio: runtimeCoverageRatio,
+      heartbeat: runtimeHeartbeat,
+      locked_date: runtimeLockedDate,
+      statement: stableStatement
     },
     lifetime_runtime: {
       total_cases: expectFinite(ledgerMetrics.total_cases, "ledger.metrics.total_cases"),
