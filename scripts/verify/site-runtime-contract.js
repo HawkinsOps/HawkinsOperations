@@ -42,6 +42,16 @@ function extractFallbackValue(html, attr) {
   return match ? match[1].trim() : null;
 }
 
+function extractStatusFallbackValue(html, attr) {
+  const pattern = new RegExp(`data-ops-status="${attr}"[^>]*>([^<]+)<`, "i");
+  const match = html.match(pattern);
+  return match ? match[1].trim() : null;
+}
+
+function normalizeComparable(value) {
+  return String(value ?? "").trim().replaceAll(",", "");
+}
+
 function ensureHomeFallbacksMatchOps(homeHtml, opsMetrics) {
   const requiredAttrs = [
     "stable_coverage_ratio",
@@ -61,6 +71,53 @@ function ensureHomeFallbacksMatchOps(homeHtml, opsMetrics) {
     if (actual === null) return;
     if (!String(actual).trim()) {
       fail(`homepage fallback for ${key} is empty`);
+    }
+  });
+}
+
+function ensurePageFallbacksMatchOps(pagePath, opsMetrics) {
+  if (!fs.existsSync(pagePath)) return;
+  const html = readText(pagePath);
+  const rel = path.relative(root, pagePath).replaceAll("\\", "/");
+  const metricKeys = [
+    "stable_total_cases",
+    "stable_auto_closed_benign",
+    "stable_known_fp",
+    "stable_escalated",
+    "stable_coverage_ratio",
+    "last_updated",
+    "lifetime_total_cases",
+    "lifetime_auto_closed_benign",
+    "lifetime_known_fp",
+    "lifetime_escalated",
+    "lifetime_last_updated",
+    "coverage_ratio"
+  ];
+  const statusKeys = ["stable_heartbeat", "heartbeat", "reconciliation"];
+
+  metricKeys.forEach((key) => {
+    const actual = extractFallbackValue(html, key);
+    if (actual === null) return;
+    if (!(key in opsMetrics)) {
+      fail(`${rel} uses data-ops="${key}" but ops-metrics payload does not define it`);
+    }
+    const expected = normalizeComparable(opsMetrics[key]);
+    const observed = normalizeComparable(actual);
+    if (observed !== expected) {
+      fail(`${rel} fallback for ${key} mismatches ops-metrics payload (expected ${opsMetrics[key]}, got ${actual})`);
+    }
+  });
+
+  statusKeys.forEach((key) => {
+    const actual = extractStatusFallbackValue(html, key);
+    if (actual === null) return;
+    if (!(key in opsMetrics)) {
+      fail(`${rel} uses data-ops-status="${key}" but ops-metrics payload does not define it`);
+    }
+    const expected = normalizeComparable(opsMetrics[key]).toUpperCase();
+    const observed = normalizeComparable(actual).toUpperCase();
+    if (observed !== expected) {
+      fail(`${rel} fallback status for ${key} mismatches ops-metrics payload (expected ${opsMetrics[key]}, got ${actual})`);
     }
   });
 }
@@ -115,6 +172,63 @@ function ensureCandidatePagesUseLabeledRuntimeTotals() {
   if (errors.length) fail(errors.join("\n"));
 }
 
+function ensureProvenanceLabels() {
+  const required = ["Public benchmark snapshot", "Runtime snapshot", "Generated at", "Source artifact"];
+  const targets = [
+    path.join(siteDir, "index.html"),
+    path.join(siteDir, "proof.html")
+  ];
+  const errors = [];
+
+  targets.forEach((filePath) => {
+    if (!fs.existsSync(filePath)) return;
+    const rel = path.relative(root, filePath).replaceAll("\\", "/");
+    const html = readText(filePath);
+    required.forEach((label) => {
+      if (!html.includes(label)) {
+        errors.push(`${rel} is missing provenance label "${label}"`);
+      }
+    });
+  });
+
+  if (errors.length) fail(errors.join("\n"));
+}
+
+function ensureCriticalNamingContract() {
+  const rules = [
+    {
+      path: path.join(root, "README.md"),
+      require: ["SignalFoundry", "AutoSOC engine"],
+      forbid: ["AutoSOC pipeline"]
+    },
+    {
+      path: path.join(siteDir, "index.html"),
+      require: ["SignalFoundry"],
+      forbid: ["AutoSOC pipeline"]
+    },
+    {
+      path: path.join(siteDir, "resume.html"),
+      require: ["SignalFoundry"],
+      forbid: ["AutoSOC pipeline"]
+    }
+  ];
+  const errors = [];
+
+  rules.forEach((rule) => {
+    if (!fs.existsSync(rule.path)) return;
+    const rel = path.relative(root, rule.path).replaceAll("\\", "/");
+    const text = readText(rule.path);
+    rule.require.forEach((token) => {
+      if (!text.includes(token)) errors.push(`${rel} is missing required naming token "${token}"`);
+    });
+    rule.forbid.forEach((token) => {
+      if (text.includes(token)) errors.push(`${rel} still contains disallowed stale naming token "${token}"`);
+    });
+  });
+
+  if (errors.length) fail(errors.join("\n"));
+}
+
 function ensureCountsIntegrity(countsPayload) {
   if (!countsPayload || typeof countsPayload !== "object" || !countsPayload.counts || typeof countsPayload.counts !== "object") {
     fail("verified counts payload is malformed");
@@ -129,10 +243,17 @@ const countsPayload = readJson(countsJsonPath);
 const opsPayload = readJson(opsJsonPath);
 const homeHtml = readText(homePagePath);
 const htmlFiles = collectHtmlFiles(siteDir);
+const opsMetrics = opsPayload.metrics || {};
 
 ensureCountsIntegrity(countsPayload);
-ensureHomeFallbacksMatchOps(homeHtml, opsPayload.metrics || {});
+ensureHomeFallbacksMatchOps(homeHtml, opsMetrics);
+ensurePageFallbacksMatchOps(path.join(siteDir, "index.html"), opsMetrics);
+ensurePageFallbacksMatchOps(path.join(siteDir, "proof.html"), opsMetrics);
+ensurePageFallbacksMatchOps(path.join(siteDir, "case-study-autosoc.html"), opsMetrics);
+ensurePageFallbacksMatchOps(path.join(siteDir, "start-here.html"), opsMetrics);
 ensureMetricPagesLoadRuntimeData(htmlFiles);
 ensureCandidatePagesUseLabeledRuntimeTotals();
+ensureProvenanceLabels();
+ensureCriticalNamingContract();
 
 console.log("Site runtime contract passed.");

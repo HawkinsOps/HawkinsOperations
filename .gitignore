@@ -19,6 +19,15 @@ HawkinsOperations_BACKUP_before_v1.0.1/
 # Local tool configuration
 .claude/
 /site/assets/visual-enhance.css
+.playwright-cli/
+.wrangler/
+output/
+
+# Required public-repo safety excludes
+Evidence-Raw/
+**/Evidence-Raw/
+.obsidian/
+**/.obsidian/
 
 # Build artifacts
 dist/

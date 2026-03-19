@@ -17,6 +17,7 @@ Run from repository root:
 ```powershell
 pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
 pwsh -NoProfile -File ".\scripts\verify\generate-verified-counts.ps1" -OutFile ".\PROOF_PACK\VERIFIED_COUNTS.md"
+node .\scripts\generate-metrics.js
 python .\scripts\drift_scan.py --refresh
 pwsh -NoProfile -File ".\scripts\build-wazuh-bundle.ps1"
 ```
@@ -33,6 +34,5 @@ Expected:
 - `PROOF_PACK/` is the curated review lane; raw imports and legacy material are not part of the front-door proof path.
 - Sanitization and redaction standards: `PROOF_PACK/REDACTION_RULES.md`, `PROOF_PACK/EVIDENCE_CHECKLIST.md`
 - Lab infrastructure context: `content/projects/lab/README.md`
-
 
 

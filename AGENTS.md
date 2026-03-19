@@ -18,6 +18,21 @@ Treat every file as if a hiring manager will read it.
 - Target roles: Primary SOC Analyst (T1/T2); Secondary junior detection + automation
 - Clearance line (use verbatim everywhere): "Eligible to obtain clearance; willing to pursue sponsorship."
 
+## Codex discovery contract
+
+- Repo-local skills must live in `.agents/skills/`.
+- For planning, audits, and redesign work, read these files in order before proposing changes:
+  1. `AGENTS.md`
+  2. `PLANS.md`
+  3. `docs/PRECEDENCE_CONTRACT.md`
+  4. `docs/source-of-truth.md`
+  5. `docs/mission-today.md`
+  6. `docs/content-architecture.md`
+  7. `docs/metrics-integration.md`
+  8. `docs/design-stack.md`
+- Treat repo docs as authority, not session memory.
+- Numeric claims are not trustworthy unless they resolve to the active public-metrics authority defined in `docs/PRECEDENCE_CONTRACT.md`.
+
 ## MANDATORY BEFORE EVERY COMMIT
 
 1. Run: .\scripts\verify-counts.ps1
@@ -119,5 +134,4 @@ Evidence-Raw/ content of any kind
 Real IPs, hostnames, credentials, or internal identifiers
 Machine config files
 .obsidian/ folder
-
 

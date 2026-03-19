@@ -1,0 +1,38 @@
+<svg width="1600" height="1100" viewBox="0 0 1600 1100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1100" fill="#0B0F14"/>
+  <text x="90" y="90" fill="#E6EDF3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="42" font-weight="700">AutoSOC Technical Workflow</text>
+  <text x="90" y="130" fill="#8B949E" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22">Operational flow from Wazuh alert intake to evidence publication</text>
+
+  <rect x="120" y="220" rx="18" ry="18" width="300" height="150" fill="#11161D" stroke="#2F81F7" stroke-width="2"/>
+  <text x="150" y="275" fill="#E6EDF3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">1. Alert Intake</text>
+  <text x="150" y="320" fill="#8B949E" font-family="JetBrains Mono, Consolas, monospace" font-size="20">poll-alerts.py</text>
+
+  <rect x="520" y="220" rx="18" ry="18" width="300" height="150" fill="#11161D" stroke="#F2CC60" stroke-width="2"/>
+  <text x="550" y="275" fill="#E6EDF3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">2. Decision Logic</text>
+  <text x="550" y="320" fill="#8B949E" font-family="JetBrains Mono, Consolas, monospace" font-size="20">triage.py</text>
+
+  <rect x="920" y="220" rx="18" ry="18" width="300" height="150" fill="#11161D" stroke="#39BAE6" stroke-width="2"/>
+  <text x="950" y="275" fill="#E6EDF3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">3. Redaction</text>
+  <text x="950" y="320" fill="#8B949E" font-family="JetBrains Mono, Consolas, monospace" font-size="20">redact.py</text>
+
+  <rect x="1320" y="220" rx="18" ry="18" width="180" height="150" fill="#11161D" stroke="#56D364" stroke-width="2"/>
+  <text x="1350" y="275" fill="#E6EDF3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" font-weight="700">4. Pack</text>
+  <text x="1350" y="320" fill="#8B949E" font-family="JetBrains Mono, Consolas, monospace" font-size="18">assemble-pack.py</text>
+
+  <line x1="420" y1="295" x2="520" y2="295" stroke="#6E7681" stroke-width="4"/>
+  <polygon points="520,295 502,285 502,305" fill="#6E7681"/>
+  <line x1="820" y1="295" x2="920" y2="295" stroke="#6E7681" stroke-width="4"/>
+  <polygon points="920,295 902,285 902,305" fill="#6E7681"/>
+  <line x1="1220" y1="295" x2="1320" y2="295" stroke="#6E7681" stroke-width="4"/>
+  <polygon points="1320,295 1302,285 1302,305" fill="#6E7681"/>
+
+  <rect x="220" y="520" rx="18" ry="18" width="1160" height="220" fill="#0F141B" stroke="#30363D" stroke-width="2"/>
+  <text x="260" y="585" fill="#E6EDF3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="700">Operational Notes</text>
+  <text x="260" y="635" fill="#8B949E" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22">• Known false positives can be auto-closed through deterministic handling rules</text>
+  <text x="260" y="675" fill="#8B949E" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22">• Suspicious cases are packaged into reviewer-safe evidence artifacts</text>
+  <text x="260" y="715" fill="#8B949E" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22">• Outputs are tied to reproducible proof references for portfolio validation</text>
+
+  <rect x="500" y="830" rx="18" ry="18" width="600" height="150" fill="#11161D" stroke="#56D364" stroke-width="2"/>
+  <text x="540" y="890" fill="#E6EDF3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Escalation Output</text>
+  <text x="540" y="935" fill="#8B949E" font-family="JetBrains Mono, Consolas, monospace" font-size="20">create-pr.py / incident pack / proof artifacts</text>
+</svg>

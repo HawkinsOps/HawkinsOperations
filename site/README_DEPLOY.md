@@ -22,4 +22,5 @@ Counts are sourced from your repo releases / verification artifacts:
 
 When counts change, regenerate verified artifacts from source of truth:
 - `python scripts/generate_verified_counts.py`
+- `node scripts/generate-metrics.js`
 - `python scripts/drift_scan.py --refresh`

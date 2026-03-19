@@ -1,0 +1,35 @@
+<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+  <System>
+    <Provider Name="Microsoft-Windows-Security-Auditing"/>
+    <EventID>4688</EventID>
+    <TimeCreated SystemTime="2026-03-19T08:15:00.0000000Z"/>
+  </System>
+  <EventData>
+    <Data Name="NewProcessName">C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Data>
+    <Data Name="ParentProcessName">C:\Windows\explorer.exe</Data>
+    <Data Name="CommandLine">powershell.exe -nop -w hidden -enc AAAA</Data>
+  </EventData>
+</Event>
+<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+  <System>
+    <Provider Name="Microsoft-Windows-Security-Auditing"/>
+    <EventID>4688</EventID>
+    <TimeCreated SystemTime="2026-03-19T08:18:00.0000000Z"/>
+  </System>
+  <EventData>
+    <Data Name="NewProcessName">C:\Program Files\Google\Chrome\Application\chrome.exe</Data>
+    <Data Name="ParentProcessName">C:\Windows\explorer.exe</Data>
+    <Data Name="CommandLine">"C:\Program Files\Google\Chrome\Application\chrome.exe"</Data>
+  </EventData>
+</Event>
+<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+  <System>
+    <Provider Name="Microsoft-Windows-Security-Auditing"/>
+    <EventID>4624</EventID>
+    <TimeCreated SystemTime="2026-03-19T08:20:00.0000000Z"/>
+  </System>
+  <EventData>
+    <Data Name="TargetUserName">raylee</Data>
+  </EventData>
+</Event>
+
