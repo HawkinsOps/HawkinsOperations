@@ -1,283 +1,112 @@
 [
   {
-    "ts": "2026-02-24T12:55:51.052+0000",
+    "ts": "03/19/2026 01:55:04",
     "agent": "[REDACTED_HOST]",
     "rule": {
-      "id": "503",
-      "level": 3,
-      "desc": "Wazuh agent started."
+      "id": "2904",
+      "level": 7,
+      "desc": "Dpkg (Debian Package) half configured."
     },
     "has_srcip": false
   },
   {
-    "ts": "2026-02-24T12:56:23.109+0000",
+    "ts": "03/19/2026 01:55:06",
     "agent": "[REDACTED_HOST]",
     "rule": {
-      "id": "5710",
-      "level": 5,
-      "desc": "sshd: Attempt to login using a non-existent user"
-    },
-    "has_srcip": true
-  },
-  {
-    "ts": "2026-02-24T12:58:39.181+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "5901",
-      "level": 8,
-      "desc": "New group added to the system."
+      "id": "2904",
+      "level": 7,
+      "desc": "Dpkg (Debian Package) half configured."
     },
     "has_srcip": false
   },
   {
-    "ts": "2026-02-24T12:58:39.181+0000",
+    "ts": "03/19/2026 01:55:14",
     "agent": "[REDACTED_HOST]",
     "rule": {
-      "id": "5902",
-      "level": 8,
-      "desc": "New user added to the system."
+      "id": "2902",
+      "level": 7,
+      "desc": "New dpkg (Debian Package) installed."
     },
     "has_srcip": false
   },
   {
-    "ts": "2026-02-24T12:58:57.219+0000",
+    "ts": "03/19/2026 01:55:14",
     "agent": "[REDACTED_HOST]",
     "rule": {
-      "id": "5502",
-      "level": 3,
-      "desc": "PAM: Login session closed."
+      "id": "2904",
+      "level": 7,
+      "desc": "Dpkg (Debian Package) half configured."
     },
     "has_srcip": false
   },
   {
-    "ts": "2026-02-24T13:06:17.126+0000",
+    "ts": "03/19/2026 01:55:14",
     "agent": "[REDACTED_HOST]",
     "rule": {
-      "id": "5760",
-      "level": 5,
-      "desc": "sshd: authentication failed."
-    },
-    "has_srcip": true
-  },
-  {
-    "ts": "2026-02-24T13:06:17.168+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "5760",
-      "level": 5,
-      "desc": "sshd: authentication failed."
-    },
-    "has_srcip": true
-  },
-  {
-    "ts": "2026-02-24T13:07:35.148+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "5501",
-      "level": 3,
-      "desc": "PAM: Login session opened."
+      "id": "2902",
+      "level": 7,
+      "desc": "New dpkg (Debian Package) installed."
     },
     "has_srcip": false
   },
   {
-    "ts": "2026-02-24T13:07:35.148+0000",
+    "ts": "03/19/2026 01:55:14",
     "agent": "[REDACTED_HOST]",
     "rule": {
-      "id": "5715",
-      "level": 3,
-      "desc": "sshd: authentication success."
-    },
-    "has_srcip": true
-  },
-  {
-    "ts": "2026-02-24T13:07:35.170+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "5501",
-      "level": 3,
-      "desc": "PAM: Login session opened."
+      "id": "2904",
+      "level": 7,
+      "desc": "Dpkg (Debian Package) half configured."
     },
     "has_srcip": false
   },
   {
-    "ts": "2026-02-24T13:07:35.211+0000",
+    "ts": "03/19/2026 01:55:16",
     "agent": "[REDACTED_HOST]",
     "rule": {
-      "id": "5502",
-      "level": 3,
-      "desc": "PAM: Login session closed."
+      "id": "2902",
+      "level": 7,
+      "desc": "New dpkg (Debian Package) installed."
     },
     "has_srcip": false
   },
   {
-    "ts": "2026-02-24T13:07:45.156+0000",
+    "ts": "03/19/2026 02:02:52",
     "agent": "[REDACTED_HOST]",
     "rule": {
-      "id": "5502",
-      "level": 3,
-      "desc": "PAM: Login session closed."
-    },
-    "has_srcip": false
-  },
-  {
-    "ts": "2026-02-24T13:21:53.226+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "5715",
-      "level": 3,
-      "desc": "sshd: authentication success."
-    },
-    "has_srcip": true
-  },
-  {
-    "ts": "2026-02-24T13:21:53.243+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "5501",
-      "level": 3,
-      "desc": "PAM: Login session opened."
-    },
-    "has_srcip": false
-  },
-  {
-    "ts": "2026-02-24T13:21:53.243+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "5501",
-      "level": 3,
-      "desc": "PAM: Login session opened."
-    },
-    "has_srcip": false
-  },
-  {
-    "ts": "2026-02-24T13:22:11.232+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "5503",
-      "level": 5,
-      "desc": "PAM: User login failed."
-    },
-    "has_srcip": false
-  },
-  {
-    "ts": "2026-02-24T13:23:03.247+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "5405",
-      "level": 5,
-      "desc": "Unauthorized user attempted to use sudo."
-    },
-    "has_srcip": false
-  },
-  {
-    "ts": "2026-02-24T13:24:09.301+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "5555",
-      "level": 3,
-      "desc": "PAM: User changed password."
-    },
-    "has_srcip": false
-  },
-  {
-    "ts": "2026-02-24T13:25:39.270+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "5503",
-      "level": 5,
-      "desc": "PAM: User login failed."
-    },
-    "has_srcip": false
-  },
-  {
-    "ts": "2026-02-24T13:25:57.278+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "5404",
+      "id": "23505",
       "level": 10,
-      "desc": "Three failed attempts to run sudo"
+      "desc": "CVE-2024-5138 affects snapd"
     },
     "has_srcip": false
   },
   {
-    "ts": "2026-02-24T13:26:01.279+0000",
+    "ts": "03/19/2026 04:49:57",
     "agent": "[REDACTED_HOST]",
     "rule": {
-      "id": "5503",
-      "level": 5,
-      "desc": "PAM: User login failed."
+      "id": "550",
+      "level": 7,
+      "desc": "Integrity checksum changed."
     },
     "has_srcip": false
   },
   {
-    "ts": "2026-02-24T13:26:21.281+0000",
+    "ts": "03/19/2026 04:49:58",
     "agent": "[REDACTED_HOST]",
     "rule": {
-      "id": "5404",
-      "level": 10,
-      "desc": "Three failed attempts to run sudo"
+      "id": "550",
+      "level": 7,
+      "desc": "Integrity checksum changed."
     },
     "has_srcip": false
   },
   {
-    "ts": "2026-02-24T13:26:39.283+0000",
+    "ts": "03/19/2026 04:49:59",
     "agent": "[REDACTED_HOST]",
     "rule": {
-      "id": "5503",
-      "level": 5,
-      "desc": "PAM: User login failed."
-    },
-    "has_srcip": false
-  },
-  {
-    "ts": "2026-02-24T13:26:53.284+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "5404",
-      "level": 10,
-      "desc": "Three failed attempts to run sudo"
-    },
-    "has_srcip": false
-  },
-  {
-    "ts": "2026-02-24T13:27:43.287+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "5403",
-      "level": 4,
-      "desc": "First time user executed sudo."
-    },
-    "has_srcip": false
-  },
-  {
-    "ts": "2026-02-24T13:27:43.329+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "5501",
-      "level": 3,
-      "desc": "PAM: Login session opened."
-    },
-    "has_srcip": false
-  },
-  {
-    "ts": "2026-02-24T13:27:43.329+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "5502",
-      "level": 3,
-      "desc": "PAM: Login session closed."
-    },
-    "has_srcip": false
-  },
-  {
-    "ts": "2026-02-24T13:27:51.288+0000",
-    "agent": "[REDACTED_HOST]",
-    "rule": {
-      "id": "100110",
-      "level": 5,
-      "desc": "Honeypot deterministic demo alert (HONEY_DEMO)."
+      "id": "550",
+      "level": 7,
+      "desc": "Integrity checksum changed."
     },
     "has_srcip": false
   }
 ]
-
