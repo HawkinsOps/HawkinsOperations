@@ -30,6 +30,7 @@ jobs:
         shell: pwsh
         run: |
           node .\scripts\generate-metrics.js
+          node .\scripts\generate-proof-lanes.js
           python .\scripts\validate_metrics.py
           node .\scripts\generate-site-data.js
           node .\scripts\generate-site-content.js

@@ -6,8 +6,13 @@ on:
     paths:
       - "PROOF_PACK/verified_counts.json"
       - "proof/autosoc/latest/**"
+      - "proof/grafana/**"
+      - "content/lab/proxmox/vms/104/splunk/exports/**"
       - "scripts/generate-metrics.js"
+      - "scripts/generate-proof-lanes.js"
       - "scripts/generate-site-data.js"
+  schedule:
+    - cron: "17 */6 * * *"
   workflow_dispatch:
 
 jobs:
@@ -29,6 +34,7 @@ jobs:
         shell: pwsh
         run: |
           node .\scripts\generate-metrics.js
+          node .\scripts\generate-proof-lanes.js
           python .\scripts\validate_metrics.py
           node .\scripts\generate-site-data.js
           node .\scripts\verify\site-runtime-contract.js
@@ -37,7 +43,7 @@ jobs:
         id: diff
         shell: bash
         run: |
-          git diff --quiet data/metrics.json data/metrics.json.sha256 site/data/ site/assets/data/ site/assets/verified-counts.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet data/metrics.json data/metrics.json.sha256 proof/validation/ proof/quality/ site/proof/validation/ site/proof/quality/ site/data/ site/assets/data/ site/assets/verified-counts.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push updated site data
         if: steps.diff.outputs.changed == 'true'
@@ -45,6 +51,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/metrics.json data/metrics.json.sha256 site/data/ site/assets/data/ site/assets/verified-counts.json
+          git add data/metrics.json data/metrics.json.sha256 proof/validation/ proof/quality/ site/proof/validation/ site/proof/quality/ site/data/ site/assets/data/ site/assets/verified-counts.json
           git commit -m "chore(site): auto-regenerate site data from source artifacts"
           git push
