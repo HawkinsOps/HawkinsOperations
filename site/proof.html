@@ -81,7 +81,7 @@
       <article class="m-card">
         <div class="m-card-kicker">AutoSOC case</div>
         <h2>TITLE: AutoSOC Noise-Reduction Proof Block (2026-03-19 Snapshot)</h2>
-        <p class="m-copy"><strong>CLAIM:</strong> AutoSOC processed 49,774 alerts, auto-closed 42.1% benign, and produced 2,478 escalation artifacts with verified 8/8 host coverage.</p>
+        <p class="m-copy"><strong>CLAIM:</strong> AutoSOC processed <span data-ops="stable_total_cases">—</span> alerts, auto-closed <span data-ops="lifetime_auto_close_rate">—</span>, and produced <span data-ops="stable_escalated">—</span> escalations across <span data-ops="stable_coverage_ratio">—</span> coverage.</p>
         <p class="m-copy"><strong>CONTEXT:</strong> The baseline metric set comes from committed repository metrics updated on <code>2026-03-19</code>. A recovery case study documents outage isolation, fix, and validated return to <code>SUCCESS</code> with reconciliation at <code>MISMATCH_COUNT=0</code>. The workflow snapshot below shows the operational sequence used to produce triage and escalation outputs.</p>
         <ul class="m-list-tight">
           <li><strong>EVIDENCE:</strong> <code>data/metrics.json</code> -> <code>total_cases=49774</code>, <code>auto_closed_benign=20942</code>, <code>escalated=2478</code>, <code>coverage_ratio=8/8</code>; proves quantified throughput and noise-reduction baseline.</li>
