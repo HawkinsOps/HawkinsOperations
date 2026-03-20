@@ -1,0 +1,51 @@
+{
+  "generated_utc": "2026-03-20T16:37:27.292Z",
+  "validation_window": "rolling_latest_artifacts",
+  "suite": "continuous-detection-validation",
+  "summary": {
+    "checks_total": 6,
+    "checks_passed": 6,
+    "checks_watch": 0,
+    "checks_failed": 0,
+    "pass_rate_pct": 100,
+    "overall_status": "PASS"
+  },
+  "checks": [
+    {
+      "id": "heartbeat",
+      "status": "PASS",
+      "value": "SUCCESS",
+      "source": "data/metrics.json"
+    },
+    {
+      "id": "reconciliation_mismatch",
+      "status": "PASS",
+      "value": 0,
+      "source": "proof/autosoc/latest/reconciliation_latest.json"
+    },
+    {
+      "id": "coverage_required_hosts",
+      "status": "PASS",
+      "value": "8/8",
+      "source": "data/metrics.json"
+    },
+    {
+      "id": "pipeline_last_status",
+      "status": "PASS",
+      "value": "SUCCESS",
+      "source": "proof/autosoc/latest/run_metrics_latest.json"
+    },
+    {
+      "id": "splunk_ingest_proof_present",
+      "status": "PASS",
+      "value": "content/lab/proxmox/vms/104/splunk/exports/WAZUH_SPLUNK_PIPELINE_PROOF_2026-03-20.md",
+      "source": "filesystem"
+    },
+    {
+      "id": "grafana_proof_present",
+      "status": "PASS",
+      "value": "proof/grafana/latest.md",
+      "source": "filesystem"
+    }
+  ]
+}
