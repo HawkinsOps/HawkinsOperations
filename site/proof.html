@@ -79,6 +79,17 @@
   <section class="m-section">
     <div class="m-wrap m-grid-2">
       <article class="m-card">
+        <div class="m-card-kicker">AutoSOC case</div>
+        <h2>TITLE: AutoSOC Noise-Reduction Proof Block (2026-03-19 Snapshot)</h2>
+        <p class="m-copy"><strong>CLAIM:</strong> AutoSOC processed 49,774 alerts, auto-closed 42.1% benign, and produced 2,478 escalation artifacts with verified 8/8 host coverage.</p>
+        <p class="m-copy"><strong>CONTEXT:</strong> The baseline metric set comes from committed repository metrics updated on <code>2026-03-19</code>. A recovery case study documents outage isolation, fix, and validated return to <code>SUCCESS</code> with reconciliation at <code>MISMATCH_COUNT=0</code>. The workflow snapshot below shows the operational sequence used to produce triage and escalation outputs.</p>
+        <ul class="m-list-tight">
+          <li><strong>EVIDENCE:</strong> <code>data/metrics.json</code> -> <code>total_cases=49774</code>, <code>auto_closed_benign=20942</code>, <code>escalated=2478</code>, <code>coverage_ratio=8/8</code>; proves quantified throughput and noise-reduction baseline.</li>
+          <li><strong>EVIDENCE:</strong> <code>docs/execution/AUTOSOC_PIPELINE_RECOVERY_CASE_STUDY_03-13-2026.md</code> -> final run shows <code>run_id=autosoc-20260313T215029Z-31020</code>, <code>status=SUCCESS</code>, <code>cases_processed=173</code>, <code>reconciliation.mismatch_count=0</code>; proves real output and validated recovery.</li>
+          <li><strong>EVIDENCE:</strong> <code>/assets/pp_soc_integration/t3-workflow.png</code> -> proves a concrete workflow snapshot of the triage and evidence-pack pipeline surface.</li>
+        </ul>
+      </article>
+      <article class="m-card">
         <div class="m-card-kicker">Proof links</div>
         <h2>Primary artifacts</h2>
         <ul class="m-list-tight">
