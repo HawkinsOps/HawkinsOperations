@@ -13,14 +13,14 @@ A security operations portfolio built around SignalFoundry, with the AutoSOC eng
 
 ---
 
-## Latest update (03-19-2026)
+## Latest update (03-20-2026)
 
-SignalFoundry benchmark and runtime snapshots reconciled from generated artifacts:
+SignalFoundry proof lane and release metadata refreshed:
 
-- Stable benchmark: 49,774 total cases, 2,478 escalated artifacts, 18,366 known false positives, 8/8 host coverage, heartbeat `SUCCESS`
-- Runtime lane and stable lane now both sourced from generated `data/metrics.json` -> `site/assets/data/ops-metrics.json`
-- Candidate-facing pages explicitly label benchmark vs runtime snapshots with generated date and source artifact
-- Naming contract tightened: SignalFoundry is public system name, AutoSOC engine is internal implementation label
+- Proof page claim block now follows a tighter `TITLE / CLAIM / CONTEXT / EVIDENCE` structure with runtime metric bindings (no hard-coded numeric claims)
+- Candidate-facing proof artifacts synced for Wazuh honeypot and Grafana lanes under both `proof/` and `site/proof/`
+- Stable benchmark remains: 49,774 total cases, 2,478 escalated artifacts, 18,366 known false positives, 8/8 host coverage, heartbeat `SUCCESS`
+- Runtime and stable lanes remain generated from `data/metrics.json` -> `site/assets/data/ops-metrics.json`
 - Operations runbook: `docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md`
 
 ---
@@ -172,4 +172,3 @@ No real credentials, internal IPs, or identity leakage in committed files. Use `
 ## License
 
 MIT. See [LICENSE](LICENSE).
-
