@@ -14,6 +14,7 @@ const siteOpsJsonOutPath = path.join(root, "site", "assets", "data", "ops-metric
 const siteOpsJsOutPath = path.join(root, "site", "data", "ops-metrics.js");
 const detectionsDataPath = path.join(root, "site", "assets", "data", "detections.json");
 const withProofPack = process.argv.includes("--with-proof-pack");
+const regenerateMetricsFlag = process.argv.includes("--regenerate-metrics");
 
 function regenerateMetrics() {
   const result = childProcess.spawnSync(process.execPath, [path.join(root, "scripts", "generate-metrics.js")], {
@@ -254,7 +255,9 @@ if (!fs.existsSync(srcPath)) {
   process.exit(1);
 }
 
-regenerateMetrics();
+if (regenerateMetricsFlag) {
+  regenerateMetrics();
+}
 
 const src = fs.readFileSync(srcPath, "utf8");
 const parsed = parseVerifiedCountsJson(src);
