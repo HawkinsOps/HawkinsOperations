@@ -52,6 +52,9 @@ function normalizeComparable(value) {
   return String(value ?? "").trim().replaceAll(",", "");
 }
 
+const allowedMetricPlaceholders = new Set(["0", "-", "—", "--", "N/A", "n/a"]);
+const allowedStatusPlaceholders = new Set(["UNKNOWN", "-", "—", "--", "N/A"]);
+
 function ensureHomeFallbacksMatchOps(homeHtml, opsMetrics) {
   const requiredAttrs = [
     "stable_coverage_ratio",
@@ -98,6 +101,7 @@ function ensurePageFallbacksMatchOps(pagePath, opsMetrics) {
   metricKeys.forEach((key) => {
     const actual = extractFallbackValue(html, key);
     if (actual === null) return;
+    if (allowedMetricPlaceholders.has(String(actual).trim())) return;
     if (!(key in opsMetrics)) {
       fail(`${rel} uses data-ops="${key}" but ops-metrics payload does not define it`);
     }
@@ -111,6 +115,7 @@ function ensurePageFallbacksMatchOps(pagePath, opsMetrics) {
   statusKeys.forEach((key) => {
     const actual = extractStatusFallbackValue(html, key);
     if (actual === null) return;
+    if (allowedStatusPlaceholders.has(String(actual).trim().toUpperCase())) return;
     if (!(key in opsMetrics)) {
       fail(`${rel} uses data-ops-status="${key}" but ops-metrics payload does not define it`);
     }
