@@ -101,15 +101,27 @@
     });
   }
 
+  async function fetchJsonWithFallback(url, timeoutMs) {
+    if (typeof window.fetchJsonWithTimeout === 'function') {
+      return window.fetchJsonWithTimeout(url, { timeoutMs: timeoutMs });
+    }
+    const ctl = new AbortController();
+    const timer = window.setTimeout(() => ctl.abort(), timeoutMs);
+    try {
+      const res = await window.fetch(url, { signal: ctl.signal, credentials: 'same-origin' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    } finally {
+      window.clearTimeout(timer);
+    }
+  }
+
   async function loadVerifiedCounts() {
     if (window.HAWKINSOPS_COUNTS && typeof window.HAWKINSOPS_COUNTS === 'object') {
       applyVerifiedPayload(window.HAWKINSOPS_COUNTS);
     }
-    if (typeof window.fetchJsonWithTimeout !== 'function') return;
     try {
-      const payload = await window.fetchJsonWithTimeout('/assets/verified-counts.json', {
-        timeoutMs: VERIFIED_TIMEOUT_MS
-      });
+      const payload = await fetchJsonWithFallback('/assets/verified-counts.json', VERIFIED_TIMEOUT_MS);
       applyVerifiedPayload(payload);
     } catch {
       // keep existing values if the payload is unavailable
@@ -120,11 +132,8 @@
     if (window.HAWKINSOPS_OPS_METRICS && typeof window.HAWKINSOPS_OPS_METRICS === 'object') {
       applyOpsMetricsPayload(window.HAWKINSOPS_OPS_METRICS);
     }
-    if (typeof window.fetchJsonWithTimeout !== 'function') return;
     try {
-      const payload = await window.fetchJsonWithTimeout('/assets/data/ops-metrics.json', {
-        timeoutMs: OPS_TIMEOUT_MS
-      });
+      const payload = await fetchJsonWithFallback('/assets/data/ops-metrics.json', OPS_TIMEOUT_MS);
       applyOpsMetricsPayload(payload);
     } catch {
       // keep existing values if the payload is unavailable
