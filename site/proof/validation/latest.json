@@ -1,14 +1,14 @@
 {
-  "generated_utc": "2026-03-20T16:37:27.292Z",
+  "generated_utc": "2026-03-20T16:41:31.306Z",
   "validation_window": "rolling_latest_artifacts",
   "suite": "continuous-detection-validation",
   "summary": {
     "checks_total": 6,
-    "checks_passed": 6,
-    "checks_watch": 0,
+    "checks_passed": 5,
+    "checks_watch": 1,
     "checks_failed": 0,
-    "pass_rate_pct": 100,
-    "overall_status": "PASS"
+    "pass_rate_pct": 83.33,
+    "overall_status": "WATCH"
   },
   "checks": [
     {
@@ -25,8 +25,8 @@
     },
     {
       "id": "coverage_required_hosts",
-      "status": "PASS",
-      "value": "8/8",
+      "status": "WATCH",
+      "value": "4/9",
       "source": "data/metrics.json"
     },
     {
