@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-03-20T19:07:24.642Z",
+  "generated_utc": "2026-03-21T02:47:32.227Z",
   "validation_window": "rolling_latest_artifacts",
   "suite": "continuous-detection-validation",
   "summary": {
@@ -7,7 +7,7 @@
     "checks_passed": 6,
     "checks_watch": 0,
     "checks_failed": 0,
-    "pass_rate_pct": 100.0,
+    "pass_rate_pct": 100,
     "overall_status": "PASS"
   },
   "checks": [

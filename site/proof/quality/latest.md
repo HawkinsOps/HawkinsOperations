@@ -1,26 +1,26 @@
 # Alert Quality Scorecard
 
-- Generated (UTC): 2026-03-20T19:07:24.642Z
+- Generated (UTC): 2026-03-21T02:47:32.227Z
 - Window: lifetime_runtime_snapshot
-- Overall status: PASS
+- Overall status: WATCH
 - Source: `data/metrics.json`
 
 ## Totals
 
 - Total cases: 49774
-- Auto-closed benign: 20942
-- Known false positive: 18366
-- Escalated: 2478
-- Review backlog: 7795
-- Staged pending: 193
+- Auto-closed benign: NaN
+- Known false positive: NaN
+- Escalated: NaN
+- Review backlog: NaN
+- Staged pending: NaN
 
 ## Scorecard
 
 | Metric | Value | Target | Status |
 |---|---:|---|---|
-| auto_close_benign_pct | 42.07 | >= 35 | PASS |
-| known_fp_pct | 36.9 | <= 45 | PASS |
-| escalation_pct | 4.98 | >= 3 | PASS |
-| review_backlog_pct | 15.66 | <= 20 | PASS |
-| staged_pending_pct | 0.39 | <= 1 | PASS |
+| auto_close_benign_pct | 0 | >= 35 | WATCH |
+| known_fp_pct | 0 | <= 45 | PASS |
+| escalation_pct | 0 | >= 3 | WATCH |
+| review_backlog_pct | 0 | <= 20 | PASS |
+| staged_pending_pct | 0 | <= 1 | PASS |
 | reconciliation_mismatch_count | 0 | 0 | PASS |
