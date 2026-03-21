@@ -1,6 +1,6 @@
 # Alert Quality Scorecard
 
-- Generated (UTC): 2026-03-21T13:42:41.851Z
+- Generated (UTC): 2026-03-21T18:54:42.342Z
 - Window: lifetime_runtime_snapshot
 - Overall status: PASS
 - Source: `data/metrics.json`
