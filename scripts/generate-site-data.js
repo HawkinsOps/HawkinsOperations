@@ -65,6 +65,29 @@ function toMmDdYyyy(isoString) {
   return `${mm}-${dd}-${yyyy}`;
 }
 
+function parseLooseNumeric(value, label, options = {}) {
+  const { totalForPercent = null, defaultValue = NaN } = options;
+  if (Number.isFinite(value)) return Number(value);
+  if (value === null || value === undefined) return defaultValue;
+
+  const raw = String(value).trim();
+  if (!raw) return defaultValue;
+  if (/^n\/a$/i.test(raw)) return 0;
+
+  const percentMatch = raw.match(/(-?\d+(?:\.\d+)?)\s*%/);
+  if (percentMatch) {
+    if (!Number.isFinite(totalForPercent)) return defaultValue;
+    const ratio = Number(percentMatch[1]) / 100;
+    return Math.round(Number(totalForPercent) * ratio);
+  }
+
+  const cleaned = raw.replace(/[~, +]/g, "").replace(/,/g, "");
+  const parsed = Number(cleaned);
+  if (Number.isFinite(parsed)) return parsed;
+
+  return defaultValue;
+}
+
 function parseMetricsJson(rawJson) {
   const parsed = JSON.parse(rawJson);
   if (!parsed || typeof parsed !== "object") {
@@ -95,10 +118,15 @@ function parseMetricsJson(rawJson) {
     "review",
     "staged_pending"
   ];
+  const parsedRunningTotals = {};
   for (const key of requiredNumericTotals) {
-    if (!Number.isFinite(runningTotals[key])) {
+    const parsed = parseLooseNumeric(runningTotals[key], `running_totals.${key}`, {
+      totalForPercent: parseLooseNumeric(runningTotals.total_cases, "running_totals.total_cases")
+    });
+    if (!Number.isFinite(parsed)) {
       throw new Error(`Missing or invalid numeric total '${key}' in data/metrics.json`);
     }
+    parsedRunningTotals[key] = parsed;
   }
 
   const requiredInventoryKeys = ["sigma", "wazuh_files", "wazuh_rule_blocks", "splunk", "ir_playbooks"];
@@ -108,15 +136,21 @@ function parseMetricsJson(rawJson) {
     }
   }
 
-  const autoCloseCount = Number(runningTotals.auto_closed_benign) + Number(runningTotals.known_fp);
-  const totalCases = Number(runningTotals.total_cases);
+  const totalCases = parsedRunningTotals.total_cases;
+  const autoCloseCount = parsedRunningTotals.auto_closed_benign + parsedRunningTotals.known_fp;
   const autoCloseRate = totalCases > 0 ? `${((autoCloseCount / totalCases) * 100).toFixed(2)}%` : "0.00%";
-  const stableAutoCloseCount = Number(stableBenchmark.auto_closed_benign) + Number(stableBenchmark.known_fp);
-  const stableAutoCloseRate = stableBenchmark.total_cases > 0
-    ? `${((stableAutoCloseCount / Number(stableBenchmark.total_cases)) * 100).toFixed(2)}%`
+  const stableTotalCases = parseLooseNumeric(stableBenchmark.total_cases, "stable_benchmark.total_cases");
+  const stableAutoClosed = parseLooseNumeric(stableBenchmark.auto_closed_benign, "stable_benchmark.auto_closed_benign", {
+    totalForPercent: stableTotalCases
+  });
+  const stableKnownFp = parseLooseNumeric(stableBenchmark.known_fp, "stable_benchmark.known_fp");
+  const stableEscalated = parseLooseNumeric(stableBenchmark.escalated, "stable_benchmark.escalated");
+  const stableAutoCloseCount = stableAutoClosed + stableKnownFp;
+  const stableAutoCloseRate = stableTotalCases > 0
+    ? `${((stableAutoCloseCount / stableTotalCases) * 100).toFixed(2)}%`
     : "0.00%";
   const reconciliationMismatch = Number(parsed.reconciliation_mismatch);
-  const reconciliationBasisCount = Number(runningTotals.escalated);
+  const reconciliationBasisCount = parsedRunningTotals.escalated;
   const reconciliationReconciledCount = Math.max(reconciliationBasisCount - reconciliationMismatch, 0);
   const reconciliationMismatchRate = reconciliationBasisCount > 0
     ? `${((reconciliationMismatch / reconciliationBasisCount) * 100).toFixed(2)}%`
@@ -135,34 +169,34 @@ function parseMetricsJson(rawJson) {
           runtime_label: "Lifetime processed (runtime snapshot)"
         },
     stable_benchmark: {
-      total_cases: Number(stableBenchmark.total_cases),
-      auto_closed_benign: Number(stableBenchmark.auto_closed_benign),
-      known_fp: Number(stableBenchmark.known_fp),
-      escalated: Number(stableBenchmark.escalated),
+      total_cases: stableTotalCases,
+      auto_closed_benign: String(stableBenchmark.auto_closed_benign || stableAutoCloseRate),
+      known_fp: String(stableBenchmark.known_fp || "N/A"),
+      escalated: String(stableBenchmark.escalated || String(stableEscalated)),
       coverage_ratio: String(stableBenchmark.coverage_ratio || ""),
       heartbeat: String(stableBenchmark.heartbeat || ""),
       locked_date: String(stableBenchmark.locked_date || toMmDdYyyy(String(parsed.last_updated || ""))),
       statement: String(stableBenchmark.statement || "")
     },
     lifetime_runtime: {
-      total_cases: Number(lifetimeRuntime.total_cases),
-      auto_closed_benign: Number(lifetimeRuntime.auto_closed_benign),
-      known_fp: Number(lifetimeRuntime.known_fp),
-      escalated: Number(lifetimeRuntime.escalated),
-      review: Number(lifetimeRuntime.review),
-      staged_pending: Number(lifetimeRuntime.staged_pending),
+      total_cases: parseLooseNumeric(lifetimeRuntime.total_cases, "lifetime_runtime.total_cases"),
+      auto_closed_benign: String(lifetimeRuntime.auto_closed_benign || autoCloseRate),
+      known_fp: String(lifetimeRuntime.known_fp || "N/A"),
+      escalated: String(lifetimeRuntime.escalated || String(parsedRunningTotals.escalated)),
+      review: parseLooseNumeric(lifetimeRuntime.review, "lifetime_runtime.review", { defaultValue: 0 }),
+      staged_pending: parseLooseNumeric(lifetimeRuntime.staged_pending, "lifetime_runtime.staged_pending", { defaultValue: 0 }),
       coverage_ratio: String(lifetimeRuntime.coverage_ratio || parsed.host_coverage || ""),
       heartbeat: String(lifetimeRuntime.heartbeat || parsed.heartbeat || ""),
       last_updated: toMmDdYyyy(String(lifetimeRuntime.last_updated || parsed.last_updated || ""))
     },
     metrics: {
-      total_cases: Number(stableBenchmark.total_cases),
+      total_cases: stableTotalCases,
       auto_close_rate: stableAutoCloseRate,
-      escalated: Number(stableBenchmark.escalated),
-      review: Number(runningTotals.review),
-      staged_pending: Number(runningTotals.staged_pending),
-      known_fp: Number(stableBenchmark.known_fp),
-      auto_closed_benign: Number(stableBenchmark.auto_closed_benign),
+      escalated: stableEscalated,
+      review: parsedRunningTotals.review,
+      staged_pending: parsedRunningTotals.staged_pending,
+      known_fp: stableKnownFp,
+      auto_closed_benign: stableAutoClosed,
       reconciliation: reconciliationMismatch === 0 ? "PASS" : "FAIL",
       reconciliation_mismatch: reconciliationMismatch,
       reconciliation_basis_count: reconciliationBasisCount,
@@ -174,17 +208,17 @@ function parseMetricsJson(rawJson) {
       coverage_status: String(stableBenchmark.coverage_ratio || parsed.host_coverage || "").trim() === "8/8" ? "PASS" : "FAIL",
       stable_locked_date: String(stableBenchmark.locked_date || toMmDdYyyy(String(parsed.last_updated || ""))),
       last_updated: String(stableBenchmark.locked_date || toMmDdYyyy(String(parsed.last_updated || ""))),
-      stable_total_cases: Number(stableBenchmark.total_cases),
-      stable_auto_closed_benign: Number(stableBenchmark.auto_closed_benign),
-      stable_known_fp: Number(stableBenchmark.known_fp),
-      stable_escalated: Number(stableBenchmark.escalated),
+      stable_total_cases: stableTotalCases,
+      stable_auto_closed_benign: String(stableBenchmark.auto_closed_benign || stableAutoCloseRate),
+      stable_known_fp: String(stableBenchmark.known_fp || "N/A"),
+      stable_escalated: String(stableBenchmark.escalated || String(stableEscalated)),
       stable_coverage_ratio: String(stableBenchmark.coverage_ratio || ""),
       stable_heartbeat: String(stableBenchmark.heartbeat || ""),
       stable_statement: String(stableBenchmark.statement || ""),
       lifetime_total_cases: totalCases,
-      lifetime_auto_closed_benign: Number(runningTotals.auto_closed_benign),
-      lifetime_known_fp: Number(runningTotals.known_fp),
-      lifetime_escalated: Number(runningTotals.escalated),
+      lifetime_auto_closed_benign: String(lifetimeRuntime.auto_closed_benign || autoCloseRate),
+      lifetime_known_fp: String(lifetimeRuntime.known_fp || "N/A"),
+      lifetime_escalated: String(lifetimeRuntime.escalated || String(parsedRunningTotals.escalated)),
       lifetime_auto_close_rate: autoCloseRate,
       lifetime_label: "Lifetime processed (runtime snapshot)",
       lifetime_last_updated: toMmDdYyyy(parsed.last_updated),
