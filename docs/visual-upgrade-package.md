@@ -651,7 +651,7 @@ PowerShell branch/create/commit snippet:
 
 ```powershell
 pwsh -NoProfile -ExecutionPolicy Bypass -Command "
-cd 'C:\RH\OPS\10_Portfolio\HawkinsOperations';
+cd 'C:\GitHub\HawkinsOperations';
 $b='codex/visual-upgrade-MODERNIZE-$(Get-Date -Format yyyyMMddHHmm)';
 git checkout -b $b;
 git add docs tokens;

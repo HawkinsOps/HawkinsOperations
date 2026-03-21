@@ -12,13 +12,13 @@ This branch prepares the Phase 1 staging contract for the SignalFoundry rebrand 
 
 ### Files changed in this phase
 
-- `C:\RH\OPS\10_Portfolio\HawkinsOperations\data\metrics.json`
-- `C:\RH\OPS\10_Portfolio\HawkinsOperations\data\metrics.json.sha256`
-- `C:\RH\OPS\10_Portfolio\HawkinsOperations\scripts\sign_metrics.sh`
-- `C:\RH\OPS\10_Portfolio\HawkinsOperations\scripts\validate_metrics.py`
-- `C:\RH\OPS\10_Portfolio\HawkinsOperations\scripts\check-md-links.sh`
-- `C:\RH\OPS\10_Portfolio\HawkinsOperations\AGENTS.md`
-- `C:\RH\OPS\10_Portfolio\HawkinsOperations\agents_activity.log`
+- `data/metrics.json`
+- `data/metrics.json.sha256`
+- `scripts/sign_metrics.sh`
+- `scripts/validate_metrics.py`
+- `scripts/check-md-links.sh`
+- `AGENTS.md`
+- `agents_activity.log`
 
 ### Human gate
 

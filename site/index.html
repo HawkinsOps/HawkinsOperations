@@ -41,24 +41,20 @@
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
       <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">SignalFoundry</a></li>
       <li><a href="/proof">Proof</a></li>
-      <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
-      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
-      <li><a href="/detections">Detections</a></li>
-      <li><a href="/soc-lab">Lab</a></li>
       <li><a href="/resume">Resume</a></li>
+      <li><a href="/soc-lab">Lab</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
+    <a class="btn btn-p nav-cta" href="/case-study-autosoc">SignalFoundry</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
   <a href="/">Home</a>
+  <a href="/case-study-autosoc">SignalFoundry</a>
   <a href="/proof">Proof</a>
-  <a href="/operations-bridge">Ops &rarr; Cyber</a>
-  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
-  <a href="/detections">Detections</a>
-  <a href="/soc-lab">Lab</a>
   <a href="/resume">Resume</a>
+  <a href="/soc-lab">Lab</a>
 </div>
 <!-- @include:nav:end -->
 
@@ -75,14 +71,13 @@
         <span class="sf-role-tag">Detection Engineering</span>
         <span class="sf-role-tag">Security Automation</span>
       </div>
-      <p class="sf-body sf-body-lead">Evidence-first cybersecurity portfolio built around a SOC triage and proof pipeline.</p>
-      <p class="sf-body">Every public metric on this site is generated from repo artifacts and verified by CI. SignalFoundry ingests Wazuh alerts, applies policy-driven triage, enforces redaction, and publishes reviewable proof only after reconciliation and coverage checks pass.</p>
+      <p class="sf-body sf-body-lead">SOC Analyst building detection pipelines and automation-driven triage systems.</p>
+      <p class="sf-body">I build and operate SignalFoundry: a triage-to-escalation workflow with public proof tied to reproducible repository artifacts.</p>
       <div class="sf-actions">
-        <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Read SignalFoundry Case Study</a>
-        <a class="sf-button sf-button-secondary sf-focus-ring" href="/start-here">Start Here</a>
+        <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Open SignalFoundry</a>
         <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof Receipts</a>
         <a class="sf-button sf-button-secondary sf-focus-ring" href="/resume">Resume</a>
-        <a class="sf-button sf-button-secondary sf-focus-ring" href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="sf-button sf-button-secondary sf-focus-ring" href="/soc-lab">Lab</a>
       </div>
     </section>
 
@@ -94,8 +89,8 @@
       <div class="sf-proof-grid">
         <div class="sf-card sf-panel">
           <h2 id="flagship-title">SignalFoundry</h2>
-          <p class="sf-body sf-copy-gap-sm">A SOC triage and evidence pipeline that ingests Wazuh alerts, applies policy-driven classification, enforces redaction, and produces review-ready escalation packs only after quality gates pass.</p>
-          <p class="sf-body sf-copy-gap-md">It runs against real alert volume from a multi-host Wazuh deployment, preserves ledger integrity across runs, and stages its own proof back into this repository.</p>
+          <p class="sf-body sf-copy-gap-sm">SignalFoundry is my flagship SOC workflow: Wazuh alerts in, triage decisions out, escalation artifacts published.</p>
+          <p class="sf-body sf-copy-gap-md">It enforces policy-driven triage, mandatory redaction, and quality gates so outputs remain consistent, auditable, and ready for review.</p>
           <div class="sf-pipeline" aria-label="SignalFoundry pipeline diagram">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 230" role="img" aria-label="SignalFoundry workflow: ingest, triage, redact, pack, reconcile, gate, publish">
               <title>SignalFoundry Workflow</title>
@@ -133,17 +128,6 @@
             <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof Artifacts</a>
           </div>
         </div>
-        <aside class="sf-card sf-panel" aria-label="Detection inventory">
-          <h2>Detection inventory</h2>
-          <p class="sf-body">Published detection content verified against the repository. Counts are generated, not hand-edited.</p>
-          <ul class="sf-status-list">
-            <li><strong><span data-verified="sigma">103</span></strong> Sigma rules across 10 ATT&amp;CK tactics</li>
-            <li><strong><span data-verified="wazuh">28</span></strong> Wazuh rule blocks across 24 XML files</li>
-            <li><strong><span data-verified="splunk">8</span></strong> Splunk SPL queries</li>
-            <li><strong><span data-verified="ir">10</span></strong> IR playbooks (7-step structured format)</li>
-          </ul>
-          <p class="sf-body sf-copy-gap-md" style="margin-top: 16px; font-size: 0.88rem;">Source: <a class="sf-inline-link" href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">VERIFIED_COUNTS.md</a></p>
-        </aside>
       </div>
     </section>
 
@@ -154,106 +138,72 @@
 
       <!-- Group A: Stable Benchmark -->
       <div class="sf-section-label">Stable Benchmark</div>
-      <h2 id="health-title">Validated stable benchmark</h2>
+      <h2 id="health-title">Stable public benchmark</h2>
       <p class="sf-body sf-copy-gap-lg"><span data-ops="stable_statement">March 20 canonical snapshot: 49,774 total cases, ~89% auto-close, ~2,500+ escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
-      <p class="sf-body" style="font-size:0.86rem">Public benchmark snapshot and Runtime snapshot sourced from the same artifact. Generated at <span data-ops="lifetime_last_updated">03-20-2026</span> from Source artifact <code>/assets/data/ops-metrics.json</code>.</p>
+      <p class="sf-body" style="font-size:0.86rem">Homepage shows the locked stable benchmark only. Generated at <span data-ops="stable_locked_date">03-20-2026</span> from source artifact <code>/assets/data/ops-metrics.json</code>.</p>
+      <p class="sf-body sf-copy-gap-lg">All metrics below are locked to a single public benchmark snapshot. No runtime values are mixed into this view.</p>
       <div class="sf-metrics" role="status" aria-live="polite" aria-label="Stable benchmark metrics">
         <article class="sf-card sf-metric" aria-label="Heartbeat status">
           <span class="sf-metric-label">Heartbeat Status</span>
           <span class="sf-metric-value"><span data-ops-status="stable_heartbeat">SUCCESS</span></span>
-          <p class="sf-metric-note">Status for the locked stable benchmark snapshot.</p>
+          <p class="sf-metric-note">Heartbeat state for the locked benchmark.</p>
         </article>
         <article class="sf-card sf-metric" aria-label="Coverage gate status">
           <span class="sf-metric-label">Coverage Gate Status</span>
           <span class="sf-metric-value"><span data-ops="stable_coverage_ratio">8/8</span></span>
-          <p class="sf-metric-note">Hosts reporting in the locked stable benchmark snapshot.</p>
+          <p class="sf-metric-note">Hosts reporting in the locked benchmark.</p>
         </article>
-        <article class="sf-card sf-metric" aria-label="Reconciliation status">
-          <span class="sf-metric-label">Reconciliation Status</span>
-          <span class="sf-metric-value"><span data-ops-status="reconciliation">PASS (0 mismatches)</span></span>
-          <p class="sf-metric-note">Ledger integrity check. Mismatch count: <span data-ops="reconciliation_mismatch">0</span> (<span data-ops="reconciliation_mismatch_rate">0.00%</span> mismatch). Success rate: <span data-ops="reconciliation_success_rate">100.00%</span>.</p>
+        <article class="sf-card sf-metric" aria-label="Stable escalated cases">
+          <span class="sf-metric-label">Stable Escalated Cases</span>
+          <span class="sf-metric-value"><span data-ops="stable_escalated">~2,500+</span></span>
+          <p class="sf-metric-note">Escalation volume in the locked benchmark.</p>
         </article>
         <article class="sf-card sf-metric" aria-label="Stable benchmark date">
           <span class="sf-metric-label">Stable Benchmark Date</span>
-          <span class="sf-metric-value"><span data-ops="last_updated">03-20-2026</span></span>
-          <p class="sf-metric-note">Locked validation date for the stable benchmark snapshot.</p>
+          <span class="sf-metric-value"><span data-ops="stable_locked_date">03-20-2026</span></span>
+          <p class="sf-metric-note">Date this benchmark was locked for public use.</p>
         </article>
       </div>
 
-      <!-- Group B: Proof Inventory -->
-      <div class="sf-section-label sf-section-label-spaced">Proof Inventory</div>
-      <h2>Lifetime processed (runtime snapshot)</h2>
-      <p class="sf-body sf-copy-gap-lg">Runtime totals are shown here as a separate lane and are not the default candidate benchmark.</p>
-      <div class="sf-metrics" aria-label="Lifetime proof inventory">
-        <article class="sf-card sf-metric" aria-label="Lifetime cases processed">
-          <span class="sf-metric-label">Lifetime processed — all runs</span>
-          <span class="sf-metric-value"><span data-ops="lifetime_total_cases">49,774</span></span>
-          <p class="sf-metric-note">Ledger-verified total across all SignalFoundry runs.</p>
-        </article>
-        <article class="sf-card sf-metric" aria-label="Benign auto-closed">
-          <span class="sf-metric-label">Benign Cases Auto-Closed</span>
-          <span class="sf-metric-value"><span data-ops="lifetime_auto_closed_benign">~89%</span></span>
-          <p class="sf-metric-note">Cases closed by policy as benign.</p>
-        </article>
-        <article class="sf-card sf-metric" aria-label="Known FPs historical">
-          <span class="sf-metric-label">Known False Positives (Historical)</span>
-          <span class="sf-metric-value">Historical</span>
-          <p class="sf-metric-note">Not included in the March 20 canonical current-state snapshot.</p>
-        </article>
-        <article class="sf-card sf-metric" aria-label="Published escalation artifacts">
-          <span class="sf-metric-label">Published Escalation Artifacts</span>
-          <span class="sf-metric-value"><span data-ops="lifetime_escalated">~2,500+</span></span>
-          <p class="sf-metric-note">Cases packaged with evidence and committed to the proof repository.</p>
-        </article>
-      </div>
-      <p class="sf-body sf-copy-gap-lg">This lane is explicitly labeled "Lifetime processed (runtime snapshot)" to separate rolling runtime totals from the locked stable benchmark used on candidate-facing materials.</p>
+      <p class="sf-body sf-copy-gap-lg">Runtime and lifetime context stays in the Proof page runtime lane.</p>
     </section>
 
     <!-- ═══════════════════════════════════════════════════════════════
-         SECTION 4: REVIEWER ROUTES
+         SECTION 4: OPERATOR BRIDGE TEASER
+         ═══════════════════════════════════════════════════════════════ -->
+    <section id="bridge-teaser" class="sf-section" aria-labelledby="bridge-title">
+      <div class="sf-section-label">Operator Bridge</div>
+      <h2 id="bridge-title">Operator discipline, security execution</h2>
+      <div class="sf-philosophy">
+        <p class="sf-body sf-copy-gap-sm">My edge is operator discipline applied to security: controlled execution, quality gates, and strict escalation handling under pressure.</p>
+        <p class="sf-body">I design workflows that stay reliable under pressure and recover cleanly when systems drift.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SECTION 5: REVIEWER ROUTES
          ═══════════════════════════════════════════════════════════════ -->
     <section id="routes" class="sf-section" aria-labelledby="routes-title">
       <div class="sf-section-label">Where to go next</div>
-      <h2 id="routes-title">Reviewer paths</h2>
-      <p class="sf-body sf-copy-gap-lg">Choose the reviewer path that matches what you need to validate first.</p>
+      <h2 id="routes-title">Choose your review path</h2>
+      <p class="sf-body sf-copy-gap-lg">Pick the path that answers your decision fastest.</p>
       <div class="sf-route-grid">
-        <a class="sf-card sf-route-card sf-focus-ring" href="/start-here">
-          <h3>Start Here</h3>
-          <p>Fastest path through the strongest proof artifacts. Best first stop for most reviewers.</p>
-        </a>
         <a class="sf-card sf-route-card sf-focus-ring" href="/case-study-autosoc">
-          <h3>SignalFoundry Case Study</h3>
-          <p>SignalFoundry walkthrough covering architecture, triage logic, outputs, and recovery work.</p>
+          <h3>SignalFoundry</h3>
+          <p>Flagship system architecture, triage logic, outputs, and recovery model.</p>
         </a>
         <a class="sf-card sf-route-card sf-focus-ring" href="/proof">
-          <h3>Proof Pack</h3>
-          <p>Canonical evidence trail with verification commands and direct proof links.</p>
-        </a>
-        <a class="sf-card sf-route-card sf-focus-ring" href="/detections">
-          <h3>Detection Library</h3>
-          <p>Browse the verified rule and playbook inventory behind the flagship workflow.</p>
+          <h3>Proof</h3>
+          <p>Stable benchmark source, evidence trail, and verification path.</p>
         </a>
         <a class="sf-card sf-route-card sf-focus-ring" href="/soc-lab">
           <h3>SOC Lab</h3>
-          <p>Validation environment for repeatable telemetry, detections, and operational testing.</p>
+          <p>Lab topology and validation environment behind the workflow.</p>
         </a>
         <a class="sf-card sf-route-card sf-focus-ring" href="/resume">
           <h3>Resume</h3>
-          <p>Resume, PDF, and ATS text for recruiter-speed review.</p>
+          <p>Role fit, outcomes, and recruiter-ready resume formats.</p>
         </a>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════════
-         SECTION 5: WHY THIS PORTFOLIO EXISTS
-         ═══════════════════════════════════════════════════════════════ -->
-    <section id="about" class="sf-section" aria-labelledby="about-title">
-      <div class="sf-section-label">About this portfolio</div>
-      <h2 id="about-title">Why this site exists</h2>
-      <div class="sf-philosophy">
-        <p class="sf-body sf-copy-gap-sm">This portfolio shows how I build, validate, and recover security automation systems under real operating conditions.</p>
-        <p class="sf-body sf-copy-gap-sm">SignalFoundry documents the full loop: signal-vs-noise triage, mandatory redaction, escalation discipline, and post-failure recovery with reconciliation gates.</p>
-        <p class="sf-body">The throughline from manufacturing operations to security is controlled process execution: repeatability, quality checks, and escalation under pressure. Detection engineering, SOC triage, and automation are my role fit; the public evidence is the trust contract.</p>
       </div>
     </section>
 

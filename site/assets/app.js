@@ -81,22 +81,109 @@
     return value;
   }
 
+  function normalizeDateDisplay(value) {
+    if (typeof value !== 'string') return value;
+    var raw = value.trim();
+    if (!raw) return value;
+    var mmdd = /^(\d{2})-(\d{2})-(\d{4})$/;
+    if (mmdd.test(raw)) return raw;
+    var iso = new Date(raw);
+    if (Number.isNaN(iso.getTime())) return value;
+    var mm = String(iso.getUTCMonth() + 1).padStart(2, '0');
+    var dd = String(iso.getUTCDate()).padStart(2, '0');
+    var yyyy = String(iso.getUTCFullYear());
+    return mm + '-' + dd + '-' + yyyy;
+  }
+
+  function normalizeReconciliationValue(value) {
+    if (typeof value !== 'string') return value;
+    var mismatchMatch = value.match(/(\d+)\s*mismatch/i);
+    if (mismatchMatch && mismatchMatch[1] === '0') {
+      return 'PASS (0 mismatches)';
+    }
+    return value.trim();
+  }
+
+  function formatOpsValue(key, value) {
+    if (typeof value === 'number' && Number.isFinite(value)) {
+      return new Intl.NumberFormat('en-US').format(value);
+    }
+    if (typeof value !== 'string') return value;
+    var normalized = value.trim();
+    if (!normalized) return value;
+
+    if (/heartbeat/i.test(key || '')) {
+      return normalized.toUpperCase();
+    }
+    if (/coverage_ratio/i.test(key || '')) {
+      var compact = normalized.replace(/\s+/g, '');
+      if (/^\d+\/\d+$/.test(compact)) {
+        return compact + ' hosts';
+      }
+      return normalized;
+    }
+    if (/reconciliation/i.test(key || '')) {
+      return normalizeReconciliationValue(normalized);
+    }
+    if (/(last_updated|locked_date)/i.test(key || '')) {
+      return normalizeDateDisplay(normalized);
+    }
+    return normalized;
+  }
+
+  function isStableScopeNode(node) {
+    return !!(node && typeof node.closest === 'function' && node.closest('[data-ops-scope="stable"]'));
+  }
+
+  function warnOpsBinding(message) {
+    if (!isLocalDebugHost) return;
+    console.warn('[ops-metrics]', message);
+  }
+
+  function shouldBlockNonStableKey(node, key, attrName) {
+    if (!isStableScopeNode(node)) return false;
+    if (!key || key.indexOf('stable_') === 0) return false;
+    warnOpsBinding('Blocked non-stable key "' + String(key) + '" in stable scope on ' + attrName + '.');
+    return true;
+  }
+
+  function readOpsMetric(metrics, key, node, attrName) {
+    if (!key) return null;
+    if (shouldBlockNonStableKey(node, key, attrName)) return null;
+    if (!Object.prototype.hasOwnProperty.call(metrics, key)) {
+      warnOpsBinding('Missing key "' + String(key) + '" for ' + attrName + ' binding.');
+      return null;
+    }
+    return metrics[key];
+  }
+
+  function applyStatusState(node, renderedValue) {
+    if (!node || typeof renderedValue !== 'string' || !renderedValue.trim()) return;
+    var statusToken = renderedValue.toLowerCase();
+    if (statusToken.indexOf('pass') === 0) {
+      node.setAttribute('data-status', 'success');
+      return;
+    }
+    node.setAttribute('data-status', statusToken);
+  }
+
   function applyOpsMetricsPayload(payload) {
     if (!payload || typeof payload !== 'object') return;
     var metrics = payload.metrics && typeof payload.metrics === 'object' ? payload.metrics : payload;
     $$('[data-ops]').forEach(function (node) {
       var key = node.getAttribute('data-ops');
-      var value = key ? metrics[key] : null;
+      var value = readOpsMetric(metrics, key, node, 'data-ops');
       if ((typeof value === 'number' && Number.isFinite(value)) || (typeof value === 'string' && value.trim())) {
-        node.textContent = String(formatMetricValue(value));
+        node.textContent = String(formatOpsValue(key, value));
       }
     });
     $$('[data-ops-status]').forEach(function (node) {
       var key = node.getAttribute('data-ops-status');
-      var value = key ? metrics[key] : null;
+      var value = readOpsMetric(metrics, key, node, 'data-ops-status');
       if (typeof value === 'string' && value.trim()) {
-        node.textContent = value;
-        node.setAttribute('data-status', value.toLowerCase());
+        var rendered = String(formatOpsValue(key, value));
+        node.textContent = rendered;
+        applyStatusState(node, rendered);
       }
     });
   }

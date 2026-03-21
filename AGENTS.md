@@ -1,5 +1,5 @@
 # HawkinsOps — Repo-Level Codex Rules
-# Location: C:\RH\OPS\10_Portfolio\HawkinsOperations\AGENTS.md
+# Location: C:\GitHub\HawkinsOperations\AGENTS.md
 # Scope: any Codex session in the repo or its subfolders
 # Most specific — overrides all parent AGENTS.md files
 
@@ -134,4 +134,3 @@ Evidence-Raw/ content of any kind
 Real IPs, hostnames, credentials, or internal identifiers
 Machine config files
 .obsidian/ folder
-

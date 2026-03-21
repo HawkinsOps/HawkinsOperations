@@ -54,7 +54,7 @@
           <strong><span data-verified="ir">10</span> playbooks</strong>
         </div>
       </div>
-      <div class="m-proof-strip" style="margin-top:12px;">
+      <div class="m-proof-strip" style="margin-top:12px;" data-ops-scope="stable">
         <div class="m-proof-inline">
           <strong>Last verified <span data-verified-date>03-20-2026</span></strong>
           <strong>Stable heartbeat <span data-ops-status="stable_heartbeat">SUCCESS</span></strong>
@@ -62,7 +62,7 @@
           <strong>Stable cases <span data-ops="stable_total_cases">49,774</span></strong>
           <strong>Stable escalated <span data-ops="stable_escalated">~2,500+</span></strong>
           <strong>Stable known FP <span data-ops="stable_known_fp">N/A</span></strong>
-          <strong>Stable date <span data-ops="last_updated">03-20-2026</span></strong>
+          <strong>Stable date <span data-ops="stable_locked_date">03-20-2026</span></strong>
         </div>
       </div>
       <p class="m-copy" style="margin-top:12px;"><span data-ops="stable_statement">March 20 canonical snapshot: 49,774 total cases, ~89% auto-close, ~2,500+ escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
@@ -75,7 +75,7 @@
         </div>
       </div>
       <p class="m-copy" style="margin-top:12px">Public benchmark snapshot: locked candidate-facing benchmark from committed proof. Runtime snapshot: rolling totals from the same metrics artifact.</p>
-      <p class="m-copy">Generated at <span data-ops="lifetime_last_updated">03-20-2026</span> | Source artifact <code>/assets/data/ops-metrics.json</code></p>
+      <p class="m-copy">Generated at <span data-ops="stable_locked_date">03-20-2026</span> | Source artifact <code>/assets/data/ops-metrics.json</code></p>
     </div>
   </section>
   <section class="m-section">
@@ -83,7 +83,7 @@
       <article class="m-card">
         <div class="m-card-kicker">AutoSOC case</div>
         <h2>TITLE: AutoSOC Noise-Reduction Proof Block (2026-03-20 Snapshot)</h2>
-        <p class="m-copy"><strong>CLAIM:</strong> AutoSOC processed <span data-ops="stable_total_cases">49,774</span> alerts, auto-closed <span data-ops="lifetime_auto_close_rate">~89%</span>, and produced <span data-ops="stable_escalated">~2,500+</span> escalations across <span data-ops="stable_coverage_ratio">8/8</span> coverage.</p>
+        <p class="m-copy"><strong>CLAIM:</strong> AutoSOC processed <span data-ops="stable_total_cases">49,774</span> alerts, auto-closed <span data-ops="stable_auto_closed_benign">~89%</span>, and produced <span data-ops="stable_escalated">~2,500+</span> escalations across <span data-ops="stable_coverage_ratio">8/8</span> coverage.</p>
         <p class="m-copy"><strong>CONTEXT:</strong> Current-facing metrics on this page are locked to the March 20 canonical snapshot. Historical recovery evidence remains linked as historical context only.</p>
         <ul class="m-list-tight">
           <li><strong>EVIDENCE:</strong> <code>source_of_truth/metrics_canonical_2026-03-20.json</code> -> <code>total_cases=49774</code>, <code>auto_close_rate_label=~89%</code>, <code>escalations_label=~2,500+</code>, <code>hosts_reporting=8/8</code>; proves canonical quantified baseline.</li>
