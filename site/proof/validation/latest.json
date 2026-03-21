@@ -4,11 +4,11 @@
   "suite": "continuous-detection-validation",
   "summary": {
     "checks_total": 6,
-    "checks_passed": 5,
-    "checks_watch": 1,
+    "checks_passed": 6,
+    "checks_watch": 0,
     "checks_failed": 0,
-    "pass_rate_pct": 83.33,
-    "overall_status": "WATCH"
+    "pass_rate_pct": 100.0,
+    "overall_status": "PASS"
   },
   "checks": [
     {
@@ -25,8 +25,8 @@
     },
     {
       "id": "coverage_required_hosts",
-      "status": "WATCH",
-      "value": "4/9",
+      "status": "PASS",
+      "value": "8/8",
       "source": "data/metrics.json"
     },
     {

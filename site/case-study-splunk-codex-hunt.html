@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>HawkinsOps | When AI Tooling Looks Like a LOLBin: Splunk Process Hunt</title>
+<meta name="description" content="A live Splunk threat hunting session on EventID 4688 process creation data. Found codex.exe spawning pwsh.exe 375 times per session — indistinguishable from LOLBin abuse until the parent process path told the real story.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07070b">
+<link rel="canonical" href="https://hawkinsops.com/case-study-splunk-codex-hunt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="When AI Tooling Looks Like a LOLBin: Splunk Process Hunt">
+<meta property="og:description" content="A live Splunk hunt on Windows EventID 4688 found an AI coding tool spawning pwsh.exe 375 times. The detection engineering story is in why it was correctly classified as expected tool behavior.">
+<meta property="og:url" content="https://hawkinsops.com/case-study-splunk-codex-hunt">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="When AI Tooling Looks Like a LOLBin: Splunk Process Hunt">
+<meta name="twitter:description" content="Live Splunk hunt on EventID 4688. Found codex.exe spawning pwsh.exe 375 times. Correctly classified as tool behavior. The exclusion logic is the artifact.">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.setAttribute('data-theme', 'dark');</script>
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-15-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+</head>
+<body>
+<nav>
+  <div class="nav-i">
+    <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
+    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
+    <ul class="nav-l">
+      <li><a href="/">Home</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
+      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
+      <li><a href="/detections">Detections</a></li>
+      <li><a href="/soc-lab">Lab</a></li>
+      <li><a href="/resume">Resume</a></li>
+    </ul>
+    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
+  </div>
+</nav>
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+  <a href="/">Home</a>
+  <a href="/proof">Proof</a>
+  <a href="/operations-bridge">Ops &rarr; Cyber</a>
+  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/detections">Detections</a>
+  <a href="/soc-lab">Lab</a>
+  <a href="/resume">Resume</a>
+</div>
+
+<main>
+<section style="padding-top:110px">
+  <div class="ctr" style="max-width:900px">
+
+    <div class="slbl">Threat hunting · Detection engineering</div>
+    <h1 class="stitle">When AI tooling looks like a LOLBin: a Splunk process hunt on EventID 4688</h1>
+    <p class="sdesc">
+      A live hunting session on Windows process creation logs found <code>pwsh.exe</code> being spawned hundreds of times from an unexpected parent.
+      The initial signal looked indistinguishable from Living-off-the-Land PowerShell abuse.
+      The investigation path — and the exclusion logic that came out of it — is the detection engineering artifact.
+    </p>
+
+    <div style="height:20px"></div>
+
+    <!-- PROBLEM -->
+    <div class="card">
+      <h2 class="card-ttl">Problem statement</h2>
+      <div class="card-sub">
+        <p>The goal was straightforward: validate Windows <code>EventID 4688</code> (process creation) telemetry in Splunk and build analyst-ready process pivot views.</p>
+        <p style="margin-top:10px">The first query returned 41 grouped process rows. The top entry by volume was <code>splunk-powershell.exe</code> from the Universal Forwarder — infrastructure noise, not analyst signal. That was expected and filtered first.</p>
+        <p style="margin-top:10px">After removing forwarder self-activity, the next highest-volume entry was this:</p>
+        <pre class="term-b" style="margin-top:14px;">NewProcessName:   pwsh.exe
+ParentProcessName: [unexpected deep path]
+Count:            1,840</pre>
+        <p style="margin-top:10px"><code>pwsh.exe</code> being spawned nearly 2,000 times in a single collection window, from a non-standard parent, with no obvious origin. That is the exact pattern a LOLBin abuse detection rule fires on.</p>
+      </div>
+    </div>
+
+    <div style="height:14px"></div>
+
+    <!-- WHY IT LOOKED SUSPICIOUS -->
+    <div class="card">
+      <h2 class="card-ttl">Why it initially looked suspicious</h2>
+      <div class="card-sub">
+        <p>Living-off-the-Land Binary (LOLBin) abuse is one of the most common attacker techniques for execution and defense evasion. The standard pattern:</p>
+        <ul style="padding-left:18px;margin-top:10px;line-height:1.8">
+          <li>A non-standard process spawns <code>powershell.exe</code> or <code>pwsh.exe</code></li>
+          <li>High spawn volume across a short window</li>
+          <li>Parent process name is unexpected or obscure</li>
+          <li>No corresponding user activity to explain the volume</li>
+        </ul>
+        <p style="margin-top:12px">This hit all four criteria. The parent process was not a known Windows system process, not an application the analyst recognized by name, and the spawn count was high enough to trigger any reasonable threshold rule.</p>
+        <p style="margin-top:10px">At this point the correct analyst move is not to dismiss it. It is to pull the full parent process path and trace the binary to a known, verifiable origin.</p>
+      </div>
+    </div>
+
+    <div style="height:14px"></div>
+
+    <!-- INVESTIGATION PATH -->
+    <div class="card">
+      <h2 class="card-ttl">Investigation path</h2>
+      <div class="card-sub">
+        <p><strong>Step 1 — Pull the full parent process path.</strong></p>
+        <p style="margin-top:8px">The abbreviated display name in the grouped stats view was not enough to classify. The investigation pivoted to the raw field to get the complete executable path:</p>
+        <pre class="term-b" style="margin-top:12px;">index=windows sourcetype=XmlWinEventLog:Security
+| rex field=_raw "&lt;EventID&gt;(?&lt;EventID&gt;\d+)&lt;/EventID&gt;"
+| rex field=_raw "&lt;Data Name='NewProcessName'&gt;(?&lt;NewProcessName&gt;[^&lt;]+)&lt;/Data&gt;"
+| rex field=_raw "&lt;Data Name='ParentProcessName'&gt;(?&lt;ParentProcessName&gt;[^&lt;]+)&lt;/Data&gt;"
+| search EventID=4688 NewProcessName="*pwsh.exe"
+| stats count by NewProcessName ParentProcessName
+| sort - count</pre>
+
+        <p style="margin-top:14px"><strong>Step 2 — Evaluate the full path.</strong></p>
+        <p style="margin-top:8px">The parent process resolved to the full executable path of the OpenAI Codex CLI tool — a Node.js-based AI coding assistant installed via npm:</p>
+        <pre class="term-b" style="margin-top:12px;">[npm_modules_path]\@openai\codex\...\codex-win32-x64\vendor\...\codex.exe</pre>
+        <p style="margin-top:10px">This is a known, versioned, published software package. The path is deterministic — it lives inside the npm module tree under a user's AppData directory, not in a temp folder, system directory, or path used by commodity malware loaders.</p>
+
+        <p style="margin-top:14px"><strong>Step 3 — Correlate spawn count to tool behavior.</strong></p>
+        <p style="margin-top:8px">The Codex CLI operates by spawning <code>pwsh.exe</code> to execute shell commands on behalf of the AI agent. Each tool call — file write, git command, script run — generates one or more process creation events. A coding session running dozens of operations over hours produces exactly this kind of volume.</p>
+        <p style="margin-top:10px">The pattern was also present in the secondary spawner chain:</p>
+        <pre class="term-b" style="margin-top:12px;">codex.exe             → codex-windows-sandbox-setup.exe  (465 events)
+codex-command-runner  → pwsh.exe                          (407 events)
+codex.exe             → git.exe                           (427 events)</pre>
+        <p style="margin-top:10px">This is the normal execution tree for an AI coding tool running in sandboxed mode. The whole process family traces back to a single known origin.</p>
+
+        <p style="margin-top:14px"><strong>Classification decision: expected tool behavior.</strong></p>
+        <p style="margin-top:8px">The determination was not "this looks safe so I'll ignore it." It was based on three verifiable criteria:</p>
+        <ol style="padding-left:18px;margin-top:8px;line-height:1.9">
+          <li>Parent binary path is deterministic and traces to a known published package</li>
+          <li>Spawn pattern matches the documented execution model of that tool</li>
+          <li>No indicators of compromise in adjacent process or network activity</li>
+        </ol>
+      </div>
+    </div>
+
+    <div style="height:14px"></div>
+
+    <!-- THE EXCLUSION FILTER -->
+    <div class="card">
+      <h2 class="card-ttl">The exclusion filter and what it produced</h2>
+      <div class="card-sub">
+        <p>After classification, the analyst view was rebuilt with forwarder self-activity and the verified AI tool process family excluded. The before/after comparison:</p>
+
+        <div class="g2" style="margin-top:16px;gap:16px">
+          <div style="background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:16px">
+            <div style="color:#94a3b8;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">Before — with noise</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;line-height:1.8">
+              <div>Grouped rows: <span style="color:#f87171">41</span></div>
+              <div>Total count: <span style="color:#f87171">220</span></div>
+              <div>Forwarder share: <span style="color:#f87171">70%</span></div>
+              <div>Top entry: <span style="color:#f87171">splunk-powershell.exe</span></div>
+            </div>
+          </div>
+          <div style="background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:16px">
+            <div style="color:#94a3b8;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">After — analyst view</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;line-height:1.8">
+              <div>Grouped rows: <span style="color:#4ade80">20</span></div>
+              <div>Total count: <span style="color:#4ade80">78</span></div>
+              <div>Forwarder share: <span style="color:#4ade80">0%</span></div>
+              <div>Top entries: <span style="color:#4ade80">python.exe, chrome.exe, SearchFilterHost.exe</span></div>
+            </div>
+          </div>
+        </div>
+
+        <p style="margin-top:16px">The resulting view shows analyst-relevant process behavior: expected system activity and user applications. The AI tool process family is excluded by a documented, reproducible filter — not silently dropped.</p>
+
+        <p style="margin-top:12px">The exclusion logic is explicit and reviewable:</p>
+        <pre class="term-b" style="margin-top:12px;">| search NOT (NewProcessName="*SplunkUniversalForwarder*"
+         OR ParentProcessName="*SplunkUniversalForwarder*")
+| search NOT (ParentProcessName="*\\@openai\\codex\\*"
+         OR ParentProcessName="*codex-command-runner*"
+         OR ParentProcessName="*codex-windows-sandbox-setup*")</pre>
+        <p style="margin-top:10px">The filter is scoped to known, versioned tool paths. It does not suppress all <code>pwsh.exe</code> spawns from non-standard parents — only the ones that trace to the specific verified origin. A real malicious spawner would not match this path and would remain visible.</p>
+      </div>
+    </div>
+
+    <div style="height:14px"></div>
+
+    <!-- WHY THIS MATTERS -->
+    <div class="card">
+      <h2 class="card-ttl">Why this matters for detection engineering</h2>
+      <div class="card-sub">
+        <p>AI-assisted coding tools are entering enterprise environments now. Security teams writing detection rules for LOLBin abuse — rules that correctly fire on <em>any non-standard parent spawning PowerShell</em> — will start seeing this pattern in production logs.</p>
+        <p style="margin-top:10px">If the analyst has not encountered this process family before, the alert looks real. The volume looks suspicious. The parent name is unfamiliar. It will generate false positives, alert fatigue, or a missed escalation depending on how the rule is tuned.</p>
+        <p style="margin-top:10px">The detection engineering response is not "add it to a global exclusion list." It is:</p>
+        <ol style="padding-left:18px;margin-top:10px;line-height:1.9">
+          <li>Identify the full binary path of the spawner</li>
+          <li>Confirm it traces to a known, versioned software package</li>
+          <li>Build a scoped exclusion that targets the specific tool path, not the behavior class</li>
+          <li>Document the decision so the next analyst can trace it</li>
+        </ol>
+        <p style="margin-top:12px">That is the same reasoning used to tune any enterprise detection rule when a legitimate tool matches a malicious pattern. The fact that the tool is an AI coding assistant makes it novel. The triage method is the same.</p>
+      </div>
+    </div>
+
+    <div style="height:14px"></div>
+
+    <!-- FULL SPL -->
+    <div class="card">
+      <h2 class="card-ttl">Complete SPL — base query and analyst view</h2>
+      <div class="card-sub">
+        <p style="margin-bottom:12px"><strong>Base grouped query (all process creation, with noise):</strong></p>
+        <pre class="term-b">index=windows sourcetype=XmlWinEventLog:Security
+| rex field=_raw "&lt;EventID&gt;(?&lt;EventID&gt;\d+)&lt;/EventID&gt;"
+| rex field=_raw "&lt;Data Name='NewProcessName'&gt;(?&lt;NewProcessName&gt;[^&lt;]+)&lt;/Data&gt;"
+| rex field=_raw "&lt;Data Name='ParentProcessName'&gt;(?&lt;ParentProcessName&gt;[^&lt;]+)&lt;/Data&gt;"
+| search EventID=4688
+| stats count by NewProcessName ParentProcessName
+| sort - count</pre>
+
+        <p style="margin-top:16px;margin-bottom:12px"><strong>Analyst view (forwarder and verified AI tool excluded):</strong></p>
+        <pre class="term-b">index=windows sourcetype=XmlWinEventLog:Security
+| rex field=_raw "&lt;EventID&gt;(?&lt;EventID&gt;\d+)&lt;/EventID&gt;"
+| rex field=_raw "&lt;Data Name='NewProcessName'&gt;(?&lt;NewProcessName&gt;[^&lt;]+)&lt;/Data&gt;"
+| rex field=_raw "&lt;Data Name='ParentProcessName'&gt;(?&lt;ParentProcessName&gt;[^&lt;]+)&lt;/Data&gt;"
+| search EventID=4688
+| search NOT (NewProcessName="*SplunkUniversalForwarder*"
+         OR ParentProcessName="*SplunkUniversalForwarder*")
+| search NOT (ParentProcessName="*\\@openai\\codex\\*"
+         OR ParentProcessName="*codex-command-runner*"
+         OR ParentProcessName="*codex-windows-sandbox-setup*"
+         OR NewProcessName="*codex-windows-sandbox-setup*")
+| stats count by NewProcessName ParentProcessName
+| sort - count</pre>
+
+        <p style="margin-top:12px;color:var(--muted);font-size:0.875rem">
+          Parsing uses <code>rex</code> field extraction from <code>XmlWinEventLog:Security</code> raw XML.
+          The forwarder exclusion removes collector self-activity.
+          The AI tool exclusion removes a verified-benign process family by specific executable path, not by behavior class.
+          Raw evidence CSVs available in the lab evidence register.
+        </p>
+      </div>
+    </div>
+
+    <div style="height:14px"></div>
+
+    <!-- ANALYST TAKEAWAY -->
+    <div class="card">
+      <h2 class="card-ttl">Analyst takeaway</h2>
+      <div class="card-sub">
+        <p>The finding is not that AI coding tools are dangerous. The finding is that they produce process trees that match the signature of known-malicious behavior, and that is going to be a real analyst problem as these tools proliferate in development environments.</p>
+        <p style="margin-top:10px">The correct response is the same one used for any false-positive triage: trace the binary, verify the origin, build a scoped exclusion, document the decision. The tooling is new. The methodology is not.</p>
+        <p style="margin-top:10px">The specific exclusion path above is a working artifact. Any environment running the same AI coding tool will see the same spawn pattern in their 4688 data.</p>
+      </div>
+    </div>
+
+    <div style="height:24px"></div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;padding-bottom:60px">
+      <a class="btn btn-p" href="/proof">Proof receipts</a>
+      <a class="btn" href="/case-study-autosoc">SignalFoundry case study</a>
+      <a class="btn" href="/detections">Detection library</a>
+      <a class="btn" href="/start-here">Start here</a>
+    </div>
+
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="ctr">
+    <p><b>HawkinsOps</b> • Eligible to obtain clearance; willing to pursue sponsorship.</p>
+    <div class="fl">
+      <a href="/resume">Resume</a>
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:raylee@hawkinsops.com">raylee@hawkinsops.com</a>
+    </div>
+    <p style="font-size:0.8rem;color:var(--muted);margin-top:6px">Eligible to obtain clearance; willing to pursue sponsorship.</p>
+  </div>
+</footer>
+
+<script src="/data/counts.js" defer></script>
+<script src="/data/ops-metrics.js" defer></script>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>
