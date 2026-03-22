@@ -12,6 +12,11 @@
 <meta property="og:description" content="SignalFoundry case study: AutoSOC engine implementation for Wazuh alert intake, policy-based triage, mandatory redaction, and escalation-ready evidence packs.">
 <meta property="og:url" content="https://hawkinsops.com/case-study-autosoc">
 <meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
+<!-- AutoSOC Decision Flow -->
+<div style="margin:24px 0;border-radius:10px;overflow:hidden;border:1px solid rgba(100,140,180,.13);">
+  <img src="/assets/autosoc-decision-flow.svg" alt="AutoSOC triage decision flow — Wazuh alerts through pipeline to three decision branches" loading="lazy" width="900" height="720" style="display:block;width:100%;height:auto;">
+</div>
+
 <meta property="og:image:width" content="1600">
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
@@ -29,6 +34,15 @@
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
 <link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<style>
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.15;} }
+body {
+  background:
+    radial-gradient(ellipse 100% 55% at 0% 0%,rgba(41,121,200,0.09) 0%,transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 100%,rgba(0,196,212,0.07) 0%,transparent 55%),
+    #03060b !important;
+}
+</style>
 </head>
 <body data-ops-scope="stable">
 <!-- @include:nav:start -->
@@ -80,8 +94,8 @@
       </div>
       <div class="m-proof-strip" style="margin-top:16px;">
         <div class="m-proof-inline">
-          <strong>Counts verified <span data-verified-date>03-15-2026</span></strong>
-          <strong>Heartbeat <span data-ops-status="stable_heartbeat">UNKNOWN</span></strong>
+          <strong>Counts verified <span data-verified-date>03-20-2026</span></strong>
+          <strong>Heartbeat <span data-ops-status="stable_heartbeat">SUCCESS</span></strong>
           <strong>Coverage <span data-ops="stable_coverage_ratio">—</span></strong>
           <strong>Metrics snapshot <span data-ops="stable_locked_date">—</span></strong>
         </div>

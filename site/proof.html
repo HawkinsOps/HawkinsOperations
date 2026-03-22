@@ -13,6 +13,15 @@
 <script>
   document.documentElement.setAttribute('data-theme', 'dark');
 </script>
+<style>
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.15;} }
+body {
+  background:
+    radial-gradient(ellipse 100% 55% at 0% 0%,rgba(41,121,200,0.09) 0%,transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 100%,rgba(0,196,212,0.07) 0%,transparent 55%),
+    #03060b !important;
+}
+</style>
 </head>
 <body>
 <nav>
@@ -48,21 +57,38 @@
       <p class="m-outcome">SignalFoundry proof page: public evidence, verified counts, verification commands, and current metrics contract.</p>
       <div class="m-proof-strip" style="margin-top:20px;">
         <div class="m-proof-inline">
-          <strong><span data-verified="detections">139</span> detections</strong>
-          <strong><span data-verified="sigma">103</span> Sigma</strong>
-          <strong><span data-verified="wazuh">28</span> Wazuh</strong>
-          <strong><span data-verified="ir">10</span> playbooks</strong>
-        </div>
-      </div>
-      <div class="m-proof-strip" style="margin-top:12px;" data-ops-scope="stable">
-        <div class="m-proof-inline">
-          <strong>Last verified <span data-verified-date>03-20-2026</span></strong>
-          <strong>Stable heartbeat <span data-ops-status="stable_heartbeat">SUCCESS</span></strong>
-          <strong>Stable coverage <span data-ops="stable_coverage_ratio">8/8</span></strong>
-          <strong>Stable cases <span data-ops="stable_total_cases">49,774</span></strong>
-          <strong>Stable escalated <span data-ops="stable_escalated">~2,500+</span></strong>
-          <strong>Stable known FP <span data-ops="stable_known_fp">N/A</span></strong>
-          <strong>Stable date <span data-ops="stable_locked_date">03-20-2026</span></strong>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0;">
+  <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #00c4d4;">
+    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Heartbeat</div>
+    <div style="font-size:24px;font-weight:700;color:#27c97a;font-family:'JetBrains Mono',monospace;display:flex;align-items:center;gap:8px;">
+      <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#27c97a;box-shadow:0 0 8px #27c97a;animation:blink 2s ease-in-out infinite;"></span>
+      <span data-ops-status="stable_heartbeat">SUCCESS</span>
+    </div>
+    <div style="font-size:9px;color:#486880;margin-top:4px;">Pipeline gate — operational</div>
+  </div>
+  <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #27c97a;">
+    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Host Coverage</div>
+    <div style="font-size:24px;font-weight:700;color:#27c97a;font-family:'JetBrains Mono',monospace;"><span data-ops="stable_coverage_ratio">8/8</span></div>
+    <div style="font-size:9px;color:#486880;margin-top:4px;">All endpoints reporting · 0 gaps</div>
+  </div>
+  <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #00c4d4;">
+    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Total Cases</div>
+    <div style="font-size:24px;font-weight:700;color:#00c4d4;font-family:'JetBrains Mono',monospace;"><span data-ops="stable_total_cases">49,774</span></div>
+    <div style="font-size:9px;color:#486880;margin-top:4px;">Ledger-verified · all runs</div>
+  </div>
+  <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #27c97a;">
+    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Reconciliation</div>
+    <div style="font-size:24px;font-weight:700;color:#27c97a;font-family:'JetBrains Mono',monospace;">PASS</div>
+    <div style="font-size:9px;color:#486880;margin-top:4px;">0 mismatches · <span data-ops="stable_escalated">2,478</span> escalations pub.</div>
+  </div>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(41,121,200,.1);color:#6aaad8;border:1px solid rgba(41,121,200,.2);"><span data-verified="sigma">103</span> Sigma</span>
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(0,196,212,.1);color:#00c4d4;border:1px solid rgba(0,196,212,.2);"><span data-verified="wazuh">28</span> Wazuh XML</span>
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(232,160,32,.1);color:#e8a020;border:1px solid rgba(232,160,32,.2);"><span data-verified="splunk">8</span> Splunk SPL</span>
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(39,201,122,.1);color:#27c97a;border:1px solid rgba(39,201,122,.2);"><span data-verified="ir">10</span> IR Playbooks</span>
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(100,140,180,.08);color:#486880;border:1px solid rgba(100,140,180,.13);">Last verified <span data-verified-date>03-20-2026</span></span>
+</div>
         </div>
       </div>
       <p class="m-copy" style="margin-top:12px;"><span data-ops="stable_statement">March 20 canonical snapshot: 49,774 total cases, ~89% auto-close, ~2,500+ escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
@@ -125,6 +151,22 @@
 <script src="/assets/fetch-utils.js" defer></script>
 <script src="/data/counts.js" defer></script>
 <script src="/data/ops-metrics.js" defer></script>
-<script src="/assets/app.js" defer></script>
+<script src="/assets/runtime.js" defer></script>
+<script>
+  (function () {
+    function loadHydrate() {
+      var s = document.createElement('script');
+      s.src = '/assets/hydrate.js';
+      s.defer = true;
+      document.body.appendChild(s);
+    }
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(function () { setTimeout(loadHydrate, 0); }, {timeout:1500});
+    } else {
+      window.addEventListener('load', loadHydrate);
+    }
+  })();
+</script>
 </body>
 </html>
+

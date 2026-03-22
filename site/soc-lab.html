@@ -27,6 +27,14 @@
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-4">
 <link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<style>
+body {
+  background:
+    radial-gradient(ellipse 100% 55% at 0% 0%,rgba(41,121,200,0.09) 0%,transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 100%,rgba(0,196,212,0.07) 0%,transparent 55%),
+    #03060b !important;
+}
+</style>
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -87,7 +95,12 @@
 <section>
   <div class="ctr">
     <div class="slbl">Architecture</div>
-    <h2 class="stitle">What's running and why</h2>
+    <h2 class="stitle">What's running and why
+<!-- Lab Topology Diagram -->
+<div style="margin:20px 0;border-radius:10px;overflow:hidden;border:1px solid rgba(100,140,180,.13);">
+  <img src="/assets/lab-topology.svg" alt="HawkinsOps lab topology — Proxmox host, Wazuh manager, Splunk, Windows endpoint, data flows" loading="lazy" width="960" height="540" style="display:block;width:100%;height:auto;">
+</div>
+</h2>
     <p class="sdesc">
       Single Proxmox host running multiple VMs. Windows 11 endpoint feeds Wazuh for detection, while Splunk now operates as a live investigation layer for Windows telemetry pivots.
       Everything runs on isolated RFC1918 subnets — test traffic stays in the lab, evidence comes out.
