@@ -26,9 +26,9 @@
   },
   "running_totals": {
     "total_cases": 49774,
+    "escalated": 2478,
     "auto_closed_benign": "~89%",
     "known_fp": "N/A",
-    "escalated": "~2,500+",
     "review": "N/A",
     "staged_pending": "N/A"
   },
