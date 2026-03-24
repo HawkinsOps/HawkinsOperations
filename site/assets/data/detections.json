@@ -6,7 +6,11 @@
       "count": 103,
       "format": "YAML",
       "location": "content/detection-rules/sigma/",
-      "tags": ["detection", "portable", "mitre"],
+      "tags": [
+        "detection",
+        "portable",
+        "mitre"
+      ],
       "evidence": [
         {
           "label": "Sigma Folder",
@@ -24,7 +28,11 @@
       "count": 28,
       "format": "XML rule blocks",
       "location": "content/detection-rules/wazuh/rules/",
-      "tags": ["siem", "xml", "deployment"],
+      "tags": [
+        "siem",
+        "xml",
+        "deployment"
+      ],
       "evidence": [
         {
           "label": "Wazuh Rules Folder",
@@ -39,10 +47,14 @@
     {
       "id": "splunk",
       "platform": "Splunk",
-      "count": 8,
+      "count": 9,
       "format": "SPL",
       "location": "content/detection-rules/splunk/",
-      "tags": ["search", "spl", "hunting"],
+      "tags": [
+        "search",
+        "spl",
+        "hunting"
+      ],
       "evidence": [
         {
           "label": "Splunk Detections",
@@ -60,7 +72,11 @@
       "count": 10,
       "format": "Markdown",
       "location": "content/incident-response/playbooks/",
-      "tags": ["response", "soc", "process"],
+      "tags": [
+        "response",
+        "soc",
+        "process"
+      ],
       "evidence": [
         {
           "label": "Playbooks Folder",

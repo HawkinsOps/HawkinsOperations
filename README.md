@@ -13,14 +13,16 @@ A security operations portfolio built around SignalFoundry, with the AutoSOC eng
 
 ---
 
-## Latest update (03-20-2026)
+## Latest update (03-24-2026)
 
-SignalFoundry proof lane and release metadata refreshed:
+Canonical metrics locked and all proof artifacts refreshed:
 
-- Proof page claim block now follows a tighter `TITLE / CLAIM / CONTEXT / EVIDENCE` structure with runtime metric bindings (no hard-coded numeric claims)
-- Candidate-facing proof artifacts synced for Wazuh honeypot and Grafana lanes under both `proof/` and `site/proof/`
-- Stable benchmark remains: 49,774 total cases, 2,478 escalated artifacts, 18,366 known false positives, 8/8 host coverage, heartbeat `SUCCESS`
-- Runtime and stable lanes remain generated from `data/metrics.json` -> `site/assets/data/ops-metrics.json`
+- Lifetime total cases: **54,700** (canonical baseline 49,774 + post-reset window 4,926)
+- Escalations: **2,531** published artifacts · Known FP: **5,453** · Auto-close rate: **~93%**
+- Reconciliation: **PASS (0 mismatches)** · Coverage: **8/8 hosts** (SCA enabled on HO-HONEYPOT-01) · Heartbeat: `SUCCESS`
+- Scorecard upgraded from WATCH → **PASS** (auto_close_benign_pct now 82.88%)
+- Ledger resilience hardened: atomic writes, 7-day dated backups, blank-ledger restore, double-seed guard, daily Z: drive snapshot
+- Runtime and stable lanes generated from `data/metrics.json` -> `site/assets/data/ops-metrics.json`
 - Operations runbook: `docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md`
 
 ---
