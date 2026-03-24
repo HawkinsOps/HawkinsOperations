@@ -1,19 +1,19 @@
 # AutoSOC Reconciliation
 
-- Generated UTC: 2026-03-04T16:34:42Z
+- Generated UTC: 2026-03-24T11:10:00Z
 - Repo root: `C:\OPS\Portfolio\HawkinsOperations`
 
 ## Counts
 
-- ledger_total_cases: 23167
-- ledger_escalated_metric: 2478
-- ledger_escalate_ids: 2478
-- ledger_escalated_status_ids: 2478
-- ledger_pending_escalate_ids: 0
+- ledger_total_cases: 54700
+- ledger_escalated_metric: 2531
+- ledger_escalate_ids: 2531
+- ledger_escalated_status_ids: 2479
+- ledger_pending_escalate_ids: 53
 - ledger_escalated_missing_repo_path: 0
 - repo_incident_dirs: 2480
-- repo_incident_dirs_autosoc_scoped: 2478
-- content_incidents: 2478
+- repo_incident_dirs_autosoc_scoped: 2479
+- content_incidents: 2479
 
 ## Mismatch Summary
 
@@ -42,4 +42,3 @@
 
 ### ledger_pending_escalate_ids (0)
 - none
-
