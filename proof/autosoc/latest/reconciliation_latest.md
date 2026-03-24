@@ -1,7 +1,7 @@
 # AutoSOC Reconciliation
 
 - Generated UTC: 2026-03-04T16:34:42Z
-- Repo root: `C:\RH\OPS\10_Portfolio\HawkinsOperations`
+- Repo root: `C:\OPS\Portfolio\HawkinsOperations`
 
 ## Counts
 
@@ -42,3 +42,4 @@
 
 ### ledger_pending_escalate_ids (0)
 - none
+
