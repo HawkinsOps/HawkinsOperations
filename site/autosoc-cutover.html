@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Infrastructure Cutover — AutoSOC Canonical Migration | HawkinsOps</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07070b">
+<meta name="description" content="Case study: migrating the AutoSOC production pipeline to a canonical root with preflight gating, zero legacy references, and signed proof artifact.">
+<link rel="canonical" href="https://hawkinsops.com/autosoc-cutover">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Infrastructure Cutover — AutoSOC Canonical Migration | HawkinsOps">
+<meta property="og:description" content="Case study: migrating a production SOC pipeline to a canonical root without downtime. Preflight gating, five retargeted scheduled tasks, legacy ref scan returning zero.">
+<meta property="og:url" content="https://hawkinsops.com/autosoc-cutover">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.setAttribute('data-theme','dark');</script>
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<style>
+body {
+  background:
+    radial-gradient(ellipse 100% 55% at 0% 0%,rgba(41,121,200,0.09) 0%,transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 100%,rgba(0,196,212,0.07) 0%,transparent 55%),
+    #03060b !important;
+}
+.cs-meta { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 0; }
+.cs-meta-tag {
+  padding:3px 12px; border-radius:20px; font-size:10px; font-weight:700;
+  font-family:'JetBrains Mono',monospace; letter-spacing:.5px;
+  background:rgba(41,121,200,.1); color:#6aaad8; border:1px solid rgba(41,121,200,.2);
+}
+.cs-meta-tag.green { background:rgba(39,201,122,.1); color:#27c97a; border-color:rgba(39,201,122,.2); }
+.cs-meta-tag.teal  { background:rgba(0,196,212,.1);  color:#00c4d4; border-color:rgba(0,196,212,.2); }
+.cs-prose { max-width:740px; }
+.cs-prose p { margin:0 0 16px; line-height:1.75; color:#b8cce0; font-size:1rem; }
+.cs-prose h2 { font-size:1.25rem; color:#e0eeff; margin:36px 0 10px; font-family:'Sora',sans-serif; }
+.cs-prose h3 { font-size:1rem; color:#00c4d4; margin:24px 0 8px; font-weight:600; }
+.cs-prose strong { color:#e0eeff; }
+.cs-step {
+  display:flex; gap:16px; align-items:flex-start; margin-bottom:10px;
+}
+.cs-step-num {
+  flex-shrink:0; width:28px; height:28px; border-radius:50%;
+  background:rgba(0,196,212,.15); border:1px solid rgba(0,196,212,.3);
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:700; color:#00c4d4; font-family:'JetBrains Mono',monospace;
+  margin-top:2px;
+}
+.cs-nav-back { font-size:.82rem; color:#486880; margin-bottom:24px; display:inline-block; }
+.cs-nav-back:hover { color:#00c4d4; }
+.outcome-bar {
+  border-left:3px solid #27c97a; padding:14px 18px; background:rgba(39,201,122,.05);
+  border-radius:0 6px 6px 0; margin:24px 0;
+}
+.outcome-bar p { margin:0; color:#b8cce0; line-height:1.7; }
+.outcome-bar strong { color:#27c97a; }
+</style>
+</head>
+<body data-ops-scope="stable">
+<nav>
+  <div class="nav-i">
+    <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
+    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
+    <ul class="nav-l">
+      <li><a href="/">Home</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
+      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
+      <li><a href="/detections">Detections</a></li>
+      <li><a href="/soc-lab">Lab</a></li>
+      <li><a href="/resume">Resume</a></li>
+    </ul>
+    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
+  </div>
+</nav>
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+  <a href="/">Home</a>
+  <a href="/proof">Proof</a>
+  <a href="/operations-bridge">Ops &rarr; Cyber</a>
+  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/detections">Detections</a>
+  <a href="/soc-lab">Lab</a>
+  <a href="/resume">Resume</a>
+</div>
+
+<main class="modernize-shell">
+<section class="m-section" style="padding-top:96px;">
+  <div class="m-wrap">
+    <a class="cs-nav-back" href="/case-studies">&larr; All field notes</a>
+    <div class="m-eyebrow">Field Note &mdash; Infrastructure</div>
+    <h1 class="m-title" style="font-size:clamp(2rem,3.5vw,3.2rem);max-width:820px;">
+      AutoSOC Infrastructure Cutover
+    </h1>
+    <p class="m-subtitle" style="max-width:680px;">Migrating a production SOC pipeline to a canonical root without downtime.</p>
+    <div class="cs-meta">
+      <span class="cs-meta-tag">2026-03-23</span>
+      <span class="cs-meta-tag teal">Infrastructure migration</span>
+      <span class="cs-meta-tag">Windows Task Scheduler</span>
+      <span class="cs-meta-tag green">CUTOVER_READY=YES</span>
+      <span class="cs-meta-tag">Preflight gating</span>
+    </div>
+  </div>
+</section>
+
+<section class="m-section m-stage">
+  <div class="m-wrap">
+    <div class="m-wrap m-rail-layout">
+      <div class="cs-prose">
+
+        <h2>The Problem</h2>
+        <p>My home lab SOC pipeline — AutoSOC — had grown across two legacy roots: <span class="m-inline-code">C:\RH\OPS\</span> and <span class="m-inline-code">C:\Operations\</span>. Scripts, configs, scheduled tasks, and log output were split between them. This created real operational risk: any path assumption in one location could silently break something referencing the other. As the system scaled, so did the surface area for that failure. The fix wasn't optional — it was a prerequisite for the system being trustworthy long-term.</p>
+        <p>The goal: consolidate everything under a single canonical root (<span class="m-inline-code">C:\OPS\</span>) and prove the cutover was clean before declaring it complete.</p>
+
+        <h2>The Approach</h2>
+        <p>I didn't want to do this as a manual drag-and-drop. The risk of leaving a stale reference behind — one script still pointing at <span class="m-inline-code">C:\RH\OPS\</span>, one scheduled task still running from the wrong path — is exactly the kind of silent failure that's hard to catch until something breaks at 2am.</p>
+        <p>So I built the cutover around a preflight gate: a validation script that scanned the environment for any remaining legacy path references before the cutover was declared complete. The rule was simple — if the legacy reference file count wasn't zero, the cutover wasn't done.</p>
+
+        <h2>Execution</h2>
+        <p>I retargeted five Windows Task Scheduler tasks to point at the canonical <span class="m-inline-code">C:\OPS\</span> paths:</p>
+
+        <div class="m-terminal" style="margin:20px 0;">
+          <div class="m-terminal-head">
+            <span class="m-terminal-label">Scheduled tasks — post-retarget</span>
+            <span class="m-frame-tag">Task Scheduler</span>
+          </div>
+          <pre class="m-code">=== \AutoSOC-Pipeline ===
+C:\Python314\python.exe "C:\OPS\Control\Automation\AutoSOC\run-pipeline.py"
+
+=== \OPS_AutoSOC_Contract_Daily ===
+pwsh.exe -File "C:\OPS\Control\Automation\AutoSOC\run-autosoc-contract-task.ps1"
+
+=== \AutoSOC-March-Progress-12h ===
+pwsh.exe -File "C:\OPS\Control\Automation\AutoSOC\refresh-march-soc-progress.ps1"
+
+=== \OPS_DriftHotspots_Daily ===
+pwsh.exe -File "C:\OPS\Control\Automation\Maintenance\run-drift-hotspots-task.ps1"
+
+=== \AutoSOC_SystemJournal_March_2026 ===
+pwsh.exe -File "C:\OPS\Control\Automation\SystemJournal\run_system_journal_task.ps1"</pre>
+        </div>
+
+        <p>All five tasks run as my user account, with no elevated permission shortcuts — if it doesn't work under normal runtime conditions, I want to know immediately.</p>
+        <p>Scripts were also updated to use <span class="m-inline-code">assert_not_legacy_path()</span> guards inside <span class="m-inline-code">common.py</span>, so any future code that accidentally references a legacy root fails loudly at startup rather than silently degrading.</p>
+
+        <h2>Validation</h2>
+        <p>With the retargeting done, I ran the preflight script. The output:</p>
+
+        <div class="m-terminal" style="margin:20px 0;">
+          <div class="m-terminal-head">
+            <span class="m-terminal-label">Preflight output — 2026-03-23</span>
+            <span class="m-frame-tag">RESULT=PASS</span>
+          </div>
+          <pre class="m-code">CHECK CONFIG_ENV              exists=True
+CHECK CONFIG_POLICY           exists=True
+CHECK CONFIG_KNOWN_FPS        exists=True
+CHECK CONFIG_AGENT_INVENTORY  exists=True
+CHECK OUTPUT_ROOT             exists=True
+CHECK LOGS_ROOT               exists=True
+CHECK LEGACY_REFERENCE_FILES  count=0
+RESULT=PASS</pre>
+        </div>
+
+        <p>Legacy reference file count: <strong>zero</strong>. The preflight gate cleared.</p>
+        <p>I then ran the contract pipeline manually against the new canonical paths and confirmed it completed successfully end-to-end — build manifest, pre-validation, index build, post-validation — all steps returning <span class="m-inline-code">STEP_OK</span>. Runtime logs and operator card output were writing to <span class="m-inline-code">C:\OPS\</span> roots. The heartbeat snapshot confirmed the latest pipeline run returned <span class="m-inline-code">SUCCESS</span>.</p>
+        <p>A signed cutover proof document was generated with the full preflight output, task scheduler configuration dump, heartbeat snapshot, and contract log tail. The cutover was declared complete.</p>
+
+        <div class="m-terminal" style="margin:20px 0;">
+          <div class="m-terminal-head">
+            <span class="m-terminal-label">Heartbeat snapshot — post-cutover</span>
+            <span class="m-frame-tag">Pipeline</span>
+          </div>
+          <pre class="m-code">run_id:       autosoc-20260323T232901Z-23024
+status:       SUCCESS
+pipeline_mode: full
+freshness.status: PASS</pre>
+        </div>
+
+        <h2>Outcome</h2>
+        <div class="outcome-bar">
+          <p>The AutoSOC pipeline — which processes a live queue of security alerts from a Wazuh SIEM across multiple hosts — now runs entirely from a single canonical root. No legacy path dependencies in the scheduler, the scripts, or the runtime output. The system is easier to reason about, easier to back up, and easier to hand off. If something breaks, the path to root cause is shorter.</p>
+        </div>
+        <p>The cutover took one working session. The proof artifact documents it permanently at <span class="m-inline-code">C:\OPS\_Canonical\CUTOVER_PROOF_2026-03-23.md</span>.</p>
+
+        <h2>What This Demonstrates</h2>
+        <p>I don't do infrastructure changes on faith. I build the gate first, run the migration through it, and don't declare done until the evidence says so. The preflight validator, the zero-reference scan, the signed proof document — none of that was required. I did it because that's how you know a change actually landed versus how you hope it did.</p>
+        <p>That distinction matters in any environment where the system is expected to keep working after you walk away from it.</p>
+
+      </div>
+
+      <aside class="m-rail">
+        <section class="m-rail-section">
+          <div class="m-card-kicker">At a glance</div>
+          <h2>What happened</h2>
+          <ul class="m-list-tight">
+            <li>Production SOC pipeline consolidated to single canonical root</li>
+            <li>Five Windows Task Scheduler tasks retargeted</li>
+            <li>Preflight validator returned legacy reference count = 0</li>
+            <li>Cutover proof document generated and signed</li>
+            <li>Pipeline heartbeat: <strong>SUCCESS</strong> post-cutover</li>
+          </ul>
+        </section>
+        <section class="m-rail-section">
+          <div class="m-card-kicker">Proof artifact</div>
+          <h2>Verification</h2>
+          <p class="m-subtitle">The signed cutover proof document captures all preflight output, task configuration, and runtime logs in a single reviewable artifact.</p>
+          <ul class="m-list-tight">
+            <li><span class="m-inline-code">CUTOVER_PROOF_2026-03-23.md</span></li>
+            <li><span class="m-inline-code">CUTOVER_READY=YES</span></li>
+            <li>LEGACY_REFERENCE_FILES: 0</li>
+          </ul>
+        </section>
+        <section class="m-rail-section">
+          <div class="m-card-kicker">Related</div>
+          <h2>See also</h2>
+          <div class="m-link-list">
+            <a href="/autosoc-hotfix-rca" class="m-link-item">
+              <strong>Hotfix RCA</strong>
+              <span>Function-order bug that broke chart rendering — diagnosed and fixed same session.</span>
+            </a>
+            <a href="/case-study-autosoc" class="m-link-item">
+              <strong>SignalFoundry case study</strong>
+              <span>Full architecture, triage logic, and recovery model for the AutoSOC system.</span>
+            </a>
+            <a href="/proof" class="m-link-item">
+              <strong>Proof page</strong>
+              <span>Verified metrics, reconciliation status, and canonical snapshot.</span>
+            </a>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="m-section m-stage">
+  <div class="m-wrap">
+    <div class="m-card">
+      <div class="m-card-kicker">Continue reading</div>
+      <h2>Field notes</h2>
+      <div class="m-grid-2">
+        <a href="/autosoc-hotfix-rca" class="m-link-item">
+          <strong>Hotfix RCA — Triage Quality Chart</strong>
+          <span>Function-order bug: Assert-CanonicalPath called before declaration. EXIT=0 after fix. 104KB chart artifact confirmed.</span>
+        </a>
+        <a href="/case-study-autosoc" class="m-link-item">
+          <strong>SignalFoundry — Full Case Study</strong>
+          <span>Architecture, triage logic, proof strips, and the full operational story behind this pipeline.</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="ctr">
+    <p><b>HawkinsOps</b> &bull; Huntsville-adjacent (North Alabama)</p>
+    <div class="fl">
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">LinkedIn</a>
+      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/fetch-utils.js" defer></script>
+<script src="/data/counts.js" defer></script>
+<script src="/data/ops-metrics.js" defer></script>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>

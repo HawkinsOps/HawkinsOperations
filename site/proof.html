@@ -135,6 +135,24 @@ body {
         <h2>Validation path</h2>
         <p class="m-copy">Clone the repository, run the public verification commands, then compare the output to the published proof artifacts. The operational strip above reflects the latest committed proof snapshot, not a hand-maintained health claim.</p>
       </article>
+      <article class="m-card" style="grid-column:1/-1;">
+        <div class="m-card-kicker">Field notes</div>
+        <h2>Engineering case studies</h2>
+        <p class="m-copy">Operational decisions documented from source evidence — pipeline logs, preflight output, scheduler metadata. Not post-hoc summaries.</p>
+        <div class="m-grid-2" style="margin-top:12px;">
+          <a href="/autosoc-cutover" class="m-link-item">
+            <strong>Infrastructure Cutover &mdash; 2026-03-23</strong>
+            <span>Production migration to canonical root. Preflight gate returned legacy refs = 0. Five Task Scheduler tasks retargeted. CUTOVER_READY=YES.</span>
+          </a>
+          <a href="/autosoc-hotfix-rca" class="m-link-item">
+            <strong>Hotfix RCA: Triage Quality Chart &mdash; 2026-03-23</strong>
+            <span>Function-order bug silently breaking chart rendering. Diagnosed from runtime log, fixed, validated EXIT=0. 104KB artifact confirmed.</span>
+          </a>
+        </div>
+        <div style="margin-top:12px;">
+          <a href="/case-studies" class="m-cta m-cta-secondary">All field notes &rarr;</a>
+        </div>
+      </article>
     </div>
   </section>
 </main>

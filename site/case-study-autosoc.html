@@ -375,6 +375,29 @@ outcome: reduced false-positive pressure while preserving escalation path</pre>
   </div>
 </section>
 
+<section class="m-section m-stage">
+  <div class="m-wrap">
+    <div class="m-card">
+      <div class="m-card-kicker">Field notes</div>
+      <h2>Engineering case studies</h2>
+      <p class="m-copy">Documented operational decisions from the AutoSOC project — infrastructure migrations and incident RCAs with source evidence, not post-hoc summaries.</p>
+      <div class="m-grid-2" style="margin-top:16px;">
+        <a href="/autosoc-cutover" class="m-link-item">
+          <strong>Infrastructure Cutover &mdash; 2026-03-23</strong>
+          <span>Production migration to canonical root. Preflight gate, five retargeted Task Scheduler tasks, legacy ref count = 0. CUTOVER_READY=YES with signed proof artifact.</span>
+        </a>
+        <a href="/autosoc-hotfix-rca" class="m-link-item">
+          <strong>Hotfix RCA: Triage Quality Chart &mdash; 2026-03-23</strong>
+          <span>Assert-CanonicalPath called before declaration. Function moved above call site. EXIT=0, 30 data points rendered, 104KB artifact confirmed. Parent pipeline validated.</span>
+        </a>
+      </div>
+      <div style="margin-top:16px;">
+        <a href="/case-studies" class="m-cta m-cta-secondary">All field notes &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="m-section m-stage m-stage-next">
   <div class="m-wrap">
     <div class="m-card">
