@@ -8,9 +8,13 @@ detection-rules/wazuh/_incoming/
 *.7z
 *.rar
 
+# Local staging bundles (never commit)
+deploy_*/
+
 # Local duplicates/backups (do not commit)
 HawkinsOperations/
 HawkinsOperations_BACKUP_before_v1.0.1/
+phase0_discovery_log_*.md
 
 # Sensitive data
 **/Credentials/**
