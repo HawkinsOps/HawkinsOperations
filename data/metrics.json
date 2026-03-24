@@ -7,7 +7,7 @@
     "total_cases": 49774,
     "auto_closed_benign": "~89%",
     "known_fp": "N/A",
-    "escalated": "~2,500+",
+    "escalated": 2478,
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
     "locked_date": "03-20-2026",
