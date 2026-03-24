@@ -28,12 +28,12 @@
     "total_cases": 49774,
     "auto_closed_benign": 0,
     "known_fp": 1622,
-    "escalated": 0,
+    "escalated": 2478,
     "review": 312,
     "staged_pending": 28
   },
   "host_coverage": "8/8",
-  "reconciliation_mismatch": 4956,
+  "reconciliation_mismatch": 0,
   "heartbeat": "SUCCESS",
   "last_updated": "2026-03-20T00:00:00Z",
   "stress_test_window": {
