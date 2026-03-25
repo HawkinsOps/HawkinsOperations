@@ -10,14 +10,14 @@
    ============================================ */
 
 :root {
-  --glow-brand: rgba(122, 184, 255, 0.15);
-  --glow-brand-strong: rgba(122, 184, 255, 0.25);
-  --glass-bg: rgba(13, 18, 25, 0.65);
-  --glass-border: rgba(255, 255, 255, 0.07);
-  --glass-border-hover: rgba(122, 184, 255, 0.22);
+  --glow-brand: rgba(122, 184, 255, 0.18);
+  --glow-brand-strong: rgba(122, 184, 255, 0.30);
+  --glass-bg: rgba(10, 14, 22, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-border-hover: rgba(122, 184, 255, 0.28);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --transition-base: 0.28s var(--ease-out-expo);
-  --starfield-opacity: 0.6;
+  --starfield-opacity: 1;
 }
 
 
@@ -30,10 +30,12 @@
 
 html body {
   background:
-    radial-gradient(ellipse 80% 50% at 50% 20%, rgba(59, 143, 217, 0.04), transparent),
-    #04060a !important;
+    radial-gradient(ellipse 90% 60% at 50% 15%, rgba(59, 143, 217, 0.06), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(100, 60, 180, 0.03), transparent 60%),
+    #030508 !important;
 }
 
+/* Layer 1: Dense small stars (white + cool white) — near field */
 html body::before {
   content: '' !important;
   position: fixed !important;
@@ -41,24 +43,28 @@ html body::before {
   z-index: 0 !important;
   pointer-events: none !important;
   background:
-    radial-gradient(0.8px 0.8px at 50% 50%, rgba(255,255,255,0.45), transparent),
-    radial-gradient(0.6px 0.6px at 50% 50%, rgba(200,220,255,0.35), transparent),
-    radial-gradient(1px 1px at 50% 50%, rgba(140,190,255,0.5), transparent),
-    radial-gradient(0.5px 0.5px at 50% 50%, rgba(255,255,255,0.25), transparent) !important;
+    radial-gradient(1.2px 1.2px at 50% 50%, rgba(255,255,255,0.7), transparent 70%),
+    radial-gradient(1px 1px at 50% 50%, rgba(220,235,255,0.55), transparent 70%),
+    radial-gradient(1.5px 1.5px at 50% 50%, rgba(180,210,255,0.65), transparent 70%),
+    radial-gradient(0.8px 0.8px at 50% 50%, rgba(255,255,255,0.4), transparent 70%),
+    radial-gradient(1px 1px at 50% 50%, rgba(200,225,255,0.5), transparent 70%) !important;
   background-size:
     173px 157px,
     229px 199px,
     337px 283px,
-    127px 113px !important;
+    127px 113px,
+    293px 251px !important;
   background-position:
     0 0,
     43px 67px,
     91px 37px,
-    11px 23px !important;
+    11px 23px,
+    67px 131px !important;
   opacity: var(--starfield-opacity) !important;
-  animation: starfield-drift 220s linear infinite !important;
+  animation: starfield-drift 180s linear infinite !important;
 }
 
+/* Layer 2: Sparse bright stars (blue-white) — far field, slower */
 html body::after {
   content: '' !important;
   position: fixed !important;
@@ -66,16 +72,19 @@ html body::after {
   z-index: 0 !important;
   pointer-events: none !important;
   background:
-    radial-gradient(1.2px 1.2px at 50% 50%, rgba(160,200,255,0.6), transparent),
-    radial-gradient(1.5px 1.5px at 50% 50%, rgba(100,170,255,0.35), transparent) !important;
+    radial-gradient(2px 2px at 50% 50%, rgba(180,215,255,0.8), transparent 70%),
+    radial-gradient(2.5px 2.5px at 50% 50%, rgba(140,190,255,0.5), transparent 70%),
+    radial-gradient(1.5px 1.5px at 50% 50%, rgba(220,240,255,0.6), transparent 70%) !important;
   background-size:
     409px 367px,
-    601px 509px !important;
+    601px 509px,
+    503px 443px !important;
   background-position:
     61px 47px,
-    149px 97px !important;
-  opacity: calc(var(--starfield-opacity) * 0.45) !important;
-  animation: starfield-drift-deep 340s linear infinite !important;
+    149px 97px,
+    211px 173px !important;
+  opacity: 0.55 !important;
+  animation: starfield-drift-deep 300s linear infinite !important;
 }
 
 @keyframes starfield-drift {
@@ -122,12 +131,13 @@ article.sf-metric {
 .card:hover,
 .lane-card:hover,
 article.sf-metric:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   border-color: var(--glass-border-hover) !important;
   box-shadow:
-    0 14px 40px rgba(0, 0, 0, 0.35),
-    0 0 24px var(--glow-brand),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    0 16px 48px rgba(0, 0, 0, 0.4),
+    0 0 30px var(--glow-brand),
+    0 0 60px rgba(59, 143, 217, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .sf-card:active,
