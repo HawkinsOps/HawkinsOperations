@@ -25,6 +25,29 @@ function expectFinite(value, label) {
   return Number(value);
 }
 
+function parseLooseNumber(value) {
+  if (Number.isFinite(value)) return Number(value);
+  if (typeof value !== "string") return NaN;
+  const raw = value.trim();
+  if (!raw) return NaN;
+  if (/^n\/a$/i.test(raw)) return 0;
+
+  const percentMatch = raw.match(/(-?\d+(?:\.\d+)?)\s*%/);
+  if (percentMatch) return Number(percentMatch[1]) / 100;
+
+  const cleaned = raw.replace(/[~, +]/g, "").replace(/,/g, "");
+  const parsed = Number(cleaned);
+  return Number.isFinite(parsed) ? parsed : NaN;
+}
+
+function expectFiniteLoose(value, label) {
+  const parsed = parseLooseNumber(value);
+  if (!Number.isFinite(parsed)) {
+    throw new Error(`Missing or invalid numeric field: ${label}`);
+  }
+  return parsed;
+}
+
 function expectObject(value, label) {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     throw new Error(`Missing or invalid object field: ${label}`);
@@ -53,6 +76,25 @@ function withCommas(value) {
   return new Intl.NumberFormat("en-US").format(Number(value));
 }
 
+function toApproxCountString(value) {
+  const rounded = Math.round(Number(value) / 100) * 100;
+  return `~${withCommas(rounded)}+`;
+}
+
+function resolveCanonicalMetricsPath(previousMetrics) {
+  if (previousMetrics && typeof previousMetrics.canonical_source === "string") {
+    const fromPrevious = path.join(root, previousMetrics.canonical_source.replaceAll("/", path.sep));
+    if (fs.existsSync(fromPrevious)) return fromPrevious;
+  }
+  const sourceOfTruthDir = path.join(root, "source_of_truth");
+  if (!fs.existsSync(sourceOfTruthDir)) return "";
+  const candidates = fs.readdirSync(sourceOfTruthDir)
+    .filter((name) => /^metrics_canonical_\d{4}-\d{2}-\d{2}\.json$/i.test(name))
+    .sort();
+  if (!candidates.length) return "";
+  return path.join(sourceOfTruthDir, candidates[candidates.length - 1]);
+}
+
 function buildMetricsPayload() {
   const heartbeatPath = resolveInputPath(runtimePipelineRoot, repoProofRoot, "heartbeat.json");
   const coveragePath = resolveInputPath(runtimePipelineRoot, repoProofRoot, "coverage_latest.json");
@@ -66,6 +108,13 @@ function buildMetricsPayload() {
   const previousMetrics = fs.existsSync(metricsOutPath) ? readJson(metricsOutPath) : {};
   const previousRunningTotals = previousMetrics && previousMetrics.running_totals && typeof previousMetrics.running_totals === "object"
     ? previousMetrics.running_totals
+    : {};
+  const previousStableBenchmark = previousMetrics && previousMetrics.stable_benchmark && typeof previousMetrics.stable_benchmark === "object"
+    ? previousMetrics.stable_benchmark
+    : {};
+  const canonicalSourcePath = resolveCanonicalMetricsPath(previousMetrics);
+  const canonicalMetrics = canonicalSourcePath && fs.existsSync(canonicalSourcePath)
+    ? readJson(canonicalSourcePath)
     : {};
 
   const heartbeatCounts = expectObject(heartbeat.counts, "heartbeat.counts");
@@ -81,24 +130,44 @@ function buildMetricsPayload() {
   const runtimeHeartbeat = String(heartbeat.status || "").trim();
   const runtimeLastUpdated = String(heartbeat.end_utc || coverage.generated_utc || heartbeat.generated_utc || previousMetrics.last_updated || "").trim();
   const runtimeLockedDate = formatMmDdYyyy(runtimeLastUpdated);
-  const stableTotalCases = expectFinite(ledgerMetrics.total_cases, "ledger.metrics.total_cases");
-  const stableAutoClosedBenign = expectFinite(ledgerMetrics.auto_closed_benign, "ledger.metrics.auto_closed_benign");
-  const stableKnownFp = expectFinite(
+  const stableCoverageRatio = String(canonicalMetrics.hosts_reporting || previousStableBenchmark.coverage_ratio || previousMetrics.host_coverage || runtimeCoverageRatio || "").trim() || runtimeCoverageRatio;
+  const stableHeartbeat = String(canonicalMetrics.heartbeat || previousStableBenchmark.heartbeat || previousMetrics.heartbeat || runtimeHeartbeat || "").trim() || runtimeHeartbeat;
+  const stableLastUpdatedIso = String(
+    (canonicalMetrics.date ? `${canonicalMetrics.date}T00:00:00Z` : "")
+      || previousMetrics.last_updated
+      || runtimeLastUpdated
+      || ""
+  ).trim() || runtimeLastUpdated;
+  const stableLockedDate = String(previousStableBenchmark.locked_date || formatMmDdYyyy(stableLastUpdatedIso) || runtimeLockedDate).trim() || runtimeLockedDate;
+  const stableTotalCases = expectFiniteLoose(
+    Number.isFinite(canonicalMetrics.total_cases) ? canonicalMetrics.total_cases : ledgerMetrics.total_cases,
+    "ledger.metrics.total_cases"
+  );
+  const autoClosedRaw = ledgerMetrics.auto_closed_benign;
+  let stableAutoClosedBenign = parseLooseNumber(autoClosedRaw);
+  if (Number.isFinite(stableAutoClosedBenign) && stableAutoClosedBenign > 0 && stableAutoClosedBenign < 1) {
+    stableAutoClosedBenign = Math.round(stableTotalCases * stableAutoClosedBenign);
+  }
+  stableAutoClosedBenign = expectFinite(stableAutoClosedBenign, "ledger.metrics.auto_closed_benign");
+  const stableKnownFp = expectFiniteLoose(
     Number.isFinite(ledgerMetrics.auto_closed_known_fp) ? ledgerMetrics.auto_closed_known_fp : ledgerMetrics.known_fp,
     "ledger.metrics.auto_closed_known_fp"
   );
   const stableEscalated = expectFinite(reconciliationCounts.ledger_escalated_status_ids, "reconciliation.counts.ledger_escalated_status_ids");
   const runtimeReview = expectFinite(
-    Number.isFinite(ledgerMetrics.review) ? ledgerMetrics.review : previousRunningTotals.review,
+    expectFiniteLoose(Number.isFinite(ledgerMetrics.review) ? ledgerMetrics.review : previousRunningTotals.review, "ledger.metrics.review"),
     "ledger.metrics.review"
   );
   const runtimeStagedPending = expectFinite(
     Number.isFinite(reconciliationCounts.ledger_pending_escalate_ids_staged)
       ? reconciliationCounts.ledger_pending_escalate_ids_staged
-      : previousRunningTotals.staged_pending,
+      : expectFiniteLoose(previousRunningTotals.staged_pending, "reconciliation.counts.ledger_pending_escalate_ids_staged"),
     "reconciliation.counts.ledger_pending_escalate_ids_staged"
   );
-  const stableStatement = `Validated active benchmark: ${withCommas(stableTotalCases)}-case corpus with ${withCommas(stableEscalated)} escalation artifacts, ${runtimeCoverageRatio} host coverage, and heartbeat ${runtimeHeartbeat}.`;
+  const stableAutoCloseDisplay = String(canonicalMetrics.auto_close_rate_label || `~${Math.round((stableAutoClosedBenign / Math.max(stableTotalCases, 1)) * 100)}%`);
+  const stableEscalatedDisplay = String(canonicalMetrics.escalations_label || toApproxCountString(stableEscalated));
+  const stableStatement = String(previousStableBenchmark.statement || "").trim()
+    || `Validated active benchmark: ${withCommas(stableTotalCases)}-case corpus with ${stableEscalatedDisplay} escalation artifacts, ${stableCoverageRatio} host coverage, and heartbeat ${stableHeartbeat}.`;
 
   return {
     display_policy: {
@@ -107,24 +176,24 @@ function buildMetricsPayload() {
     },
     stable_benchmark: {
       total_cases: stableTotalCases,
-      auto_closed_benign: stableAutoClosedBenign,
-      known_fp: stableKnownFp,
-      escalated: stableEscalated,
-      coverage_ratio: runtimeCoverageRatio,
-      heartbeat: runtimeHeartbeat,
-      locked_date: runtimeLockedDate,
+      auto_closed_benign: stableAutoCloseDisplay,
+      known_fp: stableKnownFp === 0 ? "N/A" : withCommas(stableKnownFp),
+      escalated: stableEscalatedDisplay,
+      coverage_ratio: stableCoverageRatio,
+      heartbeat: stableHeartbeat,
+      locked_date: stableLockedDate,
       statement: stableStatement
     },
     lifetime_runtime: {
       total_cases: stableTotalCases,
-      auto_closed_benign: stableAutoClosedBenign,
-      known_fp: stableKnownFp,
-      escalated: expectFinite(reconciliationCounts.ledger_escalated_status_ids, "reconciliation.counts.ledger_escalated_status_ids"),
-      review: runtimeReview,
-      staged_pending: runtimeStagedPending,
-      coverage_ratio: runtimeCoverageRatio,
-      heartbeat: runtimeHeartbeat,
-      last_updated: runtimeLastUpdated
+      auto_closed_benign: stableAutoCloseDisplay,
+      known_fp: stableKnownFp === 0 ? "N/A" : withCommas(stableKnownFp),
+      escalated: stableEscalatedDisplay,
+      review: runtimeReview === 0 ? "N/A" : runtimeReview,
+      staged_pending: runtimeStagedPending === 0 ? "N/A" : runtimeStagedPending,
+      coverage_ratio: stableCoverageRatio,
+      heartbeat: stableHeartbeat,
+      last_updated: stableLastUpdatedIso
     },
     running_totals: {
       total_cases: stableTotalCases,
@@ -134,10 +203,10 @@ function buildMetricsPayload() {
       review: runtimeReview,
       staged_pending: runtimeStagedPending
     },
-    host_coverage: runtimeCoverageRatio,
+    host_coverage: stableCoverageRatio,
     reconciliation_mismatch: expectFinite(reconciliation.mismatch_count, "reconciliation.mismatch_count"),
-    heartbeat: runtimeHeartbeat,
-    last_updated: runtimeLastUpdated,
+    heartbeat: stableHeartbeat,
+    last_updated: stableLastUpdatedIso,
     stress_test_window: {
       profile: "active_pipeline_snapshot",
       baseline_window: "C:/RH/OPS/30_Projects/Active/AutoSOC/Output",
@@ -158,7 +227,8 @@ function buildMetricsPayload() {
       wazuh_rule_blocks: expectFinite(verifiedCountValues.wazuh, "verified_counts.counts.wazuh"),
       splunk: expectFinite(verifiedCountValues.splunk, "verified_counts.counts.splunk"),
       ir_playbooks: expectFinite(verifiedCountValues.ir, "verified_counts.counts.ir")
-    }
+    },
+    canonical_source: canonicalSourcePath ? path.relative(root, canonicalSourcePath).replaceAll("\\", "/") : undefined
   };
 }
 

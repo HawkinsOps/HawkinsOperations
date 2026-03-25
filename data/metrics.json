@@ -6,8 +6,8 @@
   "stable_benchmark": {
     "total_cases": 49774,
     "auto_closed_benign": "~89%",
-    "known_fp": "N/A",
-    "escalated": "~2,500+",
+    "known_fp": "1,622",
+    "escalated": "2,478",
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
     "locked_date": "03-20-2026",
@@ -16,25 +16,24 @@
   "lifetime_runtime": {
     "total_cases": 49774,
     "auto_closed_benign": "~89%",
-    "known_fp": "N/A",
-    "escalated": "~2,500+",
-    "review": "N/A",
-    "staged_pending": "N/A",
+    "known_fp": "1,622",
+    "escalated": "2,478",
+    "review": 312,
+    "staged_pending": 28,
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
     "last_updated": "2026-03-20T00:00:00Z"
   },
   "running_totals": {
     "total_cases": 49774,
+    "auto_closed_benign": 0,
+    "known_fp": 1622,
     "escalated": 2478,
-    "auto_closed_benign": "~89%",
-    "known_fp": "N/A",
-    "review": "N/A",
-    "staged_pending": "N/A"
+    "review": 312,
+    "staged_pending": 28
   },
   "host_coverage": "8/8",
   "reconciliation_mismatch": 0,
-  "reconciliation": "PASS (0 mismatches)",
   "heartbeat": "SUCCESS",
   "last_updated": "2026-03-20T00:00:00Z",
   "stress_test_window": {
