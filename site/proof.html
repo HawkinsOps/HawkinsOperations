@@ -69,17 +69,17 @@
           <strong>Coverage <span data-ops="stable_coverage_ratio">8/8</span></strong>
           <strong>Cases <span data-ops="stable_total_cases">49,774</span></strong>
           <strong>Auto-close <span data-ops="stable_auto_closed_benign">~89%</span></strong>
-          <strong>Escalated <span data-ops="stable_escalated">~2,500+</span></strong>
+          <strong>Escalated <span data-ops="stable_escalated">2,478</span></strong>
           <strong>Reconciliation PASS (0 mismatches)</strong>
         </div>
       </div>
 
-      <p class="m-copy" style="margin-top:12px;"><span data-ops="stable_statement">March 24 verified snapshot: 49,774 total cases, ~89% auto-close, ~2,500+ escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
-      <p class="m-copy" style="margin-top:4px;">Authority date: <strong><span data-ops="stable_locked_date">03-24-2026</span></strong> &middot; Source: <code>data/truth/current-authority.json</code> &middot; Verified by: <code>scripts/verify/verify-counts.ps1</code></p>
+      <p class="m-copy" style="margin-top:12px;"><span data-ops="stable_statement">Locked reviewer benchmark from the March 24 authority snapshot.</span></p>
+      <p class="m-copy">Authority source: <code>data/truth/current-authority.json</code> &middot; Verified by: <code>scripts/verify/verify-counts.ps1</code></p>
       <ul class="m-copy" style="margin-top:12px;font-size:0.85rem;color:var(--muted,#8ea4c7);list-style:none;padding:0;display:grid;gap:4px;">
         <li><strong>Public benchmark snapshot:</strong> reviewer-authoritative values from <code>data/truth/current-authority.json</code>.</li>
         <li><strong>Runtime snapshot:</strong> telemetry from <code>data/truth/current-live.json</code>, displayed as informational only.</li>
-        <li><strong>Generated at:</strong> <span data-ops="stable_locked_date">03-24-2026</span></li>
+        <li><strong>Generated at:</strong> <span data-ops="stable_locked_date">LOCKED</span></li>
         <li><strong>Source artifact:</strong> <code>site/data/truth/current-authority.json</code></li>
       </ul>
 
@@ -101,12 +101,12 @@
 
       <div class="m-grid-2" style="margin-top:24px;">
         <article class="m-card">
-          <div class="m-card-kicker">Current &mdash; 03-24-2026 authority</div>
+          <div class="m-card-kicker">Current authority snapshot</div>
           <h3>AutoSOC Pipeline - Reconciliation Proof</h3>
           <ul class="m-list-tight">
             <li><strong>Total cases processed:</strong> <span data-ops="stable_total_cases">49,774</span></li>
             <li><strong>Auto-close rate:</strong> <span data-ops="stable_auto_closed_benign">~89%</span></li>
-            <li><strong>Escalations:</strong> <span data-ops="stable_escalated">~2,500+</span></li>
+            <li><strong>Escalations:</strong> <span data-ops="stable_escalated">2,478</span></li>
             <li><strong>Host coverage:</strong> <span data-ops="stable_coverage_ratio">8/8</span></li>
             <li><strong>Reconciliation:</strong> PASS (0 mismatches)</li>
             <li><strong>Heartbeat:</strong> SUCCESS</li>
@@ -130,13 +130,13 @@
 
   <!-- 
        SECTION 3 - SPLUNK PROOF LANE (HONEST LEVEL)
-       Home lab environment only. 8 queries. No production SOC claim.
+       Home lab environment only. Query inventory is verified separately. No production SOC claim.
         -->
   <section id="splunk-lane" class="m-section">
     <div class="m-wrap">
       <div class="m-eyebrow">Splunk Evidence</div>
       <h2 class="m-title" style="font-size: clamp(1.4rem, 2.5vw, 2rem);">Splunk Proof Lane</h2>
-      <p class="m-copy"><strong>Scope: home lab environment.</strong> 8 Splunk queries written and tested against Wazuh-forwarded log data in a local Proxmox VM (vm104). This is not a production SOC or enterprise Splunk deployment. The evidence below reflects that honest scope.</p>
+      <p class="m-copy"><strong>Scope: home lab environment.</strong> <span data-verified="splunk">8</span> Splunk queries were written and tested against Wazuh-forwarded log data in a local Proxmox VM (vm104). This is not a production SOC or enterprise Splunk deployment. The evidence below reflects that honest scope.</p>
 
       <div class="m-grid-2" style="margin-top:24px;">
         <article class="m-card">
@@ -150,9 +150,9 @@
         </article>
 
         <article class="m-card">
-          <div class="m-card-kicker">Artifact reference &mdash; 03-24-2026</div>
+          <div class="m-card-kicker">Artifact reference</div>
           <h3>Splunk Ingest Proof</h3>
-          <p class="m-copy">Pipeline proof artifact confirms Splunk ingest was operational as of the 03-24-2026 snapshot. File present in repo at <code>content/lab/proxmox/vms/104/splunk/exports/WAZUH_SPLUNK_PIPELINE_PROOF_2026-03-24.md</code>.</p>
+          <p class="m-copy">Pipeline proof artifact confirms Splunk ingest was operational for the locked reviewer snapshot. The export remains in the repository under the Splunk evidence path.</p>
           <ul class="m-list-tight" style="margin-top:10px;">
             <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/detection-rules/mappings/technique_map.csv" target="_blank" rel="noopener noreferrer">technique_map.csv - detection coverage map (GitHub)</a></li>
           </ul>
@@ -174,16 +174,16 @@
 
       <div class="m-grid-2" style="margin-top:24px;">
         <article class="m-card">
-          <div class="m-card-kicker">Historical &mdash; 2026-03-24 pipeline snapshot</div>
-          <h3>Canonical Metrics Snapshot (03-24-2026)</h3>
-          <p class="m-copy">The 03-20 snapshot (<code>source_of_truth/metrics_canonical_2026-03-24.json</code>) recorded: <code>total_cases=49774</code>, <code>auto_close_rate_label=~89%</code>, <code>escalations_label=~2,500+</code>, <code>hosts_reporting=8/8</code>. This is the evidentiary baseline that the March 24 authority snapshot confirmed and superseded.</p>
-          <p class="m-copy" style="margin-top:8px;font-size:0.85rem;color:var(--muted,#8ea4c7);">Historical only &mdash; superseded by 03-24-2026 authority</p>
+          <div class="m-card-kicker">Historical benchmark reference</div>
+          <h3>Canonical Metrics Snapshot</h3>
+          <p class="m-copy">The canonical metrics artifact records the locked benchmark used for the current public authority layer. Treat it as historical support, not live telemetry.</p>
+          <p class="m-copy" style="margin-top:8px;font-size:0.85rem;color:var(--muted,#8ea4c7);">Historical only &mdash; superseded by the current authority snapshot</p>
         </article>
 
         <article class="m-card">
-          <div class="m-card-kicker">Historical &mdash; 2026-03-21 detection validation</div>
-          <h3>Continuous Detection Validation (03-21-2026)</h3>
-          <p class="m-copy">Automated validation suite passed 6/6 checks (100%) as of 03-21-2026: heartbeat SUCCESS, reconciliation_mismatch 0, coverage 8/8, pipeline_last_status SUCCESS, Splunk ingest proof present, Grafana proof present.</p>
+          <div class="m-card-kicker">Historical detection validation</div>
+          <h3>Continuous Detection Validation</h3>
+          <p class="m-copy">The automated validation suite passed all required checks for the locked public benchmark and preserved the supporting proof artifacts in the repository.</p>
           <ul class="m-list-tight" style="margin-top:10px;">
             <li>Grafana dashboard export: <code>proof/grafana/latest.md</code> (repo artifact)</li>
             <li>Workflow snapshot: <code>/assets/pp_soc_integration/t3-workflow.png</code></li>
@@ -235,7 +235,7 @@
         <div class="m-proof-strip" style="margin-top:4px;">
           <div class="m-proof-inline">
             <strong>Cases <span data-live="total_cases">49,774</span></strong>
-            <strong>Escalations <span data-live="escalations">~2,500+</span></strong>
+            <strong>Escalations <span data-live="escalations">2,478</span></strong>
             <strong>Auto-close <span data-live="auto_close_rate">~89%</span></strong>
             <strong>Snapshot <span data-live="snapshot_date">2026-03-24</span></strong>
           </div>
