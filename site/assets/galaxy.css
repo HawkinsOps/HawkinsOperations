@@ -487,6 +487,69 @@ a:not(.sf-button):not(.btn):not(.btn-p):not([class*="nav"]):not(.logo):hover {
    S15  TOUCH DEVICE ADJUSTMENTS
    ============================================ */
 
+/* ============================================
+   S15  GAUGE + BAR ANIMATIONS
+   SVG gauge rings animate in on load.
+   Progress bars slide in from left.
+   ============================================ */
+
+/* SVG gauge fill animation */
+svg circle[stroke-dasharray] {
+  animation: gauge-fill 1.4s ease-out both;
+}
+
+@keyframes gauge-fill {
+  from { stroke-dasharray: 0 600; }
+}
+
+/* Progress bar fill animation */
+[style*="width:"][style*="background:linear-gradient"] {
+  animation: bar-slide 1s ease-out both;
+}
+
+@keyframes bar-slide {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
+}
+
+/* Stagger bars */
+[style*="margin-bottom:14px"]:nth-child(2) [style*="background:linear-gradient"] { animation-delay: 0.1s; }
+[style*="margin-bottom:14px"]:nth-child(3) [style*="background:linear-gradient"] { animation-delay: 0.2s; }
+[style*="margin-bottom:14px"]:nth-child(4) [style*="background:linear-gradient"] { animation-delay: 0.3s; }
+
+/* KPI value glow pulse on load */
+.sf-metric-value,
+.proof-kpi-value,
+.m-kpi-value {
+  animation: value-glow 2s ease both;
+}
+
+@keyframes value-glow {
+  0%   { opacity: 0; text-shadow: 0 0 0 transparent; }
+  40%  { opacity: 1; text-shadow: 0 0 30px rgba(122, 184, 255, 0.3); }
+  100% { opacity: 1; text-shadow: none; }
+}
+
+/* Status dot pulse for host coverage grid */
+[style*="border-radius:50%"][style*="background:#71c7b8"] {
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 6px rgba(113, 199, 184, 0.4); }
+  50%      { box-shadow: 0 0 14px rgba(113, 199, 184, 0.6); }
+}
+
+/* Timeline dot entrance */
+[style*="border-radius:50%"][style*="box-shadow:0 0 6px"] {
+  animation: timeline-dot 0.5s ease both;
+}
+
+
+/* ============================================
+   S16  TOUCH DEVICE ADJUSTMENTS
+   ============================================ */
+
 @media (hover: none) {
   /* No hover lift on touch — tap goes straight to action */
   .sf-card:hover,
