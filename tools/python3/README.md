@@ -56,5 +56,27 @@ python3 tools/python3/generate_detection_report.py \
   --out /home/raylee/soc/report.md
 ```
 
+---
+
+### `xml4688_parser.py`
+Parses raw Windows Security XML event text and extracts:
+
+- `EventID`
+- `NewProcessName`
+- `ParentProcessName`
+- `CommandLine`
+
+Outputs JSON payload with event list and top process-launch summary.
+
+```bash
+python tools/python3/xml4688_parser.py \
+  --in tools/python3/samples/windows_security_4688_sample.xml \
+  --out-json output/windows_security_4688_parsed_03-19-2026.json \
+  --top 10
+```
+
+```bash
+python -m unittest tools.python3.tests.test_xml4688_parser
+```
 
 

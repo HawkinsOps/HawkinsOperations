@@ -1,237 +1,750 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
-<title>Raylee Hawkins | Resume (SOC, Detection Engineering, Security Automation)</title>
-<meta name="description" content="Resume for Raylee Hawkins: SOC analyst candidate focused on detection engineering and automation. Projects include HawkinsOperations detections and proof pack.">
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#07070b">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Raylee Hawkins | Resume — SOC Analyst · Detection Engineering</title>
+<meta name="description" content="Resume for Raylee Hawkins — SOC Analyst candidate, Detection Engineering, Security Automation. Built SignalFoundry, processed 49,774 cases.">
 <link rel="canonical" href="https://hawkinsops.com/resume">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Raylee Hawkins | Resume">
-<meta property="og:description" content="SOC-track resume focused on detection engineering, reproducible proof, and lab validation.">
-<meta property="og:url" content="https://hawkinsops.com/resume">
-<meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/t5-proxmox-redacted.png?v=02-20-2026-1">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Raylee Hawkins | Resume">
-<meta name="twitter:description" content="SOC-track resume focused on detection engineering, reproducible proof, and lab validation.">
-<meta name="twitter:image" content="https://hawkinsops.com/assets/pp_soc_integration/t5-proxmox-redacted.png?v=02-20-2026-1">
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-<script>
-  (function () {
-    var saved = null;
-    try {
-      saved = localStorage.getItem('rh-theme');
-    } catch (err) {
-      saved = null;
-    }
-    var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.documentElement.setAttribute('data-theme', saved || (sysDark ? 'dark' : 'light'));
-  })();
-</script>
-<link rel="stylesheet" href="/assets/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<!-- Match site CSS tokens -->
+<link rel="stylesheet" href="/assets/styles.css?v=02-24-2026-3">
+<link rel="stylesheet" href="/assets/design-tokens.css?v=03-15-2026-1">
+<link rel="stylesheet" href="/assets/base.css?v=03-15-2026-1">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-15-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/page-shells.css?v=03-16-2026-1">
 <style>
-  .resume-shell{padding-top:110px}
-  .resume-sheet{max-width:960px;margin:0 auto;background:var(--bg1);border:1px solid var(--bdr);border-radius:16px;padding:28px}
-  .resume-head h1{font-size:2rem;line-height:1.1;margin:0 0 8px;color:var(--heading)}
-  .resume-headline{font-weight:600;color:var(--txt);margin-bottom:10px}
-  .resume-contact{font-size:.9rem;color:var(--dim);line-height:1.6}
-  .resume-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
-  .resume-section{margin-top:18px}
-  .resume-section h2{font-size:1.05rem;letter-spacing:.02em;margin:0 0 8px;color:var(--heading)}
-  .resume-section ul{margin:0;padding-left:18px;color:var(--txt)}
-  .resume-section li{margin-bottom:8px;line-height:1.5}
-  .resume-project{margin-bottom:12px}
-  .resume-project h3{font-size:.95rem;margin:0 0 6px;color:var(--txt)}
-  .resume-download{margin-top:16px;font-size:.84rem;color:var(--dim)}
-  .resume-download a{font-weight:600}
-  @media (max-width:840px){.resume-grid{grid-template-columns:1fr}.resume-sheet{padding:20px}}
-  @media print{
-    nav,#mobMenu,footer,.modal-backdrop,.card-click{display:none !important}
-    body{background:#fff !important;color:#111 !important}
-    body::before{display:none !important}
-    .resume-shell{padding-top:0 !important}
-    .resume-sheet{max-width:none;border:0;border-radius:0;padding:0;background:#fff !important;box-shadow:none}
-    .resume-head h1,.resume-section h2{color:#111 !important}
-    a{color:#111 !important;text-decoration:none}
-    .resume-section,.resume-project{break-inside:avoid-page;page-break-inside:avoid}
-  }
+/* ── Resume-specific overrides, same token system ── */
+:root {
+  --teal:   #00c4d4;
+  --blue:   #2979c8;
+  --amber:  #e8a020;
+  --green:  #27c97a;
+  --purple: #9b6be0;
+  --text:   #cce0f4;
+  --soft:   #486880;
+  --muted:  #1a2e44;
+  --border: rgba(100,140,180,0.13);
+  --s1:     #080d16;
+  --s2:     #0c1220;
+  --mono:   'JetBrains Mono', monospace;
+  --disp:   'Sora', sans-serif;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 100% 50% at 0% 0%,   rgba(41,121,200,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 80%  50% at 100% 100%,rgba(0,196,212,0.07)  0%, transparent 55%),
+    #03060b;
+  font-family: var(--mono);
+  color: var(--text);
+}
+
+/* Page shell */
+.resume-shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 24px 96px;
+}
+
+/* ── HEADER BLOCK ── */
+.rh-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: start;
+  padding: 36px 40px;
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.rh-header::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--teal));
+}
+.rh-header::after {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 300px; height: 100%;
+  background: radial-gradient(ellipse at right, rgba(0,196,212,0.05), transparent 70%);
+  pointer-events: none;
+}
+.rh-left {}
+.rh-eyebrow {
+  font-size: 9px; font-weight: 700; letter-spacing: 3px;
+  color: var(--soft); text-transform: uppercase; margin-bottom: 10px;
+}
+.rh-name {
+  font-family: var(--disp);
+  font-size: 42px; font-weight: 800; letter-spacing: -1px;
+  background: linear-gradient(110deg, #eef6ff, #c0daff 60%, var(--teal));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; margin-bottom: 8px;
+}
+.rh-role-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.rt {
+  padding: 4px 12px; border-radius: 20px;
+  font-size: 10px; font-weight: 700; letter-spacing: 1px;
+}
+.rt-teal { background: rgba(0,196,212,.1); color: var(--teal); border: 1px solid rgba(0,196,212,.2); }
+.rt-blue { background: rgba(41,121,200,.1); color: #6aaad8; border: 1px solid rgba(41,121,200,.2); }
+.rt-soft { background: rgba(72,104,128,.1); color: var(--soft); border: 1px solid rgba(72,104,128,.2); }
+.rh-meta { display: flex; gap: 20px; flex-wrap: wrap; font-size: 10px; color: var(--soft); }
+.rh-meta a { color: var(--teal); text-decoration: none; }
+.rh-meta a:hover { text-decoration: underline; }
+
+/* Headshot + download block */
+.rh-right { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.headshot-ring {
+  width: 100px; height: 100px; border-radius: 50%;
+  border: 2px solid var(--teal);
+  box-shadow: 0 0 24px rgba(0,196,212,.25);
+  background: var(--s2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; font-weight: 800;
+  font-family: var(--disp);
+  color: var(--teal);
+  overflow: hidden;
+}
+.headshot-ring img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.dl-row { display: flex; gap: 8px; }
+.dl-btn {
+  display: flex; align-items: center; gap: 5px;
+  padding: 7px 14px; border-radius: 6px;
+  font-size: 9px; font-weight: 700; letter-spacing: 1px;
+  text-decoration: none; transition: all .2s;
+  font-family: var(--mono);
+}
+.dl-pdf { background: rgba(0,196,212,.1); color: var(--teal); border: 1px solid rgba(0,196,212,.25); }
+.dl-pdf:hover { background: rgba(0,196,212,.18); }
+.dl-md { background: rgba(41,121,200,.1); color: #6aaad8; border: 1px solid rgba(41,121,200,.25); }
+.dl-md:hover { background: rgba(41,121,200,.18); }
+.avail-badge {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: 20px;
+  background: rgba(39,201,122,.08); border: 1px solid rgba(39,201,122,.2);
+  font-size: 9px; font-weight: 700; color: var(--green);
+}
+.avail-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green);
+  box-shadow: 0 0 6px var(--green); animation: blink 1.8s ease-in-out infinite; }
+
+/* ── PROOF STRIP ── */
+.proof-strip {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 10px; margin-bottom: 20px;
+}
+.ps-cell {
+  padding: 16px 14px; border-radius: 8px;
+  background: var(--s1); border: 1px solid var(--border);
+  text-align: center; position: relative; overflow: hidden;
+}
+.ps-cell::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.ps-teal::before { background: var(--teal); }
+.ps-blue::before { background: var(--blue); }
+.ps-green::before { background: var(--green); }
+.ps-amber::before { background: var(--amber); }
+.ps-val { font-size: 26px; font-weight: 700; line-height: 1; margin-bottom: 5px; }
+.ps-teal .ps-val { color: var(--teal); }
+.ps-blue .ps-val { color: #6aaad8; }
+.ps-green .ps-val { color: var(--green); }
+.ps-amber .ps-val { color: var(--amber); }
+.ps-lbl { font-size: 8px; font-weight: 700; letter-spacing: 1.5px; color: var(--soft); text-transform: uppercase; }
+.ps-sub { font-size: 8px; color: var(--muted); margin-top: 3px; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 20px; }
+.sec-hdr {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 14px;
+}
+.sec-num {
+  font-size: 8px; font-weight: 700; letter-spacing: 2px;
+  color: var(--muted); flex-shrink: 0;
+}
+.sec-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--soft); text-transform: uppercase; }
+.sec-line { flex: 1; height: 1px; background: var(--border); }
+
+/* ── SUMMARY CARD ── */
+.summary-card {
+  padding: 20px 24px;
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: 10px; border-left: 3px solid var(--teal);
+  font-size: 11px; line-height: 1.8; color: var(--text);
+}
+.summary-card strong { color: var(--teal); font-weight: 700; }
+
+/* ── SKILLS GRID ── */
+.skills-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+.skill-group {
+  padding: 14px; background: var(--s1); border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.sg-title {
+  font-size: 8px; font-weight: 700; letter-spacing: 2px;
+  margin-bottom: 10px; text-transform: uppercase;
+  display: flex; align-items: center; gap: 6px;
+}
+.sg-icon { font-size: 13px; }
+.sk-item {
+  font-size: 9px; color: var(--soft); padding: 3px 0;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  display: flex; align-items: center; gap: 6px;
+}
+.sk-item:last-child { border-bottom: none; }
+.sk-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── WORK CARDS ── */
+.work-card {
+  padding: 22px 24px;
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: 10px; margin-bottom: 12px;
+  position: relative; overflow: hidden;
+}
+.work-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.wc-cyber::before { background: var(--teal); }
+.wc-ops::before   { background: var(--amber); }
+.wc-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
+.wc-role { font-size: 14px; font-weight: 700; color: var(--text); }
+.wc-company { font-size: 10px; color: var(--soft); margin-top: 3px; }
+.wc-date {
+  font-size: 9px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+  flex-shrink: 0; margin-left: 12px;
+}
+.date-teal { background: rgba(0,196,212,.1); color: var(--teal); border: 1px solid rgba(0,196,212,.2); }
+.date-amber { background: rgba(232,160,32,.1); color: var(--amber); border: 1px solid rgba(232,160,32,.2); }
+.wc-bullets { list-style: none; }
+.wc-bullets li {
+  font-size: 10px; color: var(--soft); padding: 5px 0;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  padding-left: 16px; position: relative; line-height: 1.6;
+}
+.wc-bullets li:last-child { border-bottom: none; }
+.wc-bullets li::before {
+  content: '→'; position: absolute; left: 0;
+  color: var(--muted); font-size: 9px;
+}
+.wc-bullets li strong { color: var(--text); font-weight: 600; }
+.wc-bullets li em { font-style: normal; color: var(--teal); }
+/* ops bullets use amber accent */
+.wc-ops .wc-bullets li::before { color: var(--amber); opacity: .6; }
+.wc-ops .wc-bullets li em { color: var(--amber); }
+
+/* Op metrics pill row */
+.ops-metrics { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 4px; }
+.om { padding: 4px 10px; border-radius: 4px; font-size: 9px; font-weight: 700; }
+.om-amber { background: rgba(232,160,32,.1); color: var(--amber); border: 1px solid rgba(232,160,32,.2); }
+.om-soft  { background: rgba(72,104,128,.08); color: var(--soft); border: 1px solid rgba(72,104,128,.15); }
+
+/* ── BRIDGE VISUAL ── */
+.bridge-embed {
+  margin-bottom: 12px;
+  border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--border);
+}
+.bridge-embed img, .bridge-embed svg { width: 100%; display: block; }
+
+/* ── CERTS ── */
+.cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.cert-card {
+  padding: 16px 18px; background: var(--s1);
+  border: 1px solid var(--border); border-radius: 8px;
+  display: flex; align-items: center; gap: 14px;
+}
+.cert-icon { font-size: 28px; flex-shrink: 0; }
+.cert-name { font-size: 11px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.cert-meta { font-size: 9px; color: var(--soft); }
+/* cert bar removed - using status badge instead */
+
+/* ── REFERENCES ── */
+.ref-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
+.ref-card {
+  padding: 16px 18px; background: var(--s1);
+  border: 1px solid var(--border); border-radius: 8px;
+}
+.ref-name { font-size: 11px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.ref-title { font-size: 9px; color: var(--soft); margin-bottom: 6px; }
+.ref-company { font-size: 9px; }
+.ref-context { font-size: 9px; color: var(--soft); margin-top: 6px; font-style: italic; }
+.ref-tag {
+  display: inline-block; padding: 2px 8px; border-radius: 3px;
+  font-size: 7px; font-weight: 700; letter-spacing: 1px; margin-top: 6px;
+}
+
+/* ── CTA ── */
+.cta-block {
+  margin-top: 28px; padding: 28px 32px;
+  background: var(--s1); border: 1px solid rgba(0,196,212,.2);
+  border-radius: 12px; display: flex;
+  align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 20px;
+  position: relative; overflow: hidden;
+}
+.cta-block::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--teal));
+}
+.cta-text {}
+.cta-title { font-family: var(--disp); font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.cta-sub { font-size: 10px; color: var(--soft); }
+.cta-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-primary {
+  padding: 12px 24px; border-radius: 6px;
+  background: rgba(0,196,212,.12); color: var(--teal);
+  border: 1px solid rgba(0,196,212,.3);
+  font-size: 10px; font-weight: 700; letter-spacing: 1px;
+  text-decoration: none; font-family: var(--mono);
+  transition: all .2s;
+}
+.btn-primary:hover { background: rgba(0,196,212,.2); }
+.btn-secondary {
+  padding: 12px 24px; border-radius: 6px;
+  background: rgba(41,121,200,.1); color: #6aaad8;
+  border: 1px solid rgba(41,121,200,.25);
+  font-size: 10px; font-weight: 700; letter-spacing: 1px;
+  text-decoration: none; font-family: var(--mono);
+  transition: all .2s;
+}
+.btn-secondary:hover { background: rgba(41,121,200,.18); }
+
+/* ── TALK TRACK ── */
+.talk-track {
+  padding: 20px 24px;
+  background: rgba(0,196,212,.04);
+  border: 1px solid rgba(0,196,212,.15);
+  border-radius: 10px; margin-bottom: 12px;
+  position: relative;
+}
+.talk-track::before {
+  content: '"';
+  position: absolute; top: -2px; left: 18px;
+  font-size: 60px; color: rgba(0,196,212,.12);
+  font-family: var(--disp); line-height: 1;
+}
+.tt-label { font-size: 8px; font-weight: 700; letter-spacing: 2px; color: var(--teal); margin-bottom: 10px; text-transform: uppercase; }
+.tt-text { font-size: 11px; line-height: 1.8; color: var(--text); }
+.tt-text strong { color: var(--teal); }
+
+/* ── OUTCOMES FLOW ── */
+.outcomes-flow {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; padding: 20px 24px;
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: 10px; flex-wrap: wrap;
+  position: relative; overflow: hidden;
+}
+.outcomes-flow::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--teal), var(--green));
+}
+.of-node {
+  text-align: center; padding: 12px 18px;
+  flex-shrink: 0;
+}
+.of-val {
+  font-size: 24px; font-weight: 700; line-height: 1;
+  color: #8ab8dc; margin-bottom: 4px;
+}
+.of-lbl { font-size: 8px; font-weight: 700; letter-spacing: 1.5px; color: var(--soft); text-transform: uppercase; }
+.of-arrow {
+  font-size: 20px; color: var(--muted); padding: 0 4px;
+  flex-shrink: 0; margin-bottom: 12px;
+}
+.of-engine .of-val { font-size: 16px; color: var(--teal); }
+
+/* ── BRIDGE STATIC TABLE ── */
+.bridge-static {
+  padding: 18px 20px;
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: 8px; border-left: 3px solid var(--amber);
+  margin-bottom: 0;
+}
+.bs-label {
+  font-size: 8px; font-weight: 700; letter-spacing: 2.5px;
+  color: var(--amber); text-transform: uppercase; margin-bottom: 12px;
+}
+.bs-grid { display: flex; flex-direction: column; gap: 6px; }
+.bs-row { display: flex; align-items: center; gap: 12px; font-size: 10px; }
+.bs-ops { color: var(--soft); width: 200px; flex-shrink: 0; }
+.bs-arrow { color: var(--amber); opacity: .6; font-size: 12px; flex-shrink: 0; }
+.bs-sec { color: var(--text); font-weight: 600; }
+
+/* ── TRANSLATION LINE ── */
+.wc-translation {
+  font-size: 10px !important;
+  color: var(--text) !important;
+  background: rgba(232,160,32,.05);
+  border-left: 2px solid var(--amber) !important;
+  border-bottom: none !important;
+  padding: 8px 12px 8px 16px !important;
+  border-radius: 0 4px 4px 0;
+  margin-top: 4px;
+}
+.wc-translation::before { content: none !important; }
+.wc-translation strong { color: var(--amber) !important; }
+
+/* ── CERT STATUS BADGE ── */
+.cert-status {
+  padding: 4px 10px; border-radius: 20px;
+  font-size: 8px; font-weight: 700; letter-spacing: 1px;
+  flex-shrink: 0; margin-left: 8px; align-self: center;
+}
+.cert-pending { background: rgba(232,160,32,.1); color: var(--amber); border: 1px solid rgba(232,160,32,.2); }
+.cert-done    { background: rgba(39,201,122,.1); color: var(--green); border: 1px solid rgba(39,201,122,.2); }
+
+/* ── ANIMATIONS ── */
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.15;} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px);} to{opacity:1;transform:translateY(0);} }
+@keyframes metricPop { from{opacity:0;transform:scale(.8);} to{opacity:1;transform:scale(1);} }
+
+.fade-in { animation: fadeUp .5s ease both; }
+.d1{animation-delay:.05s} .d2{animation-delay:.1s} .d3{animation-delay:.15s}
+.d4{animation-delay:.2s}  .d5{animation-delay:.25s} .d6{animation-delay:.3s}
+.d7{animation-delay:.35s} .d8{animation-delay:.4s}
+
+/* ── PRINT / PDF ONLY ── */
+@media print {
+  .print-only { display: block !important; }
+  .no-print { display: none !important; }
+  body { background: #fff !important; color: #000 !important; }
+  .rh-header, .work-card, .section { border: 1px solid #ddd !important; background: #fff !important; }
+  .rh-name { -webkit-text-fill-color: #000 !important; color: #000 !important; }
+}
+.print-only { display: none; }
+@media (max-width: 768px) {
+  .rh-header { grid-template-columns: 1fr; }
+  .proof-strip { grid-template-columns: repeat(2,1fr); }
+  .skills-grid { grid-template-columns: repeat(2,1fr); }
+  .cert-grid, .ref-grid { grid-template-columns: 1fr; }
+  .rh-name { font-size: 30px; }
+}
 </style>
 </head>
 <body>
-<!-- @include:nav:start -->
+
+<!-- NAV (matches site) -->
 <nav>
   <div class="nav-i">
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
       <li><a href="/">Home</a></li>
-      <li><a href="/projects">Projects</a></li>
-      <li><a href="/case-study-autosoc">AutoSOC Case Study</a></li>
-      <li><a href="/detections">Detections</a></li>
-      <li><a href="/soc-lab">Lab</a></li>
-      <li><a href="/resume">Resume</a></li>
       <li><a href="/proof">Proof</a></li>
+      <li><a href="/case-study-autosoc">SignalFoundry</a></li>
+      <li><a href="/soc-lab">Lab</a></li>
+      <li><a href="/resume" aria-current="page">Resume</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/case-study-autosoc">Read AutoSOC</a>
-    <button id="themeToggle" class="theme-btn" type="button" aria-label="Switch to light mode">Light</button>
+    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
   </div>
 </nav>
-<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-  <a href="/">Home</a>
-  <a href="/projects">Projects</a>
-  <a href="/case-study-autosoc">AutoSOC Case Study</a>
-  <a href="/detections">Detections</a>
-  <a href="/soc-lab">Lab</a>
-  <a href="/resume">Resume</a>
-  <a href="/proof">Proof</a>
-</div>
 
-<!-- @include:nav:end -->
+<main class="resume-shell">
 
-<main>
-<section class="resume-shell">
-  <div class="ctr">
-    <div class="resume-sheet">
-      <div class="resume-head">
-        <h1>Raylee Hawkins</h1>
-        <div class="resume-headline">SOC Analyst (T1/T2) candidate focused on detection engineering and security automation</div>
-        <div class="resume-contact">
-          North Alabama (Huntsville-adjacent) | <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a> |
-          <a href="https://github.com/raylee-hawkins" target="_blank" rel="noopener noreferrer">GitHub</a> |
-          <a href="https://hawkinsops.com" target="_blank" rel="noopener noreferrer">hawkinsops.com</a> |
-          <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
-        </div>
+  <!-- ══ HEADER ══ -->
+  <div class="rh-header fade-in d1">
+    <div class="rh-left">
+      <div class="rh-eyebrow">SOC Analyst &nbsp;|&nbsp; Detection Engineering &nbsp;|&nbsp; Security Automation</div>
+      <div class="rh-name">Raylee Hawkins</div>
+      <div class="rh-role-tags">
+        <span class="rt rt-teal">SOC T1/T2</span>
+        <span class="rt rt-teal">Detection Engineering</span>
+        <span class="rt rt-blue">Security Automation</span>
+        <span class="rt rt-soft">North Alabama · Huntsville</span>
       </div>
-
-      <div class="resume-grid">
-        <div class="resume-section">
-          <h2>Summary</h2>
-          <ul>
-            <li>Built an automated first-pass SOC triage workflow for Wazuh alerts: classify, redact, package evidence, and escalate suspicious cases.</li>
-            <li>Targeting SOC T1/T2 roles with strengths in triage consistency, detection quality, and evidence-based documentation.</li>
-          </ul>
-        </div>
-        <div class="resume-section">
-          <h2>Skills</h2>
-          <ul>
-            <li><b>Detection:</b> Sigma, Wazuh rule authoring, Splunk SPL</li>
-            <li><b>Tooling:</b> PowerShell, Python, Git, GitHub Actions</li>
-            <li><b>Frameworks:</b> MITRE ATT&amp;CK, SOC triage workflow, incident response fundamentals</li>
-            <li><b>Lab/Validation:</b> Proxmox, Windows/Linux telemetry generation, reproducible test runs</li>
-          </ul>
-        </div>
+      <div class="rh-meta">
+        <span>📍 North Alabama (Huntsville preferred)</span>
+        <a href="mailto:Raylee@hawkinsops.com">Raylee@hawkinsops.com</a>
+        <!-- Phone: print/PDF only — never shown on screen -->
+        <span class="print-only" style="font-family:var(--mono);font-size:10px;">📞 (256) 328-3711</span>
+        <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://hawkinsops.com">hawkinsops.com</a>
+        <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener">LinkedIn</a>
       </div>
-
-      <div class="resume-section">
-        <h2>Work History</h2>
-        <div class="resume-project">
-          <h3>Security Operations Lab — Independent Research</h3>
-          <ul>
-            <li>2025-Present | HawkinsOperations</li>
-            <li>Operate a Wazuh-driven SOC lab and execute repeatable detection runs mapped to MITRE ATT&amp;CK behaviors.</li>
-            <li>Built and maintained AutoSOC pipeline components for ingest, triage, redaction, and incident pack assembly.</li>
-            <li>Authored and tuned incident response playbooks with verification steps and reproducible evidence capture workflows.</li>
-            <li>Maintained verification scripts and generated proof artifacts that keep published counts aligned to repository state.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="resume-section">
-        <h2>30-Second Interview Talk Track</h2>
-        <ul>
-          <li>I built a Wazuh-based SOC lab, then automated repeatable first-pass triage steps for a defined alert stream.</li>
-          <li>The workflow classifies alerts, redacts sensitive values, generates evidence packs, and preserves analyst escalation paths.</li>
-          <li>I am not replacing analysts. I can do triage work and build tooling that makes investigations more consistent.</li>
-        </ul>
-      </div>
-
-      <div class="resume-section">
-        <h2>Projects</h2>
-        <div class="resume-project">
-          <h3>HawkinsOperations (Primary Portfolio Repo)</h3>
-          <ul>
-            <li>Built and maintain a detection and response library with verified inventory: <span data-verified="sigma">103</span> Sigma rules, <span data-verified="wazuh">28</span> Wazuh rule blocks (<span data-verified="wazuh_xml_files">24</span> XML files), <span data-verified="splunk">8</span> Splunk detections, and <span data-verified="ir">10</span> IR playbooks.</li>
-            <li>Implemented proof-first validation workflow (scripts, documentation, CI alignment) so reviewers can reproduce claims directly from repo artifacts.</li>
-            <li>Diagnosed and restored an AutoSOC ingestion outage by separating infrastructure reachability from application logic, then fixed reconciliation-path validation to return the pipeline to successful end-to-end operation.</li>
-          </ul>
-        </div>
-        <div class="resume-project">
-          <h3>SOC Triage Simulator</h3>
-          <ul>
-            <li>Built an interactive triage workflow artifact to practice investigation steps, evidence review, and analyst decision flow.</li>
-            <li>Added repeatable drill structure and checklists to demonstrate process discipline, not one-off screenshots.</li>
-          </ul>
-        </div>
-        <div class="resume-project">
-          <h3>Home Lab Validation Environment</h3>
-          <ul>
-            <li>Built a Proxmox-based validation lab with Wazuh and Splunk components to test detection behavior before publishing artifacts.</li>
-            <li>Use lab runs to validate telemetry assumptions and improve signal quality in portfolio content.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="resume-section">
-        <h2>Education</h2>
-        <ul>
-          <li>Competency-based, evidence-backed cybersecurity training through hands-on SOC operations, documented case studies, and reproducible portfolio artifacts.</li>
-        </ul>
-      </div>
-
-      <div class="resume-section">
-        <h2>Certifications</h2>
-        <ul>
-          <li>CompTIA Security+ (SY0-701) — In progress (Exam scheduled: April 2026)</li>
-          <li>ISC2 Certified in Cybersecurity (CC) — In progress (Exam scheduled: March 2026)</li>
-        </ul>
-      </div>
-
-      <div class="resume-section">
-        <h2>Additional</h2>
-        <ul>
-          <li>“Eligible to obtain clearance; willing to pursue sponsorship.”</li>
-        </ul>
-      </div>
-
-      <div class="resume-download">
-        PDF download path: <a href="/assets/Raylee_Hawkins_Resume.pdf" download="Raylee_Hawkins_Resume.pdf" target="_blank" rel="noopener noreferrer">/assets/Raylee_Hawkins_Resume.pdf</a>
-        <br>
-        Download plain-text (ATS): <a href="/resume.txt" target="_blank" rel="noopener noreferrer">/resume.txt</a>
+    </div>
+    <div class="rh-right">
+      <div class="avail-badge">
+        <div class="avail-dot"></div>
+        Available for SOC / Detection roles
       </div>
     </div>
   </div>
-</section>
+
+  <!-- ══ PROOF STRIP ══ -->
+  <div class="proof-strip fade-in d2">
+    <div class="ps-cell ps-teal">
+      <div class="ps-val" id="ps-cases">49,774</div>
+      <div class="ps-lbl">Cases Processed</div>
+      <div class="ps-sub">ledger-verified</div>
+    </div>
+    <div class="ps-cell ps-teal">
+      <div class="ps-val">2,478</div>
+      <div class="ps-lbl">Escalations (Analyst-Ready)</div>
+      <div class="ps-sub">reviewable artifacts</div>
+    </div>
+    <div class="ps-cell ps-green">
+      <div class="ps-val">8/8</div>
+      <div class="ps-lbl">Host Coverage</div>
+      <div class="ps-sub">0 mismatches</div>
+    </div>
+    <div class="ps-cell ps-amber">
+      <div class="ps-val">139</div>
+      <div class="ps-lbl">Detection Rules (Sigma · Wazuh · SPL)</div>
+      <div class="ps-sub">103σ · 28W · 8SPL</div>
+    </div>
+  </div>
+
+  <!-- ══ OUTCOMES FLOW (visual kill shot) ══ -->
+  <div class="section fade-in d2">
+    <div class="outcomes-flow">
+      <div class="of-node of-source">
+        <div class="of-val">49,774</div>
+        <div class="of-lbl">Alerts Ingested</div>
+      </div>
+      <div class="of-arrow">→</div>
+      <div class="of-node of-engine">
+        <div class="of-val">AutoSOC</div>
+        <div class="of-lbl">Pipeline</div>
+      </div>
+      <div class="of-arrow">→</div>
+      <div class="of-node of-auto">
+        <div class="of-val" style="color:var(--green);">89%</div>
+        <div class="of-lbl">Auto-Closed</div>
+      </div>
+      <div class="of-arrow">→</div>
+      <div class="of-node of-esc">
+        <div class="of-val" style="color:var(--teal);">2,478</div>
+        <div class="of-lbl">Escalated</div>
+      </div>
+      <div class="of-arrow">→</div>
+      <div class="of-node of-pass">
+        <div class="of-val" style="color:var(--green);">0</div>
+        <div class="of-lbl">Reconcile Errors</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:8px;font-size:9px;color:var(--soft);letter-spacing:.5px;">
+      Ledger-backed pipeline &nbsp;·&nbsp; reproducible results &nbsp;·&nbsp; no hand-edited metrics
+    </div>
+  </div>
+  <div class="section fade-in d2">
+    <div class="talk-track">
+      <div class="tt-label">30-Second Talk Track</div>
+      <div class="tt-text">
+        I build and operate automated SOC pipelines that classify, triage, and validate alerts at scale. SignalFoundry — my AutoSOC engine — processes Wazuh alerts through a deterministic triage loop: <strong>89% auto-close rate</strong>, enforced redaction, reconciliation gates before anything publishes, and 2,478 escalation packs staged as auditable artifacts. Before security I ran production floors — 30+ operators, 12-hour shifts, IATF audit compliance. The domain changed. The control logic didn't. I'm not replacing analysts. I can do triage work and build tooling that makes investigations more consistent.
+      </div>
+      <div style="margin-top:10px;font-size:10px;color:var(--soft);line-height:1.7;">I am comfortable operating as a Tier 1 SOC analyst while continuing to build automation that reduces analyst workload and improves triage consistency.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SKILLS ══ -->
+  <div class="section fade-in d3">
+    <div class="sec-hdr">
+      <div class="sec-num">01</div>
+      <div class="sec-title">Skills</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="sg-title" style="color:var(--teal)"><span class="sg-icon">⚡</span>Detection</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--teal)"></div>Sigma rule authoring</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--teal)"></div>Wazuh XML rule blocks</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--teal)"></div>Splunk SPL detections</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--teal)"></div>MITRE ATT&amp;CK mapping</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--teal)"></div>Alert triage workflow</div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-title" style="color:var(--blue)"><span class="sg-icon">🔧</span>Tooling</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--blue)"></div>Python (pipeline scripts)</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--blue)"></div>PowerShell / fish shell</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--blue)"></div>Git + GitHub Actions</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--blue)"></div>Wazuh API</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--blue)"></div>Cloudflare Pages / CI</div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-title" style="color:var(--purple)"><span class="sg-icon">🗺</span>Frameworks</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--purple)"></div>MITRE ATT&amp;CK</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--purple)"></div>SOC triage methodology</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--purple)"></div>IR fundamentals</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--purple)"></div>Evidence-first workflow</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--purple)"></div>Reconciliation gates</div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-title" style="color:var(--soft)"><span class="sg-icon">🔬</span>Lab / Infra</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--soft)"></div>Proxmox VE</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--soft)"></div>Windows / Linux telemetry</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--soft)"></div>Wazuh Manager</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--soft)"></div>Splunk Enterprise</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--soft)"></div>Reproducible test runs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CYBER WORK HISTORY ══ -->
+  <div class="section fade-in d4">
+    <div class="sec-hdr">
+      <div class="sec-num">02</div>
+      <div class="sec-title">Security Operations Lab</div>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="work-card wc-cyber">
+      <div class="wc-top">
+        <div>
+          <div class="wc-role">Detection Engineer · Security Automation</div>
+          <div class="wc-company">HawkinsOperations — Independent SOC Lab (Production-Mode Simulation)</div>
+        </div>
+        <div class="wc-date date-teal">2025–Present</div>
+      </div>
+      <ul class="wc-bullets">
+        <li>Built and operate <strong>SignalFoundry (AutoSOC engine)</strong> — 35-script Python automation system processing 49,774+ alerts with an <em>89% auto-resolution rate</em> (benign + known false positives handled without analyst intervention).</li>
+        <li>Deterministic triage with enforced redaction and reconciliation gates — outputs auditable evidence packs and staged artifacts. <em>8/8 host coverage · 0 mismatches · Heartbeat SUCCESS.</em></li>
+        <li>Authored <strong><span data-verified="sigma">103</span> Sigma rules</strong> across 10 MITRE ATT&amp;CK tactics, translated into Wazuh XML where applicable; <strong><span data-verified="splunk">8</span> Splunk SPL detections</strong>, <strong><span data-verified="ir">10</span> IR playbooks</strong> in structured 7-step format with reproducible evidence capture.</li>
+        <li>Diagnosed and recovered full SignalFoundry ingestion outage (March 13, 2026) — separated infrastructure reachability from application logic, isolated reconciliation-path fault, restored end-to-end <em>SUCCESS</em> in one session.</li>
+        <li>Independent Splunk threat hunt: built regex field extraction from scratch, correctly classified <strong>375 Codex AI tool instances spawning pwsh.exe</strong> as tool behavior, not malicious activity.</li>
+        <li>All proof metrics generated by scripts, not hand-edited. Reviewers can reproduce every claim directly from repo state. Verification commands documented.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══ OPS-TO-CYBER BRIDGE VISUAL ══ -->
+  <div class="section fade-in d5">
+    <div class="sec-hdr">
+      <div class="sec-num">03</div>
+      <div class="sec-title">Operations Background → Security Translation</div>
+      <div class="sec-line"></div>
+    </div>
+
+    <!-- Static summary — readable without interaction -->
+    <div class="bridge-static">
+      <div class="bs-label">Core operational equivalence</div>
+      <div class="bs-grid">
+        <div class="bs-row"><span class="bs-ops">Defect classification</span><span class="bs-arrow">→</span><span class="bs-sec">Alert triage (TP / FP / TN)</span></div>
+        <div class="bs-row"><span class="bs-ops">Downtime tracking</span><span class="bs-arrow">→</span><span class="bs-sec">MTTD / MTTR / incident response</span></div>
+        <div class="bs-row"><span class="bs-ops">Escalation chains</span><span class="bs-arrow">→</span><span class="bs-sec">SOC escalation discipline</span></div>
+        <div class="bs-row"><span class="bs-ops">SOPs / audit gates</span><span class="bs-arrow">→</span><span class="bs-sec">IR playbooks / reconciliation gates</span></div>
+        <div class="bs-row"><span class="bs-ops">RCA / fault isolation</span><span class="bs-arrow">→</span><span class="bs-sec">Investigation workflow / detection tuning</span></div>
+        <div class="bs-row"><span class="bs-ops">Shift handoff protocols</span><span class="bs-arrow">→</span><span class="bs-sec">Escalation documentation / evidence packs</span></div>
+      </div>
+    </div>
+
+    <!-- Full visual (loads ops-bridge.svg) -->
+    <div class="bridge-embed" style="margin-top:12px;">
+      <img src="/assets/ops-bridge.svg" alt="Operations to security skills translation map" loading="lazy"
+           onerror="this.style.display='none'">
+    </div>
+  </div>
+
+  <!-- ══ OPS WORK HISTORY ══ -->
+  <div class="section fade-in d6">
+    <div class="sec-hdr">
+      <div class="sec-num">04</div>
+      <div class="sec-title">Operations Background</div>
+      <div class="sec-line"></div>
+    </div>
+
+    <!-- Fehrer -->
+    <div class="work-card wc-ops">
+      <div class="wc-top">
+        <div>
+          <div class="wc-role">Production Team Lead → Production Supervisor</div>
+          <div class="wc-company">Fehrer Automotive — Automotive Tier 1 Supplier</div>
+        </div>
+        <div class="wc-date date-amber">2023–2024</div>
+      </div>
+      <div class="ops-metrics">
+        <span class="om om-amber">Promoted &lt;3 months</span>
+        <span class="om om-amber">30+ direct reports</span>
+        <span class="om om-soft">12-hr rotating shifts</span>
+        <span class="om om-soft">IATF 16949</span>
+        <span class="om om-soft">ISO 9001</span>
+        <span class="om om-soft">TISAX</span>
+      </div>
+      <ul class="wc-bullets">
+        <li>Supervised <em>30+ operators</em> across 12-hour rotating shifts; promoted from team lead to production supervisor in under 3 months based on output metrics and floor discipline.</li>
+        <li>Held full accountability for throughput, staffing, uptime, quality gates, and safety compliance — full output ownership under pressure across every shift.</li>
+        <li>Maintained IATF 16949 / ISO 9001 / TISAX audit compliance; zero tolerance for classification errors, direct accountability for nonconforming material escalation and disposition.</li>
+        <li>Managed structured shift handoff protocols across 3 lines — open-issue tracking, next-shift accountability chain, documented state at every transition.</li>
+        <li class="wc-translation">→ Direct translation: managed <strong>high-volume classification, escalation, and throughput optimization</strong> — identical to SOC alert triage under load.</li>
+      </ul>
+    </div>
+
+    <!-- Unipres -->
+    <div class="work-card wc-ops">
+      <div class="wc-top">
+        <div>
+          <div class="wc-role">Production Supervisor</div>
+          <div class="wc-company">Unipres Alabama — Automotive Stamping</div>
+        </div>
+        <div class="wc-date date-amber">2022–2023</div>
+      </div>
+      <div class="ops-metrics">
+        <span class="om om-amber">5,400+ parts/shift</span>
+        <span class="om om-amber">3 production lines</span>
+        <span class="om om-soft">12-hr shifts</span>
+        <span class="om om-soft">IATF 16949</span>
+      </div>
+      <ul class="wc-bullets">
+        <li>Supervised production across 3 stamping lines at <em>5,400+ parts per shift</em>; managed output velocity, defect classification, and real-time downtime response under continuous throughput pressure.</li>
+        <li>Executed RCA and fault isolation on production failures — identified root cause before restart, no guessing allowed, no ambiguous states passed forward.</li>
+        <li>Maintained IATF 16949 audit compliance; direct accountability for nonconforming material classification and escalation decision chain.</li>
+        <li class="wc-translation">→ Direct translation: applied <strong>fault-tree reasoning, downtime analysis, and escalation discipline</strong> — mirrors incident response and detection tuning workflows.</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- ══ REFERENCES ══ -->
+  <div class="section fade-in d8">
+    <div class="sec-hdr">
+      <div class="sec-num">05</div>
+      <div class="sec-title">References</div>
+      <div class="sec-line"></div>
+    </div>
+    <div style="padding:16px 20px;background:var(--s1);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--soft);">
+      <div style="font-size:11px;color:var(--text);margin-bottom:8px;line-height:1.8;">
+        References include:<br>
+        • Production supervisors — Fehrer Automotive and Unipres Alabama<br>
+        • Signed recommendation letter from <strong style="color:var(--teal);">25-year IT Manager (Josh Carlton)</strong>, dated March 2026
+      </div>
+      <div style="font-size:9px;color:var(--soft);">Full reference list and signed letter included in downloadable resume PDF.</div>
+    </div>
+    <div style="margin-top:10px;padding:10px 14px;background:rgba(72,104,128,.06);border-radius:6px;border:1px solid var(--border);font-size:9px;color:var(--soft);">
+      Clearance status: Eligible to obtain. Willing to pursue sponsorship. Non-clearance, research-oriented roles preferred.
+    </div>
+  </div>
+
+  <!-- ══ CTA ══ -->
+  <div class="cta-block fade-in d8">
+    <div class="cta-text">
+      <div class="cta-title">Available for SOC Analyst / Detection Engineering roles</div>
+      <div class="cta-sub">Huntsville, AL preferred &nbsp;·&nbsp; Immediate availability &nbsp;·&nbsp; Relocation in progress &nbsp;·&nbsp; Non-clearance research-oriented preferred</div>
+    </div>
+    <div class="cta-actions">
+      <a href="/proof" class="btn-primary">View System Proof →</a>
+      <a href="/assets/Raylee_Hawkins_Resume.pdf" class="btn-secondary" download>Download Resume (PDF + references)</a>
+      <a href="mailto:Raylee@hawkinsops.com" class="btn-secondary">Contact for Interview →</a>
+    </div>
+  </div>
 
 </main>
-<div id="modalBg" class="modal-backdrop" aria-hidden="true">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-h">
-      <div id="modalTitle" class="modal-ttl">DETAILS</div>
-      <button id="modalClose" class="modal-x" type="button">Close</button>
-    </div>
-    <div id="modalBody" class="modal-b"></div>
-  </div>
-</div>
-<!-- @include:footer:start -->
-<footer>
-  <div class="ctr">
-    <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
-    <div class="fl">
-      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
-      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
-      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
-    </div>
-  </div>
-</footer>
 
-<!-- @include:footer:end -->
 <script src="/assets/fetch-utils.js" defer></script>
 <script src="/data/counts.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<script>
+// Mobile nav toggle
+
+const mobBtn=document.getElementById('mobBtn');
+if(mobBtn){
+  mobBtn.addEventListener('click',()=>{
+    const expanded=mobBtn.getAttribute('aria-expanded')==='true';
+    mobBtn.setAttribute('aria-expanded',String(!expanded));
+  });
+}
+</script>
 </body>
 </html>

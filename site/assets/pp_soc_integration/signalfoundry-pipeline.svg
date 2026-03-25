@@ -1,0 +1,332 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 420" width="1100" height="420">
+  <defs>
+    <style>
+      @keyframes flowPulse {
+        0%   { stroke-dashoffset: 24; opacity: 0.3; }
+        50%  { opacity: 0.9; }
+        100% { stroke-dashoffset: 0;  opacity: 0.3; }
+      }
+      @keyframes stageLit {
+        0%, 85%, 100% { filter: none; }
+        90%            { filter: url(#stage-glow); }
+      }
+      @keyframes nodeEntry {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes scanline {
+        0%   { transform: translateY(-100%); opacity: 0; }
+        10%  { opacity: 0.4; }
+        90%  { opacity: 0.4; }
+        100% { transform: translateY(100%); opacity: 0; }
+      }
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50%      { opacity: 0.2; }
+      }
+      @keyframes counterUp {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+
+      .stage { animation: nodeEntry 0.5s ease both; }
+      .stage-1 { animation-delay: 0.0s; }
+      .stage-2 { animation-delay: 0.1s; }
+      .stage-3 { animation-delay: 0.2s; }
+      .stage-4 { animation-delay: 0.3s; }
+      .stage-5 { animation-delay: 0.4s; }
+      .stage-6 { animation-delay: 0.5s; }
+      .stage-7 { animation-delay: 0.6s; }
+
+      .flow-line {
+        stroke: #00c4d4;
+        stroke-width: 1.5;
+        stroke-dasharray: 6 4;
+        fill: none;
+        animation: flowPulse 2s linear infinite;
+      }
+      .flow-1 { animation-delay: 0.0s; }
+      .flow-2 { animation-delay: 0.29s; }
+      .flow-3 { animation-delay: 0.57s; }
+      .flow-4 { animation-delay: 0.86s; }
+      .flow-5 { animation-delay: 1.14s; }
+      .flow-6 { animation-delay: 1.43s; }
+
+      .status-blink { animation: blink 1.8s ease-in-out infinite; }
+    </style>
+
+    <filter id="stage-glow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="teal-glow-sm">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="title-glow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <linearGradient id="bg-main" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#060a10"/>
+      <stop offset="100%" stop-color="#080c14"/>
+    </linearGradient>
+    <linearGradient id="stage-normal" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f1a26"/>
+      <stop offset="100%" stop-color="#0a1018"/>
+    </linearGradient>
+    <linearGradient id="stage-publish" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a1e1e"/>
+      <stop offset="100%" stop-color="#061414"/>
+    </linearGradient>
+    <linearGradient id="stage-gate" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0c1824"/>
+      <stop offset="100%" stop-color="#071018"/>
+    </linearGradient>
+
+    <marker id="arr" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#00c4d4" opacity="0.8"/>
+    </marker>
+    <marker id="arr-dim" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#1e3a4a" opacity="0.6"/>
+    </marker>
+
+    <!-- Grid pattern -->
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#0c1420" stroke-width="0.4"/>
+    </pattern>
+
+    <!-- Scanline clip -->
+    <clipPath id="scan-clip">
+      <rect x="0" y="0" width="1100" height="420"/>
+    </clipPath>
+  </defs>
+
+  <!-- ── BG ── -->
+  <rect width="1100" height="420" fill="url(#bg-main)"/>
+  <rect width="1100" height="420" fill="url(#grid)" opacity="0.7"/>
+
+  <!-- Top-left ambient glow -->
+  <radialGradient id="tl-glow" cx="0%" cy="0%" r="40%">
+    <stop offset="0%" stop-color="#00c4d4" stop-opacity="0.06"/>
+    <stop offset="100%" stop-color="#00c4d4" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1100" height="420" fill="url(#tl-glow)"/>
+
+  <!-- ── TOP LABEL BAR ── -->
+  <rect x="0" y="0" width="1100" height="52" fill="#080c14"/>
+  <rect x="0" y="0" width="1100" height="1" fill="#00c4d4" opacity="0.3"/>
+  <line x1="0" y1="52" x2="1100" y2="52" stroke="#131d2a" stroke-width="1"/>
+
+  <text x="28" y="20" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" letter-spacing="3" fill="#2a4060" text-transform="uppercase">SIGNALFOUNDRY</text>
+  <text x="28" y="40" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="700" fill="#c8e0f0" letter-spacing="-0.3">AutoSOC Triage Pipeline</text>
+
+  <!-- Status indicators top right -->
+  <circle cx="960" cy="26" r="4" fill="#00c4d4" class="status-blink" filter="url(#teal-glow-sm)"/>
+  <text x="972" y="30" font-family="'JetBrains Mono', monospace" font-size="10" fill="#4a8898">LIVE</text>
+
+  <rect x="1010" y="16" width="72" height="20" rx="3" fill="#0a1e14" stroke="#1a3820" stroke-width="1"/>
+  <text x="1046" y="30" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#4a9860">SUCCESS</text>
+
+  <!-- ── PIPELINE STAGES ── -->
+  <!-- Stage positions: x centers at 80, 230, 380, 530, 680, 830, 980 -->
+  <!-- Stage width: 118, height: 160, y: 90 -->
+
+  <!-- STAGE 1: INGEST -->
+  <g class="stage stage-1">
+    <rect x="21" y="90" width="118" height="168" rx="6" fill="url(#stage-normal)" stroke="#1a2d42" stroke-width="1"/>
+    <rect x="21" y="90" width="118" height="3" rx="3" fill="#2e75b6"/>
+    <!-- Number -->
+    <text x="33" y="116" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="700" fill="#0f2038" opacity="0.8">01</text>
+    <!-- Kicker -->
+    <text x="33" y="134" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" letter-spacing="2.5" fill="#2e75b6">INGEST</text>
+    <!-- Divider -->
+    <line x1="33" y1="142" x2="127" y2="142" stroke="#131d2a" stroke-width="1"/>
+    <!-- Label -->
+    <text x="33" y="162" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#c0d4e8">Alert Intake</text>
+    <!-- Script -->
+    <rect x="33" y="172" width="90" height="18" rx="3" fill="#0a1420"/>
+    <text x="40" y="185" font-family="'JetBrains Mono', monospace" font-size="9" fill="#3a5870">poll-alerts.py</text>
+    <!-- Source tag -->
+    <rect x="33" y="198" width="60" height="16" rx="2" fill="#0d1e30" stroke="#1a3048" stroke-width="1"/>
+    <text x="63" y="210" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#2e75b6">Wazuh API</text>
+    <!-- Input indicator -->
+    <rect x="21" y="152" width="3" height="28" fill="#2e75b6" opacity="0.6"/>
+  </g>
+
+  <!-- FLOW 1 -->
+  <line class="flow-line flow-1" x1="141" y1="174" x2="171" y2="174" marker-end="url(#arr)"/>
+
+  <!-- STAGE 2: TRIAGE -->
+  <g class="stage stage-2">
+    <rect x="173" y="90" width="118" height="168" rx="6" fill="url(#stage-normal)" stroke="#1a2d42" stroke-width="1"/>
+    <rect x="173" y="90" width="118" height="3" rx="3" fill="#2e75b6"/>
+    <text x="185" y="116" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="700" fill="#0f2038" opacity="0.8">02</text>
+    <text x="185" y="134" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" letter-spacing="2.5" fill="#2e75b6">TRIAGE</text>
+    <line x1="185" y1="142" x2="279" y2="142" stroke="#131d2a" stroke-width="1"/>
+    <text x="185" y="162" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#c0d4e8">Policy Decision</text>
+    <rect x="185" y="172" width="90" height="18" rx="3" fill="#0a1420"/>
+    <text x="192" y="185" font-family="'JetBrains Mono', monospace" font-size="9" fill="#3a5870">triage.py</text>
+    <!-- Decision branches visual -->
+    <rect x="185" y="196" width="42" height="14" rx="2" fill="#0a1a10" stroke="#1a3018" stroke-width="1"/>
+    <text x="206" y="207" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="7" fill="#3a7040">BENIGN</text>
+    <rect x="233" y="196" width="44" height="14" rx="2" fill="#1a1008" stroke="#3a2808" stroke-width="1"/>
+    <text x="255" y="207" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="7" fill="#8a6020">ESCALATE</text>
+    <rect x="173" y="152" width="3" height="28" fill="#2e75b6" opacity="0.6"/>
+  </g>
+
+  <!-- FLOW 2 -->
+  <line class="flow-line flow-2" x1="293" y1="174" x2="323" y2="174" marker-end="url(#arr)"/>
+
+  <!-- STAGE 3: REDACT -->
+  <g class="stage stage-3">
+    <rect x="325" y="90" width="118" height="168" rx="6" fill="url(#stage-normal)" stroke="#1a2d42" stroke-width="1"/>
+    <rect x="325" y="90" width="118" height="3" rx="3" fill="#2e75b6"/>
+    <text x="337" y="116" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="700" fill="#0f2038" opacity="0.8">03</text>
+    <text x="337" y="134" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" letter-spacing="2.5" fill="#2e75b6">REDACT</text>
+    <line x1="337" y1="142" x2="431" y2="142" stroke="#131d2a" stroke-width="1"/>
+    <text x="337" y="162" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#c0d4e8">Sanitize</text>
+    <rect x="337" y="172" width="90" height="18" rx="3" fill="#0a1420"/>
+    <text x="344" y="185" font-family="'JetBrains Mono', monospace" font-size="9" fill="#3a5870">redact.py</text>
+    <!-- Redaction bars visual -->
+    <rect x="337" y="196" width="94" height="8" rx="2" fill="#1a1a1a"/>
+    <rect x="337" y="196" width="60" height="8" rx="2" fill="#00c4d4" opacity="0.15"/>
+    <rect x="337" y="208" width="94" height="8" rx="2" fill="#1a1a1a"/>
+    <rect x="337" y="208" width="40" height="8" rx="2" fill="#00c4d4" opacity="0.10"/>
+    <rect x="325" y="152" width="3" height="28" fill="#2e75b6" opacity="0.6"/>
+  </g>
+
+  <!-- FLOW 3 -->
+  <line class="flow-line flow-3" x1="445" y1="174" x2="475" y2="174" marker-end="url(#arr)"/>
+
+  <!-- STAGE 4: PACK -->
+  <g class="stage stage-4">
+    <rect x="477" y="90" width="118" height="168" rx="6" fill="url(#stage-normal)" stroke="#1a2d42" stroke-width="1"/>
+    <rect x="477" y="90" width="118" height="3" rx="3" fill="#2e75b6"/>
+    <text x="489" y="116" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="700" fill="#0f2038" opacity="0.8">04</text>
+    <text x="489" y="134" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" letter-spacing="2.5" fill="#2e75b6">PACK</text>
+    <line x1="489" y1="142" x2="583" y2="142" stroke="#131d2a" stroke-width="1"/>
+    <text x="489" y="162" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#c0d4e8">Evidence Pack</text>
+    <rect x="489" y="172" width="90" height="18" rx="3" fill="#0a1420"/>
+    <text x="496" y="185" font-family="'JetBrains Mono', monospace" font-size="9" fill="#3a5870">assemble-pack.py</text>
+    <!-- Pack visual -->
+    <rect x="489" y="196" width="90" height="22" rx="3" fill="#0a1824" stroke="#1a3040" stroke-width="1"/>
+    <text x="534" y="211" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#3a6080">escalation_pack.json</text>
+    <rect x="477" y="152" width="3" height="28" fill="#2e75b6" opacity="0.6"/>
+  </g>
+
+  <!-- FLOW 4 -->
+  <line class="flow-line flow-4" x1="597" y1="174" x2="627" y2="174" marker-end="url(#arr)"/>
+
+  <!-- STAGE 5: RECONCILE -->
+  <g class="stage stage-5">
+    <rect x="629" y="90" width="118" height="168" rx="6" fill="url(#stage-normal)" stroke="#1a2d42" stroke-width="1"/>
+    <rect x="629" y="90" width="118" height="3" rx="3" fill="#2e75b6"/>
+    <text x="641" y="116" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="700" fill="#0f2038" opacity="0.8">05</text>
+    <text x="641" y="134" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" letter-spacing="2.5" fill="#2e75b6">RECONCILE</text>
+    <line x1="641" y1="142" x2="735" y2="142" stroke="#131d2a" stroke-width="1"/>
+    <text x="641" y="162" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#c0d4e8">Ledger Check</text>
+    <rect x="641" y="172" width="90" height="18" rx="3" fill="#0a1420"/>
+    <text x="648" y="185" font-family="'JetBrains Mono', monospace" font-size="9" fill="#3a5870">reconciliation.py</text>
+    <!-- Mismatch stat -->
+    <text x="641" y="204" font-family="'JetBrains Mono', monospace" font-size="9" fill="#2a5060">mismatches: </text>
+    <text x="714" y="204" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#3a9060">0</text>
+    <rect x="629" y="152" width="3" height="28" fill="#2e75b6" opacity="0.6"/>
+  </g>
+
+  <!-- FLOW 5 -->
+  <line class="flow-line flow-5" x1="749" y1="174" x2="779" y2="174" marker-end="url(#arr)"/>
+
+  <!-- STAGE 6: GATE -->
+  <g class="stage stage-6">
+    <rect x="781" y="90" width="118" height="168" rx="6" fill="url(#stage-gate)" stroke="#1e3248" stroke-width="1"/>
+    <rect x="781" y="90" width="118" height="3" rx="3" fill="#00c4d4" opacity="0.8"/>
+    <text x="793" y="116" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="700" fill="#082028" opacity="0.8">06</text>
+    <text x="793" y="134" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" letter-spacing="2.5" fill="#00c4d4">GATE</text>
+    <line x1="793" y1="142" x2="887" y2="142" stroke="#162430" stroke-width="1"/>
+    <text x="793" y="162" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#c0d4e8">Coverage + Quality</text>
+    <rect x="793" y="172" width="90" height="18" rx="3" fill="#061418"/>
+    <text x="800" y="185" font-family="'JetBrains Mono', monospace" font-size="9" fill="#2a5868">coverage-check.py</text>
+    <!-- Gate indicators -->
+    <circle cx="798" cy="200" r="3" fill="#3a9060" class="status-blink"/>
+    <text x="808" y="204" font-family="'JetBrains Mono', monospace" font-size="9" fill="#4a7870">8/8 coverage</text>
+    <circle cx="798" cy="216" r="3" fill="#3a9060"/>
+    <text x="808" y="220" font-family="'JetBrains Mono', monospace" font-size="9" fill="#4a7870">heartbeat OK</text>
+    <rect x="781" y="152" width="3" height="28" fill="#00c4d4" opacity="0.7"/>
+  </g>
+
+  <!-- FLOW 6 -->
+  <line class="flow-line flow-6" x1="901" y1="174" x2="931" y2="174" marker-end="url(#arr)"/>
+
+  <!-- STAGE 7: PUBLISH (accent stage) -->
+  <g class="stage stage-7">
+    <rect x="933" y="75" width="140" height="198" rx="6" fill="url(#stage-publish)" stroke="#00c4d4" stroke-width="1.5"/>
+    <rect x="933" y="75" width="140" height="4" rx="3" fill="#00c4d4"/>
+    <!-- Glow effect on publish box -->
+    <rect x="933" y="75" width="140" height="198" rx="6" fill="none" stroke="#00c4d4" stroke-width="6" opacity="0.04"/>
+    <text x="947" y="104" font-family="'JetBrains Mono', monospace" font-size="28" font-weight="700" fill="#082028" opacity="0.8">07</text>
+    <text x="947" y="122" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" letter-spacing="2.5" fill="#00c4d4">PUBLISH</text>
+    <line x1="947" y1="130" x2="1061" y2="130" stroke="#0e2830" stroke-width="1"/>
+    <text x="947" y="150" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#00c4d4">Proof Output</text>
+    <rect x="947" y="160" width="110" height="18" rx="3" fill="#061418"/>
+    <text x="954" y="173" font-family="'JetBrains Mono', monospace" font-size="9" fill="#2a6878">generate-metrics.js</text>
+    <!-- Output destinations -->
+    <rect x="947" y="184" width="110" height="16" rx="3" fill="#081a20" stroke="#103040" stroke-width="1"/>
+    <text x="1002" y="196" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#4a9aaa">→ GitHub repo</text>
+    <rect x="947" y="204" width="110" height="16" rx="3" fill="#081a20" stroke="#103040" stroke-width="1"/>
+    <text x="1002" y="216" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#4a9aaa">→ hawkinsops.com</text>
+    <rect x="947" y="224" width="110" height="16" rx="3" fill="#081a20" stroke="#103040" stroke-width="1"/>
+    <text x="1002" y="236" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#4a9aaa">→ proof_pack/</text>
+    <rect x="933" y="140" width="3" height="32" fill="#00c4d4" opacity="0.8"/>
+  </g>
+
+  <!-- ── BOTTOM METRICS STRIP ── -->
+  <rect x="0" y="310" width="1100" height="110" fill="#06090e"/>
+  <line x1="0" y1="310" x2="1100" y2="310" stroke="#1a2a3a" stroke-width="1"/>
+  <line x1="0" y1="420" x2="1100" y2="420" stroke="#0e1820" stroke-width="1"/>
+
+  <!-- Metric 1 -->
+  <text x="60" y="345" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" letter-spacing="2" fill="#2a4060">TOTAL CASES</text>
+  <text x="60" y="378" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="26" font-weight="700" fill="#c8e0f0">49,774</text>
+  <text x="60" y="398" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#2a4060">ledger-verified</text>
+
+  <line x1="130" y1="322" x2="130" y2="408" stroke="#131d2a" stroke-width="1"/>
+
+  <!-- Metric 2 -->
+  <text x="225" y="345" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" letter-spacing="2" fill="#2a4060">AUTO-CLOSE</text>
+  <text x="225" y="378" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="26" font-weight="700" fill="#c8e0f0">~89%</text>
+  <text x="225" y="398" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#2a4060">policy-driven triage</text>
+
+  <line x1="330" y1="322" x2="330" y2="408" stroke="#131d2a" stroke-width="1"/>
+
+  <!-- Metric 3 -->
+  <text x="430" y="345" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" letter-spacing="2" fill="#2a4060">ESCALATIONS</text>
+  <text x="430" y="378" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="26" font-weight="700" fill="#c8e0f0">2,478</text>
+  <text x="430" y="398" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#2a4060">published artifacts</text>
+
+  <line x1="535" y1="322" x2="535" y2="408" stroke="#131d2a" stroke-width="1"/>
+
+  <!-- Metric 4 -->
+  <text x="630" y="345" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" letter-spacing="2" fill="#2a4060">COVERAGE</text>
+  <text x="630" y="378" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="26" font-weight="700" fill="#00c4d4">8/8</text>
+  <text x="630" y="398" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#2a6870">hosts reporting</text>
+
+  <line x1="735" y1="322" x2="735" y2="408" stroke="#131d2a" stroke-width="1"/>
+
+  <!-- Metric 5 -->
+  <text x="828" y="345" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" letter-spacing="2" fill="#2a4060">RECONCILIATION</text>
+  <text x="828" y="372" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="20" font-weight="700" fill="#3a9060">PASS</text>
+  <text x="828" y="392" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#2a5848">0 mismatches</text>
+
+  <line x1="940" y1="322" x2="940" y2="408" stroke="#131d2a" stroke-width="1"/>
+
+  <!-- Metric 6 -->
+  <text x="1020" y="345" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" letter-spacing="2" fill="#2a4060">HEARTBEAT</text>
+  <circle cx="1020" cy="372" r="10" fill="none" stroke="#00c4d4" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="1020" cy="372" r="5" fill="#00c4d4" class="status-blink" filter="url(#teal-glow-sm)"/>
+  <text x="1020" y="398" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#3a9aaa">SUCCESS</text>
+
+  <!-- Bottom attribution -->
+  <text x="28" y="408" font-family="'JetBrains Mono', monospace" font-size="8" fill="#161e28">hawkinsops.com — SignalFoundry AutoSOC Engine — 03-20-2026</text>
+</svg>

@@ -1,0 +1,363 @@
+/* coherence.css — Visual bridge for site-wide consistency
+   Loaded LAST on all pages to unify legacy (.card, .slbl, .stitle) and
+   modernize (.m-card, .m-eyebrow) systems into one recruiter-facing surface.
+
+   ROOT CAUSES THIS FILE FIXES:
+   1. design-tokens.css defines light-mode-only tokens (--text, --muted,
+      --border, --surface) with NO dark override. Homepage loads design-tokens
+      without modernize.css, so light values bleed through → grey appearance.
+   2. base.css body gradient has hardcoded #f9fbff (light) endpoint.
+   3. base.css .sf-eyebrow uses hardcoded light colors.
+   4. modernize.css primary palette is teal (--primary-700: #0f766e),
+      not blue/cyan → green appearance on lab/case-study pages.
+   5. styles.css .lane-card[data-lane="fastest"] uses green #28c840.
+   6. styles.css .review-section .lane-card green at higher specificity.
+
+   v2 — 03-15-2026 */
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   §1  DARK-MODE TOKEN OVERRIDES
+   Fix design-tokens.css light bleed on pages that don't load modernize.
+   Also shift modernize primary from teal → blue/cyan.
+   ═══════════════════════════════════════════════════════════════════ */
+
+html[data-theme="dark"] {
+  /* design-tokens.css fixes (homepage depends on these) */
+  --brand: #7ab8ff;
+  --accent: #5fb3ff;
+  --muted: #9eb4d8;
+  --surface: #111827;
+  --surface-soft: #18212f;
+  --text: #f8fafc;
+  --text-soft: #d4d4d8;
+  --border: rgba(255, 255, 255, 0.12);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.22);
+  --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.30);
+
+  /* Unify radius tokens — design-tokens (8px) vs modernize (4px) → 12px everywhere */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 12px;
+
+  /* modernize.css primary palette: teal → blue/cyan */
+  --primary-50: rgba(122, 184, 255, 0.08);
+  --primary-100: rgba(122, 184, 255, 0.12);
+  --primary-300: #7ab8ff;
+  --primary-500: #5fb3ff;
+  --primary-700: #3b8fd9;
+  --primary-800: #2d7bc2;
+}
+
+/* Same overrides for light visitors (dark is forced but belt+suspenders) */
+html[data-theme="light"] {
+  --brand: #7ab8ff;
+  --accent: #5fb3ff;
+  --muted: #9eb4d8;
+  --surface: #111827;
+  --surface-soft: #18212f;
+  --text: #f8fafc;
+  --text-soft: #d4d4d8;
+  --border: rgba(255, 255, 255, 0.12);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.22);
+  --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.30);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 12px;
+  --neutral-900: #111827;
+  --primary-50: rgba(122, 184, 255, 0.08);
+  --primary-100: rgba(122, 184, 255, 0.12);
+  --primary-300: #7ab8ff;
+  --primary-500: #5fb3ff;
+  --primary-700: #3b8fd9;
+  --primary-800: #2d7bc2;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   §2  BODY BACKGROUND FIX
+   base.css body gradient fades to hardcoded #f9fbff (light).
+   modernize.css body radial uses teal rgba(20,184,166,0.12).
+   Override both to a blue-accented dark gradient.
+   ═══════════════════════════════════════════════════════════════════ */
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(122, 184, 255, 0.06), transparent 28%),
+    linear-gradient(180deg, var(--bg, #000000) 0%, #050810 100%) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   §3  HOMEPAGE SF-* COMPONENT FIXES
+   base.css .sf-eyebrow uses hardcoded light colors.
+   .sf-card uses var(--bg) which is pure black — shift to surface.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.sf-eyebrow {
+  background: rgba(122, 184, 255, 0.10);
+  color: #7ab8ff;
+}
+
+.sf-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* Homepage shell: match modernize .m-wrap width */
+.sf-shell {
+  max-width: 1200px;
+  width: min(1200px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 0 0 64px;
+}
+
+/* Homepage section spacing: match .m-section */
+.sf-section {
+  padding: 40px 0 56px;
+}
+
+/* Homepage headings: match modernize heading rhythm */
+.sf-home h2 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin: 10px 0 10px;
+}
+
+@media (min-width: 1024px) {
+  .sf-home h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Homepage metric cards: match .m-card padding */
+.sf-metric {
+  padding: 22px;
+}
+
+/* Homepage pipeline box: match card surface */
+.sf-pipeline {
+  background: var(--surface);
+  border-color: var(--border);
+  border-radius: var(--radius-lg);
+}
+
+/* Homepage buttons: match modernize link accent */
+.sf-button-primary {
+  background: #3b8fd9;
+  border-color: #3b8fd9;
+}
+
+.sf-button-secondary {
+  border-color: #3b8fd9;
+  color: #3b8fd9;
+}
+
+.sf-button-secondary:hover {
+  background: rgba(122, 184, 255, 0.08);
+}
+
+/* Homepage proof links: match .m-card-link color */
+.sf-proof-link strong {
+  color: var(--text);
+}
+
+.sf-proof-link:hover {
+  border-color: rgba(122, 184, 255, 0.28);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   §4  LEGACY CARD ALIGNMENT
+   styles.css .card uses near-black gradient. Shift to match modernize
+   surface color family.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.card {
+  background: linear-gradient(160deg, #111827 0%, #0d1420 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+}
+
+.card:hover {
+  border-color: rgba(122, 184, 255, 0.28);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   §5  GREEN → BLUE/CYAN (non-status accents only)
+   Green is reserved for status semantics (footer "Available" dot, etc.)
+   All identity/brand accents shift to blue/cyan.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Lane card "fastest" — direct override (same specificity, later wins) */
+.lane-card[data-lane="fastest"] .lane-tag {
+  background: rgba(122, 184, 255, 0.10);
+  border-color: rgba(122, 184, 255, 0.28);
+  color: #7ab8ff;
+}
+
+.lane-card[data-lane="fastest"]:hover {
+  border-color: rgba(122, 184, 255, 0.30);
+}
+
+/* Review section lane card — HIGHER specificity override (styles.css line 581) */
+.review-section .lane-card[data-lane="fastest"] {
+  border-color: rgba(122, 184, 255, 0.34);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(122, 184, 255, 0.12);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   §6  MODERNIZE BODY RADIAL OVERRIDE
+   modernize.css body background-image has teal radial.
+   Already overridden by §2 body rule with !important.
+   This section covers the .modernize-shell teal tint if any.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* .m-card surface: match .sf-card and .card gradient for uniformity */
+.m-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+}
+
+/* modernize.css badge/step/flow accent pills: teal → blue */
+.m-badge {
+  background: rgba(122, 184, 255, 0.08);
+  color: #3b8fd9;
+}
+
+.m-step-number,
+.m-flow-step,
+.m-packet-number {
+  background: rgba(122, 184, 255, 0.08);
+  color: #3b8fd9;
+}
+
+.m-frame-tag {
+  background: rgba(122, 184, 255, 0.08);
+  color: #3b8fd9;
+}
+
+.m-hero-signal {
+  background: color-mix(in srgb, var(--surface) 82%, rgba(122, 184, 255, 0.18));
+  border-color: color-mix(in srgb, #3b8fd9 18%, var(--border));
+}
+
+/* KPI gradient background: teal → blue */
+.m-kpi {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface) 94%, rgba(122, 184, 255, 0.06)), var(--surface));
+}
+
+/* Ops card gradient: teal → blue */
+.m-ops-card {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface) 72%, rgba(122, 184, 255, 0.08)), var(--surface));
+}
+
+/* Stage topology/logic teal tints → blue */
+.m-stage-topology .m-card,
+.m-stage-topology .m-evidence-note {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface) 82%, rgba(122, 184, 255, 0.06)), var(--surface));
+}
+
+.m-stage-logic .m-callout:first-child {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface) 84%, rgba(122, 184, 255, 0.06)), var(--surface));
+}
+
+/* Lab intro teal → blue */
+.m-lab-intro {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface) 88%, rgba(122, 184, 255, 0.06)), var(--surface));
+}
+
+/* Evidence note teal → blue */
+.m-evidence-note {
+  background: color-mix(in srgb, var(--surface) 92%, rgba(122, 184, 255, 0.04));
+}
+
+/* Lane card base (modernize.css defines teal radial) → blue */
+.lane-card {
+  border-color: color-mix(in srgb, #3b8fd9 16%, rgba(255, 255, 255, 0.08));
+  background:
+    radial-gradient(circle at top right, rgba(122, 184, 255, 0.08), transparent 32%),
+    linear-gradient(145deg, rgba(7, 15, 28, 0.98), rgba(10, 19, 33, 0.94));
+}
+
+/* Ops status pill teal → blue */
+.m-ops-status-pill {
+  background: linear-gradient(135deg, color-mix(in srgb, rgba(122, 184, 255, 0.08) 80%, var(--surface) 20%), var(--surface));
+  border-color: color-mix(in srgb, #3b8fd9 22%, var(--border));
+  color: #3b8fd9;
+}
+
+/* Impact band teal radial → blue */
+.m-impact-band {
+  background:
+    radial-gradient(circle at top right, rgba(122, 184, 255, 0.14), transparent 30%),
+    linear-gradient(135deg, #0b1220 0%, #111827 58%, #0d1830 100%);
+}
+
+/* Hero panel head teal → blue */
+.m-hero .m-panel-head {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, rgba(122, 184, 255, 0.08) 78%, var(--surface) 22%), var(--surface));
+}
+
+/* Nav active link teal → blue */
+.m-nav-list a:hover,
+.m-nav-list a[aria-current="page"],
+.m-mobile a:hover,
+.m-mobile a[aria-current="page"] {
+  color: #3b8fd9;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   §7  GRID GAP ALIGNMENT
+   Legacy 12px gaps → 18px to match modernize system.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.g2, .g3 { gap: 18px; }
+.g-auto  { gap: 14px; }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   §8  FOOTER CONSISTENCY
+   ═══════════════════════════════════════════════════════════════════ */
+
+footer {
+  padding: 40px 0 56px;
+}
+
+footer .ctr p {
+  font-size: 0.95rem;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   §9  RESUME SHEET DARK SURFACE
+   ═══════════════════════════════════════════════════════════════════ */
+
+.resume-sheet {
+  background: linear-gradient(160deg, #111827 0%, #0d1420 100%);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   §10 THEME TOGGLE HIDDEN
+   ═══════════════════════════════════════════════════════════════════ */
+
+.theme-btn,
+#themeToggle {
+  display: none !important;
+}

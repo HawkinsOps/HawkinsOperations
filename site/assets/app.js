@@ -11,29 +11,7 @@
   const OPS_TIMEOUT_MS = 1500;
   const isLocalDebugHost = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
 
-  // Theme toggle (saved preference, otherwise system preference)
-  const themeToggle = $('#themeToggle');
-  const savedTheme = localStorage.getItem('rh-theme');
-  const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const startTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-  html.setAttribute('data-theme', startTheme);
-
-  function updateThemeButton(theme) {
-    if (!themeToggle) return;
-    const next = theme === 'dark' ? 'light' : 'dark';
-    themeToggle.textContent = theme === 'dark' ? 'Light' : 'Dark';
-    themeToggle.setAttribute('aria-label', `Switch to ${next} mode`);
-  }
-  updateThemeButton(startTheme);
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const current = html.getAttribute('data-theme') || 'dark';
-      const next = current === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('rh-theme', next);
-      updateThemeButton(next);
-    });
-  }
+  html.setAttribute('data-theme', 'dark');
 
   // Mobile nav
   const mobBtn = $('#mobBtn');
@@ -103,35 +81,134 @@
     return value;
   }
 
+  function normalizeDateDisplay(value) {
+    if (typeof value !== 'string') return value;
+    var raw = value.trim();
+    if (!raw) return value;
+    var mmdd = /^(\d{2})-(\d{2})-(\d{4})$/;
+    if (mmdd.test(raw)) return raw;
+    var iso = new Date(raw);
+    if (Number.isNaN(iso.getTime())) return value;
+    var mm = String(iso.getUTCMonth() + 1).padStart(2, '0');
+    var dd = String(iso.getUTCDate()).padStart(2, '0');
+    var yyyy = String(iso.getUTCFullYear());
+    return mm + '-' + dd + '-' + yyyy;
+  }
+
+  function normalizeReconciliationValue(value) {
+    if (typeof value !== 'string') return value;
+    var mismatchMatch = value.match(/(\d+)\s*mismatch/i);
+    if (mismatchMatch && mismatchMatch[1] === '0') {
+      return 'PASS (0 mismatches)';
+    }
+    return value.trim();
+  }
+
+  function formatOpsValue(key, value) {
+    if (typeof value === 'number' && Number.isFinite(value)) {
+      return new Intl.NumberFormat('en-US').format(value);
+    }
+    if (typeof value !== 'string') return value;
+    var normalized = value.trim();
+    if (!normalized) return value;
+
+    if (/heartbeat/i.test(key || '')) {
+      return normalized.toUpperCase();
+    }
+    if (/coverage_ratio/i.test(key || '')) {
+      var compact = normalized.replace(/\s+/g, '');
+      if (/^\d+\/\d+$/.test(compact)) {
+        return compact + ' hosts';
+      }
+      return normalized;
+    }
+    if (/reconciliation/i.test(key || '')) {
+      return normalizeReconciliationValue(normalized);
+    }
+    if (/(last_updated|locked_date)/i.test(key || '')) {
+      return normalizeDateDisplay(normalized);
+    }
+    return normalized;
+  }
+
+  function isStableScopeNode(node) {
+    return !!(node && typeof node.closest === 'function' && node.closest('[data-ops-scope="stable"]'));
+  }
+
+  function warnOpsBinding(message) {
+    if (!isLocalDebugHost) return;
+    console.warn('[ops-metrics]', message);
+  }
+
+  function shouldBlockNonStableKey(node, key, attrName) {
+    if (!isStableScopeNode(node)) return false;
+    if (!key || key.indexOf('stable_') === 0) return false;
+    warnOpsBinding('Blocked non-stable key "' + String(key) + '" in stable scope on ' + attrName + '.');
+    return true;
+  }
+
+  function readOpsMetric(metrics, key, node, attrName) {
+    if (!key) return null;
+    if (shouldBlockNonStableKey(node, key, attrName)) return null;
+    if (!Object.prototype.hasOwnProperty.call(metrics, key)) {
+      warnOpsBinding('Missing key "' + String(key) + '" for ' + attrName + ' binding.');
+      return null;
+    }
+    return metrics[key];
+  }
+
+  function applyStatusState(node, renderedValue) {
+    if (!node || typeof renderedValue !== 'string' || !renderedValue.trim()) return;
+    var statusToken = renderedValue.toLowerCase();
+    if (statusToken.indexOf('pass') === 0) {
+      node.setAttribute('data-status', 'success');
+      return;
+    }
+    node.setAttribute('data-status', statusToken);
+  }
+
   function applyOpsMetricsPayload(payload) {
     if (!payload || typeof payload !== 'object') return;
     var metrics = payload.metrics && typeof payload.metrics === 'object' ? payload.metrics : payload;
     $$('[data-ops]').forEach(function (node) {
       var key = node.getAttribute('data-ops');
-      var value = key ? metrics[key] : null;
+      var value = readOpsMetric(metrics, key, node, 'data-ops');
       if ((typeof value === 'number' && Number.isFinite(value)) || (typeof value === 'string' && value.trim())) {
-        node.textContent = String(formatMetricValue(value));
+        node.textContent = String(formatOpsValue(key, value));
       }
     });
     $$('[data-ops-status]').forEach(function (node) {
       var key = node.getAttribute('data-ops-status');
-      var value = key ? metrics[key] : null;
+      var value = readOpsMetric(metrics, key, node, 'data-ops-status');
       if (typeof value === 'string' && value.trim()) {
-        node.textContent = value;
-        node.setAttribute('data-status', value.toLowerCase());
+        var rendered = String(formatOpsValue(key, value));
+        node.textContent = rendered;
+        applyStatusState(node, rendered);
       }
     });
+  }
+
+  async function fetchJsonWithFallback(url, timeoutMs) {
+    if (typeof window.fetchJsonWithTimeout === 'function') {
+      return window.fetchJsonWithTimeout(url, { timeoutMs: timeoutMs });
+    }
+    const ctl = new AbortController();
+    const timer = window.setTimeout(() => ctl.abort(), timeoutMs);
+    try {
+      const res = await window.fetch(url, { signal: ctl.signal, credentials: 'same-origin' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    } finally {
+      window.clearTimeout(timer);
+    }
   }
 
   async function loadVerifiedCounts() {
     if (window.HAWKINSOPS_COUNTS && typeof window.HAWKINSOPS_COUNTS === 'object') {
       applyVerifiedPayload(window.HAWKINSOPS_COUNTS);
     }
-    if (typeof window.fetchJsonWithTimeout !== 'function') return;
     try {
-      const payload = await window.fetchJsonWithTimeout('/assets/verified-counts.json', {
-        timeoutMs: VERIFIED_TIMEOUT_MS
-      });
+      const payload = await fetchJsonWithFallback('/assets/verified-counts.json', VERIFIED_TIMEOUT_MS);
       applyVerifiedPayload(payload);
     } catch {
       // keep existing values if the payload is unavailable
@@ -142,11 +219,8 @@
     if (window.HAWKINSOPS_OPS_METRICS && typeof window.HAWKINSOPS_OPS_METRICS === 'object') {
       applyOpsMetricsPayload(window.HAWKINSOPS_OPS_METRICS);
     }
-    if (typeof window.fetchJsonWithTimeout !== 'function') return;
     try {
-      const payload = await window.fetchJsonWithTimeout('/assets/data/ops-metrics.json', {
-        timeoutMs: OPS_TIMEOUT_MS
-      });
+      const payload = await fetchJsonWithFallback('/assets/data/ops-metrics.json', OPS_TIMEOUT_MS);
       applyOpsMetricsPayload(payload);
     } catch {
       // keep existing values if the payload is unavailable
@@ -320,6 +394,15 @@
     });
   }
 
+  function formatMmDdYyyy(iso) {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return "";
+    const mm = String(d.getUTCMonth() + 1).padStart(2, "0");
+    const dd = String(d.getUTCDate()).padStart(2, "0");
+    const yyyy = String(d.getUTCFullYear());
+    return `${mm}-${dd}-${yyyy}`;
+  }
+
   loadVerifiedCounts();
   loadOpsMetrics();
   hydrateLabScreenshots();
@@ -340,11 +423,3 @@
     window.addEventListener("resize", scanOverflow);
   }
 })();
-  function formatMmDdYyyy(iso) {
-    const d = new Date(iso);
-    if (Number.isNaN(d.getTime())) return "";
-    const mm = String(d.getUTCMonth() + 1).padStart(2, "0");
-    const dd = String(d.getUTCDate()).padStart(2, "0");
-    const yyyy = String(d.getUTCFullYear());
-    return `${mm}-${dd}-${yyyy}`;
-  }

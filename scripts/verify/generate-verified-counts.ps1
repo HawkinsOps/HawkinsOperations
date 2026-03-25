@@ -6,10 +6,10 @@ param(
 $ErrorActionPreference = "Stop"
 
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
-$sigmaPath = Join-Path $repoRoot "detection-rules\sigma"
-$splunkPath = Join-Path $repoRoot "detection-rules\splunk"
-$wazuhPath = Join-Path $repoRoot "detection-rules\wazuh\rules"
-$playbookPath = Join-Path $repoRoot "incident-response\playbooks"
+$sigmaPath = Join-Path $repoRoot "content\detection-rules\sigma"
+$splunkPath = Join-Path $repoRoot "content\detection-rules\splunk"
+$wazuhPath = Join-Path $repoRoot "content\detection-rules\wazuh\rules"
+$playbookPath = Join-Path $repoRoot "content\incident-response\playbooks"
 $outPath = if ([System.IO.Path]::IsPathRooted($OutFile)) { $OutFile } else { Join-Path $repoRoot $OutFile }
 
 $sigmaYml = (Get-ChildItem -Recurse -Filter *.yml -Path $sigmaPath -ErrorAction SilentlyContinue).Count

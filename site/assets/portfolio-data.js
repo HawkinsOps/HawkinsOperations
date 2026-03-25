@@ -212,15 +212,15 @@ function renderSecurityKpis(container, verified) {
   });
 }
 
-function renderMitreCoverageStatus(container, detections) {
+function renderMitreTagStatus(container, detections) {
   if (!container) return;
   const rows = Array.isArray(detections) ? detections : [];
   const withMitre = rows.filter((item) => item && (item.tactic || item.technique_id || item.technique_name));
   if (!rows.length || !withMitre.length) {
-    container.innerHTML = 'Coverage not available yet. Add optional fields <code>tactic</code>, <code>technique_id</code>, and <code>technique_name</code> to detection entries to enable MITRE heatmap rendering.';
+    container.innerHTML = 'MITRE metadata status unavailable. Add optional fields <code>tactic</code>, <code>technique_id</code>, and <code>technique_name</code> to detection entries to enable MITRE heatmap rendering.';
     return;
   }
-  container.innerHTML = `MITRE metadata is present on <b>${withMitre.length}</b> of <b>${rows.length}</b> records. Heatmap rendering is ready once tactic and technique coverage is complete.`;
+  container.innerHTML = `MITRE metadata is present on <b>${withMitre.length}</b> of <b>${rows.length}</b> records. Heatmap rendering is ready once tactic and technique mapping is complete.`;
 }
 
 async function initProjectsPage() {
@@ -266,7 +266,7 @@ async function initDetectionsPage() {
   const miniTagChart = document.getElementById("securityTagMiniChart");
   if (miniTagChart) renderDetectionsByTagMiniChart(miniTagChart, detections, { limit: 5, idPrefix: "security-mini-tag", width: 560 });
   renderSecurityKpis(root.querySelector("[data-security-kpis]"), verified);
-  renderMitreCoverageStatus(document.getElementById("mitre-coverage-status"), detections);
+  renderMitreTagStatus(document.getElementById("mitre-tag-status"), detections);
 }
 
 async function initHomeDashboard() {

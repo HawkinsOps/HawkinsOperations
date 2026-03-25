@@ -1,0 +1,98 @@
+{
+  "uid": "honeypot-ops",
+  "title": "Honeypot Ops",
+  "schemaVersion": 38,
+  "version": 1,
+  "timezone": "browser",
+  "tags": ["honeypot", "cowrie", "wazuh"],
+  "time": { "from": "now-24h", "to": "now" },
+  "refresh": "30s",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Sessions Over Time",
+      "id": 1,
+      "gridPos": { "x": 0, "y": 0, "w": 24, "h": 8 },
+      "description": "Counts Cowrie-related events over time using rule.groups:cowrie.",
+      "datasource": { "type": "grafana-opensearch-datasource", "uid": "wazuh_indexer" },
+      "targets": [
+        {
+          "refId": "A",
+          "query": "rule.groups:cowrie",
+          "queryType": "lucene",
+          "metrics": [
+            { "id": "1", "type": "count" }
+          ],
+          "bucketAggs": [
+            {
+              "id": "2",
+              "type": "date_histogram",
+              "field": "@timestamp",
+              "settings": { "interval": "auto" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "barchart",
+      "title": "Top Usernames",
+      "id": 2,
+      "gridPos": { "x": 0, "y": 8, "w": 12, "h": 8 },
+      "description": "Top usernames observed. Adjust field if your pipeline uses a different key.",
+      "datasource": { "type": "grafana-opensearch-datasource", "uid": "wazuh_indexer" },
+      "targets": [
+        {
+          "refId": "A",
+          "query": "rule.groups:cowrie",
+          "queryType": "lucene",
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "bucketAggs": [
+            {
+              "id": "2",
+              "type": "terms",
+              "field": "data.username.keyword",
+              "settings": { "size": 10, "order": "desc", "orderBy": "_count" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "barchart",
+      "title": "Top Commands",
+      "id": 3,
+      "gridPos": { "x": 12, "y": 8, "w": 12, "h": 8 },
+      "description": "Top commands observed. Adjust field if your pipeline uses a different key.",
+      "datasource": { "type": "grafana-opensearch-datasource", "uid": "wazuh_indexer" },
+      "targets": [
+        {
+          "refId": "A",
+          "query": "rule.groups:cowrie",
+          "queryType": "lucene",
+          "metrics": [
+            {
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "bucketAggs": [
+            {
+              "id": "2",
+              "type": "terms",
+              "field": "data.command.keyword",
+              "settings": { "size": 10, "order": "desc", "orderBy": "_count" }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "templating": { "list": [] },
+  "annotations": { "list": [] }
+}

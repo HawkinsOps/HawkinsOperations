@@ -1,0 +1,16 @@
+{
+  "date": "2026-03-20",
+  "system": "SignalFoundry / AutoSOC",
+  "total_cases": 49774,
+  "auto_close_rate_label": "~89%",
+  "escalations_label": "2,478",
+  "hosts_reporting": "8/8",
+  "reconciliation": "PASS (0 mismatches)",
+  "heartbeat": "SUCCESS",
+  "authority": "March 20 operator-locked canonical snapshot",
+  "notes": [
+    "Any 03-04, 03-13, or 03-19 values are historical unless explicitly labeled current.",
+    "Do not interpolate or merge values from other files.",
+    "If exact site payloads disagree, treat them as drift and correct them to this file."
+  ]
+}

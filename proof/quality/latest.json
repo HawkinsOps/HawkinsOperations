@@ -1,0 +1,54 @@
+{
+  "generated_utc": "2026-03-25T03:18:55.251Z",
+  "scorecard_window": "lifetime_runtime_snapshot",
+  "source_metrics": "data/metrics.json",
+  "totals": {
+    "total_cases": 49774,
+    "auto_closed_benign": 0,
+    "known_fp": 1622,
+    "escalated": 2478,
+    "review": 312,
+    "staged_pending": 28
+  },
+  "scorecard": {
+    "status": "WATCH",
+    "metrics": [
+      {
+        "id": "auto_close_benign_pct",
+        "value": 0,
+        "target": ">= 35",
+        "status": "WATCH"
+      },
+      {
+        "id": "known_fp_pct",
+        "value": 3.26,
+        "target": "<= 45",
+        "status": "PASS"
+      },
+      {
+        "id": "escalation_pct",
+        "value": 4.98,
+        "target": ">= 3",
+        "status": "PASS"
+      },
+      {
+        "id": "review_backlog_pct",
+        "value": 0.63,
+        "target": "<= 20",
+        "status": "PASS"
+      },
+      {
+        "id": "staged_pending_pct",
+        "value": 0.06,
+        "target": "<= 1",
+        "status": "PASS"
+      },
+      {
+        "id": "reconciliation_mismatch_count",
+        "value": 0,
+        "target": "0",
+        "status": "PASS"
+      }
+    ]
+  }
+}

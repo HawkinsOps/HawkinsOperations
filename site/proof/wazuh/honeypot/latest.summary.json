@@ -1,46 +1,26 @@
 {
-  "generated_utc": "2026-02-24T13:34:35Z",
+  "generated_utc": "2026-03-20T05:57:23Z",
   "source_artifact": "latest.json",
-  "source_count": 28,
+  "source_count": 11,
   "top_rules": [
     {
-      "rule_id": "5501",
-      "desc": "PAM: Login session opened.",
-      "count": 5
-    },
-    {
-      "rule_id": "5502",
-      "desc": "PAM: Login session closed.",
+      "rule_id": "2904",
+      "desc": "Dpkg (Debian Package) half configured.",
       "count": 4
     },
     {
-      "rule_id": "5503",
-      "desc": "PAM: User login failed.",
-      "count": 4
-    },
-    {
-      "rule_id": "5404",
-      "desc": "Three failed attempts to run sudo",
+      "rule_id": "550",
+      "desc": "Integrity checksum changed.",
       "count": 3
     },
     {
-      "rule_id": "5715",
-      "desc": "sshd: authentication success.",
-      "count": 2
+      "rule_id": "2902",
+      "desc": "New dpkg (Debian Package) installed.",
+      "count": 3
     },
     {
-      "rule_id": "5760",
-      "desc": "sshd: authentication failed.",
-      "count": 2
-    },
-    {
-      "rule_id": "100110",
-      "desc": "Honeypot deterministic demo alert (HONEY_DEMO).",
-      "count": 1
-    },
-    {
-      "rule_id": "503",
-      "desc": "Wazuh agent started.",
+      "rule_id": "23505",
+      "desc": "CVE-2024-5138 affects snapd",
       "count": 1
     }
   ]

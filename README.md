@@ -9,20 +9,19 @@
 
 ## What this repo is
 
-A security operations portfolio built around a running end-to-end SOC pipeline: Wazuh generates alerts, the AutoSOC pipeline ingests, triages, redacts, and assembles structured incident packs, and the output stages to this repo. Detection content — 103 Sigma rules, 28 Wazuh rule blocks, 8 Splunk queries — is organized by MITRE ATT&CK tactic. IR playbooks follow a consistent 7-step format. Every count is script-verified. If a claim cannot be reproduced, it does not belong here.
+A security operations portfolio built around SignalFoundry, with the AutoSOC engine handling ingest, triage, redaction, and escalation-pack assembly from Wazuh alerts into public-safe proof artifacts. Detection content — 103 Sigma rules, 28 Wazuh rule blocks, 8 Splunk queries — is organized by MITRE ATT&CK tactic. IR playbooks follow a consistent 7-step format. Every count is script-verified. If a claim cannot be reproduced, it does not belong here.
 
 ---
 
-## Latest update (03-02-2026)
+## Latest update (03-20-2026)
 
-AutoSOC end-to-end pipeline validated in production-sim operation:
+SignalFoundry proof lane and release metadata refreshed:
 
-- Full loop stable: ingest → triage → redact → pack → repo-staged incident output
-- Scheduler-backed execution every 5 minutes (`Last Result: 0` on healthy cycles)
-- Production hardening: poll retry/backoff, queue overflow archive, idle-cycle telemetry, log retention
-- Rootcheck false-positive tuning: 1,312 high-severity alerts classified, verified, and closed with SHA256 transfer integrity
+- Proof page claim block now follows a tighter `TITLE / CLAIM / CONTEXT / EVIDENCE` structure with runtime metric bindings (no hard-coded numeric claims)
+- Candidate-facing proof artifacts synced for Wazuh honeypot and Grafana lanes under both `proof/` and `site/proof/`
+- Stable benchmark remains: 49,774 total cases, 2,478 escalated artifacts, 18,366 known false positives, 8/8 host coverage, heartbeat `SUCCESS`
+- Runtime and stable lanes remain generated from `data/metrics.json` -> `site/assets/data/ops-metrics.json`
 - Operations runbook: `docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md`
-- System map live on homepage: hawkinsops.com
 
 ---
 
@@ -34,7 +33,7 @@ AutoSOC end-to-end pipeline validated in production-sim operation:
 | Technical Reviewer | [`PROOF_PACK/VERIFIED_COUNTS.md`](PROOF_PACK/VERIFIED_COUNTS.md) | Script-generated counts, exact locations, reproducible |
 | Detection Engineer | [`content/detection-rules/INDEX.md`](content/detection-rules/INDEX.md) | 103 Sigma + 28 Wazuh + 8 Splunk, organized by MITRE tactic |
 | Incident Responder | [`content/incident-response/INDEX.md`](content/incident-response/INDEX.md) | 10 playbooks, 7-step format, consistent framework |
-| AutoSOC / Pipeline Reviewer | [`docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md`](docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md) | Live pipeline architecture, scheduler config, failure playbook |
+| SignalFoundry / Engine Reviewer | [`docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md`](docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md) | Live engine architecture, scheduler config, failure playbook |
 | Portfolio Reviewer | [`PROOF_PACK/PROOF_INDEX.md`](PROOF_PACK/PROOF_INDEX.md) | Curated reviewer lane with sample artifacts |
 
 ---
@@ -76,6 +75,7 @@ Run from repo root (PowerShell):
 ```powershell
 pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
 pwsh -NoProfile -File ".\scripts\verify\generate-verified-counts.ps1" -OutFile ".\PROOF_PACK\VERIFIED_COUNTS.md"
+node .\scripts\generate-metrics.js
 python .\scripts\drift_scan.py --refresh
 pwsh -NoProfile -File ".\scripts\build-wazuh-bundle.ps1"
 node .\scripts\generate-site-data.js
@@ -86,7 +86,7 @@ node .\scripts\verify\hosting-cloudflare-only.js
 
 Expected artifacts:
 - `PROOF_PACK/VERIFIED_COUNTS.md`
-- `site/assets/data/verified-counts.json`
+- `site/assets/verified-counts.json`
 - `dist/wazuh/local_rules.xml`
 
 ---
@@ -116,7 +116,7 @@ Expected artifacts:
 ```text
 Wazuh Manager (live alerts)
       |
-      |-- AutoSOC pipeline (poll → triage → redact → pack)
+      |-- AutoSOC engine (poll → triage → redact → pack)
       |       |
       |       '-- content/incident-response/incidents/YYYY/  (repo-staged packs)
       |
@@ -130,8 +130,11 @@ content/projects.json + content/detections.json
       |-- generate-site-content.js  ──>  site/assets/data/*.json
       |-- portfolio-data.js         ──>  rendered listings + filters
       |
+proof/autosoc/latest/*.json + PROOF_PACK/verified_counts.json
+      |-- generate-metrics.js       ──>  data/metrics.json
+      |
 PROOF_PACK/VERIFIED_COUNTS.md
-      |-- generate-site-data.js     ──>  site/assets/data/verified-counts.json
+      |-- generate-site-data.js     ──>  site/assets/verified-counts.json
       '-- drift_scan.py             ──>  fail on markdown/json/site count drift
 ```
 
@@ -152,7 +155,8 @@ No real credentials, internal IPs, or identity leakage in committed files. Use `
 - Static HTML/CSS/JS under `site/` — no framework, no build step, no runtime dependencies.
 - Design tokens and fluid layout: `site/assets/design-system.css`
 - Content-driven pages pull from `site/assets/data/` (generated by `scripts/generate-site-content.js`)
-- Cloudflare Pages: publish directory `site/`, branch `main`
+- GitHub Actions verifies and regenerates site artifacts on push; `update-site-data.yml` commits generated data changes back to `main` when source artifacts change.
+- Cloudflare Pages publishes from branch `main` with build output directory `site/`, so production deploys are git-driven rather than GitHub Actions-hosted deploys.
 
 ---
 
@@ -161,14 +165,10 @@ No real credentials, internal IPs, or identity leakage in committed files. Use `
 - Architecture and coverage: [`PROOF_PACK/ARCHITECTURE.md`](PROOF_PACK/ARCHITECTURE.md)
 - Contribution workflow: [`CONTRIBUTING.md`](CONTRIBUTING.md)
 - Proof lane index: [`PROOF_PACK/PROOF_INDEX.md`](PROOF_PACK/PROOF_INDEX.md)
-- AutoSOC pipeline: [`docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md`](docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md)
+- AutoSOC engine: [`docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md`](docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md)
 
 ---
 
 ## License
 
 MIT. See [LICENSE](LICENSE).
-
-
-
-

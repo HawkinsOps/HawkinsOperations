@@ -10,17 +10,22 @@ if (-not (Test-Path -LiteralPath $hookDir)) {
 }
 
 $hookBody = @"
-#!/usr/bin/env pwsh
+#!/bin/sh
+pwsh -NoProfile -File "./scripts/verify/staged-scope-check.ps1"
+if [ `$? -ne 0 ]; then
+  echo "Commit blocked by staged scope check."
+  exit 1
+fi
 pwsh -NoProfile -File "./scripts/verify/public-safety-scan.ps1"
-if (`$LASTEXITCODE -ne 0) {
-  Write-Host "Commit blocked by public safety scan." -ForegroundColor Red
+if [ `$? -ne 0 ]; then
+  echo "Commit blocked by public safety scan."
   exit 1
-}
+fi
 pwsh -NoProfile -File "./scripts/verify/autosoc-publish-contract-scan.ps1"
-if (`$LASTEXITCODE -ne 0) {
-  Write-Host "Commit blocked by AutoSOC publish contract scan." -ForegroundColor Red
+if [ `$? -ne 0 ]; then
+  echo "Commit blocked by AutoSOC publish contract scan."
   exit 1
-}
+fi
 "@
 
 Set-Content -LiteralPath $hookPath -Value $hookBody -NoNewline -Encoding UTF8

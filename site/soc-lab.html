@@ -22,15 +22,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <script>
-  (function () {
-    var saved = null;
-    try { saved = localStorage.getItem('rh-theme'); } catch (e) {}
-    var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.documentElement.setAttribute('data-theme', saved || (sysDark ? 'dark' : 'light'));
-  })();
+  document.documentElement.setAttribute('data-theme', 'dark');
 </script>
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-4">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<style>
+body {
+  background:
+    radial-gradient(ellipse 100% 55% at 0% 0%,rgba(41,121,200,0.09) 0%,transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 100%,rgba(0,196,212,0.07) 0%,transparent 55%),
+    #03060b !important;
+}
+</style>
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -40,25 +44,24 @@
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
       <li><a href="/">Home</a></li>
-      <li><a href="/projects">Projects</a></li>
-      <li><a href="/case-study-autosoc">TriageLoop Case Study</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
       <li><a href="/detections">Detections</a></li>
       <li><a href="/soc-lab">Lab</a></li>
       <li><a href="/resume">Resume</a></li>
-      <li><a href="/proof">Proof</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/case-study-autosoc">Read TriageLoop</a>
-    <button id="themeToggle" class="theme-btn" type="button" aria-label="Switch to light mode">Light</button>
+    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
   <a href="/">Home</a>
-  <a href="/projects">Projects</a>
-  <a href="/case-study-autosoc">TriageLoop Case Study</a>
+  <a href="/proof">Proof</a>
+  <a href="/operations-bridge">Ops &rarr; Cyber</a>
+  <a href="/case-study-autosoc">Case Study</a>
   <a href="/detections">Detections</a>
   <a href="/soc-lab">Lab</a>
   <a href="/resume">Resume</a>
-  <a href="/proof">Proof</a>
 </div>
 
 <!-- @include:nav:end -->
@@ -75,15 +78,15 @@
     <div class="g2">
       <a class="card lane-card" href="/case-study-autosoc" style="text-decoration:none" data-lane="fastest">
         <span class="lane-tag">FEATURED</span>
-        <div class="card-ttl">TriageLoop flagship case study</div>
+        <div class="card-ttl">SignalFoundry flagship case study</div>
         <div class="card-sub">Walk the alert-ingest to escalation path, inspect outputs, and follow the proof chain without leaving the production site.</div>
         <div class="lane-cta" aria-hidden="true">Read case study <span>→</span></div>
       </a>
-      <a class="card lane-card" href="/proof" style="text-decoration:none" data-lane="source">
+      <a class="card lane-card" href="/start-here" style="text-decoration:none" data-lane="source">
         <span class="lane-tag">VERIFY</span>
         <div class="card-ttl">Run the verification yourself</div>
         <div class="card-sub">Clone the repo and run the verify script. All counts are reproducible commands against public artifacts.</div>
-        <div class="lane-cta" aria-hidden="true">Open proof pack <span>→</span></div>
+        <div class="lane-cta" aria-hidden="true">Start Here <span>→</span></div>
       </a>
     </div>
   </div>
@@ -92,9 +95,14 @@
 <section>
   <div class="ctr">
     <div class="slbl">Architecture</div>
-    <h2 class="stitle">What's running and why</h2>
+    <h2 class="stitle">What's running and why
+<!-- Lab Topology Diagram -->
+<div style="margin:20px 0;border-radius:10px;overflow:hidden;border:1px solid rgba(100,140,180,.13);">
+  <img src="/assets/lab-topology.svg" alt="HawkinsOps lab topology — Proxmox host, Wazuh manager, Splunk, Windows endpoint, data flows" loading="lazy" width="960" height="540" style="display:block;width:100%;height:auto;">
+</div>
+</h2>
     <p class="sdesc">
-      Single Proxmox host running multiple VMs. Windows 11 endpoint feeds Wazuh for detection, Splunk for search and investigation pivots.
+      Single Proxmox host running multiple VMs. Windows 11 endpoint feeds Wazuh for detection, while Splunk now operates as a live investigation layer for Windows telemetry pivots.
       Everything runs on isolated RFC1918 subnets — test traffic stays in the lab, evidence comes out.
     </p>
 
@@ -121,7 +129,7 @@
       </div>
       <div class="card">
         <div class="card-ttl">Search — Splunk</div>
-        <div class="card-sub">Splunk instance for SPL-based detection and investigation pivots. Queries designed around ES-style workflows even without a full ES license.</div>
+        <div class="card-sub">Splunk instance operating as a live investigation layer for Windows telemetry. Event ID 4688 process-creation data is searchable and validated through SPL-based pivots, while broader workflow packaging remains in progress.</div>
         <div class="card-meta"><span class="tag">Splunk</span><span class="tag">SPL</span><span class="tag">ES-style pivots</span></div>
       </div>
     </div>
@@ -152,7 +160,7 @@
       <p class="m-copy">These are embedded because the lab should feel inspectable, not described from a distance. Each surface is tied to the environment, alerting path, or evidence workflow that supports the rest of the site.</p>
       <div class="m-lab-intro">
         <div class="m-card-kicker">Inspection order</div>
-        <p class="m-copy">Environment first, then alert surface, then virtualization context, then command-driven evidence. That order makes the lab read like system support for TriageLoop rather than a detached screenshot pile.</p>
+        <p class="m-copy">Environment first, then alert surface, then virtualization context, then command-driven evidence. That order makes the lab read like system support for SignalFoundry rather than a detached screenshot pile.</p>
       </div>
       <div class="m-lab-wall">
         <figure class="m-shot-frame">
@@ -161,7 +169,7 @@
             <span class="m-frame-tag">Environment</span>
           </div>
           <div class="m-frame-body">
-            <img src="/assets/pp_soc_integration/lab-architecture.svg" alt="SOC lab topology showing Proxmox, Windows endpoint, Wazuh, Splunk, and TriageLoop pipeline boundaries" width="1200" height="510" loading="lazy">
+            <img src="/assets/pp_soc_integration/lab-architecture.svg" alt="SOC lab topology showing Proxmox, Windows endpoint, Wazuh, Splunk, and SignalFoundry pipeline boundaries" width="1200" height="510" loading="lazy">
             <p class="m-frame-caption">Purpose: show the actual topology behind the detections and escalation workflow.</p>
           </div>
         </figure>
@@ -256,7 +264,7 @@
           <li style="margin:6px 0">Wazuh Manager evaluates against custom rules (100000+ range)</li>
           <li style="margin:6px 0">Alert fires at configured severity level</li>
           <li style="margin:6px 0">Alert captured and validated as evidence artifact</li>
-          <li style="margin:6px 0">Splunk receives forwarded events for SPL pivot layer</li>
+          <li style="margin:6px 0">Current Phase 3 state: Splunk receives live Windows telemetry for investigation pivots; broader ingest coverage and a full alert-to-investigation artifact remain in progress</li>
         </ol>
       </div>
     </details>
@@ -282,6 +290,11 @@
         <div class="card-sub">CI generates <code>PROOF_PACK/VERIFIED_COUNTS.md</code> on every push. Counts are reproducible by running the verify script against the public repo. No hand-waving required.</div>
         <div class="card-meta"><span class="tag">CI-generated</span><span class="tag">Reproducible</span><span class="tag">PROOF_PACK/VERIFIED_COUNTS.md</span></div>
       </div>
+      <div class="card">
+        <div class="card-ttl">Splunk ingest validation</div>
+        <div class="card-sub">Reviewer-safe summaries for live Windows telemetry ingest and validated Event ID 4688 SPL pivots are stored in the VM 104 exports path. Internal addresses and raw UI details are intentionally omitted.</div>
+        <div class="card-meta"><span class="tag">Redacted</span><span class="tag">Splunk</span><span class="tag">Live ingest proof</span></div>
+      </div>
     </div>
 
     <div style="height:14px"></div>
@@ -295,8 +308,8 @@
     </div>
 
     <div style="margin-top:18px;display:flex;flex-wrap:wrap;gap:10px">
-      <a class="btn btn-p" href="/proof">Open proof pack</a>
-      <a class="btn btn-g" href="/case-study-soc-integration">Read SOC integration case study</a>
+      <a class="btn btn-p" href="/start-here">Start Here</a>
+      <a class="btn btn-g" href="/case-study-autosoc">Read SignalFoundry case study</a>
       <a class="btn btn-g" href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer">Browse repository</a>
     </div>
   </div>

@@ -4,11 +4,24 @@
 <title>SignalFoundry — Proof &amp; Verified Metrics</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="SignalFoundry proof page: verified counts, proof links, and validation commands.">
+<meta name="description" content="SignalFoundry proof page: public evidence, verified counts, verification commands, and current metrics contract.">
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="stylesheet" href="/assets/design-tokens.css?v=03-15-2026-1">
 <link rel="stylesheet" href="/assets/base.css?v=03-15-2026-1">
 <link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<script>
+  document.documentElement.setAttribute('data-theme', 'dark');
+</script>
+<style>
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.15;} }
+body {
+  background:
+    radial-gradient(ellipse 100% 55% at 0% 0%,rgba(41,121,200,0.09) 0%,transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 100%,rgba(0,196,212,0.07) 0%,transparent 55%),
+    #03060b !important;
+}
+</style>
 </head>
 <body>
 <nav>
@@ -17,47 +30,110 @@
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
       <li><a href="/">Home</a></li>
-      <li><a href="/projects">Projects</a></li>
-      <li><a href="/case-study-autosoc">AutoSOC Engine</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
+      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
       <li><a href="/detections">Detections</a></li>
       <li><a href="/soc-lab">Lab</a></li>
       <li><a href="/resume">Resume</a></li>
-      <li><a href="/proof">Proof</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/proof">Review Proof</a>
+    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
   </div>
 </nav>
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+  <a href="/">Home</a>
+  <a href="/proof">Proof</a>
+  <a href="/operations-bridge">Ops &rarr; Cyber</a>
+  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/detections">Detections</a>
+  <a href="/soc-lab">Lab</a>
+  <a href="/resume">Resume</a>
+</div>
 <main class="modernize-shell">
   <section class="m-section" style="padding-top:96px;">
     <div class="m-wrap">
       <div class="m-eyebrow">Proof</div>
       <h1 class="m-title" style="font-size: clamp(2.2rem, 4vw, 3.7rem);">SignalFoundry — Proof &amp; Verified Metrics</h1>
-      <p class="m-outcome">SignalFoundry, built under HawkinsOps and currently powered by the AutoSOC engine, uses this proof surface to connect public evidence, verification commands, and current metrics in one place.</p>
+      <p class="m-outcome">SignalFoundry proof page: public evidence, verified counts, verification commands, and current metrics contract.</p>
       <div class="m-proof-strip" style="margin-top:20px;">
         <div class="m-proof-inline">
-          <strong><span data-verified="detections">139</span> detections</strong>
-          <strong><span data-verified="sigma">103</span> Sigma</strong>
-          <strong><span data-verified="wazuh">28</span> Wazuh</strong>
-          <strong><span data-verified="ir">10</span> playbooks</strong>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0;">
+  <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #00c4d4;">
+    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Heartbeat</div>
+    <div style="font-size:24px;font-weight:700;color:#27c97a;font-family:'JetBrains Mono',monospace;display:flex;align-items:center;gap:8px;">
+      <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#27c97a;box-shadow:0 0 8px #27c97a;animation:blink 2s ease-in-out infinite;"></span>
+      <span data-ops-status="stable_heartbeat">SUCCESS</span>
+    </div>
+    <div style="font-size:9px;color:#486880;margin-top:4px;">Pipeline gate — operational</div>
+  </div>
+  <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #27c97a;">
+    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Host Coverage</div>
+    <div style="font-size:24px;font-weight:700;color:#27c97a;font-family:'JetBrains Mono',monospace;"><span data-ops="stable_coverage_ratio">8/8</span></div>
+    <div style="font-size:9px;color:#486880;margin-top:4px;">All endpoints reporting · 0 gaps</div>
+  </div>
+  <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #00c4d4;">
+    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Total Cases</div>
+    <div style="font-size:24px;font-weight:700;color:#00c4d4;font-family:'JetBrains Mono',monospace;"><span data-ops="stable_total_cases">49,774</span></div>
+    <div style="font-size:9px;color:#486880;margin-top:4px;">Ledger-verified · all runs</div>
+  </div>
+  <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #27c97a;">
+    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Reconciliation</div>
+    <div style="font-size:24px;font-weight:700;color:#27c97a;font-family:'JetBrains Mono',monospace;">PASS</div>
+    <div style="font-size:9px;color:#486880;margin-top:4px;">0 mismatches · <span data-ops="stable_escalated">2,478</span> escalations pub.</div>
+  </div>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(41,121,200,.1);color:#6aaad8;border:1px solid rgba(41,121,200,.2);"><span data-verified="sigma">103</span> Sigma</span>
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(0,196,212,.1);color:#00c4d4;border:1px solid rgba(0,196,212,.2);"><span data-verified="wazuh">28</span> Wazuh XML</span>
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(232,160,32,.1);color:#e8a020;border:1px solid rgba(232,160,32,.2);"><span data-verified="splunk">8</span> Splunk SPL</span>
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(39,201,122,.1);color:#27c97a;border:1px solid rgba(39,201,122,.2);"><span data-verified="ir">10</span> IR Playbooks</span>
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(100,140,180,.08);color:#486880;border:1px solid rgba(100,140,180,.13);">Last verified <span data-verified-date>03-20-2026</span></span>
+</div>
         </div>
       </div>
+      <p class="m-copy" style="margin-top:12px;"><span data-ops="stable_statement">March 20 canonical snapshot: 49,774 total cases, ~89% auto-close, ~2,500+ escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
+      <div class="m-proof-strip" style="margin-top:12px;">
+        <div class="m-proof-inline">
+          <strong>Lifetime processed (runtime snapshot) <span data-ops="lifetime_total_cases">49,774</span></strong>
+          <strong>Runtime escalated <span data-ops="lifetime_escalated">2,478</span></strong>
+          <strong>Runtime known FP <span data-ops="lifetime_known_fp">N/A</span></strong>
+          <strong>Runtime updated <span data-ops="lifetime_last_updated">03-20-2026</span></strong>
+        </div>
+      </div>
+      <p class="m-copy" style="margin-top:12px">Public benchmark snapshot: locked candidate-facing benchmark from committed proof. Runtime snapshot: rolling totals from the same metrics artifact.</p>
+      <p class="m-copy">Generated at <span data-ops="stable_locked_date">03-20-2026</span> | Source artifact <code>/assets/data/ops-metrics.json</code></p>
     </div>
   </section>
   <section class="m-section">
     <div class="m-wrap m-grid-2">
       <article class="m-card">
+        <div class="m-card-kicker">AutoSOC case</div>
+        <h2>TITLE: AutoSOC Noise-Reduction Proof Block (2026-03-20 Snapshot)</h2>
+        <p class="m-copy"><strong>CLAIM:</strong> AutoSOC processed <span data-ops="stable_total_cases">49,774</span> alerts, auto-closed <span data-ops="stable_auto_closed_benign">~89%</span>, and produced <span data-ops="stable_escalated">2,478</span> escalations across <span data-ops="stable_coverage_ratio">8/8</span> coverage.</p>
+        <p class="m-copy"><strong>CONTEXT:</strong> Current-facing metrics on this page are locked to the March 20 canonical snapshot. Historical recovery evidence remains linked as historical context only.</p>
+        <ul class="m-list-tight">
+          <li><strong>EVIDENCE:</strong> <code>source_of_truth/metrics_canonical_2026-03-20.json</code> -> <code>total_cases=49774</code>, <code>auto_close_rate_label=~89%</code>, <code>escalations_label=~2,500+</code>, <code>hosts_reporting=8/8</code>; proves canonical quantified baseline.</li>
+          <li><strong>EVIDENCE:</strong> <code>docs/execution/AUTOSOC_PIPELINE_RECOVERY_CASE_STUDY_03-13-2026.md</code> -> final run shows <code>run_id=autosoc-20260313T215029Z-31020</code>, <code>status=SUCCESS</code>, <code>cases_processed=173</code>, <code>reconciliation.mismatch_count=0</code>; proves real output and validated recovery.</li>
+          <li><strong>EVIDENCE:</strong> <code>/assets/pp_soc_integration/t3-workflow.png</code> -> proves a concrete workflow snapshot of the triage and evidence-pack pipeline surface.</li>
+        </ul>
+      </article>
+      <article class="m-card">
         <div class="m-card-kicker">Proof links</div>
         <h2>Primary artifacts</h2>
         <ul class="m-list-tight">
           <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">VERIFIED_COUNTS.md</a></li>
-          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/technique_map.csv" target="_blank" rel="noopener noreferrer">technique_map.csv</a></li>
+          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/detection-rules/mappings/technique_map.csv" target="_blank" rel="noopener noreferrer">technique_map.csv</a></li>
+          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/docs/execution/AUTOSOC_PIPELINE_RECOVERY_PUBLIC_SNIPPETS_03-13-2026.md" target="_blank" rel="noopener noreferrer">AUTOSOC_COVERAGE_TRUTH_SHIFT_SNIPPET_03-19-2026.md</a></li>
+          <li><a href="/proof/grafana/latest.md" target="_blank" rel="noopener noreferrer">Grafana proof lane</a></li>
+          <li><a href="/proof/validation/latest.md" target="_blank" rel="noopener noreferrer">Continuous detection validation lane</a></li>
+          <li><a href="/proof/quality/latest.md" target="_blank" rel="noopener noreferrer">Alert quality scorecard lane</a></li>
           <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/scripts/check-md-links.sh" target="_blank" rel="noopener noreferrer">check-md-links.sh</a></li>
         </ul>
       </article>
       <article class="m-card">
         <div class="m-card-kicker">Verification</div>
         <h2>Validation path</h2>
-        <p class="m-copy">Clone the repository, run the public verification commands, then compare the output to the published proof artifacts.</p>
+        <p class="m-copy">Clone the repository, run the public verification commands, then compare the output to the published proof artifacts. The operational strip above reflects the latest committed proof snapshot, not a hand-maintained health claim.</p>
       </article>
     </div>
   </section>
@@ -65,9 +141,31 @@
 <footer>
   <div class="ctr">
     <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
+    <div class="fl">
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
+      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
+    </div>
   </div>
 </footer>
-<script src="/data/counts.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<script src="/assets/fetch-utils.js" defer></script>
+<script src="/data/counts.js" defer></script>
+<script src="/data/ops-metrics.js" defer></script>
+<script>
+  (function () {
+    function loadHydrate() {
+      var s = document.createElement('script');
+      s.src = '/assets/hydrate.js';
+      s.defer = true;
+      document.body.appendChild(s);
+    }
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(function () { setTimeout(loadHydrate, 0); }, {timeout:1500});
+    } else {
+      window.addEventListener('load', loadHydrate);
+    }
+  })();
+</script>
 </body>
 </html>

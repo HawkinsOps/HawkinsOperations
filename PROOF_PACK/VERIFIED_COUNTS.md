@@ -32,4 +32,3 @@ This file is generated from live repository file counts.
 ---
 
 _Regenerate this file after detection or playbook content changes._
-

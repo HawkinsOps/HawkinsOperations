@@ -1,11 +1,11 @@
 {
-  "generated_on": "2026-02-24",
-  "total_assets": 48,
+  "generated_on": "2026-03-21",
+  "total_assets": 82,
   "safe_assets": 11,
-  "review_required_assets": 37,
+  "review_required_assets": 71,
   "media": [
     {
-      "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-01-wazuh-1286fe4dd5",
+      "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-01-wazuh-ce9ea4c828",
       "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/01_wazuh_overview_dashboard.png",
       "type": "dashboard",
       "tags": [
@@ -24,7 +24,7 @@
       "suggested_placement": "security page proof gallery"
     },
     {
-      "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-02-threa-87a2dd6289",
+      "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-02-threa-921ab93b72",
       "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/02_threat_hunting_level12_filter.png",
       "type": "screenshot",
       "tags": [
@@ -41,7 +41,7 @@
       "suggested_placement": "home proof strip"
     },
     {
-      "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-03-threa-dbccced3d2",
+      "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-03-threa-48791b66d9",
       "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/03_threat_hunting_howe01_agent.png",
       "type": "screenshot",
       "tags": [
@@ -58,7 +58,7 @@
       "suggested_placement": "home proof strip"
     },
     {
-      "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-04-event-c312c114a5",
+      "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-04-event-ab2d40cf75",
       "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/04_events_table_rule100052.png",
       "type": "table",
       "tags": [
@@ -75,7 +75,7 @@
       "suggested_placement": "home proof strip"
     },
     {
-      "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-05-power-f9368af560",
+      "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-05-power-0eff82eaba",
       "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/05_powershell_validation_hosts_ics_content.png",
       "type": "screenshot",
       "tags": [
@@ -92,7 +92,7 @@
       "suggested_placement": "home proof strip"
     },
     {
-      "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-06-event-9b5d13644d",
+      "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-06-event-dc85286f46",
       "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/06_event_detail_json_full.png",
       "type": "screenshot",
       "tags": [
@@ -109,7 +109,7 @@
       "suggested_placement": "home proof strip"
     },
     {
-      "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-07-event-0d4db0fc43",
+      "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-07-event-8d8c308d91",
       "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/07_events_table_duplicate.png",
       "type": "table",
       "tags": [
@@ -126,7 +126,7 @@
       "suggested_placement": "home proof strip"
     },
     {
-      "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-08-threa-f03e2e649f",
+      "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-08-threa-af1fb8f8eb",
       "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/08_threat_hunting_dashboard_alternate.png",
       "type": "dashboard",
       "tags": [
@@ -144,7 +144,7 @@
       "suggested_placement": "security page proof gallery"
     },
     {
-      "id": "evidence-public-images-01-overview-7agents-0critical-redacted-343a6f3f96",
+      "id": "evidence-public-images-01-overview-7agents-0critical-redacted-b059a88ba9",
       "path": "content/projects/lab/PP_SOC_Integration/evidence/public_images/01_overview_7agents_0critical_redacted.png",
       "type": "screenshot",
       "tags": [
@@ -161,7 +161,7 @@
       "suggested_placement": "projects page gallery"
     },
     {
-      "id": "evidence-public-images-02-vuln-0critical-31high-redacted-2ba15e892c",
+      "id": "evidence-public-images-02-vuln-0critical-31high-redacted-1d70eee371",
       "path": "content/projects/lab/PP_SOC_Integration/evidence/public_images/02_vuln_0critical_31high_redacted.png",
       "type": "screenshot",
       "tags": [
@@ -178,7 +178,7 @@
       "suggested_placement": "projects page gallery"
     },
     {
-      "id": "evidence-public-images-03-cve-2025-55130-detected-redacted-ab822db8af",
+      "id": "evidence-public-images-03-cve-2025-55130-detected-redacted-84544d3fbe",
       "path": "content/projects/lab/PP_SOC_Integration/evidence/public_images/03_cve_2025_55130_detected_redacted.png",
       "type": "screenshot",
       "tags": [
@@ -195,7 +195,7 @@
       "suggested_placement": "projects page gallery"
     },
     {
-      "id": "evidence-public-images-04-nodejs-patch-terminal-eabe816fa9",
+      "id": "evidence-public-images-04-nodejs-patch-terminal-0a8725700a",
       "path": "content/projects/lab/PP_SOC_Integration/evidence/public_images/04_nodejs_patch_terminal.png",
       "type": "screenshot",
       "tags": [
@@ -212,7 +212,7 @@
       "suggested_placement": "projects page gallery"
     },
     {
-      "id": "evidence-public-images-05-discover-15052-hits-redacted-f5e9740565",
+      "id": "evidence-public-images-05-discover-15052-hits-redacted-d3fcaf6bb3",
       "path": "content/projects/lab/PP_SOC_Integration/evidence/public_images/05_discover_15052_hits_redacted.png",
       "type": "screenshot",
       "tags": [
@@ -227,6 +227,438 @@
       "height": 779,
       "bytes": 146378,
       "suggested_placement": "projects page gallery"
+    },
+    {
+      "id": "design-mockups-demo-desktop-0bfb67ce25",
+      "path": "docs/design/mockups/demo-desktop.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "demo desktop",
+      "alt": "screenshot artifact: demo desktop",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/demo-desktop.svg",
+      "width": 1600,
+      "height": 920,
+      "bytes": 808,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-demo-mobile-7ea3e7f56f",
+      "path": "docs/design/mockups/demo-mobile.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "demo mobile",
+      "alt": "screenshot artifact: demo mobile",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/demo-mobile.svg",
+      "width": 430,
+      "height": 1320,
+      "bytes": 636,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-demo-tablet-ffcb924235",
+      "path": "docs/design/mockups/demo-tablet.svg",
+      "type": "table",
+      "tags": [
+        "proof"
+      ],
+      "caption": "demo tablet",
+      "alt": "table artifact: demo tablet",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/demo-tablet.svg",
+      "width": 1024,
+      "height": 1280,
+      "bytes": 795,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-facelift-demo-desktop-6a3d9233df",
+      "path": "docs/design/mockups/facelift-demo-desktop.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "facelift demo desktop",
+      "alt": "screenshot artifact: facelift demo desktop",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/facelift-demo-desktop.svg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 485,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-facelift-demo-mobile-5ba60b37ce",
+      "path": "docs/design/mockups/facelift-demo-mobile.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "facelift demo mobile",
+      "alt": "screenshot artifact: facelift demo mobile",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/facelift-demo-mobile.svg",
+      "width": 430,
+      "height": 1180,
+      "bytes": 565,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-facelift-demo-tablet-cc7851d430",
+      "path": "docs/design/mockups/facelift-demo-tablet.svg",
+      "type": "table",
+      "tags": [
+        "proof"
+      ],
+      "caption": "facelift demo tablet",
+      "alt": "table artifact: facelift demo tablet",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/facelift-demo-tablet.svg",
+      "width": 1024,
+      "height": 1220,
+      "bytes": 492,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-facelift-home-desktop-7fc068713a",
+      "path": "docs/design/mockups/facelift-home-desktop.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "facelift home desktop",
+      "alt": "screenshot artifact: facelift home desktop",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/facelift-home-desktop.svg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 587,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-facelift-home-mobile-84301bc257",
+      "path": "docs/design/mockups/facelift-home-mobile.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "facelift home mobile",
+      "alt": "screenshot artifact: facelift home mobile",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/facelift-home-mobile.svg",
+      "width": 430,
+      "height": 1200,
+      "bytes": 580,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-facelift-home-tablet-d70f6e2e00",
+      "path": "docs/design/mockups/facelift-home-tablet.svg",
+      "type": "table",
+      "tags": [
+        "proof"
+      ],
+      "caption": "facelift home tablet",
+      "alt": "table artifact: facelift home tablet",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/facelift-home-tablet.svg",
+      "width": 1024,
+      "height": 1280,
+      "bytes": 578,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-facelift-project-desktop-eca0bc4544",
+      "path": "docs/design/mockups/facelift-project-desktop.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "facelift project desktop",
+      "alt": "screenshot artifact: facelift project desktop",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/facelift-project-desktop.svg",
+      "width": 1440,
+      "height": 920,
+      "bytes": 587,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-facelift-project-mobile-3b56904a7b",
+      "path": "docs/design/mockups/facelift-project-mobile.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "facelift project mobile",
+      "alt": "screenshot artifact: facelift project mobile",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/facelift-project-mobile.svg",
+      "width": 430,
+      "height": 1220,
+      "bytes": 580,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-facelift-project-tablet-a99a046882",
+      "path": "docs/design/mockups/facelift-project-tablet.svg",
+      "type": "table",
+      "tags": [
+        "proof"
+      ],
+      "caption": "facelift project tablet",
+      "alt": "table artifact: facelift project tablet",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/facelift-project-tablet.svg",
+      "width": 1024,
+      "height": 1280,
+      "bytes": 587,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-home-desktop-df927b8d3b",
+      "path": "docs/design/mockups/home-desktop.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "home desktop",
+      "alt": "screenshot artifact: home desktop",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/home-desktop.svg",
+      "width": 1600,
+      "height": 900,
+      "bytes": 2743,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-home-mobile-3a4b2c516d",
+      "path": "docs/design/mockups/home-mobile.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "home mobile",
+      "alt": "screenshot artifact: home mobile",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/home-mobile.svg",
+      "width": 430,
+      "height": 1400,
+      "bytes": 1212,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-home-tablet-d297378e83",
+      "path": "docs/design/mockups/home-tablet.svg",
+      "type": "table",
+      "tags": [
+        "proof"
+      ],
+      "caption": "home tablet",
+      "alt": "table artifact: home tablet",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/home-tablet.svg",
+      "width": 1024,
+      "height": 1366,
+      "bytes": 1310,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-project-desktop-a1ea0bdfc1",
+      "path": "docs/design/mockups/project-desktop.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "project desktop",
+      "alt": "screenshot artifact: project desktop",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/project-desktop.svg",
+      "width": 1600,
+      "height": 980,
+      "bytes": 1011,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-project-mobile-aceeaf2f4b",
+      "path": "docs/design/mockups/project-mobile.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "project mobile",
+      "alt": "screenshot artifact: project mobile",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/project-mobile.svg",
+      "width": 430,
+      "height": 1400,
+      "bytes": 680,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-project-tablet-24acbe2c5d",
+      "path": "docs/design/mockups/project-tablet.svg",
+      "type": "table",
+      "tags": [
+        "proof"
+      ],
+      "caption": "project tablet",
+      "alt": "table artifact: project tablet",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/project-tablet.svg",
+      "width": 1024,
+      "height": 1366,
+      "bytes": 683,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-transform-demo-desktop-b886531d7e",
+      "path": "docs/design/mockups/transform-demo-desktop.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "transform demo desktop",
+      "alt": "screenshot artifact: transform demo desktop",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/transform-demo-desktop.svg",
+      "width": 1600,
+      "height": 920,
+      "bytes": 447,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-transform-demo-mobile-a8a4a462a7",
+      "path": "docs/design/mockups/transform-demo-mobile.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "transform demo mobile",
+      "alt": "screenshot artifact: transform demo mobile",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/transform-demo-mobile.svg",
+      "width": 430,
+      "height": 1180,
+      "bytes": 512,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-transform-demo-tablet-28ae113ab3",
+      "path": "docs/design/mockups/transform-demo-tablet.svg",
+      "type": "table",
+      "tags": [
+        "proof"
+      ],
+      "caption": "transform demo tablet",
+      "alt": "table artifact: transform demo tablet",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/transform-demo-tablet.svg",
+      "width": 1024,
+      "height": 1240,
+      "bytes": 438,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-transform-home-desktop-b2740506b0",
+      "path": "docs/design/mockups/transform-home-desktop.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "transform home desktop",
+      "alt": "screenshot artifact: transform home desktop",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/transform-home-desktop.svg",
+      "width": 1600,
+      "height": 960,
+      "bytes": 531,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-transform-home-mobile-0827dde5ea",
+      "path": "docs/design/mockups/transform-home-mobile.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "transform home mobile",
+      "alt": "screenshot artifact: transform home mobile",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/transform-home-mobile.svg",
+      "width": 430,
+      "height": 1260,
+      "bytes": 511,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-transform-home-tablet-71b6826ae0",
+      "path": "docs/design/mockups/transform-home-tablet.svg",
+      "type": "table",
+      "tags": [
+        "proof"
+      ],
+      "caption": "transform home tablet",
+      "alt": "table artifact: transform home tablet",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/transform-home-tablet.svg",
+      "width": 1024,
+      "height": 1366,
+      "bytes": 509,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-transform-project-desktop-0c2b943ecb",
+      "path": "docs/design/mockups/transform-project-desktop.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "transform project desktop",
+      "alt": "screenshot artifact: transform project desktop",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/transform-project-desktop.svg",
+      "width": 1600,
+      "height": 980,
+      "bytes": 525,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-transform-project-mobile-8f38bce100",
+      "path": "docs/design/mockups/transform-project-mobile.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "transform project mobile",
+      "alt": "screenshot artifact: transform project mobile",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/transform-project-mobile.svg",
+      "width": 430,
+      "height": 1240,
+      "bytes": 526,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "design-mockups-transform-project-tablet-6f22789b63",
+      "path": "docs/design/mockups/transform-project-tablet.svg",
+      "type": "table",
+      "tags": [
+        "proof"
+      ],
+      "caption": "transform project tablet",
+      "alt": "table artifact: transform project tablet",
+      "privacy_review": "required",
+      "source": "docs/design/mockups/transform-project-tablet.svg",
+      "width": 1024,
+      "height": 1320,
+      "bytes": 531,
+      "suggested_placement": "home proof strip"
     },
     {
       "id": "evidence-screenshots-resume-txt-render-02-14-2026-ee86fdbe46",
@@ -547,6 +979,38 @@
       "suggested_placement": "global identity strip"
     },
     {
+      "id": "assets-diagrams-autosoc-executive-pipeline-02ce3c4bd0",
+      "path": "site/assets/diagrams/autosoc-executive-pipeline.svg",
+      "type": "diagram",
+      "tags": [
+        "proof"
+      ],
+      "caption": "autosoc executive pipeline",
+      "alt": "diagram artifact: autosoc executive pipeline",
+      "privacy_review": "required",
+      "source": "site/assets/diagrams/autosoc-executive-pipeline.svg",
+      "width": 1600,
+      "height": 900,
+      "bytes": 4229,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "assets-diagrams-autosoc-technical-workflow-444fad9f08",
+      "path": "site/assets/diagrams/autosoc-technical-workflow.svg",
+      "type": "diagram",
+      "tags": [
+        "proof"
+      ],
+      "caption": "autosoc technical workflow",
+      "alt": "diagram artifact: autosoc technical workflow",
+      "privacy_review": "required",
+      "source": "site/assets/diagrams/autosoc-technical-workflow.svg",
+      "width": 1600,
+      "height": 1100,
+      "bytes": 3739,
+      "suggested_placement": "home proof strip"
+    },
+    {
       "id": "site-assets-favicon-2641013eae",
       "path": "assets/media/site-assets-favicon-2641013eae.svg",
       "type": "logo",
@@ -758,6 +1222,87 @@
       "suggested_placement": "home proof strip"
     },
     {
+      "id": "assets-pp-soc-integration-autosoc-pipe-diagram-45c52a367b",
+      "path": "site/assets/pp_soc_integration/autosoc-pipe-diagram.svg",
+      "type": "diagram",
+      "tags": [
+        "proof"
+      ],
+      "caption": "autosoc pipe diagram",
+      "alt": "diagram artifact: autosoc pipe diagram",
+      "privacy_review": "required",
+      "source": "site/assets/pp_soc_integration/autosoc-pipe-diagram.svg",
+      "width": 184,
+      "height": 130,
+      "bytes": 5128,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "assets-pp-soc-integration-autosoc-system-map-0f36ac9a1a",
+      "path": "site/assets/pp_soc_integration/autosoc-system-map.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "autosoc system map",
+      "alt": "screenshot artifact: autosoc system map",
+      "privacy_review": "required",
+      "source": "site/assets/pp_soc_integration/autosoc-system-map.png",
+      "width": 2800,
+      "height": 2200,
+      "bytes": 299170,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "assets-pp-soc-integration-autosoc-system-map-b89b65d565",
+      "path": "site/assets/pp_soc_integration/autosoc-system-map.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "autosoc system map",
+      "alt": "screenshot artifact: autosoc system map",
+      "privacy_review": "required",
+      "source": "site/assets/pp_soc_integration/autosoc-system-map.svg",
+      "width": 1600,
+      "height": 900,
+      "bytes": 6661,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "assets-pp-soc-integration-lab-architecture-394bb3d5e7",
+      "path": "site/assets/pp_soc_integration/lab-architecture.svg",
+      "type": "screenshot",
+      "tags": [
+        "lab",
+        "proof"
+      ],
+      "caption": "lab architecture",
+      "alt": "screenshot artifact: lab architecture",
+      "privacy_review": "required",
+      "source": "site/assets/pp_soc_integration/lab-architecture.svg",
+      "width": 1140,
+      "height": 260,
+      "bytes": 9143,
+      "suggested_placement": "projects page gallery"
+    },
+    {
+      "id": "assets-pp-soc-integration-linkedin-autosoc-milestone-03-02-2026-5f20517b70",
+      "path": "site/assets/pp_soc_integration/linkedin-autosoc-milestone-03-02-2026.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "linkedin autosoc milestone 03 02 2026",
+      "alt": "screenshot artifact: linkedin autosoc milestone 03 02 2026",
+      "privacy_review": "required",
+      "source": "site/assets/pp_soc_integration/linkedin-autosoc-milestone-03-02-2026.svg",
+      "width": 1600,
+      "height": 900,
+      "bytes": 3239,
+      "suggested_placement": "home proof strip"
+    },
+    {
       "id": "assets-pp-soc-integration-t3-workflow-0cc0edc8ce",
       "path": "site/assets/pp_soc_integration/t3-workflow.png",
       "type": "diagram",
@@ -807,6 +1352,3 @@
     }
   ]
 }
-
-
-

@@ -1,0 +1,45 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#0B0F14"/>
+  <text x="90" y="90" fill="#E6EDF3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="42" font-weight="700">AutoSOC Pipeline</text>
+  <text x="90" y="130" fill="#8B949E" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22">Wazuh alert intake → deterministic triage → redacted evidence pack → review output</text>
+
+  <rect x="90" y="210" rx="18" ry="18" width="250" height="170" fill="#11161D" stroke="#2F81F7" stroke-width="2"/>
+  <text x="120" y="265" fill="#E6EDF3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Telemetry Sources</text>
+  <text x="120" y="312" fill="#8B949E" font-family="JetBrains Mono, Consolas, monospace" font-size="20">Windows endpoint</text>
+  <text x="120" y="342" fill="#8B949E" font-family="JetBrains Mono, Consolas, monospace" font-size="20">Sysmon / Wazuh agent</text>
+
+  <rect x="420" y="210" rx="18" ry="18" width="250" height="170" fill="#11161D" stroke="#F2CC60" stroke-width="2"/>
+  <text x="450" y="265" fill="#E6EDF3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Wazuh Detection</text>
+  <text x="450" y="312" fill="#8B949E" font-family="JetBrains Mono, Consolas, monospace" font-size="20">Rule blocks</text>
+  <text x="450" y="342" fill="#8B949E" font-family="JetBrains Mono, Consolas, monospace" font-size="20">Alert generation</text>
+
+  <rect x="750" y="210" rx="18" ry="18" width="250" height="170" fill="#11161D" stroke="#39BAE6" stroke-width="2"/>
+  <text x="780" y="265" fill="#E6EDF3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">AutoSOC Triage</text>
+  <text x="780" y="312" fill="#8B949E" font-family="JetBrains Mono, Consolas, monospace" font-size="20">Deterministic decisions</text>
+  <text x="780" y="342" fill="#8B949E" font-family="JetBrains Mono, Consolas, monospace" font-size="20">Known FP / suspicious</text>
+
+  <rect x="1080" y="210" rx="18" ry="18" width="250" height="170" fill="#11161D" stroke="#56D364" stroke-width="2"/>
+  <text x="1110" y="265" fill="#E6EDF3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Evidence Pack</text>
+  <text x="1110" y="312" fill="#8B949E" font-family="JetBrains Mono, Consolas, monospace" font-size="20">Redacted artifacts</text>
+  <text x="1110" y="342" fill="#8B949E" font-family="JetBrains Mono, Consolas, monospace" font-size="20">Review-safe output</text>
+
+  <line x1="340" y1="295" x2="420" y2="295" stroke="#6E7681" stroke-width="4"/>
+  <polygon points="420,295 402,285 402,305" fill="#6E7681"/>
+  <line x1="670" y1="295" x2="750" y2="295" stroke="#6E7681" stroke-width="4"/>
+  <polygon points="750,295 732,285 732,305" fill="#6E7681"/>
+  <line x1="1000" y1="295" x2="1080" y2="295" stroke="#6E7681" stroke-width="4"/>
+  <polygon points="1080,295 1062,285 1062,305" fill="#6E7681"/>
+
+  <rect x="90" y="500" rx="22" ry="22" width="1240" height="200" fill="#0F141B" stroke="#30363D" stroke-width="2"/>
+  <text x="130" y="560" fill="#E6EDF3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="700">System Outcome</text>
+  <text x="130" y="615" fill="#8B949E" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24">Alerts are turned into consistent triage decisions, redacted evidence packs, and reviewable outputs.</text>
+
+  <rect x="90" y="760" rx="12" ry="12" width="290" height="60" fill="#11161D" stroke="#30363D"/>
+  <text x="120" y="800" fill="#39BAE6" font-family="JetBrains Mono, Consolas, monospace" font-size="20">Deterministic triage</text>
+
+  <rect x="410" y="760" rx="12" ry="12" width="290" height="60" fill="#11161D" stroke="#30363D"/>
+  <text x="440" y="800" fill="#56D364" font-family="JetBrains Mono, Consolas, monospace" font-size="20">Review-ready artifacts</text>
+
+  <rect x="730" y="760" rx="12" ry="12" width="290" height="60" fill="#11161D" stroke="#30363D"/>
+  <text x="760" y="800" fill="#F2CC60" font-family="JetBrains Mono, Consolas, monospace" font-size="20">Source-controlled output</text>
+</svg>

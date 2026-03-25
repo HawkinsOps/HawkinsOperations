@@ -21,15 +21,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-<script>
-  (function () {
-    var saved = null;
-    try { saved = localStorage.getItem('rh-theme'); } catch (e) { saved = null; }
-    var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.documentElement.setAttribute('data-theme', saved || (sysDark ? 'dark' : 'light'));
-  })();
-</script>
+<script>document.documentElement.setAttribute('data-theme', 'dark');</script>
 <link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-15-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -37,27 +32,26 @@
   <div class="nav-i">
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
-    <ul class="nav-l">
+        <ul class="nav-l">
       <li><a href="/">Home</a></li>
-      <li><a href="/projects">Projects</a></li>
-      <li><a href="/case-study-autosoc">AutoSOC Case Study</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
       <li><a href="/detections">Detections</a></li>
       <li><a href="/soc-lab">Lab</a></li>
       <li><a href="/resume">Resume</a></li>
-      <li><a href="/proof">Proof</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/case-study-autosoc">Read AutoSOC</a>
-    <button id="themeToggle" class="theme-btn" type="button" aria-label="Switch to light mode">Light</button>
-  </div>
+    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
+</div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
   <a href="/">Home</a>
-  <a href="/projects">Projects</a>
-  <a href="/case-study-autosoc">AutoSOC Case Study</a>
+  <a href="/proof">Proof</a>
+  <a href="/operations-bridge">Ops &rarr; Cyber</a>
+  <a href="/case-study-autosoc">Case Study</a>
   <a href="/detections">Detections</a>
   <a href="/soc-lab">Lab</a>
   <a href="/resume">Resume</a>
-  <a href="/proof">Proof</a>
 </div>
 
 <!-- @include:nav:end -->
@@ -356,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- @include:footer:end -->
 <script src="/assets/fetch-utils.js" defer></script>
+<script src="/data/counts.js" defer></script>
 <script src="/assets/app.js" defer></script>
 </body>
 </html>
-

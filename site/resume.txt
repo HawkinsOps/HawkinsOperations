@@ -21,13 +21,14 @@ EXPERIENCE / PROJECTS
 - HawkinsOperations (Primary Portfolio Repo)
   - Built and maintain a detection and response library with verified detection content
     spanning Sigma (YAML), Wazuh (XML rule blocks), Splunk (SPL), and IR playbooks.
-    Current verified counts: https://hawkinsops.com/proof (reproducible via CI).
+    Current verified counts and walkthrough: https://hawkinsops.com/start-here (proof links included).
   - Implemented proof-first validation workflow so reviewers can reproduce claims
     directly from repository artifacts.
   - Diagnosed and restored an AutoSOC ingestion outage by separating infrastructure
     reachability from application logic, then fixing reconciliation-path validation
     to return the pipeline to successful end-to-end operation.
-  - Proof: https://hawkinsops.com/proof
+  - Start here: https://hawkinsops.com/start-here
+  - Proof artifacts: https://hawkinsops.com/proof
 
 - SOC Triage Simulator
   - Built an interactive triage workflow artifact to practice investigation steps,

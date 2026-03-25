@@ -1,28 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap');
 
         *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
         :root{
-            --bg:#000000;--bg1:#0a0a0a;--bg2:#111111;--bg3:#191919;
-            --bdr:rgba(255,255,255,.11);--bdr2:rgba(255,255,255,.17);
-            --txt:#f7f9ff;--dim:#d7e0f4;--faint:#9eb4d8;
-            --acc:#7ab8ff;--acc2:#5fb3ff;--acc-rgb:122,184,255;--acc2-rgb:95,179,255;--acc-d:rgba(var(--acc-rgb),.14);--acc-g:rgba(var(--acc-rgb),.24);
+            --bg:#080c10;--bg1:#0d1219;--bg2:#121920;--bg3:#1a242f;
+            --bdr:rgba(122,148,170,.24);--bdr2:rgba(122,148,170,.34);
+            --txt:#d4e0ec;--dim:#9fb3c6;--faint:#7a94aa;
+            --acc:#00c4d4;--acc2:#2e75b6;--acc-rgb:0,196,212;--acc2-rgb:46,117,182;--acc-d:rgba(var(--acc-rgb),.14);--acc-g:rgba(var(--acc-rgb),.24);
             --red:#ff3b5c;--red-d:rgba(255,59,92,.1);
             --amb:#ffb020;--amb-d:rgba(255,176,32,.1);
             --blu:#7ab8ff;--pur:#7ab8ff;
             --mono:'JetBrains Mono','IBM Plex Mono','Consolas',monospace;
-            --sans:'Inter','Segoe UI',sans-serif;
-            --head:'Sora','Inter','Segoe UI',sans-serif;
-            --page-bg:radial-gradient(1100px 520px at 84% -10%,rgba(var(--acc-rgb),.10),transparent 70%),radial-gradient(900px 500px at -18% 110%,rgba(var(--acc2-rgb),.08),transparent 72%),linear-gradient(180deg,#000000 0%, #040404 58%, #080808 100%);
+            --sans:'DM Sans','Inter','Segoe UI',sans-serif;
+            --head:'DM Sans','Sora','Inter','Segoe UI',sans-serif;
+            --page-bg:radial-gradient(1100px 560px at 84% -10%,rgba(var(--acc-rgb),.12),transparent 70%),radial-gradient(900px 540px at -18% 110%,rgba(var(--acc2-rgb),.10),transparent 72%),linear-gradient(180deg,#070b10 0%, #0a1016 58%, #0d141d 100%);
             --grid-line:rgba(255,255,255,.0);
             --link:var(--acc2);--link-hover:var(--acc);
-            --nav-bg:rgba(5,5,5,.88);
+            --nav-bg:rgba(8,12,16,.88);
             --nav-hover-bg:rgba(var(--acc-rgb),.08);
             --nav-active-bg:rgba(var(--acc-rgb),.18);
             --nav-active-border:rgba(var(--acc-rgb),.40);
             --nav-active-shadow:0 8px 18px rgba(0,0,0,.22);
             --heading:var(--acc);
-            --panel-bg:linear-gradient(145deg,rgba(16,16,16,.88),rgba(9,9,9,.94));
+            --panel-bg:linear-gradient(145deg,rgba(13,18,25,.9),rgba(9,14,20,.95));
             --panel-shadow:0 14px 28px rgba(0,0,0,.34);
-            --term-bg:#0a0e14;--term-head:#0f1319;--term-txt:#e1e7f4;
+            --term-bg:#0b131d;--term-head:#0f1a25;--term-txt:#d8e7f5;
             --overlay-bg:rgba(6,8,12,.92);
             --hero-mark:rgba(240,246,255,.28);
             --hero-mark-opacity:.5;--stars-o:.18;
@@ -32,13 +33,13 @@
             --focus-ring:0 0 0 3px rgba(var(--acc-rgb),.20);
         }
         html[data-theme="dark"]{
-            --bg:#000000;--bg1:#0a0a0a;--bg2:#111111;--bg3:#191919;
-            --bdr:rgba(255,255,255,.11);--bdr2:rgba(255,255,255,.17);
-            --txt:#f7f9ff;--dim:#d7e0f4;--faint:#9eb4d8;
+            --bg:#080c10;--bg1:#0d1219;--bg2:#121920;--bg3:#1a242f;
+            --bdr:rgba(122,148,170,.24);--bdr2:rgba(122,148,170,.34);
+            --txt:#d4e0ec;--dim:#9fb3c6;--faint:#7a94aa;
             --link:var(--acc2);--link-hover:var(--acc);
-            --nav-bg:rgba(5,5,5,.88);
+            --nav-bg:rgba(8,12,16,.88);
             --heading:var(--acc);
-            --hero-mark:rgba(240,246,255,.28);
+            --hero-mark:rgba(212,224,236,.28);
             --hero-mark-opacity:.5;
         }
         html[data-theme="light"]{
@@ -628,3 +629,18 @@ html[data-theme="light"] .proof-strip-inner{background:linear-gradient(180deg,rg
   .footer-grid{grid-template-columns:1fr}
   .footer-nav-group{gap:16px}
 }
+
+/* Morning-pass override: force dark palette for any 'light' theme and hide theme toggle */
+html[data-theme="light"] {
+  /* reuse the dark palette tokens used elsewhere */
+  --bg:#000000;--bg1:#0a0a0a;--bg2:#111111;--bg3:#191919;
+  --bdr:rgba(255,255,255,.11);--bdr2:rgba(255,255,255,.17);
+  --txt:#f7f9ff;--dim:#d7e0f4;--faint:#9eb4d8;
+  --link:var(--acc2);--link-hover:var(--acc);
+  --nav-bg:rgba(5,5,5,.88);
+  --heading:var(--acc);
+  --hero-mark:rgba(240,246,255,.28);
+  --hero-mark-opacity:.5;
+}
+/* Hide theme toggle so users can't present mixed themes in review */
+.theme-btn { display: none !important; }

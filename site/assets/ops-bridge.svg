@@ -1,0 +1,290 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" width="900" height="620" font-family="'JetBrains Mono', 'Courier New', monospace">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&amp;family=Sora:wght@600;700;800&amp;display=swap');
+
+      .bg { fill: #070b10; }
+      .surface { fill: #0d1219; }
+      .surface-alt { fill: #111820; }
+      .border { stroke: #1e2d3d; stroke-width: 1; fill: none; }
+      .border-teal { stroke: #00c4d4; stroke-width: 1.5; fill: none; }
+      .border-amber { stroke: #e8a020; stroke-width: 2; fill: none; }
+
+      .label-sm { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; fill: #4a6580; }
+      .col-header { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; }
+      .col-header-ops { fill: #e8a020; }
+      .col-header-sec { fill: #00c4d4; }
+
+      .row-ops { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 400; fill: #8ea8c0; }
+      .row-sec { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; fill: #c8e8f0; }
+      .row-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; fill: #1e3048; }
+
+      .title-main { font-family: 'Sora', 'JetBrains Mono', monospace; font-size: 22px; font-weight: 800; fill: #eef6ff; letter-spacing: -0.5px; }
+      .title-sub { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; fill: #4a6580; }
+
+      .arrow-line { stroke: #00c4d4; stroke-width: 1.5; stroke-dasharray: none; opacity: 0.7; }
+      .arrow-head { fill: #00c4d4; opacity: 0.7; }
+
+      .amber-bar { fill: #e8a020; opacity: 0.9; }
+      .teal-glow { fill: #00c4d4; opacity: 0.08; }
+      .teal-dot { fill: #00c4d4; }
+      .amber-dot { fill: #e8a020; }
+
+      .divider { stroke: #1a2535; stroke-width: 1; }
+      .divider-strong { stroke: #1e2d3d; stroke-width: 1; }
+
+      .tag-bg { fill: #0d1a26; rx: 4; }
+      .tag-text { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+      .tag-ops { fill: #e8a02060; }
+      .tag-sec { fill: #00c4d460; }
+    </style>
+
+    <!-- Amber glow filter -->
+    <filter id="amber-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="teal-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="subtle-glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- Row hover gradient -->
+    <linearGradient id="row-hover-teal" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00c4d4" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#00c4d4" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="row-hover-amber" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e8a020" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#e8a020" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="header-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0d1a26"/>
+      <stop offset="100%" stop-color="#0d1219"/>
+    </linearGradient>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080c12"/>
+      <stop offset="100%" stop-color="#060a0f"/>
+    </linearGradient>
+
+    <!-- Animated dash for arrows -->
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#00c4d4" opacity="0.8"/>
+    </marker>
+  </defs>
+
+  <!-- ── BACKGROUND ── -->
+  <rect width="900" height="620" fill="url(#bg-grad)"/>
+
+  <!-- Subtle grid texture -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#0d1620" stroke-width="0.5"/>
+  </pattern>
+  <rect width="900" height="620" fill="url(#grid)" opacity="0.6"/>
+
+  <!-- Top-right teal radial accent -->
+  <radialGradient id="corner-glow" cx="100%" cy="0%" r="50%">
+    <stop offset="0%" stop-color="#00c4d4" stop-opacity="0.07"/>
+    <stop offset="100%" stop-color="#00c4d4" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="900" height="620" fill="url(#corner-glow)"/>
+
+  <!-- ── AMBER LEFT BORDER BAR ── -->
+  <rect x="0" y="0" width="4" height="620" fill="#e8a020" opacity="0.9" filter="url(#amber-glow)"/>
+  <rect x="0" y="0" width="1" height="620" fill="#f0b030"/>
+
+  <!-- ── HEADER BLOCK ── -->
+  <rect x="4" y="0" width="896" height="88" fill="url(#header-grad)"/>
+  <line x1="4" y1="88" x2="900" y2="88" stroke="#1a2d3d" stroke-width="1"/>
+
+  <!-- Section label -->
+  <text x="32" y="28" class="label-sm">Domain Translation Matrix</text>
+
+  <!-- Title -->
+  <text x="32" y="58" class="title-main">Operations Background → Security Execution</text>
+
+  <!-- Subtitle -->
+  <text x="32" y="78" class="title-sub">Same cognitive operation. Different domain.</text>
+
+  <!-- Top-right tag -->
+  <rect x="756" y="20" width="120" height="22" rx="3" fill="#0d1a26" stroke="#1e3048" stroke-width="1"/>
+  <text x="816" y="35" text-anchor="middle" class="tag-text" fill="#e8a020">Manufacturing</text>
+
+  <rect x="756" y="48" width="120" height="22" rx="3" fill="#0a1e26" stroke="#1a3040" stroke-width="1"/>
+  <text x="816" y="63" text-anchor="middle" class="tag-text" fill="#00c4d4">Security Ops</text>
+
+  <!-- ── COLUMN HEADERS ── -->
+  <rect x="4" y="88" width="896" height="38" fill="#0b1118"/>
+  <line x1="4" y1="126" x2="900" y2="126" stroke="#1e2d3d" stroke-width="1"/>
+
+  <!-- Amber dot + ops header -->
+  <circle cx="48" cy="107" r="3.5" fill="#e8a020" filter="url(#subtle-glow)"/>
+  <text x="62" y="112" class="col-header col-header-ops">Operations Context</text>
+
+  <!-- Center divider header area -->
+  <line x1="430" y1="88" x2="430" y2="126" stroke="#1a2535" stroke-width="1"/>
+  <line x1="470" y1="88" x2="470" y2="126" stroke="#1a2535" stroke-width="1"/>
+
+  <!-- Arrow header label -->
+  <text x="450" y="112" text-anchor="middle" class="label-sm" fill="#1e3048">→</text>
+
+  <!-- Teal dot + security header -->
+  <circle cx="498" cy="107" r="3.5" fill="#00c4d4" filter="url(#subtle-glow)"/>
+  <text x="512" y="112" class="col-header col-header-sec">Security Translation</text>
+
+  <!-- ── DATA ROWS ── -->
+  <!-- Row data: [num, ops_text, sec_text] -->
+
+  <!-- ROW 1 -->
+  <rect x="4" y="126" width="896" height="56" fill="url(#row-hover-amber)" opacity="0.5"/>
+  <line x1="4" y1="182" x2="900" y2="182" stroke="#131d28" stroke-width="1"/>
+  <rect x="4" y="126" width="3" height="56" fill="#e8a020" opacity="0.4"/>
+  <text x="22" y="149" class="row-num">01</text>
+  <text x="48" y="147" class="row-ops">Throughput ownership</text>
+  <text x="48" y="166" class="row-ops" font-size="10" fill="#4a6580">Output accountability across every shift</text>
+  <line x1="430" y1="136" x2="470" y2="136" stroke="#1a2535" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="430" y1="182" x2="470" y2="182" stroke="#1a2535" stroke-width="1" stroke-dasharray="2,2"/>
+  <!-- Arrow -->
+  <line x1="436" y1="154" x2="460" y2="154" stroke="#00c4d4" stroke-width="1.5" opacity="0.6" marker-end="url(#arrowhead)"/>
+  <text x="498" y="147" class="row-sec">Alert volume handling</text>
+  <text x="498" y="166" class="row-sec" font-size="10" fill="#5a8898">First-pass triage at scale without analyst fatigue</text>
+
+  <!-- ROW 2 -->
+  <rect x="4" y="182" width="896" height="56" fill="#0a0e14"/>
+  <line x1="4" y1="238" x2="900" y2="238" stroke="#131d28" stroke-width="1"/>
+  <rect x="4" y="182" width="3" height="56" fill="#e8a020" opacity="0.25"/>
+  <text x="22" y="205" class="row-num">02</text>
+  <text x="48" y="203" class="row-ops">Downtime response</text>
+  <text x="48" y="222" class="row-ops" font-size="10" fill="#4a6580">Fault isolation under production pressure</text>
+  <line x1="430" y1="192" x2="470" y2="192" stroke="#1a2535" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="430" y1="238" x2="470" y2="238" stroke="#1a2535" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="436" y1="210" x2="460" y2="210" stroke="#00c4d4" stroke-width="1.5" opacity="0.6" marker-end="url(#arrowhead)"/>
+  <text x="498" y="203" class="row-sec">Incident triage</text>
+  <text x="498" y="222" class="row-sec" font-size="10" fill="#5a8898">Scope fast, isolate root cause, restore signal</text>
+
+  <!-- ROW 3 -->
+  <rect x="4" y="238" width="896" height="56" fill="url(#row-hover-amber)" opacity="0.3"/>
+  <line x1="4" y1="294" x2="900" y2="294" stroke="#131d28" stroke-width="1"/>
+  <rect x="4" y="238" width="3" height="56" fill="#e8a020" opacity="0.4"/>
+  <text x="22" y="261" class="row-num">03</text>
+  <text x="48" y="259" class="row-ops">Defect / nonconforming classification</text>
+  <text x="48" y="278" class="row-ops" font-size="10" fill="#4a6580">Real-time pass/fail disposition on every unit</text>
+  <line x1="430" y1="248" x2="470" y2="248" stroke="#1a2535" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="430" y1="294" x2="470" y2="294" stroke="#1a2535" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="436" y1="266" x2="460" y2="266" stroke="#00c4d4" stroke-width="1.5" opacity="0.6" marker-end="url(#arrowhead)"/>
+  <text x="498" y="259" class="row-sec">Alert disposition</text>
+  <text x="498" y="278" class="row-sec" font-size="10" fill="#5a8898">Benign / escalate / known-FP — same decision logic</text>
+
+  <!-- ROW 4 -->
+  <rect x="4" y="294" width="896" height="56" fill="#0a0e14"/>
+  <line x1="4" y1="350" x2="900" y2="350" stroke="#131d28" stroke-width="1"/>
+  <rect x="4" y="294" width="3" height="56" fill="#e8a020" opacity="0.25"/>
+  <text x="22" y="317" class="row-num">04</text>
+  <text x="48" y="315" class="row-ops">Audit compliance / quality gates</text>
+  <text x="48" y="334" class="row-ops" font-size="10" fill="#4a6580">IATF 16949, ISO 9001, TISAX — zero tolerance</text>
+  <line x1="430" y1="304" x2="470" y2="304" stroke="#1a2535" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="430" y1="350" x2="470" y2="350" stroke="#1a2535" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="436" y1="322" x2="460" y2="322" stroke="#00c4d4" stroke-width="1.5" opacity="0.6" marker-end="url(#arrowhead)"/>
+  <text x="498" y="315" class="row-sec">Reconciliation / coverage gates</text>
+  <text x="498" y="334" class="row-sec" font-size="10" fill="#5a8898">8/8 coverage, 0 mismatches — proof doesn't publish otherwise</text>
+
+  <!-- ROW 5 -->
+  <rect x="4" y="350" width="896" height="56" fill="url(#row-hover-amber)" opacity="0.3"/>
+  <line x1="4" y1="406" x2="900" y2="406" stroke="#131d28" stroke-width="1"/>
+  <rect x="4" y="350" width="3" height="56" fill="#e8a020" opacity="0.4"/>
+  <text x="22" y="373" class="row-num">05</text>
+  <text x="48" y="371" class="row-ops">Shift handoff protocols</text>
+  <text x="48" y="390" class="row-ops" font-size="10" fill="#4a6580">30+ operators, rotating 12-hr shifts, no gaps allowed</text>
+  <line x1="430" y1="360" x2="470" y2="360" stroke="#1a2535" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="430" y1="406" x2="470" y2="406" stroke="#1a2535" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="436" y1="378" x2="460" y2="378" stroke="#00c4d4" stroke-width="1.5" opacity="0.6" marker-end="url(#arrowhead)"/>
+  <text x="498" y="371" class="row-sec">Escalation documentation</text>
+  <text x="498" y="390" class="row-sec" font-size="10" fill="#5a8898">Structured pack — next analyst picks up without rework</text>
+
+  <!-- ROW 6 -->
+  <rect x="4" y="406" width="896" height="56" fill="#0a0e14"/>
+  <line x1="4" y1="462" x2="900" y2="462" stroke="#131d28" stroke-width="1"/>
+  <rect x="4" y="406" width="3" height="56" fill="#e8a020" opacity="0.25"/>
+  <text x="22" y="429" class="row-num">06</text>
+  <text x="48" y="427" class="row-ops">RCA / fault isolation</text>
+  <text x="48" y="446" class="row-ops" font-size="10" fill="#4a6580">Root cause before restart — no guessing allowed</text>
+  <line x1="430" y1="416" x2="470" y2="416" stroke="#1a2535" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="430" y1="462" x2="470" y2="462" stroke="#1a2535" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="436" y1="434" x2="460" y2="434" stroke="#00c4d4" stroke-width="1.5" opacity="0.6" marker-end="url(#arrowhead)"/>
+  <text x="498" y="427" class="row-sec">Investigation workflow</text>
+  <text x="498" y="446" class="row-sec" font-size="10" fill="#5a8898">Hypothesis → evidence → close. Same loop, different telemetry</text>
+
+  <!-- ROW 7 -->
+  <rect x="4" y="462" width="896" height="56" fill="url(#row-hover-teal)" opacity="0.6"/>
+  <line x1="4" y1="518" x2="900" y2="518" stroke="#131d28" stroke-width="1"/>
+  <rect x="4" y="462" width="3" height="56" fill="#00c4d4" opacity="0.6"/>
+  <text x="22" y="485" class="row-num">07</text>
+  <text x="48" y="483" class="row-ops">Under-3-month promotion</text>
+  <text x="48" y="502" class="row-ops" font-size="10" fill="#4a6580">Fehrer Automotive — team lead from the floor up</text>
+  <line x1="430" y1="472" x2="470" y2="472" stroke="#1a2535" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="430" y1="518" x2="470" y2="518" stroke="#1a2535" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="436" y1="490" x2="460" y2="490" stroke="#00c4d4" stroke-width="1.5" opacity="0.8" marker-end="url(#arrowhead)"/>
+  <text x="498" y="483" class="row-sec">Detection engineering from zero</text>
+  <text x="498" y="502" class="row-sec" font-size="10" fill="#00c4d4">First computer Sep 2025. Production SOC pipeline 6 months later.</text>
+
+  <!-- ── FOOTER ── -->
+  <rect x="4" y="518" width="896" height="102" fill="#080c10"/>
+  <line x1="4" y1="518" x2="900" y2="518" stroke="#1e2d3d" stroke-width="1"/>
+
+  <!-- Footer left: attribution -->
+  <text x="32" y="546" class="label-sm">hawkinsops.com</text>
+  <text x="32" y="566" font-family="'JetBrains Mono', monospace" font-size="11" fill="#2a3d52">Domain changed. Cognitive operation did not.</text>
+
+  <!-- Footer right: stat pills -->
+  <rect x="560" y="530" width="130" height="26" rx="4" fill="#0d1a14" stroke="#1a3020" stroke-width="1"/>
+  <circle cx="580" cy="543" r="3" fill="#e8a020"/>
+  <text x="590" y="547" font-family="'JetBrains Mono', monospace" font-size="10" fill="#8a9888">5,400+ parts/shift</text>
+
+  <rect x="700" y="530" width="172" height="26" rx="4" fill="#0a1a20" stroke="#1a2d3a" stroke-width="1"/>
+  <circle cx="720" cy="543" r="3" fill="#00c4d4"/>
+  <text x="730" y="547" font-family="'JetBrains Mono', monospace" font-size="10" fill="#6a9aaa">49,774 cases processed</text>
+
+  <rect x="560" y="564" width="130" height="26" rx="4" fill="#0d1a14" stroke="#1a3020" stroke-width="1"/>
+  <circle cx="580" cy="577" r="3" fill="#e8a020"/>
+  <text x="590" y="581" font-family="'JetBrains Mono', monospace" font-size="10" fill="#8a9888">30+ direct reports</text>
+
+  <rect x="700" y="564" width="172" height="26" rx="4" fill="#0a1a20" stroke="#1a2d3a" stroke-width="1"/>
+  <circle cx="720" cy="577" r="3" fill="#00c4d4"/>
+  <text x="730" y="581" font-family="'JetBrains Mono', monospace" font-size="10" fill="#6a9aaa">2,478 escalations pub.</text>
+
+  <!-- Vertical center divider (full height) -->
+  <line x1="430" y1="126" x2="430" y2="518" stroke="#131d28" stroke-width="1"/>
+  <line x1="470" y1="126" x2="470" y2="518" stroke="#131d28" stroke-width="1"/>
+
+  <!-- ANIMATION DEFINITIONS -->
+  <style>
+    /* Stagger row reveals on load */
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateX(-8px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes arrowPulse {
+      0%, 100% { opacity: 0.4; }
+      50%       { opacity: 1; }
+    }
+    @keyframes dotPulse {
+      0%, 100% { r: 3.5; opacity: 0.8; }
+      50%       { r: 5;   opacity: 1; }
+    }
+    /* Row animation classes for JS use */
+    .data-row { animation: fadeSlideIn 0.4s ease both; }
+    .data-row:nth-child(1) { animation-delay: 0.05s; }
+    .data-row:nth-child(2) { animation-delay: 0.10s; }
+    .data-row:nth-child(3) { animation-delay: 0.15s; }
+    .data-row:nth-child(4) { animation-delay: 0.20s; }
+    .data-row:nth-child(5) { animation-delay: 0.25s; }
+    .data-row:nth-child(6) { animation-delay: 0.30s; }
+    .data-row:nth-child(7) { animation-delay: 0.35s; }
+    /* Arrow pulse */
+    line[marker-end] { animation: arrowPulse 2.5s ease-in-out infinite; }
+  </style>
+</svg>

@@ -1,435 +1,455 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>SignalFoundry | AI-augmented security triage and evidence pipeline</title>
-<meta name="description" content="SignalFoundry reduces alert fatigue with deterministic triage, auditable quality gates, and review-ready evidence packs backed by verified public metrics.">
+<title>Raylee Hawkins | SOC Analyst &amp; Detection Engineering Portfolio</title>
+<meta name="description" content="Evidence-first cybersecurity portfolio built around SignalFoundry, an auto-updating SOC triage and evidence pipeline with verified public metrics and reproducible proof artifacts.">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#07070b">
+<meta name="theme-color" content="#03060b">
 <link rel="canonical" href="https://hawkinsops.com/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="SignalFoundry | AI-augmented security triage and evidence pipeline">
-<meta property="og:description" content="SignalFoundry is the flagship security triage and evidence pipeline built under HawkinsOps with deterministic decisions, human oversight, and public proof.">
+<meta property="og:title" content="Raylee Hawkins | SOC Analyst &amp; Detection Engineering Portfolio">
+<meta property="og:description" content="Evidence-first cybersecurity portfolio built around SignalFoundry — an auto-updating SOC triage and evidence pipeline with verified public metrics.">
 <meta property="og:url" content="https://hawkinsops.com/">
-<meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
-<meta property="og:image:width" content="1600">
-<meta property="og:image:height" content="900">
+<meta property="og:image" content="https://hawkinsops.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SignalFoundry | AI-augmented security triage and evidence pipeline">
-<meta name="twitter:description" content="Deterministic triage, auditable gates, and verified public metrics for a live security automation system.">
-<meta name="twitter:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
+<meta name="twitter:title" content="Raylee Hawkins | SOC Analyst &amp; Detection Engineering Portfolio">
+<meta name="twitter:description" content="Evidence-first cybersecurity portfolio built around SignalFoundry — an auto-updating SOC triage and evidence pipeline with verified public metrics.">
+<meta name="twitter:image" content="https://hawkinsops.com/assets/og-image.png">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-<script>
-  (function () {
-    var saved = null;
-    try {
-      saved = localStorage.getItem('rh-theme');
-    } catch (err) {
-      saved = null;
-    }
-    var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.documentElement.setAttribute('data-theme', saved || (sysDark ? 'dark' : 'light'));
-  })();
-</script>
-<link rel="stylesheet" href="/assets/styles.css?v=02-24-2026-3">
-<link rel="stylesheet" href="/assets/design-tokens.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/base.css?v=03-15-2026-1">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.setAttribute('data-theme','dark');</script>
+<link rel="stylesheet" href="/assets/styles.css">
 <style>
-  .sf-home {
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    line-height: 1.5;
-  }
+body {
+  background:
+    radial-gradient(ellipse 100% 55% at 0% 0%,   rgba(41,121,200,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 80%  50% at 100% 100%,rgba(0,196,212,0.08)  0%, transparent 55%),
+    radial-gradient(ellipse 50%  40% at 50%  50%, rgba(155,107,224,0.04) 0%, transparent 60%),
+    #03060b !important;
+}
+body::after {
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size:256px 256px;
+}
+#hero-canvas {
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  opacity:0; transition:opacity 1.4s ease;
+}
+#hero-canvas.visible { opacity:1; }
+.sf-home, .sf-shell { position:relative; z-index:1; }
 
-  .sf-home h1,
-  .sf-home h2 {
-    margin: 0 0 var(--space-2);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: var(--text);
-  }
+/* Hero entrance animations */
+.sf-hero h1              { animation:heroUp .6s cubic-bezier(.16,1,.3,1) .1s both; }
+.sf-hero .sf-role-line   { animation:heroUp .6s cubic-bezier(.16,1,.3,1) .22s both; }
+.sf-hero .sf-body-lead   { animation:heroUp .6s cubic-bezier(.16,1,.3,1) .34s both; }
+.sf-hero .hero-bridge    { animation:heroUp .6s cubic-bezier(.16,1,.3,1) .46s both; }
+.sf-hero .outcomes-strip { animation:heroUp .6s cubic-bezier(.16,1,.3,1) .58s both; }
+.sf-hero .sf-actions     { animation:heroUp .6s cubic-bezier(.16,1,.3,1) .70s both; }
+@keyframes heroUp { from{opacity:0;transform:translateY(18px);} to{opacity:1;transform:translateY(0);} }
+@keyframes blink  { 0%,100%{opacity:1;} 50%{opacity:.15;} }
+@keyframes scanL  { 0%{left:-30%;} 100%{left:110%;} }
 
-  .sf-home h1 {
-    font-size: 2rem;
-    max-width: 16ch;
-  }
+/* Ops bridge callout */
+.hero-bridge {
+  display:flex; align-items:flex-start; gap:10px;
+  padding:12px 18px; border-radius:6px;
+  background:rgba(232,160,32,.07); border:1px solid rgba(232,160,32,.2);
+  border-left:3px solid #e8a020;
+  font-size:11px; font-family:'JetBrains Mono',monospace; line-height:1.7;
+  color:#b8cce0; max-width:640px; margin:14px 0;
+}
+.hero-bridge strong { color:#e8a020; }
 
-  .sf-home h2 {
-    font-size: 1.45rem;
-  }
+/* Outcomes strip */
+.outcomes-strip {
+  display:flex; align-items:center; justify-content:center; gap:0;
+  padding:18px 24px; background:rgba(8,13,22,.75);
+  border:1px solid rgba(100,140,180,.13); border-radius:10px;
+  flex-wrap:wrap; position:relative; overflow:hidden;
+  backdrop-filter:blur(4px);
+}
+.outcomes-strip::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,#2979c8,#00c4d4,#27c97a);
+}
+.outcomes-strip::after {
+  content:''; position:absolute; top:0; left:-30%; width:30%; height:100%;
+  background:linear-gradient(90deg,transparent,rgba(0,196,212,.04),transparent);
+  animation:scanL 5s linear infinite; pointer-events:none;
+}
+.of-node { text-align:center; padding:10px 16px; }
+.of-val  { font-size:22px; font-weight:700; font-family:'JetBrains Mono',monospace; line-height:1; margin-bottom:3px; color:#8ab8dc; }
+.of-lbl  { font-size:8px; font-weight:700; letter-spacing:1.5px; color:#486880; text-transform:uppercase; }
+.of-arr  { font-size:18px; color:#1a3248; padding:0 4px; margin-bottom:10px; flex-shrink:0; }
+.of-teal .of-val  { color:#00c4d4; }
+.of-green .of-val { color:#27c97a; }
+.outcomes-note { width:100%; text-align:center; font-size:9px; color:#1e3248; font-family:'JetBrains Mono',monospace; letter-spacing:.5px; margin-top:6px; }
 
-  @media (min-width: 1024px) {
-    .sf-home h1 {
-      font-size: 2.6rem;
-    }
+/* Status dot */
+.sdot { display:inline-block; width:8px; height:8px; border-radius:50%; background:#27c97a; margin-right:5px; box-shadow:0 0 8px #27c97a; animation:blink 2s ease-in-out infinite; vertical-align:middle; }
 
-    .sf-home h2 {
-      font-size: 1.6rem;
-    }
-  }
+/* Detection inventory */
+.det-inventory {
+  background:rgba(8,13,22,.8); border:1px solid rgba(100,140,180,.12);
+  border-radius:8px; padding:20px; margin-top:16px;
+}
+.det-inv-hdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+.det-inv-title { font-size:9px; font-weight:700; letter-spacing:2.5px; color:#486880; text-transform:uppercase; }
+.det-inv-total { font-size:26px; font-weight:700; color:#00c4d4; font-family:'JetBrains Mono',monospace; }
+.det-rows { display:flex; flex-direction:column; gap:7px; }
+.det-row {
+  display:flex; align-items:center; gap:12px;
+  padding:9px 12px; border-radius:6px;
+  background:rgba(12,18,32,.9); border:1px solid rgba(100,140,180,.09);
+  cursor:pointer; transition:all .2s;
+}
+.det-row:hover { border-color:rgba(0,196,212,.3); transform:translateX(4px); background:rgba(0,196,212,.04); }
+.det-icon { font-size:14px; width:20px; text-align:center; flex-shrink:0; font-family:'JetBrains Mono',monospace; font-weight:700; }
+.det-label { font-size:10px; font-weight:700; color:#c0d4e8; flex-shrink:0; font-family:'JetBrains Mono',monospace; min-width:88px; }
+.det-sub { font-size:8px; color:#486880; flex:1; }
+.det-bar-track { width:80px; height:5px; background:rgba(255,255,255,.04); border-radius:3px; overflow:hidden; flex-shrink:0; }
+.det-bar-fill { height:100%; border-radius:3px; width:0; transition:width 1.2s cubic-bezier(.16,1,.3,1); }
+.det-count { font-size:15px; font-weight:700; font-family:'JetBrains Mono',monospace; text-align:right; min-width:30px; flex-shrink:0; }
+.dr-sigma  .det-bar-fill  { background:linear-gradient(90deg,#2979c8,#5aaad4); }
+.dr-sigma  .det-count     { color:#6aaad8; }
+.dr-wazuh  .det-bar-fill  { background:linear-gradient(90deg,#1a5878,#00c4d4); }
+.dr-wazuh  .det-count     { color:#00c4d4; }
+.dr-splunk .det-bar-fill  { background:linear-gradient(90deg,#4a3010,#e8a020); }
+.dr-splunk .det-count     { color:#e8a020; }
+.dr-ir     .det-bar-fill  { background:linear-gradient(90deg,#1a3a28,#27c97a); }
+.dr-ir     .det-count     { color:#27c97a; }
 
-  .sf-home p {
-    margin: 0;
-    color: var(--muted);
-  }
+/* Route card hover upgrades */
+.sf-route-card { transition:all .25s !important; position:relative !important; }
+.sf-route-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; border-radius:3px 0 0 3px; background:rgba(100,140,180,.15); transition:background .2s; }
+.sf-route-card:hover { transform:translateY(-3px) !important; box-shadow:0 8px 32px rgba(0,196,212,.1) !important; }
+.sf-route-card:nth-child(1)::before { background:rgba(0,196,212,.4); }
+.sf-route-card:nth-child(2)::before { background:rgba(39,201,122,.35); }
+.sf-route-card:nth-child(3)::before { background:rgba(41,121,200,.35); }
+.sf-route-card:nth-child(4)::before { background:rgba(232,160,32,.35); }
 
-  .sf-hero {
-    padding-top: 40px;
-  }
-
-  .sf-hero-grid,
-  .sf-proof-grid,
-  .sf-cta-grid {
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .sf-trust {
-    margin-top: var(--space-2);
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .sf-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: var(--space-3);
-  }
-
-  .sf-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 44px;
-    padding: 0 18px;
-    border-radius: 8px;
-    border: 1px solid transparent;
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .sf-button-primary {
-    background: var(--brand);
-    color: #fff;
-  }
-
-  .sf-button-secondary {
-    background: transparent;
-    border-color: var(--brand);
-    color: var(--brand);
-  }
-
-  .sf-body {
-    max-width: 62ch;
-  }
-
-  .sf-status-list {
-    margin: var(--space-3) 0 0;
-    padding-left: 1.1rem;
-    color: var(--muted);
-  }
-
-  .sf-status-list li + li {
-    margin-top: 8px;
-  }
-
-  .sf-metrics {
-    display: grid;
-    gap: 16px;
-  }
-
-  .sf-metric {
-    padding: 20px;
-  }
-
-  .sf-metric-label {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--muted);
-    font-size: 0.88rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  .sf-metric-value {
-    display: block;
-    font-size: 1.8rem;
-    font-weight: 700;
-    line-height: 1.15;
-    color: var(--text);
-  }
-
-  .sf-metric-note {
-    margin-top: 8px;
-    font-size: 0.92rem;
-  }
-
-  .sf-pipeline {
-    overflow-x: auto;
-    padding: 16px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: linear-gradient(180deg, #0e1524 0%, #131d30 100%);
-  }
-
-  .sf-pipeline svg {
-    display: block;
-    width: 100%;
-    min-width: 760px;
-    height: auto;
-  }
-
-  .sf-proof-list {
-    display: grid;
-    gap: 16px;
-  }
-
-  .sf-proof-link {
-    display: block;
-    padding: 18px;
-    text-decoration: none;
-  }
-
-  .sf-proof-link strong {
-    display: block;
-    margin-bottom: 6px;
-    color: var(--text);
-  }
-
-  .sf-proof-link span {
-    display: block;
-    color: var(--muted);
-    font-size: 0.95rem;
-  }
-
-  .sf-footer-line {
-    color: var(--muted);
-    font-size: 0.95rem;
-  }
-
-  @media (min-width: 768px) {
-    .sf-hero-grid,
-    .sf-proof-grid,
-    .sf-cta-grid {
-      grid-template-columns: 1.15fr 1fr;
-      align-items: start;
-    }
-
-    .sf-metrics {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .sf-metrics {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-  }
+/* Scroll reveals */
+.reveal { opacity:0; transform:translateY(22px); transition:opacity .55s ease,transform .55s cubic-bezier(.16,1,.3,1); }
+.reveal.in-view { opacity:1; transform:none; }
 </style>
 </head>
 <body>
-<!-- @include:nav:start -->
+<canvas id="hero-canvas" aria-hidden="true"></canvas>
+
 <nav>
   <div class="nav-i">
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
-    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
+    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle navigation">Menu</button>
     <ul class="nav-l">
       <li><a href="/">Home</a></li>
-      <li><a href="/projects">Projects</a></li>
-      <li><a href="/case-study-autosoc">AutoSOC Engine</a></li>
-      <li><a href="/detections">Detections</a></li>
-      <li><a href="/soc-lab">Lab</a></li>
-      <li><a href="/resume">Resume</a></li>
+      <li><a href="/case-study-autosoc">SignalFoundry</a></li>
       <li><a href="/proof">Proof</a></li>
+      <li><a href="/resume">Resume</a></li>
+      <li><a href="/soc-lab">Lab</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/proof">Review Proof</a>
-    <button id="themeToggle" class="theme-btn" type="button" aria-label="Switch to light mode">Light</button>
+    <a class="btn btn-p nav-cta" href="/case-study-autosoc">SignalFoundry →</a>
   </div>
 </nav>
-<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile navigation">
   <a href="/">Home</a>
-  <a href="/projects">Projects</a>
-  <a href="/case-study-autosoc">AutoSOC Engine</a>
-  <a href="/detections">Detections</a>
-  <a href="/soc-lab">Lab</a>
-  <a href="/resume">Resume</a>
+  <a href="/case-study-autosoc">SignalFoundry</a>
   <a href="/proof">Proof</a>
+  <a href="/resume">Resume</a>
+  <a href="/soc-lab">Lab</a>
 </div>
-<!-- @include:nav:end -->
 
 <main class="sf-home">
   <div class="sf-shell">
+
+    <!-- HERO -->
     <section id="hero" class="sf-section sf-hero" aria-labelledby="hero-title">
-      <div class="sf-hero-grid">
-        <div class="sf-card" style="padding: 24px;">
-          <div class="sf-eyebrow">Flagship System</div>
-          <h1 id="hero-title">SignalFoundry is an AI-augmented security triage and evidence pipeline built for deterministic outcomes and public proof.</h1>
-          <p class="sf-body">SignalFoundry reduces alert fatigue by routing alert intake through policy-driven triage, redaction, reconciliation, quality gates, and review-ready packaging. HawkinsOps is the umbrella brand; the AutoSOC engine is the current implementation layer behind that system.</p>
-          <p class="sf-trust">Deterministic decisions, human oversight, mandatory redaction, and a public proof path.</p>
-          <div class="sf-actions">
-            <a class="sf-button sf-button-primary sf-focus-ring" href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer">Open Repo</a>
-            <a class="sf-button sf-button-secondary sf-focus-ring" href="/start-here.html">Start Here for Recruiters</a>
-          </div>
+      <h1 id="hero-title">Raylee Hawkins</h1>
+      <div class="sf-role-line">
+        <span class="sf-role-tag">SOC Analyst</span>
+        <span class="sf-role-tag">Detection Engineering</span>
+        <span class="sf-role-tag">Security Automation</span>
+      </div>
+      <p class="sf-body sf-body-lead">I build and operate automated SOC pipelines that classify, triage, and validate alerts at scale.</p>
+      <div class="hero-bridge">
+        <strong>Background:</strong>&nbsp; Production supervisor → detection engineer. 30+ operators, IATF audit compliance, 12-hr rotating shifts. The domain changed. The control logic didn't.
+      </div>
+      <div class="outcomes-strip" role="region" aria-label="Pipeline outcomes summary">
+        <div class="of-node">
+          <div class="of-val counter" data-target="49774">0</div>
+          <div class="of-lbl">Alerts Ingested</div>
         </div>
-        <aside class="sf-card" style="padding: 24px;" aria-label="Current verified system state">
-          <h2>Current verified state</h2>
-          <p class="sf-body">Latest canonical metrics reflect the successful Phase 1 contract run and are exposed directly on the public proof surface.</p>
-          <ul class="sf-status-list">
-            <li><strong><span data-ops-status="heartbeat">SUCCESS</span></strong> heartbeat on the latest run</li>
-            <li><strong><span data-ops-status="reconciliation">PASS</span></strong> reconciliation with mismatch count <span data-ops="reconciliation_mismatch">0</span></li>
-            <li><strong><span data-ops="coverage_ratio">8/8</span></strong> required hosts covered</li>
-            <li>Last updated <strong><span data-ops="last_updated">03-15-2026</span></strong></li>
-          </ul>
-        </aside>
+        <div class="of-arr">→</div>
+        <div class="of-node of-teal">
+          <div class="of-val">AutoSOC</div>
+          <div class="of-lbl">Pipeline</div>
+        </div>
+        <div class="of-arr">→</div>
+        <div class="of-node of-green">
+          <div class="of-val">89%</div>
+          <div class="of-lbl">Auto-Closed</div>
+        </div>
+        <div class="of-arr">→</div>
+        <div class="of-node of-teal">
+          <div class="of-val counter" data-target="2478">0</div>
+          <div class="of-lbl">Escalated</div>
+        </div>
+        <div class="of-arr">→</div>
+        <div class="of-node of-green">
+          <div class="of-val">0</div>
+          <div class="of-lbl">Reconcile Errors</div>
+        </div>
+        <div class="outcomes-note">Ledger-backed · reproducible · no hand-edited metrics · canonical 03-20-2026</div>
+      </div>
+      <div class="sf-actions" style="margin-top:22px;">
+        <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Open SignalFoundry →</a>
+        <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof Receipts</a>
+        <a class="sf-button sf-button-secondary sf-focus-ring" href="/resume">Resume</a>
+        <a class="sf-button sf-button-secondary sf-focus-ring" href="/soc-lab">Lab</a>
       </div>
     </section>
 
-    <section id="outcomes" class="sf-section" aria-labelledby="outcomes-title">
-      <h2 id="outcomes-title">Outcomes</h2>
-      <p class="sf-body">The homepage now separates current system health from proof inventory and keeps the key operational contract visible without forcing a reviewer into the case study first.</p>
-      <div class="sf-metrics" role="status" aria-live="polite" aria-label="Current SignalFoundry outcomes">
-        <article class="sf-card sf-metric" aria-label="Total case volume">
-          <span class="sf-metric-label">Case Volume</span>
-          <span class="sf-metric-value"><span data-ops="total_cases">34206</span></span>
-          <p class="sf-metric-note">Current canonical total cases from the latest successful metrics contract.</p>
-        </article>
-        <article class="sf-card sf-metric" aria-label="Auto close rate">
-          <span class="sf-metric-label">Auto-Close Rate</span>
-          <span class="sf-metric-value"><span data-ops="auto_close_rate">0.01%</span></span>
-          <p class="sf-metric-note">Known false-positive closures in the latest run expressed as a current-run rate.</p>
-        </article>
-        <article class="sf-card sf-metric" aria-label="Escalations in latest run">
-          <span class="sf-metric-label">Escalations</span>
-          <span class="sf-metric-value"><span data-ops="escalated">0</span></span>
-          <p class="sf-metric-note">Escalations published in the latest successful heartbeat run.</p>
-        </article>
-        <article class="sf-card sf-metric" aria-label="Coverage status">
-          <span class="sf-metric-label">Coverage Status</span>
-          <span class="sf-metric-value"><span data-ops="coverage_ratio">8/8</span></span>
-          <p class="sf-metric-note">Coverage gate passed across all required hosts in the current contract.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="how" class="sf-section" aria-labelledby="how-title">
+    <!-- FLAGSHIP SYSTEM -->
+    <section id="flagship" class="sf-section reveal" aria-labelledby="flagship-title">
+      <div class="sf-section-label">Flagship System</div>
       <div class="sf-proof-grid">
-        <div class="sf-card" style="padding: 24px;">
-          <h2 id="how-title">How it works</h2>
-          <p class="sf-body" style="margin-bottom: 16px;">The workflow is a controlled sequence: ingest, triage, redact, pack, reconcile, gate, publish.</p>
-          <div class="sf-pipeline" aria-label="SignalFoundry pipeline diagram">
-            <!-- Reused from the existing pipeline SVG in /assets/pp_soc_integration/autosoc-pipe-diagram.svg and extended to show reconciliation and quality gates. -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 230" role="img" aria-label="SignalFoundry workflow: ingest, triage, redact, pack, reconcile, gate, publish">
-              <title>SignalFoundry Workflow</title>
-              <desc>Seven-stage pipeline showing ingest, triage, redact, pack, reconcile, gate, and publish.</desc>
-              <defs>
-                <style>
-                  .box { fill:#0d1018; stroke:#30425f; stroke-width:1.2; }
-                  .box-accent { fill:#0d1522; stroke:#4a7fd8; stroke-width:1.2; }
-                  .num { fill:#9ec2ff; fill-opacity:0.18; font:700 28px Inter,Segoe UI,Arial,sans-serif; }
-                  .kicker { fill:#5a7298; font:700 8px Inter,Segoe UI,Arial,sans-serif; letter-spacing:1.8px; text-transform:uppercase; }
-                  .label { fill:#e5edff; font:600 12px Inter,Segoe UI,Arial,sans-serif; }
-                  .meta { fill:#8ea4c7; font:500 9px Inter,Segoe UI,Arial,sans-serif; }
-                  .line { stroke:#3d5273; stroke-width:1.4; }
-                  .arrow { fill:#3d5273; }
-                  .accent { fill:#71c7b8; font:600 12px Inter,Segoe UI,Arial,sans-serif; }
-                </style>
-              </defs>
-              <rect class="box" x="18" y="52" width="156" height="124" rx="8"/><text class="num" x="30" y="86">01</text><text class="kicker" x="30" y="102">INGEST</text><text class="label" x="30" y="126">Alert Intake</text><text class="meta" x="30" y="146">poll-alerts.py</text>
-              <line class="line" x1="176" y1="114" x2="192" y2="114"/><path class="arrow" d="M189 110 L197 114 L189 118 Z"/>
-              <rect class="box" x="200" y="52" width="156" height="124" rx="8"/><text class="num" x="212" y="86">02</text><text class="kicker" x="212" y="102">TRIAGE</text><text class="label" x="212" y="126">Decision</text><text class="meta" x="212" y="146">triage.py</text>
-              <line class="line" x1="358" y1="114" x2="374" y2="114"/><path class="arrow" d="M371 110 L379 114 L371 118 Z"/>
-              <rect class="box" x="382" y="52" width="156" height="124" rx="8"/><text class="num" x="394" y="86">03</text><text class="kicker" x="394" y="102">REDACT</text><text class="label" x="394" y="126">Sanitize</text><text class="meta" x="394" y="146">redact.py</text>
-              <line class="line" x1="540" y1="114" x2="556" y2="114"/><path class="arrow" d="M553 110 L561 114 L553 118 Z"/>
-              <rect class="box" x="564" y="52" width="156" height="124" rx="8"/><text class="num" x="576" y="86">04</text><text class="kicker" x="576" y="102">PACK</text><text class="label" x="576" y="126">Evidence Pack</text><text class="meta" x="576" y="146">assemble-pack.py</text>
-              <line class="line" x1="722" y1="114" x2="738" y2="114"/><path class="arrow" d="M735 110 L743 114 L735 118 Z"/>
-              <rect class="box" x="746" y="52" width="156" height="124" rx="8"/><text class="num" x="758" y="86">05</text><text class="kicker" x="758" y="102">RECONCILE</text><text class="label" x="758" y="126">Ledger Check</text><text class="meta" x="758" y="146">reconciliation</text>
-              <line class="line" x1="904" y1="114" x2="920" y2="114"/><path class="arrow" d="M917 110 L925 114 L917 118 Z"/>
-              <rect class="box" x="928" y="52" width="156" height="124" rx="8"/><text class="num" x="940" y="86">06</text><text class="kicker" x="940" y="102">GATE</text><text class="label" x="940" y="126">Coverage + Quality</text><text class="meta" x="940" y="146">coverage + heartbeat</text>
-              <line class="line" x1="1086" y1="114" x2="1102" y2="114"/><path class="arrow" d="M1099 110 L1107 114 L1099 118 Z"/>
-              <rect class="box-accent" x="1110" y="52" width="132" height="124" rx="8"/><text class="num" x="1122" y="86">07</text><text class="kicker" x="1122" y="102">PUBLISH</text><text class="accent" x="1122" y="126">Proof Output</text><text class="meta" x="1122" y="146">repo + proof pack</text>
-            </svg>
+        <div class="sf-card sf-panel">
+          <h2 id="flagship-title">SignalFoundry</h2>
+          <p class="sf-body sf-copy-gap-sm">Wazuh alerts in → policy-driven triage → mandatory redaction → evidence packs → reconciliation gate → published proof. 35-script Python pipeline. Deterministic. Nothing publishes without PASS.</p>
+          <div class="det-inventory" aria-label="Detection inventory">
+            <div class="det-inv-hdr">
+              <div class="det-inv-title">Detection Inventory</div>
+              <div class="det-inv-total"><span data-verified="detections">139</span> rules</div>
+            </div>
+            <div class="det-rows">
+              <div class="det-row dr-sigma">
+                <div class="det-icon" style="color:#6aaad8;">σ</div>
+                <div class="det-label">Sigma</div>
+                <div class="det-sub">10 MITRE ATT&amp;CK tactics · portable</div>
+                <div class="det-bar-track"><div class="det-bar-fill" data-w="74"></div></div>
+                <div class="det-count"><span data-verified="sigma">103</span></div>
+              </div>
+              <div class="det-row dr-wazuh">
+                <div class="det-icon" style="color:#00c4d4;">⚙</div>
+                <div class="det-label">Wazuh XML</div>
+                <div class="det-sub">Custom rule blocks · live in Wazuh</div>
+                <div class="det-bar-track"><div class="det-bar-fill" data-w="20"></div></div>
+                <div class="det-count"><span data-verified="wazuh">28</span></div>
+              </div>
+              <div class="det-row dr-splunk">
+                <div class="det-icon" style="color:#e8a020;">&gt;</div>
+                <div class="det-label">Splunk SPL</div>
+                <div class="det-sub">Investigation layer · detection lane</div>
+                <div class="det-bar-track"><div class="det-bar-fill" data-w="6"></div></div>
+                <div class="det-count"><span data-verified="splunk">8</span></div>
+              </div>
+              <div class="det-row dr-ir">
+                <div class="det-icon">📋</div>
+                <div class="det-label">IR Playbooks</div>
+                <div class="det-sub">7-step structured · reproducible evidence</div>
+                <div class="det-bar-track"><div class="det-bar-fill" data-w="7"></div></div>
+                <div class="det-count"><span data-verified="ir">10</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="sf-actions sf-actions-compact" style="margin-top:16px;">
+            <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Full Case Study →</a>
+            <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof Artifacts</a>
           </div>
         </div>
-        <aside class="sf-card" style="padding: 24px;">
-          <h2>Detection inventory</h2>
-          <p class="sf-body">Inventory counts remain a proof concern, not a heartbeat concern.</p>
-          <ul class="sf-status-list">
-            <li><strong><span data-verified="sigma">103</span></strong> Sigma rules</li>
-            <li><strong><span data-verified="wazuh">28</span></strong> Wazuh rule blocks across 24 files</li>
-            <li><strong><span data-verified="splunk">8</span></strong> Splunk queries</li>
-            <li><strong><span data-verified="ir">10</span></strong> IR playbooks</li>
-          </ul>
-        </aside>
+        <div class="sf-card sf-panel">
+          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(100,140,180,.13);">
+            <img src="/assets/signalfoundry-pipeline.svg" alt="SignalFoundry 7-stage pipeline diagram" loading="eager" width="1100" height="420" style="display:block;width:100%;height:auto;">
+          </div>
+          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(100,140,180,.13);margin-top:12px;">
+            <img src="/assets/autosoc-decision-flow.svg" alt="AutoSOC triage decision flow" loading="lazy" width="900" height="720" style="display:block;width:100%;height:auto;">
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="proofs" class="sf-section" aria-labelledby="proofs-title">
-      <h2 id="proofs-title">Why trust it</h2>
-      <p class="sf-body" style="margin-bottom: 16px;">These links are the shortest path from homepage claims to public proof artifacts.</p>
-      <div class="sf-proof-list">
-        <a class="sf-card sf-proof-link sf-focus-ring" href="/proof">
-          <strong>Proof Surface</strong>
-          <span>This proves the public evidence trail, validation commands, and reviewer-facing artifact path.</span>
+    <!-- PROOF METRICS -->
+    <section id="proof-snapshot" class="sf-section reveal" aria-labelledby="health-title">
+      <div class="sf-section-label">Stable Benchmark</div>
+      <h2 id="health-title">Canonical snapshot — 03-20-2026</h2>
+      <p class="sf-body sf-copy-gap-lg"><span data-ops="stable_statement">March 20 canonical snapshot: 49,774 total cases, ~89% auto-close, 2,478 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
+      <div class="sf-metrics" role="status" aria-live="polite">
+        <article class="sf-card sf-metric">
+          <span class="sf-metric-label">Heartbeat</span>
+          <span class="sf-metric-value"><span class="sdot" aria-hidden="true"></span><span data-ops-status="stable_heartbeat">SUCCESS</span></span>
+          <p class="sf-metric-note">Live pipeline gate — operational.</p>
+        </article>
+        <article class="sf-card sf-metric">
+          <span class="sf-metric-label">Host Coverage</span>
+          <span class="sf-metric-value"><span data-ops="stable_coverage_ratio">8/8</span></span>
+          <p class="sf-metric-note">All endpoints reporting. 0 gaps.</p>
+        </article>
+        <article class="sf-card sf-metric">
+          <span class="sf-metric-label">Escalations</span>
+          <span class="sf-metric-value"><span data-ops="stable_escalated">2,478</span></span>
+          <p class="sf-metric-note">Analyst-ready evidence packs.</p>
+        </article>
+        <article class="sf-card sf-metric">
+          <span class="sf-metric-label">Reconciliation</span>
+          <span class="sf-metric-value" style="color:#27c97a;">PASS</span>
+          <p class="sf-metric-note">0 mismatches · 100% success rate.</p>
+        </article>
+      </div>
+      <p class="sf-body" style="font-size:.82rem;margin-top:10px;opacity:.45;">Source: <code>/assets/data/ops-metrics.json</code> · Locked: <span data-ops="stable_locked_date">03-20-2026</span> · <a href="/proof" style="color:#00c4d4;">Full verification →</a></p>
+      <p class="sf-body" style="font-size:.76rem;margin-top:6px;opacity:.40;">Public benchmark snapshot · Runtime snapshot · Generated at <span data-ops="lifetime_last_updated">03-20-2026</span> · Source artifact <code>/assets/data/ops-metrics.json</code></p>
+    </section>
+
+    <!-- OPS BRIDGE -->
+    <section id="bridge-teaser" class="sf-section reveal" aria-labelledby="bridge-title">
+      <div class="sf-section-label">Operator Bridge</div>
+      <h2 id="bridge-title">Operations background → security execution</h2>
+      <p class="sf-body sf-copy-gap-sm">Same cognitive operation. Different domain. The production floor demanded the same discipline now running this pipeline.</p>
+      <div style="margin-top:16px;border-radius:10px;overflow:hidden;border:1px solid rgba(100,140,180,.13);">
+        <img src="/assets/ops-bridge.svg" alt="Operations to security skills translation matrix" loading="lazy" width="900" height="620" style="display:block;width:100%;height:auto;">
+      </div>
+    </section>
+
+    <!-- ROUTES -->
+    <section id="routes" class="sf-section reveal" aria-labelledby="routes-title">
+      <div class="sf-section-label">Where to go next</div>
+      <h2 id="routes-title">Pick your review path</h2>
+      <div class="sf-route-grid">
+        <a class="sf-card sf-route-card sf-focus-ring" href="/case-study-autosoc">
+          <h3>SignalFoundry</h3>
+          <p>Architecture, triage logic, recovery model, and full case study.</p>
         </a>
-        <a class="sf-card sf-proof-link sf-focus-ring" href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">
-          <strong>VERIFIED_COUNTS.md</strong>
-          <span>This proves the current repository inventory for <span data-verified="sigma">103</span> Sigma rules, <span data-verified="splunk">8</span> Splunk queries, 24 Wazuh files with <span data-verified="wazuh">28</span> rule blocks, and <span data-verified="ir">10</span> IR playbooks.</span>
+        <a class="sf-card sf-route-card sf-focus-ring" href="/proof">
+          <h3>Proof</h3>
+          <p>Benchmark source, evidence trail, and verification commands.</p>
         </a>
-        <a class="sf-card sf-proof-link sf-focus-ring" href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/technique_map.csv" target="_blank" rel="noopener noreferrer">
-          <strong>technique_map.csv</strong>
-          <span>This proves the MITRE ATT&amp;CK mapping extracted from the repo rule sources and enriched from the ATT&amp;CK bundle.</span>
+        <a class="sf-card sf-route-card sf-focus-ring" href="/soc-lab">
+          <h3>Lab</h3>
+          <p>Proxmox topology, VM inventory, and real environment behind the data.</p>
+        </a>
+        <a class="sf-card sf-route-card sf-focus-ring" href="/resume">
+          <h3>Resume</h3>
+          <p>Role fit, outcomes, ops-to-security bridge, and PDF download.</p>
         </a>
       </div>
     </section>
 
-    <section id="cta" class="sf-section" aria-labelledby="cta-title">
-      <div class="sf-cta-grid">
-        <div class="sf-card" style="padding: 24px;">
-          <h2 id="cta-title">Review the system directly</h2>
-          <p class="sf-body">Start with the repo if you want implementation detail, or use the proof page for a guided validation path.</p>
-          <div class="sf-actions">
-            <a class="sf-button sf-button-primary sf-focus-ring" href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer">Open Repo</a>
-            <a class="sf-button sf-button-secondary sf-focus-ring" href="/start-here.html">Start Here for Recruiters</a>
-          </div>
-        </div>
-        <div class="sf-card" style="padding: 24px;">
-          <h2>Current implementation</h2>
-          <p class="sf-body">SignalFoundry is the public system framing. The AutoSOC engine remains the current implementation layer for rule tuning, reconciliation, evidence packaging, and run-state verification.</p>
-        </div>
-      </div>
-    </section>
   </div>
 </main>
-<div id="modalBg" class="modal-backdrop" aria-hidden="true">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-h">
-      <div id="modalTitle" class="modal-ttl">DETAILS</div>
-      <button id="modalClose" class="modal-x" type="button">Close</button>
-    </div>
-    <div id="modalBody" class="modal-b"></div>
-  </div>
-</div>
-<!-- @include:footer:start -->
+
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
+    <p><b>Raylee Hawkins</b> &middot; North Alabama (Huntsville)</p>
     <div class="fl">
-      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
-      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
-      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
+      <a href="/resume">Resume</a>
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:Raylee@hawkinsops.com">Raylee@hawkinsops.com</a>
     </div>
-    <p class="sf-footer-line">Eligible to obtain clearance; willing to pursue sponsorship.</p>
+    <p class="sf-footer-line">Eligible to obtain clearance · Willing to pursue sponsorship</p>
   </div>
 </footer>
 
-<!-- @include:footer:end -->
 <script src="/assets/fetch-utils.js" defer></script>
 <script src="/data/counts.js" defer></script>
 <script src="/data/ops-metrics.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<script>
+(function(){
+  'use strict';
+
+  /* ── PARTICLE CANVAS ── */
+  var cvs = document.getElementById('hero-canvas');
+  if(cvs){
+    var ctx = cvs.getContext('2d'), pts = [], W, H;
+    function rsz(){ W=cvs.width=innerWidth; H=cvs.height=innerHeight; }
+    rsz(); addEventListener('resize',rsz);
+    for(var i=0;i<55;i++) pts.push({
+      x:Math.random()*1920, y:Math.random()*1080,
+      vx:(Math.random()-.5)*.28, vy:(Math.random()-.5)*.28,
+      r:Math.random()*1.6+.4, a:Math.random()*.45+.08
+    });
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<pts.length;i++){
+        for(var j=i+1;j<pts.length;j++){
+          var dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+          if(d<140){ ctx.beginPath(); ctx.strokeStyle='rgba(0,196,212,'+(.15*(1-d/140))+')'; ctx.lineWidth=.5; ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.stroke(); }
+        }
+      }
+      pts.forEach(function(p){
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle='rgba(0,196,212,'+p.a+')'; ctx.fill();
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<0||p.x>W) p.vx*=-1;
+        if(p.y<0||p.y>H) p.vy*=-1;
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+    setTimeout(function(){ cvs.classList.add('visible'); }, 300);
+  }
+
+  /* ── COUNTER ANIMATION ── */
+  function animCount(el, target, dur){
+    var s=performance.now();
+    (function frame(now){
+      var p=Math.min((now-s)/dur,1), ease=1-Math.pow(1-p,4);
+      var v=Math.floor(target*ease);
+      el.textContent = v>=1000 ? v.toLocaleString() : String(v);
+      if(p<1) requestAnimationFrame(frame);
+    })(s);
+  }
+
+  var cntDone=false;
+  new IntersectionObserver(function(e){
+    if(e[0].isIntersecting&&!cntDone){
+      cntDone=true;
+      document.querySelectorAll('.counter').forEach(function(el){
+        animCount(el, parseInt(el.dataset.target), 1600);
+      });
+    }
+  },{threshold:.1}).observe(document.getElementById('hero')||document.body);
+
+  /* ── DET BAR ANIMATIONS ── */
+  var barsDone=false;
+  var detEl=document.querySelector('.det-inventory');
+  if(detEl) new IntersectionObserver(function(e){
+    if(e[0].isIntersecting&&!barsDone){
+      barsDone=true;
+      document.querySelectorAll('.det-bar-fill').forEach(function(b,i){
+        setTimeout(function(){ b.style.width=b.dataset.w+'%'; }, i*130+200);
+      });
+    }
+  },{threshold:.2}).observe(detEl);
+
+  /* ── SCROLL REVEALS ── */
+  var revObs=new IntersectionObserver(function(e){
+    e.forEach(function(x){ if(x.isIntersecting) x.target.classList.add('in-view'); });
+  },{threshold:.07});
+  document.querySelectorAll('.reveal').forEach(function(el){ revObs.observe(el); });
+
+  /* ── MOBILE NAV ── */
+  var btn=document.getElementById('mobBtn'), men=document.getElementById('mobMenu');
+  if(btn&&men) btn.addEventListener('click',function(){
+    var o=men.getAttribute('data-open')==='true';
+    men.setAttribute('data-open',String(!o));
+    men.style.display=o?'none':'block';
+    btn.setAttribute('aria-expanded',String(!o));
+  });
+})();
+
+/* lazy hydrate */
+(function(){
+  function lh(){ var s=document.createElement('script'); s.src='/assets/hydrate.js'; s.defer=true; document.body.appendChild(s); }
+  if('requestIdleCallback' in window) requestIdleCallback(function(){ setTimeout(lh,0); },{timeout:1500});
+  else addEventListener('load',lh);
+})();
+</script>
 </body>
 </html>

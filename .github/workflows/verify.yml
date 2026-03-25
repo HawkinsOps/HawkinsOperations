@@ -29,6 +29,9 @@ jobs:
       - name: Generate site data artifacts
         shell: pwsh
         run: |
+          node .\scripts\generate-metrics.js
+          node .\scripts\generate-proof-lanes.js
+          python .\scripts\validate_metrics.py
           node .\scripts\generate-site-data.js
           node .\scripts\generate-site-content.js
           node .\scripts\generate-media-manifest.js
@@ -37,6 +40,7 @@ jobs:
         shell: pwsh
         run: |
           node .\scripts\verify\hosting-cloudflare-only.js
+          node .\scripts\verify\site-runtime-contract.js
 
       - name: Static site diagnosis gate
         shell: pwsh
@@ -65,4 +69,3 @@ jobs:
           name: wazuh-rules-bundle
           path: dist/wazuh/local_rules.xml
           retention-days: 30
-
