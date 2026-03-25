@@ -9,7 +9,7 @@
   // Positions are % of container. Grouped by layer with clear spatial separation.
   var nodes = [
     // === LAYER: CORE (center, dominant) ===
-    { id: 'sf-core', label: 'SignalFoundry', icon: 'SF\nCORE', x: 48, y: 44, size: 'core', color: 'c-core', delay: 2,
+    { id: 'sf-core', label: 'SignalFoundry Core', sublabel: 'Autonomous Decision Engine', icon: 'SF\nCORE', x: 48, y: 44, size: 'core', color: 'c-core', delay: 2,
       panel: { title: 'SignalFoundry Core', role: 'Central Orchestration Engine',
         metrics: [['Cases processed', '49,774'], ['Auto-close rate', '~89%'], ['Escalated', '2,478'], ['Reconciliation', 'PASS (0)'], ['Heartbeat', 'SUCCESS']],
         desc: 'Policy-driven triage engine. Receives all ingested alerts, applies deterministic disposition logic, routes to evidence assembly or auto-close. Every case gets a disposition. No alert is silently dropped.' }},
@@ -253,18 +253,51 @@
     govArc.className = 'sysmap-governance';
     canvas.appendChild(govArc);
 
-    // --- Layer 4: PASS/FAIL labels ---
+    // --- Layer 4: TIER 1 ZONE LABELS (always visible section headers) ---
+    var zoneStyle = 'position:absolute;pointer-events:none;font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:0.14em;';
+    var zones = [
+      { text: 'INGESTION',              x: '2%',  y: '8%',  color: 'rgba(251,191,36,0.2)',  size: '0.62rem' },
+      { text: 'DETECTION ENGINEERING',   x: '16%', y: '1%',  color: 'rgba(59,143,217,0.22)', size: '0.62rem' },
+      { text: 'ORCHESTRATION CORE',      x: '38%', y: '30%', color: 'rgba(0,196,212,0.18)',  size: '0.68rem' },
+      { text: 'ANALYSIS / SIEM',         x: '67%', y: '4%',  color: 'rgba(56,189,248,0.2)',  size: '0.62rem' },
+      { text: 'VALIDATION & RELEASE',    x: '76%', y: '30%', color: 'rgba(74,222,128,0.2)',  size: '0.62rem' },
+      { text: 'INFRASTRUCTURE',          x: '26%', y: '83%', color: 'rgba(148,163,184,0.15)',size: '0.6rem' },
+      { text: 'GOVERNANCE & AUDIT',      x: '50%', y: '70%', color: 'rgba(167,139,250,0.2)', size: '0.62rem' },
+      { text: 'SECURE MESH: TAILSCALE',  x: '34%', y: '1%',  color: 'rgba(167,139,250,0.12)',size: '0.55rem' }
+    ];
+    zones.forEach(function (z) {
+      var el = document.createElement('div');
+      el.style.cssText = zoneStyle + 'left:' + z.x + ';top:' + z.y + ';color:' + z.color + ';font-size:' + z.size + ';font-weight:600;';
+      el.textContent = z.text;
+      canvas.appendChild(el);
+    });
+
+    // --- PASS / FAIL branch labels (prominent) ---
     var passLabel = document.createElement('div');
-    passLabel.className = 'sysmap-zone-label';
-    passLabel.style.cssText = 'position:absolute;left:87%;top:22%;color:rgba(74,222,128,0.35);font:700 0.65rem "JetBrains Mono",monospace;letter-spacing:0.12em;text-transform:uppercase;';
+    passLabel.style.cssText = 'position:absolute;left:87%;top:22%;color:rgba(74,222,128,0.45);font:800 0.8rem "JetBrains Mono",monospace;letter-spacing:0.14em;text-transform:uppercase;pointer-events:none;';
     passLabel.textContent = 'PASS';
     canvas.appendChild(passLabel);
 
     var failLabel = document.createElement('div');
-    failLabel.className = 'sysmap-zone-label';
-    failLabel.style.cssText = 'position:absolute;left:87%;top:55%;color:rgba(248,113,113,0.35);font:700 0.65rem "JetBrains Mono",monospace;letter-spacing:0.12em;text-transform:uppercase;';
+    failLabel.style.cssText = 'position:absolute;left:87%;top:56%;color:rgba(248,113,113,0.45);font:800 0.8rem "JetBrains Mono",monospace;letter-spacing:0.14em;text-transform:uppercase;pointer-events:none;';
     failLabel.textContent = 'FAIL';
     canvas.appendChild(failLabel);
+
+    // --- Flow path annotation ---
+    var flowStyle = 'position:absolute;pointer-events:none;font:500 0.52rem "JetBrains Mono",monospace;letter-spacing:0.1em;text-transform:uppercase;color:rgba(0,196,212,0.16);';
+    var flowSteps = [
+      { text: 'INGEST',   x: '14%', y: '50%' },
+      { text: 'DETECT',   x: '28%', y: '28%' },
+      { text: 'DECIDE',   x: '48%', y: '58%' },
+      { text: 'VALIDATE', x: '76%', y: '50%' },
+      { text: 'RELEASE',  x: '90%', y: '42%' }
+    ];
+    flowSteps.forEach(function (fs) {
+      var el = document.createElement('div');
+      el.style.cssText = flowStyle + 'left:' + fs.x + ';top:' + fs.y + ';';
+      el.textContent = fs.text;
+      canvas.appendChild(el);
+    });
 
     // --- Layer 5: Nodes ---
     nodes.forEach(function (node) {
@@ -284,12 +317,21 @@
         el.appendChild(iconEl);
       }
 
-      // Only show labels for major+ nodes to reduce clutter
-      if (node.size !== 'cluster') {
+      // TIER 2: Only critical nodes get permanent labels
+      var tier2 = ['sf-core','wazuh-mgr','sigma','splunk','validation','evidence','doc-gen','git-commit','git-push','publish','authority','fail-retain','fail-block','fail-flag'];
+      if (tier2.indexOf(node.id) >= 0) {
         var labelEl = document.createElement('div');
         labelEl.className = 'sysmap-label';
         labelEl.textContent = node.label;
         el.appendChild(labelEl);
+        // Core gets sublabel
+        if (node.sublabel) {
+          var subEl = document.createElement('div');
+          subEl.className = 'sysmap-label';
+          subEl.style.cssText = 'bottom:-42px;font-size:0.5rem;font-weight:500;color:rgba(0,196,212,0.5);letter-spacing:0.08em;';
+          subEl.textContent = node.sublabel;
+          el.appendChild(subEl);
+        }
       }
 
       if (node.panel) {

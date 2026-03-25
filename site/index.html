@@ -125,17 +125,40 @@
     <section id="flagship" class="sf-section" aria-labelledby="flagship-title" style="padding:56px 0 20px;">
       <div class="sf-section-label">Autonomous Detection System</div>
       <h2 id="flagship-title" style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin:8px 0 8px;">SignalFoundry</h2>
-      <p class="sf-body" style="max-width:72ch;color:var(--muted);margin-bottom:4px;">Closed-loop security operations with validation, auditability, and governed deployment. Supported by 38 scripts across intake, triage, sanitation, packaging, verification, and publishing.</p>
+      <p class="sf-body" style="max-width:72ch;margin-bottom:14px;">This is the full operational architecture. Alerts enter from distributed endpoints on the left, flow through detection and orchestration at the center, and exit through a governed validation gate on the right. Hover any node to inspect its role, metrics, and system relationships.</p>
     </section>
 
     <!--
          SECTION 2B: LIVING SYSTEM MAP
           -->
-    <section id="system-topology" class="sf-section" style="padding:0 0 32px;">
+    <section id="system-topology" class="sf-section" style="padding:0 0 16px;">
       <div id="system-map" class="sysmap">
         <div class="sysmap-canvas"></div>
       </div>
-      <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:16px;">
+    </section>
+
+    <!--
+         SECTION 2C: SYSTEM SUMMARY
+          -->
+    <section class="sf-section" style="padding:12px 0 32px;">
+      <div class="sf-card" style="padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div>
+          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:#71c7b8;margin-bottom:8px;">What the system does</div>
+          <p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text);">SignalFoundry continuously ingests alerts from 8 monitored endpoints through Wazuh, applies deterministic triage policy against <span data-verified="detections">139</span> detection rules, and routes each case to either auto-close or escalation. Escalated cases produce structured evidence packs that pass a mandatory redaction gate before any output becomes public. A reconciliation engine verifies that no case is silently dropped or duplicated. 38 scripts across intake, triage, sanitation, packaging, verification, and publishing keep the entire loop automated and auditable.</p>
+        </div>
+        <div>
+          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:#71c7b8;margin-bottom:8px;">Why it matters</div>
+          <ul style="margin:0;padding:0 0 0 16px;font-size:0.88rem;line-height:1.7;color:var(--muted);display:grid;gap:6px;">
+            <li>Every alert gets a disposition. No silent drops.</li>
+            <li>Pass/fail validation gates control what gets published.</li>
+            <li>Failed validations block release and flag for review.</li>
+            <li>Every published metric traces to <code>current-authority.json</code>.</li>
+            <li>Detection rules are continuously refined through a governance feedback loop.</li>
+            <li>The entire system runs on self-hosted infrastructure over a Tailscale secure mesh.</li>
+          </ul>
+        </div>
+      </div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:20px;">
         <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Full Case Study</a>
         <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof Artifacts</a>
       </div>
