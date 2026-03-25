@@ -62,6 +62,7 @@ html body::before {
     67px 131px !important;
   opacity: var(--starfield-opacity) !important;
   animation: starfield-drift 180s linear infinite !important;
+  will-change: transform;
 }
 
 /* Layer 2: Sparse bright stars (blue-white) — far field, slower */
@@ -85,6 +86,7 @@ html body::after {
     211px 173px !important;
   opacity: 0.55 !important;
   animation: starfield-drift-deep 300s linear infinite !important;
+  will-change: transform;
 }
 
 @keyframes starfield-drift {
@@ -547,7 +549,95 @@ svg circle[stroke-dasharray] {
 
 
 /* ============================================
-   S16  TOUCH DEVICE ADJUSTMENTS
+   S16  MOBILE RESPONSIVENESS
+   Collapse multi-column grids on small screens.
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* All inline grid layouts collapse to single column */
+  [style*="grid-template-columns: repeat(4"],
+  [style*="grid-template-columns:repeat(4"],
+  [style*="grid-template-columns: repeat(7"],
+  [style*="grid-template-columns:repeat(7"],
+  [style*="grid-template-columns: repeat(5"],
+  [style*="grid-template-columns:repeat(5"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  [style*="grid-template-columns:280px"],
+  [style*="grid-template-columns: 280px"],
+  [style*="grid-template-columns:1fr 320px"],
+  [style*="grid-template-columns: 1fr 320px"],
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns:1fr auto 1fr"],
+  [style*="grid-template-columns: 1fr auto 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* KPI metrics grid */
+  .sf-metrics[style*="grid-template-columns:repeat(4"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Pipeline stage grid: 7 cols → 4 cols on tablet, handled below */
+  /* Funnel SVG: make scrollable */
+  .sf-panel svg[viewBox] {
+    min-width: 600px;
+  }
+
+  .sf-panel {
+    overflow-x: auto;
+  }
+
+  /* Resume grid */
+  .resume-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Proof hero */
+  .proof-hero-inner {
+    padding: 0 1rem;
+  }
+
+  .proof-kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Single column everything on phone */
+  [style*="grid-template-columns: repeat(2"],
+  [style*="grid-template-columns:repeat(2"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sf-metrics[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  .proof-kpi-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sf-route-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Smaller hero text */
+  .sf-home h1 {
+    font-size: 1.6rem !important;
+  }
+
+  /* Pipeline stages: 2 columns */
+  [style*="grid-template-columns:repeat(7"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+
+/* ============================================
+   S17  TOUCH DEVICE ADJUSTMENTS
    ============================================ */
 
 @media (hover: none) {

@@ -228,15 +228,52 @@
       </div>
 
       <aside class="sf-library-stack">
-        <div class="panel-glass sf-chart-shell">
+        <div class="panel-glass sf-chart-shell" style="padding:20px;">
           <div class="section-intro">
-            <div class="kicker">Tag Distribution</div>
-            <h3>Tag concentration</h3>
-            <p>Current detection tags cluster around portable detection, SOC process, SIEM deployment, and hunting-oriented content.</p>
+            <div class="kicker">Platform Distribution</div>
+            <h3>Detection breakdown</h3>
           </div>
-          <div id="detectionsChart"></div>
-          <div id="securityTagMiniChart"></div>
-          <p id="mitre-tag-status" class="lupd"></p>
+          <!-- Sigma -->
+          <div style="margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px;">
+              <span style="color:#d4e0ec;font-weight:600;">Sigma</span>
+              <span style="font-family:'JetBrains Mono',monospace;color:#7ab8ff;font-weight:700;" data-verified="sigma">103</span>
+            </div>
+            <div style="height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;">
+              <div style="width:74%;height:100%;background:linear-gradient(90deg,rgba(122,184,255,0.5),rgba(122,184,255,0.2));border-radius:3px;"></div>
+            </div>
+          </div>
+          <!-- Wazuh -->
+          <div style="margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px;">
+              <span style="color:#d4e0ec;font-weight:600;">Wazuh</span>
+              <span style="font-family:'JetBrains Mono',monospace;color:#7ab8ff;font-weight:700;" data-verified="wazuh">28</span>
+            </div>
+            <div style="height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;">
+              <div style="width:20%;height:100%;background:linear-gradient(90deg,rgba(122,184,255,0.5),rgba(122,184,255,0.2));border-radius:3px;"></div>
+            </div>
+          </div>
+          <!-- IR -->
+          <div style="margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px;">
+              <span style="color:#d4e0ec;font-weight:600;">IR Playbooks</span>
+              <span style="font-family:'JetBrains Mono',monospace;color:#fbbf24;font-weight:700;" data-verified="ir">10</span>
+            </div>
+            <div style="height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;">
+              <div style="width:7%;height:100%;background:linear-gradient(90deg,rgba(251,191,36,0.5),rgba(251,191,36,0.2));border-radius:3px;"></div>
+            </div>
+          </div>
+          <!-- Splunk -->
+          <div style="margin-bottom:6px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px;">
+              <span style="color:#d4e0ec;font-weight:600;">Splunk <span style="font-size:0.68rem;opacity:0.5;">(lab)</span></span>
+              <span style="font-family:'JetBrains Mono',monospace;color:#4ade80;font-weight:700;" data-verified="splunk">8</span>
+            </div>
+            <div style="height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;">
+              <div style="width:6%;height:100%;background:linear-gradient(90deg,rgba(74,222,128,0.5),rgba(74,222,128,0.2));border-radius:3px;"></div>
+            </div>
+          </div>
+          <p style="font-size:0.68rem;color:var(--muted);margin-top:10px;opacity:0.5;">Total: <span data-verified="detections">139</span> detections</p>
         </div>
 
         <div class="panel-glass sf-library-status" data-security-kpis>
