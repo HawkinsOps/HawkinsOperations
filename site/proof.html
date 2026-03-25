@@ -595,7 +595,159 @@ body { background: #03060b !important; }
 }
 
 /* ══════════════════════════════════════════════════
-   § 8  Two-column layout
+   § 8  HOST ROSTER — expandable SIEM host panel
+   ══════════════════════════════════════════════════ */
+
+/* Expand trigger inside KPI cell */
+.pv-kpi.cov {
+  cursor: pointer;
+  user-select: none;
+}
+.pv-kpi.cov:focus-visible {
+  outline: 2px solid rgba(39,201,122,.5);
+  outline-offset: -2px;
+}
+.pv-cov-expand {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 8px;
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .58rem; letter-spacing: .1em;
+  color: #27c97a; opacity: .7;
+  transition: opacity .18s;
+}
+.pv-kpi.cov:hover .pv-cov-expand,
+.pv-kpi.cov[aria-expanded="true"] .pv-cov-expand { opacity: 1; }
+.pv-cov-chevron {
+  display: inline-block;
+  transition: transform .25s ease;
+  font-style: normal;
+}
+.pv-kpi.cov[aria-expanded="true"] .pv-cov-chevron { transform: rotate(180deg); }
+
+/* Host roster panel */
+.pv-host-roster {
+  display: grid;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height .38s ease, opacity .28s ease;
+  margin-top: 0;
+}
+.pv-host-roster[data-open="true"] {
+  max-height: 600px;
+  opacity: 1;
+  margin-top: 2px;
+}
+
+.pv-host-roster-inner {
+  background: rgba(4,8,15,.94);
+  border: 1px solid rgba(39,201,122,.12);
+  border-top: 2px solid rgba(39,201,122,.3);
+  border-radius: 0 0 8px 8px;
+  padding: 20px 20px 16px;
+}
+
+.pv-roster-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(39,201,122,.08);
+}
+.pv-roster-title {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .62rem; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: #27c97a;
+}
+.pv-roster-status {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .58rem; color: #486880;
+  display: flex; align-items: center; gap: 6px;
+}
+.pv-roster-status-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #27c97a; box-shadow: 0 0 4px #27c97a;
+  animation: pv-blink 2.4s ease-in-out infinite;
+}
+
+.pv-host-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 8px;
+}
+@media (max-width: 860px) {
+  .pv-host-grid { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 480px) {
+  .pv-host-grid { grid-template-columns: 1fr; }
+}
+
+.pv-host-card {
+  background: rgba(6,10,16,.8);
+  border: 1px solid rgba(39,201,122,.1);
+  border-radius: 6px;
+  padding: 12px 14px;
+  position: relative;
+  transition: border-color .18s, background .18s;
+}
+.pv-host-card:hover {
+  border-color: rgba(39,201,122,.28);
+  background: rgba(8,14,22,.95);
+}
+.pv-host-card-top {
+  display: flex; align-items: center;
+  justify-content: space-between; margin-bottom: 8px;
+}
+.pv-host-role-code {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .55rem; font-weight: 700;
+  letter-spacing: .1em;
+  padding: 2px 7px; border-radius: 3px;
+  text-transform: uppercase;
+}
+.pv-host-role-code.infra  { background:rgba(0,196,212,.08); color:#00c4d4; border:1px solid rgba(0,196,212,.18); }
+.pv-host-role-code.ep     { background:rgba(46,117,182,.08);color:#6aaad8; border:1px solid rgba(46,117,182,.18); }
+.pv-host-role-code.dc     { background:rgba(232,160,32,.08); color:#e8a020; border:1px solid rgba(232,160,32,.18); }
+.pv-host-role-code.lnx    { background:rgba(122,184,255,.07);color:#7ab8ff; border:1px solid rgba(122,184,255,.18); }
+.pv-host-role-code.dmz    { background:rgba(255,59,92,.07);  color:#ff6b85; border:1px solid rgba(255,59,92,.16); }
+
+.pv-host-status-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #27c97a; box-shadow: 0 0 5px rgba(39,201,122,.5);
+}
+.pv-host-name {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .72rem; font-weight: 700;
+  color: #d4e0ec; margin-bottom: 3px;
+  line-height: 1.2;
+}
+.pv-host-function {
+  font-size: .7rem; color: #7a94aa;
+  line-height: 1.45;
+}
+.pv-host-tags {
+  display: flex; flex-wrap: wrap; gap: 4px; margin-top: 7px;
+}
+.pv-host-tag {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .52rem; padding: 1px 5px;
+  background: rgba(122,148,170,.07);
+  border: 1px solid rgba(122,148,170,.12);
+  color: #486880; border-radius: 2px;
+}
+
+.pv-roster-note {
+  margin-top: 12px; padding: 8px 12px;
+  background: rgba(232,160,32,.03);
+  border: 1px solid rgba(232,160,32,.1);
+  border-radius: 4px;
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .6rem; color: #e8a020; line-height: 1.5;
+}
+.pv-roster-note::before { content: '[REDACTED] '; opacity: .6; }
+
+/* ══════════════════════════════════════════════════
+   § 9  Two-column layout
    ══════════════════════════════════════════════════ */
 .pv-grid-2 {
   display: grid; grid-template-columns: 1fr 1fr;
@@ -765,10 +917,16 @@ body { background: #03060b !important; }
           </div>
           <div class="pv-kpi-note">Pipeline gate &mdash; operational</div>
         </div>
-        <div class="pv-kpi cov" role="group" aria-labelledby="kpi-cov-lbl">
+        <div class="pv-kpi cov" role="button" tabindex="0"
+             aria-expanded="false" aria-controls="pv-host-roster"
+             aria-labelledby="kpi-cov-lbl"
+             id="pv-cov-toggle">
           <div class="pv-kpi-label" id="kpi-cov-lbl">Host Coverage</div>
-          <div class="pv-kpi-val"><span data-ops="stable_coverage_ratio">8/8</span></div>
+          <div class="pv-kpi-val"><span data-ops="stable_coverage_ratio">8/8</span>&nbsp;hosts</div>
           <div class="pv-kpi-note">All endpoints reporting &middot; 0 gaps</div>
+          <div class="pv-cov-expand" aria-hidden="true">
+            <i class="pv-cov-chevron">&#8964;</i> Expand roster
+          </div>
         </div>
         <div class="pv-kpi cas" role="group" aria-labelledby="kpi-cas-lbl">
           <div class="pv-kpi-label" id="kpi-cas-lbl">Total Cases</div>
@@ -781,6 +939,148 @@ body { background: #03060b !important; }
           <div class="pv-kpi-note">0 mismatches &middot; <span data-ops="stable_escalated">2,478</span> escalations published</div>
         </div>
       </div>
+
+      <!-- Host Roster — expandable SIEM node manifest -->
+      <div class="pv-host-roster" id="pv-host-roster" aria-label="SIEM host roster" role="region" data-open="false">
+        <div class="pv-host-roster-inner">
+          <div class="pv-roster-header">
+            <span class="pv-roster-title">SIEM Node Manifest &mdash; 8/8 Reporting</span>
+            <span class="pv-roster-status">
+              <span class="pv-roster-status-dot" aria-hidden="true"></span>
+              All hosts active &bull; snapshot 03-20-2026
+            </span>
+          </div>
+
+          <div class="pv-host-grid" role="list">
+
+            <!-- 1: SIEM Manager -->
+            <div class="pv-host-card" role="listitem">
+              <div class="pv-host-card-top">
+                <span class="pv-host-role-code infra">SIEM-MGR</span>
+                <span class="pv-host-status-dot" title="Reporting" aria-label="Status: Reporting"></span>
+              </div>
+              <div class="pv-host-name">Wazuh Manager</div>
+              <div class="pv-host-function">Central correlation engine. Evaluates all inbound events against the rule tree, dispatches alerts, manages agent enrollment and policy.</div>
+              <div class="pv-host-tags">
+                <span class="pv-host-tag">rule engine</span>
+                <span class="pv-host-tag">alert dispatch</span>
+                <span class="pv-host-tag">agent mgmt</span>
+              </div>
+            </div>
+
+            <!-- 2: Indexer -->
+            <div class="pv-host-card" role="listitem">
+              <div class="pv-host-card-top">
+                <span class="pv-host-role-code infra">SIEM-IDX</span>
+                <span class="pv-host-status-dot" title="Reporting" aria-label="Status: Reporting"></span>
+              </div>
+              <div class="pv-host-name">Indexer Node</div>
+              <div class="pv-host-function">OpenSearch-backed event storage. Indexes all normalized alert and log payloads. Backs the full-text query layer and proof evidence queries.</div>
+              <div class="pv-host-tags">
+                <span class="pv-host-tag">opensearch</span>
+                <span class="pv-host-tag">event storage</span>
+                <span class="pv-host-tag">query backend</span>
+              </div>
+            </div>
+
+            <!-- 3: Dashboard -->
+            <div class="pv-host-card" role="listitem">
+              <div class="pv-host-card-top">
+                <span class="pv-host-role-code infra">SIEM-DASH</span>
+                <span class="pv-host-status-dot" title="Reporting" aria-label="Status: Reporting"></span>
+              </div>
+              <div class="pv-host-name">Dashboard Node</div>
+              <div class="pv-host-function">Grafana + Wazuh UI surface. Serves live alert dashboards, detection coverage heatmaps, and the proof visualization used in public evidence.</div>
+              <div class="pv-host-tags">
+                <span class="pv-host-tag">grafana</span>
+                <span class="pv-host-tag">visualization</span>
+                <span class="pv-host-tag">proof surface</span>
+              </div>
+            </div>
+
+            <!-- 4: Windows Endpoint A -->
+            <div class="pv-host-card" role="listitem">
+              <div class="pv-host-card-top">
+                <span class="pv-host-role-code ep">EP-WIN-A</span>
+                <span class="pv-host-status-dot" title="Reporting" aria-label="Status: Reporting"></span>
+              </div>
+              <div class="pv-host-name">Windows Endpoint A</div>
+              <div class="pv-host-function">Primary Windows telemetry surface. Sysmon-instrumented: process creation, network connections, image loads. Highest alert volume contributor.</div>
+              <div class="pv-host-tags">
+                <span class="pv-host-tag">sysmon</span>
+                <span class="pv-host-tag">process telemetry</span>
+                <span class="pv-host-tag">high volume</span>
+              </div>
+            </div>
+
+            <!-- 5: Windows Endpoint B -->
+            <div class="pv-host-card" role="listitem">
+              <div class="pv-host-card-top">
+                <span class="pv-host-role-code ep">EP-WIN-B</span>
+                <span class="pv-host-status-dot" title="Reporting" aria-label="Status: Reporting"></span>
+              </div>
+              <div class="pv-host-name">Windows Endpoint B</div>
+              <div class="pv-host-function">Secondary Windows coverage node. Validates lateral movement detection across two separate workstation contexts. Cross-host correlation surface.</div>
+              <div class="pv-host-tags">
+                <span class="pv-host-tag">lateral movement</span>
+                <span class="pv-host-tag">cross-host</span>
+                <span class="pv-host-tag">sysmon</span>
+              </div>
+            </div>
+
+            <!-- 6: Domain Controller -->
+            <div class="pv-host-card" role="listitem">
+              <div class="pv-host-card-top">
+                <span class="pv-host-role-code dc">DC-WIN</span>
+                <span class="pv-host-status-dot" title="Reporting" aria-label="Status: Reporting"></span>
+              </div>
+              <div class="pv-host-name">Domain Controller</div>
+              <div class="pv-host-function">Active Directory event ingestion. Covers logon/logoff (4624/4625/4634), privilege escalation, policy changes, and Kerberos ticket anomalies.</div>
+              <div class="pv-host-tags">
+                <span class="pv-host-tag">active directory</span>
+                <span class="pv-host-tag">4624/4625</span>
+                <span class="pv-host-tag">kerberos</span>
+              </div>
+            </div>
+
+            <!-- 7: Linux Server -->
+            <div class="pv-host-card" role="listitem">
+              <div class="pv-host-card-top">
+                <span class="pv-host-role-code lnx">SRV-LNX</span>
+                <span class="pv-host-status-dot" title="Reporting" aria-label="Status: Reporting"></span>
+              </div>
+              <div class="pv-host-name">Linux Server</div>
+              <div class="pv-host-function">SSH auth events, file integrity monitoring via auditd, cron abuse detection, and sudoers change alerting. Wazuh FIM active on critical paths.</div>
+              <div class="pv-host-tags">
+                <span class="pv-host-tag">auditd</span>
+                <span class="pv-host-tag">FIM</span>
+                <span class="pv-host-tag">ssh events</span>
+              </div>
+            </div>
+
+            <!-- 8: Honeypot / DMZ -->
+            <div class="pv-host-card" role="listitem">
+              <div class="pv-host-card-top">
+                <span class="pv-host-role-code dmz">DMZ-HNY</span>
+                <span class="pv-host-status-dot" title="Reporting" aria-label="Status: Reporting"></span>
+              </div>
+              <div class="pv-host-name">Honeypot / DMZ Node</div>
+              <div class="pv-host-function">High-signal deception layer. Any interaction is a confirmed detection. Feeds the escalation queue directly. No legitimate traffic expected.</div>
+              <div class="pv-host-tags">
+                <span class="pv-host-tag">deception</span>
+                <span class="pv-host-tag">high-signal</span>
+                <span class="pv-host-tag">direct escalation</span>
+              </div>
+            </div>
+
+          </div><!-- .pv-host-grid -->
+
+          <p class="pv-roster-note">
+            Hostnames, IPs, and domain identifiers redacted per public sanitization policy.
+            Role descriptions reflect actual deployed function. Artifact: <code style="font-size:.58rem;color:#9fb3c6;background:rgba(122,148,170,.07);padding:1px 4px;border-radius:2px;">evidence/wazuh-deployment-evidence.log</code>
+          </p>
+        </div>
+      </div><!-- .pv-host-roster -->
 
       <!-- Runtime snapshot row -->
       <div class="pv-runtime-row" role="region" aria-label="Lifetime runtime snapshot">
@@ -1079,6 +1379,38 @@ body { background: #03060b !important; }
       window.addEventListener('load', loadHydrate);
     }
   })();
+</script>
+
+<!-- ── Host Roster Toggle ────────────────────────────────────── -->
+<script>
+(function () {
+  'use strict';
+  function initRosterToggle() {
+    var btn = document.getElementById('pv-cov-toggle');
+    var roster = document.getElementById('pv-host-roster');
+    if (!btn || !roster) return;
+
+    function toggle() {
+      var isOpen = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      roster.setAttribute('data-open', String(!isOpen));
+    }
+
+    btn.addEventListener('click', toggle);
+    btn.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRosterToggle);
+  } else {
+    initRosterToggle();
+  }
+})();
 </script>
 
 <!-- ── Proof Vault Canvas ───────────────────────────────────── -->
