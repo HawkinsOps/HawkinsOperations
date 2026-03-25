@@ -32,6 +32,7 @@
 <link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
 <link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 <link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
+<link rel="stylesheet" href="/assets/system-map.css?v=03-25-2026-1">
 <link rel="stylesheet" href="/assets/page-shells.css?v=03-16-2026-1">
 </head>
 <body>
@@ -121,97 +122,22 @@
     <!--
          SECTION 2: FLAGSHIP SYSTEM - What I built
           -->
-    <section id="flagship" class="sf-section" aria-labelledby="flagship-title" style="padding:56px 0 48px;">
-      <div class="sf-section-label">Flagship System</div>
-      <h2 id="flagship-title" style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin:8px 0 12px;">SignalFoundry</h2>
-      <p class="sf-body sf-copy-gap-sm" style="max-width:72ch;">A 6-stage SOC triage pipeline: Wazuh alerts in, policy-driven dispositions applied, evidence packs assembled, and verified proof published. Supported by 38 scripts across intake, triage, sanitation, packaging, verification, and publishing.</p>
-      <p class="sf-body sf-copy-gap-md" style="max-width:72ch;color:var(--muted);">It enforces mandatory redaction, reconciliation gates, and CI-verified output so every escalation artifact is consistent, auditable, and reviewer-ready.</p>
-
-      <!-- Clean arc-flow pipeline diagram -->
-      <div class="sf-card" style="padding:32px 24px;margin:24px 0;overflow-x:auto;">
-        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:0;min-width:700px;position:relative;">
-          <!-- Stage 1: Ingest -->
-          <div style="text-align:center;position:relative;padding:0 8px;">
-            <div style="width:64px;height:64px;margin:0 auto 12px;border-radius:50%;background:rgba(122,184,255,0.08);border:2px solid rgba(122,184,255,0.25);display:flex;align-items:center;justify-content:center;">
-              <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;color:#7ab8ff;">01</span>
-            </div>
-            <div style="font-size:0.85rem;font-weight:700;color:#e5edff;letter-spacing:0.02em;">Ingest</div>
-            <div style="font-size:0.68rem;color:var(--muted,#8ea4c7);margin-top:3px;">Wazuh API polling</div>
-            <!-- Connector arrow -->
-            <div style="position:absolute;top:32px;right:-12px;width:24px;height:2px;background:linear-gradient(90deg,rgba(122,184,255,0.3),rgba(122,184,255,0.15));"></div>
-            <div style="position:absolute;top:28px;right:-14px;border:solid rgba(122,184,255,0.3);border-width:0 2px 2px 0;padding:3px;transform:rotate(-45deg);"></div>
-          </div>
-          <!-- Stage 2: Triage -->
-          <div style="text-align:center;position:relative;padding:0 8px;">
-            <div style="width:64px;height:64px;margin:0 auto 12px;border-radius:50%;background:rgba(122,184,255,0.08);border:2px solid rgba(122,184,255,0.25);display:flex;align-items:center;justify-content:center;">
-              <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;color:#7ab8ff;">02</span>
-            </div>
-            <div style="font-size:0.85rem;font-weight:700;color:#e5edff;">Triage</div>
-            <div style="font-size:0.68rem;color:var(--muted,#8ea4c7);margin-top:3px;">Policy disposition</div>
-            <div style="position:absolute;top:32px;right:-12px;width:24px;height:2px;background:linear-gradient(90deg,rgba(122,184,255,0.3),rgba(122,184,255,0.15));"></div>
-            <div style="position:absolute;top:28px;right:-14px;border:solid rgba(122,184,255,0.3);border-width:0 2px 2px 0;padding:3px;transform:rotate(-45deg);"></div>
-          </div>
-          <!-- Stage 3: Sanitize -->
-          <div style="text-align:center;position:relative;padding:0 8px;">
-            <div style="width:64px;height:64px;margin:0 auto 12px;border-radius:50%;background:rgba(122,184,255,0.08);border:2px solid rgba(122,184,255,0.25);display:flex;align-items:center;justify-content:center;">
-              <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;color:#7ab8ff;">03</span>
-            </div>
-            <div style="font-size:0.85rem;font-weight:700;color:#e5edff;">Sanitize</div>
-            <div style="font-size:0.68rem;color:var(--muted,#8ea4c7);margin-top:3px;">Mandatory redaction</div>
-            <div style="position:absolute;top:32px;right:-12px;width:24px;height:2px;background:linear-gradient(90deg,rgba(122,184,255,0.3),rgba(122,184,255,0.15));"></div>
-            <div style="position:absolute;top:28px;right:-14px;border:solid rgba(122,184,255,0.3);border-width:0 2px 2px 0;padding:3px;transform:rotate(-45deg);"></div>
-          </div>
-          <!-- Stage 4: Assemble -->
-          <div style="text-align:center;position:relative;padding:0 8px;">
-            <div style="width:64px;height:64px;margin:0 auto 12px;border-radius:50%;background:rgba(122,184,255,0.08);border:2px solid rgba(122,184,255,0.25);display:flex;align-items:center;justify-content:center;">
-              <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;color:#7ab8ff;">04</span>
-            </div>
-            <div style="font-size:0.85rem;font-weight:700;color:#e5edff;">Assemble</div>
-            <div style="font-size:0.68rem;color:var(--muted,#8ea4c7);margin-top:3px;">Evidence packs</div>
-            <div style="position:absolute;top:32px;right:-12px;width:24px;height:2px;background:linear-gradient(90deg,rgba(122,184,255,0.3),rgba(122,184,255,0.15));"></div>
-            <div style="position:absolute;top:28px;right:-14px;border:solid rgba(122,184,255,0.3);border-width:0 2px 2px 0;padding:3px;transform:rotate(-45deg);"></div>
-          </div>
-          <!-- Stage 5: Verify -->
-          <div style="text-align:center;position:relative;padding:0 8px;">
-            <div style="width:64px;height:64px;margin:0 auto 12px;border-radius:50%;background:rgba(122,184,255,0.08);border:2px solid rgba(122,184,255,0.25);display:flex;align-items:center;justify-content:center;">
-              <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;color:#7ab8ff;">05</span>
-            </div>
-            <div style="font-size:0.85rem;font-weight:700;color:#e5edff;">Verify</div>
-            <div style="font-size:0.68rem;color:var(--muted,#8ea4c7);margin-top:3px;">Reconciliation gate</div>
-            <div style="position:absolute;top:32px;right:-12px;width:24px;height:2px;background:linear-gradient(90deg,rgba(59,143,217,0.4),rgba(59,143,217,0.2));"></div>
-            <div style="position:absolute;top:28px;right:-14px;border:solid rgba(59,143,217,0.4);border-width:0 2px 2px 0;padding:3px;transform:rotate(-45deg);"></div>
-          </div>
-          <!-- Stage 6: Escalate -->
-          <div style="text-align:center;padding:0 8px;">
-            <div style="width:64px;height:64px;margin:0 auto 12px;border-radius:50%;background:rgba(59,143,217,0.12);border:2px solid rgba(59,143,217,0.4);display:flex;align-items:center;justify-content:center;">
-              <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;color:#3b8fd9;">06</span>
-            </div>
-            <div style="font-size:0.85rem;font-weight:700;color:#e5edff;">Escalate</div>
-            <div style="font-size:0.68rem;color:#3b8fd9;margin-top:3px;">Proof published</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="sf-actions">
-        <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Full SignalFoundry Case Study</a>
-        <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof Artifacts</a>
-      </div>
+    <section id="flagship" class="sf-section" aria-labelledby="flagship-title" style="padding:56px 0 20px;">
+      <div class="sf-section-label">Autonomous Detection System</div>
+      <h2 id="flagship-title" style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin:8px 0 8px;">SignalFoundry</h2>
+      <p class="sf-body" style="max-width:72ch;color:var(--muted);margin-bottom:4px;">Closed-loop security operations with validation, auditability, and governed deployment. Supported by 38 scripts across intake, triage, sanitation, packaging, verification, and publishing.</p>
     </section>
 
     <!--
-         SECTION 2B: OPERATIONAL DEPTH
+         SECTION 2B: LIVING SYSTEM MAP
           -->
-    <section id="depth" class="sf-section" style="padding-top:0;">
-      <div class="sf-section-label">Operational Depth</div>
-      <div class="sf-card" style="padding:24px;">
-        <ul style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;font-size:0.9rem;color:var(--text);">
-          <li style="padding-left:16px;border-left:2px solid rgba(122,184,255,0.25);">Policy-driven triage across Sigma, Wazuh, and Splunk</li>
-          <li style="padding-left:16px;border-left:2px solid rgba(122,184,255,0.25);">Automated evidence sanitation and redaction</li>
-          <li style="padding-left:16px;border-left:2px solid rgba(122,184,255,0.25);">Evidence pack assembly and escalation artifacts</li>
-          <li style="padding-left:16px;border-left:2px solid rgba(122,184,255,0.25);">Verification-ready output with reproducible proof</li>
-          <li style="padding-left:16px;border-left:2px solid rgba(122,184,255,0.25);"><span data-verified="detections">139</span> detections across Sigma, Wazuh, and Splunk</li>
-          <li style="padding-left:16px;border-left:2px solid rgba(122,184,255,0.25);">38 supporting scripts across intake, triage, sanitation, packaging, and publishing</li>
-        </ul>
+    <section id="system-topology" class="sf-section" style="padding:0 0 32px;">
+      <div id="system-map" class="sysmap">
+        <div class="sysmap-canvas"></div>
+      </div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:16px;">
+        <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Full Case Study</a>
+        <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof Artifacts</a>
       </div>
     </section>
 
@@ -615,5 +541,6 @@ node scripts/generate-site-data.js</code></pre>
 <script src="/data/counts.js" defer></script>
 <script src="/data/ops-metrics.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<script src="/assets/system-map.js" defer></script>
 </body>
 </html>
