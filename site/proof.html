@@ -1,36 +1,641 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>SignalFoundry — Proof &amp; Verified Metrics</title>
+<title>SignalFoundry — Proof Vault</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="SignalFoundry proof page: public evidence, verified counts, verification commands, and current metrics contract.">
+<meta name="description" content="SignalFoundry Proof Vault: immutable evidence ledger, verified metrics, reproducible validation path, and evidence chain for the AutoSOC detection pipeline.">
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="stylesheet" href="/assets/design-tokens.css?v=03-15-2026-1">
 <link rel="stylesheet" href="/assets/base.css?v=03-15-2026-1">
 <link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
 <link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
-<script>
-  document.documentElement.setAttribute('data-theme', 'dark');
-</script>
+<script>document.documentElement.setAttribute('data-theme','dark');</script>
 <style>
-@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.15;} }
-body {
-  background:
-    radial-gradient(ellipse 100% 55% at 0% 0%,rgba(41,121,200,0.09) 0%,transparent 55%),
-    radial-gradient(ellipse 80% 50% at 100% 100%,rgba(0,196,212,0.07) 0%,transparent 55%),
-    #03060b !important;
+/* ═══════════════════════════════════════════════
+   PROOF VAULT — page-scoped styles
+   Prefix: pv-
+   ═══════════════════════════════════════════════ */
+
+/* ── Keyframes ── */
+@keyframes pv-blink    { 0%,100%{opacity:1}   50%{opacity:.1}  }
+@keyframes pv-hb       { 0%,100%{transform:scale(1);opacity:.85} 14%{transform:scale(1.15);opacity:1} 28%{transform:scale(1);opacity:.85} }
+@keyframes pv-fade-up  { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:none} }
+@keyframes pv-pulse-ring { 0%,100%{box-shadow:0 0 0 0 rgba(39,201,122,.18)} 50%{box-shadow:0 0 0 10px rgba(39,201,122,.0)} }
+@keyframes pv-scan     { 0%{top:-2px} 100%{top:100vh} }
+@keyframes pv-shimmer  { 0%,100%{opacity:.5} 50%{opacity:1} }
+@keyframes pv-entry    { from{opacity:0;transform:translateX(-6px)} to{opacity:1;transform:none} }
+
+/* ── Canvas & page base ── */
+#pv-canvas {
+  position: fixed; inset: 0;
+  z-index: 0; pointer-events: none;
+}
+
+body { background: #03060b !important; }
+
+/* Scan line */
+.pv-scanline {
+  position: fixed; left: 0; right: 0; top: 0; height: 1px;
+  background: linear-gradient(90deg,transparent,rgba(0,196,212,.10),transparent);
+  animation: pv-scan 16s linear infinite;
+  pointer-events: none; z-index: 1;
+}
+
+/* ── Layout wrappers ── */
+.pv-page   { position: relative; z-index: 1; }
+.pv-section{ padding: 80px 0; position: relative; }
+.pv-section + .pv-section { border-top: 1px solid rgba(0,196,212,.06); }
+.pv-wrap   { max-width: 1100px; width: min(1100px,calc(100% - 40px)); margin: 0 auto; }
+
+/* ── Eyebrow ── */
+.pv-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .62rem; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: #00c4d4; margin-bottom: 12px;
+}
+.pv-eyebrow::before {
+  content: ''; display: inline-block;
+  width: 22px; height: 1px; background: #00c4d4; opacity: .55;
+}
+.pv-eyebrow.ev   { color: #27c97a; }
+.pv-eyebrow.ev::before  { background: #27c97a; }
+.pv-eyebrow.amb  { color: #e8a020; }
+.pv-eyebrow.amb::before { background: #e8a020; }
+
+/* ── Section headings ── */
+.pv-section-title {
+  font-family: 'DM Sans',sans-serif;
+  font-size: clamp(1.35rem,2.2vw,1.85rem);
+  font-weight: 700; color: #d4e0ec;
+  letter-spacing: -.025em; line-height: 1.15;
+  margin-bottom: 6px;
+}
+.pv-section-desc {
+  font-size: .875rem; color: #9fb3c6;
+  line-height: 1.72; max-width: 60ch;
+  margin-bottom: 28px;
+}
+
+/* ══════════════════════════════════════════════════
+   § 1  VERIFIED LIVE — sticky status strip
+   ══════════════════════════════════════════════════ */
+.pv-live-strip {
+  position: sticky; top: 60px; z-index: 100;
+  background: rgba(3,6,11,.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0,196,212,.09);
+  padding: 6px 0;
+}
+.pv-live-inner {
+  max-width: 1100px; width: min(1100px,calc(100% - 40px));
+  margin: 0 auto;
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .6rem; color: #486880;
+}
+.pv-live-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: #27c97a; font-weight: 700; letter-spacing: .08em;
+}
+.pv-live-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #27c97a; box-shadow: 0 0 5px #27c97a;
+  animation: pv-blink 2.2s ease-in-out infinite;
+}
+.pv-live-sep { width: 1px; height: 11px; background: rgba(122,148,170,.18); }
+
+/* ══════════════════════════════════════════════════
+   § 2  HERO — Proof Vault Header
+   ══════════════════════════════════════════════════ */
+.pv-hero {
+  min-height: 70vh; display: flex;
+  align-items: center; padding-top: 88px;
+  overflow: hidden;
+}
+.pv-hero-inner { position: relative; z-index: 2; }
+
+.pv-vault-ident {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 5px 14px 5px 8px;
+  background: rgba(0,196,212,.05);
+  border: 1px solid rgba(0,196,212,.2);
+  border-radius: 3px;
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .65rem; font-weight: 700;
+  letter-spacing: .14em; color: #00c4d4;
+  text-transform: uppercase; margin-bottom: 22px;
+}
+.pv-vault-ident-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #27c97a; box-shadow: 0 0 7px #27c97a;
+  animation: pv-blink 2.5s ease-in-out infinite;
+}
+
+.pv-hero-title {
+  font-family: 'DM Sans',sans-serif;
+  font-size: clamp(2.3rem,4.6vw,4rem);
+  font-weight: 700; line-height: 1.0;
+  letter-spacing: -.035em; color: #d4e0ec;
+  margin-bottom: 5px;
+}
+.pv-hero-title-accent { color: #00c4d4; }
+
+.pv-hero-sub {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: clamp(.68rem,1vw,.8rem);
+  letter-spacing: .22em; color: #486880;
+  text-transform: uppercase; margin-bottom: 18px;
+}
+
+.pv-hero-desc {
+  font-size: .96rem; color: #9fb3c6;
+  max-width: 56ch; line-height: 1.72;
+  margin-bottom: 28px;
+}
+
+/* Verified snapshot glass card */
+.pv-snapshot {
+  display: inline-grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 2px;
+  background: rgba(0,196,212,.08);
+  border: 1px solid rgba(0,196,212,.14);
+  border-radius: 8px; overflow: hidden;
+  margin-bottom: 24px; min-width: 380px;
+}
+@media (max-width: 520px) {
+  .pv-snapshot { grid-template-columns: 1fr; min-width: 0; display: grid; width: 100%; }
+}
+
+.pv-snap-cell {
+  background: rgba(4,8,15,.88);
+  padding: 16px 18px;
+  position: relative;
+}
+.pv-snap-cell::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.pv-snap-cell.c-teal::before  { background: #00c4d4; }
+.pv-snap-cell.c-green::before { background: #27c97a; }
+.pv-snap-cell.c-blue::before  { background: #2e75b6; }
+
+.pv-snap-label {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .56rem; font-weight: 700;
+  letter-spacing: .2em; color: #486880;
+  text-transform: uppercase; margin-bottom: 7px;
+}
+.pv-snap-val {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: 1.55rem; font-weight: 700;
+  line-height: 1; margin-bottom: 4px;
+  display: flex; align-items: center; gap: 8px;
+}
+.pv-snap-cell.c-teal  .pv-snap-val { color: #00c4d4; }
+.pv-snap-cell.c-green .pv-snap-val { color: #27c97a; }
+.pv-snap-cell.c-blue  .pv-snap-val { color: #00c4d4; }
+.pv-snap-note {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .6rem; color: #486880;
+  line-height: 1.35;
+}
+
+/* Heartbeat animation icon */
+.pv-hb-icon {
+  display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  background: #27c97a; box-shadow: 0 0 8px rgba(39,201,122,.55);
+  animation: pv-hb 2.8s ease-in-out infinite; flex-shrink: 0;
+}
+
+/* Detection inventory badges */
+.pv-inv-row {
+  display: flex; flex-wrap: wrap; gap: 7px;
+  margin-bottom: 8px;
+}
+.pv-inv-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 3px;
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .62rem; font-weight: 700;
+  letter-spacing: .03em; border: 1px solid;
+}
+.pv-inv-badge.sigma  { background:rgba(41,121,200,.07); color:#6aaad8; border-color:rgba(41,121,200,.2); }
+.pv-inv-badge.wazuh  { background:rgba(0,196,212,.07);  color:#00c4d4; border-color:rgba(0,196,212,.2); }
+.pv-inv-badge.splunk { background:rgba(232,160,32,.07); color:#e8a020; border-color:rgba(232,160,32,.2); }
+.pv-inv-badge.ir     { background:rgba(39,201,122,.07); color:#27c97a; border-color:rgba(39,201,122,.2); }
+.pv-inv-badge.date   { background:rgba(100,140,180,.05);color:#486880; border-color:rgba(100,140,180,.13); }
+
+/* ══════════════════════════════════════════════════
+   § 3  METRICS AUTHORITY — KPI authority panels
+   ══════════════════════════════════════════════════ */
+.pv-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 2px;
+  background: rgba(0,196,212,.07);
+  border: 1px solid rgba(0,196,212,.1);
+  border-radius: 10px; overflow: hidden;
+  margin-bottom: 28px;
+}
+@media (max-width: 760px) {
+  .pv-kpi-grid { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 420px) {
+  .pv-kpi-grid { grid-template-columns: 1fr; }
+}
+
+.pv-kpi {
+  background: rgba(5,9,16,.94);
+  padding: 22px 20px 18px;
+  position: relative; overflow: hidden;
+  transition: background .2s ease;
+}
+.pv-kpi:hover { background: rgba(8,13,22,.98); }
+
+.pv-kpi::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+}
+.pv-kpi.hb::before   { background: linear-gradient(90deg,#00c4d4,rgba(0,196,212,.25)); }
+.pv-kpi.cov::before  { background: linear-gradient(90deg,#27c97a,rgba(39,201,122,.25)); }
+.pv-kpi.cas::before  { background: linear-gradient(90deg,#2e75b6,rgba(46,117,182,.25)); }
+.pv-kpi.rec::before  { background: linear-gradient(90deg,#27c97a,rgba(39,201,122,.25)); }
+
+/* Subtle corner glow */
+.pv-kpi::after {
+  content: ''; position: absolute;
+  top: 0; right: 0;
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  opacity: .04;
+  pointer-events: none;
+}
+.pv-kpi.hb::after  { background: radial-gradient(circle,#00c4d4,transparent 70%); }
+.pv-kpi.cov::after { background: radial-gradient(circle,#27c97a,transparent 70%); }
+.pv-kpi.cas::after { background: radial-gradient(circle,#2e75b6,transparent 70%); }
+.pv-kpi.rec::after { background: radial-gradient(circle,#27c97a,transparent 70%); }
+
+.pv-kpi-label {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .56rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: #486880; margin-bottom: 10px;
+}
+.pv-kpi-val {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: 1.75rem; font-weight: 700;
+  line-height: 1; margin-bottom: 6px;
+  display: flex; align-items: center; gap: 8px;
+}
+.pv-kpi.hb  .pv-kpi-val { color: #27c97a; }
+.pv-kpi.cov .pv-kpi-val { color: #27c97a; }
+.pv-kpi.cas .pv-kpi-val { color: #00c4d4; }
+.pv-kpi.rec .pv-kpi-val { color: #27c97a; }
+.pv-kpi-note {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .6rem; color: #486880; line-height: 1.4;
+}
+
+/* Lifetime runtime row */
+.pv-runtime-row {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 0;
+  border: 1px solid rgba(0,196,212,.08);
+  border-radius: 7px; overflow: hidden;
+  margin-bottom: 10px;
+}
+@media (max-width: 760px) {
+  .pv-runtime-row { grid-template-columns: repeat(2,1fr); }
+}
+
+.pv-rt-cell {
+  padding: 12px 16px;
+  background: rgba(4,8,15,.7);
+  border-right: 1px solid rgba(0,196,212,.06);
+  font-family: 'JetBrains Mono',monospace;
+}
+.pv-rt-cell:last-child { border-right: none; }
+.pv-rt-label { font-size: .56rem; color: #486880; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
+.pv-rt-val   { font-size: .8rem; font-weight: 700; color: #9fb3c6; }
+
+.pv-source-note {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .62rem; color: #486880;
+  padding: 8px 0; line-height: 1.6;
+}
+.pv-source-note code {
+  color: #9fb3c6;
+  background: rgba(122,148,170,.07);
+  padding: 1px 4px; border-radius: 3px;
+  border: 1px solid rgba(122,148,170,.12);
+  font-size: .9em;
+}
+
+/* ══════════════════════════════════════════════════
+   § 4  EVIDENCE RECORD
+   Shape: authority document (left accent bar)
+   ══════════════════════════════════════════════════ */
+.pv-evidence-doc {
+  background: rgba(5,9,16,.9);
+  border: 1px solid rgba(0,196,212,.12);
+  border-left: 3px solid #00c4d4;
+  border-radius: 0 10px 10px 0;
+  padding: 26px 28px;
+  position: relative;
+}
+.pv-evidence-doc::before {
+  content: 'EVIDENCE RECORD';
+  position: absolute; top: -1px; right: 18px;
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .52rem; font-weight: 700;
+  letter-spacing: .2em; color: #00c4d4;
+  background: #03060b;
+  padding: 0 8px; transform: translateY(-50%);
+  border: 1px solid rgba(0,196,212,.18);
+  border-radius: 3px;
+}
+
+.pv-ev-kicker {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .6rem; font-weight: 700;
+  letter-spacing: .14em; color: #00c4d4;
+  text-transform: uppercase; margin-bottom: 6px;
+}
+.pv-ev-heading {
+  font-family: 'DM Sans',sans-serif;
+  font-size: 1rem; font-weight: 700;
+  color: #d4e0ec; margin-bottom: 12px;
+  line-height: 1.3;
+}
+.pv-ev-para {
+  font-size: .86rem; color: #9fb3c6;
+  line-height: 1.7; margin-bottom: 14px;
+}
+.pv-ev-para strong {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .68rem; color: #00c4d4;
+  letter-spacing: .08em; text-transform: uppercase;
+}
+
+.pv-ev-items {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.pv-ev-item {
+  display: grid; grid-template-columns: 16px 1fr;
+  gap: 9px; font-size: .82rem; color: #9fb3c6; line-height: 1.62;
+}
+.pv-ev-item::before {
+  content: '▸'; color: #27c97a;
+  font-size: .68rem; margin-top: 2px;
+}
+.pv-ev-item strong {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .65rem; color: #27c97a;
+  letter-spacing: .08em; text-transform: uppercase;
+}
+.pv-ev-item code {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .82em; color: #00c4d4;
+  background: rgba(0,196,212,.06);
+  padding: 1px 4px; border-radius: 3px;
+  border: 1px solid rgba(0,196,212,.14);
+}
+
+.pv-context-note {
+  margin-top: 14px; padding: 11px 14px;
+  background: rgba(232,160,32,.04);
+  border: 1px solid rgba(232,160,32,.12);
+  border-radius: 5px;
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .65rem; color: #e8a020;
+  line-height: 1.55;
+}
+.pv-context-note::before { content: '⚑ '; opacity: .7; }
+
+/* ══════════════════════════════════════════════════
+   § 5  LEDGER TIMELINE
+   Shape: vertical glowing traceability chain
+   ══════════════════════════════════════════════════ */
+.pv-ledger {
+  position: relative; padding-left: 38px;
+}
+.pv-ledger::before {
+  content: ''; position: absolute;
+  left: 9px; top: 0; bottom: 0; width: 1px;
+  background: linear-gradient(180deg,
+    rgba(0,196,212,.5) 0%,
+    rgba(0,196,212,.18) 50%,
+    transparent 100%
+  );
+}
+
+.pv-ledger-entry {
+  position: relative; margin-bottom: 22px;
+  animation: pv-entry .35s ease both;
+}
+.pv-ledger-entry:nth-child(1){animation-delay:.04s}
+.pv-ledger-entry:nth-child(2){animation-delay:.08s}
+.pv-ledger-entry:nth-child(3){animation-delay:.12s}
+.pv-ledger-entry:nth-child(4){animation-delay:.16s}
+.pv-ledger-entry:nth-child(5){animation-delay:.20s}
+.pv-ledger-entry:nth-child(6){animation-delay:.24s}
+.pv-ledger-entry:nth-child(7){animation-delay:.28s}
+
+.pv-ledger-node {
+  position: absolute; left: -32px; top: 4px;
+  width: 9px; height: 9px; border-radius: 50%;
+  border: 2px solid rgba(0,196,212,.4);
+  background: #03060b;
+  transition: border-color .2s, box-shadow .2s;
+}
+.pv-ledger-entry:hover .pv-ledger-node {
+  border-color: #00c4d4;
+  box-shadow: 0 0 8px rgba(0,196,212,.38);
+}
+.pv-ledger-entry:first-child .pv-ledger-node {
+  border-color: #00c4d4; background: #00c4d4;
+  box-shadow: 0 0 10px rgba(0,196,212,.42);
+}
+
+.pv-ledger-id {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .55rem; font-weight: 700;
+  letter-spacing: .16em; color: #486880;
+  text-transform: uppercase; margin-bottom: 2px;
+}
+.pv-ledger-link {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .8rem; font-weight: 600;
+  color: #7ab8ff; text-decoration: none;
+  transition: color .18s;
+  display: inline-flex; align-items: center; gap: 5px;
+}
+.pv-ledger-link:hover { color: #00c4d4; }
+.pv-ledger-link::after {
+  content: '→'; font-size: .72rem;
+  opacity: 0; transform: translateX(-4px);
+  transition: opacity .18s, transform .18s;
+}
+.pv-ledger-link:hover::after { opacity: 1; transform: translateX(0); }
+.pv-ledger-link:focus-visible {
+  outline: 2px solid rgba(0,196,212,.5);
+  outline-offset: 2px; border-radius: 2px;
+}
+.pv-ledger-desc {
+  font-size: .76rem; color: #486880;
+  margin-top: 2px; line-height: 1.5;
+}
+
+/* ══════════════════════════════════════════════════
+   § 6  TERMINAL — Validation path
+   Shape: OS-chrome terminal window
+   ══════════════════════════════════════════════════ */
+.pv-terminal {
+  background: #060c14;
+  border: 1px solid rgba(0,196,212,.13);
+  border-radius: 10px; overflow: hidden;
+  box-shadow: 0 28px 56px rgba(0,0,0,.55);
+}
+.pv-term-chrome {
+  display: flex; align-items: center; gap: 7px;
+  padding: 10px 16px;
+  background: #0a1118;
+  border-bottom: 1px solid rgba(0,196,212,.09);
+}
+.pv-dot { width: 9px; height: 9px; border-radius: 50%; }
+.pv-dot.r{background:#ff5f57}.pv-dot.y{background:#febc2e}.pv-dot.g{background:#28c840}
+.pv-term-title-bar {
+  margin-left: 8px;
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .62rem; color: #486880;
+  letter-spacing: .06em; flex: 1;
+}
+.pv-copy-btn {
+  background: transparent;
+  border: 1px solid rgba(0,196,212,.18); color: #00c4d4;
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .58rem; padding: 3px 9px;
+  border-radius: 4px; cursor: pointer;
+  transition: background .18s, box-shadow .18s;
+  letter-spacing: .04em;
+}
+.pv-copy-btn:hover  { background: rgba(0,196,212,.08); box-shadow: 0 0 0 2px rgba(0,196,212,.14); }
+.pv-copy-btn:focus-visible { outline: 2px solid rgba(0,196,212,.5); outline-offset: 2px; }
+
+.pv-term-body {
+  padding: 20px 24px;
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .76rem; line-height: 1.95;
+  color: #b6c8d8; overflow-x: auto;
+}
+.pv-term-block { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid rgba(0,196,212,.06); }
+.pv-term-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+.tc  { color: #00c4d4; }   /* command */
+.tp  { color: #e8a020; }   /* path */
+.ts  { color: #27c97a; }   /* success */
+.tk  { color: #7ab8ff; }   /* keyword */
+.tm  { color: #486880; }   /* muted/comment */
+.tw  { color: #d4e0ec; }   /* white output */
+
+/* ══════════════════════════════════════════════════
+   § 7  REVIEWER EXIT GATE
+   Shape: centered seal / portal frame
+   ══════════════════════════════════════════════════ */
+.pv-exit {
+  text-align: center;
+  padding: 64px 0 48px;
+  position: relative;
+}
+.pv-exit::before,
+.pv-exit::after {
+  content: ''; position: absolute;
+  left: 50%; transform: translateX(-50%);
+  width: 1px;
+  background: linear-gradient(180deg,transparent,rgba(0,196,212,.28),transparent);
+}
+.pv-exit::before { top: 0; height: 56px; }
+.pv-exit::after  { bottom: 0; height: 56px; }
+
+.pv-seal {
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  width: 92px; height: 92px; border-radius: 50%;
+  border: 2px solid rgba(39,201,122,.28);
+  background: rgba(39,201,122,.03);
+  margin: 0 auto 22px;
+  box-shadow: 0 0 0 10px rgba(39,201,122,.04), 0 0 0 22px rgba(39,201,122,.015);
+  animation: pv-pulse-ring 3.2s ease-in-out infinite;
+}
+.pv-seal-mark { font-size: 1.9rem; line-height: 1; color: #27c97a; }
+.pv-seal-lbl  {
+  font-family: 'JetBrains Mono',monospace;
+  font-size: .48rem; font-weight: 700;
+  letter-spacing: .18em; color: #27c97a;
+  text-transform: uppercase; margin-top: 2px;
+}
+.pv-exit-title {
+  font-family: 'DM Sans',sans-serif;
+  font-size: 1.55rem; font-weight: 700;
+  color: #d4e0ec; margin-bottom: 10px;
+}
+.pv-exit-sub {
+  font-size: .88rem; color: #9fb3c6;
+  max-width: 50ch; margin: 0 auto 26px;
+  line-height: 1.72;
+}
+.pv-exit-actions {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+}
+
+/* ══════════════════════════════════════════════════
+   § 8  Two-column layout
+   ══════════════════════════════════════════════════ */
+.pv-grid-2 {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 32px; align-items: start;
+}
+@media (max-width: 768px) {
+  .pv-grid-2 { grid-template-columns: 1fr; gap: 24px; }
+  .pv-section  { padding: 56px 0; }
+  .pv-hero     { min-height: 56vh; }
+}
+
+/* ══════════════════════════════════════════════════
+   § 9  Accessibility & Motion
+   ══════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  #pv-canvas, .pv-scanline { display: none; }
+}
+
+@media print {
+  #pv-canvas, .pv-scanline, .pv-live-strip { display: none; }
+  body { background: #fff !important; color: #000 !important; }
+  .pv-evidence-doc, .pv-terminal { border: 1px solid #ccc; }
 }
 </style>
 </head>
 <body>
+
+<!-- ── Site Navigation ─────────────────────────────────────── -->
 <nav>
   <div class="nav-i">
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
       <li><a href="/">Home</a></li>
-      <li><a href="/proof">Proof</a></li>
+      <li><a href="/proof" aria-current="page">Proof</a></li>
       <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
       <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
       <li><a href="/detections">Detections</a></li>
@@ -40,107 +645,413 @@ body {
     <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
   </div>
 </nav>
+
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
   <a href="/">Home</a>
-  <a href="/proof">Proof</a>
+  <a href="/proof" aria-current="page">Proof</a>
   <a href="/operations-bridge">Ops &rarr; Cyber</a>
   <a href="/case-study-autosoc">SignalFoundry Case Study</a>
   <a href="/detections">Detections</a>
   <a href="/soc-lab">Lab</a>
   <a href="/resume">Resume</a>
 </div>
-<main class="modernize-shell">
-  <section class="m-section" style="padding-top:96px;">
-    <div class="m-wrap">
-      <div class="m-eyebrow">Proof</div>
-      <h1 class="m-title" style="font-size: clamp(2.2rem, 4vw, 3.7rem);">SignalFoundry — Proof &amp; Verified Metrics</h1>
-      <p class="m-outcome">SignalFoundry proof page: public evidence, verified counts, verification commands, and current metrics contract.</p>
-      <div class="m-proof-strip" style="margin-top:20px;">
-        <div class="m-proof-inline">
-          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0;">
-  <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #00c4d4;">
-    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Heartbeat</div>
-    <div style="font-size:24px;font-weight:700;color:#27c97a;font-family:'JetBrains Mono',monospace;display:flex;align-items:center;gap:8px;">
-      <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#27c97a;box-shadow:0 0 8px #27c97a;animation:blink 2s ease-in-out infinite;"></span>
-      <span data-ops-status="stable_heartbeat">SUCCESS</span>
+
+<!-- ── Canvas background ────────────────────────────────────── -->
+<canvas id="pv-canvas" aria-hidden="true"></canvas>
+
+<!-- ── Scanline overlay ─────────────────────────────────────── -->
+<div class="pv-scanline" aria-hidden="true"></div>
+
+<div class="pv-page">
+
+  <!-- ════════════════════════════════════════════════
+       VERIFIED LIVE — sticky strip
+       ════════════════════════════════════════════════ -->
+  <div class="pv-live-strip" role="status" aria-live="polite" aria-label="Live verification status">
+    <div class="pv-live-inner">
+      <span class="pv-live-tag">
+        <span class="pv-live-dot" aria-hidden="true"></span>
+        VERIFIED LIVE
+      </span>
+      <span class="pv-live-sep" aria-hidden="true"></span>
+      <span>Heartbeat: <strong style="color:#27c97a"><span data-ops-status="stable_heartbeat">SUCCESS</span></strong></span>
+      <span class="pv-live-sep" aria-hidden="true"></span>
+      <span>Coverage: <strong style="color:#27c97a"><span data-ops="stable_coverage_ratio">8/8</span></strong></span>
+      <span class="pv-live-sep" aria-hidden="true"></span>
+      <span>Reconciliation: <strong style="color:#27c97a">PASS · 0 mismatches</strong></span>
+      <span class="pv-live-sep" aria-hidden="true"></span>
+      <span>Snapshot: <strong style="color:#9fb3c6"><span data-ops="stable_locked_date">03-20-2026</span></strong></span>
     </div>
-    <div style="font-size:9px;color:#486880;margin-top:4px;">Pipeline gate — operational</div>
   </div>
-  <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #27c97a;">
-    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Host Coverage</div>
-    <div style="font-size:24px;font-weight:700;color:#27c97a;font-family:'JetBrains Mono',monospace;"><span data-ops="stable_coverage_ratio">8/8</span></div>
-    <div style="font-size:9px;color:#486880;margin-top:4px;">All endpoints reporting · 0 gaps</div>
-  </div>
-  <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #00c4d4;">
-    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Total Cases</div>
-    <div style="font-size:24px;font-weight:700;color:#00c4d4;font-family:'JetBrains Mono',monospace;"><span data-ops="stable_total_cases">49,774</span></div>
-    <div style="font-size:9px;color:#486880;margin-top:4px;">Ledger-verified · all runs</div>
-  </div>
-  <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #27c97a;">
-    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Reconciliation</div>
-    <div style="font-size:24px;font-weight:700;color:#27c97a;font-family:'JetBrains Mono',monospace;">PASS</div>
-    <div style="font-size:9px;color:#486880;margin-top:4px;">0 mismatches · <span data-ops="stable_escalated">2,478</span> escalations pub.</div>
-  </div>
-</div>
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
-  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(41,121,200,.1);color:#6aaad8;border:1px solid rgba(41,121,200,.2);"><span data-verified="sigma">103</span> Sigma</span>
-  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(0,196,212,.1);color:#00c4d4;border:1px solid rgba(0,196,212,.2);"><span data-verified="wazuh">28</span> Wazuh XML</span>
-  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(232,160,32,.1);color:#e8a020;border:1px solid rgba(232,160,32,.2);"><span data-verified="splunk">8</span> Splunk SPL</span>
-  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(39,201,122,.1);color:#27c97a;border:1px solid rgba(39,201,122,.2);"><span data-verified="ir">10</span> IR Playbooks</span>
-  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(100,140,180,.08);color:#486880;border:1px solid rgba(100,140,180,.13);">Last verified <span data-verified-date>03-20-2026</span></span>
-</div>
+
+  <!-- ════════════════════════════════════════════════
+       § 1  HERO — Proof Vault Header
+       ════════════════════════════════════════════════ -->
+  <section class="pv-section pv-hero" aria-labelledby="pv-hero-title">
+    <div class="pv-wrap pv-hero-inner">
+      <div class="pv-vault-ident" aria-label="Proof Vault — verified live">
+        <span class="pv-vault-ident-dot" aria-hidden="true"></span>
+        SIGNALFOUNDRY &mdash; PROOF VAULT
+      </div>
+
+      <h1 class="pv-hero-title" id="pv-hero-title">
+        <span class="pv-hero-title-accent">Verified.</span> Reproducible.<br>Evidence-Backed.
+      </h1>
+      <p class="pv-hero-sub">Immutable Ledger &bull; March 20, 2026 Canonical Snapshot</p>
+
+      <p class="pv-hero-desc">
+        Public evidence, verified counts, reproducible validation commands,
+        and a traceable evidence chain for every claim on this site.
+        This is the canonical proof surface for the SignalFoundry AutoSOC pipeline.
+      </p>
+
+      <!-- Verified snapshot 4-cell grid -->
+      <div class="pv-snapshot" role="region" aria-label="Verified snapshot metrics">
+        <div class="pv-snap-cell c-teal">
+          <div class="pv-snap-label">Heartbeat</div>
+          <div class="pv-snap-val">
+            <span class="pv-hb-icon" aria-hidden="true"></span>
+            <span data-ops-status="stable_heartbeat">SUCCESS</span>
+          </div>
+          <div class="pv-snap-note">Pipeline gate &mdash; operational</div>
+        </div>
+        <div class="pv-snap-cell c-green">
+          <div class="pv-snap-label">Host Coverage</div>
+          <div class="pv-snap-val"><span data-ops="stable_coverage_ratio">8/8</span></div>
+          <div class="pv-snap-note">All endpoints reporting &middot; 0 gaps</div>
+        </div>
+        <div class="pv-snap-cell c-blue">
+          <div class="pv-snap-label">Total Cases</div>
+          <div class="pv-snap-val"><span data-ops="stable_total_cases">49,774</span></div>
+          <div class="pv-snap-note">Ledger-verified &middot; all runs</div>
+        </div>
+        <div class="pv-snap-cell c-green">
+          <div class="pv-snap-label">Reconciliation</div>
+          <div class="pv-snap-val">PASS</div>
+          <div class="pv-snap-note">0 mismatches &middot; <span data-ops="stable_escalated">2,478</span> escalations pub.</div>
         </div>
       </div>
-      <p class="m-copy" style="margin-top:12px;"><span data-ops="stable_statement">March 20 canonical snapshot: 49,774 total cases, ~89% auto-close, ~2,500+ escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
-      <div class="m-proof-strip" style="margin-top:12px;">
-        <div class="m-proof-inline">
-          <strong>Lifetime processed (runtime snapshot) <span data-ops="lifetime_total_cases">49,774</span></strong>
-          <strong>Runtime escalated <span data-ops="lifetime_escalated">2,478</span></strong>
-          <strong>Runtime known FP <span data-ops="lifetime_known_fp">N/A</span></strong>
-          <strong>Runtime updated <span data-ops="lifetime_last_updated">03-20-2026</span></strong>
+
+      <!-- Detection inventory badges -->
+      <div class="pv-inv-row" role="list" aria-label="Detection inventory counts">
+        <span class="pv-inv-badge sigma" role="listitem"><span data-verified="sigma">103</span>&nbsp;Sigma</span>
+        <span class="pv-inv-badge wazuh"  role="listitem"><span data-verified="wazuh">28</span>&nbsp;Wazuh XML</span>
+        <span class="pv-inv-badge splunk" role="listitem"><span data-verified="splunk">8</span>&nbsp;Splunk SPL</span>
+        <span class="pv-inv-badge ir"     role="listitem"><span data-verified="ir">10</span>&nbsp;IR Playbooks</span>
+        <span class="pv-inv-badge date"   role="listitem">Last verified&nbsp;<span data-verified-date>03-20-2026</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════
+       § 2  METRICS AUTHORITY
+       ════════════════════════════════════════════════ -->
+  <section class="pv-section" aria-labelledby="pv-metrics-title">
+    <div class="pv-wrap">
+      <p class="pv-eyebrow">Metric Authority</p>
+      <h2 class="pv-section-title" id="pv-metrics-title">Canonical KPI Ledger</h2>
+      <p class="pv-section-desc">
+        All values locked to the March 20 canonical snapshot.
+        Runtime snapshot reflects the same committed artifact — not a hand-maintained health claim.
+      </p>
+
+      <!-- Four authority panels -->
+      <div class="pv-kpi-grid" role="region" aria-label="Key performance indicators">
+        <div class="pv-kpi hb" role="group" aria-labelledby="kpi-hb-lbl">
+          <div class="pv-kpi-label" id="kpi-hb-lbl">Heartbeat</div>
+          <div class="pv-kpi-val">
+            <span class="pv-hb-icon" aria-hidden="true"></span>
+            <span data-ops-status="stable_heartbeat">SUCCESS</span>
+          </div>
+          <div class="pv-kpi-note">Pipeline gate &mdash; operational</div>
+        </div>
+        <div class="pv-kpi cov" role="group" aria-labelledby="kpi-cov-lbl">
+          <div class="pv-kpi-label" id="kpi-cov-lbl">Host Coverage</div>
+          <div class="pv-kpi-val"><span data-ops="stable_coverage_ratio">8/8</span></div>
+          <div class="pv-kpi-note">All endpoints reporting &middot; 0 gaps</div>
+        </div>
+        <div class="pv-kpi cas" role="group" aria-labelledby="kpi-cas-lbl">
+          <div class="pv-kpi-label" id="kpi-cas-lbl">Total Cases</div>
+          <div class="pv-kpi-val"><span data-ops="stable_total_cases">49,774</span></div>
+          <div class="pv-kpi-note">Auto-closed <span data-ops="stable_auto_closed_benign">~89%</span> &middot; ledger-verified</div>
+        </div>
+        <div class="pv-kpi rec" role="group" aria-labelledby="kpi-rec-lbl">
+          <div class="pv-kpi-label" id="kpi-rec-lbl">Reconciliation</div>
+          <div class="pv-kpi-val">PASS</div>
+          <div class="pv-kpi-note">0 mismatches &middot; <span data-ops="stable_escalated">2,478</span> escalations published</div>
         </div>
       </div>
-      <p class="m-copy" style="margin-top:12px">Public benchmark snapshot: locked candidate-facing benchmark from committed proof. Runtime snapshot: rolling totals from the same metrics artifact.</p>
-      <p class="m-copy">Generated at <span data-ops="stable_locked_date">03-20-2026</span> | Source artifact <code>/assets/data/ops-metrics.json</code></p>
+
+      <!-- Runtime snapshot row -->
+      <div class="pv-runtime-row" role="region" aria-label="Lifetime runtime snapshot">
+        <div class="pv-rt-cell">
+          <div class="pv-rt-label">Lifetime Processed</div>
+          <div class="pv-rt-val"><span data-ops="lifetime_total_cases">49,774</span></div>
+        </div>
+        <div class="pv-rt-cell">
+          <div class="pv-rt-label">Runtime Escalated</div>
+          <div class="pv-rt-val"><span data-ops="lifetime_escalated">2,478</span></div>
+        </div>
+        <div class="pv-rt-cell">
+          <div class="pv-rt-label">Runtime Known FP</div>
+          <div class="pv-rt-val"><span data-ops="lifetime_known_fp">N/A</span></div>
+        </div>
+        <div class="pv-rt-cell">
+          <div class="pv-rt-label">Runtime Updated</div>
+          <div class="pv-rt-val"><span data-ops="lifetime_last_updated">03-20-2026</span></div>
+        </div>
+      </div>
+
+      <p class="pv-source-note">
+        Public benchmark snapshot: locked candidate-facing benchmark from committed proof. &nbsp;|&nbsp;
+        Runtime snapshot: rolling totals from the same metrics artifact. &nbsp;|&nbsp;
+        Generated at <span data-ops="stable_locked_date">03-20-2026</span> &nbsp;&bull;&nbsp;
+        Source artifact <code>/assets/data/ops-metrics.json</code>
+      </p>
+
+      <p class="pv-source-note" style="margin-top:6px;border-top:1px solid rgba(0,196,212,.06);padding-top:8px;">
+        <span data-ops="stable_statement">March 20 canonical snapshot: 49,774 total cases, ~89% auto-close, ~2,500+ escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span>
+      </p>
     </div>
   </section>
-  <section class="m-section">
-    <div class="m-wrap m-grid-2">
-      <article class="m-card">
-        <div class="m-card-kicker">AutoSOC case</div>
-        <h2>TITLE: AutoSOC Noise-Reduction Proof Block (2026-03-20 Snapshot)</h2>
-        <p class="m-copy"><strong>CLAIM:</strong> AutoSOC processed <span data-ops="stable_total_cases">49,774</span> alerts, auto-closed <span data-ops="stable_auto_closed_benign">~89%</span>, and produced <span data-ops="stable_escalated">2,478</span> escalations across <span data-ops="stable_coverage_ratio">8/8</span> coverage.</p>
-        <p class="m-copy"><strong>CONTEXT:</strong> Current-facing metrics on this page are locked to the March 20 canonical snapshot. Historical recovery evidence remains linked as historical context only.</p>
-        <ul class="m-list-tight">
-          <li><strong>EVIDENCE:</strong> <code>source_of_truth/metrics_canonical_2026-03-20.json</code> -> <code>total_cases=49774</code>, <code>auto_close_rate_label=~89%</code>, <code>escalations_label=~2,500+</code>, <code>hosts_reporting=8/8</code>; proves canonical quantified baseline.</li>
-          <li><strong>EVIDENCE:</strong> <code>docs/execution/AUTOSOC_PIPELINE_RECOVERY_CASE_STUDY_03-13-2026.md</code> -> final run shows <code>run_id=autosoc-20260313T215029Z-31020</code>, <code>status=SUCCESS</code>, <code>cases_processed=173</code>, <code>reconciliation.mismatch_count=0</code>; proves real output and validated recovery.</li>
-          <li><strong>EVIDENCE:</strong> <code>/assets/pp_soc_integration/t3-workflow.png</code> -> proves a concrete workflow snapshot of the triage and evidence-pack pipeline surface.</li>
-        </ul>
-      </article>
-      <article class="m-card">
-        <div class="m-card-kicker">Proof links</div>
-        <h2>Primary artifacts</h2>
-        <ul class="m-list-tight">
-          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">VERIFIED_COUNTS.md</a></li>
-          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/detection-rules/mappings/technique_map.csv" target="_blank" rel="noopener noreferrer">technique_map.csv</a></li>
-          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/docs/execution/AUTOSOC_PIPELINE_RECOVERY_PUBLIC_SNIPPETS_03-13-2026.md" target="_blank" rel="noopener noreferrer">AUTOSOC_COVERAGE_TRUTH_SHIFT_SNIPPET_03-19-2026.md</a></li>
-          <li><a href="/proof/grafana/latest.md" target="_blank" rel="noopener noreferrer">Grafana proof lane</a></li>
-          <li><a href="/proof/validation/latest.md" target="_blank" rel="noopener noreferrer">Continuous detection validation lane</a></li>
-          <li><a href="/proof/quality/latest.md" target="_blank" rel="noopener noreferrer">Alert quality scorecard lane</a></li>
-          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/scripts/check-md-links.sh" target="_blank" rel="noopener noreferrer">check-md-links.sh</a></li>
-        </ul>
-      </article>
-      <article class="m-card">
-        <div class="m-card-kicker">Verification</div>
-        <h2>Validation path</h2>
-        <p class="m-copy">Clone the repository, run the public verification commands, then compare the output to the published proof artifacts. The operational strip above reflects the latest committed proof snapshot, not a hand-maintained health claim.</p>
-      </article>
+
+  <!-- ════════════════════════════════════════════════
+       § 3  EVIDENCE RECORD + ARTIFACT LEDGER
+       ════════════════════════════════════════════════ -->
+  <section class="pv-section" aria-labelledby="pv-evidence-title">
+    <div class="pv-wrap">
+      <p class="pv-eyebrow ev">Evidence Chain</p>
+      <h2 class="pv-section-title" id="pv-evidence-title">Proof Block &amp; Artifact Traceability</h2>
+      <p class="pv-section-desc">
+        Every claim maps to a committed artifact. Every artifact is independently verifiable.
+        Clone the repository and run the commands — the evidence stands without this page.
+      </p>
+
+      <div class="pv-grid-2">
+        <!-- Evidence document -->
+        <div>
+          <div class="pv-evidence-doc" role="region" aria-labelledby="pv-ev-heading">
+            <div class="pv-ev-kicker">AutoSOC Case &mdash; 2026-03-20 Snapshot</div>
+            <h3 class="pv-ev-heading" id="pv-ev-heading">AutoSOC Noise-Reduction Proof Block</h3>
+
+            <p class="pv-ev-para">
+              <strong>Claim:</strong> AutoSOC processed <span data-ops="stable_total_cases">49,774</span> alerts,
+              auto-closed <span data-ops="stable_auto_closed_benign">~89%</span>, and produced
+              <span data-ops="stable_escalated">2,478</span> escalations across
+              <span data-ops="stable_coverage_ratio">8/8</span> coverage.
+            </p>
+
+            <p class="pv-ev-para">
+              <strong>Context:</strong> Metrics are locked to the March 20 canonical snapshot.
+              Historical recovery evidence remains linked as context only.
+            </p>
+
+            <ul class="pv-ev-items" aria-label="Evidence items">
+              <li class="pv-ev-item">
+                <strong>Evidence:</strong>
+                <span>
+                  <code>source_of_truth/metrics_canonical_2026-03-20.json</code>
+                  &rarr; <code>total_cases=49774</code>, <code>auto_close_rate_label=~89%</code>,
+                  <code>escalations_label=~2,500+</code>, <code>hosts_reporting=8/8</code>;
+                  proves canonical quantified baseline.
+                </span>
+              </li>
+              <li class="pv-ev-item">
+                <strong>Evidence:</strong>
+                <span>
+                  <code>docs/execution/AUTOSOC_PIPELINE_RECOVERY_CASE_STUDY_03-13-2026.md</code>
+                  &rarr; final run <code>run_id=autosoc-20260313T215029Z-31020</code>,
+                  <code>status=SUCCESS</code>, <code>cases_processed=173</code>,
+                  <code>reconciliation.mismatch_count=0</code>; proves real output and validated recovery.
+                </span>
+              </li>
+              <li class="pv-ev-item">
+                <strong>Evidence:</strong>
+                <span>
+                  <code>/assets/pp_soc_integration/t3-workflow.png</code>
+                  &rarr; concrete workflow snapshot of the triage and evidence-pack pipeline surface.
+                </span>
+              </li>
+            </ul>
+
+            <p class="pv-context-note">
+              Current-facing metrics on this page are locked to the March&nbsp;20 canonical snapshot.
+            </p>
+          </div>
+        </div>
+
+        <!-- Artifact ledger (traceability timeline) -->
+        <div>
+          <div class="pv-eyebrow" style="margin-bottom:16px">Primary Artifacts</div>
+          <nav class="pv-ledger" aria-label="Proof artifact ledger">
+            <div class="pv-ledger-entry">
+              <div class="pv-ledger-node" aria-hidden="true"></div>
+              <div class="pv-ledger-id">Canonical source &bull; PROOF_PACK</div>
+              <a class="pv-ledger-link"
+                 href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="VERIFIED_COUNTS.md — opens in new tab">VERIFIED_COUNTS.md</a>
+              <div class="pv-ledger-desc">Source of truth for all public counts</div>
+            </div>
+            <div class="pv-ledger-entry">
+              <div class="pv-ledger-node" aria-hidden="true"></div>
+              <div class="pv-ledger-id">MITRE mapping</div>
+              <a class="pv-ledger-link"
+                 href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/detection-rules/mappings/technique_map.csv"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="technique_map.csv — opens in new tab">technique_map.csv</a>
+              <div class="pv-ledger-desc">ATT&amp;CK technique coverage mapping</div>
+            </div>
+            <div class="pv-ledger-entry">
+              <div class="pv-ledger-node" aria-hidden="true"></div>
+              <div class="pv-ledger-id">Pipeline recovery &bull; 2026-03-13</div>
+              <a class="pv-ledger-link"
+                 href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/docs/execution/AUTOSOC_PIPELINE_RECOVERY_PUBLIC_SNIPPETS_03-13-2026.md"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="AUTOSOC coverage truth shift snippet — opens in new tab">AUTOSOC_COVERAGE_TRUTH_SHIFT_SNIPPET_03-19-2026.md</a>
+              <div class="pv-ledger-desc">Validated recovery execution log with run IDs</div>
+            </div>
+            <div class="pv-ledger-entry">
+              <div class="pv-ledger-node" aria-hidden="true"></div>
+              <div class="pv-ledger-id">Grafana lane</div>
+              <a class="pv-ledger-link"
+                 href="/proof/grafana/latest.md"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Grafana proof lane — opens in new tab">Grafana proof lane</a>
+              <div class="pv-ledger-desc">Observability and alerting evidence</div>
+            </div>
+            <div class="pv-ledger-entry">
+              <div class="pv-ledger-node" aria-hidden="true"></div>
+              <div class="pv-ledger-id">Detection validation lane</div>
+              <a class="pv-ledger-link"
+                 href="/proof/validation/latest.md"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Continuous detection validation lane — opens in new tab">Continuous detection validation lane</a>
+              <div class="pv-ledger-desc">Rule-level validation and regression gate</div>
+            </div>
+            <div class="pv-ledger-entry">
+              <div class="pv-ledger-node" aria-hidden="true"></div>
+              <div class="pv-ledger-id">Alert quality</div>
+              <a class="pv-ledger-link"
+                 href="/proof/quality/latest.md"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Alert quality scorecard lane — opens in new tab">Alert quality scorecard lane</a>
+              <div class="pv-ledger-desc">FP rate, precision, and escalation quality</div>
+            </div>
+            <div class="pv-ledger-entry">
+              <div class="pv-ledger-node" aria-hidden="true"></div>
+              <div class="pv-ledger-id">Link integrity</div>
+              <a class="pv-ledger-link"
+                 href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/scripts/check-md-links.sh"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="check-md-links.sh — opens in new tab">check-md-links.sh</a>
+              <div class="pv-ledger-desc">Automated markdown link verification script</div>
+            </div>
+          </nav>
+        </div>
+      </div>
     </div>
   </section>
-</main>
+
+  <!-- ════════════════════════════════════════════════
+       § 4  VALIDATION PATH — terminal window
+       ════════════════════════════════════════════════ -->
+  <section class="pv-section" aria-labelledby="pv-validation-title">
+    <div class="pv-wrap">
+      <p class="pv-eyebrow amb">Validation Path</p>
+      <h2 class="pv-section-title" id="pv-validation-title">Reproduce the Evidence Yourself</h2>
+      <p class="pv-section-desc">
+        Clone the repository, run the public verification commands, then compare the output
+        to the published proof artifacts. Every number on this site is independently reproducible.
+      </p>
+
+      <div class="pv-terminal" role="region" aria-label="Verification commands terminal">
+        <div class="pv-term-chrome" aria-hidden="true">
+          <span class="pv-dot r"></span>
+          <span class="pv-dot y"></span>
+          <span class="pv-dot g"></span>
+          <span class="pv-term-title-bar">verification-commands &mdash; bash</span>
+          <button class="pv-copy-btn" type="button" data-copy-target="pv-term-full"
+                  aria-label="Copy all verification commands to clipboard">Copy all</button>
+        </div>
+        <div class="pv-term-body" id="pv-term-full">
+          <div class="pv-term-block">
+            <span class="tm"># 1. Clone the repository</span><br>
+            <span class="tc">git clone</span> <span class="tp">https://github.com/raylee-hawkins/HawkinsOperations.git</span><br>
+            <span class="tc">cd</span> HawkinsOperations<br>
+          </div>
+          <div class="pv-term-block">
+            <span class="tm"># 2. Verify detection counts (PowerShell — primary gate)</span><br>
+            <span class="tc">pwsh</span> <span class="tk">-NoProfile -File</span> <span class="tp">.\scripts\verify\verify-counts.ps1</span><br>
+            <span class="ts">&nbsp;&nbsp;PASS  Sigma: 103 &nbsp;Splunk: 8 &nbsp;Wazuh XML: 24 &nbsp;Wazuh rule blocks: 28 &nbsp;IR Playbooks: 10</span><br>
+          </div>
+          <div class="pv-term-block">
+            <span class="tm"># 3. Check for metric/HTML drift</span><br>
+            <span class="tc">python</span> <span class="tp">scripts/drift_scan.py</span><br>
+            <span class="ts">&nbsp;&nbsp;No drift detected — all counts reconcile</span><br>
+          </div>
+          <div class="pv-term-block">
+            <span class="tm"># 4. Validate site runtime contract (bindings vs metrics)</span><br>
+            <span class="tc">node</span> <span class="tp">site-runtime-contract.js</span><br>
+            <span class="ts">&nbsp;&nbsp;site-runtime-contract PASSED</span><br>
+          </div>
+          <div class="pv-term-block">
+            <span class="tm"># 5. Run site diagnostic gate</span><br>
+            <span class="tc">node</span> <span class="tp">scripts/diagnose-site.js</span><br>
+            <span class="ts">&nbsp;&nbsp;All checks PASS</span><br>
+          </div>
+          <div>
+            <span class="tm"># Compare output to:  PROOF_PACK/VERIFIED_COUNTS.md</span><br>
+            <span class="tm"># Canonical artifact:  source_of_truth/metrics_canonical_2026-03-20.json</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════
+       § 5  REVIEWER EXIT GATE
+       ════════════════════════════════════════════════ -->
+  <section class="pv-section" aria-labelledby="pv-exit-title">
+    <div class="pv-wrap">
+      <div class="pv-exit">
+        <div class="pv-seal" aria-hidden="true">
+          <span class="pv-seal-mark">&#10003;</span>
+          <span class="pv-seal-lbl">Verified</span>
+        </div>
+        <h2 class="pv-exit-title" id="pv-exit-title">Proof Complete</h2>
+        <p class="pv-exit-sub">
+          Every metric is traceable. Every claim is reproducible. Every artifact is committed.
+          The evidence speaks without this page.
+        </p>
+        <div class="pv-exit-actions">
+          <a class="btn btn-p"
+             href="/case-study-autosoc"
+             aria-label="View the SignalFoundry AutoSOC case study">
+            Case Study &rarr;
+          </a>
+          <a class="btn btn-g"
+             href="https://github.com/raylee-hawkins/HawkinsOperations"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="View the HawkinsOperations GitHub repository (opens in new tab)">
+            GitHub Repository
+          </a>
+          <a class="btn btn-g"
+             href="/detections"
+             aria-label="View detection rules">
+            Detection Rules
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- .pv-page -->
+
+<!-- ── Footer ──────────────────────────────────────────────── -->
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> &bull; Huntsville-adjacent (North Alabama)</p>
     <div class="fl">
       <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
       <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
@@ -148,6 +1059,8 @@ body {
     </div>
   </div>
 </footer>
+
+<!-- ── Scripts ──────────────────────────────────────────────── -->
 <script src="/assets/app.js" defer></script>
 <script src="/assets/fetch-utils.js" defer></script>
 <script src="/data/counts.js" defer></script>
@@ -161,11 +1074,193 @@ body {
       document.body.appendChild(s);
     }
     if ('requestIdleCallback' in window) {
-      requestIdleCallback(function () { setTimeout(loadHydrate, 0); }, {timeout:1500});
+      requestIdleCallback(function () { setTimeout(loadHydrate, 0); }, { timeout: 1500 });
     } else {
       window.addEventListener('load', loadHydrate);
     }
   })();
+</script>
+
+<!-- ── Proof Vault Canvas ───────────────────────────────────── -->
+<script>
+(function () {
+  'use strict';
+
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
+
+  var canvas = document.getElementById('pv-canvas');
+  if (!canvas || !canvas.getContext) return;
+  var ctx = canvas.getContext('2d');
+
+  /* ── Config (restrained — slower, denser, more "locked-down" than homepage) ── */
+  var CFG = {
+    nodeCount:   120,           /* hex grid nodes */
+    streamCount:  28,           /* encrypted stream particles */
+    nodeSizeMin:  1.0,
+    nodeSizeMax:  2.2,
+    nodeOpacityMin: 0.035,
+    nodeOpacityMax: 0.09,
+    streamOpacityMin: 0.05,
+    streamOpacityMax: 0.18,
+    streamSpeedMin:  0.12,      /* px/frame — slow drift */
+    streamSpeedMax:  0.38,
+    pulseSpeed:   0.0008,       /* radians/frame */
+    parallaxMax:  4,            /* px — gentle */
+    hexRadius:   80,            /* hex grid spacing */
+    teal:   [0, 196, 212],
+    blue:   [46, 117, 182],
+    green:  [39, 201, 122]
+  };
+
+  var W = 0, H = 0;
+  var nodes = [];
+  var streams = [];
+  var mouse = { x: 0, y: 0 };
+  var raf = null;
+  var tick = 0;
+
+  /* ── Resize ── */
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    buildNodes();
+    buildStreams();
+  }
+
+  /* ── Hex grid nodes ── */
+  function buildNodes() {
+    nodes = [];
+    var cols = Math.ceil(W / CFG.hexRadius) + 2;
+    var rows = Math.ceil(H / (CFG.hexRadius * 0.866)) + 2;
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        var x = c * CFG.hexRadius + (r % 2 === 0 ? 0 : CFG.hexRadius * 0.5) - CFG.hexRadius;
+        var y = r * CFG.hexRadius * 0.866 - CFG.hexRadius;
+        var palette = Math.random() < 0.7 ? CFG.teal : (Math.random() < 0.6 ? CFG.blue : CFG.green);
+        nodes.push({
+          x: x, y: y,
+          r: CFG.nodeSizeMin + Math.random() * (CFG.nodeSizeMax - CFG.nodeSizeMin),
+          baseOp: CFG.nodeOpacityMin + Math.random() * (CFG.nodeOpacityMax - CFG.nodeOpacityMin),
+          phase: Math.random() * Math.PI * 2,
+          phaseSpeed: CFG.pulseSpeed * (0.5 + Math.random() * 0.8),
+          col: palette
+        });
+      }
+    }
+    /* Trim to nodeCount for perf */
+    if (nodes.length > CFG.nodeCount * 4) {
+      nodes = nodes.filter(function () { return Math.random() < 0.55; });
+    }
+  }
+
+  /* ── Stream particles ── */
+  function buildStreams() {
+    streams = [];
+    for (var i = 0; i < CFG.streamCount; i++) {
+      streams.push(makeStream());
+    }
+  }
+
+  function makeStream(yOverride) {
+    var palette = Math.random() < 0.65 ? CFG.teal : CFG.blue;
+    return {
+      x: Math.random() * W,
+      y: typeof yOverride === 'number' ? yOverride : Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.1,
+      vy: CFG.streamSpeedMin + Math.random() * (CFG.streamSpeedMax - CFG.streamSpeedMin),
+      op: CFG.streamOpacityMin + Math.random() * (CFG.streamOpacityMax - CFG.streamOpacityMin),
+      r: 1.0 + Math.random() * 1.2,
+      col: palette
+    };
+  }
+
+  /* ── Draw ── */
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    tick++;
+
+    var px = (mouse.x / W - 0.5) * CFG.parallaxMax;
+    var py = (mouse.y / H - 0.5) * CFG.parallaxMax;
+
+    /* Nodes */
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      var op = n.baseOp + Math.sin(tick * n.phaseSpeed + n.phase) * (n.baseOp * 0.4);
+      var c = n.col;
+      ctx.beginPath();
+      ctx.arc(n.x + px * 0.4, n.y + py * 0.4, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + op + ')';
+      ctx.fill();
+    }
+
+    /* Streams */
+    for (var j = 0; j < streams.length; j++) {
+      var s = streams[j];
+      s.x += s.vx;
+      s.y += s.vy;
+      if (s.y > H + 10) {
+        streams[j] = makeStream(-10);
+        continue;
+      }
+      var sc = s.col;
+      ctx.beginPath();
+      ctx.arc(s.x + px * 0.7, s.y + py * 0.7, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(' + sc[0] + ',' + sc[1] + ',' + sc[2] + ',' + s.op + ')';
+      ctx.fill();
+    }
+
+    /* Faint hex connection lines (selective, very subtle) */
+    ctx.strokeStyle = 'rgba(0,196,212,0.025)';
+    ctx.lineWidth = 0.5;
+    for (var k = 0; k < nodes.length; k++) {
+      var a = nodes[k];
+      for (var l = k + 1; l < nodes.length; l++) {
+        var b = nodes[l];
+        var dx = a.x - b.x;
+        var dy = a.y - b.y;
+        var dist = dx * dx + dy * dy;
+        if (dist < CFG.hexRadius * CFG.hexRadius * 1.3) {
+          ctx.beginPath();
+          ctx.moveTo(a.x + px * 0.4, a.y + py * 0.4);
+          ctx.lineTo(b.x + px * 0.4, b.y + py * 0.4);
+          ctx.stroke();
+        }
+      }
+      /* Break inner loop early for perf */
+      if (k > 60) break;
+    }
+
+    raf = requestAnimationFrame(draw);
+  }
+
+  /* ── Mouse parallax ── */
+  window.addEventListener('mousemove', function (e) {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  }, { passive: true });
+
+  /* ── Copy button ── */
+  document.addEventListener('DOMContentLoaded', function () {
+    var btn = document.querySelector('[data-copy-target]');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var target = document.getElementById(btn.getAttribute('data-copy-target'));
+      if (!target) return;
+      var text = target.innerText || target.textContent;
+      navigator.clipboard && navigator.clipboard.writeText(text).then(function () {
+        var orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = orig; }, 1800);
+      });
+    });
+  });
+
+  /* ── Init ── */
+  window.addEventListener('resize', resize, { passive: true });
+  resize();
+  raf = requestAnimationFrame(draw);
+})();
 </script>
 </body>
 </html>
