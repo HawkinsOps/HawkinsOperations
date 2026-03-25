@@ -114,14 +114,21 @@ def scan_hardcoded_claim_numbers(site_root: Path, truth: Dict[str, int]) -> List
                 if "-->" in stripped:
                     in_comment = False
                 continue
-            # Skip <template> content (hidden DOM, not public-facing).
-            if "<template" in stripped.lower():
+            # Skip <template> and <svg> content (hidden DOM / layout coordinates).
+            if "<template" in stripped.lower() or "<svg" in stripped.lower():
                 in_template = True
                 continue
-            if "</template>" in stripped.lower():
+            if "</template>" in stripped.lower() or "</svg>" in stripped.lower():
                 in_template = False
                 continue
             if in_template:
+                continue
+            # Skip <pre>/<code> blocks (terminal output, not claims).
+            if "<pre" in stripped.lower() and "</pre>" not in stripped.lower():
+                in_template = True
+                continue
+            if "</pre>" in stripped.lower():
+                in_template = False
                 continue
             # Handled by scan_data_verified_fallbacks() with key-aware validation.
             if "data-verified" in line:
