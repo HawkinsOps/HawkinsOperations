@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-03-21T07:03:47.829Z",
+  "generated_utc": "2026-03-25T05:32:01.131Z",
   "validation_window": "rolling_latest_artifacts",
   "suite": "continuous-detection-validation",
   "summary": {
@@ -38,7 +38,7 @@
     {
       "id": "splunk_ingest_proof_present",
       "status": "PASS",
-      "value": "content/lab/proxmox/vms/104/splunk/exports/WAZUH_SPLUNK_PIPELINE_PROOF_2026-03-20.md",
+      "value": "content/lab/proxmox/vms/104/splunk/exports/WAZUH_SPLUNK_PIPELINE_PROOF_2026-03-24.md",
       "source": "filesystem"
     },
     {

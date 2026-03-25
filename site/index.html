@@ -9,14 +9,14 @@
 <link rel="canonical" href="https://hawkinsops.com/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Raylee Hawkins | SOC Analyst &amp; Detection Engineering Portfolio">
-<meta property="og:description" content="Evidence-first cybersecurity portfolio built around SignalFoundry — an auto-updating SOC triage and evidence pipeline with verified public metrics.">
+<meta property="og:description" content="Evidence-first cybersecurity portfolio built around SignalFoundry - an auto-updating SOC triage and evidence pipeline with verified public metrics.">
 <meta property="og:url" content="https://hawkinsops.com/">
 <meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
 <meta property="og:image:width" content="1600">
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Raylee Hawkins | SOC Analyst &amp; Detection Engineering Portfolio">
-<meta name="twitter:description" content="Evidence-first cybersecurity portfolio built around SignalFoundry — an auto-updating SOC triage and evidence pipeline with verified public metrics.">
+<meta name="twitter:description" content="Evidence-first cybersecurity portfolio built around SignalFoundry - an auto-updating SOC triage and evidence pipeline with verified public metrics.">
 <meta name="twitter:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
@@ -27,10 +27,10 @@
   document.documentElement.setAttribute('data-theme', 'dark');
 </script>
 <link rel="stylesheet" href="/assets/styles.css?v=02-24-2026-3">
-<link rel="stylesheet" href="/assets/design-tokens.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/base.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/modernize.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/design-tokens.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/base.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 <link rel="stylesheet" href="/assets/page-shells.css?v=03-16-2026-1">
 </head>
 <body>
@@ -40,19 +40,21 @@
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
-      <li><a href="/">Home</a></li>
-      <li><a href="/case-study-autosoc">SignalFoundry</a></li>
+      <li><a href="/start-here">Start Here</a></li>
+      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
       <li><a href="/proof">Proof</a></li>
+      <li><a href="/detections">Detections</a></li>
       <li><a href="/resume">Resume</a></li>
       <li><a href="/soc-lab">Lab</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/case-study-autosoc">SignalFoundry</a>
+    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-  <a href="/">Home</a>
-  <a href="/case-study-autosoc">SignalFoundry</a>
+  <a href="/start-here">Start Here</a>
+  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
   <a href="/proof">Proof</a>
+  <a href="/detections">Detections</a>
   <a href="/resume">Resume</a>
   <a href="/soc-lab">Lab</a>
 </div>
@@ -61,9 +63,9 @@
 <main class="sf-home">
   <div class="sf-shell">
 
-    <!-- ═══════════════════════════════════════════════════════════════
-         SECTION 1: HERO — Candidate first
-         ═══════════════════════════════════════════════════════════════ -->
+    <!-- 
+         SECTION 1: HERO - Candidate first
+          -->
     <section id="hero" class="sf-section sf-hero" aria-labelledby="hero-title">
       <h1 id="hero-title">Raylee Hawkins</h1>
       <div class="sf-role-line">
@@ -71,19 +73,17 @@
         <span class="sf-role-tag">Detection Engineering</span>
         <span class="sf-role-tag">Security Automation</span>
       </div>
-      <p class="sf-body sf-body-lead">SOC Analyst building detection pipelines and automation-driven triage systems.</p>
-      <p class="sf-body">I build and operate SignalFoundry: a triage-to-escalation workflow with public proof tied to reproducible repository artifacts.</p>
-      <div class="sf-actions">
-        <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Open SignalFoundry</a>
-        <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof Receipts</a>
-        <a class="sf-button sf-button-secondary sf-focus-ring" href="/resume">Resume</a>
-        <a class="sf-button sf-button-secondary sf-focus-ring" href="/soc-lab">Lab</a>
+      <p class="sf-body sf-body-lead">I build and operate SignalFoundry - a detection-to-escalation pipeline on Sigma, Wazuh, and Splunk that auto-triages alerts, packs evidence, and publishes verified proof.</p>
+      <p class="sf-body" style="margin-top:10px;color:var(--muted)"><span data-verified="detections">139</span> detections total &middot; <span data-verified="sigma">103</span> Sigma rules &middot; <span data-verified="wazuh">28</span> Wazuh rule blocks &middot; <span data-verified="splunk">8</span> Splunk queries <span style="opacity:0.65">(home lab)</span> &middot; <span data-verified="ir">10</span> IR playbooks</p>
+      <div class="sf-actions" style="margin-top:20px">
+        <a class="sf-button sf-button-primary sf-focus-ring" href="/start-here">Start Here &rarr;</a>
+        <a class="sf-button sf-button-secondary sf-focus-ring" href="/case-study-autosoc">SignalFoundry Case Study</a>
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════════════════════════
-         SECTION 2: FLAGSHIP SYSTEM — What I built
-         ═══════════════════════════════════════════════════════════════ -->
+    <!-- 
+         SECTION 2: FLAGSHIP SYSTEM - What I built
+          -->
     <section id="flagship" class="sf-section" aria-labelledby="flagship-title">
       <div class="sf-section-label">Flagship System</div>
       <div class="sf-proof-grid">
@@ -131,17 +131,22 @@
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════════════════════════
+    <!-- 
          SECTION 3: AUTOMATED PROOF SNAPSHOT
-         ═══════════════════════════════════════════════════════════════ -->
+          -->
     <section id="proof-snapshot" class="sf-section" aria-labelledby="health-title">
 
       <!-- Group A: Stable Benchmark -->
       <div class="sf-section-label">Stable Benchmark</div>
       <h2 id="health-title">Stable public benchmark</h2>
-      <p class="sf-body sf-copy-gap-lg"><span data-ops="stable_statement">March 20 canonical snapshot: 49,774 total cases, ~89% auto-close, ~2,500+ escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
-      <p class="sf-body" style="font-size:0.86rem">Homepage shows the locked stable benchmark only. Generated at <span data-ops="stable_locked_date">03-20-2026</span> from source artifact <code>/assets/data/ops-metrics.json</code>.</p>
-      <p class="sf-body sf-copy-gap-lg">All metrics below are locked to a single public benchmark snapshot. No runtime values are mixed into this view.</p>
+      <p class="sf-body sf-copy-gap-lg"><span data-ops="stable_statement">March 24 verified snapshot: 49,774 total cases, ~89% auto-close, ~2,500+ escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
+      <p class="sf-body" style="font-size:0.86rem">Verified snapshot: <span data-ops="stable_locked_date">03-24-2026</span>. Source: <code>data/truth/current-authority.json</code>. Live telemetry in the <a href="/proof" class="sf-inline-link">Proof page</a>.</p>
+      <ul class="sf-body" style="font-size:0.82rem;color:var(--muted);margin-top:10px;display:grid;gap:4px;list-style:none;padding:0;">
+        <li><strong>Public benchmark snapshot:</strong> reviewer-authoritative values from <code>data/truth/current-authority.json</code>.</li>
+        <li><strong>Runtime snapshot:</strong> informational telemetry remains subordinate and is disclosed on <a href="/proof" class="sf-inline-link">/proof</a>.</li>
+        <li><strong>Generated at:</strong> <span data-ops="stable_locked_date">03-24-2026</span></li>
+        <li><strong>Source artifact:</strong> <code>site/data/truth/current-authority.json</code></li>
+      </ul>
       <div class="sf-metrics" role="status" aria-live="polite" aria-label="Stable benchmark metrics">
         <article class="sf-card sf-metric" aria-label="Heartbeat status">
           <span class="sf-metric-label">Heartbeat Status</span>
@@ -160,34 +165,36 @@
         </article>
         <article class="sf-card sf-metric" aria-label="Stable benchmark date">
           <span class="sf-metric-label">Stable Benchmark Date</span>
-          <span class="sf-metric-value"><span data-ops="stable_locked_date">03-20-2026</span></span>
+          <span class="sf-metric-value"><span data-ops="stable_locked_date">03-24-2026</span></span>
           <p class="sf-metric-note">Date this benchmark was locked for public use.</p>
         </article>
       </div>
 
-      <p class="sf-body sf-copy-gap-lg">Runtime and lifetime context stays in the Proof page runtime lane.</p>
     </section>
 
-    <!-- ═══════════════════════════════════════════════════════════════
+    <!-- 
          SECTION 4: OPERATOR BRIDGE TEASER
-         ═══════════════════════════════════════════════════════════════ -->
+          -->
     <section id="bridge-teaser" class="sf-section" aria-labelledby="bridge-title">
       <div class="sf-section-label">Operator Bridge</div>
       <h2 id="bridge-title">Operator discipline, security execution</h2>
       <div class="sf-philosophy">
-        <p class="sf-body sf-copy-gap-sm">My edge is operator discipline applied to security: controlled execution, quality gates, and strict escalation handling under pressure.</p>
-        <p class="sf-body">I design workflows that stay reliable under pressure and recover cleanly when systems drift.</p>
+        <p class="sf-body">My edge is operator discipline applied to security: controlled execution, quality gates, and strict escalation handling. I design workflows that stay reliable under pressure and recover cleanly when systems drift.</p>
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════════════════════════
+    <!-- 
          SECTION 5: REVIEWER ROUTES
-         ═══════════════════════════════════════════════════════════════ -->
+          -->
     <section id="routes" class="sf-section" aria-labelledby="routes-title">
-      <div class="sf-section-label">Where to go next</div>
-      <h2 id="routes-title">Choose your review path</h2>
+      <div class="sf-section-label">Review Routes</div>
+      <h2 id="routes-title">Where to go next</h2>
       <p class="sf-body sf-copy-gap-lg">Pick the path that answers your decision fastest.</p>
       <div class="sf-route-grid">
+        <a class="sf-card sf-route-card sf-focus-ring" href="/start-here">
+          <h3>Start Here</h3>
+          <p>Fastest reviewer path: verified counts, case study, and proof in one view.</p>
+        </a>
         <a class="sf-card sf-route-card sf-focus-ring" href="/case-study-autosoc">
           <h3>SignalFoundry</h3>
           <p>Flagship system architecture, triage logic, outputs, and recovery model.</p>
@@ -195,10 +202,6 @@
         <a class="sf-card sf-route-card sf-focus-ring" href="/proof">
           <h3>Proof</h3>
           <p>Stable benchmark source, evidence trail, and verification path.</p>
-        </a>
-        <a class="sf-card sf-route-card sf-focus-ring" href="/soc-lab">
-          <h3>SOC Lab</h3>
-          <p>Lab topology and validation environment behind the workflow.</p>
         </a>
         <a class="sf-card sf-route-card sf-focus-ring" href="/resume">
           <h3>Resume</h3>

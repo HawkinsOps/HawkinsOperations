@@ -1,19 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>HawkinsOps | Case Study: IR Playbook Library — Structured Analyst Playbooks</title>
+<title>HawkinsOps | Case Study: IR Playbook Library - Structured Analyst Playbooks</title>
 <meta name="description" content="How verified IR playbooks were built around a 7-section analyst template: from alert detection to documentation, with escalation logic and MITRE ATT&CK coverage.">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07070b">
 <link rel="canonical" href="https://hawkinsops.com/case-study-ir-playbooks">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Case Study | IR Playbook Library — Structured Playbooks with MITRE ATT&CK Coverage">
+<meta property="og:title" content="Case Study | IR Playbook Library - Structured Playbooks with MITRE ATT&CK Coverage">
 <meta property="og:description" content="Ransomware, LSASS access, AD compromise, lateral movement and more. Each playbook follows a 7-section analyst template from detection to documentation.">
 <meta property="og:url" content="https://hawkinsops.com/case-study-ir-playbooks">
 <meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/t5-proxmox-redacted.png?v=02-20-2026-1">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Case Study | IR Playbook Library — Structured Analyst Playbooks">
+<meta name="twitter:title" content="Case Study | IR Playbook Library - Structured Analyst Playbooks">
 <meta name="twitter:description" content="Ransomware, LSASS access, AD compromise, lateral movement and more. 7-section analyst template, escalation logic, MITRE ATT&CK mapped.">
 <meta name="twitter:image" content="https://hawkinsops.com/assets/pp_soc_integration/t5-proxmox-redacted.png?v=02-20-2026-1">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -23,8 +23,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <script>document.documentElement.setAttribute('data-theme', 'dark');</script>
 <link rel="stylesheet" href="/assets/styles.css">
-<link rel="stylesheet" href="/assets/modernize.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -63,7 +63,7 @@
     <h1 class="stitle">IR Playbook Library: <span data-verified="ir">10</span> structured playbooks built for analyst handoff quality</h1>
     <p class="sdesc">
       Ten incident response playbooks built around a consistent 7-section template.
-      Every playbook ships with explicit escalation criteria, key analytical questions, and runnable investigation commands —
+      Every playbook ships with explicit escalation criteria, key analytical questions, and runnable investigation commands  - 
       designed so a second analyst can pick up mid-investigation without asking the first analyst what happened.
     </p>
     <div class="lupd" style="margin-bottom:14px">Verify count: <code>(Get-ChildItem .\incident-response\playbooks -Filter *.md).Count</code></div>
@@ -74,10 +74,10 @@
         A playbook that says "investigate the process tree" is not a playbook.
         It's a reminder that process trees exist.
         These playbooks were built to answer a specific question at each phase:
-        at triage — is this alert real and what's the scope?
-        At investigation — what commands produce the evidence that answers that question?
-        At containment — what's the exact decision tree for when to isolate vs. not?
-        At documentation — what does the next analyst need to pick this up cold?
+        at triage - is this alert real and what's the scope?
+        At investigation - what commands produce the evidence that answers that question?
+        At containment - what's the exact decision tree for when to isolate vs. not?
+        At documentation - what does the next analyst need to pick this up cold?
         Structure is the deliverable, not the incident type.
       </p>
     </div>
@@ -98,13 +98,13 @@
           <span class="tag" style="font-size:0.9em;padding:5px 10px">7. DOCUMENTATION</span>
         </div>
         <ul style="padding-left:18px;margin-top:14px">
-          <li><b>DETECTION</b> — rule name, rule ID, log source, exact indicators that fired.</li>
-          <li><b>TRIAGE</b> — validation checklist, key analytical questions, explicit escalation criteria (pass/fail, not judgment calls). Time-boxed to 5 minutes.</li>
-          <li><b>INVESTIGATION</b> — copy-paste commands for process review, log correlation, and pivot steps. Time-boxed to 30 minutes for initial scope.</li>
-          <li><b>CONTAINMENT</b> — decision tree with justification: when to isolate, when not to, what the blast radius is of each choice.</li>
-          <li><b>ERADICATION</b> — verified removal steps per artifact type: processes, persistence mechanisms, registry keys, files.</li>
-          <li><b>RECOVERY</b> — validation that threat is gone before restoring connectivity.</li>
-          <li><b>DOCUMENTATION</b> — structured handoff format, evidence inventory, timeline template.</li>
+          <li><b>DETECTION</b> - rule name, rule ID, log source, exact indicators that fired.</li>
+          <li><b>TRIAGE</b> - validation checklist, key analytical questions, explicit escalation criteria (pass/fail, not judgment calls). Time-boxed to 5 minutes.</li>
+          <li><b>INVESTIGATION</b> - copy-paste commands for process review, log correlation, and pivot steps. Time-boxed to 30 minutes for initial scope.</li>
+          <li><b>CONTAINMENT</b> - decision tree with justification: when to isolate, when not to, what the blast radius is of each choice.</li>
+          <li><b>ERADICATION</b> - verified removal steps per artifact type: processes, persistence mechanisms, registry keys, files.</li>
+          <li><b>RECOVERY</b> - validation that threat is gone before restoring connectivity.</li>
+          <li><b>DOCUMENTATION</b> - structured handoff format, evidence inventory, timeline template.</li>
         </ul>
       </div>
     </div>
@@ -145,12 +145,12 @@
       <div class="card">
         <h2 class="card-ttl">Evidence</h2>
         <div class="card-sub">
-          <p>Triage criteria that produce a binary decision — not analyst intuition:</p>
+          <p>Triage criteria that produce a binary decision - not analyst intuition:</p>
           <ul style="padding-left:18px;margin-top:8px">
-            <li>Unknown <code>SourceImage</code> accessing lsass.exe → <b>Escalate immediately</b></li>
-            <li>Multiple systems affected simultaneously → <b>Escalate to Incident Commander</b></li>
-            <li>Mimikatz, ProcDump, or comsvcs.dll in process name → <b>Critical incident</b></li>
-            <li>Known security tool (Defender, CrowdStrike) + authorized admin user → document and close</li>
+            <li>Unknown <code>SourceImage</code> accessing lsass.exe -> <b>Escalate immediately</b></li>
+            <li>Multiple systems affected simultaneously -> <b>Escalate to Incident Commander</b></li>
+            <li>Mimikatz, ProcDump, or comsvcs.dll in process name -> <b>Critical incident</b></li>
+            <li>Known security tool (Defender, CrowdStrike) + authorized admin user -> document and close</li>
           </ul>
         </div>
       </div>
@@ -158,16 +158,16 @@
         <h2 class="card-ttl">Investigation commands (built in)</h2>
         <div class="card-sub">
           <p>Every investigation section ships with runnable commands. No "go look at logs" vagueness:</p>
-<pre class="term-b"># LSASS — identify accessing process
+<pre class="term-b"># LSASS - identify accessing process
 Get-Process | Where-Object {
   $_.ProcessName -eq "lsass"
 } | Select-Object *
 
-# Ransomware — check for shadow copy deletion
+# Ransomware - check for shadow copy deletion
 Get-WinEvent -LogName Security |
   Where-Object { $_.Message -like "*vssadmin*" }
 
-# AD Compromise — find replication permission changes
+# AD Compromise - find replication permission changes
 Get-ADUser -Filter * -Properties * |
   Where-Object { $_.MemberOf -contains "Domain Admins" }</pre>
         </div>
@@ -182,8 +182,8 @@ Get-ADUser -Filter * -Properties * |
         <div class="card-sub">
           <p>Critical-incident triage has different defaults than standard triage:</p>
           <ul style="padding-left:18px">
-            <li><b>Do not shut down</b> affected systems — memory forensics are preserved.</li>
-            <li><b>Do not pay ransom</b> — FBI guidance, no exceptions in the playbook.</li>
+            <li><b>Do not shut down</b> affected systems - memory forensics are preserved.</li>
+            <li><b>Do not pay ransom</b> - FBI guidance, no exceptions in the playbook.</li>
             <li><b>Immediately isolate</b> from network before any other step.</li>
             <li>Check backups offline before any recovery conversation.</li>
             <li>Identify ransomware variant from ransom note before containment decisions.</li>
@@ -211,11 +211,11 @@ Get-ADUser -Filter * -Properties * |
       <h2 class="card-ttl">Lessons + next hardening step</h2>
       <div class="card-sub">
         <ul style="padding-left:18px">
-          <li><b>Time-boxed phases</b> — Triage is 5 minutes. Investigation scope is 30 minutes. These are not aspirational; they force the analyst to reach a decision state rather than investigate indefinitely.</li>
-          <li><b>Explicit non-actions</b> — Ransomware playbook lists what not to do first. Critical incidents often go wrong because someone does something well-intentioned that destroys forensic evidence.</li>
-          <li><b>Binary escalation criteria</b> — criteria that produce yes/no decisions, not criteria that produce "it depends." Unknown <code>SourceImage</code> → escalate. Period.</li>
-          <li><b>Commands over descriptions</b> — Every investigation section has runnable commands. An analyst should not have to know the command from memory under pressure.</li>
-          <li><b>Handoff format</b> — Documentation section is a structured template, not a blank field. The next analyst gets a timeline, evidence inventory, and open questions — not a wall of notes.</li>
+          <li><b>Time-boxed phases</b> - Triage is 5 minutes. Investigation scope is 30 minutes. These are not aspirational; they force the analyst to reach a decision state rather than investigate indefinitely.</li>
+          <li><b>Explicit non-actions</b> - Ransomware playbook lists what not to do first. Critical incidents often go wrong because someone does something well-intentioned that destroys forensic evidence.</li>
+          <li><b>Binary escalation criteria</b> - criteria that produce yes/no decisions, not criteria that produce "it depends." Unknown <code>SourceImage</code> -> escalate. Period.</li>
+          <li><b>Commands over descriptions</b> - Every investigation section has runnable commands. An analyst should not have to know the command from memory under pressure.</li>
+          <li><b>Handoff format</b> - Documentation section is a structured template, not a blank field. The next analyst gets a timeline, evidence inventory, and open questions - not a wall of notes.</li>
         </ul>
       </div>
     </div>
@@ -242,7 +242,7 @@ Get-ADUser -Filter * -Properties * |
 <!-- @include:footer:start -->
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
     <div class="fl">
       <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
       <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>

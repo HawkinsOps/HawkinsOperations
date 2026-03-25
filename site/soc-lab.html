@@ -26,7 +26,7 @@
 </script>
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-4">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -35,25 +35,23 @@
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
-      <li><a href="/">Home</a></li>
+      <li><a href="/start-here">Start Here</a></li>
+      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
       <li><a href="/proof">Proof</a></li>
-      <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
-      <li><a href="/case-study-autosoc">Case Study</a></li>
       <li><a href="/detections">Detections</a></li>
-      <li><a href="/soc-lab">Lab</a></li>
       <li><a href="/resume">Resume</a></li>
+      <li><a href="/soc-lab" aria-current="page">Lab</a></li>
     </ul>
     <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-  <a href="/">Home</a>
+  <a href="/start-here">Start Here</a>
+  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
   <a href="/proof">Proof</a>
-  <a href="/operations-bridge">Ops &rarr; Cyber</a>
-  <a href="/case-study-autosoc">Case Study</a>
   <a href="/detections">Detections</a>
-  <a href="/soc-lab">Lab</a>
   <a href="/resume">Resume</a>
+  <a href="/soc-lab" aria-current="page">Lab</a>
 </div>
 
 <!-- @include:nav:end -->
@@ -72,13 +70,13 @@
         <span class="lane-tag">FEATURED</span>
         <div class="card-ttl">SignalFoundry flagship case study</div>
         <div class="card-sub">Walk the alert-ingest to escalation path, inspect outputs, and follow the proof chain without leaving the production site.</div>
-        <div class="lane-cta" aria-hidden="true">Read case study <span>→</span></div>
+        <div class="lane-cta" aria-hidden="true">Read case study <span>-></span></div>
       </a>
       <a class="card lane-card" href="/start-here" style="text-decoration:none" data-lane="source">
         <span class="lane-tag">VERIFY</span>
         <div class="card-ttl">Run the verification yourself</div>
         <div class="card-sub">Clone the repo and run the verify script. All counts are reproducible commands against public artifacts.</div>
-        <div class="lane-cta" aria-hidden="true">Start Here <span>→</span></div>
+        <div class="lane-cta" aria-hidden="true">Start Here <span>-></span></div>
       </a>
     </div>
   </div>
@@ -90,17 +88,17 @@
     <h2 class="stitle">What's running and why</h2>
     <p class="sdesc">
       Single Proxmox host running multiple VMs. Windows 11 endpoint feeds Wazuh for detection, while Splunk now operates as a live investigation layer for Windows telemetry pivots.
-      Everything runs on isolated RFC1918 subnets — test traffic stays in the lab, evidence comes out.
+      Everything runs on isolated RFC1918 subnets - test traffic stays in the lab, evidence comes out.
     </p>
 
     <div class="g2">
       <div class="card">
-        <div class="card-ttl">Compute — [REDACTED_HOST]</div>
+        <div class="card-ttl">Compute - [REDACTED_HOST]</div>
         <div class="card-sub">Proxmox hypervisor host. Multiple VMs including Windows 11 endpoint (primary endpoint), Wazuh Manager, and Splunk. Snapshot-driven so detection scenarios are fully repeatable.</div>
         <div class="card-meta"><span class="tag">Proxmox</span><span class="tag">Multi-VM</span><span class="tag">Snapshot-driven</span></div>
       </div>
       <div class="card">
-        <div class="card-ttl">Endpoint — Primary Windows system</div>
+        <div class="card-ttl">Endpoint - Primary Windows system</div>
         <div class="card-sub">Windows 11 Enterprise. Primary target for detection scenarios. Wazuh agent installed, Sysmon-ready, log forwarding configured. Real telemetry, real alerts, real artifacts.</div>
         <div class="card-meta"><span class="tag">Windows 11 Enterprise</span><span class="tag">Wazuh agent</span><span class="tag">Sysmon-ready</span></div>
       </div>
@@ -110,12 +108,12 @@
 
     <div class="g2">
       <div class="card">
-        <div class="card-ttl">SIEM — Wazuh</div>
+        <div class="card-ttl">SIEM - Wazuh</div>
         <div class="card-sub">Wazuh Manager + agented endpoints. Handles rule matching, alerting, and FIM. Custom rule IDs in the 100000+ range. Alert levels validated in live detection runs.</div>
         <div class="card-meta"><span class="tag">Wazuh 4.x</span><span class="tag">Custom rules</span><span class="tag">FIM enabled</span><span class="tag">Alert tuning</span></div>
       </div>
       <div class="card">
-        <div class="card-ttl">Search — Splunk</div>
+        <div class="card-ttl">Search - Splunk</div>
         <div class="card-sub">Splunk instance operating as a live investigation layer for Windows telemetry. Event ID 4688 process-creation data is searchable and validated through SPL-based pivots, while broader workflow packaging remains in progress.</div>
         <div class="card-meta"><span class="tag">Splunk</span><span class="tag">SPL</span><span class="tag">ES-style pivots</span></div>
       </div>
@@ -228,7 +226,7 @@
     </p>
     <div class="g2">
       <div class="card">
-        <div class="card-ttl">Trigger → alert → evidence loop</div>
+        <div class="card-ttl">Trigger -> alert -> evidence loop</div>
         <div class="card-sub">Trigger behavior on the primary endpoint, confirm Wazuh alert fires at expected severity, capture screenshot/log artifact, confirm alert resolves or closes. Snapshot restore between runs for clean slate.</div>
         <div class="card-meta"><span class="tag">Repeatable</span><span class="tag">Evidence-first</span><span class="tag">Snapshot restore</span></div>
       </div>
@@ -236,7 +234,7 @@
         <div class="card-ttl">Wazuh detection harness</div>
         <div class="card-sub">Python tool querying Wazuh Indexer REST API. Validates expected detections fire per ATT&CK technique. Generates pass/fail reports with artifact references.</div>
         <div class="card-meta"><span class="tag">Python</span><span class="tag">Wazuh Indexer API</span><span class="tag">Pass/fail reports</span></div>
-        <a class="met-link" href="/case-study-detection-harness" style="margin-top:8px;display:inline-block">→ Read detection harness case study</a>
+        <a class="met-link" href="/case-study-detection-harness" style="margin-top:8px;display:inline-block">-> Read detection harness case study</a>
       </div>
     </div>
 
@@ -315,7 +313,7 @@
 <!-- @include:footer:start -->
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
     <div class="fl">
       <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
       <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>

@@ -1,6 +1,6 @@
 window.HAWKINSOPS_OPS_METRICS = {
-  "generated_at_utc": "2026-03-20T00:00:00Z",
-  "source_note": "Canonical SignalFoundry metrics generated from data/metrics.json.",
+  "generated_at_utc": "2026-03-24T00:00:00Z",
+  "source_note": "Preload baseline - primary source is data/truth/current-authority.json (March 24 verified snapshot).",
   "display_policy": {
     "candidate_default": "stable_benchmark",
     "runtime_label": "Lifetime processed (runtime snapshot)"
@@ -12,8 +12,8 @@ window.HAWKINSOPS_OPS_METRICS = {
     "escalated": "~2,500+",
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
-    "locked_date": "03-20-2026",
-    "statement": "March 20 canonical snapshot: 49,774 total cases, ~89% auto-close, ~2,500+ escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS."
+    "locked_date": "03-24-2026",
+    "statement": "March 24 verified snapshot: 49,774 total cases, ~89% auto-close, ~2,500+ escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS."
   },
   "lifetime_runtime": {
     "total_cases": 49774,
@@ -24,7 +24,7 @@ window.HAWKINSOPS_OPS_METRICS = {
     "staged_pending": "N/A",
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
-    "last_updated": "03-20-2026"
+    "last_updated": "03-24-2026"
   },
   "metrics": {
     "total_cases": 49774,
@@ -45,26 +45,26 @@ window.HAWKINSOPS_OPS_METRICS = {
     "heartbeat": "SUCCESS",
     "coverage_ratio": "8/8",
     "coverage_status": "PASS",
-    "stable_locked_date": "03-20-2026",
-    "last_updated": "03-20-2026",
+    "stable_locked_date": "03-24-2026",
+    "last_updated": "03-24-2026",
     "stable_total_cases": 49774,
     "stable_auto_closed_benign": "~89%",
     "stable_known_fp": "N/A",
     "stable_escalated": "~2,500+",
     "stable_coverage_ratio": "8/8",
     "stable_heartbeat": "SUCCESS",
-    "stable_statement": "March 20 canonical snapshot: 49,774 total cases, ~89% auto-close, ~2,500+ escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.",
+    "stable_statement": "March 24 verified snapshot: 49,774 total cases, ~89% auto-close, ~2,500+ escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.",
     "lifetime_total_cases": 49774,
     "lifetime_auto_closed_benign": "~89%",
     "lifetime_known_fp": "N/A",
     "lifetime_escalated": "~2,500+",
     "lifetime_auto_close_rate": "~89%",
     "lifetime_label": "Lifetime processed (runtime snapshot)",
-    "lifetime_last_updated": "03-20-2026",
+    "lifetime_last_updated": "03-24-2026",
     "sigma": 103,
     "splunk": 8,
     "wazuh": 28,
     "ir": 10,
-    "canonical_authority": "source_of_truth/metrics_canonical_2026-03-20.json"
+    "canonical_authority": "data/truth/current-authority.json"
   }
 };

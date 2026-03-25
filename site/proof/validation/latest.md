@@ -1,6 +1,6 @@
 # Continuous Detection Validation
 
-- Generated (UTC): 2026-03-21T07:03:47.829Z
+- Generated (UTC): 2026-03-25T05:32:01.131Z
 - Suite: continuous-detection-validation
 - Overall status: PASS
 - Checks passed: 6/6 (100%)
@@ -13,5 +13,5 @@
 | reconciliation_mismatch | PASS | 0 | `proof/autosoc/latest/reconciliation_latest.json` |
 | coverage_required_hosts | PASS | 8/8 | `data/metrics.json` |
 | pipeline_last_status | PASS | SUCCESS | `proof/autosoc/latest/run_metrics_latest.json` |
-| splunk_ingest_proof_present | PASS | content/lab/proxmox/vms/104/splunk/exports/WAZUH_SPLUNK_PIPELINE_PROOF_2026-03-20.md | `filesystem` |
+| splunk_ingest_proof_present | PASS | content/lab/proxmox/vms/104/splunk/exports/WAZUH_SPLUNK_PIPELINE_PROOF_2026-03-24.md | `filesystem` |
 | grafana_proof_present | PASS | proof/grafana/latest.md | `filesystem` |

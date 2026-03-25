@@ -1,19 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>HawkinsOps | IR Case Study: Level 12 FIM Alert — Triage to Verdict</title>
+<title>HawkinsOps | IR Case Study: Level 12 FIM Alert - Triage to Verdict</title>
 <meta name="description" content="Full IR lifecycle: Level 12 Wazuh FIM alert on a Windows endpoint, triaged and closed as BENIGN in 35 minutes. Evidence trail, PowerShell validation, and rule-tuning recommendations included.">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07070b">
 <link rel="canonical" href="https://hawkinsops.com/case-study-ir-howe01">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IR Case Study | Level 12 FIM Alert — Triage to BENIGN Verdict in 35 Minutes">
+<meta property="og:title" content="IR Case Study | Level 12 FIM Alert - Triage to BENIGN Verdict in 35 Minutes">
 <meta property="og:description" content="Full IR lifecycle documented with 9 evidence artifacts: Wazuh threat hunting, PowerShell validation, and rule-tuning recommendations from a live alert on a monitored endpoint.">
 <meta property="og:url" content="https://hawkinsops.com/case-study-ir-howe01">
 <meta property="og:image" content="https://hawkinsops.com/assets/howe01/02_threat_hunting_level12_filter.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="IR Case Study | Level 12 FIM Alert — Triage to BENIGN Verdict in 35 Minutes">
+<meta name="twitter:title" content="IR Case Study | Level 12 FIM Alert - Triage to BENIGN Verdict in 35 Minutes">
 <meta name="twitter:description" content="Full IR lifecycle documented with 9 evidence artifacts: Wazuh threat hunting, PowerShell validation, and rule-tuning recommendations from a live alert on a monitored endpoint.">
 <meta name="twitter:image" content="https://hawkinsops.com/assets/howe01/02_threat_hunting_level12_filter.png">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -23,8 +23,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <script>document.documentElement.setAttribute('data-theme', 'dark');</script>
 <link rel="stylesheet" href="/assets/styles.css">
-<link rel="stylesheet" href="/assets/modernize.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -60,7 +60,7 @@
 <section style="padding-top:110px">
   <div class="ctr" style="max-width:900px">
     <div class="slbl">IR Case Study</div>
-    <h1 class="stitle">Level 12 FIM alert on primary endpoint — triage to BENIGN verdict in 35 minutes</h1>
+    <h1 class="stitle">Level 12 FIM alert on primary endpoint - triage to BENIGN verdict in 35 minutes</h1>
     <p class="sdesc">
       A live Wazuh File Integrity Monitoring alert fires at the highest rule severity in the lab environment.
       No prior context. One endpoint. The question: is <code>C:\Windows\System32\drivers\etc\hosts.ics</code>
@@ -72,9 +72,9 @@
       <h2 class="card-ttl">Context</h2>
       <div class="card-sub">
         <ul style="padding-left:18px">
-          <li><b>Rule:</b> 100052 — "Critical system file modified - Possible system compromise"</li>
+          <li><b>Rule:</b> 100052 - "Critical system file modified - Possible system compromise"</li>
           <li><b>Level:</b> 12 (High / critical threshold in this environment)</li>
-          <li><b>Source:</b> Wazuh FIM — <code>content/detection-rules/wazuh/rules/</code></li>
+          <li><b>Source:</b> Wazuh FIM - <code>content/detection-rules/wazuh/rules/</code></li>
           <li><b>Agent:</b> primary endpoint (Windows 11 Enterprise endpoint, Agent ID 003)</li>
           <li><b>File:</b> <code>C:\Windows\System32\drivers\etc\hosts.ics</code></li>
           <li><b>Timestamp:</b> 2026-01-25 17:55:52 UTC</li>
@@ -83,7 +83,7 @@
           Rule 100052 monitors all files in the <code>drivers\etc\</code> directory.
           A modification to any file in that path fires at Level 12.
           The hosts file is a classic target for DNS poisoning.
-          But this is <code>hosts.ics</code> — not <code>hosts</code>.
+          But this is <code>hosts.ics</code> - not <code>hosts</code>.
           That difference is the entire investigation.
         </p>
       </div>
@@ -97,9 +97,9 @@
         <div class="card-sub">
           <ol style="padding-left:18px">
             <li>Opened Threat Hunting dashboard, filtered to Level 12+ alerts, last 24 hours.</li>
-            <li>Result: <b>1 total alert</b> — single event, no cluster.</li>
+            <li>Result: <b>1 total alert</b> - single event, no cluster.</li>
             <li>0 authentication failures. 0 authentication successes. No lateral indicators.</li>
-            <li>Only primary endpoint affected — no other agents flagged in the same window.</li>
+            <li>Only primary endpoint affected - no other agents flagged in the same window.</li>
             <li>Decision: proceed to investigation. No escalation trigger met.</li>
           </ol>
         </div>
@@ -109,9 +109,9 @@
         <div class="card-sub">
           <ul style="padding-left:18px">
             <li>Scope: single system, single file, single event.</li>
-            <li>No auth anomalies — rules out credential-based attack vector.</li>
+            <li>No auth anomalies - rules out credential-based attack vector.</li>
             <li>Alert group classification: <code>critical_files</code>, <code>file_integrity</code>, <code>syscheck</code>.</li>
-            <li>Potential impact flagged: hosts-file modifications can enable DNS poisoning — investigation required before dismissal.</li>
+            <li>Potential impact flagged: hosts-file modifications can enable DNS poisoning - investigation required before dismissal.</li>
           </ul>
         </div>
       </div>
@@ -120,7 +120,7 @@
     <div style="height:14px"></div>
 
     <div class="card">
-      <h2 class="card-ttl">Triage evidence — Threat Hunting dashboard (Level 12+ filter)</h2>
+      <h2 class="card-ttl">Triage evidence - Threat Hunting dashboard (Level 12+ filter)</h2>
       <div class="card-sub">
         <p>Filters applied: <code>rule.level: 12 to 14</code>, last 24 hours.
            Single Level 12 spike visible at ~18:00 UTC. primary endpoint sole affected agent.</p>
@@ -139,10 +139,10 @@
         <h2 class="card-ttl">Approach</h2>
         <div class="card-sub">
           <ol style="padding-left:18px">
-            <li>Pulled full event JSON from Wazuh — 805 available fields. File path, modification timestamp, rule classification confirmed.</li>
-            <li>Researched <code>hosts.ics</code> purpose: Microsoft Internet Connection Sharing auto-generates and maintains this file for local network hostname resolution. It is not user-editable — the file header says so explicitly.</li>
+            <li>Pulled full event JSON from Wazuh - 805 available fields. File path, modification timestamp, rule classification confirmed.</li>
+            <li>Researched <code>hosts.ics</code> purpose: Microsoft Internet Connection Sharing auto-generates and maintains this file for local network hostname resolution. It is not user-editable - the file header says so explicitly.</li>
             <li>PowerShell validation on primary endpoint: <code>Get-Content</code> of <code>hosts.ics</code>. File contains Microsoft copyright, auto-generation warning, and a single RFC 1918 IP-to-hostname mapping. No external IPs, no suspicious domains.</li>
-            <li>Modification timestamp (4:06 PM local) correlates with ICS service activity — expected behavior.</li>
+            <li>Modification timestamp (4:06 PM local) correlates with ICS service activity - expected behavior.</li>
             <li>Verdict: <b>BENIGN</b>. False positive. Rule 100052 correctly detected a file modification; the modification was legitimate system behavior.</li>
           </ol>
         </div>
@@ -150,8 +150,8 @@
       <div class="card">
         <h2 class="card-ttl">Why it mattered to get this right</h2>
         <div class="card-sub">
-          <p>The <code>hosts</code> file (no extension) is a high-value attack target. DNS poisoning, C2 redirects, AV bypass — all go through it. Dismissing a Level 12 hosts-adjacent alert too quickly risks missing a real compromise.</p>
-          <p style="margin-top:10px"><code>hosts.ics</code> is a separate, ICS-managed file. The investigation required knowing the difference — then proving it with local validation, not assumption.</p>
+          <p>The <code>hosts</code> file (no extension) is a high-value attack target. DNS poisoning, C2 redirects, AV bypass - all go through it. Dismissing a Level 12 hosts-adjacent alert too quickly risks missing a real compromise.</p>
+          <p style="margin-top:10px"><code>hosts.ics</code> is a separate, ICS-managed file. The investigation required knowing the difference - then proving it with local validation, not assumption.</p>
           <p style="margin-top:10px">The PowerShell output is the definitive artifact: Microsoft copyright header and a benign local network mapping. That's what closes the case.</p>
         </div>
       </div>
@@ -171,7 +171,7 @@ FullName      : C:\Windows\System32\drivers\etc\hosts.ics
 Length        : 439
 LastWriteTime : 1/25/2026 4:06:01 PM
 
-# File contents — definitive BENIGN proof
+# File contents - definitive BENIGN proof
 Get-Content "C:\Windows\System32\drivers\etc\hosts.ics"
 
 # Copyright (c) 1993-2001 Microsoft Corp.
@@ -196,12 +196,12 @@ Get-Content "C:\Windows\System32\drivers\etc\hosts.ics"
         <div class="card-sub" style="font-size:0.93em">
           <table style="width:100%;border-collapse:collapse">
             <tr style="border-bottom:1px solid var(--stroke)"><td style="padding:5px 8px 5px 0;white-space:nowrap"><b>16:06</b></td><td style="padding:5px 0">ICS service writes hosts.ics</td></tr>
-            <tr style="border-bottom:1px solid var(--stroke)"><td style="padding:5px 8px 5px 0;white-space:nowrap"><b>17:55:52</b></td><td style="padding:5px 0">Wazuh Rule 100052 fires — Level 12 alert</td></tr>
+            <tr style="border-bottom:1px solid var(--stroke)"><td style="padding:5px 8px 5px 0;white-space:nowrap"><b>17:55:52</b></td><td style="padding:5px 0">Wazuh Rule 100052 fires - Level 12 alert</td></tr>
             <tr style="border-bottom:1px solid var(--stroke)"><td style="padding:5px 8px 5px 0;white-space:nowrap"><b>17:56</b></td><td style="padding:5px 0">Analyst reviews Threat Hunting dashboard</td></tr>
-            <tr style="border-bottom:1px solid var(--stroke)"><td style="padding:5px 8px 5px 0;white-space:nowrap"><b>18:00</b></td><td style="padding:5px 0">Triage complete — single event, no lateral indicators</td></tr>
+            <tr style="border-bottom:1px solid var(--stroke)"><td style="padding:5px 8px 5px 0;white-space:nowrap"><b>18:00</b></td><td style="padding:5px 0">Triage complete - single event, no lateral indicators</td></tr>
             <tr style="border-bottom:1px solid var(--stroke)"><td style="padding:5px 8px 5px 0;white-space:nowrap"><b>18:05</b></td><td style="padding:5px 0">Full event JSON reviewed (805 fields)</td></tr>
             <tr style="border-bottom:1px solid var(--stroke)"><td style="padding:5px 8px 5px 0;white-space:nowrap"><b>18:15</b></td><td style="padding:5px 0">PowerShell validation executed on primary endpoint</td></tr>
-            <tr style="border-bottom:1px solid var(--stroke)"><td style="padding:5px 8px 5px 0;white-space:nowrap"><b>18:25</b></td><td style="padding:5px 0">BENIGN verdict — investigation complete</td></tr>
+            <tr style="border-bottom:1px solid var(--stroke)"><td style="padding:5px 8px 5px 0;white-space:nowrap"><b>18:25</b></td><td style="padding:5px 0">BENIGN verdict - investigation complete</td></tr>
             <tr><td style="padding:5px 8px 5px 0;white-space:nowrap"><b>18:30</b></td><td style="padding:5px 0">Alert closed as false positive</td></tr>
           </table>
         </div>
@@ -209,11 +209,11 @@ Get-Content "C:\Windows\System32\drivers\etc\hosts.ics"
       <div class="card">
         <h2 class="card-ttl">What this demonstrates</h2>
         <ul class="card-sub" style="padding-left:18px">
-          <li>Structured triage using dashboard filtering — funnel from broad to specific before acting.</li>
-          <li>Context-aware analysis — <code>hosts.ics</code> and <code>hosts</code> are not the same file. Knowing the difference closed the case.</li>
-          <li>Local validation over assumption — PowerShell inspection of file contents produced the definitive evidence artifact.</li>
-          <li>Evidence preservation throughout — 9 artifacts captured with chain-of-custody logging before verdict.</li>
-          <li>Actionable output — tuning recommendation documented so Rule 100052 doesn't generate the same false positive again.</li>
+          <li>Structured triage using dashboard filtering - funnel from broad to specific before acting.</li>
+          <li>Context-aware analysis - <code>hosts.ics</code> and <code>hosts</code> are not the same file. Knowing the difference closed the case.</li>
+          <li>Local validation over assumption - PowerShell inspection of file contents produced the definitive evidence artifact.</li>
+          <li>Evidence preservation throughout - 9 artifacts captured with chain-of-custody logging before verdict.</li>
+          <li>Actionable output - tuning recommendation documented so Rule 100052 doesn't generate the same false positive again.</li>
         </ul>
       </div>
     </div>
@@ -251,8 +251,8 @@ Get-Content "C:\Windows\System32\drivers\etc\hosts.ics"
         <div class="card-sub">
           <p>Rule 100052 monitors all files in <code>drivers\etc\</code> at Level 12. It does not differentiate between:</p>
           <ul style="padding-left:18px;margin-top:8px">
-            <li><code>hosts</code> — user-editable, high-risk target</li>
-            <li><code>hosts.ics</code> — ICS-managed, auto-updated, not a compromise indicator</li>
+            <li><code>hosts</code> - user-editable, high-risk target</li>
+            <li><code>hosts.ics</code> - ICS-managed, auto-updated, not a compromise indicator</li>
           </ul>
           <p style="margin-top:10px">Recommended action: add a Wazuh FIM exception for <code>hosts.ics</code> or a rule-level override that downgrades this specific file path to informational. The modification of <code>hosts</code> (no extension) should remain Level 12.</p><p style="margin-top:10px"><b>Next hardening step:</b> validate this path-specific tuning in a controlled replay so true hosts-file tampering still escalates at high severity.</p>
         </div>
@@ -262,13 +262,13 @@ Get-Content "C:\Windows\System32\drivers\etc\hosts.ics"
         <div class="card-sub">
           <p>9 artifacts captured during investigation. All available in the repository.</p>
           <ul style="padding-left:18px;margin-top:8px">
-            <li>Wazuh overview dashboard — baseline context</li>
-            <li>Threat Hunting: Level 12 filter — triage confirmation</li>
-            <li>Threat Hunting: primary endpoint agent-specific — scope validation</li>
+            <li>Wazuh overview dashboard - baseline context</li>
+            <li>Threat Hunting: Level 12 filter - triage confirmation</li>
+            <li>Threat Hunting: primary endpoint agent-specific - scope validation</li>
             <li>Events table: Rule 100052 metadata</li>
-            <li><b>PowerShell validation — critical BENIGN proof</b></li>
-            <li>Full event JSON (805 fields) — forensic depth</li>
-            <li>Filter metadata CSV — search criteria audit trail</li>
+            <li><b>PowerShell validation - critical BENIGN proof</b></li>
+            <li>Full event JSON (805 fields) - forensic depth</li>
+            <li>Filter metadata CSV - search criteria audit trail</li>
           </ul>
         </div>
       </div>
@@ -296,7 +296,7 @@ Get-Content "C:\Windows\System32\drivers\etc\hosts.ics"
 <!-- @include:footer:start -->
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
     <div class="fl">
       <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
       <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>

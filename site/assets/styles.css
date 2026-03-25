@@ -305,7 +305,7 @@
         footer p{font-size:.75rem;color:var(--faint)}
         .fl{display:flex;justify-content:center;align-items:center;gap:0;margin-top:10px;flex-wrap:wrap}
         .fl a{font-family:var(--mono);font-size:.7rem;color:var(--dim);text-decoration:none;position:relative;padding:0 10px}
-        .fl a+a::before{content:'•';position:absolute;left:0;color:var(--faint)}
+        .fl a+a::before{content:' | ';position:absolute;left:0;color:var(--faint)}
         .fl a:hover{color:var(--acc)}
 
         .validate-box{background:var(--bg2);border:1px solid var(--bdr);padding:20px;margin-bottom:20px;color:var(--txt)}
@@ -540,7 +540,7 @@ body.triage-sim .btn-mini:hover{
 .lane-card[data-lane="source"] .lane-tag{background:rgba(167,139,250,.10);border-color:rgba(167,139,250,.28);color:#a78bfa}
 .lane-card[data-lane="source"]:hover{border-color:rgba(167,139,250,.30)}
 
-/* Hero — single column, typography-first */
+/* Hero - single column, typography-first */
 .home-main .hero{min-height:auto;padding:100px 0 56px;position:relative;overflow:hidden}
 .home-main .hero-inner{max-width:660px;position:relative;z-index:2}
 .home-main .htitle{font-size:clamp(2.1rem,4.4vw,3.4rem);line-height:1.06;max-width:22ch;margin-bottom:18px}
@@ -549,7 +549,7 @@ body.triage-sim .btn-mini:hover{
 .home-main .hero-meta{display:flex;flex-direction:column;gap:7px}
 .home-main .stitle{font-size:clamp(1.85rem,2.5vw,2.35rem);margin-bottom:18px}
 
-/* Lab Architecture — system map, framed environment view */
+/* Lab Architecture - system map, framed environment view */
 .lab-arch{padding:48px 0;border-top:1px solid var(--bdr);background:linear-gradient(180deg,rgba(8,12,20,.35) 0%,transparent 100%)}
 .lab-arch-intro{font-size:.9rem;color:var(--dim);line-height:1.65;max-width:68ch;margin-bottom:20px}
 .lab-arch-visual{border:1px solid var(--bdr2);border-radius:14px;overflow:hidden;background:rgba(6,8,14,.95)}
@@ -561,7 +561,7 @@ body.triage-sim .btn-mini:hover{
 html[data-theme="light"] .lab-arch{background:linear-gradient(180deg,rgba(235,240,250,.35) 0%,transparent 100%)}
 html[data-theme="light"] .lab-arch-visual{background:rgba(240,244,252,.95);border-color:var(--bdr2)}
 
-/* AutoSOC Workflow — process flow, raw/flush treatment */
+/* AutoSOC Workflow - process flow, raw/flush treatment */
 .sys-proof{padding:40px 0 56px;border-top:1px solid var(--bdr)}
 .sys-proof-visual{margin-top:16px;padding:8px 0}
 .sys-proof-visual img{display:block;width:100%;height:auto}

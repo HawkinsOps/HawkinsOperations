@@ -30,4 +30,4 @@ SOC Analyst (T1/T2) candidate focused on detection engineering and security auto
 - Use lab runs to validate telemetry assumptions and improve signal quality in portfolio content.
 
 ## Additional
-- “Eligible to obtain clearance; willing to pursue sponsorship.”
+- "Eligible to obtain clearance; willing to pursue sponsorship."

@@ -26,7 +26,7 @@
 </script>
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 <link rel="stylesheet" href="/assets/page-shells.css?v=03-16-2026-1">
 </head>
 <body>
@@ -36,25 +36,23 @@
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
-      <li><a href="/">Home</a></li>
-      <li><a href="/proof">Proof</a></li>
-      <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
+      <li><a href="/start-here">Start Here</a></li>
       <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
+      <li><a href="/proof">Proof</a></li>
       <li><a href="/detections">Detections</a></li>
+      <li><a href="/resume" aria-current="page">Resume</a></li>
       <li><a href="/soc-lab">Lab</a></li>
-      <li><a href="/resume">Resume</a></li>
     </ul>
     <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-  <a href="/">Home</a>
-  <a href="/proof">Proof</a>
-  <a href="/operations-bridge">Ops &rarr; Cyber</a>
+  <a href="/start-here">Start Here</a>
   <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/proof">Proof</a>
   <a href="/detections">Detections</a>
+  <a href="/resume" aria-current="page">Resume</a>
   <a href="/soc-lab">Lab</a>
-  <a href="/resume">Resume</a>
 </div>
 
 <!-- @include:nav:end -->
@@ -78,15 +76,14 @@
         <div class="resume-section">
           <h2>Summary</h2>
           <ul>
-            <li>Built and operated SignalFoundry (AutoSOC engine): a first-pass SOC triage workflow for Wazuh alerts with 49,774 processed cases, 2,478 escalation artifacts, and reconciled proof output.</li>
-            <li>Targeting SOC T1/T2 roles with strengths in triage consistency, detection quality, and evidence-based documentation.</li>
-            <li>Manufacturing operations background translated into security execution discipline: controlled process, quality gates, escalation hygiene, and failure recovery under pressure.</li>
+            <li>Built and operate <a href="/case-study-autosoc">SignalFoundry</a>: a 7-stage SOC triage pipeline (Wazuh alerts -> escalation artifacts) - 49,774 cases, ~89% auto-close, ~2,500+ escalations, 8/8 hosts reporting, reconciliation PASS. <a href="/proof">Verified.</a></li>
+            <li>Targeting T1/T2 SOC roles; strengths in detection engineering, triage consistency, and evidence-backed documentation. Operator background delivers process discipline, quality gates, and escalation hygiene under pressure.</li>
           </ul>
         </div>
         <div class="resume-section">
           <h2>Skills</h2>
           <ul>
-            <li><b>Detection:</b> Sigma, Wazuh rule authoring, Splunk SPL</li>
+            <li><b>Detection:</b> Sigma (103 rules), Wazuh rule authoring (home lab), Splunk SPL (home lab)</li>
             <li><b>Tooling:</b> PowerShell, Python, Git, GitHub Actions</li>
             <li><b>Frameworks:</b> MITRE ATT&amp;CK, SOC triage workflow, incident response fundamentals</li>
             <li><b>Lab/Validation:</b> Proxmox, Windows/Linux telemetry generation, reproducible test runs</li>
@@ -97,48 +94,32 @@
       <div class="resume-section">
         <h2>Work History</h2>
         <div class="resume-project">
-          <h3>Security Operations Lab — Independent Research</h3>
+          <h3>Security Operations Lab - Independent Research</h3>
           <ul>
-            <li>2025-Present | HawkinsOperations</li>
-            <li>Operate a Wazuh-driven SOC lab and execute repeatable detection runs mapped to MITRE ATT&amp;CK behaviors.</li>
-            <li>Built and maintained SignalFoundry components (AutoSOC engine) for ingest, triage, redaction, and incident pack assembly.</li>
-            <li>Authored and tuned incident response playbooks with verification steps and reproducible evidence capture workflows.</li>
-            <li>Maintained verification scripts and generated proof artifacts that keep published counts aligned to repository state.</li>
+            <li>2025-Present | HawkinsOperations | <a href="/case-study-autosoc">SignalFoundry Case Study -></a></li>
+            <li>Built and operate SignalFoundry (AutoSOC engine): 7-stage pipeline from Wazuh alert ingest through triage, redaction, evidence pack assembly, reconciliation, and gated publish.</li>
+            <li>Authored and tuned 103 Sigma detection rules, 28 Wazuh rule blocks, and 10 IR playbooks mapped to MITRE ATT&amp;CK behaviors.</li>
+            <li>Maintained verification scripts and proof artifacts so published counts remain aligned to repository state - reconciliation PASS, 0 mismatches.</li>
           </ul>
         </div>
       </div>
 
       <div class="resume-section">
-        <h2>30-Second Interview Talk Track</h2>
+        <h2>30-Second Pitch</h2>
         <ul>
-          <li>I built a Wazuh-based SOC lab, then automated repeatable first-pass triage steps for a defined alert stream.</li>
-          <li>The workflow classifies alerts, redacts sensitive values, generates evidence packs, and preserves analyst escalation paths.</li>
-          <li>I am not replacing analysts. I can do triage work and build tooling that makes investigations more consistent.</li>
+          <li>I built SignalFoundry: a Wazuh-based triage pipeline that classifies alerts, redacts sensitive values, assembles evidence packs, and routes escalations - with public proof tied to reproducible repo artifacts.</li>
+          <li>I can do triage work and build tooling that makes investigations consistent. <a href="/case-study-autosoc">Full case study -></a></li>
         </ul>
       </div>
 
       <div class="resume-section">
         <h2>Projects</h2>
         <div class="resume-project">
-          <h3>HawkinsOperations (Primary Portfolio Repo)</h3>
+          <h3>SignalFoundry / HawkinsOperations - <a href="/case-study-autosoc">Case Study</a> | <a href="/proof">Proof</a></h3>
           <ul>
-            <li>Built and maintain a detection and response library with verified inventory: <span data-verified="sigma">103</span> Sigma rules, <span data-verified="wazuh">28</span> Wazuh rule blocks (<span data-verified="wazuh_xml_files">24</span> XML files), <span data-verified="splunk">8</span> Splunk detections, and <span data-verified="ir">10</span> IR playbooks.</li>
-            <li>Implemented proof-first validation workflow (scripts, documentation, CI alignment) so reviewers can reproduce claims directly from repo artifacts.</li>
-            <li>Diagnosed and restored a SignalFoundry ingestion outage (AutoSOC engine) by separating infrastructure reachability from application logic, then fixing reconciliation-path validation to return end-to-end SUCCESS.</li>
-          </ul>
-        </div>
-        <div class="resume-project">
-          <h3>SOC Triage Simulator</h3>
-          <ul>
-            <li>Built an interactive triage workflow artifact to practice investigation steps, evidence review, and analyst decision flow.</li>
-            <li>Added repeatable drill structure and checklists to demonstrate process discipline, not one-off screenshots.</li>
-          </ul>
-        </div>
-        <div class="resume-project">
-          <h3>Home Lab Validation Environment</h3>
-          <ul>
-            <li>Built a Proxmox-based validation lab with Wazuh and Splunk components to test detection behavior before publishing artifacts.</li>
-            <li>Use lab runs to validate telemetry assumptions and improve signal quality in portfolio content.</li>
+            <li>Detection library: <span data-verified="sigma">103</span> Sigma rules, <span data-verified="wazuh_xml_files">24</span> Wazuh XML files, <span data-verified="wazuh">28</span> Wazuh rule blocks, <span data-verified="splunk">8</span> Splunk queries (home lab), <span data-verified="ir">10</span> IR playbooks - <span data-verified="detections">139</span> total detections.</li>
+            <li>Proof-first validation: scripts, documentation, and CI alignment so reviewers reproduce claims directly from repo artifacts.</li>
+            <li>Diagnosed and restored a SignalFoundry ingestion outage by separating infrastructure reachability from application logic, returning end-to-end reconciliation to SUCCESS.</li>
           </ul>
         </div>
       </div>
@@ -153,22 +134,30 @@
       <div class="resume-section">
         <h2>Certifications</h2>
         <ul>
-          <li>CompTIA Security+ (SY0-701) — In progress (Exam scheduled: April 2026)</li>
-          <li>ISC2 Certified in Cybersecurity (CC) — In progress (Exam scheduled: March 2026)</li>
+          <li>CompTIA Security+ (SY0-701) - In progress (Exam scheduled: April 2026)</li>
+          <li>ISC2 Certified in Cybersecurity (CC) - In progress (Exam scheduled: March 2026)</li>
         </ul>
       </div>
 
       <div class="resume-section">
         <h2>Additional</h2>
         <ul>
-          <li>“Eligible to obtain clearance; willing to pursue sponsorship.”</li>
+          <li>"Eligible to obtain clearance; willing to pursue sponsorship.</li>
+        </ul>
+      </div>
+
+      <div class="resume-section">
+        <h2>Review the Work</h2>
+        <ul>
+          <li><a href="/case-study-autosoc">SignalFoundry Case Study</a> - full system architecture, triage logic, outputs, and recovery model.</li>
+          <li><a href="/proof">Proof &amp; Verified Metrics</a> - stable benchmark, evidence trail, and verification path.</li>
         </ul>
       </div>
 
       <div class="resume-download">
-        PDF download path: <a href="/assets/Raylee_Hawkins_Resume.pdf" download="Raylee_Hawkins_Resume.pdf" target="_blank" rel="noopener noreferrer">/assets/Raylee_Hawkins_Resume.pdf</a>
-        <br>
-        Download plain-text (ATS): <a href="/resume.txt" target="_blank" rel="noopener noreferrer">/resume.txt</a>
+        <a href="/assets/Raylee_Hawkins_Resume.pdf" download="Raylee_Hawkins_Resume.pdf" target="_blank" rel="noopener noreferrer">Download PDF</a>
+        &nbsp; | &nbsp;
+        <a href="/resume.txt" target="_blank" rel="noopener noreferrer">Plain-text (ATS)</a>
       </div>
     </div>
   </div>
@@ -187,7 +176,7 @@
 <!-- @include:footer:start -->
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
     <div class="fl">
       <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
       <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>

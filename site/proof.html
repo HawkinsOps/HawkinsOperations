@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>SignalFoundry — Proof &amp; Verified Metrics</title>
+<title>SignalFoundry - Proof &amp; Verified Metrics</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="SignalFoundry proof page: public evidence, verified counts, verification commands, and current metrics contract.">
+<meta name="description" content="SignalFoundry proof page: verified detection counts, operational recovery evidence, Splunk lane, and historical references.">
 <link rel="stylesheet" href="/assets/styles.css">
-<link rel="stylesheet" href="/assets/design-tokens.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/base.css?v=03-15-2026-1">
+<link rel="stylesheet" href="/assets/design-tokens.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/base.css?v=03-24-2026-1">
 <link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 <script>
   document.documentElement.setAttribute('data-theme', 'dark');
 </script>
@@ -20,101 +20,235 @@
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
-      <li><a href="/">Home</a></li>
-      <li><a href="/proof">Proof</a></li>
-      <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
+      <li><a href="/start-here">Start Here</a></li>
       <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
+      <li><a href="/proof" aria-current="page">Proof</a></li>
       <li><a href="/detections">Detections</a></li>
-      <li><a href="/soc-lab">Lab</a></li>
       <li><a href="/resume">Resume</a></li>
+      <li><a href="/soc-lab">Lab</a></li>
     </ul>
     <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-  <a href="/">Home</a>
-  <a href="/proof">Proof</a>
-  <a href="/operations-bridge">Ops &rarr; Cyber</a>
+  <a href="/start-here">Start Here</a>
   <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/proof" aria-current="page">Proof</a>
   <a href="/detections">Detections</a>
-  <a href="/soc-lab">Lab</a>
   <a href="/resume">Resume</a>
+  <a href="/soc-lab">Lab</a>
 </div>
 <main class="modernize-shell">
-  <section class="m-section" style="padding-top:96px;">
+
+  <!-- 
+       SECTION 1 - CURRENT VERIFIED SNAPSHOT
+       Source: current-authority.json (_layer_rank 1)
+       All metrics here are reviewer-authoritative.
+        -->
+  <section id="verified-snapshot" class="m-section" style="padding-top:96px;">
     <div class="m-wrap">
       <div class="m-eyebrow">Proof</div>
-      <h1 class="m-title" style="font-size: clamp(2.2rem, 4vw, 3.7rem);">SignalFoundry — Proof &amp; Verified Metrics</h1>
-      <p class="m-outcome">SignalFoundry proof page: public evidence, verified counts, verification commands, and current metrics contract.</p>
+      <h1 class="m-title" style="font-size: clamp(2.2rem, 4vw, 3.7rem);">SignalFoundry - Proof &amp; Verified Metrics</h1>
+      <p class="m-outcome">Verified evidence for SignalFoundry / AutoSOC. Strongest claims first. All authority metrics sourced from <code>current-authority.json</code> (verified snapshot, ranked above live telemetry).</p>
+
+      <!-- Detection inventory strip -->
       <div class="m-proof-strip" style="margin-top:20px;">
         <div class="m-proof-inline">
           <strong><span data-verified="detections">139</span> detections</strong>
           <strong><span data-verified="sigma">103</span> Sigma</strong>
-          <strong><span data-verified="wazuh">28</span> Wazuh</strong>
-          <strong><span data-verified="ir">10</span> playbooks</strong>
+          <strong><span data-verified="wazuh">28</span> Wazuh rule blocks</strong>
+          <strong><span data-verified="ir">10</span> IR playbooks</strong>
         </div>
       </div>
+
+      <!-- Operational metrics strip - stable/locked values only -->
       <div class="m-proof-strip" style="margin-top:12px;" data-ops-scope="stable">
         <div class="m-proof-inline">
-          <strong>Last verified <span data-verified-date>03-20-2026</span></strong>
-          <strong>Stable heartbeat <span data-ops-status="stable_heartbeat">SUCCESS</span></strong>
-          <strong>Stable coverage <span data-ops="stable_coverage_ratio">8/8</span></strong>
-          <strong>Stable cases <span data-ops="stable_total_cases">49,774</span></strong>
-          <strong>Stable escalated <span data-ops="stable_escalated">~2,500+</span></strong>
-          <strong>Stable known FP <span data-ops="stable_known_fp">N/A</span></strong>
-          <strong>Stable date <span data-ops="stable_locked_date">03-20-2026</span></strong>
+          <strong>Verified <span data-verified-date>03-24-2026</span></strong>
+          <strong>Heartbeat <span data-ops-status="stable_heartbeat">SUCCESS</span></strong>
+          <strong>Coverage <span data-ops="stable_coverage_ratio">8/8</span></strong>
+          <strong>Cases <span data-ops="stable_total_cases">49,774</span></strong>
+          <strong>Auto-close <span data-ops="stable_auto_closed_benign">~89%</span></strong>
+          <strong>Escalated <span data-ops="stable_escalated">~2,500+</span></strong>
+          <strong>Reconciliation PASS (0 mismatches)</strong>
         </div>
       </div>
-      <p class="m-copy" style="margin-top:12px;"><span data-ops="stable_statement">March 20 canonical snapshot: 49,774 total cases, ~89% auto-close, ~2,500+ escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
-      <div class="m-proof-strip" style="margin-top:12px;">
-        <div class="m-proof-inline">
-          <strong>Lifetime processed (runtime snapshot) <span data-ops="lifetime_total_cases">49,774</span></strong>
-          <strong>Runtime escalated <span data-ops="lifetime_escalated">~2,500+</span></strong>
-          <strong>Runtime known FP <span data-ops="lifetime_known_fp">N/A</span></strong>
-          <strong>Runtime updated <span data-ops="lifetime_last_updated">03-20-2026</span></strong>
-        </div>
+
+      <p class="m-copy" style="margin-top:12px;"><span data-ops="stable_statement">March 24 verified snapshot: 49,774 total cases, ~89% auto-close, ~2,500+ escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
+      <p class="m-copy" style="margin-top:4px;">Authority date: <strong><span data-ops="stable_locked_date">03-24-2026</span></strong> &middot; Source: <code>data/truth/current-authority.json</code> &middot; Verified by: <code>scripts/verify/verify-counts.ps1</code></p>
+      <ul class="m-copy" style="margin-top:12px;font-size:0.85rem;color:var(--muted,#8ea4c7);list-style:none;padding:0;display:grid;gap:4px;">
+        <li><strong>Public benchmark snapshot:</strong> reviewer-authoritative values from <code>data/truth/current-authority.json</code>.</li>
+        <li><strong>Runtime snapshot:</strong> telemetry from <code>data/truth/current-live.json</code>, displayed as informational only.</li>
+        <li><strong>Generated at:</strong> <span data-ops="stable_locked_date">03-24-2026</span></li>
+        <li><strong>Source artifact:</strong> <code>site/data/truth/current-authority.json</code></li>
+      </ul>
+
+      <div style="margin-top:20px;">
+        <a href="/case-study-autosoc" class="btn btn-p">Full Case Study &rarr;</a>
       </div>
-      <p class="m-copy" style="margin-top:12px">Public benchmark snapshot: locked candidate-facing benchmark from committed proof. Runtime snapshot: rolling totals from the same metrics artifact.</p>
-      <p class="m-copy">Generated at <span data-ops="stable_locked_date">03-20-2026</span> | Source artifact <code>/assets/data/ops-metrics.json</code></p>
     </div>
   </section>
-  <section class="m-section">
-    <div class="m-wrap m-grid-2">
-      <article class="m-card">
-        <div class="m-card-kicker">AutoSOC case</div>
-        <h2>TITLE: AutoSOC Noise-Reduction Proof Block (2026-03-20 Snapshot)</h2>
-        <p class="m-copy"><strong>CLAIM:</strong> AutoSOC processed <span data-ops="stable_total_cases">49,774</span> alerts, auto-closed <span data-ops="stable_auto_closed_benign">~89%</span>, and produced <span data-ops="stable_escalated">~2,500+</span> escalations across <span data-ops="stable_coverage_ratio">8/8</span> coverage.</p>
-        <p class="m-copy"><strong>CONTEXT:</strong> Current-facing metrics on this page are locked to the March 20 canonical snapshot. Historical recovery evidence remains linked as historical context only.</p>
-        <ul class="m-list-tight">
-          <li><strong>EVIDENCE:</strong> <code>source_of_truth/metrics_canonical_2026-03-20.json</code> -> <code>total_cases=49774</code>, <code>auto_close_rate_label=~89%</code>, <code>escalations_label=~2,500+</code>, <code>hosts_reporting=8/8</code>; proves canonical quantified baseline.</li>
-          <li><strong>EVIDENCE:</strong> <code>docs/execution/AUTOSOC_PIPELINE_RECOVERY_CASE_STUDY_03-13-2026.md</code> -> final run shows <code>run_id=autosoc-20260313T215029Z-31020</code>, <code>status=SUCCESS</code>, <code>cases_processed=173</code>, <code>reconciliation.mismatch_count=0</code>; proves real output and validated recovery.</li>
-          <li><strong>EVIDENCE:</strong> <code>/assets/pp_soc_integration/t3-workflow.png</code> -> proves a concrete workflow snapshot of the triage and evidence-pack pipeline surface.</li>
-        </ul>
-      </article>
-      <article class="m-card">
-        <div class="m-card-kicker">Proof links</div>
-        <h2>Primary artifacts</h2>
-        <ul class="m-list-tight">
-          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">VERIFIED_COUNTS.md</a></li>
-          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/detection-rules/mappings/technique_map.csv" target="_blank" rel="noopener noreferrer">technique_map.csv</a></li>
-          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/docs/execution/AUTOSOC_PIPELINE_RECOVERY_PUBLIC_SNIPPETS_03-13-2026.md" target="_blank" rel="noopener noreferrer">AUTOSOC_COVERAGE_TRUTH_SHIFT_SNIPPET_03-19-2026.md</a></li>
-          <li><a href="/proof/grafana/latest.md" target="_blank" rel="noopener noreferrer">Grafana proof lane</a></li>
-          <li><a href="/proof/validation/latest.md" target="_blank" rel="noopener noreferrer">Continuous detection validation lane</a></li>
-          <li><a href="/proof/quality/latest.md" target="_blank" rel="noopener noreferrer">Alert quality scorecard lane</a></li>
-          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/scripts/check-md-links.sh" target="_blank" rel="noopener noreferrer">check-md-links.sh</a></li>
-        </ul>
-      </article>
-      <article class="m-card">
-        <div class="m-card-kicker">Verification</div>
-        <h2>Validation path</h2>
-        <p class="m-copy">Clone the repository, run the public verification commands, then compare the output to the published proof artifacts. The operational strip above reflects the latest committed proof snapshot, not a hand-maintained health claim.</p>
-      </article>
+
+  <!-- 
+       SECTION 2 - OPERATIONAL RECOVERY / RECONCILIATION PROOF
+       Demonstrates real pipeline execution and validated output.
+        -->
+  <section id="recovery-proof" class="m-section">
+    <div class="m-wrap">
+      <div class="m-eyebrow">Operational Evidence</div>
+      <h2 class="m-title" style="font-size: clamp(1.4rem, 2.5vw, 2rem);">Recovery &amp; Reconciliation Proof</h2>
+      <p class="m-copy">The pipeline was exercised through a documented recovery event. The run log below proves a real execution cycle with zero reconciliation mismatches - not a hand-maintained health claim.</p>
+
+      <div class="m-grid-2" style="margin-top:24px;">
+        <article class="m-card">
+          <div class="m-card-kicker">Current &mdash; 03-24-2026 authority</div>
+          <h3>AutoSOC Pipeline - Reconciliation Proof</h3>
+          <ul class="m-list-tight">
+            <li><strong>Total cases processed:</strong> <span data-ops="stable_total_cases">49,774</span></li>
+            <li><strong>Auto-close rate:</strong> <span data-ops="stable_auto_closed_benign">~89%</span></li>
+            <li><strong>Escalations:</strong> <span data-ops="stable_escalated">~2,500+</span></li>
+            <li><strong>Host coverage:</strong> <span data-ops="stable_coverage_ratio">8/8</span></li>
+            <li><strong>Reconciliation:</strong> PASS (0 mismatches)</li>
+            <li><strong>Heartbeat:</strong> SUCCESS</li>
+          </ul>
+          <p class="m-copy" style="margin-top:10px;font-size:0.85rem;color:var(--muted,#8ea4c7);">Source: <code>current-authority.json</code> - reviewer-authoritative</p>
+        </article>
+
+        <article class="m-card">
+          <div class="m-card-kicker">Historical reference &mdash; 03-13-2026 run log</div>
+          <h3>Recovery Run Evidence</h3>
+          <p class="m-copy">Pipeline recovery case study from 03-13-2026. Final run: <code>run_id=autosoc-20260313T215029Z-31020</code>, <code>status=SUCCESS</code>, <code>cases_processed=173</code>, <code>reconciliation.mismatch_count=0</code>. Proves concrete execution output and validated recovery path.</p>
+          <ul class="m-list-tight" style="margin-top:10px;">
+            <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/docs/execution/AUTOSOC_PIPELINE_RECOVERY_PUBLIC_SNIPPETS_03-13-2026.md" target="_blank" rel="noopener noreferrer">Pipeline recovery public snippets (GitHub)</a></li>
+            <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">VERIFIED_COUNTS.md (GitHub)</a></li>
+          </ul>
+          <p class="m-copy" style="margin-top:10px;font-size:0.85rem;color:var(--muted,#8ea4c7);">Historical reference only &mdash; not current-facing authority</p>
+        </article>
+      </div>
     </div>
   </section>
+
+  <!-- 
+       SECTION 3 - SPLUNK PROOF LANE (HONEST LEVEL)
+       Home lab environment only. 8 queries. No production SOC claim.
+        -->
+  <section id="splunk-lane" class="m-section">
+    <div class="m-wrap">
+      <div class="m-eyebrow">Splunk Evidence</div>
+      <h2 class="m-title" style="font-size: clamp(1.4rem, 2.5vw, 2rem);">Splunk Proof Lane</h2>
+      <p class="m-copy"><strong>Scope: home lab environment.</strong> 8 Splunk queries written and tested against Wazuh-forwarded log data in a local Proxmox VM (vm104). This is not a production SOC or enterprise Splunk deployment. The evidence below reflects that honest scope.</p>
+
+      <div class="m-grid-2" style="margin-top:24px;">
+        <article class="m-card">
+          <div class="m-card-kicker">Detection inventory</div>
+          <h3>Splunk Query Count</h3>
+          <ul class="m-list-tight">
+            <li><strong>Splunk queries:</strong> <span data-verified="splunk">8</span> (lab environment, home lab only)</li>
+            <li><strong>Context:</strong> Queries target Wazuh-forwarded events ingested via Splunk Universal Forwarder in vm104</li>
+            <li><strong>Claim ceiling:</strong> Lab-deployed, integration-tested; not enterprise, not production SOC</li>
+          </ul>
+        </article>
+
+        <article class="m-card">
+          <div class="m-card-kicker">Artifact reference &mdash; 03-24-2026</div>
+          <h3>Splunk Ingest Proof</h3>
+          <p class="m-copy">Pipeline proof artifact confirms Splunk ingest was operational as of the 03-24-2026 snapshot. File present in repo at <code>content/lab/proxmox/vms/104/splunk/exports/WAZUH_SPLUNK_PIPELINE_PROOF_2026-03-24.md</code>.</p>
+          <ul class="m-list-tight" style="margin-top:10px;">
+            <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/detection-rules/mappings/technique_map.csv" target="_blank" rel="noopener noreferrer">technique_map.csv - detection coverage map (GitHub)</a></li>
+          </ul>
+          <p class="m-copy" style="margin-top:10px;font-size:0.85rem;color:var(--muted,#8ea4c7);">Splunk role: home lab only &mdash; verified per <code>current-authority.json</code> claim ceiling</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 
+       SECTION 4 - HISTORICAL REFERENCES
+       Pre-authority snapshot artifacts. Labeled as historical only.
+        -->
+  <section id="historical" class="m-section">
+    <div class="m-wrap">
+      <div class="m-eyebrow">Historical Reference</div>
+      <h2 class="m-title" style="font-size: clamp(1.4rem, 2.5vw, 2rem);">Historical Evidence Artifacts</h2>
+      <p class="m-copy">The following artifacts pre-date the March 24 authority snapshot. They are preserved as supporting evidence for the operational timeline but <strong>must not be read as current authority</strong>.</p>
+
+      <div class="m-grid-2" style="margin-top:24px;">
+        <article class="m-card">
+          <div class="m-card-kicker">Historical &mdash; 2026-03-24 pipeline snapshot</div>
+          <h3>Canonical Metrics Snapshot (03-24-2026)</h3>
+          <p class="m-copy">The 03-20 snapshot (<code>source_of_truth/metrics_canonical_2026-03-24.json</code>) recorded: <code>total_cases=49774</code>, <code>auto_close_rate_label=~89%</code>, <code>escalations_label=~2,500+</code>, <code>hosts_reporting=8/8</code>. This is the evidentiary baseline that the March 24 authority snapshot confirmed and superseded.</p>
+          <p class="m-copy" style="margin-top:8px;font-size:0.85rem;color:var(--muted,#8ea4c7);">Historical only &mdash; superseded by 03-24-2026 authority</p>
+        </article>
+
+        <article class="m-card">
+          <div class="m-card-kicker">Historical &mdash; 2026-03-21 detection validation</div>
+          <h3>Continuous Detection Validation (03-21-2026)</h3>
+          <p class="m-copy">Automated validation suite passed 6/6 checks (100%) as of 03-21-2026: heartbeat SUCCESS, reconciliation_mismatch 0, coverage 8/8, pipeline_last_status SUCCESS, Splunk ingest proof present, Grafana proof present.</p>
+          <ul class="m-list-tight" style="margin-top:10px;">
+            <li>Grafana dashboard export: <code>proof/grafana/latest.md</code> (repo artifact)</li>
+            <li>Workflow snapshot: <code>/assets/pp_soc_integration/t3-workflow.png</code></li>
+          </ul>
+          <p class="m-copy" style="margin-top:8px;font-size:0.85rem;color:var(--muted,#8ea4c7);">Historical only &mdash; run date 03-21-2026</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 
+       SECTION 5 - SUPPORTING LINKS + VERIFICATION + TELEMETRY
+       Primary artifact links, verification path, and informational
+       telemetry widget (non-authoritative).
+        -->
+  <section id="links-and-telemetry" class="m-section">
+    <div class="m-wrap">
+      <div class="m-eyebrow">Artifacts &amp; Verification</div>
+      <h2 class="m-title" style="font-size: clamp(1.4rem, 2.5vw, 2rem);">Primary Artifacts &amp; Verification Path</h2>
+      <p class="m-copy">Clone the repository, run the public verification commands, and compare output to the committed proof artifacts. The operational strip in Section 1 reflects the latest committed proof snapshot - not a hand-maintained health claim.</p>
+
+      <div class="m-grid-2" style="margin-top:24px;">
+        <article class="m-card">
+          <div class="m-card-kicker">Proof links</div>
+          <h3>Primary artifacts</h3>
+          <ul class="m-list-tight">
+            <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">VERIFIED_COUNTS.md - detection inventory source (GitHub)</a></li>
+            <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/detection-rules/mappings/technique_map.csv" target="_blank" rel="noopener noreferrer">technique_map.csv - MITRE coverage map (GitHub)</a></li>
+            <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/docs/execution/AUTOSOC_PIPELINE_RECOVERY_PUBLIC_SNIPPETS_03-13-2026.md" target="_blank" rel="noopener noreferrer">AutoSOC pipeline recovery snippets (GitHub)</a></li>
+          </ul>
+        </article>
+
+        <article class="m-card">
+          <div class="m-card-kicker">Case study</div>
+          <h3>Full operational narrative</h3>
+          <p class="m-copy">The SignalFoundry case study covers architecture, detection design, pipeline recovery, and the full operational context behind these metrics.</p>
+          <ul class="m-list-tight" style="margin-top:10px;">
+            <li><a href="/case-study-autosoc" class="m-link-item"><strong>SignalFoundry / AutoSOC Case Study</strong><span> - full build narrative, architecture, and operational detail</span></a></li>
+            <li><a href="/detections" class="m-link-item"><strong>Detection library</strong><span> - Sigma, Wazuh, and Splunk rule browser</span></a></li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- Telemetry widget - informational only, subordinate to authority snapshot above -->
+      <div class="m-telemetry-widget" data-live-widget aria-label="Pipeline telemetry - informational only, non-authoritative" style="margin-top:36px;">
+        <div class="m-telemetry-header" style="font-size:0.82rem;color:var(--muted,#8ea4c7);margin-bottom:6px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;">
+          Telemetry Feed &mdash; Informational Only &mdash; Non-Authoritative &middot; Pipeline snapshot as of 2026-03-24
+        </div>
+        <div class="m-proof-strip" style="margin-top:4px;">
+          <div class="m-proof-inline">
+            <strong>Cases <span data-live="total_cases">49,774</span></strong>
+            <strong>Escalations <span data-live="escalations">~2,500+</span></strong>
+            <strong>Auto-close <span data-live="auto_close_rate">~89%</span></strong>
+            <strong>Snapshot <span data-live="snapshot_date">2026-03-24</span></strong>
+          </div>
+        </div>
+        <p style="font-size:0.78rem;color:var(--muted,#8ea4c7);margin-top:6px;">Source: <code>current-live.json</code> (_layer_rank 2) &mdash; non-authoritative for public claims. Reviewer-authoritative metrics are in Section 1 above.</p>
+      </div>
+    </div>
+  </section>
+
 </main>
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
     <div class="fl">
       <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
       <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
