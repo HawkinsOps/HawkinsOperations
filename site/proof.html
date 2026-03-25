@@ -378,6 +378,198 @@ body.proof-page {
     </div>
   </section>
 
+  <!-- ── VISUAL DASHBOARD ── -->
+  <section class="m-section" style="padding:0 0 48px;">
+    <div class="m-wrap">
+
+      <!-- Row 1: Gauge + Funnel -->
+      <div style="display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:start;margin-bottom:32px;">
+
+        <!-- Auto-Close Rate Gauge -->
+        <div class="sf-card" style="padding:24px;text-align:center;">
+          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Auto-Close Rate</div>
+          <svg viewBox="0 0 200 200" width="180" height="180" role="img" aria-label="Auto-close rate gauge showing approximately 89 percent" style="display:block;margin:0 auto;">
+            <title>Auto-close rate: ~89%</title>
+            <!-- Track -->
+            <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="16"/>
+            <!-- Fill: 89% of circumference (2*pi*80 = 502.65, 89% = 447.36) -->
+            <circle cx="100" cy="100" r="80" fill="none" stroke="url(#gauge-grad)" stroke-width="16"
+              stroke-dasharray="447 503" stroke-dashoffset="0" stroke-linecap="round"
+              transform="rotate(-90 100 100)" style="transition:stroke-dasharray 1.5s ease;"/>
+            <!-- Remaining (escalated): red accent -->
+            <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(251,191,36,0.3)" stroke-width="16"
+              stroke-dasharray="56 503" stroke-dashoffset="-447" stroke-linecap="round"
+              transform="rotate(-90 100 100)"/>
+            <defs>
+              <linearGradient id="gauge-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#4ade80"/>
+                <stop offset="100%" stop-color="#22c55e"/>
+              </linearGradient>
+            </defs>
+            <!-- Center text -->
+            <text x="100" y="92" text-anchor="middle" fill="#f0f6ff" style="font:800 2.8rem 'Sora',sans-serif;">~89<tspan style="font-size:1.4rem;">%</tspan></text>
+            <text x="100" y="118" text-anchor="middle" fill="var(--muted,#8ea4c7)" style="font:500 0.7rem 'JetBrains Mono',monospace;">benign auto-closed</text>
+          </svg>
+          <div style="display:flex;gap:16px;justify-content:center;margin-top:12px;font-size:0.75rem;">
+            <span style="color:#4ade80;">&#9679; Auto-closed</span>
+            <span style="color:#fbbf24;">&#9679; Escalated</span>
+          </div>
+        </div>
+
+        <!-- Case Disposition Breakdown -->
+        <div class="sf-card" style="padding:24px;">
+          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Case Disposition Breakdown</div>
+          <svg viewBox="0 0 600 160" width="100%" height="auto" role="img" aria-label="Case disposition stacked bar: auto-close, escalated, reconciled" style="display:block;">
+            <title>Case disposition breakdown</title>
+            <style>
+              .db-label { fill:#d4e0ec; font:600 12px Inter,sans-serif; }
+              .db-val { fill:#f0f6ff; font:700 16px 'Sora',sans-serif; }
+              .db-sub { fill:#8ea4c7; font:400 10px 'JetBrains Mono',monospace; }
+            </style>
+            <!-- Stacked horizontal bar -->
+            <rect x="0" y="10" width="530" height="36" rx="6" fill="rgba(74,222,128,0.18)" stroke="rgba(74,222,128,0.3)" stroke-width="0.5"/>
+            <rect x="0" y="10" width="530" height="36" rx="6" fill="rgba(74,222,128,0.06)"/>
+            <!-- Escalated portion -->
+            <rect x="530" y="10" width="65" height="36" rx="0" fill="rgba(251,191,36,0.2)" stroke="rgba(251,191,36,0.3)" stroke-width="0.5"/>
+            <!-- Top-right corner rounding -->
+            <rect x="570" y="10" width="25" height="36" rx="6" fill="rgba(251,191,36,0.2)"/>
+            <!-- Labels -->
+            <text class="db-val" x="20" y="35" style="fill:#4ade80;" data-ops="stable_auto_closed_benign">~89%</text>
+            <text class="db-label" x="85" y="35">auto-closed benign</text>
+            <text class="db-val" x="538" y="35" style="fill:#fbbf24;font-size:13px;" data-ops="stable_escalated">2,478</text>
+            <!-- Sub labels -->
+            <text class="db-sub" x="0" y="68">Policy-matched dispositions: no analyst action required</text>
+            <text class="db-sub" x="530" y="68">Escalated</text>
+
+            <!-- Detail row -->
+            <line x1="0" y1="82" x2="595" y2="82" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <text class="db-sub" x="0" y="100">Total processed</text>
+            <text class="db-val" x="120" y="101" style="font-size:14px;" data-ops="stable_total_cases">49,774</text>
+            <text class="db-sub" x="250" y="100">Reconciliation</text>
+            <text class="db-val" x="350" y="101" style="font-size:14px;fill:#71c7b8;">PASS</text>
+            <text class="db-sub" x="410" y="100">Mismatches</text>
+            <text class="db-val" x="490" y="101" style="font-size:14px;fill:#71c7b8;">0</text>
+
+            <!-- Pipeline stage flow -->
+            <line x1="0" y1="114" x2="595" y2="114" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <text class="db-sub" x="0" y="132" style="opacity:0.5;">INGEST</text>
+            <text class="db-sub" x="0" y="132" style="opacity:0.5;">&#8594;</text>
+            <text class="db-sub" x="75" y="132" style="opacity:0.5;">TRIAGE</text>
+            <text class="db-sub" x="130" y="132" style="opacity:0.5;">&#8594;</text>
+            <text class="db-sub" x="150" y="132" style="opacity:0.5;">REDACT</text>
+            <text class="db-sub" x="210" y="132" style="opacity:0.5;">&#8594;</text>
+            <text class="db-sub" x="230" y="132" style="opacity:0.5;">PACK</text>
+            <text class="db-sub" x="275" y="132" style="opacity:0.5;">&#8594;</text>
+            <text class="db-sub" x="295" y="132" style="opacity:0.5;">RECONCILE</text>
+            <text class="db-sub" x="375" y="132" style="opacity:0.5;">&#8594;</text>
+            <text class="db-sub" x="395" y="132" style="opacity:0.5;">GATE</text>
+            <text class="db-sub" x="435" y="132" style="opacity:0.5;">&#8594;</text>
+            <text class="db-sub" x="455" y="132" style="color:#3b8fd9;">PUBLISH</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Row 2: Host Coverage + Detection Inventory -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+
+        <!-- Host Coverage Grid -->
+        <div class="sf-card" style="padding:24px;">
+          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Host Coverage &mdash; <span data-ops="stable_coverage_ratio">8/8</span> Reporting</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+            <div style="text-align:center;padding:14px 8px;background:rgba(113,199,184,0.06);border:1px solid rgba(113,199,184,0.2);border-radius:10px;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#71c7b8;margin:0 auto 8px;box-shadow:0 0 8px rgba(113,199,184,0.4);"></div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#c2ccde;">wazuh-mgr</div>
+              <div style="font-size:0.6rem;color:#71c7b8;margin-top:2px;">SIEM</div>
+            </div>
+            <div style="text-align:center;padding:14px 8px;background:rgba(113,199,184,0.06);border:1px solid rgba(113,199,184,0.2);border-radius:10px;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#71c7b8;margin:0 auto 8px;box-shadow:0 0 8px rgba(113,199,184,0.4);"></div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#c2ccde;">dc01</div>
+              <div style="font-size:0.6rem;color:#71c7b8;margin-top:2px;">Domain Ctrl</div>
+            </div>
+            <div style="text-align:center;padding:14px 8px;background:rgba(113,199,184,0.06);border:1px solid rgba(113,199,184,0.2);border-radius:10px;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#71c7b8;margin:0 auto 8px;box-shadow:0 0 8px rgba(113,199,184,0.4);"></div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#c2ccde;">win10-01</div>
+              <div style="font-size:0.6rem;color:#71c7b8;margin-top:2px;">Sysmon</div>
+            </div>
+            <div style="text-align:center;padding:14px 8px;background:rgba(113,199,184,0.06);border:1px solid rgba(113,199,184,0.2);border-radius:10px;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#71c7b8;margin:0 auto 8px;box-shadow:0 0 8px rgba(113,199,184,0.4);"></div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#c2ccde;">win10-02</div>
+              <div style="font-size:0.6rem;color:#71c7b8;margin-top:2px;">Sysmon</div>
+            </div>
+            <div style="text-align:center;padding:14px 8px;background:rgba(113,199,184,0.06);border:1px solid rgba(113,199,184,0.2);border-radius:10px;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#71c7b8;margin:0 auto 8px;box-shadow:0 0 8px rgba(113,199,184,0.4);"></div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#c2ccde;">linux-web</div>
+              <div style="font-size:0.6rem;color:#71c7b8;margin-top:2px;">Web Svr</div>
+            </div>
+            <div style="text-align:center;padding:14px 8px;background:rgba(113,199,184,0.06);border:1px solid rgba(113,199,184,0.2);border-radius:10px;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#71c7b8;margin:0 auto 8px;box-shadow:0 0 8px rgba(113,199,184,0.4);"></div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#c2ccde;">linux-db</div>
+              <div style="font-size:0.6rem;color:#71c7b8;margin-top:2px;">Database</div>
+            </div>
+            <div style="text-align:center;padding:14px 8px;background:rgba(113,199,184,0.06);border:1px solid rgba(113,199,184,0.2);border-radius:10px;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#71c7b8;margin:0 auto 8px;box-shadow:0 0 8px rgba(113,199,184,0.4);"></div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#c2ccde;">honeypot</div>
+              <div style="font-size:0.6rem;color:#71c7b8;margin-top:2px;">Sensor</div>
+            </div>
+            <div style="text-align:center;padding:14px 8px;background:rgba(113,199,184,0.06);border:1px solid rgba(113,199,184,0.2);border-radius:10px;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#71c7b8;margin:0 auto 8px;box-shadow:0 0 8px rgba(113,199,184,0.4);"></div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#c2ccde;">splunk-fwd</div>
+              <div style="font-size:0.6rem;color:#71c7b8;margin-top:2px;">Forwarder</div>
+            </div>
+          </div>
+          <p style="font-size:0.7rem;color:var(--muted,#8ea4c7);margin-top:12px;opacity:0.6;">All hosts: Proxmox VMs &middot; Wazuh agent instrumented &middot; Lab environment</p>
+        </div>
+
+        <!-- Detection Inventory Chart -->
+        <div class="sf-card" style="padding:24px;">
+          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Detection Inventory &mdash; <span data-verified="detections">139</span> Total</div>
+          <!-- Sigma -->
+          <div style="margin-bottom:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+              <span style="font-size:0.82rem;color:#d4e0ec;font-weight:600;">Sigma YAML</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:#7ab8ff;font-weight:700;" data-verified="sigma">103</span>
+            </div>
+            <div style="height:8px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden;">
+              <div style="width:74%;height:100%;background:linear-gradient(90deg,rgba(122,184,255,0.4),rgba(122,184,255,0.2));border-radius:4px;"></div>
+            </div>
+          </div>
+          <!-- Wazuh -->
+          <div style="margin-bottom:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+              <span style="font-size:0.82rem;color:#d4e0ec;font-weight:600;">Wazuh Rule Blocks</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:#7ab8ff;font-weight:700;" data-verified="wazuh">28</span>
+            </div>
+            <div style="height:8px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden;">
+              <div style="width:20%;height:100%;background:linear-gradient(90deg,rgba(122,184,255,0.4),rgba(122,184,255,0.2));border-radius:4px;"></div>
+            </div>
+          </div>
+          <!-- IR -->
+          <div style="margin-bottom:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+              <span style="font-size:0.82rem;color:#d4e0ec;font-weight:600;">IR Playbooks</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:#fbbf24;font-weight:700;" data-verified="ir">10</span>
+            </div>
+            <div style="height:8px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden;">
+              <div style="width:7%;height:100%;background:linear-gradient(90deg,rgba(251,191,36,0.4),rgba(251,191,36,0.2));border-radius:4px;"></div>
+            </div>
+          </div>
+          <!-- Splunk -->
+          <div style="margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+              <span style="font-size:0.82rem;color:#d4e0ec;font-weight:600;">Splunk SPL <span style="font-size:0.68rem;opacity:0.5;">(lab)</span></span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:#4ade80;font-weight:700;" data-verified="splunk">8</span>
+            </div>
+            <div style="height:8px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden;">
+              <div style="width:6%;height:100%;background:linear-gradient(90deg,rgba(74,222,128,0.4),rgba(74,222,128,0.2));border-radius:4px;"></div>
+            </div>
+          </div>
+          <p style="font-size:0.7rem;color:var(--muted,#8ea4c7);margin-top:12px;"><a href="/detections" style="color:#7ab8ff;">Full searchable inventory &rarr;</a></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ── CANONICAL KPI LEDGER ── -->
   <section class="proof-kpi-section" aria-labelledby="kpi-heading">
     <div class="proof-kpi-header">
@@ -460,7 +652,7 @@ body.proof-page {
       <div class="m-grid-2" style="margin-top:24px;">
         <article class="m-card">
           <div class="m-card-kicker">Current authority snapshot</div>
-          <h3>AutoSOC Pipeline &mdash; Reconciliation Proof</h3>
+          <h3>SignalFoundry Pipeline &mdash; Reconciliation Proof</h3>
           <ul class="m-list-tight">
             <li><strong>Total cases processed:</strong> <span data-ops="stable_total_cases">49,774</span></li>
             <li><strong>Auto-close rate:</strong> <span data-ops="stable_auto_closed_benign">~89%</span></li>
