@@ -1,6 +1,6 @@
 # Alert Quality Scorecard
 
-- Generated (UTC): 2026-03-25T13:50:43.391Z
+- Generated (UTC): 2026-03-25T19:11:54.331Z
 - Window: lifetime_runtime_snapshot
 - Overall status: WATCH
 - Source: `data/metrics.json`
