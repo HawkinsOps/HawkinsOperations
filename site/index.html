@@ -67,22 +67,38 @@
     <!-- 
          SECTION 1: HERO - Candidate first
           -->
-    <section id="hero" class="sf-section sf-hero" aria-labelledby="hero-title" style="display:grid;grid-template-columns:1fr 420px;gap:40px;align-items:start;">
+    <section id="hero" class="sf-section sf-hero" aria-labelledby="hero-title" style="display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:start;">
+      <!-- LEFT: Name, role, core copy, CTAs -->
       <div>
         <h1 id="hero-title">Raylee Hawkins</h1>
-        <p style="font-family:'Sora','Inter',sans-serif;font-size:1.1rem;font-weight:600;color:#71c7b8;margin:0 0 16px;">SOC Analyst &amp; Detection Engineer</p>
-        <div class="sf-actions" style="margin-top:0;margin-bottom:20px;">
+        <div class="sf-role-line">
+          <span class="sf-role-tag">SOC Analyst</span>
+          <span class="sf-role-tag">Detection Engineering</span>
+          <span class="sf-role-tag">Security Automation</span>
+        </div>
+        <p style="font-family:'Sora','Inter',sans-serif;font-size:1.05rem;font-weight:700;line-height:1.5;color:#71c7b8;margin:0 0 14px;">This is a working security operations system, not a static portfolio.</p>
+        <p class="sf-body" style="line-height:1.7;margin-bottom:14px;">I design, build, and operate SignalFoundry: a production-grade detection-to-escalation pipeline across Sigma, Wazuh, and Splunk that automatically triages alerts, collects forensic evidence, and only escalates verified threats with full proof attached.</p>
+        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:14px;">In 7 months, I transitioned from factory operations into cybersecurity and built a pipeline that has processed 49,774 verified cases with <span data-verified="detections">139</span> custom detections (<span data-verified="sigma">103</span> Sigma rules, <span data-verified="wazuh">28</span> Wazuh blocks, <span data-verified="splunk">8</span> Splunk queries) while working 12-hour manufacturing shifts.</p>
+        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:14px;">Factory-trained discipline meets modern SOC automation. Every metric is real, every detection is version-controlled, and every claim is reproducible.</p>
+        <p style="font-size:0.95rem;font-weight:600;line-height:1.5;color:#71c7b8;margin:0 0 20px;">If you're looking for someone who can actually build and run detection engineering and security automation, not just talk about it, you're in the right place.</p>
+        <div class="sf-actions">
           <a class="sf-button sf-button-primary sf-focus-ring" href="/start-here">Start Here &rarr;</a>
           <a class="sf-button sf-button-secondary sf-focus-ring" href="/case-study-autosoc">SignalFoundry Case Study</a>
         </div>
-        <p class="sf-body" style="color:var(--muted)"><span data-verified="detections">139</span> detections total &middot; <span data-verified="sigma">103</span> Sigma rules &middot; <span data-verified="wazuh">28</span> Wazuh rule blocks &middot; <span data-verified="splunk">8</span> Splunk queries <span style="opacity:0.65">(home lab)</span> &middot; <span data-verified="ir">10</span> IR playbooks</p>
       </div>
-      <aside style="padding:28px;border-left:2px solid rgba(113,199,184,0.3);display:grid;gap:14px;">
-        <p style="font-family:'Sora','Inter',sans-serif;font-size:1.05rem;font-weight:700;line-height:1.4;color:#71c7b8;margin:0;">This is my living security operations portfolio, not a static resume.</p>
-        <p style="font-size:0.88rem;line-height:1.65;color:var(--text);margin:0;">I design, build, and run SignalFoundry: a production-grade detection-to-escalation pipeline on Sigma, Wazuh, and Splunk. It automatically triages alerts, collects forensic evidence, and only escalates verified threats with full proof attached.</p>
-        <p style="font-size:0.88rem;line-height:1.65;color:var(--muted);margin:0;">In just 7 months I transferred my physical operations and leadership experience into cybersecurity and built a pipeline that has processed 49,774 verified cases with <span data-verified="detections">139</span> custom detections (<span data-verified="sigma">103</span> Sigma rules, <span data-verified="wazuh">28</span> Wazuh blocks, <span data-verified="splunk">8</span> Splunk queries) while still working 12-hour factory shifts.</p>
-        <p style="font-size:0.88rem;line-height:1.65;color:var(--muted);margin:0;">Factory-trained discipline meets modern SOC automation. Every metric is real, every detection is version-controlled, and every claim is CI-verified.</p>
-        <p style="font-size:0.92rem;font-weight:600;line-height:1.5;color:#71c7b8;margin:0;">If you're looking for someone who can actually build and run detection engineering and security automation, not just talk about it, you're in the right place.</p>
+      <!-- RIGHT: Photo + credibility block -->
+      <aside style="display:grid;gap:20px;justify-items:center;">
+        <img src="/assets/headshot.jpg" alt="Raylee Hawkins" width="280" height="280" style="border-radius:50%;border:3px solid rgba(113,199,184,0.3);box-shadow:0 0 40px rgba(113,199,184,0.12);object-fit:cover;">
+        <div style="display:grid;gap:8px;width:100%;padding:18px;background:rgba(113,199,184,0.04);border:1px solid rgba(113,199,184,0.15);border-radius:12px;">
+          <div style="font-size:0.78rem;font-weight:600;color:#71c7b8;text-transform:uppercase;letter-spacing:0.08em;">At a glance</div>
+          <ul style="margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:0.84rem;color:var(--text);">
+            <li>Built from zero experience in 7 months</li>
+            <li>Production-grade detection pipeline</li>
+            <li>49,774 verified cases processed</li>
+            <li><span data-verified="detections">139</span> detections across 4 platforms</li>
+            <li>Huntsville, AL (clearance-eligible)</li>
+          </ul>
+        </div>
       </aside>
     </section>
 
