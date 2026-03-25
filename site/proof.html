@@ -362,6 +362,14 @@ body.proof-page {
         </div>
       </div>
 
+      <!-- Provenance labels required by site-runtime-contract -->
+      <ul style="font-size:0.8rem;color:var(--muted,#8ea4c7);list-style:none;padding:0;margin:0 0 20px;display:grid;gap:3px;">
+        <li><strong>Public benchmark snapshot:</strong> reviewer-authoritative values from <code>data/truth/current-authority.json</code>.</li>
+        <li><strong>Runtime snapshot:</strong> telemetry from <code>data/truth/current-live.json</code>, displayed as informational only.</li>
+        <li><strong>Generated at:</strong> <span data-ops="stable_locked_date">03-24-2026</span></li>
+        <li><strong>Source artifact:</strong> <code>site/data/truth/current-authority.json</code></li>
+      </ul>
+
       <div class="proof-hero-actions">
         <a href="/case-study-autosoc" class="btn btn-p">Full Case Study &rarr;</a>
         <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" class="btn btn-s">GitHub Repo</a>
@@ -697,12 +705,12 @@ body.proof-page {
 <template id="modal-hosts">
   <div class="proof-modal-section">
     <h4>Coverage definition</h4>
-    <p>8/8 means all 8 Wazuh-monitored lab endpoints were actively reporting telemetry at the time of the authority snapshot. Coverage is computed by the pipeline gate: if any endpoint stops reporting, coverage drops and the gate fails.</p>
+    <p>8/8 means all monitored lab endpoints were actively reporting telemetry at the time of the authority snapshot. Coverage is computed by the pipeline gate: if any endpoint stops reporting, coverage drops and the gate fails.</p>
   </div>
   <div class="proof-modal-divider"></div>
   <div class="proof-modal-section">
     <h4>Endpoint roster</h4>
-    <p>Specific host identifiers are redacted per <code>PROOF_PACK/REDACTION_RULES.md</code>. The roster below uses sanitized labels. All 8 endpoints are Proxmox VMs in the home lab environment running Wazuh agents.</p>
+    <p>Specific host identifiers are redacted per the repo redaction policy. The roster below uses sanitized labels. All endpoints are Proxmox VMs in the home lab environment.</p>
     <div class="proof-modal-host-grid">
       <div class="proof-modal-host"><span class="host-dot"></span>lab-endpoint-01 &middot; REPORTING</div>
       <div class="proof-modal-host"><span class="host-dot"></span>lab-endpoint-02 &middot; REPORTING</div>
@@ -713,7 +721,7 @@ body.proof-page {
       <div class="proof-modal-host"><span class="host-dot"></span>lab-endpoint-07 &middot; REPORTING</div>
       <div class="proof-modal-host"><span class="host-dot"></span>lab-endpoint-08 &middot; REPORTING</div>
     </div>
-    <p style="font-size:0.78rem;opacity:0.65;margin-top:8px;">Last confirmed: 2026-03-24 &middot; Identifiers redacted per REDACTION_RULES.md &middot; Lab environment only</p>
+    <p style="font-size:0.78rem;opacity:0.65;margin-top:8px;">Last confirmed: authority snapshot &middot; Identifiers redacted per repo redaction policy &middot; Lab environment only</p>
   </div>
   <div class="proof-modal-divider"></div>
   <div class="proof-modal-section">
