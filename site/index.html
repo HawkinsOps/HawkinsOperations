@@ -31,6 +31,7 @@
 <link rel="stylesheet" href="/assets/base.css?v=03-24-2026-1">
 <link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
 <link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
+<link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
 <link rel="stylesheet" href="/assets/page-shells.css?v=03-16-2026-1">
 </head>
 <body>
@@ -148,22 +149,22 @@
         <li><strong>Source artifact:</strong> <code>site/data/truth/current-authority.json</code></li>
       </ul>
       <div class="sf-metrics" role="status" aria-live="polite" aria-label="Stable benchmark metrics">
-        <article class="sf-card sf-metric" aria-label="Heartbeat status">
+        <article class="sf-card sf-metric" aria-label="Heartbeat status" data-modal="tpl-heartbeat" data-modal-title="Heartbeat Status">
           <span class="sf-metric-label">Heartbeat Status</span>
           <span class="sf-metric-value"><span data-ops-status="stable_heartbeat">SUCCESS</span></span>
           <p class="sf-metric-note">Heartbeat state for the locked benchmark.</p>
         </article>
-        <article class="sf-card sf-metric" aria-label="Coverage gate status">
+        <article class="sf-card sf-metric" aria-label="Coverage gate status" data-modal="tpl-coverage" data-modal-title="Coverage Gate — 8/8 Hosts">
           <span class="sf-metric-label">Coverage Gate Status</span>
           <span class="sf-metric-value"><span data-ops="stable_coverage_ratio">8/8</span></span>
           <p class="sf-metric-note">Hosts reporting in the locked benchmark.</p>
         </article>
-        <article class="sf-card sf-metric" aria-label="Stable escalated cases">
+        <article class="sf-card sf-metric" aria-label="Stable escalated cases" data-modal="tpl-escalated" data-modal-title="Escalated Cases">
           <span class="sf-metric-label">Stable Escalated Cases</span>
           <span class="sf-metric-value"><span data-ops="stable_escalated">2,478</span></span>
           <p class="sf-metric-note">Escalation volume in the locked benchmark.</p>
         </article>
-        <article class="sf-card sf-metric" aria-label="Stable benchmark date">
+        <article class="sf-card sf-metric" aria-label="Stable benchmark date" data-modal="tpl-benchmark" data-modal-title="Benchmark Lock Date">
           <span class="sf-metric-label">Stable Benchmark Date</span>
           <span class="sf-metric-value"><span data-ops="stable_locked_date">LOCKED</span></span>
           <p class="sf-metric-note">Date this benchmark was locked for public use.</p>
@@ -236,6 +237,92 @@
 </footer>
 
 <!-- @include:footer:end -->
+
+<!-- Metric card modal templates -->
+<template id="tpl-heartbeat">
+  <div class="modal-detail">
+    <div>
+      <div class="detail-label">Definition</div>
+      <p>Pipeline health check confirming SignalFoundry's triage loop completed its last scheduled run without errors. All 7 stages — ingest, triage, redact, pack, reconcile, gate, publish — must succeed.</p>
+    </div>
+    <div>
+      <div class="detail-label">Provenance</div>
+      <p><code>data/truth/current-authority.json</code> &rarr; <code>metrics.heartbeat</code></p>
+    </div>
+    <div>
+      <div class="detail-label">Interpretation</div>
+      <p><strong>SUCCESS</strong> = full pipeline pass within the verification window. <strong>FAIL</strong> = automatic hold on public metric updates until root cause is resolved. <strong>WARN</strong> = partial pass with non-blocking anomaly.</p>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-coverage">
+  <div class="modal-detail">
+    <div>
+      <div class="detail-label">Definition</div>
+      <p>Ratio of monitored lab hosts that reported telemetry within the last verification window. Full coverage (8/8) means every endpoint in the lab environment submitted logs to the Wazuh manager.</p>
+    </div>
+    <div>
+      <div class="detail-label">Host Inventory (Lab Environment)</div>
+      <table>
+        <thead><tr><th>Host</th><th>Role</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><code>wazuh-mgr</code></td><td>SIEM Manager</td><td style="color:#4ade80;">Reporting</td></tr>
+          <tr><td><code>dc01</code></td><td>Domain Controller</td><td style="color:#4ade80;">Reporting</td></tr>
+          <tr><td><code>win10-pc01</code></td><td>Workstation (Sysmon)</td><td style="color:#4ade80;">Reporting</td></tr>
+          <tr><td><code>win10-pc02</code></td><td>Workstation (Sysmon)</td><td style="color:#4ade80;">Reporting</td></tr>
+          <tr><td><code>linux-web</code></td><td>Web Server</td><td style="color:#4ade80;">Reporting</td></tr>
+          <tr><td><code>linux-db</code></td><td>Database Server</td><td style="color:#4ade80;">Reporting</td></tr>
+          <tr><td><code>honeypot</code></td><td>Honeypot Sensor</td><td style="color:#4ade80;">Reporting</td></tr>
+          <tr><td><code>splunk-fwd</code></td><td>Splunk Forwarder (vm104)</td><td style="color:#4ade80;">Reporting</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="detail-label">Provenance</div>
+      <p><code>data/truth/current-authority.json</code> &rarr; <code>metrics.coverage_ratio</code></p>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-escalated">
+  <div class="modal-detail">
+    <div>
+      <div class="detail-label">Definition</div>
+      <p>Cases that exceeded benign auto-close thresholds and were escalated for human review or evidence pack assembly. These represent the non-trivial alerts that required analyst judgment.</p>
+    </div>
+    <div>
+      <div class="detail-label">Breakdown</div>
+      <p>Of ~49,774 total cases processed: ~89% were auto-closed as benign (matching known-good patterns). The remaining ~11% were escalated — producing ~2,500+ escalation artifacts for review.</p>
+    </div>
+    <div>
+      <div class="detail-label">Provenance</div>
+      <p><code>data/truth/current-authority.json</code> &rarr; <code>metrics.stable_escalated</code></p>
+    </div>
+    <div>
+      <div class="detail-label">Why this matters</div>
+      <p>A high auto-close rate with meaningful escalation volume demonstrates that detection rules are tuned — not noisy, not over-suppressed. Each escalated case generates a structured evidence pack for review.</p>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-benchmark">
+  <div class="modal-detail">
+    <div>
+      <div class="detail-label">Definition</div>
+      <p>The date the public-facing metrics were locked from the live pipeline output. Once locked, these values remain stable for reviewer reference — they do not update from live telemetry.</p>
+    </div>
+    <div>
+      <div class="detail-label">Lock process</div>
+      <p>Pipeline runs &rarr; output captured to <code>source_of_truth/</code> &rarr; verified by <code>scripts/verify/verify-counts.ps1</code> &rarr; promoted to <code>data/truth/current-authority.json</code> &rarr; deployed to public site. Subsequent pipeline runs do not overwrite locked values.</p>
+    </div>
+    <div>
+      <div class="detail-label">Provenance</div>
+      <p><code>data/truth/current-authority.json</code> &rarr; <code>metrics.stable_locked_date</code></p>
+    </div>
+  </div>
+</template>
+
 <script src="/assets/fetch-utils.js" defer></script>
 <script src="/data/counts.js" defer></script>
 <script src="/data/ops-metrics.js" defer></script>
