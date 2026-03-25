@@ -64,95 +64,186 @@
     <div class="resume-sheet">
       <div class="resume-head">
         <h1>Raylee Hawkins</h1>
-        <div class="resume-headline">SOC Analyst (T1/T2) candidate focused on detection engineering and security automation</div>
+        <div class="resume-headline">SOC Analyst &middot; Detection Engineering &middot; Security Automation</div>
         <div class="resume-contact">
-          North Alabama (Huntsville-adjacent) | <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a> |
-          <a href="https://github.com/raylee-hawkins" target="_blank" rel="noopener noreferrer">GitHub</a> |
+          North Alabama (Huntsville-adjacent) | <a href="mailto:raylee@hawkinsops.com">raylee@hawkinsops.com</a> |
           <a href="https://hawkinsops.com" target="_blank" rel="noopener noreferrer">hawkinsops.com</a> |
-          <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
+          <a href="https://github.com/raylee-hawkins" target="_blank" rel="noopener noreferrer">GitHub</a> |
+          <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </div>
 
-      <div class="resume-grid">
-        <div class="resume-section">
-          <h2>Summary</h2>
-          <ul>
-            <li>Built and operate <a href="/case-study-autosoc">SignalFoundry</a>: a 7-stage SOC triage pipeline (Wazuh alerts -> escalation artifacts) with a locked public benchmark, verified reconciliation, and reviewer-facing proof. <a href="/proof">Verified.</a></li>
-            <li>Targeting T1/T2 SOC roles; strengths in detection engineering, triage consistency, and evidence-backed documentation. Operator background delivers process discipline, quality gates, and escalation hygiene under pressure.</li>
-          </ul>
-        </div>
-        <div class="resume-section">
-          <h2>Skills</h2>
-          <ul>
-            <li><b>Detection:</b> Sigma (<span data-verified="sigma">103</span> rules), Wazuh rule authoring (home lab), Splunk SPL (home lab)</li>
-            <li><b>Tooling:</b> PowerShell, Python, Git, GitHub Actions</li>
-            <li><b>Frameworks:</b> MITRE ATT&amp;CK, SOC triage workflow, incident response fundamentals</li>
-            <li><b>Lab/Validation:</b> Proxmox, Windows/Linux telemetry generation, reproducible test runs</li>
-          </ul>
-        </div>
-      </div>
-
+      <!-- SUMMARY -->
       <div class="resume-section">
-        <h2>Work History</h2>
-        <div class="resume-project">
-          <h3>Security Operations Lab - Independent Research</h3>
-          <ul>
-            <li>2025-Present | HawkinsOperations | <a href="/case-study-autosoc">SignalFoundry Case Study -></a></li>
-            <li>Built and operate SignalFoundry (AutoSOC engine): 7-stage pipeline from Wazuh alert ingest through triage, redaction, evidence pack assembly, reconciliation, and gated publish.</li>
-            <li>Authored and tuned <span data-verified="sigma">103</span> Sigma detection rules, <span data-verified="wazuh">28</span> Wazuh rule blocks, and <span data-verified="ir">10</span> IR playbooks mapped to MITRE ATT&amp;CK behaviors.</li>
-            <li>Maintained verification scripts and proof artifacts so published counts remain aligned to repository state - reconciliation PASS, 0 mismatches.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="resume-section">
-        <h2>30-Second Pitch</h2>
+        <h2>Summary</h2>
         <ul>
-          <li>I built SignalFoundry: a Wazuh-based triage pipeline that classifies alerts, redacts sensitive values, assembles evidence packs, and routes escalations - with public proof tied to reproducible repo artifacts.</li>
-          <li>I can do triage work and build tooling that makes investigations consistent. <a href="/case-study-autosoc">Full case study -></a></li>
+          <li>Transitioning from industrial operations leadership into security operations &mdash; not breaking into cyber, but applying the same process discipline, escalation rigor, and quality-gate thinking that drove outcomes on the factory floor.</li>
+          <li>Built and operate <a href="/case-study-autosoc">SignalFoundry</a>: a 7-stage triage pipeline (Wazuh &rarr; escalation artifacts) with verified public metrics, CI-gated proof, and reproducible evidence. <a href="/proof">Verified &rarr;</a></li>
+          <li>3 years Tier-1 automotive &amp; food manufacturing: team lead promotions, 30+ operator supervision, 24/7 shift operations, IATF 16949 / SQF / ISO 9001 compliance.</li>
         </ul>
       </div>
 
-      <div class="resume-section">
-        <h2>Projects</h2>
-        <div class="resume-project">
-          <h3>SignalFoundry / HawkinsOperations - <a href="/case-study-autosoc">Case Study</a> | <a href="/proof">Proof</a></h3>
+      <!-- SKILLS -->
+      <div class="resume-grid">
+        <div class="resume-section">
+          <h2>Security Skills</h2>
           <ul>
-            <li>Detection library: <span data-verified="sigma">103</span> Sigma rules, <span data-verified="wazuh_xml_files">24</span> Wazuh XML files, <span data-verified="wazuh">28</span> Wazuh rule blocks, <span data-verified="splunk">8</span> Splunk queries (home lab), <span data-verified="ir">10</span> IR playbooks - <span data-verified="detections">139</span> total detections.</li>
-            <li>Proof-first validation: scripts, documentation, and CI alignment so reviewers reproduce claims directly from repo artifacts.</li>
-            <li>Diagnosed and restored a SignalFoundry ingestion outage by separating infrastructure reachability from application logic, returning end-to-end reconciliation to SUCCESS.</li>
+            <li><b>Detection:</b> Sigma (<span data-verified="sigma">103</span> rules), Wazuh rule authoring, Splunk SPL (home lab)</li>
+            <li><b>SIEM:</b> Wazuh administration, Sysmon endpoint telemetry, alert classification</li>
+            <li><b>Scripting:</b> PowerShell, Python, Bash, GitHub Actions CI/CD</li>
+            <li><b>Frameworks:</b> MITRE ATT&amp;CK (9 tactic families), NIST CSF, SOC triage workflows</li>
+            <li><b>Infrastructure:</b> Proxmox (multi-VM), pfSense, Tailscale, ZFS, Windows/Linux</li>
+            <li><b>Evidence:</b> Proof-pack assembly, redaction, reconciliation, CI-gated verification</li>
+          </ul>
+        </div>
+        <div class="resume-section">
+          <h2>Operations Skills</h2>
+          <ul>
+            <li><b>Leadership:</b> 30+ operator supervision, shift scheduling, performance tracking</li>
+            <li><b>Quality:</b> IATF 16949, ISO 9001, SQF Ed. 9, TISAX, HACCP compliance</li>
+            <li><b>Incident Mgmt:</b> Root-cause isolation, corrective action, 4M board tracking</li>
+            <li><b>Documentation:</b> SOP authoring, pass-down communication, audit-ready records</li>
+            <li><b>Equipment:</b> Schuler 16,000 kN press, TRUMPF TruLaser, SAP, Limbe</li>
           </ul>
         </div>
       </div>
 
+      <!-- WORK HISTORY -->
+      <div class="resume-section">
+        <h2>Work History</h2>
+
+        <div class="resume-project">
+          <h3>Detection Engineer / SOC Operations &mdash; HawkinsOps <span style="font-weight:400;color:var(--dim);">(Sep 2025 &ndash; Present)</span></h3>
+          <ul>
+            <li>Built and operate <a href="/case-study-autosoc">SignalFoundry</a>: 7-stage pipeline from Wazuh alert ingest through policy-driven triage, mandatory redaction, evidence pack assembly, reconciliation, and gated publish.</li>
+            <li>Authored <span data-verified="sigma">103</span> Sigma detection rules, <span data-verified="wazuh">28</span> Wazuh rule blocks, <span data-verified="splunk">8</span> Splunk queries (home lab), and <span data-verified="ir">10</span> IR playbooks &mdash; <span data-verified="detections">139</span> total detections mapped to MITRE ATT&amp;CK.</li>
+            <li>Diagnosed and restored a pipeline ingestion outage by isolating infrastructure reachability from application logic, returning reconciliation to SUCCESS with 0 mismatches.</li>
+            <li>Reduced Splunk EventID 4688 forwarder noise from 70% to 0%; correctly classified 375 process instances as expected tool behavior during independent threat hunt.</li>
+            <li>All metrics CI-gated, publicly verifiable, and tied to reproducible repo artifacts. <a href="/proof">Proof &rarr;</a></li>
+          </ul>
+        </div>
+
+        <div class="resume-project">
+          <h3>AI Model Evaluator &mdash; Outlier / DataAnnotation <span style="font-weight:400;color:var(--dim);">(Dec 2025 &ndash; Present)</span></h3>
+          <ul>
+            <li>Technical quality review of LLM outputs: detection engineering correctness, scripting accuracy (PowerShell, Python), cybersecurity reasoning validation.</li>
+            <li>Multi-model comparison evaluation (Claude, ChatGPT, Gemini). Cross-checking and defect identification discipline.</li>
+          </ul>
+        </div>
+
+        <div class="resume-project">
+          <h3>Team Lead Supervisor &mdash; Unipres Alabama, Inc. <span style="font-weight:400;color:var(--dim);">(Mar &ndash; Dec 2025)</span></h3>
+          <p style="font-size:0.82rem;color:var(--dim);margin:0 0 6px;">Tier-1 Nissan supplier &middot; Steele, AL &middot; Hot stamp &amp; laser (safety-critical B-pillars, roof rails)</p>
+          <ul>
+            <li>Supervised 30+ operators across 24/7 rotating mandatory 12-hour shifts on Schuler PCH-Line (16,000 kN) and TRUMPF TruLaser Cell 8030.</li>
+            <li>Managed shift-level incident triage, root-cause isolation, corrective-action documentation, and structured handoff communication.</li>
+            <li>Maintained production reporting, 4M board tracking, and quality-document handling under IATF 16949 and ISO 9001.</li>
+            <li>Built HawkinsOps/SignalFoundry during mandatory 12-hour shifts at this role.</li>
+            <li>Left voluntarily to pursue cybersecurity full-time.</li>
+          </ul>
+        </div>
+
+        <div class="resume-project">
+          <h3>Team Lead &mdash; Fehrer Automotive North America <span style="font-weight:400;color:var(--dim);">(Jan 2024 &ndash; Feb 2025)</span></h3>
+          <p style="font-size:0.82rem;color:var(--dim);margin:0 0 6px;">Tier-1 Mercedes / BMW / VW / Tesla &middot; Gadsden, AL &middot; Foam production</p>
+          <ul>
+            <li><strong>Promoted from second-shift operator to third-shift Team Lead in under 3 months</strong> &mdash; approached by management, not applied for.</li>
+            <li>Led A, B, and I production lines (~20+ operators, ~5,400+ combined parts per shift).</li>
+            <li>Managed operator assignment by skill level, workload balancing, attendance-gap staffing, rework, downtime, and shift performance tracking.</li>
+            <li>Operated under IATF 16949, TISAX, and ISO 14001 in SAP/Limbe JIT production environment.</li>
+          </ul>
+        </div>
+
+        <div class="resume-project">
+          <h3>Quality Control &mdash; Carrington Foods <span style="font-weight:400;color:var(--dim);">(Previous)</span></h3>
+          <p style="font-size:0.82rem;color:var(--dim);margin:0 0 6px;">Tier-1 U.S. Armed Forces supplier &middot; Saraland, AL &middot; SQF Ed. 9 "Excellent" / Platinum Award</p>
+          <ul>
+            <li>HACCP compliance monitoring across critical control points in 65&deg;F cold-chain environment.</li>
+            <li>Thermal verification, audit readiness, SOP documentation.</li>
+            <li>Considered for promotion to head quality role based on performance. Left due to relocation.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TRANSFERABLE SKILLS -->
+      <div class="resume-section">
+        <h2>Transferable Skills &mdash; Manufacturing &rarr; Security</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.88rem;">
+          <div style="padding:12px;border-left:2px solid #fbbf24;">
+            <strong style="color:var(--text);">Incident triage under pressure</strong>
+            <p style="margin:4px 0 0;color:var(--dim);">Production floor fault isolation &rarr; SOC alert classification and escalation</p>
+          </div>
+          <div style="padding:12px;border-left:2px solid #fbbf24;">
+            <strong style="color:var(--text);">Shift-handoff discipline</strong>
+            <p style="margin:4px 0 0;color:var(--dim);">24/7 pass-down communication &rarr; SOC ticket continuity and coverage control</p>
+          </div>
+          <div style="padding:12px;border-left:2px solid #3b8fd9;">
+            <strong style="color:var(--text);">Quality-gate enforcement</strong>
+            <p style="margin:4px 0 0;color:var(--dim);">IATF/ISO/SQF compliance &rarr; CI-gated verification, proof-control artifacts</p>
+          </div>
+          <div style="padding:12px;border-left:2px solid #3b8fd9;">
+            <strong style="color:var(--text);">Root-cause isolation</strong>
+            <p style="margin:4px 0 0;color:var(--dim);">Production troubleshooting &rarr; Infrastructure vs. application fault diagnosis</p>
+          </div>
+          <div style="padding:12px;border-left:2px solid #4ade80;">
+            <strong style="color:var(--text);">Documentation rigor</strong>
+            <p style="margin:4px 0 0;color:var(--dim);">SOP authoring, audit-ready records &rarr; Evidence-pack assembly, case studies</p>
+          </div>
+          <div style="padding:12px;border-left:2px solid #4ade80;">
+            <strong style="color:var(--text);">Team leadership under stress</strong>
+            <p style="margin:4px 0 0;color:var(--dim);">30+ operators, mandatory 12-hr shifts &rarr; Calm execution under incident pressure</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- REFERENCE -->
+      <div class="resume-section">
+        <h2>What My Reference Says</h2>
+        <div style="border-left:3px solid #3b8fd9;padding:12px 16px;font-size:0.9rem;color:var(--muted);font-style:italic;">
+          "Raylee does not just learn tools &mdash; she builds around systems. Systems thinking is evident in endpoint telemetry, alert handling, validation steps, and supporting documentation. She takes technical ideas, expands them, and turns them into complete systems."
+        </div>
+        <p style="font-size:0.82rem;color:var(--dim);margin-top:6px;">&mdash; <strong>Josh Carlton</strong>, IT Manager, Unipres Alabama (25-year IT veteran). Donated dual Tesla V100 GPUs for portfolio infrastructure. Full reference letter available.</p>
+      </div>
+
+      <!-- CERTIFICATIONS -->
+      <div class="resume-section">
+        <h2>Certifications &amp; Training</h2>
+        <ul>
+          <li><b>Anthropic MCP Certification</b> &mdash; Model Context Protocol (2026)</li>
+          <li><b>Anthropic Claude API Certification</b> &mdash; API integration (2026)</li>
+          <li><b>Anthropic Claude Code Certification</b> &mdash; Code-focused AI operations (2026)</li>
+          <li><b>CompTIA Security+ (SY0-701)</b> &mdash; Exam-ready, scheduling Q2 2026</li>
+          <li><b>Forklift Safety Certification</b> &mdash; Unipres Alabama (2025)</li>
+        </ul>
+      </div>
+
+      <!-- EDUCATION -->
       <div class="resume-section">
         <h2>Education</h2>
         <ul>
-          <li>Competency-based, evidence-backed cybersecurity training through hands-on SOC operations, documented case studies, and reproducible portfolio artifacts.</li>
+          <li><b>High School Diploma</b> &mdash; Gadsden City High School, 2021</li>
+          <li>Self-directed cybersecurity training through hands-on SOC operations, documented case studies, and reproducible portfolio artifacts. No bootcamp.</li>
         </ul>
       </div>
 
-      <div class="resume-section">
-        <h2>Certifications</h2>
-        <ul>
-          <li>CompTIA Security+ (SY0-701) - In progress (Exam scheduled: April 2026)</li>
-          <li>ISC2 Certified in Cybersecurity (CC) - In progress (Exam scheduled: March 2026)</li>
-        </ul>
-      </div>
-
-      <div class="resume-section">
-        <h2>Additional</h2>
-        <ul>
-          <li>"Eligible to obtain clearance; willing to pursue sponsorship.</li>
-        </ul>
-      </div>
-
-      <div class="resume-section">
-        <h2>Review the Work</h2>
-        <ul>
-          <li><a href="/case-study-autosoc">SignalFoundry Case Study</a> - full system architecture, triage logic, outputs, and recovery model.</li>
-          <li><a href="/proof">Proof &amp; Verified Metrics</a> - stable benchmark, evidence trail, and verification path.</li>
-        </ul>
+      <!-- COMMUNITY & CLEARANCE -->
+      <div class="resume-grid">
+        <div class="resume-section">
+          <h2>Community</h2>
+          <ul>
+            <li>NAC-ISSA member</li>
+            <li>InfraGard participant</li>
+            <li>Huntsville cyber network</li>
+          </ul>
+        </div>
+        <div class="resume-section">
+          <h2>Additional</h2>
+          <ul>
+            <li>Eligible to obtain clearance; willing to pursue sponsorship.</li>
+            <li><a href="/case-study-autosoc">SignalFoundry Case Study &rarr;</a></li>
+            <li><a href="/proof">Proof &amp; Verified Metrics &rarr;</a></li>
+          </ul>
+        </div>
       </div>
 
       <div class="resume-download">
