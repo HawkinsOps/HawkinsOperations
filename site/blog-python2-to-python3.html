@@ -23,8 +23,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <script>document.documentElement.setAttribute('data-theme', 'dark');</script>
 <link rel="stylesheet" href="/assets/styles.css">
-<link rel="stylesheet" href="/assets/modernize.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -94,9 +94,9 @@
       <h2 style="margin-bottom:8px">How to validate the migration</h2>
       <p><b>Unit tests:</b> Cover parser edge cases: malformed fields, missing values, empty files, high-ASCII characters, and unusual delimiters.</p>
       <p><b>Sample log replay:</b> Use captured event samples from known incidents and benign background noise. Your migration is only real if both paths handle real data.</p>
-      <p><b>Output contract checks:</b> Validate schema, field names, date formats, and count totals. Detection output should not “look close.” It should match expected contracts.</p>
+      <p><b>Output contract checks:</b> Validate schema, field names, date formats, and count totals. Detection output should not "look close. It should match expected contracts.</p>
       <p><b>SOC workflow checks:</b> Confirm that saved searches, dashboards, and triage playbooks still consume output fields without manual patching.</p>
-      <p>For this repo’s style of verification, I prefer command-level reproducibility: scripts that anyone can run and compare against committed expected artifacts.</p>
+      <p>For this repo's style of verification, I prefer command-level reproducibility: scripts that anyone can run and compare against committed expected artifacts.</p>
     </div>
 
     <div style="height:14px"></div>
@@ -104,7 +104,7 @@
       <h2 style="margin-bottom:8px">Government and legacy environment realities</h2>
       <p>In legacy-heavy programs, migration is frequently constrained by hard policy and accreditation timelines. The practical approach is to stage the work: keep interfaces stable, migrate internals first, and publish clear delta notes for every behavior change. This keeps mission owners informed while reducing technical debt safely.</p>
       <p>Another practical lesson: migrations should be tied to incident-response outcomes, not language purity. If Python 3 migration reduces analyst confusion, lowers false-positive handling time, and makes automation less fragile, that is operational value leadership can support.</p>
-      <p>Finally, treat migration as repeatable engineering, not heroics. A small migration playbook, reproducible tests, and transparent reporting will outperform one-time “big bang” rewrites every time.</p>
+      <p>Finally, treat migration as repeatable engineering, not heroics. A small migration playbook, reproducible tests, and transparent reporting will outperform one-time "big bang rewrites every time.</p>
     </div>
 
     <div style="height:14px"></div>
@@ -115,7 +115,7 @@
 <!-- @include:footer:start -->
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
     <div class="fl">
       <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
       <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>

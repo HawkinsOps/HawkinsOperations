@@ -23,8 +23,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <script>document.documentElement.setAttribute('data-theme', 'dark');</script>
 <link rel="stylesheet" href="/assets/styles.css">
-<link rel="stylesheet" href="/assets/modernize.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -60,11 +60,11 @@
   <div class="ctr" style="max-width:920px">
     <div class="slbl">Case Study</div>
     <h1 class="stitle">Building and Validating <span data-verified="wazuh">28</span> Wazuh Rule Blocks</h1>
-    <p class="sdesc"><span data-verified="wazuh">28</span> rule blocks across <span data-verified="wazuh_xml_files">24</span> XML files — authored for SOC triage patterns, bundled for deployment, and validated with reproducible commands from repo root.</p>
+    <p class="sdesc"><span data-verified="wazuh">28</span> rule blocks across <span data-verified="wazuh_xml_files">24</span> XML files - authored for SOC triage patterns, bundled for deployment, and validated with reproducible commands from repo root.</p>
 
     <div class="card" style="margin-bottom:14px">
       <h2 class="card-ttl">Context</h2>
-      <p class="card-sub">The Wazuh rules in this portfolio are not copies of community defaults. They target specific detection gaps identified during lab triage — RDP brute force patterns, PowerShell encoded command execution, suspicious scheduled task creation, and Windows process anomalies. Each rule was authored to generate actionable alerts that map directly to IR playbook decision points.</p>
+      <p class="card-sub">The Wazuh rules in this portfolio are not copies of community defaults. They target specific detection gaps identified during lab triage - RDP brute force patterns, PowerShell encoded command execution, suspicious scheduled task creation, and Windows process anomalies. Each rule was authored to generate actionable alerts that map directly to IR playbook decision points.</p>
     </div>
 
     <div class="card" style="margin-bottom:14px">
@@ -80,7 +80,7 @@
             <li>Identify detection gaps by reviewing alert volume during normal lab operation and noting which attack patterns produced no alerts.</li>
             <li>Author XML rules under <code>content/detection-rules/wazuh/rules/</code>, each with a descriptive <code>description</code> field and a <code>mitre</code> mapping where applicable.</li>
             <li>Build deployment bundles with <code>scripts/build-wazuh-bundle.ps1</code> to ensure rules are packaged consistently.</li>
-            <li>Count files and <code>&lt;rule id=</code> blocks separately — file count and rule block count diverge because some XML files contain multiple rules.</li>
+            <li>Count files and <code>&lt;rule id=</code> blocks separately - file count and rule block count diverge because some XML files contain multiple rules.</li>
             <li>Run representative alert simulations (e.g., encoded PowerShell commands on the primary endpoint) and verify generated alerts appear in Wazuh dashboards.</li>
           </ol>
         </div>
@@ -109,10 +109,10 @@ pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1</pre>
       <div class="card-sub">
         <p>The rule source files, bundle script, and verification outputs are all in the public repo:</p>
         <ul style="padding-left:18px;margin:8px 0 0">
-          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/detection-rules/wazuh/rules" target="_blank" rel="noopener noreferrer">Wazuh rules directory</a> — <span data-verified="wazuh_xml_files">24</span> XML files</li>
+          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/detection-rules/wazuh/rules" target="_blank" rel="noopener noreferrer">Wazuh rules directory</a> - <span data-verified="wazuh_xml_files">24</span> XML files</li>
           <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/scripts/build-wazuh-bundle.ps1" target="_blank" rel="noopener noreferrer">Bundle build script</a></li>
-          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">VERIFIED_COUNTS.md</a> — locked counts</li>
-          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/scripts/verify/verify-counts.ps1" target="_blank" rel="noopener noreferrer">verify-counts.ps1</a> — run to reproduce</li>
+          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">VERIFIED_COUNTS.md</a> - locked counts</li>
+          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/scripts/verify/verify-counts.ps1" target="_blank" rel="noopener noreferrer">verify-counts.ps1</a> - run to reproduce</li>
         </ul>
         <p style="margin-top:10px;font-size:.82rem;color:var(--faint)">Lab screenshots of alert firing are available on request. Dashboard images are withheld to avoid exposing internal Wazuh indexer configuration.</p>
       </div>
@@ -125,7 +125,7 @@ pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1</pre>
           <ul style="padding-left:18px;margin:0">
             <li><span data-verified="wazuh">28</span> rule blocks active and verified against <code>VERIFIED_COUNTS.md</code>.</li>
             <li>Rule set covers: RDP brute force, encoded PowerShell, suspicious schtasks, process anomalies, and file integrity changes.</li>
-            <li>Bundle script produces a deployable archive — no manual assembly required.</li>
+            <li>Bundle script produces a deployable archive - no manual assembly required.</li>
             <li>Verification runs in under 10 seconds from repo root.</li>
           </ul>
         </div>
@@ -161,7 +161,7 @@ pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1</pre>
 <!-- @include:footer:start -->
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
     <div class="fl">
       <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
       <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>

@@ -216,15 +216,46 @@
   }
 
   async function loadOpsMetrics() {
+    // Preload baseline from inline script (ops-metrics.js) - may carry stale data, overridden below
     if (window.HAWKINSOPS_OPS_METRICS && typeof window.HAWKINSOPS_OPS_METRICS === 'object') {
       applyOpsMetricsPayload(window.HAWKINSOPS_OPS_METRICS);
     }
+    // Primary authority source: current-authority.json (verified_snapshot, tier 1)
+    try {
+      const payload = await fetchJsonWithFallback('/data/truth/current-authority.json', OPS_TIMEOUT_MS);
+      if (payload && typeof payload === 'object') {
+        applyOpsMetricsPayload(payload);
+        return;
+      }
+    } catch { /* fall through to legacy fallback */ }
+    // Fallback only: ops-metrics.json (used if authority fetch fails)
     try {
       const payload = await fetchJsonWithFallback('/assets/data/ops-metrics.json', OPS_TIMEOUT_MS);
       applyOpsMetricsPayload(payload);
     } catch {
-      // keep existing values if the payload is unavailable
+      // keep existing values if all payloads are unavailable
     }
+  }
+
+  async function loadLiveWidget() {
+    var liveContainers = $$('[data-live-widget]');
+    if (!liveContainers.length) return;
+    try {
+      var payload = await fetchJsonWithFallback('/data/truth/current-live.json', OPS_TIMEOUT_MS);
+      if (!payload || typeof payload !== 'object') return;
+      var live = (payload.pipeline_runtime && typeof payload.pipeline_runtime === 'object')
+        ? payload.pipeline_runtime : payload;
+      liveContainers.forEach(function (container) {
+        $$('[data-live]', container).forEach(function (node) {
+          var key = node.getAttribute('data-live');
+          if (!key) return;
+          var value = live[key];
+          if (value !== undefined && value !== null) {
+            node.textContent = String(formatMetricValue(value));
+          }
+        });
+      });
+    } catch { /* non-critical - live widget is informational only */ }
   }
 
   async function imageExists(src) {
@@ -405,6 +436,7 @@
 
   loadVerifiedCounts();
   loadOpsMetrics();
+  loadLiveWidget();
   hydrateLabScreenshots();
 
   // DEV-only overflow detector: local hosts only.

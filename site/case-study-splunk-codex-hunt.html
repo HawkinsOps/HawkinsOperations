@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title>HawkinsOps | When AI Tooling Looks Like a LOLBin: Splunk Process Hunt</title>
-<meta name="description" content="A live Splunk threat hunting session on EventID 4688 process creation data. Found codex.exe spawning pwsh.exe 375 times per session — indistinguishable from LOLBin abuse until the parent process path told the real story.">
+<meta name="description" content="A live Splunk threat hunting session on EventID 4688 process creation data. Found codex.exe spawning pwsh.exe 375 times per session - indistinguishable from LOLBin abuse until the parent process path told the real story.">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07070b">
@@ -21,8 +21,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <script>document.documentElement.setAttribute('data-theme', 'dark');</script>
 <link rel="stylesheet" href="/assets/styles.css">
-<link rel="stylesheet" href="/assets/modernize.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 </head>
 <body>
 <nav>
@@ -55,12 +55,12 @@
 <section style="padding-top:110px">
   <div class="ctr" style="max-width:900px">
 
-    <div class="slbl">Threat hunting · Detection engineering</div>
+    <div class="slbl">Threat hunting | Detection engineering</div>
     <h1 class="stitle">When AI tooling looks like a LOLBin: a Splunk process hunt on EventID 4688</h1>
     <p class="sdesc">
       A live hunting session on Windows process creation logs found <code>pwsh.exe</code> being spawned hundreds of times from an unexpected parent.
       The initial signal looked indistinguishable from Living-off-the-Land PowerShell abuse.
-      The investigation path — and the exclusion logic that came out of it — is the detection engineering artifact.
+      The investigation path - and the exclusion logic that came out of it - is the detection engineering artifact.
     </p>
 
     <div style="height:20px"></div>
@@ -70,7 +70,7 @@
       <h2 class="card-ttl">Problem statement</h2>
       <div class="card-sub">
         <p>The goal was straightforward: validate Windows <code>EventID 4688</code> (process creation) telemetry in Splunk and build analyst-ready process pivot views.</p>
-        <p style="margin-top:10px">The first query returned 41 grouped process rows. The top entry by volume was <code>splunk-powershell.exe</code> from the Universal Forwarder — infrastructure noise, not analyst signal. That was expected and filtered first.</p>
+        <p style="margin-top:10px">The first query returned 41 grouped process rows. The top entry by volume was <code>splunk-powershell.exe</code> from the Universal Forwarder - infrastructure noise, not analyst signal. That was expected and filtered first.</p>
         <p style="margin-top:10px">After removing forwarder self-activity, the next highest-volume entry was this:</p>
         <pre class="term-b" style="margin-top:14px;">NewProcessName:   pwsh.exe
 ParentProcessName: [unexpected deep path]
@@ -103,7 +103,7 @@ Count:            1,840</pre>
     <div class="card">
       <h2 class="card-ttl">Investigation path</h2>
       <div class="card-sub">
-        <p><strong>Step 1 — Pull the full parent process path.</strong></p>
+        <p><strong>Step 1 - Pull the full parent process path.</strong></p>
         <p style="margin-top:8px">The abbreviated display name in the grouped stats view was not enough to classify. The investigation pivoted to the raw field to get the complete executable path:</p>
         <pre class="term-b" style="margin-top:12px;">index=windows sourcetype=XmlWinEventLog:Security
 | rex field=_raw "&lt;EventID&gt;(?&lt;EventID&gt;\d+)&lt;/EventID&gt;"
@@ -113,17 +113,17 @@ Count:            1,840</pre>
 | stats count by NewProcessName ParentProcessName
 | sort - count</pre>
 
-        <p style="margin-top:14px"><strong>Step 2 — Evaluate the full path.</strong></p>
-        <p style="margin-top:8px">The parent process resolved to the full executable path of the OpenAI Codex CLI tool — a Node.js-based AI coding assistant installed via npm:</p>
+        <p style="margin-top:14px"><strong>Step 2 - Evaluate the full path.</strong></p>
+        <p style="margin-top:8px">The parent process resolved to the full executable path of the OpenAI Codex CLI tool - a Node.js-based AI coding assistant installed via npm:</p>
         <pre class="term-b" style="margin-top:12px;">[npm_modules_path]\@openai\codex\...\codex-win32-x64\vendor\...\codex.exe</pre>
-        <p style="margin-top:10px">This is a known, versioned, published software package. The path is deterministic — it lives inside the npm module tree under a user's AppData directory, not in a temp folder, system directory, or path used by commodity malware loaders.</p>
+        <p style="margin-top:10px">This is a known, versioned, published software package. The path is deterministic - it lives inside the npm module tree under a user's AppData directory, not in a temp folder, system directory, or path used by commodity malware loaders.</p>
 
-        <p style="margin-top:14px"><strong>Step 3 — Correlate spawn count to tool behavior.</strong></p>
-        <p style="margin-top:8px">The Codex CLI operates by spawning <code>pwsh.exe</code> to execute shell commands on behalf of the AI agent. Each tool call — file write, git command, script run — generates one or more process creation events. A coding session running dozens of operations over hours produces exactly this kind of volume.</p>
+        <p style="margin-top:14px"><strong>Step 3 - Correlate spawn count to tool behavior.</strong></p>
+        <p style="margin-top:8px">The Codex CLI operates by spawning <code>pwsh.exe</code> to execute shell commands on behalf of the AI agent. Each tool call - file write, git command, script run - generates one or more process creation events. A coding session running dozens of operations over hours produces exactly this kind of volume.</p>
         <p style="margin-top:10px">The pattern was also present in the secondary spawner chain:</p>
-        <pre class="term-b" style="margin-top:12px;">codex.exe             → codex-windows-sandbox-setup.exe  (465 events)
-codex-command-runner  → pwsh.exe                          (407 events)
-codex.exe             → git.exe                           (427 events)</pre>
+        <pre class="term-b" style="margin-top:12px;">codex.exe -> codex-windows-sandbox-setup.exe  (465 events)
+codex-command-runner -> pwsh.exe                          (407 events)
+codex.exe -> git.exe                           (427 events)</pre>
         <p style="margin-top:10px">This is the normal execution tree for an AI coding tool running in sandboxed mode. The whole process family traces back to a single known origin.</p>
 
         <p style="margin-top:14px"><strong>Classification decision: expected tool behavior.</strong></p>
@@ -146,7 +146,7 @@ codex.exe             → git.exe                           (427 events)</pre>
 
         <div class="g2" style="margin-top:16px;gap:16px">
           <div style="background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:16px">
-            <div style="color:#94a3b8;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">Before — with noise</div>
+            <div style="color:#94a3b8;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">Before - with noise</div>
             <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;line-height:1.8">
               <div>Grouped rows: <span style="color:#f87171">41</span></div>
               <div>Total count: <span style="color:#f87171">220</span></div>
@@ -155,7 +155,7 @@ codex.exe             → git.exe                           (427 events)</pre>
             </div>
           </div>
           <div style="background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:16px">
-            <div style="color:#94a3b8;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">After — analyst view</div>
+            <div style="color:#94a3b8;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">After - analyst view</div>
             <div style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;line-height:1.8">
               <div>Grouped rows: <span style="color:#4ade80">20</span></div>
               <div>Total count: <span style="color:#4ade80">78</span></div>
@@ -165,7 +165,7 @@ codex.exe             → git.exe                           (427 events)</pre>
           </div>
         </div>
 
-        <p style="margin-top:16px">The resulting view shows analyst-relevant process behavior: expected system activity and user applications. The AI tool process family is excluded by a documented, reproducible filter — not silently dropped.</p>
+        <p style="margin-top:16px">The resulting view shows analyst-relevant process behavior: expected system activity and user applications. The AI tool process family is excluded by a documented, reproducible filter - not silently dropped.</p>
 
         <p style="margin-top:12px">The exclusion logic is explicit and reviewable:</p>
         <pre class="term-b" style="margin-top:12px;">| search NOT (NewProcessName="*SplunkUniversalForwarder*"
@@ -173,7 +173,7 @@ codex.exe             → git.exe                           (427 events)</pre>
 | search NOT (ParentProcessName="*\\@openai\\codex\\*"
          OR ParentProcessName="*codex-command-runner*"
          OR ParentProcessName="*codex-windows-sandbox-setup*")</pre>
-        <p style="margin-top:10px">The filter is scoped to known, versioned tool paths. It does not suppress all <code>pwsh.exe</code> spawns from non-standard parents — only the ones that trace to the specific verified origin. A real malicious spawner would not match this path and would remain visible.</p>
+        <p style="margin-top:10px">The filter is scoped to known, versioned tool paths. It does not suppress all <code>pwsh.exe</code> spawns from non-standard parents - only the ones that trace to the specific verified origin. A real malicious spawner would not match this path and would remain visible.</p>
       </div>
     </div>
 
@@ -183,7 +183,7 @@ codex.exe             → git.exe                           (427 events)</pre>
     <div class="card">
       <h2 class="card-ttl">Why this matters for detection engineering</h2>
       <div class="card-sub">
-        <p>AI-assisted coding tools are entering enterprise environments now. Security teams writing detection rules for LOLBin abuse — rules that correctly fire on <em>any non-standard parent spawning PowerShell</em> — will start seeing this pattern in production logs.</p>
+        <p>AI-assisted coding tools are entering enterprise environments now. Security teams writing detection rules for LOLBin abuse - rules that correctly fire on <em>any non-standard parent spawning PowerShell</em> - will start seeing this pattern in production logs.</p>
         <p style="margin-top:10px">If the analyst has not encountered this process family before, the alert looks real. The volume looks suspicious. The parent name is unfamiliar. It will generate false positives, alert fatigue, or a missed escalation depending on how the rule is tuned.</p>
         <p style="margin-top:10px">The detection engineering response is not "add it to a global exclusion list." It is:</p>
         <ol style="padding-left:18px;margin-top:10px;line-height:1.9">
@@ -200,7 +200,7 @@ codex.exe             → git.exe                           (427 events)</pre>
 
     <!-- FULL SPL -->
     <div class="card">
-      <h2 class="card-ttl">Complete SPL — base query and analyst view</h2>
+      <h2 class="card-ttl">Complete SPL - base query and analyst view</h2>
       <div class="card-sub">
         <p style="margin-bottom:12px"><strong>Base grouped query (all process creation, with noise):</strong></p>
         <pre class="term-b">index=windows sourcetype=XmlWinEventLog:Security
@@ -262,7 +262,7 @@ codex.exe             → git.exe                           (427 events)</pre>
 
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Eligible to obtain clearance; willing to pursue sponsorship.</p>
+    <p><b>HawkinsOps</b> | Eligible to obtain clearance; willing to pursue sponsorship.</p>
     <div class="fl">
       <a href="/resume">Resume</a>
       <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer">GitHub</a>

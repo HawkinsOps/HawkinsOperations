@@ -1,19 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>HawkinsOps | Case Study: Wazuh Detection Harness — Automated Alert Validation</title>
+<title>HawkinsOps | Case Study: Wazuh Detection Harness - Automated Alert Validation</title>
 <meta name="description" content="Python harness that queries Wazuh Indexer REST API after Atomic Red Team tests to validate expected detections fired. Pass/fail reports per ATT&CK technique with evidence artifacts.">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07070b">
 <link rel="canonical" href="https://hawkinsops.com/case-study-detection-harness">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Case Study | Wazuh Detection Harness — Automated Alert Validation per ATT&CK Technique">
+<meta property="og:title" content="Case Study | Wazuh Detection Harness - Automated Alert Validation per ATT&CK Technique">
 <meta property="og:description" content="Python harness that queries Wazuh Indexer REST API after Atomic Red Team tests. Pass/fail reports, evidence artifacts, and a detection gap discovery process.">
 <meta property="og:url" content="https://hawkinsops.com/case-study-detection-harness">
 <meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/t5-proxmox-redacted.png?v=02-20-2026-1">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Case Study | Wazuh Detection Harness — Automated Alert Validation">
+<meta name="twitter:title" content="Case Study | Wazuh Detection Harness - Automated Alert Validation">
 <meta name="twitter:description" content="Python harness for ATT&CK-mapped detection validation. Queries live Wazuh Indexer, produces evidence artifacts, exposes detection gaps.">
 <meta name="twitter:image" content="https://hawkinsops.com/assets/pp_soc_integration/t5-proxmox-redacted.png?v=02-20-2026-1">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -23,8 +23,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <script>document.documentElement.setAttribute('data-theme', 'dark');</script>
 <link rel="stylesheet" href="/assets/styles.css">
-<link rel="stylesheet" href="/assets/modernize.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -62,7 +62,7 @@
     <div class="slbl">Detection engineering</div>
     <h1 class="stitle">Wazuh Detection Harness: automated alert validation per ATT&amp;CK technique</h1>
     <p class="sdesc">
-      A Python tool that queries the Wazuh Indexer REST API after Atomic Red Team tests and tells you — per technique — whether your detection rules actually fired.
+      A Python tool that queries the Wazuh Indexer REST API after Atomic Red Team tests and tells you - per technique - whether your detection rules actually fired.
       Not "does the rule exist in the config." Does it produce an alert when the attack runs.
       That's a different question. This harness answers it.
     </p>
@@ -74,7 +74,7 @@
         The logsource might not match. The Sysmon config might not capture the required event.
         The agent might not have the right policy. None of that is visible from the rule file alone.
         The only way to know a detection works is to trigger the attack, look for the alert, and document whether it appeared.
-        This harness automates that verification step — write a YAML spec, run the harness, get a pass/fail report with evidence artifacts for every test.
+        This harness automates that verification step - write a YAML spec, run the harness, get a pass/fail report with evidence artifacts for every test.
       </p>
     </div>
 
@@ -86,11 +86,11 @@
         <div class="card-sub">
           <ul style="padding-left:18px">
             <li><b>Language:</b> Python 3</li>
-            <li><b>Input:</b> <code>expected_detections.yaml</code> — per-test specs with rule ID, rule groups, MITRE technique IDs, and must-contain strings</li>
-            <li><b>Query target:</b> Wazuh Indexer (OpenSearch) via REST API — <code>wazuh-alerts-4.x-*</code> index</li>
+            <li><b>Input:</b> <code>expected_detections.yaml</code> - per-test specs with rule ID, rule groups, MITRE technique IDs, and must-contain strings</li>
+            <li><b>Query target:</b> Wazuh Indexer (OpenSearch) via REST API - <code>wazuh-alerts-4.x-*</code> index</li>
             <li><b>Auth:</b> environment variables (<code>WAZUH_INDEXER_HOST</code>, <code>WAZUH_INDEXER_USER</code>, <code>WAZUH_INDEXER_PASS</code>)</li>
             <li><b>Output:</b> timestamped run folder with <code>report.md</code>, <code>matches.json</code>, <code>query_debug.json</code></li>
-            <li><b>Exit code:</b> non-zero if any expected detection fails — CI-compatible</li>
+            <li><b>Exit code:</b> non-zero if any expected detection fails - CI-compatible</li>
           </ul>
         </div>
       </div>
@@ -134,14 +134,14 @@ export WAZUH_INDEXER_USER='admin'
 export WAZUH_INDEXER_PASS='[REDACTED_INTERNAL]'
 export WAZUH_TLS_INSECURE='true'
 
-# From project root — runs Atomic tests on the endpoint first,
+# From project root - runs Atomic tests on the endpoint first,
 # then call the harness to check whether detections fired:
 ./scripts/new_run.sh
 
 # Output: run_02-19-2026_HHMMSS/
-#   report.md        — pass/fail per technique
-#   matches.json     — raw alert matches
-#   query_debug.json — exact OpenSearch queries sent</pre>
+#   report.md        - pass/fail per technique
+#   matches.json     - raw alert matches
+#   query_debug.json - exact OpenSearch queries sent</pre>
       </div>
     </div>
 
@@ -162,10 +162,10 @@ Result: 0/3 PASS
         <p style="margin-top:12px">
           <b>0/3 PASS is useful information.</b> It tells you the lookback window was too narrow, the Atomic test artifacts didn't match the detection logic, or the Sysmon/agent config isn't capturing these events.
           That's a detection gap analysis, not a failure.
-          A SOC that can run this harness and get 0/3 is in a better position than a SOC with no harness — because it now knows specifically where coverage is missing.
+          A SOC that can run this harness and get 0/3 is in a better position than a SOC with no harness - because it now knows specifically where coverage is missing.
         </p>
         <p style="margin-top:10px">
-          The SOC report from the same sprint (a separate detection validation tool) achieved 1/5 PASS — T1110 password guessing fired rule 60204 on the primary Windows endpoint at exactly <code>2026-02-19T02:20:25.678+0000</code>, alert ID <code>1771467625.2810738</code>. That match was captured and preserved.
+          The SOC report from the same sprint (a separate detection validation tool) achieved 1/5 PASS - T1110 password guessing fired rule 60204 on the primary Windows endpoint at exactly <code>2026-02-19T02:20:25.678+0000</code>, alert ID <code>1771467625.2810738</code>. That match was captured and preserved.
         </p>
       </div>
     </div>
@@ -183,19 +183,19 @@ Result: 0/3 PASS
             <li>The harness exists and is runnable</li>
             <li>The spec is version-controlled and reproducible</li>
             <li>The run artifacts are timestamped and preserved</li>
-            <li>The gaps are now addressable — tune detection rules and re-run</li>
+            <li>The gaps are now addressable - tune detection rules and re-run</li>
           </ul>
         </div>
       </div>
       <div class="card">
         <h2 class="card-ttl">Lessons + next hardening step</h2>
         <ul class="card-sub" style="padding-left:18px">
-          <li><b>No active response</b> — harness only reads from Wazuh Indexer, never writes or modifies the environment</li>
-          <li><b>No Atomic execution</b> — harness validates detections, does not run attacks; separation of concerns</li>
-          <li><b>CI-compatible exit codes</b> — non-zero on any FAIL; can gate CI pipelines on detection coverage</li>
-          <li><b>Timestamped run folders</b> — each run is isolated; history is preserved for trend analysis</li>
-          <li><b>YAML spec</b> — version-controlled, reviewable, extensible without modifying Python code</li>
-          <li><b>TLS insecure flag</b> — explicit opt-in for lab self-signed certs; not default</li>
+          <li><b>No active response</b> - harness only reads from Wazuh Indexer, never writes or modifies the environment</li>
+          <li><b>No Atomic execution</b> - harness validates detections, does not run attacks; separation of concerns</li>
+          <li><b>CI-compatible exit codes</b> - non-zero on any FAIL; can gate CI pipelines on detection coverage</li>
+          <li><b>Timestamped run folders</b> - each run is isolated; history is preserved for trend analysis</li>
+          <li><b>YAML spec</b> - version-controlled, reviewable, extensible without modifying Python code</li>
+          <li><b>TLS insecure flag</b> - explicit opt-in for lab self-signed certs; not default</li>
         </ul>
       </div>
     </div>
@@ -222,7 +222,7 @@ Result: 0/3 PASS
 <!-- @include:footer:start -->
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
     <div class="fl">
       <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
       <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
