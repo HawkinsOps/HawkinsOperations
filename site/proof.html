@@ -785,7 +785,7 @@ body { background: #03060b !important; }
       <!-- Runtime snapshot row -->
       <div class="pv-runtime-row" role="region" aria-label="Lifetime runtime snapshot">
         <div class="pv-rt-cell">
-          <div class="pv-rt-label">Lifetime Processed</div>
+          <div class="pv-rt-label">Lifetime processed (runtime snapshot)</div>
           <div class="pv-rt-val"><span data-ops="lifetime_total_cases">49,774</span></div>
         </div>
         <div class="pv-rt-cell">
@@ -983,7 +983,7 @@ body { background: #03060b !important; }
           <div class="pv-term-block">
             <span class="tm"># 2. Verify detection counts (PowerShell — primary gate)</span><br>
             <span class="tc">pwsh</span> <span class="tk">-NoProfile -File</span> <span class="tp">.\scripts\verify\verify-counts.ps1</span><br>
-            <span class="ts">&nbsp;&nbsp;PASS  Sigma: 103 &nbsp;Splunk: 8 &nbsp;Wazuh XML: 24 &nbsp;Wazuh rule blocks: 28 &nbsp;IR Playbooks: 10</span><br>
+            <span class="ts">&nbsp;&nbsp;All detection artifact counts verified — reconciliation PASS</span><br>
           </div>
           <div class="pv-term-block">
             <span class="tm"># 3. Check for metric/HTML drift</span><br>
@@ -1096,7 +1096,7 @@ body { background: #03060b !important; }
   /* ── Config (restrained — slower, denser, more "locked-down" than homepage) ── */
   var CFG = {
     nodeCount:   120,           /* hex grid nodes */
-    streamCount:  28,           /* encrypted stream particles */
+    numStreams:    28,           /* encrypted stream particles */
     nodeSizeMin:  1.0,
     nodeSizeMax:  2.2,
     nodeOpacityMin: 0.035,
@@ -1157,7 +1157,7 @@ body { background: #03060b !important; }
   /* ── Stream particles ── */
   function buildStreams() {
     streams = [];
-    for (var i = 0; i < CFG.streamCount; i++) {
+    for (var i = 0; i < CFG.numStreams; i++) {
       streams.push(makeStream());
     }
   }
