@@ -92,14 +92,47 @@ def scan_hardcoded_claim_numbers(site_root: Path, truth: Dict[str, int]) -> List
     )
     issues: List[Tuple[Path, int, str]] = []
 
+    # Patterns that embed claim numbers inside dates or ratios (false positives).
+    date_re = re.compile(r"\d{2}-\d{2}-\d{4}|\d{4}-\d{2}-\d{2}")
+    ratio_re = re.compile(r"\b\d+/\d+\b")
+
     for path in claim_files:
         if not path.exists():
             continue
+        in_comment = False
+        in_template = False
         for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+            stripped = line.strip()
+            # Track multi-line HTML comments.
+            if "<!--" in stripped:
+                if "-->" not in stripped.split("<!--", 1)[1]:
+                    in_comment = True
+                    continue
+                if stripped.startswith("<!--") and stripped.endswith("-->"):
+                    continue
+            if in_comment:
+                if "-->" in stripped:
+                    in_comment = False
+                continue
+            # Skip <template> content (hidden DOM, not public-facing).
+            if "<template" in stripped.lower():
+                in_template = True
+                continue
+            if "</template>" in stripped.lower():
+                in_template = False
+                continue
+            if in_template:
+                continue
             # Handled by scan_data_verified_fallbacks() with key-aware validation.
             if "data-verified" in line:
                 continue
-            if token_re.search(line) and claim_context_re.search(line):
+            # data-ops spans are runtime-bound (same as data-verified).
+            if "data-ops" in line:
+                continue
+            # Mask dates and ratios so embedded digits don't false-positive.
+            masked = date_re.sub("__DATE__", line)
+            masked = ratio_re.sub("__RATIO__", masked)
+            if token_re.search(masked) and claim_context_re.search(masked):
                 issues.append((path, lineno, line.strip()))
     return issues
 
