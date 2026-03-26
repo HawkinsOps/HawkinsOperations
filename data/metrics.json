@@ -22,23 +22,23 @@
     "staged_pending": 67,
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
-    "last_updated": "2026-03-25T01:44:00Z"
+    "last_updated": "2026-03-25T00:00:00Z"
   },
   "running_totals": {
     "total_cases": 55665,
     "auto_closed_benign": 45334,
     "known_fp": 5898,
-    "escalated": 2545,
+    "escalated": 2478,
     "review": 1860,
     "staged_pending": 67
   },
   "host_coverage": "8/8",
   "reconciliation_mismatch": 0,
   "heartbeat": "SUCCESS",
-  "last_updated": "2026-03-25T01:44:00Z",
+  "last_updated": "2026-03-25T00:00:00Z",
   "stress_test_window": {
     "profile": "active_pipeline_snapshot",
-    "baseline_window": "C:/OPS/Control/Automation/AutoSOC/Output",
+    "baseline_window": "C:/RH/OPS/30_Projects/Active/AutoSOC/Output",
     "queue_backlog_target": 10000,
     "latency_targets_ms": {
       "per_event_under_load": 200,
