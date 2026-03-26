@@ -79,7 +79,7 @@
         </div>
         <p style="font-family:'Sora','Inter',sans-serif;font-size:1.05rem;font-weight:700;line-height:1.5;color:#71c7b8;margin:0 0 14px;">This is a working security operations system, not a static portfolio.</p>
         <p class="sf-body" style="line-height:1.7;margin-bottom:14px;">I design, build, and operate SignalFoundry: a production-grade detection-to-escalation pipeline across Sigma, Wazuh, and Splunk that automatically triages alerts, collects forensic evidence, and only escalates verified threats with full proof attached.</p>
-        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:14px;">In 7 months, I transitioned from factory operations into cybersecurity and built a pipeline that has processed 49,774 verified cases with <span data-verified="detections">139</span> custom detections (<span data-verified="sigma">103</span> Sigma rules, <span data-verified="wazuh">28</span> Wazuh blocks, <span data-verified="splunk">8</span> Splunk queries) while working 12-hour manufacturing shifts.</p>
+        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:14px;">In 7 months, I transitioned from factory operations into cybersecurity and built a pipeline that has processed 55,665 verified cases with <span data-verified="detections">139</span> custom detections (<span data-verified="sigma">103</span> Sigma rules, <span data-verified="wazuh">28</span> Wazuh blocks, <span data-verified="splunk">8</span> Splunk queries) while working 12-hour manufacturing shifts.</p>
         <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:14px;">Factory-trained discipline meets modern SOC automation. Every metric is real, every detection is version-controlled, and every claim is reproducible.</p>
         <p style="font-size:0.95rem;font-weight:600;line-height:1.5;color:#71c7b8;margin:0 0 20px;">If you're looking for someone who can actually build and run detection engineering and security automation, not just talk about it, you're in the right place.</p>
         <div class="sf-actions">
@@ -95,7 +95,7 @@
           <ul style="margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:0.84rem;color:var(--text);">
             <li>Built from zero experience in 7 months</li>
             <li>Production-grade detection pipeline</li>
-            <li>49,774 verified cases processed</li>
+            <li>55,665 verified cases processed</li>
             <li><span data-verified="detections">139</span> detections across 4 platforms</li>
             <li>Huntsville, AL (clearance-eligible)</li>
           </ul>
@@ -110,7 +110,7 @@
       <div class="sf-section-label">About</div>
       <div class="sf-card sf-panel" style="padding:24px;display:grid;gap:14px;">
         <h2 id="about-title" style="margin:0;">From industrial operations to security operations</h2>
-        <p class="sf-body" style="max-width:72ch;">September 2025: zero computer experience. March 2026: a production-grade security pipeline processing 49,774 verified cases. I built SignalFoundry during mandatory 12-hour shifts at a Tier-1 Nissan supplier.</p>
+        <p class="sf-body" style="max-width:72ch;">September 2025: zero computer experience. March 2026: a production-grade security pipeline processing 55,665 verified cases. I built SignalFoundry during mandatory 12-hour shifts at a Tier-1 Nissan supplier.</p>
         <p class="sf-body" style="max-width:72ch;color:var(--muted);">Before cybersecurity, I led production lines at Fehrer Automotive (Mercedes/BMW/VW/Tesla) and Unipres Alabama (Nissan hot stamp). Promoted to Team Lead in under 3 months at Fehrer. Supervised 30+ operators at Unipres. Maintained quality under IATF 16949, SQF, and ISO 9001. The process discipline, escalation handling, and documentation rigor I learned on the factory floor is exactly what I bring to security operations.</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:4px;">
           <a class="sf-button sf-button-secondary sf-focus-ring" href="/resume" style="font-size:0.88rem;">Full Resume &rarr;</a>
@@ -173,17 +173,17 @@
       <div class="sf-metrics" role="status" aria-live="polite" aria-label="Operational KPIs" style="grid-template-columns:repeat(4,1fr);">
         <article class="sf-card sf-metric" data-modal="tpl-escalated" data-modal-title="Total Cases Processed">
           <span class="sf-metric-label">Total Cases</span>
-          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_total_cases">49,774</span></span>
+          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_total_cases">55,665</span></span>
           <p class="sf-metric-note">Alerts ingested, triaged, and dispositioned.</p>
         </article>
         <article class="sf-card sf-metric" data-modal="tpl-escalated" data-modal-title="Auto-Close Rate">
           <span class="sf-metric-label">Auto-Close Rate</span>
-          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_auto_closed_benign">~89%</span></span>
+          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_auto_closed_benign">~92%</span></span>
           <p class="sf-metric-note">Benign alerts resolved without human action.</p>
         </article>
         <article class="sf-card sf-metric" data-modal="tpl-escalated" data-modal-title="Escalated Cases">
           <span class="sf-metric-label">Escalated</span>
-          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_escalated">2,478</span></span>
+          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_escalated">2,545</span></span>
           <p class="sf-metric-note">Non-trivial cases requiring analyst review.</p>
         </article>
         <article class="sf-card sf-metric" data-modal="tpl-heartbeat" data-modal-title="Reconciliation">
@@ -202,7 +202,7 @@
       <h2 id="funnel-title">How alerts become evidence</h2>
       <p class="sf-body sf-copy-gap-lg">Every alert enters the same pipeline. Most are auto-closed. The rest produce structured evidence packs.</p>
       <div class="sf-card sf-panel" style="padding:28px;overflow-x:auto;">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" role="img" aria-label="Case processing funnel: 49,774 total cases to evidence packs" style="width:100%;min-width:700px;height:auto;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" role="img" aria-label="Case processing funnel: 55,665 total cases to evidence packs" style="width:100%;min-width:700px;height:auto;">
           <title>Case Processing Funnel</title>
           <defs>
             <linearGradient id="funnel-g1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="rgba(122,184,255,0.18)"/><stop offset="100%" stop-color="rgba(122,184,255,0.06)"/></linearGradient>
@@ -220,21 +220,21 @@
           <!-- Tier 1: Total Ingested -->
           <rect x="20" y="16" width="860" height="52" rx="10" fill="url(#funnel-g1)" stroke="rgba(122,184,255,0.2)" stroke-width="1"/>
           <text class="f-label" x="40" y="47">Alert Intake</text>
-          <text class="f-val" x="480" y="48" data-ops="stable_total_cases">49,774</text>
+          <text class="f-val" x="480" y="48" data-ops="stable_total_cases">55,665</text>
           <text class="f-pct" x="600" y="48">total cases</text>
           <!-- Arrow -->
           <path class="f-arrow" d="M450 72 L440 80 L460 80 Z"/>
           <!-- Tier 2: Auto-Closed -->
           <rect x="80" y="84" width="740" height="52" rx="10" fill="url(#funnel-g2)" stroke="rgba(74,222,128,0.18)" stroke-width="1"/>
           <text class="f-label" x="100" y="115">Auto-Closed Benign</text>
-          <text class="f-val" x="480" y="116" style="fill:#4ade80;" data-ops="stable_auto_closed_benign">~89%</text>
+          <text class="f-val" x="480" y="116" style="fill:#4ade80;" data-ops="stable_auto_closed_benign">~92%</text>
           <text class="f-pct" x="560" y="116">policy-matched, no human action</text>
           <!-- Arrow -->
           <path class="f-arrow" d="M450 140 L440 148 L460 148 Z"/>
           <!-- Tier 3: Escalated -->
           <rect x="180" y="152" width="540" height="52" rx="10" fill="url(#funnel-g3)" stroke="rgba(251,191,36,0.18)" stroke-width="1"/>
           <text class="f-label" x="200" y="183">Escalated for Review</text>
-          <text class="f-val" x="480" y="184" style="fill:#fbbf24;" data-ops="stable_escalated">2,478</text>
+          <text class="f-val" x="480" y="184" style="fill:#fbbf24;" data-ops="stable_escalated">2,545</text>
           <text class="f-pct" x="600" y="184">analyst judgment required</text>
           <!-- Arrow -->
           <path class="f-arrow" d="M450 208 L440 216 L460 216 Z"/>
@@ -530,7 +530,7 @@ node scripts/generate-site-data.js</code></pre>
     </div>
     <div>
       <div class="detail-label">Breakdown</div>
-      <p>Of ~49,774 total cases processed: ~89% were auto-closed as benign (matching known-good patterns). The remaining ~11% were escalated — producing ~2,500+ escalation artifacts for review.</p>
+      <p>Of 55,665 total cases processed, ~92% were automatically resolved through benign plus known-false-positive handling. The remaining cases produced 2,545 escalation artifacts for review.</p>
     </div>
     <div>
       <div class="detail-label">Provenance</div>
