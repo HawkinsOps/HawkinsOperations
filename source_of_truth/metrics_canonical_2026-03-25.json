@@ -1,0 +1,22 @@
+{
+  "date": "2026-03-25",
+  "system": "SignalFoundry / AutoSOC",
+  "total_cases": 55665,
+  "auto_close_rate_label": "~92%",
+  "escalations_label": "2,545",
+  "known_fp_label": "5,898",
+  "hosts_reporting": "8/8",
+  "reconciliation": "PASS (0 mismatches)",
+  "heartbeat": "SUCCESS",
+  "authority": "March 25 live control-plane snapshot (ledger last_updated 2026-03-24, pipeline run 2026-03-25T01:44Z UTC; final host restored active 2026-03-25T03:03:36Z)",
+  "notes": [
+    "Supersedes 2026-03-24 canonical (54,700 cases, false 8/8 coverage claim).",
+    "Coverage confirmed 8/8: the final host restored active at 03:03:36Z UTC.",
+    "Observed recovery path: after ghost-agent cleanup and switching the agent transport to TCP, the final host re-registered and returned to active status, restoring coverage to 8/8.",
+    "Live totals: 55,665 total cases, 2,545 escalations, 5,898 known FP, 45,334 benign auto-closed, 1,860 review, 67 staged pending.",
+    "Auto-close rate (benign + known_fp): 51,232 / 55,665 = 92.04%.",
+    "Reconciliation mismatch count: 0. Scorecard: PASS.",
+    "Do not interpolate or merge values from other files.",
+    "If exact site payloads disagree, treat them as drift and correct them to this file."
+  ]
+}
