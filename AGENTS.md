@@ -23,7 +23,7 @@ Treat every file as if a hiring manager will read it.
 - Repo-local skills must live in `.agents/skills/`.
 - For planning, audits, and redesign work, read these files in order before proposing changes:
   1. `AGENTS.md`
-  2. `PLANS.md`
+  2. `.internal/PLANS.md`
   3. `docs/PRECEDENCE_CONTRACT.md`
   4. `docs/source-of-truth.md`
   5. `docs/mission-today.md`

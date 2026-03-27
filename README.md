@@ -16,7 +16,7 @@
 This repo is the portfolio artifact for that work: detection content, IR playbooks, proof artifacts, and the verification infrastructure that keeps all counts honest. If a number is in this repo, a script verified it.
 
 **Sept 2025:** zero computer experience
-**Mar 2026:** 49,774 verified cases processed, production pipeline running 24/7
+**Mar 2026:** 55,665 verified cases processed, production pipeline running 24/7
 
 ---
 
@@ -27,7 +27,7 @@ Profile and portfolio refresh:
 - README restructured with clearer identity framing and reviewer navigation
 - v1.5.0 release cut — marks profile optimization and portfolio hardening pass
 - Detection inventory holds at v1.4.0 canonical: 103 Sigma + 28 Wazuh rule blocks + 8 Splunk queries
-- Stable benchmark: 49,774 total cases · ~89% auto-close · 2,478 escalated · 8/8 host coverage · heartbeat `SUCCESS`
+- Stable benchmark: 55,665 total cases · ~92% auto-close · 2,545 escalated · 8/8 host coverage · heartbeat `SUCCESS`
 - Portfolio site: [hawkinsops.com](https://hawkinsops.com)
 
 ---
@@ -63,13 +63,13 @@ Source of truth: [`PROOF_PACK/VERIFIED_COUNTS.md`](PROOF_PACK/VERIFIED_COUNTS.md
 |---|---:|---|
 | IR Playbooks (`IR-*.md`) | 10 playbooks | `content/incident-response/playbooks/` |
 
-### Pipeline telemetry (stable benchmark, locked 03-20-2026)
+### Pipeline telemetry (stable benchmark, locked 03-25-2026)
 
 | Metric | Value |
 |---|---|
-| Total cases processed | 49,774 |
-| Auto-closed (benign) | ~89% |
-| Escalated artifacts | 2,478 |
+| Total cases processed | 55,665 |
+| Auto-closed (benign) | ~92% |
+| Escalated artifacts | 2,545 |
 | Host coverage | 8/8 |
 | Heartbeat | SUCCESS |
 
