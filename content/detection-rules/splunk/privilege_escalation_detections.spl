@@ -1,13 +1,13 @@
-```
 # HawkinsOps Splunk Detection Queries - Privilege Escalation
 # Author: HawkinsOps SOC
-# Date: 2025-01-15
+# Updated: 2026-03-29
 
 # ========================================
 # UAC Bypass via Fodhelper
 # MITRE: T1548.002
 # ========================================
 index=windows EventCode=13 TargetObject="*ms-settings\\shell\\open\\command*"
+| where NOT match(Image, "(?i)^C:\\\\Windows\\\\System32")
 | table _time, Computer, Image, TargetObject, Details
 | sort -_time
 
@@ -17,6 +17,7 @@ index=windows EventCode=13 TargetObject="*ms-settings\\shell\\open\\command*"
 # ========================================
 index=windows EventCode=13 TargetObject="*mscfile\\shell\\open\\command*"
 | where Details!="mmc.exe"
+| where NOT match(Image, "(?i)^C:\\\\Windows\\\\System32")
 | table _time, Computer, Image, TargetObject, Details
 | sort -_time
 
@@ -25,7 +26,8 @@ index=windows EventCode=13 TargetObject="*mscfile\\shell\\open\\command*"
 # MITRE: T1134
 # ========================================
 index=windows EventCode=4672 (PrivilegeList="*SeDebugPrivilege*" OR PrivilegeList="*SeImpersonatePrivilege*")
-| where SubjectUserName!="SYSTEM" AND NOT match(SubjectUserName, "\\$")
+| where NOT match(SubjectUserName, "(?i)(^SYSTEM$|\\$|network service|local service)")
+| where NOT match(SubjectUserName, "(?i)(^DWM-|^UMFD-)")
 | table _time, Computer, SubjectUserName, PrivilegeList
 | sort -_time
 
@@ -42,6 +44,7 @@ index=windows EventCode=13 TargetObject="*AlwaysInstallElevated*" Details="0x000
 # MITRE: T1134.001
 # ========================================
 index=windows EventCode=17 (PipeName="*\\lsass*" OR PipeName="*\\SAM*" OR PipeName="*\\winlogon*")
+| where NOT match(Image, "(?i)^C:\\\\Windows\\\\System32")
 | table _time, Computer, Image, PipeName
 | sort -_time
 
@@ -50,6 +53,6 @@ index=windows EventCode=17 (PipeName="*\\lsass*" OR PipeName="*\\SAM*" OR PipeNa
 # MITRE: T1548.003
 # ========================================
 index=linux sourcetype=linux_audit type=EXECVE a0=sudo (a1=*vim* OR a1=*less* OR a1=*find* OR a1=*nmap* OR a1=*python*)
+| where NOT match(uid, "^0$")
 | table _time, host, uid, a0, a1, a2, a3
 | sort -_time
-```
