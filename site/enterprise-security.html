@@ -78,6 +78,12 @@
         <span class="m-hero-signal">RSAT</span>
       </div>
 
+      <!-- Before/After Chart -->
+      <div data-aos="fade-up" style="max-width:700px;margin:24px 0 20px;padding:24px;background:rgba(17,24,39,0.5);border:1px solid rgba(0,212,255,0.1);border-radius:4px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:#00d4ff;margin-bottom:12px;">Hardening Impact</div>
+        <canvas id="hardeningChart" height="200"></canvas>
+      </div>
+
       <div class="m-kpi-grid" aria-label="Enterprise security hardening metrics" style="margin-top:24px;">
         <article class="m-kpi" data-aos="fade-up" data-aos-delay="0">
           <div class="m-kpi-value">27</div>
@@ -782,5 +788,39 @@ sourcetype="WinEventLog:Security" EventCode=4688
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
 <script src="/assets/js/site-effects.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+(function(){
+  var ctx=document.getElementById('hardeningChart');
+  if(!ctx)return;
+  new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:['Subcategories Audited','Coverage %','Attack Categories Visible','Security Log (MB)'],
+      datasets:[
+        {label:'Before',data:[5,19,13,20],backgroundColor:'rgba(239,68,68,0.35)',borderColor:'rgba(239,68,68,0.5)',borderWidth:1,borderRadius:2,barPercentage:0.6},
+        {label:'After',data:[27,96,27,1024],backgroundColor:'rgba(0,212,255,0.6)',borderColor:'rgba(0,212,255,0.7)',borderWidth:1,borderRadius:2,barPercentage:0.6}
+      ]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{
+        legend:{position:'top',labels:{color:'#7a94aa',font:{family:"'JetBrains Mono',monospace",size:10},boxWidth:12,padding:16}},
+        tooltip:{
+          backgroundColor:'rgba(10,14,23,0.95)',borderColor:'rgba(0,212,255,0.2)',borderWidth:1,
+          titleFont:{family:"'JetBrains Mono',monospace",size:11},
+          bodyFont:{family:"'JetBrains Mono',monospace",size:11}
+        }
+      },
+      scales:{
+        x:{type:'logarithmic',grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a5568',font:{family:"'JetBrains Mono',monospace",size:10}},border:{color:'rgba(255,255,255,0.06)'}},
+        y:{grid:{display:false},ticks:{color:'#d4e0ec',font:{family:"'JetBrains Mono',monospace",size:11}},border:{display:false}}
+      }
+    }
+  });
+})();
+</script>
 </body>
 </html>

@@ -162,23 +162,17 @@
     </div>
   </div>
 
-  <!-- MITRE ATT&CK COVERAGE MAP -->
+  <!-- MITRE ATT&CK COVERAGE MAP (Chart.js) -->
   <div class="mitre-section">
     <div class="det-page">
       <div class="sec-label">MITRE ATT&amp;CK Coverage</div>
       <h2 class="sec-title">Detection density by tactic</h2>
-      <p class="sec-sub" style="margin-bottom:20px;">Sigma rule distribution across ATT&amp;CK tactics. Bar width = relative coverage. Based on actual repo file count.</p>
-      <div class="mitre-bar"><span class="tactic">Impact</span><div class="track"><div class="fill" style="width:100%;background:linear-gradient(90deg,#ef4444,rgba(239,68,68,0.4));"></div></div><span class="cnt" style="color:#ef4444;">13</span></div>
-      <div class="mitre-bar"><span class="tactic">Persistence</span><div class="track"><div class="fill" style="width:85%;background:linear-gradient(90deg,#4ade80,rgba(74,222,128,0.4));"></div></div><span class="cnt" style="color:#4ade80;">11</span></div>
-      <div class="mitre-bar"><span class="tactic">Priv Esc</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">10</span></div>
-      <div class="mitre-bar"><span class="tactic">Def Evasion</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">10</span></div>
-      <div class="mitre-bar"><span class="tactic">Cred Access</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#fbbf24,rgba(251,191,36,0.4));"></div></div><span class="cnt" style="color:#fbbf24;">10</span></div>
-      <div class="mitre-bar"><span class="tactic">Discovery</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">10</span></div>
-      <div class="mitre-bar"><span class="tactic">Lat Movement</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">10</span></div>
-      <div class="mitre-bar"><span class="tactic">Collection</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">10</span></div>
-      <div class="mitre-bar"><span class="tactic">Exfiltration</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">10</span></div>
-      <div class="mitre-bar"><span class="tactic">Execution</span><div class="track"><div class="fill" style="width:69%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">9</span></div>
-      <p style="font-size:0.68rem;color:#4a5568;margin-top:12px;">Source: <code style="font-size:0.65rem;color:#7ab8ff;background:rgba(122,184,255,0.08);padding:1px 5px;border-radius:2px;">content/detection-rules/sigma/</code> &middot; <span data-verified="sigma">103</span> YAML files across tactic folders</p>
+      <p class="sec-sub" style="margin-bottom:20px;">Sigma rule distribution across ATT&amp;CK tactics. Based on actual repo file count.</p>
+      <div data-aos="fade-up" style="max-width:700px;margin:0 auto;padding:24px;background:rgba(17,24,39,0.5);border:1px solid rgba(0,212,255,0.1);border-radius:4px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:#00d4ff;margin-bottom:12px;">MITRE ATT&amp;CK Tactic Coverage</div>
+        <canvas id="mitreChart" height="280"></canvas>
+      </div>
+      <p style="font-size:0.68rem;color:#4a5568;margin-top:12px;text-align:center;">Source: <code style="font-size:0.65rem;color:#7ab8ff;background:rgba(122,184,255,0.08);padding:1px 5px;border-radius:2px;">content/detection-rules/sigma/</code> &middot; <span data-verified="sigma">103</span> YAML files across tactic folders</p>
     </div>
   </div>
 
@@ -518,5 +512,41 @@ document.querySelector('.fbtn[data-filter="all"]').classList.add('active');
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
 <script src="/assets/js/site-effects.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+(function(){
+  var ctx=document.getElementById('mitreChart');
+  if(!ctx)return;
+  new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:['Impact','Persistence','Priv Esc','Cred Access','Def Evasion','Discovery','Lat Movement','Collection','Exfiltration','Execution'],
+      datasets:[{
+        data:[13,11,10,10,10,10,10,10,10,9],
+        backgroundColor:function(c){var v=c.raw;return v>=13?'rgba(239,68,68,0.7)':v>=11?'rgba(74,222,128,0.6)':'rgba(0,212,255,0.5)';},
+        borderColor:'rgba(0,212,255,0.15)',
+        borderWidth:1,
+        borderRadius:2,
+        barPercentage:0.7
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{
+        backgroundColor:'rgba(10,14,23,0.95)',borderColor:'rgba(0,212,255,0.2)',borderWidth:1,
+        titleFont:{family:"'JetBrains Mono',monospace",size:11},
+        bodyFont:{family:"'JetBrains Mono',monospace",size:11},
+        callbacks:{label:function(c){return c.raw+' Sigma rules';}}
+      }},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a5568',font:{family:"'JetBrains Mono',monospace",size:10}},border:{color:'rgba(255,255,255,0.06)'}},
+        y:{grid:{display:false},ticks:{color:'#d4e0ec',font:{family:"'JetBrains Mono',monospace",size:11}},border:{display:false}}
+      }
+    }
+  });
+})();
+</script>
 </body>
 </html>

@@ -1,8 +1,8 @@
 {
   "generated_on": "2026-03-30",
-  "total_assets": 128,
+  "total_assets": 130,
   "safe_assets": 11,
-  "review_required_assets": 117,
+  "review_required_assets": 119,
   "media": [
     {
       "id": "linkedin-carousel-review-01-cover-home-desktop-c0be5094a6",
@@ -1819,6 +1819,22 @@
       "suggested_placement": "global identity strip"
     },
     {
+      "id": "site-assets-og-card-5c1280e3d1",
+      "path": "site/assets/og-card.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "og card",
+      "alt": "screenshot artifact: og card",
+      "privacy_review": "required",
+      "source": "site/assets/og-card.png",
+      "width": 1200,
+      "height": 630,
+      "bytes": 80325,
+      "suggested_placement": "home proof strip"
+    },
+    {
       "id": "site-assets-og-image-a7a371b893",
       "path": "site/assets/og-image.png",
       "type": "screenshot",
@@ -2073,6 +2089,22 @@
       "width": 2800,
       "height": 2000,
       "bytes": 294403,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "site-assets-raylee-hawkins-headshot-dea2f1e894",
+      "path": "site/assets/raylee-hawkins-headshot.jpg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "raylee hawkins headshot",
+      "alt": "screenshot artifact: raylee hawkins headshot",
+      "privacy_review": "required",
+      "source": "site/assets/raylee-hawkins-headshot.jpg",
+      "width": 1152,
+      "height": 1536,
+      "bytes": 515760,
       "suggested_placement": "home proof strip"
     },
     {
