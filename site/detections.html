@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
 <title>Detection Surface | HawkinsOps</title>
-<meta name="description" content="140 detections across Sigma, Wazuh, and Splunk mapped to MITRE ATT&CK. Filterable grid, coverage map, pipeline integration. CI-verified counts.">
+<meta name="description" content="Verified detections across Sigma, Wazuh, and Splunk mapped to MITRE ATT&CK. Filterable grid, coverage map, pipeline integration. CI-verified counts.">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07070b">
 <link rel="canonical" href="https://hawkinsops.com/detections">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Detection Surface | HawkinsOps">
-<meta property="og:description" content="140 detections across Sigma, Wazuh, and Splunk mapped to MITRE ATT&CK. Filterable grid, coverage map, pipeline integration.">
+<meta property="og:description" content="Verified detections across Sigma, Wazuh, and Splunk mapped to MITRE ATT&CK. Filterable grid, coverage map, pipeline integration.">
 <meta property="og:url" content="https://hawkinsops.com/detections">
 <meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Detection Surface | HawkinsOps">
-<meta name="twitter:description" content="140 detections across Sigma, Wazuh, and Splunk mapped to MITRE ATT&CK.">
+<meta name="twitter:description" content="Verified detections across Sigma, Wazuh, and Splunk mapped to MITRE ATT&CK.">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -164,7 +164,7 @@
     <div class="det-page">
       <div class="sec-label">MITRE ATT&amp;CK Coverage</div>
       <h2 class="sec-title">Detection density by tactic</h2>
-      <p class="sec-sub" style="margin-bottom:20px;">Sigma rule distribution across 10 ATT&amp;CK tactics. Bar width = relative coverage. Based on actual repo file count.</p>
+      <p class="sec-sub" style="margin-bottom:20px;">Sigma rule distribution across ATT&amp;CK tactics. Bar width = relative coverage. Based on actual repo file count.</p>
       <div class="mitre-bar"><span class="tactic">Impact</span><div class="track"><div class="fill" style="width:100%;background:linear-gradient(90deg,#ef4444,rgba(239,68,68,0.4));"></div></div><span class="cnt" style="color:#ef4444;">13</span></div>
       <div class="mitre-bar"><span class="tactic">Persistence</span><div class="track"><div class="fill" style="width:85%;background:linear-gradient(90deg,#4ade80,rgba(74,222,128,0.4));"></div></div><span class="cnt" style="color:#4ade80;">11</span></div>
       <div class="mitre-bar"><span class="tactic">Priv Esc</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">10</span></div>
@@ -175,7 +175,7 @@
       <div class="mitre-bar"><span class="tactic">Collection</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">10</span></div>
       <div class="mitre-bar"><span class="tactic">Exfiltration</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">10</span></div>
       <div class="mitre-bar"><span class="tactic">Execution</span><div class="track"><div class="fill" style="width:69%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">9</span></div>
-      <p style="font-size:0.68rem;color:#4a5568;margin-top:12px;">Source: <code style="font-size:0.65rem;color:#7ab8ff;background:rgba(122,184,255,0.08);padding:1px 5px;border-radius:2px;">content/detection-rules/sigma/</code> &middot; 103 YAML files across 10 tactic folders</p>
+      <p style="font-size:0.68rem;color:#4a5568;margin-top:12px;">Source: <code style="font-size:0.65rem;color:#7ab8ff;background:rgba(122,184,255,0.08);padding:1px 5px;border-radius:2px;">content/detection-rules/sigma/</code> &middot; <span data-verified="sigma">103</span> YAML files across tactic folders</p>
     </div>
   </div>
 
@@ -300,7 +300,7 @@
 <script>
 // Detection data — sourced from repo artifacts
 var DETECTIONS=[
-// Sigma — Collection (10)
+// Sigma — Collection
 {t:"Archive Collection Preparation",p:"sigma",s:"low",tac:"collection",tech:"T1560"},
 {t:"Audio Capture Detection",p:"sigma",s:"high",tac:"collection",tech:"T1123"},
 {t:"Clipboard Data Collection",p:"sigma",s:"medium",tac:"collection",tech:"T1115"},
@@ -311,7 +311,7 @@ var DETECTIONS=[
 {t:"Screen Capture Activity",p:"sigma",s:"medium",tac:"collection",tech:"T1113"},
 {t:"Sensitive File Access",p:"sigma",s:"low",tac:"collection",tech:"T1005"},
 {t:"Video Capture Detection",p:"sigma",s:"medium",tac:"collection",tech:"T1125"},
-// Sigma — Credential Access (10)
+// Sigma — Credential Access
 {t:"Browser Credential Store Access",p:"sigma",s:"high",tac:"credential-access",tech:"T1555"},
 {t:"SSH Private Key Access",p:"sigma",s:"medium",tac:"credential-access",tech:"T1552"},
 {t:"DCSync Attack Detection",p:"sigma",s:"critical",tac:"credential-access",tech:"T1003"},
@@ -322,7 +322,7 @@ var DETECTIONS=[
 {t:"Linux Password File Access",p:"sigma",s:"high",tac:"credential-access",tech:"T1003"},
 {t:"PowerShell Credential Prompt",p:"sigma",s:"medium",tac:"credential-access",tech:"T1056"},
 {t:"SAM Registry Hive Dump",p:"sigma",s:"high",tac:"credential-access",tech:"T1003"},
-// Sigma — Defense Evasion (10)
+// Sigma — Defense Evasion
 {t:"AMSI Bypass Attempt",p:"sigma",s:"critical",tac:"defense-evasion",tech:"T1562"},
 {t:"Windows Event Log Cleared",p:"sigma",s:"high",tac:"defense-evasion",tech:"T1070"},
 {t:"Windows Firewall Disabled",p:"sigma",s:"high",tac:"defense-evasion",tech:"T1562"},
@@ -333,7 +333,7 @@ var DETECTIONS=[
 {t:"Process Injection Detected",p:"sigma",s:"high",tac:"defense-evasion",tech:"T1055"},
 {t:"Potential Rootkit Behavior",p:"sigma",s:"critical",tac:"defense-evasion",tech:"T1014"},
 {t:"File Timestamp Manipulation",p:"sigma",s:"medium",tac:"defense-evasion",tech:"T1070"},
-// Sigma — Discovery (10)
+// Sigma — Discovery
 {t:"Active Directory Enumeration",p:"sigma",s:"low",tac:"discovery",tech:"T1087"},
 {t:"Cloud Service Discovery",p:"sigma",s:"low",tac:"discovery",tech:"T1580"},
 {t:"Domain Trust Discovery",p:"sigma",s:"medium",tac:"discovery",tech:"T1482"},
@@ -344,7 +344,7 @@ var DETECTIONS=[
 {t:"Process Discovery Commands",p:"sigma",s:"low",tac:"discovery",tech:"T1057"},
 {t:"System Information Discovery",p:"sigma",s:"low",tac:"discovery",tech:"T1082"},
 {t:"Whoami Command Execution",p:"sigma",s:"low",tac:"discovery",tech:"T1033"},
-// Sigma — Execution (9)
+// Sigma — Execution
 {t:"AT Command Scheduled Task",p:"sigma",s:"medium",tac:"execution",tech:"T1053"},
 {t:"Suspicious CMD Execution",p:"sigma",s:"high",tac:"execution",tech:"T1059"},
 {t:"Suspicious Bash Execution",p:"sigma",s:"medium",tac:"execution",tech:"T1059"},
@@ -354,7 +354,7 @@ var DETECTIONS=[
 {t:"Suspicious Regsvr32 Execution",p:"sigma",s:"high",tac:"execution",tech:"T1218"},
 {t:"Suspicious Scheduled Task",p:"sigma",s:"low",tac:"execution",tech:"T1053"},
 {t:"Script via WScript/CScript",p:"sigma",s:"medium",tac:"execution",tech:"T1059"},
-// Sigma — Exfiltration (10)
+// Sigma — Exfiltration
 {t:"Cloud Sync Client Abuse",p:"sigma",s:"low",tac:"exfiltration",tech:"T1567"},
 {t:"DNS Tunneling Detection",p:"sigma",s:"medium",tac:"exfiltration",tech:"T1048"},
 {t:"Email-Based Exfiltration",p:"sigma",s:"low",tac:"exfiltration",tech:"T1048"},
@@ -379,7 +379,7 @@ var DETECTIONS=[
 {t:"Resource Hijacking / Cryptomining",p:"sigma",s:"high",tac:"impact",tech:"T1496"},
 {t:"Critical Service Stop",p:"sigma",s:"high",tac:"impact",tech:"T1489"},
 {t:"Volume Shadow Copy Deletion",p:"sigma",s:"high",tac:"impact",tech:"T1490"},
-// Sigma — Lateral Movement (10)
+// Sigma — Lateral Movement
 {t:"DCOM Lateral Movement",p:"sigma",s:"medium",tac:"lateral-movement",tech:"T1021"},
 {t:"Pass-the-Hash Detection",p:"sigma",s:"medium",tac:"lateral-movement",tech:"T1550"},
 {t:"PsExec Service Installation",p:"sigma",s:"medium",tac:"lateral-movement",tech:"T1021"},
@@ -402,7 +402,7 @@ var DETECTIONS=[
 {t:"Screensaver Registry Modification",p:"sigma",s:"medium",tac:"persistence",tech:"T1546"},
 {t:"Startup Folder File Creation",p:"sigma",s:"medium",tac:"persistence",tech:"T1547"},
 {t:"WMI Event Subscription",p:"sigma",s:"high",tac:"persistence",tech:"T1546"},
-// Sigma — Privilege Escalation (10)
+// Sigma — Privilege Escalation
 {t:"AlwaysInstallElevated Abuse",p:"sigma",s:"high",tac:"privilege-escalation",tech:"T1548"},
 {t:"UAC Bypass via Event Viewer",p:"sigma",s:"high",tac:"privilege-escalation",tech:"T1548"},
 {t:"Suspicious Kernel Module Load",p:"sigma",s:"medium",tac:"privilege-escalation",tech:"T1547"},
@@ -413,7 +413,7 @@ var DETECTIONS=[
 {t:"Suspicious SUID Binary",p:"sigma",s:"medium",tac:"privilege-escalation",tech:"T1548"},
 {t:"Token Manipulation Detection",p:"sigma",s:"medium",tac:"privilege-escalation",tech:"T1134"},
 {t:"UAC Bypass via Fodhelper",p:"sigma",s:"high",tac:"privilege-escalation",tech:"T1548"},
-// Wazuh (28 rule blocks across 24 files)
+// Wazuh rule blocks
 {t:"File Integrity \u2014 Critical System",p:"wazuh",s:"high",tac:"defense-evasion",tech:"T1565"},
 {t:"Rootkit Detection",p:"wazuh",s:"critical",tac:"defense-evasion",tech:"T1014"},
 {t:"Web Attack \u2014 SQL Injection",p:"wazuh",s:"high",tac:"initial-access",tech:"T1190"},
@@ -443,7 +443,7 @@ var DETECTIONS=[
 {t:"Brute Force \u2014 RDP",p:"wazuh",s:"medium",tac:"credential-access",tech:"T1110"},
 {t:"Log Tampering Detection",p:"wazuh",s:"high",tac:"defense-evasion",tech:"T1070"},
 {t:"Suspicious Cron Modification",p:"wazuh",s:"medium",tac:"persistence",tech:"T1053"},
-// Splunk SPL (9 queries)
+// Splunk SPL
 {t:"Execution Detections",p:"splunk",s:"medium",tac:"execution",tech:"T1059"},
 {t:"Persistence Detections",p:"splunk",s:"medium",tac:"persistence",tech:"T1547"},
 {t:"Privilege Escalation Detections",p:"splunk",s:"medium",tac:"privilege-escalation",tech:"T1548"},
@@ -453,7 +453,7 @@ var DETECTIONS=[
 {t:"Lateral Movement Detections",p:"splunk",s:"medium",tac:"lateral-movement",tech:"T1021"},
 {t:"Collection/Exfil/Impact",p:"splunk",s:"medium",tac:"collection",tech:"T1560"},
 {t:"Windows Security EventLog",p:"splunk",s:"medium",tac:"defense-evasion",tech:"T1070"},
-// IR Playbooks (10)
+// IR Playbooks
 {t:"IR-001: LSASS Access Response",p:"ir",s:"critical",tac:"credential-access",tech:"T1003"},
 {t:"IR-002: Suspicious PowerShell",p:"ir",s:"high",tac:"execution",tech:"T1059"},
 {t:"IR-003: Ransomware Detected",p:"ir",s:"critical",tac:"impact",tech:"T1486"},
