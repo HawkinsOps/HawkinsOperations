@@ -1,37 +1,86 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
-<title>SignalFoundry Case Study | Alert triage to escalation artifacts</title>
-<meta name="description" content="SignalFoundry case study: SignalFoundry implementation: Wazuh alert intake, policy-based triage, mandatory redaction, and escalation-ready evidence packs.">
+<title>SignalFoundry | Production Pipeline</title>
+<meta name="description" content="SignalFoundry: 35-script Python pipeline. Wazuh alert intake, policy-driven triage, mandatory redaction, evidence packs, reconciliation gates. 55,665 cases processed.">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07070b">
 <link rel="canonical" href="https://hawkinsops.com/case-study-autosoc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SignalFoundry Case Study | Alert triage to escalation artifacts">
-<meta property="og:description" content="SignalFoundry case study: SignalFoundry implementation: Wazuh alert intake, policy-based triage, mandatory redaction, and escalation-ready evidence packs.">
+<meta property="og:title" content="SignalFoundry | Production Pipeline">
+<meta property="og:description" content="35-script Python pipeline. Wazuh alert intake, policy-driven triage, mandatory redaction, evidence packs, reconciliation gates.">
 <meta property="og:url" content="https://hawkinsops.com/case-study-autosoc">
 <meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
 <meta property="og:image:width" content="1600">
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SignalFoundry Case Study | Alert triage to escalation artifacts">
-<meta name="twitter:description" content="SignalFoundry implementation: Wazuh alert intake, policy-based triage, mandatory redaction, and escalation-ready evidence packs.">
+<meta name="twitter:title" content="SignalFoundry | Production Pipeline">
+<meta name="twitter:description" content="35-script Python pipeline. Wazuh alert intake, policy-driven triage, mandatory redaction, evidence packs.">
 <meta name="twitter:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-<script>
-  document.documentElement.setAttribute('data-theme', 'dark');
-</script>
+<script>document.documentElement.setAttribute('data-theme','dark');</script>
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
 <link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 <link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+.cs-page{max-width:1100px;margin:0 auto;padding:0 24px;}
+.cs-hero{padding:100px 0 40px;}
+.cs-status-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid rgba(122,184,255,0.12);border-radius:4px;background:rgba(17,24,39,0.4);margin-top:20px;}
+.cs-stat{padding:14px 12px;text-align:center;border-right:1px solid rgba(122,184,255,0.06);}
+.cs-stat:last-child{border-right:none;}
+.cs-stat .sv{font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;}
+.cs-stat .sl{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;color:#7a94aa;margin-top:2px;}
+.cs-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.12em;color:#7ab8ff;margin-bottom:8px;}
+.cs-title{font-size:clamp(1.1rem,2vw,1.5rem);margin:0 0 8px;letter-spacing:0.01em;}
+.cs-sub{color:#7a94aa;font-size:0.85rem;max-width:60ch;}
+.cs-section{padding:60px 0;border-top:1px solid rgba(122,184,255,0.06);}
+.cs-section.alt{background:rgba(17,24,39,0.3);}
+.cs-pipeline{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:20px 0;}
+.cs-stage{text-align:center;padding:14px 4px;background:rgba(17,24,39,0.5);border:1px solid rgba(122,184,255,0.1);border-radius:3px;}
+.cs-stage .sn{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:#7ab8ff;}
+.cs-stage .sname{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:700;color:#e5edff;margin:4px 0 2px;}
+.cs-stage .sdesc{font-size:0.58rem;color:#7a94aa;}
+.cs-stage.final{border-color:rgba(74,222,128,0.25);background:rgba(74,222,128,0.04);}
+.cs-stage.final .sn{color:#4ade80;}
+.cs-disp-table{width:100%;border-collapse:collapse;font-size:0.85rem;margin-top:16px;}
+.cs-disp-table th{text-align:left;padding:10px;border-bottom:1px solid rgba(122,184,255,0.15);font-family:'JetBrains Mono',monospace;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;color:#7ab8ff;}
+.cs-disp-table td{padding:10px;border-bottom:1px solid rgba(122,184,255,0.04);}
+.cs-disp-table code{font-family:'JetBrains Mono',monospace;font-size:0.78rem;padding:2px 6px;border-radius:2px;}
+.cs-pack{display:grid;gap:6px;margin-top:16px;}
+.cs-pack-item{display:grid;grid-template-columns:140px 1fr;gap:10px;padding:10px 14px;border:1px solid rgba(122,184,255,0.08);border-left:3px solid rgba(122,184,255,0.2);border-radius:3px;align-items:center;}
+.cs-pack-item code{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:#7ab8ff;}
+.cs-pack-item span{font-size:0.78rem;color:#7a94aa;}
+.cs-pack-item.closure{border-left-color:rgba(251,191,36,0.4);}
+.cs-pack-item.closure code{color:#fbbf24;}
+.cs-timeline{position:relative;padding-left:28px;margin-top:20px;}
+.cs-timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,#fbbf24,#4ade80);border-radius:1px;}
+.cs-tl-event{position:relative;margin-bottom:18px;}
+.cs-tl-event:last-child{margin-bottom:0;}
+.cs-tl-dot{position:absolute;left:-24px;top:4px;width:10px;height:10px;border-radius:50%;box-shadow:0 0 6px currentColor;}
+.cs-nav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
+.cs-nav-card{display:block;padding:16px;border:1px solid rgba(122,184,255,0.1);border-left:3px solid rgba(122,184,255,0.2);border-radius:3px;text-decoration:none;transition:border-color 0.15s;}
+.cs-nav-card:hover{border-color:rgba(122,184,255,0.3);text-decoration:none;}
+.cs-nav-card strong{display:block;font-size:0.85rem;color:#e5edff;margin-bottom:4px;}
+.cs-nav-card span{font-size:0.72rem;color:#7a94aa;}
+.cs-donut{display:flex;align-items:center;gap:24px;margin-top:16px;}
+@media(max-width:900px){
+  .cs-status-bar{grid-template-columns:repeat(3,1fr);}
+  .cs-pipeline{grid-template-columns:repeat(4,1fr);}
+  .cs-nav-grid{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .cs-pipeline{grid-template-columns:repeat(2,1fr);}
+  .cs-status-bar{grid-template-columns:repeat(2,1fr);}
+}
+</style>
 </head>
 <body data-ops-scope="stable">
 <!-- @include:nav:start -->
@@ -59,557 +108,192 @@
   <a href="/resume">Resume</a>
 </div>
 <!-- @include:nav:end -->
-<main class="modernize-shell">
-<section class="m-section" data-aos="fade-up" style="padding-top:96px;">
-  <div class="m-wrap m-rail-layout">
-    <div>
-      <div class="m-eyebrow">Flagship case study</div>
-      <h1 class="m-title" style="font-size: clamp(2.3rem, 4vw, 3.9rem);">SignalFoundry Case Study: alert triage to escalation artifacts</h1>
-      <p class="m-subtitle">SignalFoundry implementation: Wazuh alert intake, policy-based triage, mandatory redaction, and escalation-ready evidence packs.</p>
-      <p class="m-outcome">A SOAR-style Tier-1 triage workflow for Wazuh alerts with policy-based dispositions, mandatory redaction, and evidence packs that end as reviewable GitHub escalation artifacts.</p>
-      <div class="m-actions">
-        <a class="m-cta m-cta-dominant" href="/">Home</a>
-        <a class="m-cta m-cta-accent" href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer">Open Repo</a>
-        <a class="m-cta m-cta-secondary" href="/proof">Proof Receipts</a>
-      </div>
-      <div class="m-hero-signals">
-        <span class="m-hero-signal">Overview</span>
-        <span class="m-hero-signal">Workflow</span>
-        <span class="m-hero-signal">Outputs</span>
-        <span class="m-hero-signal">Proof</span>
-      </div>
-      <div class="m-proof-strip" style="margin-top:16px;">
-        <div class="m-proof-inline">
-          <strong>Counts verified <span data-verified-date>03-30-2026</span></strong>
-          <strong>Heartbeat <span data-ops-status="stable_heartbeat">UNKNOWN</span></strong>
-          <strong>Coverage <span data-ops="stable_coverage_ratio"> - </span></strong>
-          <strong>Metrics snapshot <span data-ops="stable_locked_date"> - </span></strong>
-        </div>
-      </div>
 
-      <div class="m-kpi-grid" aria-label="SignalFoundry proof metrics">
-        <article class="m-kpi" data-aos="fade-up">
-          <div class="m-kpi-value"><span data-verified="detections">140</span></div>
-          <div class="m-kpi-label">Detection context</div>
-          <p class="m-kpi-copy">The case study sits inside a broader, script-verified public detection corpus rather than an isolated project page.</p>
-        </article>
-        <article class="m-kpi" data-aos="fade-up">
-          <div class="m-kpi-value"><span data-verified="wazuh">28</span></div>
-          <div class="m-kpi-label">Wazuh rule blocks</div>
-          <p class="m-kpi-copy">Rules and lab paths are tied to the same operational story, which keeps the automation grounded.</p>
-        </article>
-        <article class="m-kpi" data-aos="fade-up">
-          <div class="m-kpi-value"><span data-verified="ir">10</span></div>
-          <div class="m-kpi-label">Playbook coverage</div>
-          <p class="m-kpi-copy">Escalation outputs are backed by documented IR procedures instead of undocumented analyst habit.</p>
-        </article>
-      <article class="m-kpi" data-aos="fade-up">
-        <div class="m-kpi-value"><span data-verified-date>03-30-2026</span></div>
-          <div class="m-kpi-label">Last verified</div>
-        <p class="m-kpi-copy">Counts and proof links stay tied to the same repository verification model used elsewhere on the site.</p>
-      </article>
-      </div>
+<main>
+<div class="cs-page">
+
+  <!-- HERO: System state, not explanation -->
+  <div class="cs-hero">
+    <div class="cs-label">SignalFoundry</div>
+    <h1 style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin:0 0 10px;">Alert triage to escalation artifacts</h1>
+    <p class="cs-sub">35-script Python pipeline. Wazuh alerts in, policy-driven triage, mandatory redaction, evidence packs out. Nothing publishes without reconciliation PASS.</p>
+    <div class="cs-status-bar">
+      <div class="cs-stat"><div class="sv" style="color:#4ade80;" data-ops-status="stable_heartbeat">SUCCESS</div><div class="sl">Heartbeat</div></div>
+      <div class="cs-stat"><div class="sv" style="color:#7ab8ff;" class="counter" data-target="55665">55,665</div><div class="sl">Cases</div></div>
+      <div class="cs-stat"><div class="sv" style="color:#4ade80;">~92%</div><div class="sl">Auto-Closed</div></div>
+      <div class="cs-stat"><div class="sv" style="color:#fbbf24;" data-ops="stable_escalated">2,545</div><div class="sl">Escalated</div></div>
+      <div class="cs-stat"><div class="sv" style="color:#4ade80;" data-ops="stable_coverage_ratio">8/8</div><div class="sl">Coverage</div></div>
     </div>
-
-    <aside class="m-rail">
-      <section class="m-rail-section">
-        <div class="m-card-kicker" data-aos="fade-up">Reviewer path</div>
-        <h2>Keep proof in view</h2>
-        <p class="m-subtitle">This rail keeps the flagship path short: understand the workflow, inspect the evidence outputs, then verify the receipts.</p>
-        <div class="m-link-list">
-          <a href="/" class="m-link-item">
-            <strong>Start Here path</strong>
-            <span>Fastest route through metrics contract, proof links, and verification commands.</span>
-          </a>
-          <a href="/proof" class="m-link-item">
-            <strong>Proof page</strong>
-            <span>Proof surface for logs, packs, and verification commands.</span>
-          </a>
-          <a href="https://github.com/raylee-hawkins/HawkinsOperations/releases" class="m-link-item">
-            <strong>Release timeline</strong>
-            <span>Execution chain that connects the case study to documented releases.</span>
-          </a>
-          <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" class="m-link-item">
-            <strong>Public repository</strong>
-            <span>Source and history for the automation stack behind this page.</span>
-          </a>
-        </div>
-      </section>
-
-      <section class="m-rail-section">
-        <div class="m-card-kicker" data-aos="fade-up">Core outcome</div>
-        <h2>Why it matters</h2>
-        <ul class="m-list-tight">
-          <li>Reduces repetitive triage drift with explicit disposition logic.</li>
-          <li>Enforces sanitization before anything becomes public proof.</li>
-          <li>Produces a consistent escalation packet for review and handoff.</li>
-        </ul>
-      </section>
-    </aside>
-  </div>
-</section>
-
-<!-- ── VISUAL OPERATIONAL DASHBOARD ── -->
-<section class="m-section" data-aos="fade-up" style="padding-top:0;">
-  <div class="m-wrap">
-    <div class="m-eyebrow" style="margin-bottom:16px;">Operational Dashboard</div>
-
-    <!-- Row 1: Pipeline Stage Flow + Case Metrics -->
-    <div style="display:grid;grid-template-columns:1fr 320px;gap:20px;margin-bottom:24px;">
-
-      <!-- Pipeline stage flow with data -->
-      <div class="sf-card" data-aos="fade-up" style="padding:24px;">
-        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:16px;">7-Stage Pipeline Flow</div>
-        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;">
-          <div style="text-align:center;padding:12px 4px;background:rgba(122,184,255,0.06);border:1px solid rgba(122,184,255,0.15);border-radius:8px;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#7ab8ff;margin-bottom:4px;">01</div>
-            <div style="font-size:0.72rem;font-weight:700;color:#e5edff;">INGEST</div>
-            <div style="font-size:0.6rem;color:var(--muted,#8ea4c7);margin-top:3px;">poll-alerts</div>
-          </div>
-          <div style="text-align:center;padding:12px 4px;background:rgba(122,184,255,0.06);border:1px solid rgba(122,184,255,0.15);border-radius:8px;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#7ab8ff;margin-bottom:4px;">02</div>
-            <div style="font-size:0.72rem;font-weight:700;color:#e5edff;">TRIAGE</div>
-            <div style="font-size:0.6rem;color:var(--muted,#8ea4c7);margin-top:3px;">classify</div>
-          </div>
-          <div style="text-align:center;padding:12px 4px;background:rgba(122,184,255,0.06);border:1px solid rgba(122,184,255,0.15);border-radius:8px;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#7ab8ff;margin-bottom:4px;">03</div>
-            <div style="font-size:0.72rem;font-weight:700;color:#e5edff;">REDACT</div>
-            <div style="font-size:0.6rem;color:var(--muted,#8ea4c7);margin-top:3px;">sanitize</div>
-          </div>
-          <div style="text-align:center;padding:12px 4px;background:rgba(122,184,255,0.06);border:1px solid rgba(122,184,255,0.15);border-radius:8px;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#7ab8ff;margin-bottom:4px;">04</div>
-            <div style="font-size:0.72rem;font-weight:700;color:#e5edff;">PACK</div>
-            <div style="font-size:0.6rem;color:var(--muted,#8ea4c7);margin-top:3px;">evidence</div>
-          </div>
-          <div style="text-align:center;padding:12px 4px;background:rgba(122,184,255,0.06);border:1px solid rgba(122,184,255,0.15);border-radius:8px;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#7ab8ff;margin-bottom:4px;">05</div>
-            <div style="font-size:0.72rem;font-weight:700;color:#e5edff;">RECONCILE</div>
-            <div style="font-size:0.6rem;color:var(--muted,#8ea4c7);margin-top:3px;">ledger</div>
-          </div>
-          <div style="text-align:center;padding:12px 4px;background:rgba(122,184,255,0.06);border:1px solid rgba(122,184,255,0.15);border-radius:8px;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#7ab8ff;margin-bottom:4px;">06</div>
-            <div style="font-size:0.72rem;font-weight:700;color:#e5edff;">GATE</div>
-            <div style="font-size:0.6rem;color:var(--muted,#8ea4c7);margin-top:3px;">quality</div>
-          </div>
-          <div style="text-align:center;padding:12px 4px;background:rgba(59,143,217,0.12);border:1px solid rgba(59,143,217,0.3);border-radius:8px;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#3b8fd9;margin-bottom:4px;">07</div>
-            <div style="font-size:0.72rem;font-weight:700;color:#e5edff;">PUBLISH</div>
-            <div style="font-size:0.6rem;color:#3b8fd9;margin-top:3px;">proof output</div>
-          </div>
-        </div>
-        <!-- Connecting arrows -->
-        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:4px;">
-          <div style="text-align:center;font-size:0.7rem;color:rgba(122,184,255,0.3);">&#9660;</div>
-          <div style="text-align:center;font-size:0.7rem;color:rgba(122,184,255,0.3);">&#9660;</div>
-          <div style="text-align:center;font-size:0.7rem;color:rgba(122,184,255,0.3);">&#9660;</div>
-          <div style="text-align:center;font-size:0.7rem;color:rgba(122,184,255,0.3);">&#9660;</div>
-          <div style="text-align:center;font-size:0.7rem;color:rgba(122,184,255,0.3);">&#9660;</div>
-          <div style="text-align:center;font-size:0.7rem;color:rgba(122,184,255,0.3);">&#9660;</div>
-          <div style="text-align:center;font-size:0.7rem;color:rgba(59,143,217,0.5);">&#9660;</div>
-        </div>
-        <!-- Stage outputs row -->
-        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;">
-          <div style="text-align:center;font-size:0.58rem;color:var(--muted,#8ea4c7);opacity:0.6;">Wazuh API</div>
-          <div style="text-align:center;font-size:0.58rem;color:var(--muted,#8ea4c7);opacity:0.6;">Disposition</div>
-          <div style="text-align:center;font-size:0.58rem;color:var(--muted,#8ea4c7);opacity:0.6;">PII removed</div>
-          <div style="text-align:center;font-size:0.58rem;color:var(--muted,#8ea4c7);opacity:0.6;">5 artifacts</div>
-          <div style="text-align:center;font-size:0.58rem;color:var(--muted,#8ea4c7);opacity:0.6;">0 mismatch</div>
-          <div style="text-align:center;font-size:0.58rem;color:var(--muted,#8ea4c7);opacity:0.6;">Coverage &#10003;</div>
-          <div style="text-align:center;font-size:0.58rem;color:#3b8fd9;">GitHub PR</div>
-        </div>
-      </div>
-
-      <!-- Disposition donut -->
-      <div class="sf-card" data-aos="fade-up" style="padding:24px;text-align:center;">
-        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Case Disposition</div>
-        <svg viewBox="0 0 180 180" width="160" height="160" role="img" aria-label="Disposition breakdown: ~92% auto-close, ~8% escalated" style="display:block;margin:0 auto;">
-          <title>Case disposition breakdown</title>
-          <defs>
-            <linearGradient id="cs-gauge-g" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#4ade80"/>
-              <stop offset="100%" stop-color="#22c55e"/>
-            </linearGradient>
-          </defs>
-          <circle cx="90" cy="90" r="70" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="14"/>
-          <circle cx="90" cy="90" r="70" fill="none" stroke="url(#cs-gauge-g)" stroke-width="14"
-            stroke-dasharray="405 440" stroke-linecap="round" transform="rotate(-90 90 90)"/>
-          <circle cx="90" cy="90" r="70" fill="none" stroke="rgba(251,191,36,0.35)" stroke-width="14"
-            stroke-dasharray="35 440" stroke-dashoffset="-405" stroke-linecap="round" transform="rotate(-90 90 90)"/>
-          <text x="90" y="84" text-anchor="middle" fill="#f0f6ff" style="font:800 2.2rem 'Sora',sans-serif;">~92<tspan style="font-size:1rem;">%</tspan></text>
-          <text x="90" y="106" text-anchor="middle" fill="var(--muted,#8ea4c7)" style="font:500 0.6rem 'JetBrains Mono',monospace;">auto-closed</text>
-        </svg>
-        <div style="display:grid;gap:6px;margin-top:14px;font-size:0.72rem;text-align:left;">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <div style="width:8px;height:8px;border-radius:2px;background:#4ade80;flex-shrink:0;"></div>
-            <span style="color:#d4e0ec;">AUTO_CLOSE_BENIGN</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <div style="width:8px;height:8px;border-radius:2px;background:#fbbf24;flex-shrink:0;"></div>
-            <span style="color:#d4e0ec;">ESCALATE &rarr; evidence pack</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Row 2: Evidence pack structure + Recovery timeline -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-
-      <!-- Evidence pack structure -->
-      <div class="sf-card" data-aos="fade-up" style="padding:24px;">
-        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Escalation Evidence Pack Structure</div>
-        <div style="display:grid;gap:8px;">
-          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#7ab8ff;min-width:22px;">01</div>
-            <div>
-              <div style="font-size:0.82rem;font-weight:600;color:#e5edff;">00_one_pager.md</div>
-              <div style="font-size:0.68rem;color:var(--muted,#8ea4c7);">Intake summary &mdash; analyst-ready orientation</div>
-            </div>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#7ab8ff;min-width:22px;">02</div>
-            <div>
-              <div style="font-size:0.82rem;font-weight:600;color:#e5edff;">01_full_report.md</div>
-              <div style="font-size:0.68rem;color:var(--muted,#8ea4c7);">Investigative narrative with full context</div>
-            </div>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#7ab8ff;min-width:22px;">03</div>
-            <div>
-              <div style="font-size:0.82rem;font-weight:600;color:#e5edff;">02_timeline.csv</div>
-              <div style="font-size:0.68rem;color:var(--muted,#8ea4c7);">Machine-readable event chronology</div>
-            </div>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#7ab8ff;min-width:22px;">04</div>
-            <div>
-              <div style="font-size:0.82rem;font-weight:600;color:#e5edff;">03_queries.md</div>
-              <div style="font-size:0.68rem;color:var(--muted,#8ea4c7);">Reproduction queries for the alert</div>
-            </div>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.15);border-radius:8px;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#fbbf24;min-width:22px;">05</div>
-            <div>
-              <div style="font-size:0.82rem;font-weight:600;color:#e5edff;">04_closure_report.md</div>
-              <div style="font-size:0.68rem;color:var(--muted,#8ea4c7);">Final disposition + audit trail</div>
-            </div>
-          </div>
-        </div>
-        <p style="font-size:0.68rem;color:var(--muted,#8ea4c7);margin-top:10px;opacity:0.6;">All packs pass the redaction gate before publication.</p>
-      </div>
-
-      <!-- Recovery timeline -->
-      <div class="sf-card" data-aos="fade-up" style="padding:24px;">
-        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Recovery Timeline</div>
-        <div style="position:relative;padding-left:24px;">
-          <!-- Vertical line -->
-          <div style="position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,rgba(251,191,36,0.4),rgba(113,199,184,0.4));border-radius:1px;"></div>
-          <!-- Event 1: Outage detected -->
-          <div style="position:relative;margin-bottom:20px;">
-            <div style="position:absolute;left:-20px;top:4px;width:10px;height:10px;border-radius:50%;background:#fbbf24;box-shadow:0 0 6px rgba(251,191,36,0.4);"></div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#fbbf24;">03-13-2026</div>
-            <div style="font-size:0.82rem;font-weight:600;color:#e5edff;margin-top:2px;">Ingestion outage detected</div>
-            <div style="font-size:0.72rem;color:var(--muted,#8ea4c7);">Pipeline heartbeat dropped to DEGRADED</div>
-          </div>
-          <!-- Event 2: Root cause -->
-          <div style="position:relative;margin-bottom:20px;">
-            <div style="position:absolute;left:-20px;top:4px;width:10px;height:10px;border-radius:50%;background:#7ab8ff;box-shadow:0 0 6px rgba(122,184,255,0.4);"></div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#7ab8ff;">Root cause</div>
-            <div style="font-size:0.82rem;font-weight:600;color:#e5edff;margin-top:2px;">Infrastructure vs. application logic separated</div>
-            <div style="font-size:0.72rem;color:var(--muted,#8ea4c7);">Reconciliation-path validation defect isolated</div>
-          </div>
-          <!-- Event 3: Fix applied -->
-          <div style="position:relative;margin-bottom:20px;">
-            <div style="position:absolute;left:-20px;top:4px;width:10px;height:10px;border-radius:50%;background:#7ab8ff;box-shadow:0 0 6px rgba(122,184,255,0.4);"></div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#7ab8ff;">Fix deployed</div>
-            <div style="font-size:0.82rem;font-weight:600;color:#e5edff;margin-top:2px;">Reconciliation path corrected</div>
-            <div style="font-size:0.72rem;color:var(--muted,#8ea4c7);">Revalidated end-to-end with 0 mismatches</div>
-          </div>
-          <!-- Event 4: Recovery confirmed -->
-          <div style="position:relative;margin-bottom:20px;">
-            <div style="position:absolute;left:-20px;top:4px;width:10px;height:10px;border-radius:50%;background:#71c7b8;box-shadow:0 0 6px rgba(113,199,184,0.4);"></div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#71c7b8;">Recovery</div>
-            <div style="font-size:0.82rem;font-weight:600;color:#e5edff;margin-top:2px;">Pipeline returned to SUCCESS</div>
-            <div style="font-size:0.72rem;color:var(--muted,#8ea4c7);">8/8 coverage confirmed, heartbeat restored</div>
-          </div>
-          <!-- Event 5: Authority locked -->
-          <div style="position:relative;">
-            <div style="position:absolute;left:-20px;top:4px;width:10px;height:10px;border-radius:50%;background:#71c7b8;box-shadow:0 0 6px rgba(113,199,184,0.4);"></div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#71c7b8;"><span data-ops="stable_locked_date">03-25-2026</span></div>
-            <div style="font-size:0.82rem;font-weight:600;color:#e5edff;margin-top:2px;">Authority snapshot locked</div>
-            <div style="font-size:0.72rem;color:var(--muted,#8ea4c7);">Public benchmark frozen for reviewer reference</div>
-          </div>
-        </div>
-      </div>
+    <div style="display:flex;gap:10px;margin-top:20px;">
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" style="padding:8px 18px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.04em;background:rgba(122,184,255,0.08);border:1px solid rgba(122,184,255,0.2);border-radius:3px;color:#7ab8ff;text-decoration:none;">Open Repo</a>
+      <a href="/proof" style="padding:8px 18px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.04em;border:1px solid rgba(122,184,255,0.12);border-radius:3px;color:#7a94aa;text-decoration:none;">Proof Receipts</a>
+      <a href="/detections" style="padding:8px 18px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.04em;border:1px solid rgba(122,184,255,0.12);border-radius:3px;color:#7a94aa;text-decoration:none;">Detections</a>
     </div>
   </div>
-</section>
 
-<section class="m-section m-stage" data-aos="fade-up">
-  <div class="m-wrap">
-    <div class="m-evidence-note m-stage-surface" data-aos="fade-up">
-      <div class="m-card-kicker" data-aos="fade-up">Reliability / recovery</div>
-      <h3>Operational recovery is part of the project signal</h3>
-      <p>This workflow was also used to diagnose and recover a live ingestion outage. The investigation separated infrastructure reachability from application logic, restored polling, then fixed a reconciliation-path bug uncovered during retest. Final validation returned the pipeline to <span class="m-inline-code">SUCCESS</span> with strict reconciliation back to <span class="m-inline-code">MISMATCH_COUNT=0</span>.</p>
-      <p><a href="/proof" class="m-cta m-cta-secondary">Review proof path</a></p>
+  <!-- 7-STAGE PIPELINE -->
+  <div class="cs-section alt" data-aos="fade-up">
+    <div class="cs-label">Pipeline Stages</div>
+    <h2 class="cs-title">7-stage deterministic workflow</h2>
+    <p class="cs-sub">Every alert passes through every stage in order. No skip paths. No manual overrides.</p>
+    <div class="cs-pipeline">
+      <div class="cs-stage"><div class="sn">01</div><div class="sname">INGEST</div><div class="sdesc">poll-alerts.py</div></div>
+      <div class="cs-stage"><div class="sn">02</div><div class="sname">TRIAGE</div><div class="sdesc">classify.py</div></div>
+      <div class="cs-stage"><div class="sn">03</div><div class="sname">REDACT</div><div class="sdesc">sanitize.py</div></div>
+      <div class="cs-stage"><div class="sn">04</div><div class="sname">PACK</div><div class="sdesc">evidence.py</div></div>
+      <div class="cs-stage"><div class="sn">05</div><div class="sname">RECONCILE</div><div class="sdesc">ledger.py</div></div>
+      <div class="cs-stage"><div class="sn">06</div><div class="sname">GATE</div><div class="sdesc">quality.py</div></div>
+      <div class="cs-stage final"><div class="sn">07</div><div class="sname">PUBLISH</div><div class="sdesc">proof output</div></div>
     </div>
   </div>
-</section>
 
-<section class="m-section m-stage m-stage-overview" data-aos="fade-up">
-  <div class="m-wrap">
-    <div class="m-flow-grid">
-      <article class="m-flow-card">
-        <div class="m-flow-step">1</div>
-        <h3>Problem</h3>
-        <p class="m-copy">SOC triage gets noisy fast. Without a standard output contract, evidence quality drifts with analyst style and alert fatigue.</p>
-      </article>
-      <article class="m-flow-card">
-        <div class="m-flow-step">2</div>
-        <h3>System response</h3>
-        <p class="m-copy">SignalFoundry applies disposition logic, runs a mandatory redaction gate, and packages the result as reviewable evidence.</p>
-      </article>
-      <article class="m-flow-card">
-        <div class="m-flow-step">3</div>
-        <h3>Proof output</h3>
-        <p class="m-copy">The project is presented as a working engineering loop: workflow, artifacts, release trail, and verification path stay connected.</p>
-      </article>
+  <!-- ARCHITECTURE -->
+  <div class="cs-section" data-aos="fade-up">
+    <div class="cs-label">Architecture</div>
+    <h2 class="cs-title">System map</h2>
+    <div style="margin-top:16px;border-radius:4px;overflow:hidden;border:1px solid rgba(122,184,255,0.1);">
+      <img src="/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1" alt="SignalFoundry architecture: sources, pipeline gates, output controls" width="1600" height="900" loading="eager" style="display:block;width:100%;height:auto;">
     </div>
   </div>
-</section>
 
-<section class="m-section m-stage m-stage-topology" data-aos="fade-up">
-  <div class="m-wrap">
-    <div class="m-divider-title">
-      <div class="m-card-kicker" data-aos="fade-up">Topology / architecture</div>
-    </div>
-    <div class="m-evidence-note" data-aos="fade-up" style="margin-bottom:18px;">
-      <div class="m-card-kicker" data-aos="fade-up">Inspection stage</div>
-      <h3>Start with the system map</h3>
-      <p>This stage exists to explain the environment and control points before the page asks the reviewer to think about movement, logic, or outputs.</p>
-    </div>
-    <div class="m-diagram-frame m-stage-surface">
-      <div class="m-frame-head">
-        <span class="m-frame-title">System relationships</span>
-        <span class="m-frame-tag">Architecture</span>
-      </div>
-      <div class="m-frame-body">
-        <img src="/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1" alt="SignalFoundry architecture map showing sources, pipeline gates, and output controls" width="1600" height="900" loading="eager">
-        <p class="m-frame-caption">This view explains the environment and control points: where alerts enter, where policy gates apply, and where reviewable outputs are assembled.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="m-section m-stage m-stage-workflow" data-aos="fade-up">
-  <div class="m-wrap">
-    <div class="m-divider-title">
-      <div class="m-card-kicker" data-aos="fade-up">Workflow</div>
-    </div>
-    <div class="m-grid-2 m-stage-stagegrid">
-      <div class="m-diagram-frame m-stage-surface">
-        <div class="m-frame-head">
-          <span class="m-frame-title">Workflow sequence</span>
-          <span class="m-frame-tag">Pipeline</span>
-        </div>
-        <div class="m-frame-body">
-          <img src="/assets/pp_soc_integration/autosoc-pipe-diagram.svg" alt="SignalFoundry workflow diagram showing poll, triage, redact, pack, and pull request creation" width="1200" height="240" loading="lazy">
-          <p class="m-frame-caption">This narrower view reduces the workflow to the steps a reviewer needs to understand quickly: ingest, decide, redact, package, and escalate.</p>
-        </div>
-      </div>
-      <div class="m-evidence-note m-stage-surface" data-aos="fade-up">
-        <div class="m-card-kicker" data-aos="fade-up">Inspection stage</div>
-        <h3>Then inspect movement</h3>
-        <p>This is the point where the page stops describing architecture and starts showing how alerts move through reviewable pipeline states. That separation is what turns the page into a packet instead of a document.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="m-section m-stage m-stage-logic" data-aos="fade-up">
-  <div class="m-wrap m-split-callout">
-    <article class="m-callout">
-      <div class="m-card-kicker" data-aos="fade-up">Decision logic</div>
-      <h3>Deterministic dispositions</h3>
-      <p class="m-subtitle">SignalFoundry uses explicit dispositions to keep triage behavior reviewable and reproducible.</p>
-      <div style="overflow-x:auto;margin-top:14px">
-        <table style="width:100%;border-collapse:collapse;font-size:.94rem">
-          <thead>
-            <tr>
-              <th style="text-align:left;padding:10px;border-bottom:1px solid var(--border)">Disposition</th>
-              <th style="text-align:left;padding:10px;border-bottom:1px solid var(--border)">Meaning</th>
-              <th style="text-align:left;padding:10px;border-bottom:1px solid var(--border)">System action</th>
-            </tr>
-          </thead>
+  <!-- DECISION LOGIC -->
+  <div class="cs-section alt" data-aos="fade-up">
+    <div class="cs-label">Decision Logic</div>
+    <h2 class="cs-title">Deterministic dispositions</h2>
+    <p class="cs-sub">No analyst judgment in the triage path. Policy dictates disposition. Every outcome is auditable.</p>
+    <div style="display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start;">
+      <div>
+        <table class="cs-disp-table">
+          <thead><tr><th>Disposition</th><th>Condition</th><th>Action</th></tr></thead>
           <tbody>
-            <tr>
-              <td style="padding:10px;border-bottom:1px solid var(--border)"><span class="m-inline-code">AUTO_CLOSE_BENIGN</span></td>
-              <td style="padding:10px;border-bottom:1px solid var(--border)">Expected activity</td>
-              <td style="padding:10px;border-bottom:1px solid var(--border)">Close and log evidence summary</td>
-            </tr>
-            <tr>
-              <td style="padding:10px;border-bottom:1px solid var(--border)"><span class="m-inline-code">AUTO_CLOSE_KNOWN_FP</span></td>
-              <td style="padding:10px;border-bottom:1px solid var(--border)">Known false positive pattern</td>
-              <td style="padding:10px;border-bottom:1px solid var(--border)">Close, annotate reason, keep audit trail</td>
-            </tr>
-            <tr>
-              <td style="padding:10px;border-bottom:1px solid var(--border)"><span class="m-inline-code">ESCALATE</span></td>
-              <td style="padding:10px;border-bottom:1px solid var(--border)">Suspicious or high-confidence case</td>
-              <td style="padding:10px;border-bottom:1px solid var(--border)">Generate evidence pack and escalation artifacts</td>
-            </tr>
+            <tr><td><code style="background:rgba(74,222,128,0.1);color:#4ade80;">AUTO_CLOSE_BENIGN</code></td><td>Expected activity pattern</td><td>Close + log evidence summary</td></tr>
+            <tr><td><code style="background:rgba(251,191,36,0.1);color:#fbbf24;">AUTO_CLOSE_KNOWN_FP</code></td><td>Known false positive</td><td>Close + annotate reason + audit trail</td></tr>
+            <tr><td><code style="background:rgba(239,68,68,0.1);color:#ef4444;">ESCALATE</code></td><td>Suspicious / high-confidence</td><td>Generate evidence pack &rarr; escalation</td></tr>
           </tbody>
         </table>
       </div>
-    </article>
-
-    <article class="m-callout">
-      <div class="m-card-kicker" data-aos="fade-up">Operational value</div>
-      <h3>What the workflow fixes</h3>
-      <ul class="m-list-tight">
-        <li>Standardizes evidence collection so handoff quality does not depend on analyst style.</li>
-        <li>Keeps redaction as a mandatory gate before any artifact becomes public.</li>
-        <li>Preserves the escalation path even while reducing false-positive pressure.</li>
-      </ul>
-    </article>
-  </div>
-</section>
-
-<section class="m-section m-stage m-stage-outputs" data-aos="fade-up">
-  <div class="m-wrap">
-    <div class="m-divider-title">
-      <div class="m-card-kicker" data-aos="fade-up">Escalation output</div>
+      <div>
+        <svg viewBox="0 0 180 180" width="160" height="160" role="img" aria-label="~92% auto-close, ~8% escalated" style="display:block;">
+          <circle cx="90" cy="90" r="70" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="14"/>
+          <circle cx="90" cy="90" r="70" fill="none" stroke="#4ade80" stroke-width="14" stroke-dasharray="405 440" stroke-linecap="round" transform="rotate(-90 90 90)"/>
+          <circle cx="90" cy="90" r="70" fill="none" stroke="rgba(251,191,36,0.4)" stroke-width="14" stroke-dasharray="35 440" stroke-dashoffset="-405" stroke-linecap="round" transform="rotate(-90 90 90)"/>
+          <text x="90" y="84" text-anchor="middle" fill="#f0f6ff" style="font:800 2rem 'Sora',sans-serif;">~92<tspan style="font-size:0.9rem;">%</tspan></text>
+          <text x="90" y="104" text-anchor="middle" fill="#7a94aa" style="font:500 0.6rem 'JetBrains Mono',monospace;">auto-closed</text>
+        </svg>
+      </div>
     </div>
-    <h2 class="m-title" style="font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:12px;">What the pipeline produces</h2>
-    <p class="m-copy" style="max-width:64ch;margin-bottom:24px;">Every escalated case generates a structured evidence pack. Five artifacts, each with a defined role in the review chain. All pass the mandatory redaction gate before publication.</p>
+  </div>
 
-    <div class="m-grid-2" style="margin-bottom:24px;">
-      <article class="m-card" style="padding:22px;">
-        <div class="m-card-kicker" data-aos="fade-up">Evidence pack structure</div>
-        <div style="display:grid;gap:10px;margin-top:12px;">
-          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
-            <code style="font-size:0.78rem;color:#7ab8ff;min-width:140px;">00_one_pager.md</code>
-            <span style="font-size:0.82rem;color:var(--muted,#8ea4c7);">Intake summary for fast reviewer orientation</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
-            <code style="font-size:0.78rem;color:#7ab8ff;min-width:140px;">01_full_report.md</code>
-            <span style="font-size:0.82rem;color:var(--muted,#8ea4c7);">Full investigative narrative with context</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
-            <code style="font-size:0.78rem;color:#7ab8ff;min-width:140px;">02_timeline.csv</code>
-            <span style="font-size:0.82rem;color:var(--muted,#8ea4c7);">Machine-readable event chronology</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
-            <code style="font-size:0.78rem;color:#7ab8ff;min-width:140px;">03_queries.md</code>
-            <span style="font-size:0.82rem;color:var(--muted,#8ea4c7);">Reproduction queries for the alert</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.12);border-radius:8px;">
-            <code style="font-size:0.78rem;color:#fbbf24;min-width:140px;">04_closure_report.md</code>
-            <span style="font-size:0.82rem;color:var(--muted,#8ea4c7);">Final disposition and audit trail</span>
-          </div>
+  <!-- WORKFLOW -->
+  <div class="cs-section" data-aos="fade-up">
+    <div class="cs-label">Workflow</div>
+    <h2 class="cs-title">Alert movement through pipeline</h2>
+    <div style="margin-top:16px;border-radius:4px;overflow:hidden;border:1px solid rgba(122,184,255,0.1);">
+      <img src="/assets/pp_soc_integration/autosoc-pipe-diagram.svg" alt="SignalFoundry workflow: poll, triage, redact, pack, escalate" width="1200" height="240" loading="lazy" style="display:block;width:100%;height:auto;">
+    </div>
+  </div>
+
+  <!-- EVIDENCE PACK -->
+  <div class="cs-section alt" data-aos="fade-up">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
+      <div>
+        <div class="cs-label">Escalation Output</div>
+        <h2 class="cs-title">Evidence pack structure</h2>
+        <p class="cs-sub">Every escalated case produces 5 artifacts. All pass mandatory redaction before publication.</p>
+        <div class="cs-pack">
+          <div class="cs-pack-item"><code>00_one_pager.md</code><span>Analyst-ready intake summary</span></div>
+          <div class="cs-pack-item"><code>01_full_report.md</code><span>Investigative narrative with context</span></div>
+          <div class="cs-pack-item"><code>02_timeline.csv</code><span>Machine-readable event chronology</span></div>
+          <div class="cs-pack-item"><code>03_queries.md</code><span>Reproduction queries for the alert</span></div>
+          <div class="cs-pack-item closure"><code>04_closure_report.md</code><span>Final disposition + audit trail</span></div>
         </div>
-      </article>
-
-      <article class="m-card" style="padding:22px;">
-        <div class="m-card-kicker" data-aos="fade-up">Workflow evidence</div>
-        <div style="margin-top:12px;">
-          <img src="/assets/pp_soc_integration/t3-workflow.png" alt="SignalFoundry workflow screenshot showing evidence capture surface" width="1334" height="750" loading="lazy" style="border-radius:8px;border:1px solid rgba(122,184,255,0.08);width:100%;height:auto;">
-          <p style="font-size:0.78rem;color:var(--muted,#8ea4c7);margin-top:8px;">The operational surface that produces the evidence packs. Each artifact is generated programmatically, passes redaction, and is committed to the repository.</p>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="m-section m-stage m-stage-proof" data-aos="fade-up">
-  <div class="m-wrap">
-    <div class="m-card" data-aos="fade-up">
-      <div class="m-card-kicker" data-aos="fade-up">Proof links</div>
-      <h2>Validate the case study</h2>
-      <div class="m-grid-2">
-        <a href="/proof" class="m-link-item">
-          <strong>Proof page</strong>
-          <span>Proof surface for logs, packs, release links, and reproducible verification commands.</span>
-        </a>
-        <a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/docs/execution/RELEASE_NOTES_v1.4.0.md" target="_blank" rel="noopener noreferrer" class="m-link-item">
-          <strong>Release notes</strong>
-          <span>Operational change log for the project milestone referenced throughout this page.</span>
-        </a>
-        <a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md" target="_blank" rel="noopener noreferrer" class="m-link-item">
-          <strong>Operations runbook</strong>
-          <span>Execution reference that anchors the workflow in repeatable operational practice.</span>
-        </a>
-        <a href="https://github.com/raylee-hawkins/HawkinsOperations/releases" class="m-link-item">
-          <strong>March release timeline</strong>
-          <span>Bridge between project narrative and release execution history.</span>
-        </a>
+      </div>
+      <div>
+        <img src="/assets/pp_soc_integration/t3-workflow.png" alt="SignalFoundry evidence capture surface" width="1334" height="750" loading="lazy" style="border-radius:4px;border:1px solid rgba(122,184,255,0.08);width:100%;height:auto;">
       </div>
     </div>
   </div>
-</section>
 
-<section class="m-section m-stage" data-aos="fade-up">
-  <div class="m-wrap">
-    <div class="m-card" data-aos="fade-up">
-      <div class="m-card-kicker" data-aos="fade-up">Field notes</div>
-      <h2>Engineering case studies</h2>
-      <p class="m-copy">Documented operational decisions from the AutoSOC project — infrastructure migrations and incident RCAs with source evidence, not post-hoc summaries.</p>
-      <div class="m-grid-2" style="margin-top:16px;">
-        <a href="/autosoc-cutover" class="m-link-item">
-          <strong>Infrastructure Cutover &mdash; 2026-03-23</strong>
-          <span>Production migration to canonical root. Preflight gate, five retargeted Task Scheduler tasks, legacy ref count = 0. CUTOVER_READY=YES with signed proof artifact.</span>
-        </a>
-        <a href="/autosoc-hotfix-rca" class="m-link-item">
-          <strong>Hotfix RCA: Triage Quality Chart &mdash; 2026-03-23</strong>
-          <span>Assert-CanonicalPath called before declaration. Function moved above call site. EXIT=0, 30 data points rendered, 104KB artifact confirmed. Parent pipeline validated.</span>
-        </a>
+  <!-- RECOVERY TIMELINE -->
+  <div class="cs-section" data-aos="fade-up">
+    <div class="cs-label">Incident Recovery</div>
+    <h2 class="cs-title">March 13 pipeline outage &mdash; diagnosed and restored in one session</h2>
+    <p class="cs-sub">Separated infrastructure reachability from application logic. Isolated reconciliation-path defect. Restored end-to-end SUCCESS.</p>
+    <div class="cs-timeline">
+      <div class="cs-tl-event">
+        <div class="cs-tl-dot" style="background:#fbbf24;color:#fbbf24;"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#fbbf24;">03-13-2026</div>
+        <div style="font-size:0.85rem;font-weight:600;color:#e5edff;margin-top:2px;">Ingestion outage detected</div>
+        <div style="font-size:0.72rem;color:#7a94aa;">Pipeline heartbeat dropped to DEGRADED</div>
       </div>
-      <div style="margin-top:16px;">
-        <a href="/case-studies" class="m-cta m-cta-secondary">All field notes &rarr;</a>
+      <div class="cs-tl-event">
+        <div class="cs-tl-dot" style="background:#7ab8ff;color:#7ab8ff;"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#7ab8ff;">Root cause</div>
+        <div style="font-size:0.85rem;font-weight:600;color:#e5edff;margin-top:2px;">Infra vs. application logic separated</div>
+        <div style="font-size:0.72rem;color:#7a94aa;">Reconciliation-path validation defect isolated</div>
+      </div>
+      <div class="cs-tl-event">
+        <div class="cs-tl-dot" style="background:#4ade80;color:#4ade80;"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#4ade80;">Restored</div>
+        <div style="font-size:0.85rem;font-weight:600;color:#e5edff;margin-top:2px;">Pipeline returned to SUCCESS</div>
+        <div style="font-size:0.72rem;color:#7a94aa;">8/8 coverage confirmed &middot; 0 mismatches &middot; heartbeat SUCCESS</div>
+      </div>
+      <div class="cs-tl-event">
+        <div class="cs-tl-dot" style="background:#4ade80;color:#4ade80;"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#4ade80;"><span data-ops="stable_locked_date">03-25-2026</span></div>
+        <div style="font-size:0.85rem;font-weight:600;color:#e5edff;margin-top:2px;">Authority snapshot locked</div>
+        <div style="font-size:0.72rem;color:#7a94aa;">Public benchmark frozen for reviewer reference</div>
       </div>
     </div>
   </div>
-</section>
 
-<section class="m-section m-stage m-stage-next" data-aos="fade-up">
-  <div class="m-wrap">
-    <div class="m-card" data-aos="fade-up">
-      <div class="m-card-kicker" data-aos="fade-up">Next steps</div>
-      <h2>What the reviewer should do next</h2>
-      <div class="m-next-grid">
-        <a href="/" class="m-link-item">
-          <strong>Open Home</strong>
-          <span>Run the fastest validation path before drilling into deeper artifact lanes.</span>
-        </a>
-        <a href="/proof" class="m-link-item">
-          <strong>Open proof receipts</strong>
-          <span>Check the proof surface, verification commands, and artifact references directly.</span>
-        </a>
-        <a href="/detections" class="m-link-item">
-          <strong>Browse Detections</strong>
-          <span>Use SignalFoundry as the flagship entry point, then compare it against the rest of the portfolio.</span>
-        </a>
-        <a href="/march-2026-deep-dive" class="m-link-item">
-          <strong>March 2026 Engineering Deep-Dive</strong>
-          <span>Root-cause analysis, policy tuning, stress test, and recovery documentation.</span>
-        </a>
-        <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" class="m-link-item">
-          <strong>Inspect the repository</strong>
-          <span>Trace the public code, docs, and commit history behind the workflow.</span>
-        </a>
-      </div>
+  <!-- FIELD NOTES -->
+  <div class="cs-section alt" data-aos="fade-up">
+    <div class="cs-label">Field Notes</div>
+    <h2 class="cs-title">Engineering case studies from this project</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;">
+      <a href="/autosoc-cutover" class="cs-nav-card">
+        <strong>Infrastructure Cutover &mdash; 03-23-2026</strong>
+        <span>Production migration to canonical root. Preflight gate, 5 retargeted tasks, legacy ref count = 0.</span>
+      </a>
+      <a href="/autosoc-hotfix-rca" class="cs-nav-card">
+        <strong>Hotfix RCA &mdash; 03-23-2026</strong>
+        <span>Assert-CanonicalPath call order. Function moved above call site. EXIT=0, pipeline validated.</span>
+      </a>
+      <a href="/march-2026-deep-dive" class="cs-nav-card">
+        <strong>March 2026 Deep Dive</strong>
+        <span>Root-cause analysis, policy tuning, stress test, recovery documentation.</span>
+      </a>
+      <a href="/case-studies" class="cs-nav-card">
+        <strong>All Field Notes &rarr;</strong>
+        <span>Complete engineering documentation index.</span>
+      </a>
     </div>
   </div>
-</section>
-</main>
-<div id="modalBg" class="modal-backdrop" aria-hidden="true">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-h">
-      <div id="modalTitle" class="modal-ttl">DETAILS</div>
-      <button id="modalClose" class="modal-x" type="button">Close</button>
+
+  <!-- VALIDATE + NEXT -->
+  <div class="cs-section" data-aos="fade-up">
+    <div class="cs-label">Validate</div>
+    <h2 class="cs-title">Verify and continue</h2>
+    <div class="cs-nav-grid">
+      <a href="/proof" class="cs-nav-card">
+        <strong>Proof Receipts</strong>
+        <span>Logs, packs, verification commands, artifact references.</span>
+      </a>
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md" target="_blank" rel="noopener noreferrer" class="cs-nav-card">
+        <strong>Operations Runbook</strong>
+        <span>Scheduler config, failure playbook, execution reference.</span>
+      </a>
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" class="cs-nav-card">
+        <strong>Repository</strong>
+        <span>Source code, commit history, CI pipeline.</span>
+      </a>
     </div>
-    <div id="modalBody" class="modal-b"></div>
   </div>
+
 </div>
-<!-- @include:footer:start -->
+</main>
+
 <footer>
   <div class="ctr">
     <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
@@ -621,7 +305,6 @@
   </div>
 </footer>
 
-<!-- @include:footer:end -->
 <script src="/assets/fetch-utils.js" defer></script>
 <script src="/data/counts.js" defer></script>
 <script src="/data/ops-metrics.js" defer></script>
