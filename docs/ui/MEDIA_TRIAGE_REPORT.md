@@ -2,9 +2,9 @@
 
 Generated: `2026-03-30`
 
-- Total discovered assets: **123**
+- Total discovered assets: **128**
 - Safe to publish: **11**
-- Needs privacy review: **112**
+- Needs privacy review: **117**
 
 ## Top 10 safe to publish
 

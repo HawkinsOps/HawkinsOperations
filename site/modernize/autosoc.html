@@ -20,38 +20,37 @@
   })();
 </script>
 <link rel="stylesheet" href="/assets/modernize.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="modernize-shell">
-  <header class="m-nav">
-    <div class="m-nav-inner">
-      <a class="m-brand" href="/modernize/"><span>Hawkins</span>Ops</a>
-      <button id="mobBtn" class="m-mobile-toggle" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
-      <ul class="m-nav-list nav-l">
-        <li><a href="/start-here">Start Here</a></li>
-        <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
-        <li><a href="/proof">Proof</a></li>
-        <li><a href="/detections">Detections</a></li>
-        <li><a href="/enterprise-security">Enterprise Security</a></li>
-        <li><a href="/resume">Resume</a></li>
-        <li><a href="/soc-lab">Lab</a></li>
-      </ul>
-      <a class="m-cta m-cta-primary nav-cta" href="/start-here">Start Here</a>
-      <button id="themeToggle" class="m-theme" type="button" aria-label="Switch theme">Theme</button>
-    </div>
-    <div id="mobMenu" class="m-mobile mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-      <a href="/start-here">Start Here</a>
-      <a href="/case-study-autosoc">SignalFoundry Case Study</a>
-      <a href="/proof">Proof</a>
-      <a href="/detections">Detections</a>
-      <a href="/enterprise-security">Enterprise Security</a>
-      <a href="/resume">Resume</a>
-      <a href="/soc-lab">Lab</a>
-    </div>
-  </header>
+  <nav>
+  <div class="nav-i">
+    <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
+    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
+    <ul class="nav-l">
+      <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/detections">Detections</a></li>
+      <li><a href="/resume">Resume</a></li>
+    </ul>
+    <a class="btn btn-p nav-cta" href="/resume">Resume</a>
+  </div>
+</nav>
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+  <a href="/">Home</a>
+  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
+  <a href="/proof">Proof</a>
+  <a href="/detections">Detections</a>
+  <a href="/resume">Resume</a>
+</div>
 
   <main>
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap m-project-grid" style="grid-template-columns: 8fr 4fr;">
         <article class="m-card">
           <div class="m-eyebrow">Featured project</div>
@@ -63,7 +62,7 @@
           </div>
         </article>
         <aside class="m-card">
-          <div class="m-card-kicker">Evidence rail</div>
+          <div class="m-card-kicker" data-aos="fade-up">Evidence rail</div>
           <h2>Reviewer path</h2>
           <p>Keep proof visible while the story unfolds. This side rail stays short and functional.</p>
           <div class="m-chip-row">
@@ -76,7 +75,7 @@
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap">
         <div class="m-panel">
           <div class="m-panel-head">Architecture snapshot</div>
@@ -87,7 +86,7 @@
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap m-stat-grid">
         <div class="m-stat">
           <div class="m-stat-value"><span data-verified="detections">140</span></div>
@@ -108,10 +107,10 @@
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap m-grid-2">
         <article class="m-card">
-          <div class="m-card-kicker">Decision logic</div>
+          <div class="m-card-kicker" data-aos="fade-up">Decision logic</div>
           <h2>What the page emphasizes</h2>
           <p>The layout makes the triage pipeline legible to non-specialists without dumbing it down. Outcome, workflow, and validation stay connected.</p>
           <ul>
@@ -121,7 +120,7 @@
           </ul>
         </article>
         <article class="m-card">
-          <div class="m-card-kicker">Local demo guidance</div>
+          <div class="m-card-kicker" data-aos="fade-up">Local demo guidance</div>
           <h2>Command block</h2>
           <pre class="m-code">pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1
 python .\scripts\drift_scan.py
@@ -130,10 +129,10 @@ python .\scripts\drift_scan.py
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap m-demo-grid" style="grid-template-columns: 5fr 7fr;">
         <article class="m-card">
-          <div class="m-card-kicker">Demo runner</div>
+          <div class="m-card-kicker" data-aos="fade-up">Demo runner</div>
           <h2>Honest interaction model</h2>
           <p>The canary avoids fake backend controls. It shows what to run locally and keeps the browser UI focused on explanation and proof.</p>
           <div class="m-actions">
@@ -154,15 +153,24 @@ python .\scripts\drift_scan.py
     </section>
   </main>
 
-  <footer class="m-footer">
-    <div class="m-wrap m-footer-box">
-      <p><strong>HawkinsOps</strong> | MODERNIZE AutoSOC canary</p>
-      <p>Current production routes remain unchanged while the homepage and case-study experience are tested in parallel.</p>
+  <footer>
+  <div class="ctr">
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
+    <div class="fl">
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
+      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
     </div>
-  </footer>
+  </div>
+</footer>
 </div>
 
 <script src="/data/counts.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
 </body>
 </html>

@@ -30,6 +30,8 @@
 <link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
 <link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 <link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body data-ops-scope="stable">
 <!-- @include:nav:start -->
@@ -38,29 +40,27 @@
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
-      <li><a href="/start-here">Start Here</a></li>
-      <li><a href="/case-study-autosoc" aria-current="page">SignalFoundry Case Study</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/proof">Proof</a></li>
       <li><a href="/detections">Detections</a></li>
-      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/resume">Resume</a></li>
-      <li><a href="/soc-lab">Lab</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
+    <a class="btn btn-p nav-cta" href="/resume">Resume</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-  <a href="/start-here">Start Here</a>
-  <a href="/case-study-autosoc" aria-current="page">SignalFoundry Case Study</a>
+  <a href="/">Home</a>
+  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/proof">Proof</a>
   <a href="/detections">Detections</a>
-  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/resume">Resume</a>
-  <a href="/soc-lab">Lab</a>
 </div>
 <!-- @include:nav:end -->
 <main class="modernize-shell">
-<section class="m-section" style="padding-top:96px;">
+<section class="m-section" data-aos="fade-up" style="padding-top:96px;">
   <div class="m-wrap m-rail-layout">
     <div>
       <div class="m-eyebrow">Flagship case study</div>
@@ -68,7 +68,7 @@
       <p class="m-subtitle">SignalFoundry implementation: Wazuh alert intake, policy-based triage, mandatory redaction, and escalation-ready evidence packs.</p>
       <p class="m-outcome">A SOAR-style Tier-1 triage workflow for Wazuh alerts with policy-based dispositions, mandatory redaction, and evidence packs that end as reviewable GitHub escalation artifacts.</p>
       <div class="m-actions">
-        <a class="m-cta m-cta-dominant" href="/start-here">Start Here</a>
+        <a class="m-cta m-cta-dominant" href="/">Home</a>
         <a class="m-cta m-cta-accent" href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer">Open Repo</a>
         <a class="m-cta m-cta-secondary" href="/proof">Proof Receipts</a>
       </div>
@@ -80,7 +80,7 @@
       </div>
       <div class="m-proof-strip" style="margin-top:16px;">
         <div class="m-proof-inline">
-          <strong>Counts verified <span data-verified-date>03-25-2026</span></strong>
+          <strong>Counts verified <span data-verified-date>03-30-2026</span></strong>
           <strong>Heartbeat <span data-ops-status="stable_heartbeat">UNKNOWN</span></strong>
           <strong>Coverage <span data-ops="stable_coverage_ratio"> - </span></strong>
           <strong>Metrics snapshot <span data-ops="stable_locked_date"> - </span></strong>
@@ -88,23 +88,23 @@
       </div>
 
       <div class="m-kpi-grid" aria-label="SignalFoundry proof metrics">
-        <article class="m-kpi">
+        <article class="m-kpi" data-aos="fade-up">
           <div class="m-kpi-value"><span data-verified="detections">140</span></div>
           <div class="m-kpi-label">Detection context</div>
           <p class="m-kpi-copy">The case study sits inside a broader, script-verified public detection corpus rather than an isolated project page.</p>
         </article>
-        <article class="m-kpi">
+        <article class="m-kpi" data-aos="fade-up">
           <div class="m-kpi-value"><span data-verified="wazuh">28</span></div>
           <div class="m-kpi-label">Wazuh rule blocks</div>
           <p class="m-kpi-copy">Rules and lab paths are tied to the same operational story, which keeps the automation grounded.</p>
         </article>
-        <article class="m-kpi">
+        <article class="m-kpi" data-aos="fade-up">
           <div class="m-kpi-value"><span data-verified="ir">10</span></div>
           <div class="m-kpi-label">Playbook coverage</div>
           <p class="m-kpi-copy">Escalation outputs are backed by documented IR procedures instead of undocumented analyst habit.</p>
         </article>
-      <article class="m-kpi">
-        <div class="m-kpi-value"><span data-verified-date>03-25-2026</span></div>
+      <article class="m-kpi" data-aos="fade-up">
+        <div class="m-kpi-value"><span data-verified-date>03-30-2026</span></div>
           <div class="m-kpi-label">Last verified</div>
         <p class="m-kpi-copy">Counts and proof links stay tied to the same repository verification model used elsewhere on the site.</p>
       </article>
@@ -113,11 +113,11 @@
 
     <aside class="m-rail">
       <section class="m-rail-section">
-        <div class="m-card-kicker">Reviewer path</div>
+        <div class="m-card-kicker" data-aos="fade-up">Reviewer path</div>
         <h2>Keep proof in view</h2>
         <p class="m-subtitle">This rail keeps the flagship path short: understand the workflow, inspect the evidence outputs, then verify the receipts.</p>
         <div class="m-link-list">
-          <a href="/start-here" class="m-link-item">
+          <a href="/" class="m-link-item">
             <strong>Start Here path</strong>
             <span>Fastest route through metrics contract, proof links, and verification commands.</span>
           </a>
@@ -125,7 +125,7 @@
             <strong>Proof page</strong>
             <span>Proof surface for logs, packs, and verification commands.</span>
           </a>
-          <a href="/march-2026-release" class="m-link-item">
+          <a href="https://github.com/raylee-hawkins/HawkinsOperations/releases" class="m-link-item">
             <strong>Release timeline</strong>
             <span>Execution chain that connects the case study to documented releases.</span>
           </a>
@@ -137,7 +137,7 @@
       </section>
 
       <section class="m-rail-section">
-        <div class="m-card-kicker">Core outcome</div>
+        <div class="m-card-kicker" data-aos="fade-up">Core outcome</div>
         <h2>Why it matters</h2>
         <ul class="m-list-tight">
           <li>Reduces repetitive triage drift with explicit disposition logic.</li>
@@ -150,7 +150,7 @@
 </section>
 
 <!-- ── VISUAL OPERATIONAL DASHBOARD ── -->
-<section class="m-section" style="padding-top:0;">
+<section class="m-section" data-aos="fade-up" style="padding-top:0;">
   <div class="m-wrap">
     <div class="m-eyebrow" style="margin-bottom:16px;">Operational Dashboard</div>
 
@@ -158,7 +158,7 @@
     <div style="display:grid;grid-template-columns:1fr 320px;gap:20px;margin-bottom:24px;">
 
       <!-- Pipeline stage flow with data -->
-      <div class="sf-card" style="padding:24px;">
+      <div class="sf-card" data-aos="fade-up" style="padding:24px;">
         <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:16px;">7-Stage Pipeline Flow</div>
         <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;">
           <div style="text-align:center;padding:12px 4px;background:rgba(122,184,255,0.06);border:1px solid rgba(122,184,255,0.15);border-radius:8px;">
@@ -220,9 +220,9 @@
       </div>
 
       <!-- Disposition donut -->
-      <div class="sf-card" style="padding:24px;text-align:center;">
+      <div class="sf-card" data-aos="fade-up" style="padding:24px;text-align:center;">
         <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Case Disposition</div>
-        <svg viewBox="0 0 180 180" width="160" height="160" role="img" aria-label="Disposition breakdown: 89% auto-close, 11% escalated" style="display:block;margin:0 auto;">
+        <svg viewBox="0 0 180 180" width="160" height="160" role="img" aria-label="Disposition breakdown: ~92% auto-close, ~8% escalated" style="display:block;margin:0 auto;">
           <title>Case disposition breakdown</title>
           <defs>
             <linearGradient id="cs-gauge-g" x1="0" y1="0" x2="1" y2="1">
@@ -232,10 +232,10 @@
           </defs>
           <circle cx="90" cy="90" r="70" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="14"/>
           <circle cx="90" cy="90" r="70" fill="none" stroke="url(#cs-gauge-g)" stroke-width="14"
-            stroke-dasharray="392 440" stroke-linecap="round" transform="rotate(-90 90 90)"/>
+            stroke-dasharray="405 440" stroke-linecap="round" transform="rotate(-90 90 90)"/>
           <circle cx="90" cy="90" r="70" fill="none" stroke="rgba(251,191,36,0.35)" stroke-width="14"
-            stroke-dasharray="48 440" stroke-dashoffset="-392" stroke-linecap="round" transform="rotate(-90 90 90)"/>
-          <text x="90" y="84" text-anchor="middle" fill="#f0f6ff" style="font:800 2.2rem 'Sora',sans-serif;">~89<tspan style="font-size:1rem;">%</tspan></text>
+            stroke-dasharray="35 440" stroke-dashoffset="-405" stroke-linecap="round" transform="rotate(-90 90 90)"/>
+          <text x="90" y="84" text-anchor="middle" fill="#f0f6ff" style="font:800 2.2rem 'Sora',sans-serif;">~92<tspan style="font-size:1rem;">%</tspan></text>
           <text x="90" y="106" text-anchor="middle" fill="var(--muted,#8ea4c7)" style="font:500 0.6rem 'JetBrains Mono',monospace;">auto-closed</text>
         </svg>
         <div style="display:grid;gap:6px;margin-top:14px;font-size:0.72rem;text-align:left;">
@@ -255,7 +255,7 @@
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
 
       <!-- Evidence pack structure -->
-      <div class="sf-card" style="padding:24px;">
+      <div class="sf-card" data-aos="fade-up" style="padding:24px;">
         <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Escalation Evidence Pack Structure</div>
         <div style="display:grid;gap:8px;">
           <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
@@ -298,7 +298,7 @@
       </div>
 
       <!-- Recovery timeline -->
-      <div class="sf-card" style="padding:24px;">
+      <div class="sf-card" data-aos="fade-up" style="padding:24px;">
         <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Recovery Timeline</div>
         <div style="position:relative;padding-left:24px;">
           <!-- Vertical line -->
@@ -344,10 +344,10 @@
   </div>
 </section>
 
-<section class="m-section m-stage">
+<section class="m-section m-stage" data-aos="fade-up">
   <div class="m-wrap">
-    <div class="m-evidence-note m-stage-surface">
-      <div class="m-card-kicker">Reliability / recovery</div>
+    <div class="m-evidence-note m-stage-surface" data-aos="fade-up">
+      <div class="m-card-kicker" data-aos="fade-up">Reliability / recovery</div>
       <h3>Operational recovery is part of the project signal</h3>
       <p>This workflow was also used to diagnose and recover a live ingestion outage. The investigation separated infrastructure reachability from application logic, restored polling, then fixed a reconciliation-path bug uncovered during retest. Final validation returned the pipeline to <span class="m-inline-code">SUCCESS</span> with strict reconciliation back to <span class="m-inline-code">MISMATCH_COUNT=0</span>.</p>
       <p><a href="/proof" class="m-cta m-cta-secondary">Review proof path</a></p>
@@ -355,7 +355,7 @@
   </div>
 </section>
 
-<section class="m-section m-stage m-stage-overview">
+<section class="m-section m-stage m-stage-overview" data-aos="fade-up">
   <div class="m-wrap">
     <div class="m-flow-grid">
       <article class="m-flow-card">
@@ -377,13 +377,13 @@
   </div>
 </section>
 
-<section class="m-section m-stage m-stage-topology">
+<section class="m-section m-stage m-stage-topology" data-aos="fade-up">
   <div class="m-wrap">
     <div class="m-divider-title">
-      <div class="m-card-kicker">Topology / architecture</div>
+      <div class="m-card-kicker" data-aos="fade-up">Topology / architecture</div>
     </div>
-    <div class="m-evidence-note" style="margin-bottom:18px;">
-      <div class="m-card-kicker">Inspection stage</div>
+    <div class="m-evidence-note" data-aos="fade-up" style="margin-bottom:18px;">
+      <div class="m-card-kicker" data-aos="fade-up">Inspection stage</div>
       <h3>Start with the system map</h3>
       <p>This stage exists to explain the environment and control points before the page asks the reviewer to think about movement, logic, or outputs.</p>
     </div>
@@ -400,10 +400,10 @@
   </div>
 </section>
 
-<section class="m-section m-stage m-stage-workflow">
+<section class="m-section m-stage m-stage-workflow" data-aos="fade-up">
   <div class="m-wrap">
     <div class="m-divider-title">
-      <div class="m-card-kicker">Workflow</div>
+      <div class="m-card-kicker" data-aos="fade-up">Workflow</div>
     </div>
     <div class="m-grid-2 m-stage-stagegrid">
       <div class="m-diagram-frame m-stage-surface">
@@ -416,8 +416,8 @@
           <p class="m-frame-caption">This narrower view reduces the workflow to the steps a reviewer needs to understand quickly: ingest, decide, redact, package, and escalate.</p>
         </div>
       </div>
-      <div class="m-evidence-note m-stage-surface">
-        <div class="m-card-kicker">Inspection stage</div>
+      <div class="m-evidence-note m-stage-surface" data-aos="fade-up">
+        <div class="m-card-kicker" data-aos="fade-up">Inspection stage</div>
         <h3>Then inspect movement</h3>
         <p>This is the point where the page stops describing architecture and starts showing how alerts move through reviewable pipeline states. That separation is what turns the page into a packet instead of a document.</p>
       </div>
@@ -425,10 +425,10 @@
   </div>
 </section>
 
-<section class="m-section m-stage m-stage-logic">
+<section class="m-section m-stage m-stage-logic" data-aos="fade-up">
   <div class="m-wrap m-split-callout">
     <article class="m-callout">
-      <div class="m-card-kicker">Decision logic</div>
+      <div class="m-card-kicker" data-aos="fade-up">Decision logic</div>
       <h3>Deterministic dispositions</h3>
       <p class="m-subtitle">SignalFoundry uses explicit dispositions to keep triage behavior reviewable and reproducible.</p>
       <div style="overflow-x:auto;margin-top:14px">
@@ -462,7 +462,7 @@
     </article>
 
     <article class="m-callout">
-      <div class="m-card-kicker">Operational value</div>
+      <div class="m-card-kicker" data-aos="fade-up">Operational value</div>
       <h3>What the workflow fixes</h3>
       <ul class="m-list-tight">
         <li>Standardizes evidence collection so handoff quality does not depend on analyst style.</li>
@@ -473,17 +473,17 @@
   </div>
 </section>
 
-<section class="m-section m-stage m-stage-outputs">
+<section class="m-section m-stage m-stage-outputs" data-aos="fade-up">
   <div class="m-wrap">
     <div class="m-divider-title">
-      <div class="m-card-kicker">Escalation output</div>
+      <div class="m-card-kicker" data-aos="fade-up">Escalation output</div>
     </div>
     <h2 class="m-title" style="font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:12px;">What the pipeline produces</h2>
     <p class="m-copy" style="max-width:64ch;margin-bottom:24px;">Every escalated case generates a structured evidence pack. Five artifacts, each with a defined role in the review chain. All pass the mandatory redaction gate before publication.</p>
 
     <div class="m-grid-2" style="margin-bottom:24px;">
       <article class="m-card" style="padding:22px;">
-        <div class="m-card-kicker">Evidence pack structure</div>
+        <div class="m-card-kicker" data-aos="fade-up">Evidence pack structure</div>
         <div style="display:grid;gap:10px;margin-top:12px;">
           <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
             <code style="font-size:0.78rem;color:#7ab8ff;min-width:140px;">00_one_pager.md</code>
@@ -509,7 +509,7 @@
       </article>
 
       <article class="m-card" style="padding:22px;">
-        <div class="m-card-kicker">Workflow evidence</div>
+        <div class="m-card-kicker" data-aos="fade-up">Workflow evidence</div>
         <div style="margin-top:12px;">
           <img src="/assets/pp_soc_integration/t3-workflow.png" alt="SignalFoundry workflow screenshot showing evidence capture surface" width="1334" height="750" loading="lazy" style="border-radius:8px;border:1px solid rgba(122,184,255,0.08);width:100%;height:auto;">
           <p style="font-size:0.78rem;color:var(--muted,#8ea4c7);margin-top:8px;">The operational surface that produces the evidence packs. Each artifact is generated programmatically, passes redaction, and is committed to the repository.</p>
@@ -519,10 +519,10 @@
   </div>
 </section>
 
-<section class="m-section m-stage m-stage-proof">
+<section class="m-section m-stage m-stage-proof" data-aos="fade-up">
   <div class="m-wrap">
-    <div class="m-card">
-      <div class="m-card-kicker">Proof links</div>
+    <div class="m-card" data-aos="fade-up">
+      <div class="m-card-kicker" data-aos="fade-up">Proof links</div>
       <h2>Validate the case study</h2>
       <div class="m-grid-2">
         <a href="/proof" class="m-link-item">
@@ -537,7 +537,7 @@
           <strong>Operations runbook</strong>
           <span>Execution reference that anchors the workflow in repeatable operational practice.</span>
         </a>
-        <a href="/march-2026-release" class="m-link-item">
+        <a href="https://github.com/raylee-hawkins/HawkinsOperations/releases" class="m-link-item">
           <strong>March release timeline</strong>
           <span>Bridge between project narrative and release execution history.</span>
         </a>
@@ -546,10 +546,10 @@
   </div>
 </section>
 
-<section class="m-section m-stage">
+<section class="m-section m-stage" data-aos="fade-up">
   <div class="m-wrap">
-    <div class="m-card">
-      <div class="m-card-kicker">Field notes</div>
+    <div class="m-card" data-aos="fade-up">
+      <div class="m-card-kicker" data-aos="fade-up">Field notes</div>
       <h2>Engineering case studies</h2>
       <p class="m-copy">Documented operational decisions from the AutoSOC project — infrastructure migrations and incident RCAs with source evidence, not post-hoc summaries.</p>
       <div class="m-grid-2" style="margin-top:16px;">
@@ -569,14 +569,14 @@
   </div>
 </section>
 
-<section class="m-section m-stage m-stage-next">
+<section class="m-section m-stage m-stage-next" data-aos="fade-up">
   <div class="m-wrap">
-    <div class="m-card">
-      <div class="m-card-kicker">Next steps</div>
+    <div class="m-card" data-aos="fade-up">
+      <div class="m-card-kicker" data-aos="fade-up">Next steps</div>
       <h2>What the reviewer should do next</h2>
       <div class="m-next-grid">
-        <a href="/start-here" class="m-link-item">
-          <strong>Open Start Here</strong>
+        <a href="/" class="m-link-item">
+          <strong>Open Home</strong>
           <span>Run the fastest validation path before drilling into deeper artifact lanes.</span>
         </a>
         <a href="/proof" class="m-link-item">
@@ -626,5 +626,10 @@
 <script src="/data/counts.js" defer></script>
 <script src="/data/ops-metrics.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
 </body>
 </html>

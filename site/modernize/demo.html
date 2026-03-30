@@ -29,38 +29,37 @@
   })();
 </script>
 <link rel="stylesheet" href="/assets/modernize.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="modernize-shell">
-  <header class="m-nav">
-    <div class="m-nav-inner">
-      <a class="m-brand" href="/modernize/"><span>Hawkins</span>Ops</a>
-      <button id="mobBtn" class="m-mobile-toggle" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
-      <ul class="m-nav-list nav-l">
-        <li><a href="/start-here">Start Here</a></li>
-        <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
-        <li><a href="/proof">Proof</a></li>
-        <li><a href="/detections">Detections</a></li>
-        <li><a href="/enterprise-security">Enterprise Security</a></li>
-        <li><a href="/resume">Resume</a></li>
-        <li><a href="/soc-lab">Lab</a></li>
-      </ul>
-      <a class="m-cta m-cta-primary nav-cta" href="/start-here">Start Here</a>
-      <button id="themeToggle" class="m-theme" type="button" aria-label="Switch theme">Theme</button>
-    </div>
-    <div id="mobMenu" class="m-mobile mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-      <a href="/start-here">Start Here</a>
-      <a href="/case-study-autosoc">SignalFoundry Case Study</a>
-      <a href="/proof">Proof</a>
-      <a href="/detections">Detections</a>
-      <a href="/enterprise-security">Enterprise Security</a>
-      <a href="/resume">Resume</a>
-      <a href="/soc-lab">Lab</a>
-    </div>
-  </header>
+  <nav>
+  <div class="nav-i">
+    <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
+    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
+    <ul class="nav-l">
+      <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/detections">Detections</a></li>
+      <li><a href="/resume">Resume</a></li>
+    </ul>
+    <a class="btn btn-p nav-cta" href="/resume">Resume</a>
+  </div>
+</nav>
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+  <a href="/">Home</a>
+  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
+  <a href="/proof">Proof</a>
+  <a href="/detections">Detections</a>
+  <a href="/resume">Resume</a>
+</div>
 
   <main>
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap m-demo-grid" style="grid-template-columns: 5fr 7fr;">
         <article class="m-card">
           <div class="m-badge">Demo lane</div>
@@ -99,10 +98,10 @@
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap m-grid-2">
         <article class="m-card" id="demo-commands">
-          <div class="m-card-kicker">Local run commands</div>
+          <div class="m-card-kicker" data-aos="fade-up">Local run commands</div>
           <h2>Copyable validation path</h2>
           <p>These commands are intentionally local-only. They are styled like real terminal output because that is the trust cue reviewers expect when they need something executable.</p>
           <div class="m-terminal">
@@ -118,7 +117,7 @@ python .\scripts\drift_scan.py
           </div>
         </article>
         <article class="m-card">
-          <div class="m-card-kicker">What the reviewer should check</div>
+          <div class="m-card-kicker" data-aos="fade-up">What the reviewer should check</div>
           <h2>Quick validation checklist</h2>
           <ol class="m-checklist">
             <li>Verify counts and drift status from the public repo.</li>
@@ -130,10 +129,10 @@ python .\scripts\drift_scan.py
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap">
         <article class="m-card">
-          <div class="m-card-kicker">Walkthrough</div>
+          <div class="m-card-kicker" data-aos="fade-up">Walkthrough</div>
           <h2>Numbered demo steps</h2>
           <div class="m-step-grid">
             <div class="m-step">
@@ -156,7 +155,7 @@ python .\scripts\drift_scan.py
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap">
         <div class="m-panel">
           <div class="m-panel-head">Media gallery</div>
@@ -184,10 +183,10 @@ python .\scripts\drift_scan.py
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap m-grid-2">
         <article class="m-card">
-          <div class="m-card-kicker">Guardrails</div>
+          <div class="m-card-kicker" data-aos="fade-up">Guardrails</div>
           <h2>Why this page is built this way</h2>
           <ul class="m-list">
             <li>No fake "Run now" backend button that implies browser-triggered automation.</li>
@@ -197,7 +196,7 @@ python .\scripts\drift_scan.py
           </ul>
         </article>
         <article class="m-card">
-          <div class="m-card-kicker">Next implementation step</div>
+          <div class="m-card-kicker" data-aos="fade-up">Next implementation step</div>
           <h2>What this enables</h2>
           <p>This demo page gives the canary a complete three-page reviewer lane: homepage, AutoSOC page, and demo page. From here the most rational follow-up is either visual refinement from preview feedback or wiring a light discoverability link from production routes.</p>
           <div class="m-actions">
@@ -209,15 +208,24 @@ python .\scripts\drift_scan.py
     </section>
   </main>
 
-  <footer class="m-footer">
-    <div class="m-wrap m-footer-box">
-      <p><strong>HawkinsOps</strong> | MODERNIZE demo canary</p>
-      <p>Static-first demo lane for review. Current production routes remain unchanged.</p>
+  <footer>
+  <div class="ctr">
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
+    <div class="fl">
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
+      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
     </div>
-  </footer>
+  </div>
+</footer>
 </div>
 
 <script src="/data/counts.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
 </body>
 </html>

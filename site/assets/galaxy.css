@@ -657,3 +657,43 @@ svg circle[stroke-dasharray] {
     box-shadow: 0 0 20px var(--glow-brand);
   }
 }
+
+
+/* ============================================
+   S18  TSPARTICLES CONTAINER
+   Interactive particle layer above CSS starfield.
+   ============================================ */
+
+#tsparticles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Allow grab interaction on non-touch devices */
+@media (hover: hover) {
+  #tsparticles { pointer-events: auto; }
+}
+
+
+/* ============================================
+   S19  SUCCESS / STATUS GLOW
+   Subtle glow on pass/success indicators.
+   ============================================ */
+
+.sdot,
+[data-ops-status] {
+  text-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
+}
+
+.sf-metric-value {
+  text-shadow: 0 0 12px var(--glow-brand);
+}
+
+.m-kpi-value {
+  text-shadow: 0 0 10px var(--glow-brand);
+}

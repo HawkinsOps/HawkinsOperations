@@ -298,6 +298,8 @@ body.proof-page {
   margin: 2px 3px 2px 0;
 }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body class="proof-page">
 <nav>
@@ -305,25 +307,23 @@ body.proof-page {
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
-      <li><a href="/start-here">Start Here</a></li>
-      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
       <li><a href="/enterprise-security">Enterprise Security</a></li>
-      <li><a href="/proof" aria-current="page">Proof</a></li>
+      <li><a href="/proof">Proof</a></li>
       <li><a href="/detections">Detections</a></li>
       <li><a href="/resume">Resume</a></li>
-      <li><a href="/soc-lab">Lab</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
+    <a class="btn btn-p nav-cta" href="/resume">Resume</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-  <a href="/start-here">Start Here</a>
-  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/">Home</a>
+  <a href="/case-study-autosoc">Case Study</a>
   <a href="/enterprise-security">Enterprise Security</a>
-  <a href="/proof" aria-current="page">Proof</a>
+  <a href="/proof">Proof</a>
   <a href="/detections">Detections</a>
   <a href="/resume">Resume</a>
-  <a href="/soc-lab">Lab</a>
 </div>
 
 <main>
@@ -390,7 +390,7 @@ body.proof-page {
   </section>
 
   <!-- ── VISUAL DASHBOARD ── -->
-  <section class="m-section" style="padding:0 0 48px;">
+  <section class="m-section" data-aos="fade-up" style="padding:0 0 48px;">
     <div class="m-wrap">
       <div class="m-eyebrow">Proof</div>
       <h1 class="m-title" style="font-size: clamp(2.2rem, 4vw, 3.7rem);">SignalFoundry — Proof &amp; Verified Metrics</h1>
@@ -427,7 +427,7 @@ body.proof-page {
   <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(0,196,212,.1);color:#00c4d4;border:1px solid rgba(0,196,212,.2);"><span data-verified="wazuh">28</span> Wazuh XML</span>
   <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(232,160,32,.1);color:#e8a020;border:1px solid rgba(232,160,32,.2);"><span data-verified="splunk">9</span> Splunk SPL</span>
   <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(39,201,122,.1);color:#27c97a;border:1px solid rgba(39,201,122,.2);"><span data-verified="ir">10</span> IR Playbooks</span>
-  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(100,140,180,.08);color:#486880;border:1px solid rgba(100,140,180,.13);">Last verified <span data-verified-date>03-25-2026</span></span>
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(100,140,180,.08);color:#486880;border:1px solid rgba(100,140,180,.13);">Last verified <span data-verified-date>03-30-2026</span></span>
 </div>
         </div>
       </div>
@@ -441,7 +441,7 @@ body.proof-page {
         </div>
 
         <!-- Detection Inventory Chart -->
-        <div class="sf-card" style="padding:24px;">
+        <div class="sf-card" data-aos="fade-up" style="padding:24px;">
           <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Detection Inventory &mdash; <span data-verified="detections">140</span> Total</div>
           <!-- Sigma -->
           <div style="margin-bottom:14px;">
@@ -491,15 +491,15 @@ body.proof-page {
       <p class="m-copy">Generated at <span data-ops="stable_locked_date">03-25-2026</span> | Source artifact <code>/assets/data/ops-metrics.json</code></p>
     </div>
   </section>
-  <section class="m-section">
+  <section class="m-section" data-aos="fade-up">
     <div class="m-wrap m-grid-2">
       <article class="m-card">
-        <div class="m-card-kicker">AutoSOC case</div>
+        <div class="m-card-kicker" data-aos="fade-up">AutoSOC case</div>
         <h2>TITLE: AutoSOC Noise-Reduction Proof Block (2026-03-24 Snapshot)</h2>
         <p class="m-copy"><strong>CLAIM:</strong> AutoSOC processed <span data-ops="stable_total_cases">55,665</span> alerts, auto-closed <span data-ops="stable_auto_closed_benign">~92%</span>, and produced <span data-ops="stable_escalated">2,545</span> escalations across <span data-ops="stable_coverage_ratio">8/8</span> coverage.</p>
         <p class="m-copy"><strong>CONTEXT:</strong> Current-facing metrics on this page are locked to the March 24 canonical snapshot. Historical recovery evidence remains linked as historical context only.</p>
         <ul class="m-list-tight">
-          <li><strong>EVIDENCE:</strong> <code>source_of_truth/metrics_canonical_2026-03-20.json</code> -> <code>total_cases=49774</code>, <code>auto_close_rate_label=~89%</code>, <code>escalations_label=~2,500+</code>, <code>hosts_reporting=8/8</code>; proves canonical quantified baseline.</li>
+          <li><strong>EVIDENCE:</strong> <code>source_of_truth/metrics_canonical_2026-03-20.json</code> -> <code>total_cases=55665</code>, <code>auto_close_rate_label=~92%</code>, <code>escalations_label=2,545</code>, <code>hosts_reporting=8/8</code>; proves canonical quantified baseline.</li>
           <li><strong>EVIDENCE:</strong> <code>docs/execution/AUTOSOC_PIPELINE_RECOVERY_CASE_STUDY_03-13-2026.md</code> -> final run shows <code>run_id=autosoc-20260313T215029Z-31020</code>, <code>status=SUCCESS</code>, <code>cases_processed=173</code>, <code>reconciliation.mismatch_count=0</code>; proves real output and validated recovery.</li>
           <li><strong>EVIDENCE:</strong> <code>/assets/pp_soc_integration/t3-workflow.png</code> -> proves a concrete workflow snapshot of the triage and evidence-pack pipeline surface.</li>
         </ul>
@@ -525,7 +525,7 @@ body.proof-page {
         <div class="proof-kpi-hint">&#x2197; What each escalation pack contains</div>
       </article>
       <article class="m-card" style="grid-column:1/-1;">
-        <div class="m-card-kicker">Field notes</div>
+        <div class="m-card-kicker" data-aos="fade-up">Field notes</div>
         <h2>Engineering case studies</h2>
         <p class="m-copy">Operational decisions documented from source evidence — pipeline logs, preflight output, scheduler metadata. Not post-hoc summaries.</p>
         <div class="m-grid-2" style="margin-top:12px;">
@@ -546,7 +546,7 @@ body.proof-page {
   </section>
 
   <!-- ── SECTION 2: RECOVERY PROOF ── -->
-  <section id="recovery-proof" class="m-section">
+  <section id="recovery-proof" class="m-section" data-aos="fade-up">
     <div class="m-wrap">
       <div class="m-eyebrow">Operational Evidence</div>
       <h2 class="m-title" style="font-size: clamp(1.4rem, 2.5vw, 2rem);">Recovery &amp; Reconciliation Proof</h2>
@@ -554,7 +554,7 @@ body.proof-page {
 
       <div class="m-grid-2" style="margin-top:24px;">
         <article class="m-card">
-          <div class="m-card-kicker">Current authority snapshot</div>
+          <div class="m-card-kicker" data-aos="fade-up">Current authority snapshot</div>
           <h3>SignalFoundry Pipeline &mdash; Reconciliation Proof</h3>
           <ul class="m-list-tight">
             <li><strong>Total cases processed:</strong> <span data-ops="stable_total_cases">55,665</span></li>
@@ -568,7 +568,7 @@ body.proof-page {
         </article>
 
         <article class="m-card">
-          <div class="m-card-kicker">Historical reference &mdash; 03-13-2026 run log</div>
+          <div class="m-card-kicker" data-aos="fade-up">Historical reference &mdash; 03-13-2026 run log</div>
           <h3>Recovery Run Evidence</h3>
           <p class="m-copy">Pipeline recovery case study from 03-13-2026. Final run: <code>run_id=autosoc-20260313T215029Z-31020</code>, <code>status=SUCCESS</code>, <code>cases_processed=173</code>, <code>reconciliation.mismatch_count=0</code>. Proves concrete execution output and validated recovery path.</p>
           <ul class="m-list-tight" style="margin-top:10px;">
@@ -582,7 +582,7 @@ body.proof-page {
   </section>
 
   <!-- ── SECTION 3: SPLUNK LANE ── -->
-  <section id="splunk-lane" class="m-section">
+  <section id="splunk-lane" class="m-section" data-aos="fade-up">
     <div class="m-wrap">
       <div class="m-eyebrow">Splunk Evidence</div>
       <h2 class="m-title" style="font-size: clamp(1.4rem, 2.5vw, 2rem);">Splunk Proof Lane</h2>
@@ -590,7 +590,7 @@ body.proof-page {
 
       <div class="m-grid-2" style="margin-top:24px;">
         <article class="m-card">
-          <div class="m-card-kicker">Detection inventory</div>
+          <div class="m-card-kicker" data-aos="fade-up">Detection inventory</div>
           <h3>Splunk Query Count</h3>
           <ul class="m-list-tight">
             <li><strong>Splunk queries:</strong> <span data-verified="splunk">9</span> (lab environment, home lab only)</li>
@@ -600,7 +600,7 @@ body.proof-page {
         </article>
 
         <article class="m-card">
-          <div class="m-card-kicker">Artifact reference</div>
+          <div class="m-card-kicker" data-aos="fade-up">Artifact reference</div>
           <h3>Splunk Ingest Proof</h3>
           <p class="m-copy">Pipeline proof artifact confirms Splunk ingest was operational for the locked reviewer snapshot. The export remains in the repository under the Splunk evidence path.</p>
           <ul class="m-list-tight" style="margin-top:10px;">
@@ -613,7 +613,7 @@ body.proof-page {
   </section>
 
   <!-- ── SECTION 4: HISTORICAL ── -->
-  <section id="historical" class="m-section">
+  <section id="historical" class="m-section" data-aos="fade-up">
     <div class="m-wrap">
       <div class="m-eyebrow">Historical Reference</div>
       <h2 class="m-title" style="font-size: clamp(1.4rem, 2.5vw, 2rem);">Historical Evidence Artifacts</h2>
@@ -621,14 +621,14 @@ body.proof-page {
 
       <div class="m-grid-2" style="margin-top:24px;">
         <article class="m-card">
-          <div class="m-card-kicker">Historical benchmark reference</div>
+          <div class="m-card-kicker" data-aos="fade-up">Historical benchmark reference</div>
           <h3>Canonical Metrics Snapshot</h3>
           <p class="m-copy">The canonical metrics artifact records the locked benchmark used for the current public authority layer. Treat it as historical support, not live telemetry.</p>
           <p class="m-copy" style="margin-top:8px;font-size:0.85rem;color:var(--muted,#8ea4c7);">Historical only &mdash; superseded by the current authority snapshot</p>
         </article>
 
         <article class="m-card">
-          <div class="m-card-kicker">Historical detection validation</div>
+          <div class="m-card-kicker" data-aos="fade-up">Historical detection validation</div>
           <h3>Continuous Detection Validation</h3>
           <p class="m-copy">The automated validation suite passed all required checks for the locked public benchmark and preserved the supporting proof artifacts in the repository.</p>
           <ul class="m-list-tight" style="margin-top:10px;">
@@ -642,7 +642,7 @@ body.proof-page {
   </section>
 
   <!-- ── SECTION 5: ARTIFACTS & VERIFICATION ── -->
-  <section id="links-and-telemetry" class="m-section">
+  <section id="links-and-telemetry" class="m-section" data-aos="fade-up">
     <div class="m-wrap">
       <div class="m-eyebrow">Artifacts &amp; Verification</div>
       <h2 class="m-title" style="font-size: clamp(1.4rem, 2.5vw, 2rem);">Primary Artifacts &amp; Verification Path</h2>
@@ -650,7 +650,7 @@ body.proof-page {
 
       <div class="m-grid-2" style="margin-top:24px;">
         <article class="m-card">
-          <div class="m-card-kicker">Proof links</div>
+          <div class="m-card-kicker" data-aos="fade-up">Proof links</div>
           <h3>Primary artifacts</h3>
           <ul class="m-list-tight">
             <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">VERIFIED_COUNTS.md &mdash; detection inventory source (GitHub)</a></li>
@@ -660,7 +660,7 @@ body.proof-page {
         </article>
 
         <article class="m-card">
-          <div class="m-card-kicker">Case study</div>
+          <div class="m-card-kicker" data-aos="fade-up">Case study</div>
           <h3>Full operational narrative</h3>
           <p class="m-copy">The SignalFoundry case study covers architecture, detection design, pipeline recovery, and the full operational context behind these metrics.</p>
           <ul class="m-list-tight" style="margin-top:10px;">
@@ -896,5 +896,10 @@ heartbeat.blocker  = NONE</div>
 <script src="/data/counts.js" defer></script>
 <script src="/data/ops-metrics.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
 </body>
 </html>

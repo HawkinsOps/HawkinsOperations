@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title>SignalFoundry Engineering Case Study — March 2026 | HawkinsOps</title>
-<meta name="description" content="Engineering deep-dive: how SignalFoundry was built, broke, and recovered — processing 49,774+ security alerts with root-cause analysis, policy tuning, and verified proof.">
+<meta name="description" content="Engineering deep-dive: how SignalFoundry was built, broke, and recovered — processing 55,665+ security alerts with root-cause analysis, policy tuning, and verified proof.">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07070b">
@@ -25,6 +25,8 @@
 <link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
 <link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 <link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -33,25 +35,23 @@
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
-      <li><a href="/start-here">Start Here</a></li>
-      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/proof">Proof</a></li>
       <li><a href="/detections">Detections</a></li>
-      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/resume">Resume</a></li>
-      <li><a href="/soc-lab">Lab</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
+    <a class="btn btn-p nav-cta" href="/resume">Resume</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-  <a href="/start-here">Start Here</a>
-  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/">Home</a>
+  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/proof">Proof</a>
   <a href="/detections">Detections</a>
-  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/resume">Resume</a>
-  <a href="/soc-lab">Lab</a>
 </div>
 <!-- @include:nav:end -->
 
@@ -66,7 +66,7 @@
   <p style="font-size:0.82rem;color:var(--muted);margin-bottom:32px;">Author: Raylee Hawkins &middot; Date: March 25, 2026 &middot; Target reader: technical hiring manager, MSSP team lead, or senior detection engineer</p>
 
   <!-- KEY FINDING -->
-  <div class="sf-card" style="padding:24px;margin-bottom:40px;border-left:3px solid #71c7b8;">
+  <div class="sf-card" data-aos="fade-up" style="padding:24px;margin-bottom:40px;border-left:3px solid #71c7b8;">
     <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:#71c7b8;margin-bottom:8px;">Key Finding</div>
     <p style="font-size:1rem;font-weight:600;color:var(--text);margin:0 0 12px;">The most important outcome was not a detection. It was identifying that critical telemetry required for triage did not exist.</p>
     <ul style="margin:0;padding:0 0 0 16px;font-size:0.9rem;color:var(--muted);display:grid;gap:4px;">
@@ -87,7 +87,7 @@
   <p style="line-height:1.7;margin-bottom:20px;">The system demonstrates a core engineering thesis: that a single operator with a manufacturing background, the right tooling judgment, and disciplined automation can run a SOC-quality detection loop at scale, producing artifacts that are reviewable, reproducible, and CI-verified.</p>
 
   <h3 style="font-size:1rem;color:var(--muted);margin-bottom:8px;">Scale of Operation</h3>
-  <div class="sf-card" style="padding:20px;margin-bottom:20px;overflow-x:auto;">
+  <div class="sf-card" data-aos="fade-up" style="padding:20px;margin-bottom:20px;overflow-x:auto;">
     <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
       <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;">
         <th style="padding:8px 10px;color:var(--muted);font-weight:600;">Metric</th>
@@ -95,9 +95,9 @@
         <th style="padding:8px 10px;color:var(--muted);font-weight:600;">Source</th>
       </tr></thead>
       <tbody>
-        <tr><td style="padding:8px 10px;">Total lifetime cases processed</td><td style="padding:8px 10px;color:#7ab8ff;font-family:'JetBrains Mono',monospace;font-weight:700;">49,774</td><td style="padding:8px 10px;color:var(--muted);">Canonical snapshot, March 2026</td></tr>
-        <tr><td style="padding:8px 10px;">Auto-close rate</td><td style="padding:8px 10px;color:#4ade80;font-family:'JetBrains Mono',monospace;font-weight:700;">~89%</td><td style="padding:8px 10px;color:var(--muted);">Canonical snapshot</td></tr>
-        <tr><td style="padding:8px 10px;">Escalated cases (published)</td><td style="padding:8px 10px;color:#fbbf24;font-family:'JetBrains Mono',monospace;font-weight:700;">2,478</td><td style="padding:8px 10px;color:var(--muted);">Reconciliation</td></tr>
+        <tr><td style="padding:8px 10px;">Total lifetime cases processed</td><td style="padding:8px 10px;color:#7ab8ff;font-family:'JetBrains Mono',monospace;font-weight:700;">55,665</td><td style="padding:8px 10px;color:var(--muted);">Canonical snapshot, March 2026</td></tr>
+        <tr><td style="padding:8px 10px;">Auto-close rate</td><td style="padding:8px 10px;color:#4ade80;font-family:'JetBrains Mono',monospace;font-weight:700;">~92%</td><td style="padding:8px 10px;color:var(--muted);">Canonical snapshot</td></tr>
+        <tr><td style="padding:8px 10px;">Escalated cases (published)</td><td style="padding:8px 10px;color:#fbbf24;font-family:'JetBrains Mono',monospace;font-weight:700;">2,545</td><td style="padding:8px 10px;color:var(--muted);">Reconciliation</td></tr>
         <tr><td style="padding:8px 10px;">Hosts monitored</td><td style="padding:8px 10px;color:#4ade80;font-family:'JetBrains Mono',monospace;font-weight:700;">8 / 8</td><td style="padding:8px 10px;color:var(--muted);">Canonical snapshot</td></tr>
         <tr><td style="padding:8px 10px;">Ledger-to-repo mismatches</td><td style="padding:8px 10px;color:#4ade80;font-family:'JetBrains Mono',monospace;font-weight:700;">0</td><td style="padding:8px 10px;color:var(--muted);">Canonical snapshot</td></tr>
         <tr><td style="padding:8px 10px;">Pipeline run duration</td><td style="padding:8px 10px;color:#7ab8ff;font-family:'JetBrains Mono',monospace;font-weight:700;">~5.4s</td><td style="padding:8px 10px;color:var(--muted);">Latest heartbeat</td></tr>
@@ -115,7 +115,7 @@
   <h2 style="font-size:1.4rem;margin-bottom:12px;">2. System Architecture</h2>
 
   <h3 style="font-size:1rem;color:var(--muted);margin-bottom:8px;">Pipeline Stages</h3>
-  <div class="sf-card" style="padding:20px;margin-bottom:20px;overflow-x:auto;">
+  <div class="sf-card" data-aos="fade-up" style="padding:20px;margin-bottom:20px;overflow-x:auto;">
     <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
       <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;">
         <th style="padding:8px 10px;color:var(--muted);">Stage</th>
@@ -137,7 +137,7 @@
 
   <h3 style="font-size:1rem;color:var(--muted);margin-bottom:8px;">Infrastructure Stack</h3>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px;">
-    <div class="sf-card" style="padding:16px;">
+    <div class="sf-card" data-aos="fade-up" style="padding:16px;">
       <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;">Compute &amp; Storage</div>
       <ul style="margin:0;padding:0 0 0 14px;font-size:0.85rem;color:var(--text);display:grid;gap:4px;">
         <li>Proxmox hypervisor (multi-VM)</li>
@@ -146,7 +146,7 @@
         <li>Windows Task Scheduler (contract host)</li>
       </ul>
     </div>
-    <div class="sf-card" style="padding:16px;">
+    <div class="sf-card" data-aos="fade-up" style="padding:16px;">
       <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;">Pipeline &amp; Delivery</div>
       <ul style="margin:0;padding:0 0 0 14px;font-size:0.85rem;color:var(--text);display:grid;gap:4px;">
         <li>Python 3.14 (core automation)</li>
@@ -164,19 +164,19 @@
   <p style="line-height:1.7;margin-bottom:16px;">The pipeline failed on March 13 due to two independent defects. Both were diagnosed from heartbeat telemetry and fixed in the same operational session.</p>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
-    <div class="sf-card" style="padding:20px;border-left:3px solid #f87171;">
+    <div class="sf-card" data-aos="fade-up" style="padding:20px;border-left:3px solid #f87171;">
       <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:#f87171;margin-bottom:8px;">Failure 1: Poller Timeout</div>
       <p style="font-size:0.88rem;line-height:1.65;color:var(--text);margin:0 0 8px;">The <code>poll-alerts.py</code> script was not correctly entering the retry path on the first connection timeout. URLError under delayed connection reset silently exhausted the timeout window without triggering retry logic.</p>
       <p style="font-size:0.82rem;color:var(--muted);margin:0;"><strong>Fix:</strong> Separated HTTPError (auth/server, some non-retriable) from URLError (connection, always retriable). Ensured retry counter increments before sleep.</p>
     </div>
-    <div class="sf-card" style="padding:20px;border-left:3px solid #f87171;">
+    <div class="sf-card" data-aos="fade-up" style="padding:20px;border-left:3px solid #f87171;">
       <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:#f87171;margin-bottom:8px;">Failure 2: Reconciliation Scoping</div>
       <p style="font-size:0.88rem;line-height:1.65;color:var(--text);margin:0 0 8px;">The <code>reconcile-state.py</code> script was computing mismatch counts against the unscoped repo ID list, including non-SignalFoundry-format directories. This inflated mismatch counts and triggered false FAIL status.</p>
       <p style="font-size:0.82rem;color:var(--muted);margin:0;"><strong>Fix:</strong> Scoped all six mismatch category calculations to SignalFoundry-format case IDs only.</p>
     </div>
   </div>
 
-  <div class="sf-card" style="padding:16px;border-left:3px solid #4ade80;margin-bottom:32px;">
+  <div class="sf-card" data-aos="fade-up" style="padding:16px;border-left:3px solid #4ade80;margin-bottom:32px;">
     <p style="margin:0;font-size:0.9rem;color:var(--text);"><strong style="color:#4ade80;">Result:</strong> Both fixes applied same session. Pipeline returned to SUCCESS. Reconciliation dropped to zero hard mismatches. 8/8 hosts confirmed post-recovery.</p>
   </div>
 
@@ -186,26 +186,26 @@
   <h2 style="font-size:1.4rem;margin-bottom:12px;">4. Policy Tuning Work</h2>
 
   <div style="display:grid;gap:16px;margin-bottom:32px;">
-    <div class="sf-card" style="padding:18px;">
+    <div class="sf-card" data-aos="fade-up" style="padding:18px;">
       <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:4px;">Windows Workstation FP Suppression</div>
       <p style="font-size:0.85rem;color:var(--muted);margin:0;">Persistent device enumeration noise (rule 60227: HP printer, Bluetooth audio, monitor attach/detach) consuming queue depth. Added <code>rule_overrides</code> in <code>policy.yaml</code> with <code>contains_any</code> fragments covering known device strings. Disposition: AUTO_CLOSE_KNOWN_FP.</p>
     </div>
-    <div class="sf-card" style="padding:18px;">
+    <div class="sf-card" data-aos="fade-up" style="padding:18px;">
       <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:4px;">Linux dpkg Churn Suppression</div>
       <p style="font-size:0.85rem;color:var(--muted);margin:0;">Honeypot and file server generating rules 2902/2904 (dpkg status messages) during apt maintenance windows. Scoped overrides added for these agents matching on <code>/var/log/dpkg.log</code> location.</p>
     </div>
-    <div class="sf-card" style="padding:18px;">
+    <div class="sf-card" data-aos="fade-up" style="padding:18px;">
       <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:4px;">Sysmon Event 3 Escalation Hardening</div>
       <p style="font-size:0.85rem;color:var(--muted);margin:0;">Network connection events matching high-risk binaries (<code>rundll32</code>, <code>regsvr32</code>, <code>mshta</code>, <code>powershell</code>, <code>certutil</code>, <code>bitsadmin</code>) now escalate instead of routing to REVIEW. Prevents living-off-the-land lateral movement indicators from being silently downgraded.</p>
     </div>
-    <div class="sf-card" style="padding:18px;">
+    <div class="sf-card" data-aos="fade-up" style="padding:18px;">
       <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:4px;">Coverage-Check Host Alias Normalization</div>
       <p style="font-size:0.85rem;color:var(--muted);margin:0;">Older alerts used historical hostname tokens. Added <code>LEGACY_TOKEN_HOST_MAP</code> dict applied during normalization pass across five candidate fields. Required hosts no longer falsely reported as missing.</p>
     </div>
   </div>
 
   <h3 style="font-size:1rem;color:var(--muted);margin-bottom:8px;">Metrics Evolution</h3>
-  <div class="sf-card" style="padding:20px;margin-bottom:32px;overflow-x:auto;">
+  <div class="sf-card" data-aos="fade-up" style="padding:20px;margin-bottom:32px;overflow-x:auto;">
     <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
       <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;">
         <th style="padding:8px 10px;color:var(--muted);">Metric</th>
@@ -214,7 +214,7 @@
       </tr></thead>
       <tbody>
         <tr><td style="padding:6px 10px;">FP queue depth</td><td style="padding:6px 10px;color:#f87171;">High (device / dpkg / Sysmon noise)</td><td style="padding:6px 10px;color:#4ade80;">Suppressed by policy</td></tr>
-        <tr><td style="padding:6px 10px;">Auto-close rate</td><td style="padding:6px 10px;">~87-88%</td><td style="padding:6px 10px;color:#4ade80;">89%+</td></tr>
+        <tr><td style="padding:6px 10px;">Auto-close rate</td><td style="padding:6px 10px;">~87-88%</td><td style="padding:6px 10px;color:#4ade80;">~92%</td></tr>
         <tr><td style="padding:6px 10px;">Reconciliation hard mismatches</td><td style="padding:6px 10px;color:#f87171;">1+ (serialization defect)</td><td style="padding:6px 10px;color:#4ade80;">0</td></tr>
         <tr><td style="padding:6px 10px;">Sysmon Event 3 LOtL coverage</td><td style="padding:6px 10px;">REVIEW only</td><td style="padding:6px 10px;color:#4ade80;">ESCALATE on high-risk match</td></tr>
         <tr><td style="padding:6px 10px;">Pipeline run time</td><td style="padding:6px 10px;">~6-8s</td><td style="padding:6px 10px;color:#4ade80;">5.4s</td></tr>
@@ -227,15 +227,15 @@
   <!-- 5. STRESS TEST -->
   <h2 style="font-size:1.4rem;margin-bottom:12px;">5. Stress-Test Window: March 2-4, 2026</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;">
-    <div class="sf-card" style="padding:16px;text-align:center;">
+    <div class="sf-card" data-aos="fade-up" style="padding:16px;text-align:center;">
       <div style="font-size:1.6rem;font-weight:800;color:#7ab8ff;">25,167</div>
       <div style="font-size:0.75rem;color:var(--muted);">Cases processed</div>
     </div>
-    <div class="sf-card" style="padding:16px;text-align:center;">
+    <div class="sf-card" data-aos="fade-up" style="padding:16px;text-align:center;">
       <div style="font-size:1.6rem;font-weight:800;color:#4ade80;">90.1%</div>
       <div style="font-size:0.75rem;color:var(--muted);">Auto-close rate</div>
     </div>
-    <div class="sf-card" style="padding:16px;text-align:center;">
+    <div class="sf-card" data-aos="fade-up" style="padding:16px;text-align:center;">
       <div style="font-size:1.6rem;font-weight:800;color:#7ab8ff;">3 days</div>
       <div style="font-size:0.75rem;color:var(--muted);">Continuous window</div>
     </div>
@@ -248,15 +248,15 @@
   <h2 style="font-size:1.4rem;margin-bottom:12px;">6. What This Demonstrates</h2>
 
   <div style="display:grid;gap:16px;margin-bottom:24px;">
-    <div class="sf-card" style="padding:20px;">
+    <div class="sf-card" data-aos="fade-up" style="padding:20px;">
       <div style="font-size:0.82rem;font-weight:700;color:#71c7b8;margin-bottom:6px;">Engineering Judgment Under Failure</div>
       <p style="font-size:0.88rem;line-height:1.65;color:var(--muted);margin:0;">When the pipeline failed, I did not restart blindly. The heartbeat JSON provided the exact failure stage. The reconcile defect required reading the Python control flow, identifying the scoping error in a multi-list join, and understanding how the case ID predicate interacted with the mismatch calculation. The poller defect required distinguishing between three error types and understanding backoff semantics. Both fixes were surgical, each tested against existing behavior without modifying surrounding logic.</p>
     </div>
-    <div class="sf-card" style="padding:20px;">
+    <div class="sf-card" data-aos="fade-up" style="padding:20px;">
       <div style="font-size:0.82rem;font-weight:700;color:#71c7b8;margin-bottom:6px;">AI-Augmented Development, Human-Owned Validation</div>
       <p style="font-size:0.88rem;line-height:1.65;color:var(--muted);margin:0;">SignalFoundry was developed with AI code assistance, but all validation, policy decisions, and operational truth surfaces are human-owned. The CI pipeline enforces that counts cannot be inflated. The triage policy is a human-authored decision tree encoded in YAML. The known-FP library is built from observed signals, not vendor templates. AI tooling accelerated implementation; the operator owns the logic.</p>
     </div>
-    <div class="sf-card" style="padding:20px;">
+    <div class="sf-card" data-aos="fade-up" style="padding:20px;">
       <div style="font-size:0.82rem;font-weight:700;color:#71c7b8;margin-bottom:6px;">Manufacturing Systems Thinking Applied to Security</div>
       <p style="font-size:0.88rem;line-height:1.65;color:var(--muted);margin:0;">The architecture reflects a manufacturing-derived mental model: define the process, instrument every stage, make failure modes visible and recoverable, and validate outputs against known-good state. The queue cap, backoff retries, and freshness thresholds are deliberate operating parameters, not defaults left in place. On a manufacturing floor, a bad process kills throughput at scale; the same is true in a SOC at volume.</p>
     </div>
@@ -273,21 +273,31 @@
   <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
     <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">SignalFoundry Overview</a>
     <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof &amp; Metrics</a>
-    <a class="sf-button sf-button-secondary sf-focus-ring" href="/start-here">Start Here</a>
+    <a class="sf-button sf-button-secondary sf-focus-ring" href="/">Home</a>
     <a class="sf-button sf-button-secondary sf-focus-ring" href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
   </div>
 
 </main>
 
 <!-- @include:footer:start -->
-<footer class="m-footer">
-  <div class="m-wrap" style="text-align:center;padding:24px 0;">
-    <p style="font-size:0.78rem;color:var(--muted);">HawkinsOps &middot; Raylee Hawkins &middot; <a href="mailto:raylee@hawkinsops.com" style="color:#7ab8ff;">raylee@hawkinsops.com</a></p>
+<footer>
+  <div class="ctr">
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
+    <div class="fl">
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
+      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
+    </div>
   </div>
 </footer>
 <!-- @include:footer:end -->
 <script src="/data/counts.js" defer></script>
 <script src="/data/ops-metrics.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
 </body>
 </html>

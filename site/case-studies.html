@@ -51,6 +51,8 @@ body {
 .cs-card-arrow { font-size:.8rem; color:#486880; }
 .cs-card:hover .cs-card-arrow { color:#00c4d4; }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body data-ops-scope="stable">
 <nav>
@@ -58,29 +60,27 @@ body {
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
-      <li><a href="/start-here">Start Here</a></li>
-      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/proof">Proof</a></li>
       <li><a href="/detections">Detections</a></li>
-      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/resume">Resume</a></li>
-      <li><a href="/soc-lab">Lab</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
+    <a class="btn btn-p nav-cta" href="/resume">Resume</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-  <a href="/start-here">Start Here</a>
-  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/">Home</a>
+  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/proof">Proof</a>
   <a href="/detections">Detections</a>
-  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/resume">Resume</a>
-  <a href="/soc-lab">Lab</a>
 </div>
 
 <main class="modernize-shell">
-<section class="m-section" style="padding-top:96px;">
+<section class="m-section" data-aos="fade-up" style="padding-top:96px;">
   <div class="m-wrap">
     <div class="m-eyebrow">Field Notes</div>
     <h1 class="m-title" style="font-size:clamp(2.2rem,4vw,3.5rem);">Engineering Case Studies</h1>
@@ -118,10 +118,10 @@ body {
   </div>
 </section>
 
-<section class="m-section m-stage">
+<section class="m-section m-stage" data-aos="fade-up">
   <div class="m-wrap">
-    <div class="m-card">
-      <div class="m-card-kicker">Context</div>
+    <div class="m-card" data-aos="fade-up">
+      <div class="m-card-kicker" data-aos="fade-up">Context</div>
       <h2>About these field notes</h2>
       <p class="m-copy">These aren't sanitized post-mortems written weeks after the fact. They're documented from the session logs and proof artifacts that exist on-system from the actual work. The source material — preflight output, pipeline logs, scheduler metadata — is real and reviewable.</p>
       <p class="m-copy">The AutoSOC project processes a live queue of Wazuh security alerts across a home lab environment. These field notes capture the operational and engineering decisions made while keeping that system running.</p>
@@ -142,10 +142,10 @@ body {
 
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> &bull; Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
     <div class="fl">
-      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">GitHub</a>
-      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">LinkedIn</a>
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
       <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
     </div>
   </div>
@@ -155,5 +155,10 @@ body {
 <script src="/data/counts.js" defer></script>
 <script src="/data/ops-metrics.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
 </body>
 </html>

@@ -64,6 +64,8 @@ body {
   white-space:nowrap; margin-top:2px;
 }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body data-ops-scope="stable">
 <nav>
@@ -71,29 +73,27 @@ body {
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
-      <li><a href="/start-here">Start Here</a></li>
-      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/proof">Proof</a></li>
       <li><a href="/detections">Detections</a></li>
-      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/resume">Resume</a></li>
-      <li><a href="/soc-lab">Lab</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
+    <a class="btn btn-p nav-cta" href="/resume">Resume</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-  <a href="/start-here">Start Here</a>
-  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/">Home</a>
+  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/proof">Proof</a>
   <a href="/detections">Detections</a>
-  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/resume">Resume</a>
-  <a href="/soc-lab">Lab</a>
 </div>
 
 <main class="modernize-shell">
-<section class="m-section" style="padding-top:96px;">
+<section class="m-section" data-aos="fade-up" style="padding-top:96px;">
   <div class="m-wrap">
     <a class="cs-nav-back" href="/case-studies">&larr; All field notes</a>
     <div class="m-eyebrow">Field Note &mdash; Incident / RCA</div>
@@ -111,7 +111,7 @@ body {
   </div>
 </section>
 
-<section class="m-section m-stage">
+<section class="m-section m-stage" data-aos="fade-up">
   <div class="m-wrap m-rail-layout">
     <div class="cs-prose">
 
@@ -191,7 +191,7 @@ POINTS_RENDERED: 30</pre>
 
     <aside class="m-rail">
       <section class="m-rail-section">
-        <div class="m-card-kicker">RCA summary</div>
+        <div class="m-card-kicker" data-aos="fade-up">RCA summary</div>
         <h2>What happened</h2>
         <ul class="m-list-tight">
           <li><strong>Symptom:</strong> chart artifact not updating on scheduled runs</li>
@@ -202,12 +202,12 @@ POINTS_RENDERED: 30</pre>
         </ul>
       </section>
       <section class="m-rail-section">
-        <div class="m-card-kicker">Open item</div>
+        <div class="m-card-kicker" data-aos="fade-up">Open item</div>
         <h2>Needs follow-up</h2>
         <p class="m-subtitle"><span class="m-inline-code">-1073741510</span> on 10:09 PM scheduled run. Hotfix is not the cause — chart renders successfully in log evidence. Process termination source is not yet isolated.</p>
       </section>
       <section class="m-rail-section">
-        <div class="m-card-kicker">Related</div>
+        <div class="m-card-kicker" data-aos="fade-up">Related</div>
         <h2>See also</h2>
         <div class="m-link-list">
           <a href="/autosoc-cutover" class="m-link-item">
@@ -228,10 +228,10 @@ POINTS_RENDERED: 30</pre>
   </div>
 </section>
 
-<section class="m-section m-stage">
+<section class="m-section m-stage" data-aos="fade-up">
   <div class="m-wrap">
-    <div class="m-card">
-      <div class="m-card-kicker">Continue reading</div>
+    <div class="m-card" data-aos="fade-up">
+      <div class="m-card-kicker" data-aos="fade-up">Continue reading</div>
       <h2>Field notes</h2>
       <div class="m-grid-2">
         <a href="/autosoc-cutover" class="m-link-item">
@@ -250,10 +250,10 @@ POINTS_RENDERED: 30</pre>
 
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> &bull; Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
     <div class="fl">
-      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">GitHub</a>
-      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">LinkedIn</a>
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
       <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
     </div>
   </div>
@@ -263,5 +263,10 @@ POINTS_RENDERED: 30</pre>
 <script src="/data/counts.js" defer></script>
 <script src="/data/ops-metrics.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
 </body>
 </html>

@@ -1,104 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<title>SignalFoundry | Start Here</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Fast reviewer path for SignalFoundry: proof, verified counts, case study, and reproduction commands.">
-<link rel="canonical" href="https://hawkinsops.com/start-here">
-<meta property="og:type" content="website">
-<meta property="og:title" content="SignalFoundry | Start Here">
-<meta property="og:description" content="Fast reviewer path for SignalFoundry: proof, verified counts, case study, and reproduction commands.">
-<meta property="og:url" content="https://hawkinsops.com/start-here">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SignalFoundry | Start Here">
-<meta name="twitter:description" content="Fast reviewer path for SignalFoundry: proof, verified counts, case study, and reproduction commands.">
-<meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
-<meta name="twitter:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
-<link rel="stylesheet" href="/assets/styles.css">
-<link rel="stylesheet" href="/assets/design-tokens.css?v=03-24-2026-1">
-<link rel="stylesheet" href="/assets/base.css?v=03-24-2026-1">
-<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
-<link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
-<script>document.documentElement.setAttribute('data-theme', 'dark');</script>
+<meta http-equiv="refresh" content="0;url=/">
+<title>Moved</title>
 </head>
-<body data-ops-scope="stable">
-<nav>
-  <div class="nav-i">
-    <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
-    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
-    <ul class="nav-l">
-      <li><a href="/start-here" aria-current="page">Start Here</a></li>
-      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
-      <li><a href="/enterprise-security">Enterprise Security</a></li>
-      <li><a href="/proof">Proof</a></li>
-      <li><a href="/detections">Detections</a></li>
-      <li><a href="/resume">Resume</a></li>
-      <li><a href="/soc-lab">Lab</a></li>
-    </ul>
-    <a class="btn btn-p nav-cta" href="/case-study-autosoc">SignalFoundry &rarr;</a>
-  </div>
-</nav>
-<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-  <a href="/start-here" aria-current="page">Start Here</a>
-  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
-  <a href="/enterprise-security">Enterprise Security</a>
-  <a href="/proof">Proof</a>
-  <a href="/detections">Detections</a>
-  <a href="/resume">Resume</a>
-  <a href="/soc-lab">Lab</a>
-</div>
-<main class="sf-shell">
-  <section class="sf-section">
-    <div class="sf-eyebrow">Reviewer Path</div>
-    <h1 style="font-size:clamp(2rem,4vw,3rem);margin:12px 0 16px;">Start here if you need to validate SignalFoundry fast.</h1>
-    <p style="max-width:64ch;color:var(--muted);">This page exists so a reviewer can confirm what was built, what is verified, and where to find the implementation - without navigating the full site. Follow the cards in order.</p>
-    <p style="max-width:64ch;color:var(--muted);margin-top:10px;"><span data-verified="sigma">103</span> Sigma rules &middot; <span data-verified="wazuh">28</span> Wazuh rule blocks &middot; <span data-verified="splunk">9</span> Splunk queries (home lab) &middot; <span data-verified="ir">10</span> IR playbooks &middot; <span data-ops="stable_total_cases">55,665</span> cases &middot; <span data-ops="stable_auto_closed_benign">~92%</span> auto-closed.</p>
-    <div class="m-proof-strip" style="margin-top:18px;">
-      <div class="m-proof-inline">
-        <strong>Heartbeat <span data-ops-status="stable_heartbeat">UNKNOWN</span></strong>
-        <strong>Coverage <span data-ops="stable_coverage_ratio"> - </span></strong>
-        <strong>Snapshot date <span data-ops="stable_locked_date">03-25-2026</span></strong>
-      </div>
-    </div>
-  </section>
-  <section class="sf-section sf-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
-    <article class="sf-card" style="padding:24px;">
-      <h2>1. SignalFoundry Case Study</h2>
-      <p>System architecture, triage logic, evidence packing, and recovery model - the full implementation story.</p>
-      <p style="margin-top:16px;"><a class="btn btn-p sf-focus-ring" href="/case-study-autosoc">Open case study &rarr;</a></p>
-    </article>
-    <article class="sf-card" style="padding:24px;">
-      <h2>2. Proof</h2>
-      <p>Stable benchmark, evidence trail, and the verification path tied to this snapshot.</p>
-      <p style="margin-top:16px;"><a class="sf-focus-ring" href="/proof">Open proof</a></p>
-    </article>
-    <article class="sf-card" style="padding:24px;">
-      <h2>3. Verified counts</h2>
-      <p>Repository inventory for Sigma, Wazuh, Splunk, and IR playbooks - the authoritative source file.</p>
-      <p style="margin-top:16px;"><a class="sf-focus-ring" href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">Open VERIFIED_COUNTS.md</a></p>
-    </article>
-  </section>
-  <section class="sf-section">
-    <div class="sf-card" style="padding:24px;">
-      <h2>Reproduce locally</h2>
-      <pre style="overflow:auto;background:#0f172a;color:#f8fafc;padding:16px;border-radius:8px;">pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
-node .\scripts\generate-metrics.js
-node .\scripts\generate-site-data.js
-python .\scripts\drift_scan.py
-python .\scripts\validate_metrics.py</pre>
-    </div>
-  </section>
-</main>
-<footer>
-  <div class="ctr">
-    <p><b>HawkinsOps</b> | Eligible to obtain clearance; willing to pursue sponsorship.</p>
-  </div>
-</footer>
-<script src="/assets/fetch-utils.js" defer></script>
-<script src="/data/counts.js" defer></script>
-<script src="/data/ops-metrics.js" defer></script>
-<script src="/assets/app.js" defer></script>
+<body>
+<a href="/">This page has moved to the homepage</a>
 </body>
 </html>
