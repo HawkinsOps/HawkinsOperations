@@ -78,6 +78,7 @@
         <div class="sf-role-line">
           <span class="sf-role-tag typed-target"></span>
         </div>
+        <p class="sf-body" style="line-height:1.7;margin-bottom:6px;font-weight:600;color:#71c7b8;">This is a working security operations system, not a static portfolio.</p>
         <p class="sf-body" style="line-height:1.7;margin-bottom:14px;">I built and operate <a href="/case-study-autosoc" class="sf-inline-link">SignalFoundry</a> — a 35-script Python pipeline that ingests Wazuh alerts, performs policy-driven triage, and publishes redacted escalation packs. <span data-verified="detections">140</span> detections across Sigma, Wazuh, and Splunk. Every metric is CI-verified. Every claim is <a href="/proof" class="sf-inline-link">reproducible</a>.</p>
         <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:20px;">Sept 2025: zero computer experience. Mar 2026: 55,665 verified cases processed, production pipeline running 24/7. Previous career: production supervisor — 30+ operators, IATF audit compliance, mandatory 12-hour shifts. The domain changed. The discipline didn't.</p>
         <div class="sf-actions">
@@ -96,124 +97,89 @@
       </div>
     </section>
 
-    <!-- PIPELINE OUTCOMES -->
-    <section class="sf-section" style="padding-top:0;">
-      <div class="outcomes-strip" data-aos="fade-up" role="region" aria-label="Pipeline outcomes summary">
-        <div class="of-node">
-          <div class="of-val counter" data-target="55665">0</div>
-          <div class="of-lbl">Alerts Ingested</div>
+    <!-- METRICS BAR -->
+    <section style="padding:24px 0 32px;">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center;max-width:800px;margin:0 auto;border:1px solid rgba(122,184,255,0.12);border-radius:6px;background:rgba(17,24,39,0.5);">
+        <div style="padding:20px 12px;border-right:1px solid rgba(122,184,255,0.08);">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:#7ab8ff;" class="counter" data-target="55665">0</div>
+          <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:#7a94aa;margin-top:4px;">Cases</div>
         </div>
-        <div class="of-arr">&rarr;</div>
-        <div class="of-node of-teal">
-          <div class="of-val">SignalFoundry</div>
-          <div class="of-lbl">Pipeline</div>
+        <div style="padding:20px 12px;border-right:1px solid rgba(122,184,255,0.08);">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:#4ade80;">~92%</div>
+          <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:#7a94aa;margin-top:4px;">Auto-Closed</div>
         </div>
-        <div class="of-arr">&rarr;</div>
-        <div class="of-node of-green">
-          <div class="of-val">~92%</div>
-          <div class="of-lbl">Auto-Closed</div>
+        <div style="padding:20px 12px;border-right:1px solid rgba(122,184,255,0.08);">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:#fbbf24;" class="counter" data-target="2545">0</div>
+          <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:#7a94aa;margin-top:4px;">Escalated</div>
         </div>
-        <div class="of-arr">&rarr;</div>
-        <div class="of-node of-teal">
-          <div class="of-val counter" data-target="2545">0</div>
-          <div class="of-lbl">Escalated</div>
+        <div style="padding:20px 12px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:#4ade80;">0</div>
+          <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:#7a94aa;margin-top:4px;">Errors</div>
         </div>
-        <div class="of-arr">&rarr;</div>
-        <div class="of-node of-green">
-          <div class="of-val">0</div>
-          <div class="of-lbl">Reconcile Errors</div>
-        </div>
-        <div class="outcomes-note">Ledger-backed &middot; reproducible &middot; no hand-edited metrics &middot; canonical 03-25-2026</div>
       </div>
     </section>
 
-    <!-- FLAGSHIP SYSTEM -->
-    <section id="flagship" class="sf-section reveal" data-aos="fade-up" aria-labelledby="flagship-title">
-      <div class="sf-section-label">Flagship System</div>
-      <div class="sf-proof-grid">
-        <div class="sf-card sf-panel" data-aos="fade-up">
-          <h2 id="flagship-title">SignalFoundry</h2>
-          <p class="sf-body sf-copy-gap-sm">Wazuh alerts in → policy-driven triage → mandatory redaction → evidence packs → reconciliation gate → published proof. 35-script Python pipeline. Deterministic. Nothing publishes without PASS.</p>
-          <div class="det-inventory" data-aos="fade-in" aria-label="Detection inventory">
-            <div class="det-inv-hdr">
-              <div class="det-inv-title">Detection Inventory</div>
-              <div class="det-inv-total"><span data-verified="detections">140</span> rules</div>
-            </div>
-            <div class="det-rows">
-              <div class="det-row dr-sigma">
-                <div class="det-icon" style="color:#6aaad8;">σ</div>
-                <div class="det-label">Sigma</div>
-                <div class="det-sub">10 MITRE ATT&amp;CK tactics · portable</div>
-                <div class="det-bar-track"><div class="det-bar-fill" data-w="74"></div></div>
-                <div class="det-count"><span data-verified="sigma">103</span></div>
-              </div>
-              <div class="det-row dr-wazuh">
-                <div class="det-icon" style="color:#00c4d4;">⚙</div>
-                <div class="det-label">Wazuh XML</div>
-                <div class="det-sub">Custom rule blocks · live in Wazuh</div>
-                <div class="det-bar-track"><div class="det-bar-fill" data-w="20"></div></div>
-                <div class="det-count"><span data-verified="wazuh">28</span></div>
-              </div>
-              <div class="det-row dr-splunk">
-                <div class="det-icon" style="color:#e8a020;">&gt;</div>
-                <div class="det-label">Splunk SPL</div>
-                <div class="det-sub">Investigation layer · detection lane</div>
-                <div class="det-bar-track"><div class="det-bar-fill" data-w="6"></div></div>
-                <div class="det-count"><span data-verified="splunk">9</span></div>
-              </div>
-              <div class="det-row dr-ir">
-                <div class="det-icon">📋</div>
-                <div class="det-label">IR Playbooks</div>
-                <div class="det-sub">7-step structured · reproducible evidence</div>
-                <div class="det-bar-track"><div class="det-bar-fill" data-w="7"></div></div>
-                <div class="det-count"><span data-verified="ir">10</span></div>
-              </div>
-            </div>
-          </div>
-          <div class="sf-actions sf-actions-compact" style="margin-top:16px;">
-            <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Full Case Study →</a>
-            <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof Artifacts</a>
-          </div>
+    <!-- PIPELINE — THE ANCHOR -->
+    <section id="pipeline" class="sf-section" data-aos="fade-up" style="padding:80px 0 60px;background:linear-gradient(180deg,rgba(17,24,39,0.4) 0%,transparent 100%);border-top:1px solid rgba(122,184,255,0.08);border-bottom:1px solid rgba(122,184,255,0.08);">
+      <div style="text-align:center;margin-bottom:24px;">
+        <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.12em;color:#7ab8ff;margin-bottom:8px;">Production Pipeline (Live)</div>
+        <h2 style="font-size:clamp(1.4rem,2.5vw,2rem);margin:0;">Every alert passes through this system.</h2>
+      </div>
+      <div style="max-width:1000px;margin:0 auto;border-radius:8px;overflow:hidden;border:1px solid rgba(122,184,255,0.15);box-shadow:0 0 40px rgba(59,143,217,0.06);">
+        <img src="/assets/signalfoundry-pipeline.svg" alt="SignalFoundry 7-stage pipeline diagram" loading="eager" width="1100" height="420" style="display:block;width:100%;height:auto;">
+      </div>
+      <div style="max-width:800px;margin:20px auto 0;border-radius:8px;overflow:hidden;border:1px solid rgba(100,140,180,.1);">
+        <img src="/assets/autosoc-decision-flow.svg" alt="AutoSOC triage decision flow" loading="lazy" width="900" height="720" style="display:block;width:100%;height:auto;">
+      </div>
+      <div style="text-align:center;margin-top:20px;">
+        <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Full Case Study &rarr;</a>
+      </div>
+    </section>
+
+    <!-- SYSTEM OVERVIEW -->
+    <section id="system" class="sf-section" data-aos="fade-up" aria-labelledby="system-title" style="padding:60px 0;">
+      <div class="sf-section-label">System Overview</div>
+      <h2 id="system-title">SignalFoundry</h2>
+      <p class="sf-body sf-copy-gap-sm" style="max-width:64ch;">Wazuh alerts in &rarr; policy-driven triage &rarr; mandatory redaction &rarr; evidence packs &rarr; reconciliation gate &rarr; published proof. 35-script Python pipeline. Deterministic. Nothing publishes without PASS.</p>
+      <div class="det-inventory" data-aos="fade-in" aria-label="Detection inventory" style="max-width:640px;margin-top:24px;">
+        <div class="det-inv-hdr">
+          <div class="det-inv-title">Detection Inventory</div>
+          <div class="det-inv-total"><span data-verified="detections">140</span> rules</div>
         </div>
-        <div class="sf-card sf-panel" data-aos="fade-up">
-          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(100,140,180,.13);">
-            <img src="/assets/signalfoundry-pipeline.svg" alt="SignalFoundry 7-stage pipeline diagram" loading="eager" width="1100" height="420" style="display:block;width:100%;height:auto;">
+        <div class="det-rows">
+          <div class="det-row dr-sigma">
+            <div class="det-icon" style="color:#6aaad8;">&sigma;</div>
+            <div class="det-label">Sigma</div>
+            <div class="det-sub">10 MITRE ATT&amp;CK tactics &middot; portable</div>
+            <div class="det-bar-track"><div class="det-bar-fill" data-w="74"></div></div>
+            <div class="det-count"><span data-verified="sigma">103</span></div>
           </div>
-          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(100,140,180,.13);margin-top:12px;">
-            <img src="/assets/autosoc-decision-flow.svg" alt="AutoSOC triage decision flow" loading="lazy" width="900" height="720" style="display:block;width:100%;height:auto;">
+          <div class="det-row dr-wazuh">
+            <div class="det-icon" style="color:#00c4d4;">&cir;</div>
+            <div class="det-label">Wazuh XML</div>
+            <div class="det-sub">Custom rule blocks &middot; live in Wazuh</div>
+            <div class="det-bar-track"><div class="det-bar-fill" data-w="20"></div></div>
+            <div class="det-count"><span data-verified="wazuh">28</span></div>
+          </div>
+          <div class="det-row dr-splunk">
+            <div class="det-icon" style="color:#e8a020;">&gt;</div>
+            <div class="det-label">Splunk SPL</div>
+            <div class="det-sub">Investigation layer &middot; home lab</div>
+            <div class="det-bar-track"><div class="det-bar-fill" data-w="6"></div></div>
+            <div class="det-count"><span data-verified="splunk">9</span></div>
+          </div>
+          <div class="det-row dr-ir">
+            <div class="det-icon">&#x1F4CB;</div>
+            <div class="det-label">IR Playbooks</div>
+            <div class="det-sub">7-step structured &middot; reproducible evidence</div>
+            <div class="det-bar-track"><div class="det-bar-fill" data-w="7"></div></div>
+            <div class="det-count"><span data-verified="ir">10</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PROOF METRICS -->
-    <section id="proof-snapshot" class="sf-section reveal" data-aos="fade-up" aria-labelledby="health-title">
-      <div class="sf-section-label">Stable Benchmark</div>
-      <h2 id="health-title">Canonical snapshot — 03-25-2026</h2>
-      <p class="sf-body sf-copy-gap-lg"><span data-ops="stable_statement">March 25 canonical snapshot: 55,665 total cases, ~92% auto-close, 2,545 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
-      <div class="sf-metrics" role="status" aria-live="polite">
-        <article class="sf-card sf-metric" data-aos="fade-up" data-aos-delay="0">
-          <span class="sf-metric-label">Heartbeat</span>
-          <span class="sf-metric-value"><span class="sdot" aria-hidden="true"></span><span data-ops-status="stable_heartbeat">SUCCESS</span></span>
-          <p class="sf-metric-note">Live pipeline gate — operational.</p>
-        </article>
-        <article class="sf-card sf-metric" data-aos="fade-up" data-aos-delay="100" data-modal="tpl-escalated" data-modal-title="Auto-Close Rate">
-          <span class="sf-metric-label">Auto-Close Rate</span>
-          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_auto_closed_benign">~92%</span></span>
-          <p class="sf-metric-note">Benign alerts resolved without human action.</p>
-        </article>
-        <article class="sf-card sf-metric" data-aos="fade-up" data-aos-delay="200" data-modal="tpl-escalated" data-modal-title="Escalated Cases">
-          <span class="sf-metric-label">Escalated</span>
-          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_escalated">2,545</span></span>
-          <p class="sf-metric-note">Non-trivial cases requiring analyst review.</p>
-        </article>
-        <article class="sf-card sf-metric" data-aos="fade-up" data-aos-delay="300" data-modal="tpl-heartbeat" data-modal-title="Reconciliation">
-          <span class="sf-metric-label">Reconciliation</span>
-          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="reconciliation">PASS</span></span>
-          <p class="sf-metric-note">Ledger check: 0 mismatches between stages.</p>
-        </article>
-      </div>
-    </section>
+    <!-- (duplicate metrics section removed — canonical version below) -->
 
     <!--
          SECTION 4: CASE PROCESSING FUNNEL
@@ -335,9 +301,9 @@
     </section>
 
     <!--
-         SECTION 6: OPERATIONAL PROOF SNAPSHOT
+         METRICS SNAPSHOT
           -->
-    <section id="proof-snapshot" class="sf-section" data-aos="fade-up" aria-labelledby="health-title">
+    <section id="proof-snapshot" class="sf-section" data-aos="fade-up" aria-labelledby="health-title" style="padding:60px 0;background:rgba(17,24,39,0.3);border-top:1px solid rgba(122,184,255,0.06);border-bottom:1px solid rgba(122,184,255,0.06);">
       <div class="sf-section-label">Stable Benchmark</div>
       <h2 id="health-title">Pipeline integrity</h2>
       <p class="sf-body sf-copy-gap-md">Locked snapshot from <code>data/truth/current-authority.json</code>. These values do not change from live telemetry. <a href="/proof" class="sf-inline-link">Full proof &rarr;</a></p>
