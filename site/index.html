@@ -71,59 +71,59 @@
     <!-- 
          SECTION 1: HERO - Candidate first
           -->
-    <section id="hero" class="sf-section sf-hero" aria-labelledby="hero-title" style="display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:start;">
-      <!-- LEFT: Name, role, core copy, CTAs -->
+    <section id="hero" class="sf-section sf-hero" aria-labelledby="hero-title" style="display:grid;grid-template-columns:1fr 280px;gap:40px;align-items:center;">
+      <!-- LEFT: Name, system, CTAs -->
       <div>
         <h1 id="hero-title">Raylee Hawkins</h1>
         <div class="sf-role-line">
           <span class="sf-role-tag typed-target"></span>
         </div>
-        <p style="font-family:'Sora','Inter',sans-serif;font-size:1.05rem;font-weight:700;line-height:1.5;color:#71c7b8;margin:0 0 14px;">This is a working security operations system, not a static portfolio.</p>
-        <p class="sf-body" style="line-height:1.7;margin-bottom:14px;">I design, build, and operate SignalFoundry: a production-grade detection-to-escalation pipeline across Sigma, Wazuh, and Splunk that automatically triages alerts, collects forensic evidence, and only escalates verified threats with full proof attached.</p>
-        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:14px;">In 7 months, I transitioned from factory operations into cybersecurity and built a pipeline that has processed 55,665 verified cases with <span data-verified="detections">140</span> custom detections (<span data-verified="sigma">103</span> Sigma rules, <span data-verified="wazuh">28</span> Wazuh blocks, <span data-verified="splunk">9</span> Splunk queries) while working 12-hour manufacturing shifts.</p>
-        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:14px;">Factory-trained discipline meets modern SOC automation. Every metric is real, every detection is version-controlled, and every claim is reproducible.</p>
-        <p style="font-size:0.95rem;font-weight:600;line-height:1.5;color:#71c7b8;margin:0 0 20px;">If you're looking for someone who can actually build and run detection engineering and security automation, not just talk about it, you're in the right place.</p>
+        <p class="sf-body" style="line-height:1.7;margin-bottom:14px;">I built and operate <a href="/case-study-autosoc" class="sf-inline-link">SignalFoundry</a> — a 35-script Python pipeline that ingests Wazuh alerts, performs policy-driven triage, and publishes redacted escalation packs. <span data-verified="detections">140</span> detections across Sigma, Wazuh, and Splunk. Every metric is CI-verified. Every claim is <a href="/proof" class="sf-inline-link">reproducible</a>.</p>
+        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:20px;">Sept 2025: zero computer experience. Mar 2026: 55,665 verified cases processed, production pipeline running 24/7. Previous career: production supervisor — 30+ operators, IATF audit compliance, mandatory 12-hour shifts. The domain changed. The discipline didn't.</p>
         <div class="sf-actions">
-          <a class="sf-button sf-button-primary sf-focus-ring" href="/">Start Here &rarr;</a>
-          <a class="sf-button sf-button-secondary sf-focus-ring" href="/case-study-autosoc">SignalFoundry Case Study</a>
+          <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">SignalFoundry Case Study &rarr;</a>
+          <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof</a>
+          <a class="sf-button sf-button-secondary sf-focus-ring" href="/resume">Resume</a>
         </div>
       </div>
-      <p class="sf-body sf-body-lead">I build and operate automated SOC pipelines that classify, triage, and validate alerts at scale.</p>
-      <div class="hero-bridge">
-        <strong>Background:</strong>&nbsp; Production supervisor → detection engineer. 30+ operators, IATF audit compliance, 12-hr rotating shifts. The domain changed. The control logic didn't.
+      <!-- RIGHT: Photo -->
+      <div style="text-align:center;">
+        <img src="/assets/raylee-hawkins-headshot.jpg" alt="Raylee Hawkins" width="240" height="240" style="border-radius:50%;border:3px solid rgba(0,212,255,0.2);box-shadow:0 0 24px rgba(0,212,255,0.08);object-fit:cover;width:240px;height:240px;">
+        <div style="margin-top:12px;font-size:0.78rem;color:var(--muted);line-height:1.6;">
+          Huntsville, AL<br>
+          <span style="color:#22c55e;">Available for SOC / Detection roles</span>
+        </div>
       </div>
+    </section>
+
+    <!-- PIPELINE OUTCOMES -->
+    <section class="sf-section" style="padding-top:0;">
       <div class="outcomes-strip" data-aos="fade-up" role="region" aria-label="Pipeline outcomes summary">
         <div class="of-node">
           <div class="of-val counter" data-target="55665">0</div>
           <div class="of-lbl">Alerts Ingested</div>
         </div>
-        <div class="of-arr">→</div>
+        <div class="of-arr">&rarr;</div>
         <div class="of-node of-teal">
-          <div class="of-val">AutoSOC</div>
+          <div class="of-val">SignalFoundry</div>
           <div class="of-lbl">Pipeline</div>
         </div>
-        <div class="of-arr">→</div>
+        <div class="of-arr">&rarr;</div>
         <div class="of-node of-green">
           <div class="of-val">~92%</div>
           <div class="of-lbl">Auto-Closed</div>
         </div>
-        <div class="of-arr">→</div>
+        <div class="of-arr">&rarr;</div>
         <div class="of-node of-teal">
           <div class="of-val counter" data-target="2545">0</div>
           <div class="of-lbl">Escalated</div>
         </div>
-        <div class="of-arr">→</div>
+        <div class="of-arr">&rarr;</div>
         <div class="of-node of-green">
           <div class="of-val">0</div>
           <div class="of-lbl">Reconcile Errors</div>
         </div>
-        <div class="outcomes-note">Ledger-backed · reproducible · no hand-edited metrics · canonical 03-25-2026</div>
-      </div>
-      <div class="sf-actions" style="margin-top:22px;">
-        <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Open SignalFoundry →</a>
-        <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof Receipts</a>
-        <a class="sf-button sf-button-secondary sf-focus-ring" href="/resume">Resume</a>
-        <a class="sf-button sf-button-secondary sf-focus-ring" href="/enterprise-security">Enterprise Security</a>
+        <div class="outcomes-note">Ledger-backed &middot; reproducible &middot; no hand-edited metrics &middot; canonical 03-25-2026</div>
       </div>
     </section>
 
@@ -460,9 +460,9 @@ node scripts/generate-site-data.js</code></pre>
       <h2 id="routes-title">Where to go next</h2>
       <p class="sf-body sf-copy-gap-lg">Pick the path that answers your decision fastest.</p>
       <div class="sf-route-grid">
-        <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/">
-          <h3>Start Here</h3>
-          <p>Fastest reviewer path: verified counts, case study, and proof in one view.</p>
+        <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/enterprise-security">
+          <h3>Enterprise Security</h3>
+          <p>Audit policy hardening, lab infrastructure, baseline comparison, GPO deployment.</p>
         </a>
         <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/case-study-autosoc">
           <h3>SignalFoundry</h3>
