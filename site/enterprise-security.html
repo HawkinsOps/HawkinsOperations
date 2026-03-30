@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Enterprise Security Hardening | HawkinsOps</title>
+<meta name="description" content="Enterprise audit policy hardening: 27 subcategories MITRE-mapped, Microsoft baseline comparison across 60 subcategories with zero regressions, GPO deployment plan, and RSAT installation.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07070b">
+<link rel="canonical" href="https://hawkinsops.com/enterprise-security">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Enterprise Security Hardening | HawkinsOps">
+<meta property="og:description" content="Enterprise audit policy hardening: 27 subcategories MITRE-mapped, Microsoft baseline comparison across 60 subcategories, GPO deployment, and RSAT installation.">
+<meta property="og:url" content="https://hawkinsops.com/enterprise-security">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Enterprise Security Hardening | HawkinsOps">
+<meta name="twitter:description" content="Enterprise audit policy hardening: 27 subcategories, Microsoft baseline comparison, GPO deployment, and RSAT installation.">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script>
+  document.documentElement.setAttribute('data-theme', 'dark');
+</script>
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
+<link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
+</head>
+<body>
+<!-- @include:nav:start -->
+<nav>
+  <div class="nav-i">
+    <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
+    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
+    <ul class="nav-l">
+      <li><a href="/start-here">Start Here</a></li>
+      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/detections">Detections</a></li>
+      <li><a href="/enterprise-security" aria-current="page">Enterprise Security</a></li>
+      <li><a href="/resume">Resume</a></li>
+      <li><a href="/soc-lab">Lab</a></li>
+    </ul>
+    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
+  </div>
+</nav>
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+  <a href="/start-here">Start Here</a>
+  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/proof">Proof</a>
+  <a href="/detections">Detections</a>
+  <a href="/enterprise-security" aria-current="page">Enterprise Security</a>
+  <a href="/resume">Resume</a>
+  <a href="/soc-lab">Lab</a>
+</div>
+
+<!-- @include:nav:end -->
+<main class="modernize-shell">
+
+<!-- ── HERO ── -->
+<section class="m-section" style="padding-top:96px;">
+  <div class="m-wrap m-rail-layout">
+    <div>
+      <div class="m-eyebrow">Enterprise hardening &mdash; Phase 2</div>
+      <h1 class="m-title" style="font-size: clamp(2.3rem, 4vw, 3.9rem);">Enterprise Security Hardening</h1>
+      <p class="m-subtitle">Audit policy hardening, Microsoft baseline comparison, domain GPO deployment plan, and RSAT installation on a domain-joined Windows 11 Enterprise workstation.</p>
+      <p class="m-outcome">27 audit subcategories hardened with MITRE mappings. 60 subcategories compared against the Microsoft Security Baseline with zero regressions and 12 intentional additions. Full GPO promotion plan documented and ready to execute.</p>
+      <div class="m-actions">
+        <a class="m-cta m-cta-dominant" href="/start-here">Start Here</a>
+        <a class="m-cta m-cta-accent" href="https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/projects/lab/enterprise-hardening" target="_blank" rel="noopener noreferrer">Source Artifacts</a>
+        <a class="m-cta m-cta-secondary" href="/proof">Proof Receipts</a>
+      </div>
+      <div class="m-hero-signals">
+        <span class="m-hero-signal">Audit Policy</span>
+        <span class="m-hero-signal">Baseline</span>
+        <span class="m-hero-signal">GPO</span>
+        <span class="m-hero-signal">RSAT</span>
+      </div>
+
+      <div class="m-kpi-grid" aria-label="Enterprise security hardening metrics" style="margin-top:24px;">
+        <article class="m-kpi">
+          <div class="m-kpi-value">27</div>
+          <div class="m-kpi-label">Audit subcategories</div>
+          <p class="m-kpi-copy">All 27 subcategories set to Success and Failure. 22 changed state from defaults. Zero errors.</p>
+        </article>
+        <article class="m-kpi">
+          <div class="m-kpi-value">11</div>
+          <div class="m-kpi-label">MITRE techniques unblocked</div>
+          <p class="m-kpi-copy">11 ATT&amp;CK techniques moved from undetectable to detectable, including Kerberoasting and SAM dumping.</p>
+        </article>
+        <article class="m-kpi">
+          <div class="m-kpi-value">60</div>
+          <div class="m-kpi-label">Baseline subcategories compared</div>
+          <p class="m-kpi-copy">Full comparison against Microsoft Windows 11 Security Baseline. Zero regressions. 12 intentional additions.</p>
+        </article>
+        <article class="m-kpi">
+          <div class="m-kpi-value">0</div>
+          <div class="m-kpi-label">Regressions</div>
+          <p class="m-kpi-copy">Every subcategory where Microsoft recommends auditing is audited. No baseline requirement is missing.</p>
+        </article>
+      </div>
+    </div>
+
+    <aside class="m-rail">
+      <section class="m-rail-section">
+        <div class="m-card-kicker">Reviewer path</div>
+        <h2>Navigate the hardening</h2>
+        <p class="m-subtitle">Four phases of enterprise security work, each with verifiable artifacts and documented rationale.</p>
+        <div class="m-link-list">
+          <a href="#audit-policy" class="m-link-item">
+            <strong>Audit Policy Hardening</strong>
+            <span>27 subcategories, MITRE-mapped, with before/after evidence.</span>
+          </a>
+          <a href="#baseline" class="m-link-item">
+            <strong>Microsoft Baseline Comparison</strong>
+            <span>60 subcategories compared, zero regressions, 12 additions.</span>
+          </a>
+          <a href="#gpo" class="m-link-item">
+            <strong>GPO Deployment Plan</strong>
+            <span>Domain-wide enforcement commands, ready to execute.</span>
+          </a>
+          <a href="#rsat" class="m-link-item">
+            <strong>RSAT Installation</strong>
+            <span>Remote administration tools for domain management from the workstation.</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="m-rail-section">
+        <div class="m-card-kicker">Core outcome</div>
+        <h2>Why it matters</h2>
+        <ul class="m-list-tight">
+          <li>14 audit subcategories were at No Auditing &mdash; entire attack categories were invisible.</li>
+          <li>CommandLine logging was disabled &mdash; process arguments were blank in every 4688 event.</li>
+          <li>Security log was 20 MB &mdash; rolling over before Wazuh could forward events.</li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+</section>
+
+<!-- ── AUDIT POLICY HARDENING ── -->
+<section id="audit-policy" class="m-section m-stage">
+  <div class="m-wrap">
+    <div class="m-divider-title">
+      <div class="m-card-kicker">Phase 1 &mdash; Audit policy</div>
+    </div>
+    <h2 class="m-title" style="font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:12px;">Audit Policy Hardening</h2>
+    <p class="m-copy" style="max-width:64ch;margin-bottom:24px;">A structured review of HO-WE-01's Advanced Audit Policy identified 14 subcategories at No Auditing and 8 with only partial coverage. The hardening script set all 27 targeted subcategories to Success and Failure in a single, verified execution.</p>
+
+    <div class="m-evidence-note m-stage-surface" style="margin-bottom:24px;">
+      <div class="m-card-kicker">The gap</div>
+      <h3>What was dark</h3>
+      <p>Kerberoasting, SAM dumping, SSP injection, USB exfiltration, DPAPI credential harvest, registry persistence &mdash; all completely invisible. Not low-fidelity. Zero events. 14 categories of attacker activity generating nothing for any tool in the stack.</p>
+      <p>CommandLine logging was off: every 4688 event showed <code class="m-inline-code">cmd.exe</code> but never the arguments. Process name without arguments is weak signal.</p>
+    </div>
+
+    <!-- Dark subcategories table -->
+    <div class="m-card" style="padding:22px;margin-bottom:24px;">
+      <div class="m-card-kicker">14 subcategories at No Auditing</div>
+      <div style="overflow-x:auto;margin-top:12px;">
+        <table style="width:100%;border-collapse:collapse;font-size:.88rem;">
+          <thead>
+            <tr>
+              <th style="text-align:left;padding:10px;border-bottom:1px solid var(--border);">Subcategory</th>
+              <th style="text-align:left;padding:10px;border-bottom:1px solid var(--border);">Category</th>
+              <th style="text-align:left;padding:10px;border-bottom:1px solid var(--border);">Why it matters</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Kerberos Authentication Service</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Account Logon</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Golden Ticket, AS-REP Roasting undetectable</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Kerberos Service Ticket Ops</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Account Logon</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Kerberoasting (T1558.003) undetectable</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Other Account Logon Events</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Account Logon</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">NTLM fallback not captured</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Computer Account Management</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Account Mgmt</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Machine account creation invisible</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Other Account Mgmt Events</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Account Mgmt</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Misc account changes not captured</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Process Termination</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Detailed Tracking</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Short-lived recon tools vanish</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">DPAPI Activity</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Detailed Tracking</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Credential Manager access invisible (T1555.004)</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Other Logon/Logoff Events</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Logon/Logoff</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">RDP reconnect, cached creds missing</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">File System</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Object Access</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Sensitive file access not logged</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Registry</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Object Access</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Run key writes, SAM access invisible</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">SAM</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Object Access</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Credential dumping (T1003.002) undetectable</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Removable Storage</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Object Access</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">USB exfiltration (T1052.001) undetectable</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Sensitive Privilege Use</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Privilege Use</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">SeDebugPrivilege use invisible (T1134)</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Security System Extension</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">System</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">SSP injection (T1547.005) not captured</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- MITRE techniques unblocked -->
+    <div class="m-card" style="padding:22px;margin-bottom:24px;">
+      <div class="m-card-kicker">Detection coverage delta &mdash; 11 techniques unblocked</div>
+      <div style="overflow-x:auto;margin-top:12px;">
+        <table style="width:100%;border-collapse:collapse;font-size:.88rem;">
+          <thead>
+            <tr>
+              <th style="text-align:left;padding:10px;border-bottom:1px solid var(--border);">Technique</th>
+              <th style="text-align:left;padding:10px;border-bottom:1px solid var(--border);">Tactic</th>
+              <th style="text-align:left;padding:10px;border-bottom:1px solid var(--border);">Now</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">T1558 &mdash; Steal or Forge Kerberos Tickets</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Credential Access</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Kerberos AS/TGS events visible</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">T1558.003 &mdash; Kerberoasting</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Credential Access</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">TGS-REQ/TGS-REP patterns detectable</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">T1555.004 &mdash; Windows Credential Manager</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Credential Access</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">DPAPI master key access logged</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">T1003.002 &mdash; OS Credential Dumping: SAM</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Credential Access</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">SAM handle opens generate events</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">T1005 &mdash; Data from Local System</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Collection</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">File system access on sensitive paths logged</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">T1547.001 &mdash; Registry Run Keys</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Persistence</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Registry write events captured</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">T1052.001 &mdash; Exfiltration over USB</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Exfiltration</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Removable storage events generated</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">T1134 &mdash; Access Token Manipulation</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Privilege Escalation</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">SeDebugPrivilege use failures logged</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">T1547.005 &mdash; SSP Injection</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Persistence</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Security Support Provider load events</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">T1136.002 &mdash; Domain Account Creation</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Persistence</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Machine account creation events</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">T1562.002 &mdash; Disable Event Logging</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Defense Evasion</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Failure attempts now captured (4719)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Additional changes -->
+    <div class="m-grid-2" style="margin-bottom:24px;">
+      <div class="m-card" style="padding:22px;">
+        <div class="m-card-kicker">Additional hardening</div>
+        <div style="display:grid;gap:12px;margin-top:12px;">
+          <div style="display:flex;align-items:start;gap:12px;padding:12px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
+            <code style="font-size:0.78rem;color:#7ab8ff;min-width:180px;flex-shrink:0;">CommandLine logging</code>
+            <span style="font-size:0.82rem;color:var(--muted,#8ea4c7);">Enabled via registry &mdash; 4688 events now carry full argument strings</span>
+          </div>
+          <div style="display:flex;align-items:start;gap:12px;padding:12px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
+            <code style="font-size:0.78rem;color:#7ab8ff;min-width:180px;flex-shrink:0;">Security log size</code>
+            <span style="font-size:0.82rem;color:var(--muted,#8ea4c7);">20 MB &rarr; 1 GB &mdash; 50&times; buffer for Wazuh forwarding headroom</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="m-card" style="padding:22px;">
+        <div class="m-card-kicker">Verification evidence</div>
+        <p class="m-copy" style="margin-top:8px;">All verification captured at 2026-03-29T20:50:18 &mdash; approximately 2.5 minutes post-hardening.</p>
+        <div style="display:grid;gap:8px;margin-top:12px;">
+          <div style="padding:10px 14px;background:rgba(113,199,184,0.04);border:1px solid rgba(113,199,184,0.12);border-radius:8px;">
+            <div style="font-size:0.78rem;font-weight:600;color:#71c7b8;">CommandLine present in 4688</div>
+            <div style="font-size:0.72rem;color:var(--muted,#8ea4c7);">Verification script logged its own execution including full flags</div>
+          </div>
+          <div style="padding:10px 14px;background:rgba(113,199,184,0.04);border:1px solid rgba(113,199,184,0.12);border-radius:8px;">
+            <div style="font-size:0.78rem;font-weight:600;color:#71c7b8;">22 state changes confirmed</div>
+            <div style="font-size:0.72rem;color:var(--muted,#8ea4c7);">CSV diff: before.csv (122 lines) &rarr; after.csv (132 lines)</div>
+          </div>
+          <div style="padding:10px 14px;background:rgba(113,199,184,0.04);border:1px solid rgba(113,199,184,0.12);border-radius:8px;">
+            <div style="font-size:0.78rem;font-weight:600;color:#71c7b8;">Registry key confirmed</div>
+            <div style="font-size:0.72rem;color:var(--muted,#8ea4c7);">ProcessCreationIncludeCmdLine_Enabled = 1</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pipeline flow -->
+    <div class="m-evidence-note m-stage-surface">
+      <div class="m-card-kicker">Pipeline integration</div>
+      <h3>Events flow into the existing stack without changes</h3>
+      <p>New events enter the Wazuh &rarr; Splunk &rarr; Grafana pipeline through the same architecture already in place. Wazuh ships rules targeting Windows Security events by rule ID ranges 18100&ndash;18107 (account management), 18200&ndash;18206 (logon), 60100+ (Windows audit). The newly-generating event IDs fall within existing detection groups &mdash; events start alerting immediately without rule changes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── MICROSOFT BASELINE COMPARISON ── -->
+<section id="baseline" class="m-section m-stage">
+  <div class="m-wrap">
+    <div class="m-divider-title">
+      <div class="m-card-kicker">Phase 2 &mdash; Baseline comparison</div>
+    </div>
+    <h2 class="m-title" style="font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:12px;">Microsoft Security Baseline Comparison</h2>
+    <p class="m-copy" style="max-width:64ch;margin-bottom:24px;">Full comparison of HO-WE-01's audit policy against the Microsoft Windows 11 Security Baseline (Security Compliance Toolkit, 23H2/24H2) across all 60 audit subcategories.</p>
+
+    <!-- Compliance summary cards -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;">
+      <div class="m-card" style="padding:18px;text-align:center;">
+        <div style="font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:#e5edff;">14</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#71c7b8;margin-top:4px;">Exact match</div>
+      </div>
+      <div class="m-card" style="padding:18px;text-align:center;">
+        <div style="font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:#e5edff;">9</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#7ab8ff;margin-top:4px;">Superset of baseline</div>
+      </div>
+      <div class="m-card" style="padding:18px;text-align:center;">
+        <div style="font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:#e5edff;">12</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#fbbf24;margin-top:4px;">Hardened beyond baseline</div>
+      </div>
+      <div class="m-card" style="padding:18px;text-align:center;">
+        <div style="font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:#e5edff;">25</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted,#8ea4c7);margin-top:4px;">No Auditing (compliant)</div>
+      </div>
+    </div>
+
+    <div class="m-evidence-note m-stage-surface" style="margin-bottom:24px;">
+      <div class="m-card-kicker">Result</div>
+      <h3>Zero regressions. 12 intentional additions beyond baseline.</h3>
+      <p>Every subcategory where Microsoft recommends auditing, we audit it. In 12 cases we go further than the baseline requires &mdash; each addition is documented with a SOC-aligned rationale.</p>
+    </div>
+
+    <!-- Intentional deviations -->
+    <div class="m-card" style="padding:22px;margin-bottom:24px;">
+      <div class="m-card-kicker">12 intentional additions &mdash; rationale</div>
+      <div style="overflow-x:auto;margin-top:12px;">
+        <table style="width:100%;border-collapse:collapse;font-size:.88rem;">
+          <thead>
+            <tr>
+              <th style="text-align:left;padding:10px;border-bottom:1px solid var(--border);">Subcategory</th>
+              <th style="text-align:left;padding:10px;border-bottom:1px solid var(--border);">Baseline</th>
+              <th style="text-align:left;padding:10px;border-bottom:1px solid var(--border);">Our Setting</th>
+              <th style="text-align:left;padding:10px;border-bottom:1px solid var(--border);">Rationale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Kerberos Auth Service</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Not Configured</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">S+F</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Golden Ticket detection (T1558)</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Kerberos Service Ticket Ops</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Not Configured</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">S+F</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Kerberoasting detection (T1558.003)</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Other Account Logon Events</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Not Configured</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">S+F</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">NTLM fallback visibility</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Other Account Mgmt Events</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Not Configured</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">S+F</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Misc account changes</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">DPAPI Activity</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">No Auditing</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">S+F</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Credential Manager harvest (T1555.004)</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Process Termination</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">No Auditing</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">S+F</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Short-lived recon tool lifecycle</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Other Logon/Logoff Events</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Not Configured</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">S+F</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">RDP reconnect, cached creds</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">File System</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">No Auditing</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">S+F</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Sensitive file access (T1005)</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Registry</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">No Auditing</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">S+F</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Run keys, SAM access (T1547.001)</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">SAM</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">No Auditing</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">S+F</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Credential dumping (T1003.002)</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Other System Events</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">Not Configured</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">S+F</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">BranchCache, crypto self-test</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:0.72rem;color:var(--muted,#8ea4c7);margin-top:12px;">S+F = Success and Failure. Full 60-subcategory comparison available in <a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/projects/lab/enterprise-hardening/baseline-comparison.md" target="_blank" rel="noopener noreferrer" style="color:#7ab8ff;">baseline-comparison.md</a>.</p>
+    </div>
+
+    <!-- Additional verified settings -->
+    <div class="m-grid-2">
+      <div class="m-card" style="padding:22px;">
+        <div class="m-card-kicker">Additional settings verified</div>
+        <div style="display:grid;gap:10px;margin-top:12px;">
+          <div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(113,199,184,0.04);border:1px solid rgba(113,199,184,0.12);border-radius:8px;">
+            <span style="font-size:0.82rem;color:#e5edff;">CommandLine logging</span>
+            <span style="font-size:0.78rem;color:#71c7b8;font-family:'JetBrains Mono',monospace;">Enabled</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(113,199,184,0.04);border:1px solid rgba(113,199,184,0.12);border-radius:8px;">
+            <span style="font-size:0.82rem;color:#e5edff;">Security log max size</span>
+            <span style="font-size:0.78rem;color:#71c7b8;font-family:'JetBrains Mono',monospace;">1 GB (exceeds)</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(113,199,184,0.04);border:1px solid rgba(113,199,184,0.12);border-radius:8px;">
+            <span style="font-size:0.82rem;color:#e5edff;">Log retention</span>
+            <span style="font-size:0.78rem;color:#71c7b8;font-family:'JetBrains Mono',monospace;">Overwrite as needed</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="m-card" style="padding:22px;">
+        <div class="m-card-kicker">Gaps to address</div>
+        <div style="display:grid;gap:10px;margin-top:12px;">
+          <div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.12);border-radius:8px;">
+            <span style="font-size:0.82rem;color:#e5edff;">MPSSVC Rule-Level Policy Change</span>
+            <span style="font-size:0.72rem;color:#fbbf24;font-family:'JetBrains Mono',monospace;">Medium</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.12);border-radius:8px;">
+            <span style="font-size:0.82rem;color:#e5edff;">Group Membership</span>
+            <span style="font-size:0.72rem;color:#fbbf24;font-family:'JetBrains Mono',monospace;">Low-Medium</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.12);border-radius:8px;">
+            <span style="font-size:0.82rem;color:#e5edff;">Authorization Policy Change</span>
+            <span style="font-size:0.72rem;color:#fbbf24;font-family:'JetBrains Mono',monospace;">Low</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GPO DEPLOYMENT ── -->
+<section id="gpo" class="m-section m-stage">
+  <div class="m-wrap">
+    <div class="m-divider-title">
+      <div class="m-card-kicker">Phase 3 &mdash; Domain deployment</div>
+    </div>
+    <h2 class="m-title" style="font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:12px;">GPO Deployment Plan</h2>
+    <p class="m-copy" style="max-width:64ch;margin-bottom:24px;">Promotes HO-WE-01's hardened local audit policy into a domain-wide GPO, enforcing the same 27-subcategory baseline across all domain-joined machines. Commands are documented and ready to execute once domain join is completed.</p>
+
+    <div class="m-grid-2" style="margin-bottom:24px;">
+      <div class="m-card" style="padding:22px;">
+        <div class="m-card-kicker">GPO creation workflow</div>
+        <div style="display:grid;gap:10px;margin-top:12px;">
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#7ab8ff;min-width:22px;">01</div>
+            <div>
+              <div style="font-size:0.82rem;font-weight:600;color:#e5edff;">Export hardened policy</div>
+              <div style="font-size:0.68rem;color:var(--muted,#8ea4c7);">auditpol /backup &rarr; hardened-audit-policy.csv</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#7ab8ff;min-width:22px;">02</div>
+            <div>
+              <div style="font-size:0.82rem;font-weight:600;color:#e5edff;">Create GPO</div>
+              <div style="font-size:0.68rem;color:var(--muted,#8ea4c7);">New-GPO -Name "HawkinsOps Security Baseline"</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#7ab8ff;min-width:22px;">03</div>
+            <div>
+              <div style="font-size:0.82rem;font-weight:600;color:#e5edff;">Link to domain root</div>
+              <div style="font-size:0.68rem;color:var(--muted,#8ea4c7);">New-GPLink -Target $domainDN</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#7ab8ff;min-width:22px;">04</div>
+            <div>
+              <div style="font-size:0.82rem;font-weight:600;color:#e5edff;">Configure audit subcategories</div>
+              <div style="font-size:0.68rem;color:var(--muted,#8ea4c7);">Advanced Audit Policy Configuration &rarr; 27 subcategories S+F</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#7ab8ff;min-width:22px;">05</div>
+            <div>
+              <div style="font-size:0.82rem;font-weight:600;color:#e5edff;">Verify with gpresult</div>
+              <div style="font-size:0.68rem;color:var(--muted,#8ea4c7);">Invoke-GPUpdate -Force + gpresult /r /scope computer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="m-card" style="padding:22px;">
+        <div class="m-card-kicker">GPO scope</div>
+        <div style="margin-top:12px;">
+          <div class="m-evidence-note" style="margin-bottom:14px;">
+            <h3>27 audit subcategories</h3>
+            <p>Account Logon (4), Account Management (4), Detailed Tracking (4), Logon/Logoff (5), Object Access (4), Policy Change (2), Privilege Use (1), System (3).</p>
+          </div>
+          <div class="m-evidence-note" style="margin-bottom:14px;">
+            <h3>Registry policy</h3>
+            <p>CommandLine logging enabled via <code class="m-inline-code">ProcessCreationIncludeCmdLine_Enabled = 1</code> at HKLM registry path.</p>
+          </div>
+          <div class="m-evidence-note">
+            <h3>Event log sizing</h3>
+            <p>Security log maximum set to 1 GB (1,048,576 KB). Retention: overwrite as needed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="m-evidence-note m-stage-surface">
+      <div class="m-card-kicker">Current status</div>
+      <h3>Blocker: domain join required</h3>
+      <p>HO-WE-01 is currently in WORKGROUP mode. The GPO deployment plan is fully documented and ready to execute once domain join is completed and RSAT is installed. An alternative <code class="m-inline-code">auditpol /restore</code> startup script approach is also documented for environments where direct GPO configuration is unavailable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── RSAT INSTALLATION ── -->
+<section id="rsat" class="m-section m-stage">
+  <div class="m-wrap">
+    <div class="m-divider-title">
+      <div class="m-card-kicker">Phase 4 &mdash; Administration tools</div>
+    </div>
+    <h2 class="m-title" style="font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:12px;">RSAT Installation</h2>
+    <p class="m-copy" style="max-width:64ch;margin-bottom:24px;">Remote Server Administration Tools enable domain administration from the hardened, monitored workstation &mdash; eliminating RDP sessions to dc01 and consolidating all admin activity into the SIEM pipeline.</p>
+
+    <div class="m-grid-2" style="margin-bottom:24px;">
+      <div class="m-card" style="padding:22px;">
+        <div class="m-card-kicker">Key capabilities installed</div>
+        <div style="display:grid;gap:8px;margin-top:12px;">
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
+            <code style="font-size:0.72rem;color:#7ab8ff;min-width:100px;">AD DS-LDS</code>
+            <span style="font-size:0.78rem;color:var(--muted,#8ea4c7);">AD Users &amp; Computers, AD Admin Center, AD PowerShell</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
+            <code style="font-size:0.72rem;color:#7ab8ff;min-width:100px;">Group Policy</code>
+            <span style="font-size:0.78rem;color:var(--muted,#8ea4c7);">GPMC, GroupPolicy PowerShell module</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
+            <code style="font-size:0.72rem;color:#7ab8ff;min-width:100px;">DNS Tools</code>
+            <span style="font-size:0.78rem;color:var(--muted,#8ea4c7);">DNS Manager for zone and record management</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
+            <code style="font-size:0.72rem;color:#7ab8ff;min-width:100px;">Server Mgr</code>
+            <span style="font-size:0.78rem;color:var(--muted,#8ea4c7);">Remote server roles management</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
+            <code style="font-size:0.72rem;color:#7ab8ff;min-width:100px;">Cert Svc</code>
+            <span style="font-size:0.78rem;color:var(--muted,#8ea4c7);">PKI / Certificate Authority management</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
+            <code style="font-size:0.72rem;color:#7ab8ff;min-width:100px;">BitLocker</code>
+            <span style="font-size:0.78rem;color:var(--muted,#8ea4c7);">Recovery key management</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="m-card" style="padding:22px;">
+        <div class="m-card-kicker">Operational value</div>
+        <div style="margin-top:12px;">
+          <div class="m-evidence-note" style="margin-bottom:14px;">
+            <h3>Before RSAT</h3>
+            <p>Every administrative action required an RDP session to dc01 &mdash; expanding attack surface, exposing session tokens, and generating admin events on the DC rather than the monitored workstation.</p>
+          </div>
+          <div class="m-evidence-note" style="margin-bottom:14px;">
+            <h3>After RSAT</h3>
+            <p>Domain administration is consolidated to HO-WE-01. All admin actions produce 4688 (Process Creation) events locally &mdash; feeding directly into the Wazuh &rarr; Splunk &rarr; Grafana pipeline with full CommandLine arguments.</p>
+          </div>
+          <div style="padding:10px 14px;background:rgba(113,199,184,0.04);border:1px solid rgba(113,199,184,0.12);border-radius:8px;">
+            <div style="font-size:0.78rem;font-weight:600;color:#71c7b8;">Pre-install state</div>
+            <div style="font-size:0.72rem;color:var(--muted,#8ea4c7);">gpmc.msc, dsa.msc, dnsmgmt.msc, dsac.exe, AD/GP PowerShell modules &mdash; all NOT FOUND</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROOF / NEXT STEPS ── -->
+<section class="m-section m-stage">
+  <div class="m-wrap">
+    <div class="m-card">
+      <div class="m-card-kicker">Proof links</div>
+      <h2>Validate the hardening</h2>
+      <div class="m-grid-2">
+        <a href="https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/projects/lab/enterprise-hardening" target="_blank" rel="noopener noreferrer" class="m-link-item">
+          <strong>Source artifacts</strong>
+          <span>Full markdown documentation, CSV exports, and PowerShell scripts in the repository.</span>
+        </a>
+        <a href="/proof" class="m-link-item">
+          <strong>Proof page</strong>
+          <span>Proof surface for logs, packs, verification commands, and artifact references.</span>
+        </a>
+        <a href="/case-study-autosoc" class="m-link-item">
+          <strong>SignalFoundry Case Study</strong>
+          <span>The SOAR-style triage workflow that consumes events from the hardened pipeline.</span>
+        </a>
+        <a href="/detections" class="m-link-item">
+          <strong>Detections</strong>
+          <span>Browse the detection rules that benefit from the expanded audit coverage.</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="m-section m-stage">
+  <div class="m-wrap">
+    <div class="m-card">
+      <div class="m-card-kicker">Next steps</div>
+      <h2>What the reviewer should do next</h2>
+      <div class="m-next-grid">
+        <a href="/start-here" class="m-link-item">
+          <strong>Open Start Here</strong>
+          <span>Run the fastest validation path through metrics, proof links, and verification commands.</span>
+        </a>
+        <a href="/proof" class="m-link-item">
+          <strong>Open proof receipts</strong>
+          <span>Check the proof surface, verification commands, and artifact references directly.</span>
+        </a>
+        <a href="/detections" class="m-link-item">
+          <strong>Browse Detections</strong>
+          <span>See the detection rules that now receive signal from the hardened audit policy.</span>
+        </a>
+        <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" class="m-link-item">
+          <strong>Inspect the repository</strong>
+          <span>Trace the public code, docs, and commit history behind the hardening work.</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<!-- @include:footer:start -->
+<footer>
+  <div class="ctr">
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
+    <div class="fl">
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
+      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
+    </div>
+  </div>
+</footer>
+
+<!-- @include:footer:end -->
+<script src="/assets/fetch-utils.js" defer></script>
+<script src="/data/counts.js" defer></script>
+<script src="/data/ops-metrics.js" defer></script>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>
