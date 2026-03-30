@@ -48,8 +48,7 @@ HawkinsOperations/
 ├── content/lab/                        # Lab infrastructure docs (Proxmox, Wazuh, Grafana)
 ├── content/projects/                   # Reference/legacy projects
 │   ├── lab/enterprise-hardening/  # Enterprise security Phase 2 artifacts
-│   ├── repo-history/           # Historical context; contains its own CLAUDE.md
-│   └── migration-rh/           # Migration project; contains its own CLAUDE.md
+│   └── migration-rh/           # Migration project reference artifacts
 ├── proof/                      # Wazuh honeypot proof artifacts (auto-updated)
 ├── PROOF_PACK/                 # Curated review artifacts — source of truth for counts
 │   ├── VERIFIED_COUNTS.md      # *** THE source of truth for all public numbers ***

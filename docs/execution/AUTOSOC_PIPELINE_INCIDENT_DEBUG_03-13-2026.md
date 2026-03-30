@@ -25,11 +25,11 @@ High-level root cause:
 These are the strongest known pre-failure metrics used as the baseline for recovery validation.
 
 Published portfolio counts:
-- Total detections: `139`
+- Total detections: `140`
 - Sigma: `103`
 - Wazuh rule blocks: `28`
 - Wazuh XML files: `24`
-- Splunk detections: `8`
+- Splunk detections: `9`
 - IR playbooks: `10`
 
 AutoSOC corpus snapshot:

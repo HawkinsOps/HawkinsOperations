@@ -24,7 +24,7 @@ I treated it as two separate failures. First, I proved the poller issue was a co
 
 ## Safe Metrics To Reuse
 
-- Total detections: `139`
+- Total detections: `140`
 - IR playbooks: `10`
 - Total AutoSOC cases: `25167`
 - Auto-closed benign: `20942`

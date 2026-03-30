@@ -96,7 +96,7 @@
       </div>
       <div class="outcomes-strip" role="region" aria-label="Pipeline outcomes summary">
         <div class="of-node">
-          <div class="of-val counter" data-target="54700">0</div>
+          <div class="of-val counter" data-target="55665">0</div>
           <div class="of-lbl">Alerts Ingested</div>
         </div>
         <div class="of-arr">→</div>
@@ -106,12 +106,12 @@
         </div>
         <div class="of-arr">→</div>
         <div class="of-node of-green">
-          <div class="of-val">93%</div>
+          <div class="of-val">~92%</div>
           <div class="of-lbl">Auto-Closed</div>
         </div>
         <div class="of-arr">→</div>
         <div class="of-node of-teal">
-          <div class="of-val counter" data-target="2531">0</div>
+          <div class="of-val counter" data-target="2545">0</div>
           <div class="of-lbl">Escalated</div>
         </div>
         <div class="of-arr">→</div>
@@ -119,7 +119,7 @@
           <div class="of-val">0</div>
           <div class="of-lbl">Reconcile Errors</div>
         </div>
-        <div class="outcomes-note">Ledger-backed · reproducible · no hand-edited metrics · canonical 03-20-2026</div>
+        <div class="outcomes-note">Ledger-backed · reproducible · no hand-edited metrics · canonical 03-25-2026</div>
       </div>
       <div class="sf-actions" style="margin-top:22px;">
         <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Open SignalFoundry →</a>
@@ -192,7 +192,7 @@
     <section id="proof-snapshot" class="sf-section reveal" aria-labelledby="health-title">
       <div class="sf-section-label">Stable Benchmark</div>
       <h2 id="health-title">Canonical snapshot — 03-24-2026</h2>
-      <p class="sf-body sf-copy-gap-lg"><span data-ops="stable_statement">March 24 canonical snapshot: 54,700 total cases, ~93% auto-close, 2,531 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
+      <p class="sf-body sf-copy-gap-lg"><span data-ops="stable_statement">March 25 canonical snapshot: 55,665 total cases, ~92% auto-close, 2,545 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
       <div class="sf-metrics" role="status" aria-live="polite">
         <article class="sf-card sf-metric">
           <span class="sf-metric-label">Heartbeat</span>
@@ -201,12 +201,12 @@
         </article>
         <article class="sf-card sf-metric" data-modal="tpl-escalated" data-modal-title="Auto-Close Rate">
           <span class="sf-metric-label">Auto-Close Rate</span>
-          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_auto_closed_benign">~93%</span></span>
+          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_auto_closed_benign">~92%</span></span>
           <p class="sf-metric-note">Benign alerts resolved without human action.</p>
         </article>
         <article class="sf-card sf-metric" data-modal="tpl-escalated" data-modal-title="Escalated Cases">
           <span class="sf-metric-label">Escalated</span>
-          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_escalated">2,531</span></span>
+          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_escalated">2,545</span></span>
           <p class="sf-metric-note">Non-trivial cases requiring analyst review.</p>
         </article>
         <article class="sf-card sf-metric" data-modal="tpl-heartbeat" data-modal-title="Reconciliation">
@@ -243,21 +243,21 @@
           <!-- Tier 1: Total Ingested -->
           <rect x="20" y="16" width="860" height="52" rx="10" fill="url(#funnel-g1)" stroke="rgba(122,184,255,0.2)" stroke-width="1"/>
           <text class="f-label" x="40" y="47">Alert Intake</text>
-          <text class="f-val" x="480" y="48" data-ops="stable_total_cases">54,700</text>
+          <text class="f-val" x="480" y="48" data-ops="stable_total_cases">55,665</text>
           <text class="f-pct" x="600" y="48">total cases</text>
           <!-- Arrow -->
           <path class="f-arrow" d="M450 72 L440 80 L460 80 Z"/>
           <!-- Tier 2: Auto-Closed -->
           <rect x="80" y="84" width="740" height="52" rx="10" fill="url(#funnel-g2)" stroke="rgba(74,222,128,0.18)" stroke-width="1"/>
           <text class="f-label" x="100" y="115">Auto-Closed Benign</text>
-          <text class="f-val" x="480" y="116" style="fill:#4ade80;" data-ops="stable_auto_closed_benign">~93%</text>
+          <text class="f-val" x="480" y="116" style="fill:#4ade80;" data-ops="stable_auto_closed_benign">~92%</text>
           <text class="f-pct" x="560" y="116">policy-matched, no human action</text>
           <!-- Arrow -->
           <path class="f-arrow" d="M450 140 L440 148 L460 148 Z"/>
           <!-- Tier 3: Escalated -->
           <rect x="180" y="152" width="540" height="52" rx="10" fill="url(#funnel-g3)" stroke="rgba(251,191,36,0.18)" stroke-width="1"/>
           <text class="f-label" x="200" y="183">Escalated for Review</text>
-          <text class="f-val" x="480" y="184" style="fill:#fbbf24;" data-ops="stable_escalated">2,531</text>
+          <text class="f-val" x="480" y="184" style="fill:#fbbf24;" data-ops="stable_escalated">2,545</text>
           <text class="f-pct" x="600" y="184">analyst judgment required</text>
           <!-- Arrow -->
           <path class="f-arrow" d="M450 208 L440 216 L460 216 Z"/>
@@ -362,7 +362,7 @@
         </article>
         <article class="sf-card sf-metric">
           <span class="sf-metric-label">Escalations</span>
-          <span class="sf-metric-value"><span data-ops="stable_escalated">2,531</span></span>
+          <span class="sf-metric-value"><span data-ops="stable_escalated">2,545</span></span>
           <p class="sf-metric-note">Analyst-ready evidence packs.</p>
         </article>
         <article class="sf-card sf-metric">

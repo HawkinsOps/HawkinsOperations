@@ -436,7 +436,7 @@
 
   // Animated number counter — counts up from 0 when element enters viewport.
   function animateCounters() {
-    var targets = $$('.sf-metric-value, .proof-kpi-value, .m-kpi-value');
+    var targets = $$('.sf-metric-value, .proof-kpi-value, .m-kpi-value, .counter[data-target]');
     if (!targets.length || typeof IntersectionObserver !== 'function') return;
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -446,13 +446,20 @@
         el.__counted = true;
         observer.unobserve(el);
         var textNode = el.querySelector('[data-ops], [data-verified], [data-ops-status]') || el;
-        var raw = (textNode.textContent || '').trim();
-        var numMatch = raw.replace(/[,%~+]/g, '').match(/\d+/);
-        if (!numMatch) return;
-        var target = parseInt(numMatch[0], 10);
+        var target, raw, prefix, suffix;
+        if (el.hasAttribute('data-target')) {
+          target = parseInt(el.getAttribute('data-target'), 10);
+          textNode = el;
+          raw = '';
+        } else {
+          raw = (textNode.textContent || '').trim();
+          var numMatch = raw.replace(/[,%~+]/g, '').match(/\d+/);
+          if (!numMatch) return;
+          target = parseInt(numMatch[0], 10);
+        }
         if (target < 2 || target > 999999) return;
-        var prefix = raw.match(/^[~]/) ? '~' : '';
-        var suffix = raw.replace(/^[~]*[\d,]+/, '');
+        prefix = raw.match(/^[~]/) ? '~' : '';
+        suffix = raw.replace(/^[~]*[\d,]+/, '');
         var duration = Math.min(1200, Math.max(400, target / 50));
         var start = performance.now();
         function tick(now) {
