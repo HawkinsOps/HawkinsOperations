@@ -1,0 +1,46 @@
+[
+  {
+    "_time": "2026-03-29",
+    "EventCode": "4719",
+    "ComputerName": "<HOST>",
+    "SubjectUserName": "[REDACTED]",
+    "SubjectUserSid": "[REDACTED]",
+    "CategoryId": "%%8274",
+    "SubcategoryId": "%%13569",
+    "SubcategoryGuid": "{0CCE9236-69AE-11D9-BED3-505054503030}",
+    "Subcategory": "Kerberos Service Ticket Operations",
+    "Changes": "Success and Failure added",
+    "Message": "System audit policy was changed. Subject: Security ID: [REDACTED] Account Name: [REDACTED] Subcategory: Kerberos Service Ticket Operations Changes: Success and Failure added",
+    "host": "<HOST>",
+    "source": "WinEventLog:Security",
+    "sourcetype": "WinEventLog:Security"
+  },
+  {
+    "_time": "2026-03-29",
+    "EventCode": "4719",
+    "ComputerName": "<HOST>",
+    "SubjectUserName": "[REDACTED]",
+    "SubjectUserSid": "[REDACTED]",
+    "CategoryId": "%%8274",
+    "SubcategoryId": "%%13568",
+    "SubcategoryGuid": "{0CCE9235-69AE-11D9-BED3-505054503030}",
+    "Subcategory": "Kerberos Authentication Service",
+    "Changes": "Success and Failure added",
+    "Message": "System audit policy was changed. Subject: Security ID: [REDACTED] Account Name: [REDACTED] Subcategory: Kerberos Authentication Service Changes: Success and Failure added",
+    "host": "<HOST>",
+    "source": "WinEventLog:Security",
+    "sourcetype": "WinEventLog:Security"
+  },
+  {
+    "_time": "2026-03-29",
+    "EventCode": "4719",
+    "ComputerName": "<HOST>",
+    "SubjectUserName": "[REDACTED]",
+    "SubjectUserSid": "[REDACTED]",
+    "Subcategory": "DPAPI Activity",
+    "Changes": "Success and Failure added",
+    "host": "<HOST>",
+    "source": "WinEventLog:Security",
+    "sourcetype": "WinEventLog:Security"
+  }
+]

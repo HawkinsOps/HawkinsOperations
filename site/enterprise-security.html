@@ -317,6 +317,10 @@
             <div style="font-size:0.78rem;font-weight:600;color:#71c7b8;">Registry key confirmed</div>
             <div style="font-size:0.72rem;color:var(--muted,#8ea4c7);">ProcessCreationIncludeCmdLine_Enabled = 1</div>
           </div>
+          <div style="padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;margin-top:4px;">
+            <div style="font-size:0.78rem;font-weight:600;color:#7ab8ff;">Raw evidence artifacts</div>
+            <div style="font-size:0.72rem;color:var(--muted,#8ea4c7);">4688 before/after JSON exports, 4719 policy change events, and KPI comparison available in the <a href="https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/projects/lab/enterprise-hardening/evidence-pack" target="_blank" rel="noopener noreferrer" style="color:#7ab8ff;">evidence pack</a>.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -718,6 +722,10 @@ sourcetype="WinEventLog:Security" EventCode=4688
         <a href="/detections" class="m-link-item">
           <strong>Detections</strong>
           <span>Browse the detection rules that benefit from the expanded audit coverage.</span>
+        </a>
+        <a href="https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/projects/lab/enterprise-hardening/evidence-pack" target="_blank" rel="noopener noreferrer" class="m-link-item">
+          <strong>Evidence Pack</strong>
+          <span>Before/after Splunk exports, GPO export, KPI comparison, and collection metadata with full redaction documentation.</span>
         </a>
       </div>
     </div>

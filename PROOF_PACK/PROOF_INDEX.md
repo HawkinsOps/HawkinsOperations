@@ -23,5 +23,6 @@ Curated reviewer lane for this repository.
 
 - `PROOF_PACK/EVIDENCE/openclaw_docker_vm102_2026-02-11/`
 - `PROOF_PACK/features/phase6a-infra-validation-doc/`
+- `content/projects/lab/enterprise-hardening/evidence-pack/` — Enterprise audit policy hardening evidence: Splunk before/after exports (4688, 4719), GPO export, KPI comparison, change log, collection metadata with full redaction documentation
 
 

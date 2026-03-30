@@ -1,0 +1,44 @@
+[
+  {
+    "_time": "2026-03-29T14:30:00Z",
+    "EventCode": "4688",
+    "ComputerName": "<HOST>",
+    "SubjectUserName": "[REDACTED]",
+    "NewProcessName": "C:\\Windows\\System32\\cmd.exe",
+    "CommandLine": "",
+    "ParentProcessName": "C:\\Windows\\explorer.exe",
+    "TokenElevationType": "%%1937",
+    "host": "<HOST>",
+    "source": "WinEventLog:Security",
+    "sourcetype": "WinEventLog:Security",
+    "_note": "Pre-hardening: CommandLine field is empty — process arguments not captured"
+  },
+  {
+    "_time": "2026-03-29T14:30:12Z",
+    "EventCode": "4688",
+    "ComputerName": "<HOST>",
+    "SubjectUserName": "[REDACTED]",
+    "NewProcessName": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "CommandLine": "",
+    "ParentProcessName": "C:\\Windows\\System32\\cmd.exe",
+    "TokenElevationType": "%%1937",
+    "host": "<HOST>",
+    "source": "WinEventLog:Security",
+    "sourcetype": "WinEventLog:Security",
+    "_note": "Pre-hardening: PowerShell launched but arguments invisible — cannot determine intent"
+  },
+  {
+    "_time": "2026-03-29T14:31:05Z",
+    "EventCode": "4688",
+    "ComputerName": "<HOST>",
+    "SubjectUserName": "[REDACTED]",
+    "NewProcessName": "C:\\Windows\\System32\\certutil.exe",
+    "CommandLine": "",
+    "ParentProcessName": "C:\\Windows\\System32\\cmd.exe",
+    "TokenElevationType": "%%1937",
+    "host": "<HOST>",
+    "source": "WinEventLog:Security",
+    "sourcetype": "WinEventLog:Security",
+    "_note": "Pre-hardening: certutil.exe launched — could be download cradle, but no arguments visible"
+  }
+]
