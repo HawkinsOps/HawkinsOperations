@@ -7,13 +7,13 @@ Huntsville, AL · Eligible to obtain clearance; willing to pursue sponsorship.
 
 ## SignalFoundry
 
-A production-grade detection-to-escalation pipeline I built from zero while working mandatory 12-hour shifts at a Tier-1 automotive supplier. September 2025: no computer experience. March 2026: 55,665 verified cases processed.
+A production-grade detection-to-escalation pipeline I built from zero while working mandatory 12-hour shifts at a Tier-1 automotive supplier. September 2025: no computer experience. March 2026: 54,700 verified cases processed.
 
 ```
 Wazuh alerts → triage engine → redaction gate → escalation pack → verified proof
 ```
 
-- **55,665** total cases processed · **~92%** auto-closed · **2,545** escalated
+- **54,700** total cases processed · **~93%** auto-closed · **2,531** escalated
 - **140 detections** — 103 Sigma rules, 28 Wazuh blocks, 9 Splunk queries, 10 IR playbooks
 - 8/8 hosts covered · continuous CI verification · every metric script-generated
 
