@@ -38,25 +38,23 @@
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
-      <li><a href="/start-here">Start Here</a></li>
-      <li><a href="/case-study-autosoc" aria-current="page">SignalFoundry Case Study</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/proof">Proof</a></li>
       <li><a href="/detections">Detections</a></li>
-      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/resume">Resume</a></li>
-      <li><a href="/soc-lab">Lab</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
+    <a class="btn btn-p nav-cta" href="/resume">Resume</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-  <a href="/start-here">Start Here</a>
-  <a href="/case-study-autosoc" aria-current="page">SignalFoundry Case Study</a>
+  <a href="/">Home</a>
+  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/proof">Proof</a>
   <a href="/detections">Detections</a>
-  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/resume">Resume</a>
-  <a href="/soc-lab">Lab</a>
 </div>
 <!-- @include:nav:end -->
 <main class="modernize-shell">
@@ -68,7 +66,7 @@
       <p class="m-subtitle">SignalFoundry implementation: Wazuh alert intake, policy-based triage, mandatory redaction, and escalation-ready evidence packs.</p>
       <p class="m-outcome">A SOAR-style Tier-1 triage workflow for Wazuh alerts with policy-based dispositions, mandatory redaction, and evidence packs that end as reviewable GitHub escalation artifacts.</p>
       <div class="m-actions">
-        <a class="m-cta m-cta-dominant" href="/start-here">Start Here</a>
+        <a class="m-cta m-cta-dominant" href="/">Home</a>
         <a class="m-cta m-cta-accent" href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer">Open Repo</a>
         <a class="m-cta m-cta-secondary" href="/proof">Proof Receipts</a>
       </div>
@@ -80,7 +78,7 @@
       </div>
       <div class="m-proof-strip" style="margin-top:16px;">
         <div class="m-proof-inline">
-          <strong>Counts verified <span data-verified-date>03-25-2026</span></strong>
+          <strong>Counts verified <span data-verified-date>03-30-2026</span></strong>
           <strong>Heartbeat <span data-ops-status="stable_heartbeat">UNKNOWN</span></strong>
           <strong>Coverage <span data-ops="stable_coverage_ratio"> - </span></strong>
           <strong>Metrics snapshot <span data-ops="stable_locked_date"> - </span></strong>
@@ -104,7 +102,7 @@
           <p class="m-kpi-copy">Escalation outputs are backed by documented IR procedures instead of undocumented analyst habit.</p>
         </article>
       <article class="m-kpi">
-        <div class="m-kpi-value"><span data-verified-date>03-25-2026</span></div>
+        <div class="m-kpi-value"><span data-verified-date>03-30-2026</span></div>
           <div class="m-kpi-label">Last verified</div>
         <p class="m-kpi-copy">Counts and proof links stay tied to the same repository verification model used elsewhere on the site.</p>
       </article>
@@ -117,7 +115,7 @@
         <h2>Keep proof in view</h2>
         <p class="m-subtitle">This rail keeps the flagship path short: understand the workflow, inspect the evidence outputs, then verify the receipts.</p>
         <div class="m-link-list">
-          <a href="/start-here" class="m-link-item">
+          <a href="/" class="m-link-item">
             <strong>Start Here path</strong>
             <span>Fastest route through metrics contract, proof links, and verification commands.</span>
           </a>
@@ -125,7 +123,7 @@
             <strong>Proof page</strong>
             <span>Proof surface for logs, packs, and verification commands.</span>
           </a>
-          <a href="/march-2026-release" class="m-link-item">
+          <a href="https://github.com/raylee-hawkins/HawkinsOperations/releases" class="m-link-item">
             <strong>Release timeline</strong>
             <span>Execution chain that connects the case study to documented releases.</span>
           </a>
@@ -222,7 +220,7 @@
       <!-- Disposition donut -->
       <div class="sf-card" style="padding:24px;text-align:center;">
         <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Case Disposition</div>
-        <svg viewBox="0 0 180 180" width="160" height="160" role="img" aria-label="Disposition breakdown: 89% auto-close, 11% escalated" style="display:block;margin:0 auto;">
+        <svg viewBox="0 0 180 180" width="160" height="160" role="img" aria-label="Disposition breakdown: ~92% auto-close, ~8% escalated" style="display:block;margin:0 auto;">
           <title>Case disposition breakdown</title>
           <defs>
             <linearGradient id="cs-gauge-g" x1="0" y1="0" x2="1" y2="1">
@@ -232,10 +230,10 @@
           </defs>
           <circle cx="90" cy="90" r="70" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="14"/>
           <circle cx="90" cy="90" r="70" fill="none" stroke="url(#cs-gauge-g)" stroke-width="14"
-            stroke-dasharray="392 440" stroke-linecap="round" transform="rotate(-90 90 90)"/>
+            stroke-dasharray="405 440" stroke-linecap="round" transform="rotate(-90 90 90)"/>
           <circle cx="90" cy="90" r="70" fill="none" stroke="rgba(251,191,36,0.35)" stroke-width="14"
-            stroke-dasharray="48 440" stroke-dashoffset="-392" stroke-linecap="round" transform="rotate(-90 90 90)"/>
-          <text x="90" y="84" text-anchor="middle" fill="#f0f6ff" style="font:800 2.2rem 'Sora',sans-serif;">~89<tspan style="font-size:1rem;">%</tspan></text>
+            stroke-dasharray="35 440" stroke-dashoffset="-405" stroke-linecap="round" transform="rotate(-90 90 90)"/>
+          <text x="90" y="84" text-anchor="middle" fill="#f0f6ff" style="font:800 2.2rem 'Sora',sans-serif;">~92<tspan style="font-size:1rem;">%</tspan></text>
           <text x="90" y="106" text-anchor="middle" fill="var(--muted,#8ea4c7)" style="font:500 0.6rem 'JetBrains Mono',monospace;">auto-closed</text>
         </svg>
         <div style="display:grid;gap:6px;margin-top:14px;font-size:0.72rem;text-align:left;">
@@ -537,7 +535,7 @@
           <strong>Operations runbook</strong>
           <span>Execution reference that anchors the workflow in repeatable operational practice.</span>
         </a>
-        <a href="/march-2026-release" class="m-link-item">
+        <a href="https://github.com/raylee-hawkins/HawkinsOperations/releases" class="m-link-item">
           <strong>March release timeline</strong>
           <span>Bridge between project narrative and release execution history.</span>
         </a>
@@ -575,8 +573,8 @@
       <div class="m-card-kicker">Next steps</div>
       <h2>What the reviewer should do next</h2>
       <div class="m-next-grid">
-        <a href="/start-here" class="m-link-item">
-          <strong>Open Start Here</strong>
+        <a href="/" class="m-link-item">
+          <strong>Open Home</strong>
           <span>Run the fastest validation path before drilling into deeper artifact lanes.</span>
         </a>
         <a href="/proof" class="m-link-item">

@@ -34,25 +34,23 @@
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
-      <li><a href="/start-here">Start Here</a></li>
-      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/proof">Proof</a></li>
       <li><a href="/detections">Detections</a></li>
-      <li><a href="/enterprise-security" aria-current="page">Enterprise Security</a></li>
       <li><a href="/resume">Resume</a></li>
-      <li><a href="/soc-lab">Lab</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
+    <a class="btn btn-p nav-cta" href="/resume">Resume</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-  <a href="/start-here">Start Here</a>
-  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/">Home</a>
+  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/proof">Proof</a>
   <a href="/detections">Detections</a>
-  <a href="/enterprise-security" aria-current="page">Enterprise Security</a>
   <a href="/resume">Resume</a>
-  <a href="/soc-lab">Lab</a>
 </div>
 
 <!-- @include:nav:end -->
@@ -67,7 +65,7 @@
       <p class="m-subtitle">Audit policy hardening, Microsoft baseline comparison, domain GPO deployment plan, and RSAT installation on a domain-joined Windows 11 Enterprise workstation.</p>
       <p class="m-outcome">27 audit subcategories hardened with MITRE mappings. 60 subcategories compared against the Microsoft Security Baseline with zero regressions and 12 intentional additions. Full GPO promotion plan documented and ready to execute.</p>
       <div class="m-actions">
-        <a class="m-cta m-cta-dominant" href="/start-here">Start Here</a>
+        <a class="m-cta m-cta-dominant" href="/">Home</a>
         <a class="m-cta m-cta-accent" href="https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/projects/lab/enterprise-hardening" target="_blank" rel="noopener noreferrer">Source Artifacts</a>
         <a class="m-cta m-cta-secondary" href="/proof">Proof Receipts</a>
       </div>
@@ -137,6 +135,74 @@
         </ul>
       </section>
     </aside>
+  </div>
+</section>
+
+<!-- ── LAB INFRASTRUCTURE ── -->
+<section id="lab-infrastructure" class="m-section m-stage">
+  <div class="m-wrap">
+    <div class="m-divider-title">
+      <div class="m-card-kicker">Foundation &mdash; Lab environment</div>
+    </div>
+    <h2 class="m-title" style="font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:12px;">Lab Infrastructure &mdash; the environment behind the hardening</h2>
+    <p class="m-copy" style="max-width:64ch;margin-bottom:24px;">All enterprise hardening, detection development, and pipeline operations run on a self-hosted Proxmox lab. The infrastructure is purpose-built for reproducible security validation.</p>
+
+    <div class="m-card" style="padding:22px;margin-bottom:24px;">
+      <div class="m-card-kicker">Proxmox host</div>
+      <p class="m-copy" style="margin-top:8px;">72-core dual Xeon E5-2697 v4 &middot; 2 TB RAM &middot; ~96 TB across local/local-lvm/opsvault storage pools &middot; Uptime measured in weeks &middot; Proxmox VE 9.x</p>
+    </div>
+
+    <div class="m-card" style="padding:22px;margin-bottom:24px;">
+      <div class="m-card-kicker">VM inventory</div>
+      <div style="overflow-x:auto;margin-top:12px;">
+        <table style="width:100%;border-collapse:collapse;font-size:.88rem;">
+          <thead>
+            <tr>
+              <th style="text-align:left;padding:10px;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.78rem;">VMID</th>
+              <th style="text-align:left;padding:10px;border-bottom:1px solid var(--border);">Hostname</th>
+              <th style="text-align:left;padding:10px;border-bottom:1px solid var(--border);">Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:#7ab8ff;">100</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;">HO-FILESERVER-01</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--muted,#8ea4c7);">Centralized file server (SMB/NFS)</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:#7ab8ff;">101</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;">HO-WAZUH-01</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--muted,#8ea4c7);">Wazuh SIEM Manager</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:#7ab8ff;">102</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;">HO-GPU-01</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--muted,#8ea4c7);">GPU compute (dual Tesla V100)</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:#7ab8ff;">103</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;">HO-RUNNER-01</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--muted,#8ea4c7);">Self-hosted CI/CD runner</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:#7ab8ff;">104</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;">HO-SPLUNK-01</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--muted,#8ea4c7);">Splunk Enterprise</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:#7ab8ff;">120</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;">HO-GRAFANA-01</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--muted,#8ea4c7);">Grafana visualization</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:#7ab8ff;">130</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;">HO-HONEYPOT-01</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--muted,#8ea4c7);">Honeypot sensor</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:#7ab8ff;">9000</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;">HO-WIN11-TEMPLATE</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--muted,#8ea4c7);">Windows 11 deployment template</td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:#7ab8ff;">9001</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;">HO-UBU-TEMPLATE</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--muted,#8ea4c7);">Ubuntu deployment template</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="m-grid-2" style="margin-bottom:24px;">
+      <div class="m-card" style="padding:22px;">
+        <div class="m-card-kicker">Lab topology</div>
+        <figure style="margin:12px 0 0;">
+          <img src="/assets/pp_soc_integration/lab-architecture.svg" alt="SOC lab topology showing Proxmox, Windows endpoint, Wazuh, Splunk, and SignalFoundry pipeline boundaries" width="1200" height="510" loading="lazy" style="display:block;width:100%;height:auto;border-radius:6px;">
+        </figure>
+      </div>
+      <div class="m-card" style="padding:22px;">
+        <div class="m-card-kicker">Proxmox VM layout</div>
+        <figure style="margin:12px 0 0;">
+          <img src="/assets/pp_soc_integration/t5-proxmox-redacted.png" alt="Redacted Proxmox interface screenshot showing VM layout for the SOC lab" width="1600" height="900" loading="lazy" style="display:block;width:100%;height:auto;border-radius:6px;">
+        </figure>
+      </div>
+    </div>
+
+    <div class="m-evidence-note m-stage-surface" style="margin-bottom:24px;">
+      <div class="m-card-kicker">Data flow</div>
+      <h3>Detection-to-escalation pipeline</h3>
+      <p>Endpoints run Wazuh agents that forward to HO-WAZUH-01. Wazuh events flow to Splunk (HO-SPLUNK-01) via NFS pipeline for investigation. Grafana (HO-GRAFANA-01) provides dashboard visualization. The full detection-to-escalation pipeline runs across this infrastructure.</p>
+    </div>
+
+    <div class="m-card" style="padding:22px;">
+      <div class="m-card-kicker">Network</div>
+      <p class="m-copy" style="margin-top:8px;">Isolated RFC 1918 lab subnet with Tailscale secure mesh for remote access. All traffic stays within the private network boundary.</p>
+    </div>
   </div>
 </section>
 
@@ -542,8 +608,8 @@
       <div class="m-card-kicker">Next steps</div>
       <h2>What the reviewer should do next</h2>
       <div class="m-next-grid">
-        <a href="/start-here" class="m-link-item">
-          <strong>Open Start Here</strong>
+        <a href="/" class="m-link-item">
+          <strong>Open Home</strong>
           <span>Run the fastest validation path through metrics, proof links, and verification commands.</span>
         </a>
         <a href="/proof" class="m-link-item">

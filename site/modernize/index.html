@@ -23,32 +23,29 @@
 </head>
 <body>
 <div class="modernize-shell">
-  <header class="m-nav">
-    <div class="m-nav-inner">
-      <a class="m-brand" href="/modernize/"><span>Hawkins</span>Ops</a>
-      <button id="mobBtn" class="m-mobile-toggle" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
-      <ul class="m-nav-list nav-l">
-        <li><a href="/start-here">Start Here</a></li>
-        <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
-        <li><a href="/proof">Proof</a></li>
-        <li><a href="/detections">Detections</a></li>
-        <li><a href="/enterprise-security">Enterprise Security</a></li>
-        <li><a href="/resume">Resume</a></li>
-        <li><a href="/soc-lab">Lab</a></li>
-      </ul>
-      <a class="m-cta m-cta-primary nav-cta" href="/start-here">Start Here</a>
-      <button id="themeToggle" class="m-theme" type="button" aria-label="Switch theme">Theme</button>
-    </div>
-    <div id="mobMenu" class="m-mobile mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-      <a href="/start-here">Start Here</a>
-      <a href="/case-study-autosoc">SignalFoundry Case Study</a>
-      <a href="/proof">Proof</a>
-      <a href="/detections">Detections</a>
-      <a href="/enterprise-security">Enterprise Security</a>
-      <a href="/resume">Resume</a>
-      <a href="/soc-lab">Lab</a>
-    </div>
-  </header>
+  <nav>
+  <div class="nav-i">
+    <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
+    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
+    <ul class="nav-l">
+      <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/detections">Detections</a></li>
+      <li><a href="/resume">Resume</a></li>
+    </ul>
+    <a class="btn btn-p nav-cta" href="/resume">Resume</a>
+  </div>
+</nav>
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+  <a href="/">Home</a>
+  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
+  <a href="/proof">Proof</a>
+  <a href="/detections">Detections</a>
+  <a href="/resume">Resume</a>
+</div>
 
   <main>
     <section class="m-hero">
@@ -77,7 +74,7 @@
       <div class="m-wrap">
         <div class="m-proof-strip">
           <div><strong><span data-verified="detections">140</span></strong> detections, <strong><span data-verified="sigma">103</span></strong> Sigma, <strong><span data-verified="wazuh">28</span></strong> Wazuh, <strong><span data-verified="splunk">9</span></strong> Splunk, <strong><span data-verified="ir">10</span></strong> playbooks</div>
-          <div>Last verified <span data-verified-date>-</span></div>
+          <div>Last verified <span data-verified-date>03-30-2026</span></div>
         </div>
       </div>
     </section>
@@ -155,12 +152,16 @@
     </section>
   </main>
 
-  <footer class="m-footer">
-    <div class="m-wrap m-footer-box">
-      <p><strong>HawkinsOps</strong> | Huntsville-adjacent (North Alabama)</p>
-      <p>Canary for the MODERNIZE visual direction. Current production paths remain unchanged.</p>
+  <footer>
+  <div class="ctr">
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
+    <div class="fl">
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
+      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
     </div>
-  </footer>
+  </div>
+</footer>
 </div>
 
 <script src="/data/counts.js" defer></script>

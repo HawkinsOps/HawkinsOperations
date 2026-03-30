@@ -24,8 +24,8 @@ This repo is the portfolio artifact for that work: detection content, IR playboo
 
 Canonical metrics locked and all proof artifacts refreshed:
 
-- Lifetime total cases: **54,700** (canonical baseline 49,774 + post-reset window 4,926)
-- Escalations: **2,531** published artifacts · Known FP: **5,453** · Auto-close rate: **~93%**
+- Lifetime total cases: **55,665** (canonical baseline 49,774 + post-reset window 5,891)
+- Escalations: **2,545** published artifacts · Known FP: **5,453** · Auto-close rate: **~92%**
 - Reconciliation: **PASS (0 mismatches)** · Coverage: **8/8 hosts** (SCA enabled on HO-HONEYPOT-01) · Heartbeat: `SUCCESS`
 - Scorecard upgraded from WATCH → **PASS** (auto_close_benign_pct now 82.88%)
 - Ledger resilience hardened: atomic writes, 7-day dated backups, blank-ledger restore, double-seed guard, daily Z: drive snapshot
