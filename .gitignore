@@ -24,8 +24,12 @@ phase0_discovery_log_*.md
 .claude/
 /site/assets/visual-enhance.css
 .playwright-cli/
+playwright-profile/
 .wrangler/
 output/
+
+# Local image drafts (carousel previews, etc.)
+carousel_*.png
 
 # Required public-repo safety excludes
 Evidence-Raw/

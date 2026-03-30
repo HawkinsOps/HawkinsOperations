@@ -54,7 +54,7 @@ foreach ($rel in $staged) {
 
   $abs = Join-Path -Path $repoRoot -ChildPath $rel
   if (Test-Path -LiteralPath $abs -PathType Leaf) {
-    $size = (Get-Item -LiteralPath $abs).Length
+    $size = try { (Get-Item -LiteralPath $abs).Length } catch { 0 }
     if ($size -gt ($MaxFileSizeMB * 1MB)) {
       $mb = [math]::Round($size / 1MB, 2)
       $findings.Add("File '$rel' size ${mb}MB exceeds ${MaxFileSizeMB}MB cap.")
