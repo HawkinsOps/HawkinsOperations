@@ -1,13 +1,13 @@
-```
 # HawkinsOps Splunk Detection Queries - Execution
 # Author: HawkinsOps SOC
-# Date: 2025-01-15
+# Updated: 2026-03-29
 
 # ========================================
 # Suspicious PowerShell Commands
 # MITRE: T1059.001
 # ========================================
 index=windows EventCode=4104 (ScriptBlockText="*DownloadString*" OR ScriptBlockText="*Invoke-Expression*" OR ScriptBlockText="*IEX*" OR ScriptBlockText="*WebClient*")
+| where NOT match(ScriptBlockText, "(?i)(WindowsUpdate|MicrosoftUpdate|WinRM|PSReadLine)")
 | table _time, Computer, User, ScriptBlockText
 | sort -_time
 
@@ -16,7 +16,9 @@ index=windows EventCode=4104 (ScriptBlockText="*DownloadString*" OR ScriptBlockT
 # MITRE: T1027
 # ========================================
 index=windows EventCode=1 Image="*powershell.exe" (CommandLine="* -e *" OR CommandLine="* -en *" OR CommandLine="* -enc *" OR CommandLine="* -encoded*")
-| table _time, Computer, User, CommandLine
+| where NOT match(ParentImage, "(?i)(vscode|code\\.exe|node\\.exe|codex\\.exe|cursor\\.exe)")
+| where NOT match(CommandLine, "(?i)^C:\\\\Program Files")
+| table _time, Computer, User, CommandLine, ParentImage
 | sort -_time
 
 # ========================================
@@ -25,6 +27,7 @@ index=windows EventCode=1 Image="*powershell.exe" (CommandLine="* -e *" OR Comma
 # ========================================
 index=windows EventCode=1 (Image="*\\wscript.exe" OR Image="*\\cscript.exe") (CommandLine="*.vbs" OR CommandLine="*.js")
 | where NOT match(CommandLine, "(?i)^C:\\\\Windows")
+| where NOT match(CommandLine, "(?i)(Program Files|Microsoft Office)")
 | table _time, Computer, User, CommandLine
 | sort -_time
 
@@ -57,6 +60,7 @@ index=windows EventCode=1 (ParentImage="*\\WINWORD.EXE" OR ParentImage="*\\EXCEL
 # MITRE: T1218.011
 # ========================================
 index=windows EventCode=1 Image="*\\rundll32.exe" (CommandLine="*javascript:*" OR CommandLine="*vbscript:*" OR CommandLine="*http://*")
+| where NOT match(CommandLine, "(?i)shell32\\.dll|url\\.dll|zipfldr\\.dll")
 | table _time, Computer, User, CommandLine
 | sort -_time
 
@@ -64,7 +68,8 @@ index=windows EventCode=1 Image="*\\rundll32.exe" (CommandLine="*javascript:*" O
 # Linux Suspicious Bash Commands
 # MITRE: T1059.004
 # ========================================
-index=linux sourcetype=linux_audit type=EXECVE a0=bash (a1="*curl*" OR a1="*wget*" OR a1="*/dev/tcp/*" OR a1="*base64 -d*")
-| table _time, host, uid, a0, a1, a2
+index=linux sourcetype=linux_audit type=EXECVE a0=bash
+| eval args=mvappend(a1,a2,a3,a4)
+| search args IN ("*curl*","*wget*","*/dev/tcp/*","*base64 -d*","*base64 --decode*")
+| table _time, host, uid, a0, args
 | sort -_time
-```
