@@ -1,0 +1,818 @@
+/* command-center.css — SOC Command Center Aesthetic
+   Loaded LAST after galaxy.css on all pages.
+   Overrides glassmorphism/SaaS aesthetic with terminal/C2 visual language.
+   v1 — 03-30-2026 */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+
+
+/* ============================================
+   C0  CUSTOM PROPERTIES — COMMAND CENTER
+   ============================================ */
+
+:root {
+  /* Backgrounds — layered dark, not flat */
+  --cc-bg-deep: #0a0e17;
+  --cc-bg-surface: #111827;
+  --cc-bg-elevated: #1a2332;
+  --cc-bg-inset: #0d1117;
+
+  /* Accent system */
+  --cc-cyan: #00d4ff;
+  --cc-cyan-rgb: 0, 212, 255;
+  --cc-cyan-dim: rgba(0, 212, 255, 0.12);
+  --cc-cyan-glow: rgba(0, 212, 255, 0.3);
+  --cc-green: #22c55e;
+  --cc-green-rgb: 34, 197, 94;
+  --cc-green-dim: rgba(34, 197, 94, 0.12);
+  --cc-amber: #f59e0b;
+  --cc-amber-rgb: 245, 158, 11;
+  --cc-red: #ef4444;
+  --cc-red-rgb: 239, 68, 68;
+
+  /* Typography */
+  --cc-mono: 'IBM Plex Mono', 'JetBrains Mono', 'Consolas', monospace;
+  --cc-sans: 'IBM Plex Sans', 'Inter', system-ui, sans-serif;
+
+  /* Borders */
+  --cc-border: rgba(0, 212, 255, 0.12);
+  --cc-border-strong: rgba(0, 212, 255, 0.25);
+  --cc-border-accent: 3px solid rgba(0, 212, 255, 0.4);
+
+  /* Shadows */
+  --cc-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --cc-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+
+/* ============================================
+   C1  GLOBAL OVERRIDES
+   ============================================ */
+
+html body {
+  font-family: var(--cc-sans) !important;
+  background: var(--cc-bg-deep) !important;
+  color: #c9d1d9 !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scan-line texture overlay */
+html body::before {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 212, 255, 0.02) 3px,
+      rgba(0, 212, 255, 0.02) 4px
+    ) !important;
+  background-size: auto !important;
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+/* Keep starfield-deep layer but darken */
+html body::after {
+  opacity: 0.35 !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--cc-bg-deep); }
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 212, 255, 0.25);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(0, 212, 255, 0.4); }
+
+html { scrollbar-color: rgba(0, 212, 255, 0.25) var(--cc-bg-deep); scrollbar-width: thin; }
+
+/* Smooth scroll preserved */
+html { scroll-behavior: smooth; }
+
+
+/* ============================================
+   C2  TYPOGRAPHY
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6,
+.m-title,
+.sf-section-label,
+.sec-title,
+.wc-role,
+.rh-name {
+  font-family: var(--cc-mono) !important;
+  letter-spacing: 0.02em;
+}
+
+.sf-section-label,
+.m-eyebrow,
+.m-card-kicker,
+.sf-eyebrow,
+.m-divider-title .m-card-kicker {
+  font-family: var(--cc-mono) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  font-size: 0.68rem !important;
+  color: var(--cc-cyan) !important;
+  opacity: 0.9;
+}
+
+p, li, span, div {
+  font-family: var(--cc-sans);
+}
+
+a {
+  color: var(--cc-cyan) !important;
+  text-decoration: none !important;
+  transition: color 0.15s ease, text-decoration 0.15s ease !important;
+}
+
+a:hover {
+  text-decoration: underline !important;
+  color: #33dfff !important;
+}
+
+/* Don't underline nav or button links */
+nav a:hover,
+.btn:hover,
+.btn-p:hover,
+.m-cta:hover,
+.sf-button:hover,
+.nav-cta:hover {
+  text-decoration: none !important;
+}
+
+
+/* ============================================
+   C3  NAVIGATION — TIGHT, MONOSPACED
+   ============================================ */
+
+nav,
+.m-nav {
+  background: rgba(10, 14, 23, 0.92) !important;
+  backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid var(--cc-border) !important;
+}
+
+.nav-l a,
+.m-nav-list a,
+.nav-l li a {
+  font-family: var(--cc-mono) !important;
+  font-size: 0.72rem !important;
+  font-weight: 500 !important;
+  color: #8b949e !important;
+  padding: 6px 10px !important;
+  border-radius: 0 !important;
+  border: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: color 0.15s ease !important;
+  border-bottom: 2px solid transparent !important;
+}
+
+.nav-l a:hover,
+.m-nav-list a:hover {
+  color: var(--cc-cyan) !important;
+  background: none !important;
+  border-bottom-color: var(--cc-cyan) !important;
+}
+
+.nav-l a.act,
+.nav-l a[aria-current='page'],
+.m-nav-list a[aria-current='page'] {
+  color: var(--cc-cyan) !important;
+  background: none !important;
+  border-bottom: 2px solid var(--cc-cyan) !important;
+  box-shadow: none !important;
+}
+
+/* CTA button in nav */
+.nav-cta,
+.m-cta.nav-cta,
+a.btn.btn-p.nav-cta {
+  font-family: var(--cc-mono) !important;
+  font-size: 0.68rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  background: transparent !important;
+  border: 1px solid var(--cc-cyan) !important;
+  color: var(--cc-cyan) !important;
+  border-radius: 3px !important;
+  padding: 6px 14px !important;
+  box-shadow: none !important;
+}
+
+.nav-cta:hover,
+a.btn.btn-p.nav-cta:hover {
+  background: rgba(0, 212, 255, 0.1) !important;
+}
+
+.logo, .m-brand {
+  font-family: var(--cc-mono) !important;
+}
+
+
+/* ============================================
+   C4  CARDS — SHARP, BORDERED, FUNCTIONAL
+   ============================================ */
+
+.sf-card,
+.m-card,
+.card,
+.lane-card,
+article.sf-metric,
+.sf-card.sf-panel,
+.resume-sheet {
+  background: var(--cc-bg-surface) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid var(--cc-border) !important;
+  border-radius: 4px !important;
+  box-shadow: var(--cc-shadow) !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.sf-card:hover,
+.m-card:hover,
+.card:hover,
+.lane-card:hover,
+article.sf-metric:hover {
+  transform: none !important;
+  border-color: var(--cc-border-strong) !important;
+  box-shadow: var(--cc-shadow-hover), 0 0 20px rgba(0, 212, 255, 0.06) !important;
+}
+
+.sf-card:active,
+.m-card:active {
+  transform: none !important;
+}
+
+/* Accent left border on important cards */
+.m-evidence-note,
+.m-stage-surface,
+.sf-card.sf-panel {
+  border-left: var(--cc-border-accent) !important;
+}
+
+/* Route cards */
+.sf-route-card {
+  border-radius: 4px !important;
+}
+
+
+/* ============================================
+   C5  STAT / KPI NUMBERS
+   ============================================ */
+
+.sf-metric-value,
+.m-kpi-value,
+.proof-kpi-value,
+.ps-val,
+.of-val,
+.fc-count,
+.det-count,
+.ss-val {
+  font-family: var(--cc-mono) !important;
+  color: var(--cc-cyan) !important;
+  text-shadow: 0 0 20px var(--cc-cyan-glow) !important;
+  animation: none !important;
+}
+
+.sf-metric-label,
+.m-kpi-label,
+.ps-lbl,
+.of-lbl {
+  font-family: var(--cc-mono) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.68rem !important;
+  color: #8b949e !important;
+}
+
+/* Green for success values */
+[data-ops-status],
+.sdot {
+  color: var(--cc-green) !important;
+  text-shadow: 0 0 12px rgba(34, 197, 94, 0.4) !important;
+}
+
+/* Counter animated values */
+.counter {
+  font-family: var(--cc-mono) !important;
+  color: var(--cc-cyan) !important;
+}
+
+
+/* ============================================
+   C6  STATUS BADGES & PULSE
+   ============================================ */
+
+@keyframes cc-pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(34, 197, 94, 0.3); }
+  50% { box-shadow: 0 0 15px rgba(34, 197, 94, 0.5); }
+}
+
+@keyframes cc-pulse-text {
+  0%, 100% { text-shadow: 0 0 8px rgba(34, 197, 94, 0.3); }
+  50% { text-shadow: 0 0 16px rgba(34, 197, 94, 0.6); }
+}
+
+.sdot {
+  animation: cc-pulse-glow 2s ease-in-out infinite !important;
+}
+
+[data-ops-status="SUCCESS"],
+[data-ops-status="PASS"] {
+  animation: cc-pulse-text 2.5s ease-in-out infinite;
+}
+
+/* Availability badge */
+.avail-badge {
+  font-family: var(--cc-mono) !important;
+  border: 1px solid var(--cc-green) !important;
+  border-radius: 3px !important;
+  background: rgba(34, 197, 94, 0.08) !important;
+}
+
+.avail-dot {
+  background: var(--cc-green) !important;
+  animation: cc-pulse-glow 2s ease-in-out infinite;
+}
+
+
+/* ============================================
+   C7  SECTION DIVIDERS
+   ============================================ */
+
+.m-divider-title::before,
+.sec-line {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(0, 212, 255, 0.3) 30%,
+    rgba(0, 212, 255, 0.3) 70%,
+    transparent 100%
+  ) !important;
+  height: 1px !important;
+}
+
+hr,
+.m-section + .m-section::before {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(0, 212, 255, 0.2),
+    transparent
+  );
+}
+
+/* Section spacing */
+.m-section,
+.sf-section {
+  border-bottom: 1px solid rgba(0, 212, 255, 0.06);
+}
+
+
+/* ============================================
+   C8  CODE / TERMINAL BLOCKS
+   ============================================ */
+
+code, pre, .m-inline-code {
+  font-family: var(--cc-mono) !important;
+}
+
+pre {
+  background: var(--cc-bg-inset) !important;
+  color: var(--cc-cyan) !important;
+  border: 1px solid var(--cc-border) !important;
+  border-radius: 4px !important;
+  position: relative;
+}
+
+/* Terminal header bar look — styled via parent div */
+pre code {
+  color: #a5d6ff !important;
+}
+
+code:not(pre code) {
+  background: rgba(0, 212, 255, 0.08) !important;
+  color: var(--cc-cyan) !important;
+  border-radius: 2px !important;
+  padding: 2px 6px !important;
+  font-size: 0.85em !important;
+}
+
+/* Terminal-style header */
+[style*="background:rgba(122,184,255,0.06)"],
+[style*="Terminal"] {
+  background: var(--cc-bg-elevated) !important;
+  font-family: var(--cc-mono) !important;
+  border-bottom: 1px solid var(--cc-border) !important;
+}
+
+
+/* ============================================
+   C9  TABLES — CLEAN, ALTERNATING, MONOSPACED
+   ============================================ */
+
+table {
+  font-family: var(--cc-sans) !important;
+  border-collapse: collapse !important;
+}
+
+thead tr {
+  border-bottom: 1px solid var(--cc-border-strong) !important;
+}
+
+thead th {
+  font-family: var(--cc-mono) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  font-size: 0.72rem !important;
+  color: var(--cc-cyan) !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid var(--cc-border-strong) !important;
+}
+
+tbody tr {
+  border-bottom: 1px solid rgba(0, 212, 255, 0.04) !important;
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(0, 212, 255, 0.02) !important;
+}
+
+tbody td {
+  border-bottom: none !important;
+  padding: 10px 12px !important;
+}
+
+/* Monospaced numbers in tables */
+td[style*="font-family:'JetBrains Mono'"],
+td[style*="monospace"] {
+  font-family: var(--cc-mono) !important;
+}
+
+
+/* ============================================
+   C10  BUTTONS — FUNCTIONAL, NOT FLASHY
+   ============================================ */
+
+.sf-button,
+.m-cta,
+.btn,
+.btn-p,
+.btn-s,
+a.m-cta {
+  font-family: var(--cc-mono) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  font-size: 0.78rem !important;
+  border-radius: 3px !important;
+  transition: all 0.15s ease !important;
+}
+
+.sf-button-primary,
+.m-cta-dominant,
+.m-cta-accent {
+  background: rgba(0, 212, 255, 0.12) !important;
+  border: 1px solid var(--cc-cyan) !important;
+  color: var(--cc-cyan) !important;
+  box-shadow: none !important;
+}
+
+.sf-button-primary:hover,
+.m-cta-dominant:hover,
+.m-cta-accent:hover {
+  background: rgba(0, 212, 255, 0.2) !important;
+  transform: none !important;
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.15) !important;
+}
+
+.sf-button-secondary,
+.m-cta-secondary {
+  background: transparent !important;
+  border: 1px solid var(--cc-border-strong) !important;
+  color: #8b949e !important;
+}
+
+.sf-button-secondary:hover,
+.m-cta-secondary:hover {
+  border-color: var(--cc-cyan) !important;
+  color: var(--cc-cyan) !important;
+  transform: none !important;
+}
+
+
+/* ============================================
+   C11  HERO — TYPED TEXT PROMINENCE
+   ============================================ */
+
+.sf-role-line,
+.sf-role-tag {
+  font-family: var(--cc-mono) !important;
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  color: var(--cc-cyan) !important;
+  text-shadow: 0 0 30px var(--cc-cyan-glow);
+}
+
+.typed-target {
+  font-family: var(--cc-mono) !important;
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  color: var(--cc-cyan) !important;
+  text-shadow: 0 0 30px var(--cc-cyan-glow);
+}
+
+/* Typed.js cursor */
+.typed-cursor {
+  color: var(--cc-cyan) !important;
+  font-weight: 300 !important;
+}
+
+.rh-name {
+  font-family: var(--cc-mono) !important;
+  letter-spacing: 0.03em;
+}
+
+.rh-eyebrow {
+  font-family: var(--cc-mono) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  color: var(--cc-cyan) !important;
+  font-size: 0.72rem !important;
+}
+
+
+/* ============================================
+   C12  FOOTER
+   ============================================ */
+
+footer {
+  background: var(--cc-bg-deep) !important;
+  border-top: 1px solid var(--cc-border) !important;
+}
+
+footer p, footer a {
+  font-family: var(--cc-mono) !important;
+  font-size: 0.75rem !important;
+}
+
+
+/* ============================================
+   C13  PROOF STRIP / OUTCOMES
+   ============================================ */
+
+.proof-strip {
+  border: 1px solid var(--cc-border) !important;
+  border-radius: 4px !important;
+  background: var(--cc-bg-surface) !important;
+}
+
+.ps-cell {
+  border-right: 1px solid rgba(0, 212, 255, 0.06);
+}
+
+.outcomes-flow,
+.outcomes-strip {
+  background: var(--cc-bg-surface) !important;
+  border: 1px solid var(--cc-border) !important;
+  border-radius: 4px !important;
+}
+
+.of-node {
+  border: 1px solid var(--cc-border) !important;
+  border-radius: 4px !important;
+  background: var(--cc-bg-elevated) !important;
+}
+
+.of-arr, .of-arrow {
+  color: var(--cc-cyan) !important;
+  opacity: 0.5;
+}
+
+
+/* ============================================
+   C14  DETECTION INVENTORY
+   ============================================ */
+
+.det-inventory {
+  border: 1px solid var(--cc-border) !important;
+  border-radius: 4px !important;
+  background: var(--cc-bg-surface) !important;
+}
+
+.det-inv-title {
+  font-family: var(--cc-mono) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+}
+
+.det-inv-total {
+  font-family: var(--cc-mono) !important;
+  color: var(--cc-cyan) !important;
+  text-shadow: 0 0 12px var(--cc-cyan-glow);
+}
+
+.det-label {
+  font-family: var(--cc-mono) !important;
+}
+
+.det-bar-fill {
+  border-radius: 2px !important;
+}
+
+.det-bar-track {
+  border-radius: 2px !important;
+  background: rgba(0, 212, 255, 0.06) !important;
+}
+
+
+/* ============================================
+   C15  MOBILE MENU
+   ============================================ */
+
+.mob-menu,
+.m-mobile {
+  background: var(--cc-bg-surface) !important;
+  border: 1px solid var(--cc-border) !important;
+}
+
+.mob-menu a,
+.m-mobile a {
+  font-family: var(--cc-mono) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  font-size: 0.78rem !important;
+  color: #8b949e !important;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.06) !important;
+}
+
+.mob-menu a:hover,
+.m-mobile a:hover {
+  color: var(--cc-cyan) !important;
+}
+
+.mob-btn,
+.m-mobile-toggle {
+  font-family: var(--cc-mono) !important;
+  border-radius: 3px !important;
+}
+
+
+/* ============================================
+   C16  MODAL OVERRIDE
+   ============================================ */
+
+.modal,
+.modal-backdrop .modal {
+  background: var(--cc-bg-surface) !important;
+  border: 1px solid var(--cc-border) !important;
+  border-radius: 4px !important;
+  backdrop-filter: none !important;
+}
+
+
+/* ============================================
+   C17  LINK LIST / REVIEW CARDS
+   ============================================ */
+
+.m-link-item {
+  border: 1px solid var(--cc-border) !important;
+  border-radius: 4px !important;
+  border-left: var(--cc-border-accent) !important;
+  transition: border-color 0.15s ease !important;
+}
+
+.m-link-item:hover {
+  border-color: var(--cc-border-strong) !important;
+  transform: none !important;
+}
+
+.m-link-item strong {
+  color: var(--cc-cyan) !important;
+}
+
+
+/* ============================================
+   C18  SVG CHART OVERRIDES
+   ============================================ */
+
+.f-val, .bar-count {
+  font-family: var(--cc-mono) !important;
+}
+
+.f-label, .bar-label {
+  font-family: var(--cc-sans) !important;
+}
+
+
+/* ============================================
+   C19  RESUME-SPECIFIC
+   ============================================ */
+
+.resume-section h2 {
+  font-family: var(--cc-mono) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  font-size: 0.88rem !important;
+  color: var(--cc-cyan) !important;
+  border-bottom: 1px solid var(--cc-border) !important;
+  padding-bottom: 8px !important;
+}
+
+.resume-project h3 {
+  font-family: var(--cc-mono) !important;
+  font-size: 0.88rem !important;
+}
+
+.resume-download a {
+  font-family: var(--cc-mono) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+}
+
+.skills-grid {
+  gap: 16px;
+}
+
+.sg-title {
+  font-family: var(--cc-mono) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  font-size: 0.76rem !important;
+}
+
+.sk-item {
+  font-family: var(--cc-sans) !important;
+  font-size: 0.82rem !important;
+}
+
+.sk-dot {
+  border-radius: 2px !important;
+}
+
+/* Talk track styling */
+.talk-track {
+  border: 1px solid var(--cc-border) !important;
+  border-left: var(--cc-border-accent) !important;
+  border-radius: 4px !important;
+  background: var(--cc-bg-surface) !important;
+}
+
+.tt-label {
+  font-family: var(--cc-mono) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  color: var(--cc-cyan) !important;
+}
+
+
+/* ============================================
+   C20  FOCUS & ACCESSIBILITY
+   ============================================ */
+
+*:focus-visible {
+  outline: 2px solid var(--cc-cyan) !important;
+  outline-offset: 2px !important;
+}
+
+
+/* ============================================
+   C21  PRINT — STRIP EFFECTS
+   ============================================ */
+
+@media print {
+  html body::before,
+  html body::after,
+  #tsparticles { display: none !important; }
+
+  * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    animation: none !important;
+  }
+}
+
+
+/* ============================================
+   C22  RESPONSIVE OVERRIDES
+   ============================================ */
+
+@media (max-width: 768px) {
+  .sf-role-line,
+  .sf-role-tag,
+  .typed-target {
+    font-size: 1rem !important;
+  }
+
+  .nav-l a,
+  .m-nav-list a {
+    font-size: 0.65rem !important;
+    padding: 4px 6px !important;
+  }
+}
