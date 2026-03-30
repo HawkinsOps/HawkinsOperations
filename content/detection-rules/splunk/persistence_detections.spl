@@ -1,13 +1,14 @@
-```
 # HawkinsOps Splunk Detection Queries - Persistence
 # Author: HawkinsOps SOC
-# Date: 2025-01-15
+# Updated: 2026-03-29
 
 # ========================================
 # Scheduled Task Creation
 # MITRE: T1053.005
 # ========================================
 index=windows EventCode=4698
+| where NOT match(SubjectUserName, "(?i)(system|network service|local service|\\$)")
+| where NOT match(TaskName, "(?i)(microsoft\\\\windows\\\\|\\\\microsoft\\\\)")
 | table _time, Computer, SubjectUserName, TaskName, TaskContent
 | sort -_time
 
@@ -17,6 +18,7 @@ index=windows EventCode=4698
 # ========================================
 index=windows EventCode=13 TargetObject="*\\Microsoft\\Windows\\CurrentVersion\\Run*"
 | where NOT match(Image, "(?i)^C:\\\\Program Files")
+| where NOT match(Image, "(?i)(OneDrive|Dropbox|Slack|Teams|Zoom|Chrome|Firefox|Edge|Spotify)")
 | table _time, Computer, Image, TargetObject, Details
 | sort -_time
 
@@ -25,7 +27,9 @@ index=windows EventCode=13 TargetObject="*\\Microsoft\\Windows\\CurrentVersion\\
 # MITRE: T1543.003
 # ========================================
 index=windows EventCode=7045
-| where NOT match(ServiceName, "(?i)(^Microsoft|^Windows)") AND NOT match(ImagePath, "(?i)^C:\\\\Windows")
+| where NOT match(ServiceName, "(?i)(^Microsoft|^Windows|^WPD|^TrustedInstaller)")
+| where NOT match(ImagePath, "(?i)^C:\\\\Windows")
+| where NOT match(ImagePath, "(?i)(Program Files\\\\(Microsoft|Windows|Intel|NVIDIA|Realtek|Malwarebytes|Sophos|CrowdStrike|SentinelOne|Carbon Black|Elastic))")
 | table _time, Computer, ServiceName, ImagePath, ServiceType, StartType
 | sort -_time
 
@@ -42,6 +46,7 @@ index=windows (EventCode=19 OR EventCode=20 OR EventCode=21)
 # MITRE: T1547.001
 # ========================================
 index=windows EventCode=11 TargetFilename="*\\Start Menu\\Programs\\Startup\\*"
+| where NOT match(Image, "(?i)(msiexec|setup|install|OneDrive|Teams|Slack)")
 | table _time, Computer, Image, TargetFilename
 | sort -_time
 
@@ -50,7 +55,7 @@ index=windows EventCode=11 TargetFilename="*\\Start Menu\\Programs\\Startup\\*"
 # MITRE: T1197
 # ========================================
 index=windows EventCode=59
-| where NOT match(RemoteUrl, "(?i)(microsoft\\.com|windowsupdate\\.com)")
+| where NOT match(RemoteUrl, "(?i)(microsoft\\.com|windowsupdate\\.com|office\\.com|live\\.com|visualstudio\\.com|aka\\.ms)")
 | table _time, Computer, User, RemoteUrl, LocalFile
 | sort -_time
 
@@ -59,6 +64,6 @@ index=windows EventCode=59
 # MITRE: T1137
 # ========================================
 index=windows EventCode=13 TargetObject="*\\Software\\Microsoft\\Office\\*\\Addins\\*"
+| where NOT match(Image, "(?i)(WINWORD|EXCEL|POWERPNT|OUTLOOK|msiexec)")
 | table _time, Computer, Image, TargetObject, Details
 | sort -_time
-```

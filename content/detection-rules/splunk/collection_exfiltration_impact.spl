@@ -1,7 +1,6 @@
-```
 # HawkinsOps Splunk Detection Queries - Collection, Exfiltration, Impact
 # Author: HawkinsOps SOC
-# Date: 2025-01-15
+# Updated: 2026-03-29
 
 # ========================================
 # COLLECTION
@@ -9,11 +8,13 @@
 
 # Clipboard Capture - T1115
 index=windows EventCode=4104 (ScriptBlockText="*Get-Clipboard*" OR ScriptBlockText="*Windows.Forms.Clipboard*")
+| where NOT match(User, "(?i)(system|network service)")
 | table _time, Computer, User, ScriptBlockText
 | sort -_time
 
 # Screen Capture - T1113
 index=windows EventCode=4104 (ScriptBlockText="*CopyFromScreen*" OR ScriptBlockText="*System.Drawing.Bitmap*")
+| where NOT match(User, "(?i)(system|network service)")
 | table _time, Computer, User, ScriptBlockText
 | sort -_time
 
@@ -24,11 +25,13 @@ index=windows EventCode=4104 (ScriptBlockText="*GetAsyncKeyState*" OR ScriptBloc
 
 # Data Archiving - T1560
 index=windows EventCode=1 (CommandLine="*Compress-Archive*" OR CommandLine="*7z.exe a*" OR CommandLine="*rar.exe a*")
+| where NOT match(User, "(?i)(system|network service)")
 | table _time, Computer, User, CommandLine
 | sort -_time
 
 # Email Collection - T1114
 index=windows EventCode=4104 (ScriptBlockText="*Get-Inbox*" OR ScriptBlockText="*Search-Mailbox*" OR ScriptBlockText="*Outlook.Application*")
+| where NOT match(User, "(?i)(system|network service)")
 | table _time, Computer, User, ScriptBlockText
 | sort -_time
 
@@ -38,6 +41,7 @@ index=windows EventCode=4104 (ScriptBlockText="*Get-Inbox*" OR ScriptBlockText="
 
 # Exfiltration to Cloud Service - T1567
 index=windows EventCode=1 (CommandLine="*dropbox.com*" OR CommandLine="*drive.google.com*" OR CommandLine="*mega.nz*")
+| where NOT match(User, "(?i)(system|network service)")
 | table _time, Computer, User, CommandLine
 | sort -_time
 
@@ -52,13 +56,16 @@ index=windows EventCode=4104 ScriptBlockText="*Send-MailMessage*" ScriptBlockTex
 | sort -_time
 
 # DNS Tunneling - T1048.003
-index=dns query_length>50
-| stats count by query, src_ip
-| where count > 10
+index=dns query_length>100
+| where NOT match(query, "(?i)(microsoft\\.com|windowsupdate\\.com|akadns\\.net|amazonaws\\.com|cloudfront\\.net|akamaiedge\\.net)")
+| bin _time span=10m
+| stats count dc(query) as unique_queries by _time, src_ip
+| where count > 20 AND unique_queries > 10
 | sort -count
 
 # Exfiltration to Removable Media - T1052.001
 index=windows EventCode=1 (CommandLine="*copy*" OR CommandLine="*xcopy*" OR CommandLine="*robocopy*") CommandLine="*[E-Z]:\\*"
+| where NOT match(User, "(?i)(system|network service|local service)")
 | table _time, Computer, User, CommandLine
 | sort -_time
 
@@ -67,13 +74,15 @@ index=windows EventCode=1 (CommandLine="*copy*" OR CommandLine="*xcopy*" OR Comm
 # ========================================
 
 # Ransomware File Encryption - T1486
-index=windows EventCode=11 (TargetFilename="*.encrypted" OR TargetFilename="*.locked" OR TargetFilename="*.crypto")
-| stats count by Computer, Image
+index=windows EventCode=11 (TargetFilename="*.encrypted" OR TargetFilename="*.locked" OR TargetFilename="*.crypto" OR TargetFilename="*.ransom")
+| where NOT match(Image, "(?i)(chrome|firefox|edge|onedrive)")
+| bin _time span=5m
+| stats count by _time, Computer, Image
 | where count > 10
 | sort -count
 
 # Volume Shadow Copy Deletion - T1490
-index=windows EventCode=1 (CommandLine="*vssadmin*delete shadows*" OR CommandLine="*wmic*shadowcopy delete*")
+index=windows EventCode=1 (CommandLine="*vssadmin*delete shadows*" OR CommandLine="*wmic*shadowcopy delete*" OR CommandLine="*bcdedit*deletevalue*recoveryenabled*")
 | table _time, Computer, User, CommandLine
 | sort -_time
 
@@ -88,7 +97,9 @@ index=windows EventCode=7036 param2="stopped" (param1="*Defender*" OR param1="Wi
 | sort -_time
 
 # Data Destruction - T1485
-index=windows EventCode=1 (CommandLine="*del /f /s /q*" OR CommandLine="*rd /s /q*" OR CommandLine="*format*")
+index=windows EventCode=1 (CommandLine="*del /f /s /q*" OR CommandLine="*rd /s /q*")
+| where NOT match(User, "(?i)(system|network service|local service|trustedinstaller)")
+| where NOT match(CommandLine, "(?i)(Temp|tmp|cache|recycle)")
 | table _time, Computer, User, CommandLine
 | sort -_time
 
@@ -104,6 +115,7 @@ index=windows EventCode=1 Image="*\\diskpart.exe" CommandLine="*clean*"
 
 # Account Manipulation - T1531
 index=windows (EventCode=4725 OR EventCode=4726)
+| where NOT match(SubjectUserName, "(?i)(system|network service|\\$)")
 | table _time, Computer, SubjectUserName, TargetUserName, EventCode
 | sort -_time
 
@@ -111,4 +123,3 @@ index=windows (EventCode=4725 OR EventCode=4726)
 index=linux sourcetype=linux_audit type=EXECVE (a0="*rm -rf /*" OR a0="*dd if=/dev/zero*" OR a0=shred)
 | table _time, host, uid, a0, a1
 | sort -_time
-```

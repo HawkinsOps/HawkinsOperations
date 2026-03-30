@@ -1,13 +1,13 @@
-```
 # HawkinsOps Splunk Detection Queries - Defense Evasion
 # Author: HawkinsOps SOC
-# Date: 2025-01-15
+# Updated: 2026-03-29
 
 # ========================================
 # Windows Event Log Clearing
 # MITRE: T1070.001
 # ========================================
 index=windows EventCode=1102
+| where NOT match(SubjectUserName, "(?i)(system|\\$)")
 | table _time, Computer, SubjectUserName, SubjectLogonId
 | sort -_time
 
@@ -32,7 +32,11 @@ index=windows EventCode=4104 (ScriptBlockText="*AmsiUtils*" OR ScriptBlockText="
 # MITRE: T1055
 # ========================================
 index=windows EventCode=8
-| where NOT (match(SourceImage, "(?i)^C:\\\\Program Files") AND match(TargetImage, "(?i)^C:\\\\Program Files"))
+| where NOT match(SourceImage, "(?i)^C:\\\\Program Files")
+| where NOT match(TargetImage, "(?i)^C:\\\\Program Files")
+| where NOT match(SourceImage, "(?i)(MsMpEng|MsSense|SentinelOne|CrowdStrike|Cylance|cbdefense|elastic-agent|splunkd|sysmon)")
+| where NOT match(TargetImage, "(?i)(MsMpEng|svchost|RuntimeBroker|SearchHost|explorer)")
+| where NOT match(SourceImage, "(?i)^C:\\\\Windows\\\\System32")
 | table _time, Computer, SourceImage, TargetImage, SourceProcessId, TargetProcessId
 | sort -_time
 
@@ -58,6 +62,7 @@ index=windows EventCode=1 (CommandLine="*netsh*advfirewall*off*" OR CommandLine=
 # MITRE: T1574.002
 # ========================================
 index=windows EventCode=7 Signed="false" (ImageLoaded="*\\Users\\Public\\*" OR ImageLoaded="*\\ProgramData\\*" OR ImageLoaded="*\\AppData\\Local\\Temp\\*")
+| where NOT match(Image, "(?i)(MsMpEng|Defender|WindowsApps)")
 | table _time, Computer, Image, ImageLoaded, Signed
 | sort -_time
 
@@ -66,6 +71,7 @@ index=windows EventCode=7 Signed="false" (ImageLoaded="*\\Users\\Public\\*" OR I
 # MITRE: T1070.006
 # ========================================
 index=windows EventCode=1 (CommandLine="*CreationTime*" OR CommandLine="*LastWriteTime*" OR CommandLine="*Set-ItemProperty*")
+| where NOT match(User, "(?i)(system|network service|local service)")
 | table _time, Computer, User, CommandLine
 | sort -_time
 
@@ -74,6 +80,6 @@ index=windows EventCode=1 (CommandLine="*CreationTime*" OR CommandLine="*LastWri
 # MITRE: T1070.002
 # ========================================
 index=linux sourcetype=linux_audit (type=SYSCALL syscall=unlink name="/var/log/*") OR (type=EXECVE a0="*history -c*")
+| where NOT match(uid, "^0$")
 | table _time, host, type, syscall, name, a0
 | sort -_time
-```
