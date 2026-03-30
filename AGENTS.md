@@ -3,7 +3,6 @@
 # Scope: any Codex session in the repo or its subfolders
 # Most specific — overrides all parent AGENTS.md files
 
-ROUTING_TRUTH: C:\RH\OPS\50_System\Context\routing_latest.md
 
 ---
 
