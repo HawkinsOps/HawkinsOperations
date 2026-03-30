@@ -1,0 +1,19 @@
+{
+  "date": "2026-03-24",
+  "system": "SignalFoundry / AutoSOC",
+  "total_cases": 54700,
+  "auto_close_rate_label": "~93%",
+  "escalations_label": "2,531",
+  "known_fp_label": "5,453",
+  "hosts_reporting": "8/8",
+  "reconciliation": "PASS (0 mismatches)",
+  "heartbeat": "SUCCESS",
+  "authority": "March 24 operator-locked canonical snapshot",
+  "notes": [
+    "Supersedes 2026-03-20 canonical (49,774 cases).",
+    "Post-reset window (2026-03-20 to 2026-03-24) added 4,926 cases via live pipeline.",
+    "Lifetime total includes canonical baseline + post-reset window cases.",
+    "Do not interpolate or merge values from other files.",
+    "If exact site payloads disagree, treat them as drift and correct them to this file."
+  ]
+}

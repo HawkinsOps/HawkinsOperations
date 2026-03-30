@@ -1,0 +1,82 @@
+```
+# HawkinsOps Splunk Detection Queries - Windows Security Event Log
+# Author: HawkinsOps SOC
+# Date: 2026-03-24
+# Sourcetype: XmlWinEventLog:Security (Security Event Log via Wazuh agent)
+# Note: Splunk Add-on for Windows not installed — fields extracted via rex field=_raw
+#       Field names reference XML Data Name attributes, not CIM-normalized names.
+#       Validated against 7-day evidence pass on HO-WE-01 (283,976 events).
+
+# ========================================
+# Browser or Office App Spawning Shell Process
+# MITRE: T1059.003
+# Note: Requires process command-line auditing enabled for triage.
+#       Without it, CommandLine field will be empty on all matches.
+# ========================================
+index=* sourcetype="XmlWinEventLog:Security" EventID=4688
+| eval parent_proc=lower(mvindex(split(ParentProcessName,"\\"),-1))
+| eval child_proc=lower(mvindex(split(NewProcessName,"\\"),-1))
+| where match(parent_proc,"(winword|excel|powerpnt|outlook|chrome|firefox|iexplore|msedge|opera|brave)")
+  AND match(child_proc,"(cmd|powershell|pwsh|wscript|cscript|mshta|rundll32|regsvr32|certutil|bitsadmin|bash|wmic|msiexec)")
+| rex field=_raw "SubjectUserName'>(?<actor>[^<]+)<"
+| rex field=_raw "CommandLine'>(?<cmdline>[^<]+)<"
+| table _time host actor parent_proc child_proc cmdline
+| sort _time desc
+
+# ========================================
+# LOLbin Volume Spike: bash.exe Spawning base64.exe
+# MITRE: T1140
+# Threshold: >500 spawns/hour per host (derived from 7-day baseline).
+#             Any occurrence on hosts where Git Bash is not a known tool.
+# ========================================
+index=* sourcetype="XmlWinEventLog:Security" EventID=4688
+| eval parent_proc=lower(mvindex(split(ParentProcessName,"\\"),-1))
+| eval child_proc=lower(mvindex(split(NewProcessName,"\\"),-1))
+| where parent_proc="bash.exe" AND child_proc="base64.exe"
+| bucket _time span=1h
+| stats count as spawns by _time host
+| where spawns > 500
+
+# ========================================
+# Shell Process Reading Windows Credential Manager
+# MITRE: T1555.004
+# Threshold: Any single occurrence — actionable without logging changes.
+# ========================================
+index=* sourcetype="XmlWinEventLog:Security" EventID=5379
+| rex field=_raw "SubjectUserName'>(?<actor>[^<]+)<"
+| rex field=_raw "ProcessName'>(?<proc_path>[^<]+)<"
+| rex field=_raw "TargetName'>(?<cred_name>[^<]+)<"
+| eval proc_name=lower(mvindex(split(proc_path,"\\"),-1))
+| where match(proc_name,"(cmd|powershell|pwsh|wscript|cscript|mshta|rundll32)")
+| table _time host actor proc_name cred_name
+
+# ========================================
+# After-Hours Process Execution by Non-Baseline Account
+# MITRE: T1078
+# Threshold: Any after-hours occurrence (UTC 20:00-07:00) by unknown account.
+#             Adjust baseline account list per environment before deployment.
+# ========================================
+index=* sourcetype="XmlWinEventLog:Security" EventID=4688
+| rex field=_raw "SubjectUserName'>(?<actor>[^<]+)<"
+| eval hour=tonumber(strftime(_time,"%H"))
+| where (hour < 7 OR hour >= 20)
+  AND NOT match(actor,"^SYSTEM$|^-$|^\$|^DWM|^UMFD|^LOCAL SERVICE|^NETWORK SERVICE")
+| eval child_proc=lower(mvindex(split(NewProcessName,"\\"),-1))
+| where NOT match(child_proc,"(svchost|services|lsass|wininit|winlogon|smss|csrss|dllhost|taskhost|conhost|fontdrvhost)")
+| stats count by actor child_proc hour host
+| sort -count
+
+# ========================================
+# Local Group Enumeration Under Interactive Session
+# MITRE: T1087.001
+# Threshold: Any occurrence by non-system actor — actionable without logging changes.
+# ========================================
+index=* sourcetype="XmlWinEventLog:Security" EventID IN (4798,4799)
+| rex field=_raw "SubjectUserName'>(?<actor>[^<]+)<"
+| rex field=_raw "ProcessName'>(?<proc_path>[^<]+)<"
+| eval proc_name=lower(mvindex(split(proc_path,"\\"),-1))
+| where NOT match(actor,"^SYSTEM$|^-$|^\$|^DWM|^LOCAL SERVICE|^NETWORK SERVICE")
+| eval event_desc=if(EventID="4798","User_Enum","Group_Enum")
+| table _time host actor proc_name event_desc
+| sort _time desc
+```

@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <title>Raylee Hawkins | SOC Analyst &amp; Detection Engineer | HawkinsOps</title>
@@ -82,7 +82,7 @@
         </div>
         <p style="font-family:'Sora','Inter',sans-serif;font-size:1.05rem;font-weight:700;line-height:1.5;color:#71c7b8;margin:0 0 14px;">This is a working security operations system, not a static portfolio.</p>
         <p class="sf-body" style="line-height:1.7;margin-bottom:14px;">I design, build, and operate SignalFoundry: a production-grade detection-to-escalation pipeline across Sigma, Wazuh, and Splunk that automatically triages alerts, collects forensic evidence, and only escalates verified threats with full proof attached.</p>
-        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:14px;">In 7 months, I transitioned from factory operations into cybersecurity and built a pipeline that has processed 55,665 verified cases with <span data-verified="detections">139</span> custom detections (<span data-verified="sigma">103</span> Sigma rules, <span data-verified="wazuh">28</span> Wazuh blocks, <span data-verified="splunk">8</span> Splunk queries) while working 12-hour manufacturing shifts.</p>
+        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:14px;">In 7 months, I transitioned from factory operations into cybersecurity and built a pipeline that has processed 55,665 verified cases with <span data-verified="detections">140</span> custom detections (<span data-verified="sigma">103</span> Sigma rules, <span data-verified="wazuh">28</span> Wazuh blocks, <span data-verified="splunk">9</span> Splunk queries) while working 12-hour manufacturing shifts.</p>
         <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:14px;">Factory-trained discipline meets modern SOC automation. Every metric is real, every detection is version-controlled, and every claim is reproducible.</p>
         <p style="font-size:0.95rem;font-weight:600;line-height:1.5;color:#71c7b8;margin:0 0 20px;">If you're looking for someone who can actually build and run detection engineering and security automation, not just talk about it, you're in the right place.</p>
         <div class="sf-actions">
@@ -90,103 +90,123 @@
           <a class="sf-button sf-button-secondary sf-focus-ring" href="/case-study-autosoc">SignalFoundry Case Study</a>
         </div>
       </div>
-      <!-- RIGHT: Photo + credibility block -->
-      <aside style="display:grid;gap:20px;justify-items:center;">
-        <img src="/assets/headshot.jpg" alt="Raylee Hawkins" width="280" height="280" style="border-radius:50%;border:3px solid rgba(113,199,184,0.3);box-shadow:0 0 40px rgba(113,199,184,0.12);object-fit:cover;">
-        <div style="display:grid;gap:8px;width:100%;padding:18px;background:rgba(113,199,184,0.04);border:1px solid rgba(113,199,184,0.15);border-radius:12px;">
-          <div style="font-size:0.78rem;font-weight:600;color:#71c7b8;text-transform:uppercase;letter-spacing:0.08em;">At a glance</div>
-          <ul style="margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:0.84rem;color:var(--text);">
-            <li>Built from zero experience in 7 months</li>
-            <li>Production-grade detection pipeline</li>
-            <li>55,665 verified cases processed</li>
-            <li><span data-verified="detections">139</span> detections across 4 platforms</li>
-            <li>Huntsville, AL (clearance-eligible)</li>
-          </ul>
+      <p class="sf-body sf-body-lead">I build and operate automated SOC pipelines that classify, triage, and validate alerts at scale.</p>
+      <div class="hero-bridge">
+        <strong>Background:</strong>&nbsp; Production supervisor → detection engineer. 30+ operators, IATF audit compliance, 12-hr rotating shifts. The domain changed. The control logic didn't.
+      </div>
+      <div class="outcomes-strip" role="region" aria-label="Pipeline outcomes summary">
+        <div class="of-node">
+          <div class="of-val counter" data-target="54700">0</div>
+          <div class="of-lbl">Alerts Ingested</div>
         </div>
-      </aside>
+        <div class="of-arr">→</div>
+        <div class="of-node of-teal">
+          <div class="of-val">AutoSOC</div>
+          <div class="of-lbl">Pipeline</div>
+        </div>
+        <div class="of-arr">→</div>
+        <div class="of-node of-green">
+          <div class="of-val">93%</div>
+          <div class="of-lbl">Auto-Closed</div>
+        </div>
+        <div class="of-arr">→</div>
+        <div class="of-node of-teal">
+          <div class="of-val counter" data-target="2531">0</div>
+          <div class="of-lbl">Escalated</div>
+        </div>
+        <div class="of-arr">→</div>
+        <div class="of-node of-green">
+          <div class="of-val">0</div>
+          <div class="of-lbl">Reconcile Errors</div>
+        </div>
+        <div class="outcomes-note">Ledger-backed · reproducible · no hand-edited metrics · canonical 03-20-2026</div>
+      </div>
+      <div class="sf-actions" style="margin-top:22px;">
+        <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Open SignalFoundry →</a>
+        <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof Receipts</a>
+        <a class="sf-button sf-button-secondary sf-focus-ring" href="/resume">Resume</a>
+        <a class="sf-button sf-button-secondary sf-focus-ring" href="/soc-lab">Lab</a>
+      </div>
     </section>
 
-    <!--
-         SECTION 1B: ABOUT ME
-          -->
-    <section id="about" class="sf-section" aria-labelledby="about-title">
-      <div class="sf-section-label">About</div>
-      <div class="sf-card sf-panel" style="padding:24px;display:grid;gap:14px;">
-        <h2 id="about-title" style="margin:0;">From industrial operations to security operations</h2>
-        <p class="sf-body" style="max-width:72ch;">September 2025: zero computer experience. March 2026: a production-grade security pipeline processing 55,665 verified cases. I built SignalFoundry during mandatory 12-hour shifts at a Tier-1 Nissan supplier.</p>
-        <p class="sf-body" style="max-width:72ch;color:var(--muted);">Before cybersecurity, I led production lines at Fehrer Automotive (Mercedes/BMW/VW/Tesla) and Unipres Alabama (Nissan hot stamp). Promoted to Team Lead in under 3 months at Fehrer. Supervised 30+ operators at Unipres. Maintained quality under IATF 16949, SQF, and ISO 9001. The process discipline, escalation handling, and documentation rigor I learned on the factory floor is exactly what I bring to security operations.</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:4px;">
-          <a class="sf-button sf-button-secondary sf-focus-ring" href="/resume" style="font-size:0.88rem;">Full Resume &rarr;</a>
-          <a class="sf-button sf-button-secondary sf-focus-ring" href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" style="font-size:0.88rem;">LinkedIn</a>
+    <!-- FLAGSHIP SYSTEM -->
+    <section id="flagship" class="sf-section reveal" aria-labelledby="flagship-title">
+      <div class="sf-section-label">Flagship System</div>
+      <div class="sf-proof-grid">
+        <div class="sf-card sf-panel">
+          <h2 id="flagship-title">SignalFoundry</h2>
+          <p class="sf-body sf-copy-gap-sm">Wazuh alerts in → policy-driven triage → mandatory redaction → evidence packs → reconciliation gate → published proof. 35-script Python pipeline. Deterministic. Nothing publishes without PASS.</p>
+          <div class="det-inventory" aria-label="Detection inventory">
+            <div class="det-inv-hdr">
+              <div class="det-inv-title">Detection Inventory</div>
+              <div class="det-inv-total"><span data-verified="detections">140</span> rules</div>
+            </div>
+            <div class="det-rows">
+              <div class="det-row dr-sigma">
+                <div class="det-icon" style="color:#6aaad8;">σ</div>
+                <div class="det-label">Sigma</div>
+                <div class="det-sub">10 MITRE ATT&amp;CK tactics · portable</div>
+                <div class="det-bar-track"><div class="det-bar-fill" data-w="74"></div></div>
+                <div class="det-count"><span data-verified="sigma">103</span></div>
+              </div>
+              <div class="det-row dr-wazuh">
+                <div class="det-icon" style="color:#00c4d4;">⚙</div>
+                <div class="det-label">Wazuh XML</div>
+                <div class="det-sub">Custom rule blocks · live in Wazuh</div>
+                <div class="det-bar-track"><div class="det-bar-fill" data-w="20"></div></div>
+                <div class="det-count"><span data-verified="wazuh">28</span></div>
+              </div>
+              <div class="det-row dr-splunk">
+                <div class="det-icon" style="color:#e8a020;">&gt;</div>
+                <div class="det-label">Splunk SPL</div>
+                <div class="det-sub">Investigation layer · detection lane</div>
+                <div class="det-bar-track"><div class="det-bar-fill" data-w="6"></div></div>
+                <div class="det-count"><span data-verified="splunk">9</span></div>
+              </div>
+              <div class="det-row dr-ir">
+                <div class="det-icon">📋</div>
+                <div class="det-label">IR Playbooks</div>
+                <div class="det-sub">7-step structured · reproducible evidence</div>
+                <div class="det-bar-track"><div class="det-bar-fill" data-w="7"></div></div>
+                <div class="det-count"><span data-verified="ir">10</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="sf-actions sf-actions-compact" style="margin-top:16px;">
+            <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Full Case Study →</a>
+            <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof Artifacts</a>
+          </div>
+        </div>
+        <div class="sf-card sf-panel">
+          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(100,140,180,.13);">
+            <img src="/assets/signalfoundry-pipeline.svg" alt="SignalFoundry 7-stage pipeline diagram" loading="eager" width="1100" height="420" style="display:block;width:100%;height:auto;">
+          </div>
+          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(100,140,180,.13);margin-top:12px;">
+            <img src="/assets/autosoc-decision-flow.svg" alt="AutoSOC triage decision flow" loading="lazy" width="900" height="720" style="display:block;width:100%;height:auto;">
+          </div>
         </div>
       </div>
     </section>
 
-    <!--
-         SECTION 2: FLAGSHIP SYSTEM - What I built
-          -->
-    <section id="flagship" class="sf-section" aria-labelledby="flagship-title" style="padding:56px 0 20px;">
-      <div class="sf-section-label">Autonomous Detection System</div>
-      <h2 id="flagship-title" style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin:8px 0 8px;">SignalFoundry</h2>
-      <p class="sf-body" style="max-width:72ch;margin-bottom:14px;">This is the full operational architecture. Alerts enter from distributed endpoints on the left, flow through detection and orchestration at the center, and exit through a governed validation gate on the right. Hover any node to inspect its role, metrics, and system relationships.</p>
-    </section>
-
-    <!--
-         SECTION 2B: LIVING SYSTEM MAP
-          -->
-    <section id="system-topology" class="sf-section" style="padding:0 0 16px;">
-      <div id="system-map" class="sysmap">
-        <div class="sysmap-canvas"></div>
-      </div>
-    </section>
-
-    <!--
-         SECTION 2C: SYSTEM SUMMARY
-          -->
-    <section class="sf-section" style="padding:12px 0 32px;">
-      <div class="sf-card" style="padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-        <div>
-          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:#71c7b8;margin-bottom:8px;">What the system does</div>
-          <p style="margin:0;font-size:0.9rem;line-height:1.7;color:var(--text);">SignalFoundry continuously ingests alerts from 8 monitored endpoints through Wazuh, applies deterministic triage policy against <span data-verified="detections">139</span> detection rules, and routes each case to either auto-close or escalation. Escalated cases produce structured evidence packs that pass a mandatory redaction gate before any output becomes public. A reconciliation engine verifies that no case is silently dropped or duplicated. 38 scripts across intake, triage, sanitation, packaging, verification, and publishing keep the entire loop automated and auditable.</p>
-        </div>
-        <div>
-          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:#71c7b8;margin-bottom:8px;">Why it matters</div>
-          <ul style="margin:0;padding:0 0 0 16px;font-size:0.88rem;line-height:1.7;color:var(--muted);display:grid;gap:6px;">
-            <li>Every alert gets a disposition. No silent drops.</li>
-            <li>Pass/fail validation gates control what gets published.</li>
-            <li>Failed validations block release and flag for review.</li>
-            <li>Every published metric traces to <code>current-authority.json</code>.</li>
-            <li>Detection rules are continuously refined through a governance feedback loop.</li>
-            <li>The entire system runs on self-hosted infrastructure over a Tailscale secure mesh.</li>
-          </ul>
-        </div>
-      </div>
-      <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:20px;">
-        <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">Full Case Study</a>
-        <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof Artifacts</a>
-      </div>
-    </section>
-
-    <!--
-         SECTION 3: SYSTEM IMPACT KPIs
-          -->
-    <section id="system-kpis" class="sf-section" aria-labelledby="kpi-title">
-      <div class="sf-section-label">System Impact</div>
-      <h2 id="kpi-title">What SignalFoundry processes</h2>
-      <div class="sf-metrics" role="status" aria-live="polite" aria-label="Operational KPIs" style="grid-template-columns:repeat(4,1fr);">
-        <article class="sf-card sf-metric" data-modal="tpl-escalated" data-modal-title="Total Cases Processed">
-          <span class="sf-metric-label">Total Cases</span>
-          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_total_cases">55,665</span></span>
-          <p class="sf-metric-note">Alerts ingested, triaged, and dispositioned.</p>
+    <!-- PROOF METRICS -->
+    <section id="proof-snapshot" class="sf-section reveal" aria-labelledby="health-title">
+      <div class="sf-section-label">Stable Benchmark</div>
+      <h2 id="health-title">Canonical snapshot — 03-24-2026</h2>
+      <p class="sf-body sf-copy-gap-lg"><span data-ops="stable_statement">March 24 canonical snapshot: 54,700 total cases, ~93% auto-close, 2,531 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
+      <div class="sf-metrics" role="status" aria-live="polite">
+        <article class="sf-card sf-metric">
+          <span class="sf-metric-label">Heartbeat</span>
+          <span class="sf-metric-value"><span class="sdot" aria-hidden="true"></span><span data-ops-status="stable_heartbeat">SUCCESS</span></span>
+          <p class="sf-metric-note">Live pipeline gate — operational.</p>
         </article>
         <article class="sf-card sf-metric" data-modal="tpl-escalated" data-modal-title="Auto-Close Rate">
           <span class="sf-metric-label">Auto-Close Rate</span>
-          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_auto_closed_benign">~92%</span></span>
+          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_auto_closed_benign">~93%</span></span>
           <p class="sf-metric-note">Benign alerts resolved without human action.</p>
         </article>
         <article class="sf-card sf-metric" data-modal="tpl-escalated" data-modal-title="Escalated Cases">
           <span class="sf-metric-label">Escalated</span>
-          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_escalated">2,545</span></span>
+          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_escalated">2,531</span></span>
           <p class="sf-metric-note">Non-trivial cases requiring analyst review.</p>
         </article>
         <article class="sf-card sf-metric" data-modal="tpl-heartbeat" data-modal-title="Reconciliation">
@@ -223,21 +243,21 @@
           <!-- Tier 1: Total Ingested -->
           <rect x="20" y="16" width="860" height="52" rx="10" fill="url(#funnel-g1)" stroke="rgba(122,184,255,0.2)" stroke-width="1"/>
           <text class="f-label" x="40" y="47">Alert Intake</text>
-          <text class="f-val" x="480" y="48" data-ops="stable_total_cases">55,665</text>
+          <text class="f-val" x="480" y="48" data-ops="stable_total_cases">54,700</text>
           <text class="f-pct" x="600" y="48">total cases</text>
           <!-- Arrow -->
           <path class="f-arrow" d="M450 72 L440 80 L460 80 Z"/>
           <!-- Tier 2: Auto-Closed -->
           <rect x="80" y="84" width="740" height="52" rx="10" fill="url(#funnel-g2)" stroke="rgba(74,222,128,0.18)" stroke-width="1"/>
           <text class="f-label" x="100" y="115">Auto-Closed Benign</text>
-          <text class="f-val" x="480" y="116" style="fill:#4ade80;" data-ops="stable_auto_closed_benign">~92%</text>
+          <text class="f-val" x="480" y="116" style="fill:#4ade80;" data-ops="stable_auto_closed_benign">~93%</text>
           <text class="f-pct" x="560" y="116">policy-matched, no human action</text>
           <!-- Arrow -->
           <path class="f-arrow" d="M450 140 L440 148 L460 148 Z"/>
           <!-- Tier 3: Escalated -->
           <rect x="180" y="152" width="540" height="52" rx="10" fill="url(#funnel-g3)" stroke="rgba(251,191,36,0.18)" stroke-width="1"/>
           <text class="f-label" x="200" y="183">Escalated for Review</text>
-          <text class="f-val" x="480" y="184" style="fill:#fbbf24;" data-ops="stable_escalated">2,545</text>
+          <text class="f-val" x="480" y="184" style="fill:#fbbf24;" data-ops="stable_escalated">2,531</text>
           <text class="f-pct" x="600" y="184">analyst judgment required</text>
           <!-- Arrow -->
           <path class="f-arrow" d="M450 208 L440 216 L460 216 Z"/>
@@ -255,11 +275,11 @@
     <section id="detection-chart" class="sf-section" aria-labelledby="det-title">
       <div class="sf-section-label">Detection Inventory</div>
       <h2 id="det-title">What the pipeline watches for</h2>
-      <p class="sf-body sf-copy-gap-lg"><span data-verified="detections">139</span> detections across 4 platforms, mapped to MITRE ATT&amp;CK. <a href="/detections" class="sf-inline-link">Full searchable inventory &rarr;</a></p>
+      <p class="sf-body sf-copy-gap-lg"><span data-verified="detections">140</span> detections across 4 platforms, mapped to MITRE ATT&amp;CK. <a href="/detections" class="sf-inline-link">Full searchable inventory &rarr;</a></p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;">
         <!-- Chart -->
         <div class="sf-card sf-panel" style="padding:24px;">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 220" role="img" aria-label="Detection platform breakdown: Sigma 103, Wazuh 28, IR 10, Splunk 8" style="width:100%;height:auto;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 220" role="img" aria-label="Detection platform breakdown: Sigma 103, Wazuh 28, IR 10, Splunk 9" style="width:100%;height:auto;">
             <title>Detection Platform Breakdown</title>
             <style>
               .bar-label { fill:#d4e0ec; font:500 13px Inter,system-ui,sans-serif; }
@@ -288,7 +308,7 @@
             <text class="bar-label" x="10" y="180">Splunk</text>
             <rect x="100" y="166" width="280" height="22" rx="4" fill="rgba(122,184,255,0.06)"/>
             <rect x="100" y="166" width="22" height="22" rx="4" fill="rgba(74,222,128,0.2)" stroke="rgba(74,222,128,0.25)" stroke-width="0.5"/>
-            <text class="bar-count" x="390" y="183" style="fill:#4ade80;" data-verified="splunk">8</text>
+            <text class="bar-count" x="390" y="183" style="fill:#4ade80;" data-verified="splunk">9</text>
             <text class="bar-tag" x="420" y="183">queries</text>
             <!-- Home lab note -->
             <text class="bar-tag" x="100" y="212" style="opacity:0.6;">Splunk: home lab only. Not an enterprise or production SOC claim.</text>
@@ -340,7 +360,12 @@
           <span class="sf-metric-value"><span data-ops="stable_coverage_ratio">8/8</span></span>
           <p class="sf-metric-note">All endpoints reporting.</p>
         </article>
-        <article class="sf-card sf-metric" aria-label="Reconciliation status" data-modal="tpl-heartbeat" data-modal-title="Reconciliation">
+        <article class="sf-card sf-metric">
+          <span class="sf-metric-label">Escalations</span>
+          <span class="sf-metric-value"><span data-ops="stable_escalated">2,531</span></span>
+          <p class="sf-metric-note">Analyst-ready evidence packs.</p>
+        </article>
+        <article class="sf-card sf-metric">
           <span class="sf-metric-label">Reconciliation</span>
           <span class="sf-metric-value">PASS</span>
           <p class="sf-metric-note">0 mismatches between stages.</p>
@@ -351,6 +376,8 @@
           <p class="sf-metric-note">Snapshot date.</p>
         </article>
       </div>
+      <p class="sf-body" style="font-size:.82rem;margin-top:10px;opacity:.45;">Source: <code>/assets/data/ops-metrics.json</code> · Locked: <span data-ops="stable_locked_date">03-24-2026</span> · <a href="/proof" style="color:#00c4d4;">Full verification →</a></p>
+      <p class="sf-body" style="font-size:.76rem;margin-top:6px;opacity:.40;">Public benchmark snapshot · Runtime snapshot · Generated at <span data-ops="lifetime_last_updated">03-24-2026</span> · Source artifact <code>/assets/data/ops-metrics.json</code></p>
     </section>
 
     <!--
@@ -376,7 +403,7 @@
           <ul style="margin:0;padding-left:16px;display:grid;gap:8px;font-size:0.9rem;color:var(--muted);">
             <li><strong style="color:var(--text);">Sept 2025:</strong> Zero computer experience.</li>
             <li><strong style="color:var(--text);">Dec 2025:</strong> Left Unipres. Started AI Model Evaluator role (detection, scripting, security reasoning).</li>
-            <li><strong style="color:var(--text);">Mar 2026:</strong> Production-grade pipeline. Verified public benchmark. <span data-verified="detections">139</span> detections. Anthropic MCP + Claude API certified.</li>
+            <li><strong style="color:var(--text);">Mar 2026:</strong> Production-grade pipeline. Verified public benchmark. <span data-verified="detections">140</span> detections. Anthropic MCP + Claude API certified.</li>
             <li><strong style="color:var(--text);">Result:</strong> <a href="/case-study-autosoc" class="sf-inline-link">SignalFoundry</a> &mdash; built during mandatory 12-hour shifts.</li>
           </ul>
         </div>

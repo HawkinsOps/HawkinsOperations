@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <title>SignalFoundry - Proof &amp; Verified Metrics</title>
@@ -348,7 +348,7 @@ body.proof-page {
         </div>
         <div class="proof-integrity-badge">
           <span class="badge-label">Locked</span>
-          <span class="badge-value" data-ops="stable_locked_date">03-25-2026</span>
+          <span class="badge-value" data-ops="stable_locked_date">03-24-2026</span>
         </div>
         <div class="proof-integrity-badge">
           <span class="badge-label">Verified</span>
@@ -367,7 +367,7 @@ body.proof-page {
       <!-- Detection inventory strip -->
       <div class="m-proof-strip" style="margin-bottom:24px;">
         <div class="m-proof-inline">
-          <strong><span data-verified="detections">139</span> detections</strong>
+          <strong><span data-verified="detections">140</span> detections</strong>
           <strong><span data-verified="sigma">103</span> Sigma</strong>
           <strong><span data-verified="wazuh">28</span> Wazuh rule blocks</strong>
           <strong><span data-verified="ir">10</span> IR playbooks</strong>
@@ -378,7 +378,7 @@ body.proof-page {
       <ul style="font-size:0.8rem;color:var(--muted,#8ea4c7);list-style:none;padding:0;margin:0 0 20px;display:grid;gap:3px;">
         <li><strong>Public benchmark snapshot:</strong> reviewer-authoritative values from <code>data/truth/current-authority.json</code>.</li>
         <li><strong>Runtime snapshot:</strong> telemetry from <code>data/truth/current-live.json</code>, displayed as informational only.</li>
-        <li><strong>Generated at:</strong> <span data-ops="stable_locked_date">03-25-2026</span></li>
+        <li><strong>Generated at:</strong> <span data-ops="stable_locked_date">03-24-2026</span></li>
         <li><strong>Source artifact:</strong> <code>site/data/truth/current-authority.json</code></li>
       </ul>
 
@@ -392,148 +392,57 @@ body.proof-page {
   <!-- ── VISUAL DASHBOARD ── -->
   <section class="m-section" style="padding:0 0 48px;">
     <div class="m-wrap">
-
-      <!-- Row 1: Gauge + Funnel -->
-      <div style="display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:start;margin-bottom:32px;">
-
-        <!-- Auto-Close Rate Gauge -->
-        <div class="sf-card" style="padding:24px;text-align:center;">
-          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Auto-Close Rate</div>
-          <svg viewBox="0 0 200 200" width="180" height="180" role="img" aria-label="Auto-close rate gauge showing approximately 92 percent" style="display:block;margin:0 auto;">
-            <title>Auto-close rate: ~92%</title>
-            <!-- Track -->
-            <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="16"/>
-            <!-- Fill: 89% of circumference (2*pi*80 = 502.65, 89% = 447.36) -->
-            <circle cx="100" cy="100" r="80" fill="none" stroke="url(#gauge-grad)" stroke-width="16"
-              stroke-dasharray="447 503" stroke-dashoffset="0" stroke-linecap="round"
-              transform="rotate(-90 100 100)" style="transition:stroke-dasharray 1.5s ease;"/>
-            <!-- Remaining (escalated): red accent -->
-            <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(251,191,36,0.3)" stroke-width="16"
-              stroke-dasharray="56 503" stroke-dashoffset="-447" stroke-linecap="round"
-              transform="rotate(-90 100 100)"/>
-            <defs>
-              <linearGradient id="gauge-grad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#4ade80"/>
-                <stop offset="100%" stop-color="#22c55e"/>
-              </linearGradient>
-            </defs>
-            <!-- Center text -->
-            <text x="100" y="92" text-anchor="middle" fill="#f0f6ff" style="font:800 2.8rem 'Sora',sans-serif;">~92<tspan style="font-size:1.4rem;">%</tspan></text>
-            <text x="100" y="118" text-anchor="middle" fill="var(--muted,#8ea4c7)" style="font:500 0.7rem 'JetBrains Mono',monospace;">benign auto-closed</text>
-          </svg>
-          <div style="display:flex;gap:16px;justify-content:center;margin-top:12px;font-size:0.75rem;">
-            <span style="color:#4ade80;">&#9679; Auto-closed</span>
-            <span style="color:#fbbf24;">&#9679; Escalated</span>
-          </div>
-        </div>
-
-        <!-- Case Disposition Breakdown -->
-        <div class="sf-card" style="padding:24px;">
-          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Case Disposition Breakdown</div>
-          <svg viewBox="0 0 600 160" width="100%" height="auto" role="img" aria-label="Case disposition stacked bar: auto-close, escalated, reconciled" style="display:block;">
-            <title>Case disposition breakdown</title>
-            <style>
-              .db-label { fill:#d4e0ec; font:600 12px Inter,sans-serif; }
-              .db-val { fill:#f0f6ff; font:700 16px 'Sora',sans-serif; }
-              .db-sub { fill:#8ea4c7; font:400 10px 'JetBrains Mono',monospace; }
-            </style>
-            <!-- Stacked horizontal bar -->
-            <rect x="0" y="10" width="530" height="36" rx="6" fill="rgba(74,222,128,0.18)" stroke="rgba(74,222,128,0.3)" stroke-width="0.5"/>
-            <rect x="0" y="10" width="530" height="36" rx="6" fill="rgba(74,222,128,0.06)"/>
-            <!-- Escalated portion -->
-            <rect x="530" y="10" width="65" height="36" rx="0" fill="rgba(251,191,36,0.2)" stroke="rgba(251,191,36,0.3)" stroke-width="0.5"/>
-            <!-- Top-right corner rounding -->
-            <rect x="570" y="10" width="25" height="36" rx="6" fill="rgba(251,191,36,0.2)"/>
-            <!-- Labels -->
-            <text class="db-val" x="20" y="35" style="fill:#4ade80;" data-ops="stable_auto_closed_benign">~92%</text>
-            <text class="db-label" x="85" y="35">auto-closed benign</text>
-            <text class="db-val" x="538" y="35" style="fill:#fbbf24;font-size:13px;" data-ops="stable_escalated">2,545</text>
-            <!-- Sub labels -->
-            <text class="db-sub" x="0" y="68">Policy-matched dispositions: no analyst action required</text>
-            <text class="db-sub" x="530" y="68">Escalated</text>
-
-            <!-- Detail row -->
-            <line x1="0" y1="82" x2="595" y2="82" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-            <text class="db-sub" x="0" y="100">Total processed</text>
-            <text class="db-val" x="120" y="101" style="font-size:14px;" data-ops="stable_total_cases">55,665</text>
-            <text class="db-sub" x="250" y="100">Reconciliation</text>
-            <text class="db-val" x="350" y="101" style="font-size:14px;fill:#71c7b8;">PASS</text>
-            <text class="db-sub" x="410" y="100">Mismatches</text>
-            <text class="db-val" x="490" y="101" style="font-size:14px;fill:#71c7b8;">0</text>
-
-            <!-- Pipeline stage flow -->
-            <line x1="0" y1="114" x2="595" y2="114" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-            <text class="db-sub" x="0" y="132" style="opacity:0.5;">INGEST</text>
-            <text class="db-sub" x="0" y="132" style="opacity:0.5;">&#8594;</text>
-            <text class="db-sub" x="75" y="132" style="opacity:0.5;">TRIAGE</text>
-            <text class="db-sub" x="130" y="132" style="opacity:0.5;">&#8594;</text>
-            <text class="db-sub" x="150" y="132" style="opacity:0.5;">REDACT</text>
-            <text class="db-sub" x="210" y="132" style="opacity:0.5;">&#8594;</text>
-            <text class="db-sub" x="230" y="132" style="opacity:0.5;">PACK</text>
-            <text class="db-sub" x="275" y="132" style="opacity:0.5;">&#8594;</text>
-            <text class="db-sub" x="295" y="132" style="opacity:0.5;">RECONCILE</text>
-            <text class="db-sub" x="375" y="132" style="opacity:0.5;">&#8594;</text>
-            <text class="db-sub" x="395" y="132" style="opacity:0.5;">GATE</text>
-            <text class="db-sub" x="435" y="132" style="opacity:0.5;">&#8594;</text>
-            <text class="db-sub" x="455" y="132" style="color:#3b8fd9;">PUBLISH</text>
-          </svg>
+      <div class="m-eyebrow">Proof</div>
+      <h1 class="m-title" style="font-size: clamp(2.2rem, 4vw, 3.7rem);">SignalFoundry — Proof &amp; Verified Metrics</h1>
+      <p class="m-outcome">SignalFoundry proof page: public evidence, verified counts, verification commands, and current metrics contract.</p>
+      <div class="m-proof-strip" style="margin-top:20px;">
+        <div class="m-proof-inline">
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0;">
+  <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #00c4d4;">
+    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Heartbeat</div>
+    <div style="font-size:24px;font-weight:700;color:#27c97a;font-family:'JetBrains Mono',monospace;display:flex;align-items:center;gap:8px;">
+      <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#27c97a;box-shadow:0 0 8px #27c97a;animation:blink 2s ease-in-out infinite;"></span>
+      <span data-ops-status="stable_heartbeat">SUCCESS</span>
+    </div>
+    <div style="font-size:9px;color:#486880;margin-top:4px;">Pipeline gate — operational</div>
+  </div>
+  <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #27c97a;">
+    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Host Coverage</div>
+    <div style="font-size:24px;font-weight:700;color:#27c97a;font-family:'JetBrains Mono',monospace;"><span data-ops="stable_coverage_ratio">8/8</span></div>
+    <div style="font-size:9px;color:#486880;margin-top:4px;">All endpoints reporting · 0 gaps</div>
+  </div>
+  <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #00c4d4;">
+    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Total Cases</div>
+    <div style="font-size:24px;font-weight:700;color:#00c4d4;font-family:'JetBrains Mono',monospace;"><span data-ops="stable_total_cases">54,700</span></div>
+    <div style="font-size:9px;color:#486880;margin-top:4px;">Ledger-verified · all runs</div>
+  </div>
+  <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #27c97a;">
+    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Reconciliation</div>
+    <div style="font-size:24px;font-weight:700;color:#27c97a;font-family:'JetBrains Mono',monospace;">PASS</div>
+    <div style="font-size:9px;color:#486880;margin-top:4px;">0 mismatches · <span data-ops="stable_escalated">2,531</span> escalations pub.</div>
+  </div>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(41,121,200,.1);color:#6aaad8;border:1px solid rgba(41,121,200,.2);"><span data-verified="sigma">103</span> Sigma</span>
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(0,196,212,.1);color:#00c4d4;border:1px solid rgba(0,196,212,.2);"><span data-verified="wazuh">28</span> Wazuh XML</span>
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(232,160,32,.1);color:#e8a020;border:1px solid rgba(232,160,32,.2);"><span data-verified="splunk">9</span> Splunk SPL</span>
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(39,201,122,.1);color:#27c97a;border:1px solid rgba(39,201,122,.2);"><span data-verified="ir">10</span> IR Playbooks</span>
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(100,140,180,.08);color:#486880;border:1px solid rgba(100,140,180,.13);">Last verified <span data-verified-date>03-20-2026</span></span>
+</div>
         </div>
       </div>
-
-      <!-- Row 2: Host Coverage + Detection Inventory -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
-
-        <!-- Host Coverage Grid -->
-        <div class="sf-card" style="padding:24px;">
-          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Host Coverage &mdash; <span data-ops="stable_coverage_ratio">8/8</span> Reporting</div>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
-            <div style="text-align:center;padding:14px 8px;background:rgba(113,199,184,0.06);border:1px solid rgba(113,199,184,0.2);border-radius:10px;">
-              <div style="width:12px;height:12px;border-radius:50%;background:#71c7b8;margin:0 auto 8px;box-shadow:0 0 8px rgba(113,199,184,0.4);"></div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#c2ccde;">wazuh-mgr</div>
-              <div style="font-size:0.6rem;color:#71c7b8;margin-top:2px;">SIEM</div>
-            </div>
-            <div style="text-align:center;padding:14px 8px;background:rgba(113,199,184,0.06);border:1px solid rgba(113,199,184,0.2);border-radius:10px;">
-              <div style="width:12px;height:12px;border-radius:50%;background:#71c7b8;margin:0 auto 8px;box-shadow:0 0 8px rgba(113,199,184,0.4);"></div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#c2ccde;">dc01</div>
-              <div style="font-size:0.6rem;color:#71c7b8;margin-top:2px;">Domain Ctrl</div>
-            </div>
-            <div style="text-align:center;padding:14px 8px;background:rgba(113,199,184,0.06);border:1px solid rgba(113,199,184,0.2);border-radius:10px;">
-              <div style="width:12px;height:12px;border-radius:50%;background:#71c7b8;margin:0 auto 8px;box-shadow:0 0 8px rgba(113,199,184,0.4);"></div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#c2ccde;">win10-01</div>
-              <div style="font-size:0.6rem;color:#71c7b8;margin-top:2px;">Sysmon</div>
-            </div>
-            <div style="text-align:center;padding:14px 8px;background:rgba(113,199,184,0.06);border:1px solid rgba(113,199,184,0.2);border-radius:10px;">
-              <div style="width:12px;height:12px;border-radius:50%;background:#71c7b8;margin:0 auto 8px;box-shadow:0 0 8px rgba(113,199,184,0.4);"></div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#c2ccde;">win10-02</div>
-              <div style="font-size:0.6rem;color:#71c7b8;margin-top:2px;">Sysmon</div>
-            </div>
-            <div style="text-align:center;padding:14px 8px;background:rgba(113,199,184,0.06);border:1px solid rgba(113,199,184,0.2);border-radius:10px;">
-              <div style="width:12px;height:12px;border-radius:50%;background:#71c7b8;margin:0 auto 8px;box-shadow:0 0 8px rgba(113,199,184,0.4);"></div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#c2ccde;">linux-web</div>
-              <div style="font-size:0.6rem;color:#71c7b8;margin-top:2px;">Web Svr</div>
-            </div>
-            <div style="text-align:center;padding:14px 8px;background:rgba(113,199,184,0.06);border:1px solid rgba(113,199,184,0.2);border-radius:10px;">
-              <div style="width:12px;height:12px;border-radius:50%;background:#71c7b8;margin:0 auto 8px;box-shadow:0 0 8px rgba(113,199,184,0.4);"></div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#c2ccde;">linux-db</div>
-              <div style="font-size:0.6rem;color:#71c7b8;margin-top:2px;">Database</div>
-            </div>
-            <div style="text-align:center;padding:14px 8px;background:rgba(113,199,184,0.06);border:1px solid rgba(113,199,184,0.2);border-radius:10px;">
-              <div style="width:12px;height:12px;border-radius:50%;background:#71c7b8;margin:0 auto 8px;box-shadow:0 0 8px rgba(113,199,184,0.4);"></div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#c2ccde;">honeypot</div>
-              <div style="font-size:0.6rem;color:#71c7b8;margin-top:2px;">Sensor</div>
-            </div>
-            <div style="text-align:center;padding:14px 8px;background:rgba(113,199,184,0.06);border:1px solid rgba(113,199,184,0.2);border-radius:10px;">
-              <div style="width:12px;height:12px;border-radius:50%;background:#71c7b8;margin:0 auto 8px;box-shadow:0 0 8px rgba(113,199,184,0.4);"></div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#c2ccde;">splunk-fwd</div>
-              <div style="font-size:0.6rem;color:#71c7b8;margin-top:2px;">Forwarder</div>
-            </div>
-          </div>
-          <p style="font-size:0.7rem;color:var(--muted,#8ea4c7);margin-top:12px;opacity:0.6;">All hosts: Proxmox VMs &middot; Wazuh agent instrumented &middot; Lab environment</p>
+      <p class="m-copy" style="margin-top:12px;"><span data-ops="stable_statement">March 24 canonical snapshot: 54,700 total cases, ~93% auto-close, 2,531 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
+      <div class="m-proof-strip" style="margin-top:12px;">
+        <div class="m-proof-inline">
+          <strong>Lifetime processed (runtime snapshot) <span data-ops="lifetime_total_cases">54,700</span></strong>
+          <strong>Runtime escalated <span data-ops="lifetime_escalated">2,531</span></strong>
+          <strong>Runtime known FP <span data-ops="lifetime_known_fp">N/A</span></strong>
+          <strong>Runtime updated <span data-ops="lifetime_last_updated">03-24-2026</span></strong>
         </div>
 
         <!-- Detection Inventory Chart -->
         <div class="sf-card" style="padding:24px;">
-          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Detection Inventory &mdash; <span data-verified="detections">139</span> Total</div>
+          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Detection Inventory &mdash; <span data-verified="detections">140</span> Total</div>
           <!-- Sigma -->
           <div style="margin-bottom:14px;">
             <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
@@ -568,7 +477,7 @@ body.proof-page {
           <div style="margin-bottom:8px;">
             <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
               <span style="font-size:0.82rem;color:#d4e0ec;font-weight:600;">Splunk SPL <span style="font-size:0.68rem;opacity:0.5;">(lab)</span></span>
-              <span style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:#4ade80;font-weight:700;" data-verified="splunk">8</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:#4ade80;font-weight:700;" data-verified="splunk">9</span>
             </div>
             <div style="height:8px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden;">
               <div style="width:6%;height:100%;background:linear-gradient(90deg,rgba(74,222,128,0.4),rgba(74,222,128,0.2));border-radius:4px;"></div>
@@ -578,34 +487,30 @@ body.proof-page {
         </div>
 
       </div>
+      <p class="m-copy" style="margin-top:12px">Public benchmark snapshot: locked candidate-facing benchmark from committed proof. Runtime snapshot: rolling totals from the same metrics artifact.</p>
+      <p class="m-copy">Generated at <span data-ops="stable_locked_date">03-24-2026</span> | Source artifact <code>/assets/data/ops-metrics.json</code></p>
     </div>
   </section>
-
-  <!-- ── CANONICAL KPI LEDGER ── -->
-  <section class="proof-kpi-section" aria-labelledby="kpi-heading">
-    <div class="proof-kpi-header">
-      <div class="proof-kpi-section-label">Canonical KPI Ledger</div>
-      <h2 id="kpi-heading" class="proof-kpi-section-title">Locked benchmark &mdash; click any metric to inspect</h2>
-      <p class="proof-kpi-section-sub">Values from <code>data/truth/current-authority.json</code> &middot; Source: <code>scripts/verify/verify-counts.ps1</code> &middot; Each card opens the metric definition, provenance, and verification path.</p>
-    </div>
-    <div class="proof-kpi-grid" data-ops-scope="stable" aria-label="Canonical proof metrics">
-
-      <article class="proof-kpi-card"
-        data-modal="modal-cases"
-        data-modal-title="Total Cases — Metric Definition &amp; Provenance"
-        role="button" tabindex="0"
-        aria-label="55,665 total cases — click to inspect metric definition">
-        <div class="proof-kpi-value"><span data-ops="stable_total_cases">55,665</span></div>
-        <div class="proof-kpi-label">Total Cases</div>
-        <div class="proof-kpi-hint">&#x2197; Metric definition &middot; provenance</div>
+  <section class="m-section">
+    <div class="m-wrap m-grid-2">
+      <article class="m-card">
+        <div class="m-card-kicker">AutoSOC case</div>
+        <h2>TITLE: AutoSOC Noise-Reduction Proof Block (2026-03-24 Snapshot)</h2>
+        <p class="m-copy"><strong>CLAIM:</strong> AutoSOC processed <span data-ops="stable_total_cases">54,700</span> alerts, auto-closed <span data-ops="stable_auto_closed_benign">~93%</span>, and produced <span data-ops="stable_escalated">2,531</span> escalations across <span data-ops="stable_coverage_ratio">8/8</span> coverage.</p>
+        <p class="m-copy"><strong>CONTEXT:</strong> Current-facing metrics on this page are locked to the March 24 canonical snapshot. Historical recovery evidence remains linked as historical context only.</p>
+        <ul class="m-list-tight">
+          <li><strong>EVIDENCE:</strong> <code>source_of_truth/metrics_canonical_2026-03-20.json</code> -> <code>total_cases=49774</code>, <code>auto_close_rate_label=~89%</code>, <code>escalations_label=~2,500+</code>, <code>hosts_reporting=8/8</code>; proves canonical quantified baseline.</li>
+          <li><strong>EVIDENCE:</strong> <code>docs/execution/AUTOSOC_PIPELINE_RECOVERY_CASE_STUDY_03-13-2026.md</code> -> final run shows <code>run_id=autosoc-20260313T215029Z-31020</code>, <code>status=SUCCESS</code>, <code>cases_processed=173</code>, <code>reconciliation.mismatch_count=0</code>; proves real output and validated recovery.</li>
+          <li><strong>EVIDENCE:</strong> <code>/assets/pp_soc_integration/t3-workflow.png</code> -> proves a concrete workflow snapshot of the triage and evidence-pack pipeline surface.</li>
+        </ul>
       </article>
 
       <article class="proof-kpi-card"
         data-modal="modal-autoclose"
         data-modal-title="Auto-Close Rate — How It Is Computed"
         role="button" tabindex="0"
-        aria-label="~92% auto-close rate — click to inspect">
-        <div class="proof-kpi-value"><span data-ops="stable_auto_closed_benign">~92%</span></div>
+        aria-label="~93% auto-close rate — click to inspect">
+        <div class="proof-kpi-value"><span data-ops="stable_auto_closed_benign">~93%</span></div>
         <div class="proof-kpi-label">Auto-Close Rate</div>
         <div class="proof-kpi-hint">&#x2197; Computation method</div>
       </article>
@@ -614,42 +519,29 @@ body.proof-page {
         data-modal="modal-escalations"
         data-modal-title="Published Escalations — Evidence Pack Definition"
         role="button" tabindex="0"
-        aria-label="2,545 escalations — click to inspect evidence pack definition">
-        <div class="proof-kpi-value"><span data-ops="stable_escalated">2,545</span></div>
+        aria-label="2,531 escalations — click to inspect evidence pack definition">
+        <div class="proof-kpi-value"><span data-ops="stable_escalated">2,531</span></div>
         <div class="proof-kpi-label">Published Escalations</div>
         <div class="proof-kpi-hint">&#x2197; What each escalation pack contains</div>
       </article>
-
-      <article class="proof-kpi-card"
-        data-modal="modal-hosts"
-        data-modal-title="Host Coverage — 8/8 Endpoint Roster"
-        role="button" tabindex="0"
-        aria-label="8/8 hosts reporting — click to inspect host roster">
-        <div class="proof-kpi-value"><span data-ops="stable_coverage_ratio">8/8</span></div>
-        <div class="proof-kpi-label">Hosts Reporting</div>
-        <div class="proof-kpi-hint">&#x2197; Host roster &middot; roles &middot; telemetry health</div>
+      <article class="m-card" style="grid-column:1/-1;">
+        <div class="m-card-kicker">Field notes</div>
+        <h2>Engineering case studies</h2>
+        <p class="m-copy">Operational decisions documented from source evidence — pipeline logs, preflight output, scheduler metadata. Not post-hoc summaries.</p>
+        <div class="m-grid-2" style="margin-top:12px;">
+          <a href="/autosoc-cutover" class="m-link-item">
+            <strong>Infrastructure Cutover &mdash; 2026-03-23</strong>
+            <span>Production migration to canonical root. Preflight gate returned legacy refs = 0. Five Task Scheduler tasks retargeted. CUTOVER_READY=YES.</span>
+          </a>
+          <a href="/autosoc-hotfix-rca" class="m-link-item">
+            <strong>Hotfix RCA: Triage Quality Chart &mdash; 2026-03-23</strong>
+            <span>Function-order bug silently breaking chart rendering. Diagnosed from runtime log, fixed, validated EXIT=0. 104KB artifact confirmed.</span>
+          </a>
+        </div>
+        <div style="margin-top:12px;">
+          <a href="/case-studies" class="m-cta m-cta-secondary">All field notes &rarr;</a>
+        </div>
       </article>
-
-      <article class="proof-kpi-card"
-        data-modal="modal-reconciliation"
-        data-modal-title="Reconciliation PASS — Definition &amp; Contract"
-        role="button" tabindex="0"
-        aria-label="Reconciliation PASS — click to inspect definition">
-        <div class="proof-kpi-value status-pass">PASS</div>
-        <div class="proof-kpi-label">Reconciliation</div>
-        <div class="proof-kpi-hint">&#x2197; Definition &middot; mismatch count &middot; contract</div>
-      </article>
-
-      <article class="proof-kpi-card"
-        data-modal="modal-heartbeat"
-        data-modal-title="Heartbeat SUCCESS — Pipeline Health Definition"
-        role="button" tabindex="0"
-        aria-label="Heartbeat SUCCESS — click to inspect definition">
-        <div class="proof-kpi-value status-success"><span data-ops-status="stable_heartbeat">SUCCESS</span></div>
-        <div class="proof-kpi-label">Heartbeat</div>
-        <div class="proof-kpi-hint">&#x2197; What heartbeat validates</div>
-      </article>
-
     </div>
   </section>
 
@@ -665,9 +557,9 @@ body.proof-page {
           <div class="m-card-kicker">Current authority snapshot</div>
           <h3>SignalFoundry Pipeline &mdash; Reconciliation Proof</h3>
           <ul class="m-list-tight">
-            <li><strong>Total cases processed:</strong> <span data-ops="stable_total_cases">55,665</span></li>
-            <li><strong>Auto-close rate:</strong> <span data-ops="stable_auto_closed_benign">~92%</span></li>
-            <li><strong>Escalations:</strong> <span data-ops="stable_escalated">2,545</span></li>
+            <li><strong>Total cases processed:</strong> <span data-ops="stable_total_cases">54,700</span></li>
+            <li><strong>Auto-close rate:</strong> <span data-ops="stable_auto_closed_benign">~93%</span></li>
+            <li><strong>Escalations:</strong> <span data-ops="stable_escalated">2,531</span></li>
             <li><strong>Host coverage:</strong> <span data-ops="stable_coverage_ratio">8/8</span></li>
             <li><strong>Reconciliation:</strong> PASS (0 mismatches)</li>
             <li><strong>Heartbeat:</strong> SUCCESS</li>
@@ -694,14 +586,14 @@ body.proof-page {
     <div class="m-wrap">
       <div class="m-eyebrow">Splunk Evidence</div>
       <h2 class="m-title" style="font-size: clamp(1.4rem, 2.5vw, 2rem);">Splunk Proof Lane</h2>
-      <p class="m-copy"><strong>Scope: home lab environment.</strong> <span data-verified="splunk">8</span> Splunk queries were written and tested against Wazuh-forwarded log data in a local Proxmox VM (vm104). This is not a production SOC or enterprise Splunk deployment. The evidence below reflects that honest scope.</p>
+      <p class="m-copy"><strong>Scope: home lab environment.</strong> <span data-verified="splunk">9</span> Splunk queries were written and tested against Wazuh-forwarded log data in a local Proxmox VM (vm104). This is not a production SOC or enterprise Splunk deployment. The evidence below reflects that honest scope.</p>
 
       <div class="m-grid-2" style="margin-top:24px;">
         <article class="m-card">
           <div class="m-card-kicker">Detection inventory</div>
           <h3>Splunk Query Count</h3>
           <ul class="m-list-tight">
-            <li><strong>Splunk queries:</strong> <span data-verified="splunk">8</span> (lab environment, home lab only)</li>
+            <li><strong>Splunk queries:</strong> <span data-verified="splunk">9</span> (lab environment, home lab only)</li>
             <li><strong>Context:</strong> Queries target Wazuh-forwarded events ingested via Splunk Universal Forwarder in vm104</li>
             <li><strong>Claim ceiling:</strong> Lab-deployed, integration-tested; not enterprise, not production SOC</li>
           </ul>

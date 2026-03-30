@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Field Notes — Engineering Case Studies | HawkinsOps</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07070b">
+<meta name="description" content="Engineering field notes from the AutoSOC project: infrastructure migrations, incident RCAs, and operational decisions with documented proof.">
+<link rel="canonical" href="https://hawkinsops.com/case-studies">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Field Notes — Engineering Case Studies | HawkinsOps">
+<meta property="og:description" content="Engineering field notes from the AutoSOC project: infrastructure migrations, incident RCAs, and operational decisions with documented proof.">
+<meta property="og:url" content="https://hawkinsops.com/case-studies">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.setAttribute('data-theme','dark');</script>
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<style>
+body {
+  background:
+    radial-gradient(ellipse 100% 55% at 0% 0%,rgba(41,121,200,0.09) 0%,transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 100%,rgba(0,196,212,0.07) 0%,transparent 55%),
+    #03060b !important;
+}
+.cs-index-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px; margin-top:32px; }
+.cs-card {
+  display:flex; flex-direction:column; gap:12px;
+  padding:24px; border-radius:10px;
+  background:rgba(8,13,22,.8); border:1px solid rgba(100,140,180,.13);
+  text-decoration:none; transition:all .2s;
+  border-top:2px solid transparent;
+}
+.cs-card:hover { border-color:rgba(0,196,212,.3); border-top-color:#00c4d4; transform:translateY(-3px); box-shadow:0 8px 32px rgba(0,196,212,.08); }
+.cs-card-type { font-size:8px; font-weight:700; letter-spacing:2px; color:#486880; text-transform:uppercase; font-family:'JetBrains Mono',monospace; }
+.cs-card-title { font-size:1.1rem; font-weight:700; color:#e0eeff; font-family:'Sora',sans-serif; line-height:1.3; }
+.cs-card-desc { font-size:.88rem; color:#7a9ab8; line-height:1.65; flex:1; }
+.cs-card-meta { display:flex; flex-wrap:wrap; gap:6px; }
+.cs-card-tag {
+  padding:2px 9px; border-radius:20px; font-size:9px; font-weight:700;
+  font-family:'JetBrains Mono',monospace;
+  background:rgba(100,140,180,.08); color:#486880; border:1px solid rgba(100,140,180,.13);
+}
+.cs-card-tag.green  { background:rgba(39,201,122,.1);  color:#27c97a; border-color:rgba(39,201,122,.2); }
+.cs-card-tag.teal   { background:rgba(0,196,212,.1);   color:#00c4d4; border-color:rgba(0,196,212,.2); }
+.cs-card-tag.orange { background:rgba(232,160,32,.1);  color:#e8a020; border-color:rgba(232,160,32,.2); }
+.cs-card-arrow { font-size:.8rem; color:#486880; }
+.cs-card:hover .cs-card-arrow { color:#00c4d4; }
+</style>
+</head>
+<body data-ops-scope="stable">
+<nav>
+  <div class="nav-i">
+    <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
+    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
+    <ul class="nav-l">
+      <li><a href="/">Home</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
+      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
+      <li><a href="/detections">Detections</a></li>
+      <li><a href="/soc-lab">Lab</a></li>
+      <li><a href="/resume">Resume</a></li>
+    </ul>
+    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
+  </div>
+</nav>
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+  <a href="/">Home</a>
+  <a href="/proof">Proof</a>
+  <a href="/operations-bridge">Ops &rarr; Cyber</a>
+  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/detections">Detections</a>
+  <a href="/soc-lab">Lab</a>
+  <a href="/resume">Resume</a>
+</div>
+
+<main class="modernize-shell">
+<section class="m-section" style="padding-top:96px;">
+  <div class="m-wrap">
+    <div class="m-eyebrow">Field Notes</div>
+    <h1 class="m-title" style="font-size:clamp(2.2rem,4vw,3.5rem);">Engineering Case Studies</h1>
+    <p class="m-subtitle" style="max-width:640px;">Documented technical decisions from the AutoSOC project: infrastructure migrations, incident RCAs, and operational proof artifacts. Each entry covers what happened, why, and what the evidence shows.</p>
+
+    <div class="cs-index-grid">
+
+      <a class="cs-card" href="/autosoc-cutover">
+        <div class="cs-card-type">Infrastructure &mdash; 2026-03-23</div>
+        <div class="cs-card-title">AutoSOC Infrastructure Cutover</div>
+        <div class="cs-card-desc">Production migration of the AutoSOC pipeline from two legacy roots to a single canonical path. Preflight gating, five retargeted Task Scheduler tasks, legacy reference scan returning zero. Proof document signed.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag teal">Canonical migration</span>
+          <span class="cs-card-tag green">CUTOVER_READY=YES</span>
+          <span class="cs-card-tag">Preflight gate</span>
+          <span class="cs-card-tag">5 tasks retargeted</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+      <a class="cs-card" href="/autosoc-hotfix-rca">
+        <div class="cs-card-type">Incident / RCA &mdash; 2026-03-23</div>
+        <div class="cs-card-title">Hotfix RCA: Triage Quality Chart Renderer</div>
+        <div class="cs-card-desc">Function-order bug silently breaking scheduled chart rendering. Assert-CanonicalPath called before declaration at line 10. Fix: reorder. Validation: EXIT=0, 30 data points, 104KB artifact. Parent pipeline confirmed successful.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag orange">PowerShell bug</span>
+          <span class="cs-card-tag green">EXIT=0</span>
+          <span class="cs-card-tag teal">POINTS_RENDERED=30</span>
+          <span class="cs-card-tag">RCA documented</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section class="m-section m-stage">
+  <div class="m-wrap">
+    <div class="m-card">
+      <div class="m-card-kicker">Context</div>
+      <h2>About these field notes</h2>
+      <p class="m-copy">These aren't sanitized post-mortems written weeks after the fact. They're documented from the session logs and proof artifacts that exist on-system from the actual work. The source material — preflight output, pipeline logs, scheduler metadata — is real and reviewable.</p>
+      <p class="m-copy">The AutoSOC project processes a live queue of Wazuh security alerts across a home lab environment. These field notes capture the operational and engineering decisions made while keeping that system running.</p>
+      <div class="m-grid-2" style="margin-top:20px;">
+        <a href="/case-study-autosoc" class="m-link-item">
+          <strong>SignalFoundry — Full Case Study</strong>
+          <span>Architecture, triage logic, and proof strips for the AutoSOC pipeline.</span>
+        </a>
+        <a href="/proof" class="m-link-item">
+          <strong>Proof &amp; Verified Metrics</strong>
+          <span>Canonical snapshot, reconciliation status, and verification commands.</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="ctr">
+    <p><b>HawkinsOps</b> &bull; Huntsville-adjacent (North Alabama)</p>
+    <div class="fl">
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">LinkedIn</a>
+      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/fetch-utils.js" defer></script>
+<script src="/data/counts.js" defer></script>
+<script src="/data/ops-metrics.js" defer></script>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>

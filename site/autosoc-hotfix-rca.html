@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Hotfix RCA — Triage Quality Chart Renderer | HawkinsOps</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07070b">
+<meta name="description" content="Case study: diagnosing and fixing a function-order bug in the AutoSOC chart renderer. Assert-CanonicalPath called before declaration. EXIT=0 after fix, 104KB chart artifact confirmed.">
+<link rel="canonical" href="https://hawkinsops.com/autosoc-hotfix-rca">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hotfix RCA — Triage Quality Chart Renderer | HawkinsOps">
+<meta property="og:description" content="Root cause analysis: function-order bug silently breaking scheduled pipeline chart rendering. Symptom, diagnosis, fix, validation — one session.">
+<meta property="og:url" content="https://hawkinsops.com/autosoc-hotfix-rca">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.setAttribute('data-theme','dark');</script>
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<style>
+body {
+  background:
+    radial-gradient(ellipse 100% 55% at 0% 0%,rgba(41,121,200,0.09) 0%,transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 100%,rgba(0,196,212,0.07) 0%,transparent 55%),
+    #03060b !important;
+}
+.cs-meta { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 0; }
+.cs-meta-tag {
+  padding:3px 12px; border-radius:20px; font-size:10px; font-weight:700;
+  font-family:'JetBrains Mono',monospace; letter-spacing:.5px;
+  background:rgba(41,121,200,.1); color:#6aaad8; border:1px solid rgba(41,121,200,.2);
+}
+.cs-meta-tag.green  { background:rgba(39,201,122,.1);  color:#27c97a; border-color:rgba(39,201,122,.2); }
+.cs-meta-tag.teal   { background:rgba(0,196,212,.1);   color:#00c4d4; border-color:rgba(0,196,212,.2); }
+.cs-meta-tag.orange { background:rgba(232,160,32,.1);  color:#e8a020; border-color:rgba(232,160,32,.2); }
+.cs-prose { max-width:740px; }
+.cs-prose p { margin:0 0 16px; line-height:1.75; color:#b8cce0; font-size:1rem; }
+.cs-prose h2 { font-size:1.25rem; color:#e0eeff; margin:36px 0 10px; font-family:'Sora',sans-serif; }
+.cs-nav-back { font-size:.82rem; color:#486880; margin-bottom:24px; display:inline-block; }
+.cs-nav-back:hover { color:#00c4d4; }
+.outcome-bar {
+  border-left:3px solid #27c97a; padding:14px 18px; background:rgba(39,201,122,.05);
+  border-radius:0 6px 6px 0; margin:24px 0;
+}
+.outcome-bar p { margin:0; color:#b8cce0; line-height:1.7; }
+.open-item {
+  border-left:3px solid #e8a020; padding:14px 18px; background:rgba(232,160,32,.05);
+  border-radius:0 6px 6px 0; margin:16px 0;
+}
+.open-item p { margin:0; color:#b8cce0; line-height:1.7; font-size:.9rem; }
+.open-item strong { color:#e8a020; }
+.rca-step {
+  display:grid; grid-template-columns:auto 1fr; gap:0 16px; align-items:start;
+  margin-bottom:28px;
+}
+.rca-step-label {
+  font-size:8px; font-weight:700; letter-spacing:2px; color:#486880;
+  text-transform:uppercase; font-family:'JetBrains Mono',monospace;
+  padding:4px 10px; background:rgba(100,140,180,.08);
+  border:1px solid rgba(100,140,180,.13); border-radius:4px;
+  white-space:nowrap; margin-top:2px;
+}
+</style>
+</head>
+<body data-ops-scope="stable">
+<nav>
+  <div class="nav-i">
+    <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
+    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
+    <ul class="nav-l">
+      <li><a href="/">Home</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
+      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
+      <li><a href="/detections">Detections</a></li>
+      <li><a href="/soc-lab">Lab</a></li>
+      <li><a href="/resume">Resume</a></li>
+    </ul>
+    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
+  </div>
+</nav>
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+  <a href="/">Home</a>
+  <a href="/proof">Proof</a>
+  <a href="/operations-bridge">Ops &rarr; Cyber</a>
+  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/detections">Detections</a>
+  <a href="/soc-lab">Lab</a>
+  <a href="/resume">Resume</a>
+</div>
+
+<main class="modernize-shell">
+<section class="m-section" style="padding-top:96px;">
+  <div class="m-wrap">
+    <a class="cs-nav-back" href="/case-studies">&larr; All field notes</a>
+    <div class="m-eyebrow">Field Note &mdash; Incident / RCA</div>
+    <h1 class="m-title" style="font-size:clamp(2rem,3.5vw,3.2rem);max-width:820px;">
+      Hotfix RCA: Triage Quality Chart Renderer
+    </h1>
+    <p class="m-subtitle" style="max-width:680px;">Function-order bug silently breaking scheduled pipeline output. Diagnosed and fixed in one session.</p>
+    <div class="cs-meta">
+      <span class="cs-meta-tag">2026-03-23</span>
+      <span class="cs-meta-tag orange">Bug fix / RCA</span>
+      <span class="cs-meta-tag">PowerShell</span>
+      <span class="cs-meta-tag green">EXIT=0</span>
+      <span class="cs-meta-tag teal">POINTS_RENDERED=30</span>
+    </div>
+  </div>
+</section>
+
+<section class="m-section m-stage">
+  <div class="m-wrap m-rail-layout">
+    <div class="cs-prose">
+
+      <h2>The Symptom</h2>
+      <p>The AutoSOC pipeline runs on a schedule. One of its steps — rendering a trend chart of triage quality metrics — had been silently failing. The chart artifact wasn't updating. Downstream, the pipeline continued because the chart step isn't a hard dependency, but the failure was real: every scheduled run was hitting an error at that step and moving on without producing output.</p>
+      <p>The failure wasn't obvious. The pipeline reported overall success because it's designed to be resilient. The chart step was broken in isolation, and the only way to catch it was to look directly at the runtime log.</p>
+
+      <h2>Diagnosis</h2>
+      <p>I pulled the pipeline log tail and found the error immediately:</p>
+
+      <div class="m-terminal" style="margin:20px 0;">
+        <div class="m-terminal-head">
+          <span class="m-terminal-label">Runtime log — chart step failure</span>
+          <span class="m-frame-tag">Pipeline log</span>
+        </div>
+        <pre class="m-code">$ pwsh -NoProfile -File render-triage-quality-chart.ps1
+
+Assert-CanonicalPath: render-triage-quality-chart.ps1:10
+  10 | Assert-CanonicalPath -PathValue $CsvPath -Label "CsvPath"
+     | ~~~~~~~~~~~~~~~~~~~~
+     | The term 'Assert-CanonicalPath' is not recognized as a name
+     | of a cmdlet, function, script file, or executable program.</pre>
+      </div>
+
+      <p>The script was calling <span class="m-inline-code">Assert-CanonicalPath</span> on line 10. The function itself was defined later in the same file.</p>
+
+      <h2>Root Cause</h2>
+      <p><strong>Function-order bug.</strong> <span class="m-inline-code">Assert-CanonicalPath</span> was being invoked before it was declared in the script. PowerShell doesn't pre-scan function declarations — it executes top to bottom. A function called before its declaration doesn't exist yet at the time of the call.</p>
+      <p>This is a category of bug easy to miss in development because scripts often get written with helper functions at the bottom, which works fine in languages that hoist declarations. PowerShell doesn't hoist. The fix is deterministic and has no edge cases: the function declaration must appear before its first call site.</p>
+
+      <h2>Fix</h2>
+      <p>I moved the <span class="m-inline-code">Assert-CanonicalPath</span> function definition above line 10, ahead of all invocations. No logic changed. No behavior changed. The fix was purely structural — reordering existing code so the runtime could find the function when it needed it.</p>
+      <p>Script updated: <span class="m-inline-code">render-triage-quality-chart.ps1</span> &mdash; last write <span class="m-inline-code">2026-03-23 18:53</span>.</p>
+
+      <h2>Validation</h2>
+      <p>I ran the script directly after the fix:</p>
+
+      <div class="m-terminal" style="margin:20px 0;">
+        <div class="m-terminal-head">
+          <span class="m-terminal-label">Direct execution — post-fix</span>
+          <span class="m-frame-tag">EXIT=0</span>
+        </div>
+        <pre class="m-code">EXIT=0
+QUALITY_CHART_PNG=...autosoc-triage-quality-trend.png
+POINTS_RENDERED=30</pre>
+      </div>
+
+      <p>Exit code zero. Thirty data points rendered. Chart artifact produced at <strong>104,564 bytes</strong> — first successful render since the regression was introduced.</p>
+      <p>I then triggered the parent pipeline (<span class="m-inline-code">\AutoSOC-Pipeline</span>) manually and confirmed end-to-end success:</p>
+
+      <div class="m-terminal" style="margin:20px 0;">
+        <div class="m-terminal-head">
+          <span class="m-terminal-label">Task Scheduler — manual validation run</span>
+          <span class="m-frame-tag">Pipeline</span>
+        </div>
+        <pre class="m-code">Last Run Time:  3/23/2026 9:50:06 PM
+Last Result:    0
+Chart artifact: autosoc-triage-quality-trend.png
+Timestamp:      2026-03-23 22:09:04
+POINTS_RENDERED: 30</pre>
+      </div>
+
+      <div class="open-item">
+        <p><strong>Open item:</strong> The 10:09 PM scheduled run returned exit code <span class="m-inline-code">-1073741510</span> (abnormal termination). This does not invalidate the hotfix — the chart continued rendering successfully in runtime log evidence after the fix — but the scheduler exit code warrants a separate investigation into what terminated the process at that specific boundary.</p>
+      </div>
+
+      <h2>Outcome</h2>
+      <div class="outcome-bar">
+        <p>The triage quality chart is rendering again. The pipeline now has a working visual record of escalation rate trends over time, which is one of the primary health indicators for the AutoSOC system. A regression that had been silently degrading pipeline output is resolved. Total time from symptom to validated fix: one focused session.</p>
+      </div>
+
+      <h2>What This Demonstrates</h2>
+      <p>I don't escalate before I diagnose. The error message told me exactly what was wrong — I read it, identified the structural cause, applied the minimum necessary change, and validated against real execution output before calling it done.</p>
+      <p>The open item on the 10:09 PM run is documented, not papered over. I closed what I could prove was fixed and flagged what still needs investigation. That's the difference between resolving an incident and resolving your discomfort with an incident.</p>
+
+    </div>
+
+    <aside class="m-rail">
+      <section class="m-rail-section">
+        <div class="m-card-kicker">RCA summary</div>
+        <h2>What happened</h2>
+        <ul class="m-list-tight">
+          <li><strong>Symptom:</strong> chart artifact not updating on scheduled runs</li>
+          <li><strong>Root cause:</strong> <span class="m-inline-code">Assert-CanonicalPath</span> called before declaration (line 10)</li>
+          <li><strong>Fix:</strong> moved function definition above first call site</li>
+          <li><strong>Validation:</strong> EXIT=0, 30 points rendered, 104KB artifact confirmed</li>
+          <li><strong>Parent pipeline:</strong> manually triggered, result = 0</li>
+        </ul>
+      </section>
+      <section class="m-rail-section">
+        <div class="m-card-kicker">Open item</div>
+        <h2>Needs follow-up</h2>
+        <p class="m-subtitle"><span class="m-inline-code">-1073741510</span> on 10:09 PM scheduled run. Hotfix is not the cause — chart renders successfully in log evidence. Process termination source is not yet isolated.</p>
+      </section>
+      <section class="m-rail-section">
+        <div class="m-card-kicker">Related</div>
+        <h2>See also</h2>
+        <div class="m-link-list">
+          <a href="/autosoc-cutover" class="m-link-item">
+            <strong>Infrastructure Cutover</strong>
+            <span>Production migration to canonical root — preflight gating and signed proof artifact.</span>
+          </a>
+          <a href="/case-study-autosoc" class="m-link-item">
+            <strong>SignalFoundry case study</strong>
+            <span>Full architecture, triage logic, and recovery model.</span>
+          </a>
+          <a href="/proof" class="m-link-item">
+            <strong>Proof page</strong>
+            <span>Verified metrics and reconciliation status.</span>
+          </a>
+        </div>
+      </section>
+    </aside>
+  </div>
+</section>
+
+<section class="m-section m-stage">
+  <div class="m-wrap">
+    <div class="m-card">
+      <div class="m-card-kicker">Continue reading</div>
+      <h2>Field notes</h2>
+      <div class="m-grid-2">
+        <a href="/autosoc-cutover" class="m-link-item">
+          <strong>Infrastructure Cutover</strong>
+          <span>Production migration to canonical root. Preflight gate, five retargeted tasks, legacy ref count = 0. CUTOVER_READY=YES.</span>
+        </a>
+        <a href="/case-study-autosoc" class="m-link-item">
+          <strong>SignalFoundry — Full Case Study</strong>
+          <span>Architecture, triage logic, proof strips, and the full operational story behind this pipeline.</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="ctr">
+    <p><b>HawkinsOps</b> &bull; Huntsville-adjacent (North Alabama)</p>
+    <div class="fl">
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">LinkedIn</a>
+      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/fetch-utils.js" defer></script>
+<script src="/data/counts.js" defer></script>
+<script src="/data/ops-metrics.js" defer></script>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>

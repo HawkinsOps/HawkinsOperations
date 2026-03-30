@@ -37,7 +37,7 @@ function Is-RestrictedPath {
   return $false
 }
 
-$staged = Get-StagedPaths
+$staged = @(Get-StagedPaths)
 if ($staged.Count -eq 0) {
   Write-Host "Staged scope check: no staged files."
   exit 0

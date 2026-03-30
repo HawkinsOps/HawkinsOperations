@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Raylee Hawkins | Signal Architecture — AutoSOC System Model</title>
+<meta name="description" content="Signal Architecture: two-lane system model showing detection content (Sigma/Wazuh/Splunk) and AutoSOC live pipeline (Wazuh-driven, 7-stage, reconciliation-gated). HawkinsOps lab environment.">
+<link rel="canonical" href="https://hawkinsops.com/architecture">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/design-tokens.css?v=03-15-2026-1">
+<link rel="stylesheet" href="/assets/base.css?v=03-15-2026-1">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-15-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/page-shells.css?v=03-16-2026-1">
+<style>
+/* ═══════════════════════════════════════════
+   SIGNAL ARCHITECTURE — hawkinsops.com
+   Integrated: 03-24-2026
+   ═══════════════════════════════════════════ */
+:root {
+  --bg:       #03060b;
+  --s1:       #080d16;
+  --s2:       #0c1220;
+  --s3:       #101828;
+  --glass:    rgba(8,13,22,0.65);
+  --glass-b:  rgba(8,13,22,0.85);
+  --teal:     #00c4d4;
+  --teal-dim: rgba(0,196,212,0.10);
+  --blue:     #2979c8;
+  --blue-dim: rgba(41,121,200,0.10);
+  --amber:    #e8a020;
+  --amber-dim:rgba(232,160,32,0.10);
+  --green:    #27c97a;
+  --green-dim:rgba(39,201,122,0.10);
+  --purple:   #9b6be0;
+  --red:      #e04060;
+  --text:     #cce0f4;
+  --soft:     #486880;
+  --muted:    #1a2e44;
+  --border:   rgba(100,140,180,0.10);
+  --border-h: rgba(100,140,180,0.22);
+  --mono:     'JetBrains Mono', monospace;
+  --disp:     'Sora', sans-serif;
+  --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+  --radius:   10px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{background:var(--bg);scroll-behavior:smooth;}
+body{
+  font-family:var(--mono);color:var(--text);min-height:100vh;overflow-x:hidden;
+  background:
+    radial-gradient(ellipse 120% 60% at 0% 0%, rgba(41,121,200,0.07) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 50% at 100% 100%, rgba(0,196,212,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(155,107,224,0.03) 0%, transparent 50%),
+    radial-gradient(ellipse 90% 70% at 20% 80%, rgba(39,201,122,0.04) 0%, transparent 50%),
+    var(--bg);
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-size:256px 256px;
+}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--muted);border-radius:3px;}
+
+.page{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:36px 28px 72px;}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
+.reveal.vis{opacity:1;transform:translateY(0);}
+.reveal.d1{transition-delay:.05s}.reveal.d2{transition-delay:.12s}
+
+/* ── HEADER ── */
+.hdr{text-align:center;padding-bottom:48px;}
+.hdr-eye{font-size:8.5px;font-weight:700;letter-spacing:4px;color:var(--soft);text-transform:uppercase;margin-bottom:14px;}
+.hdr-name{
+  font-family:var(--disp);font-size:44px;font-weight:800;letter-spacing:-1.5px;
+  background:linear-gradient(110deg,#eef6ff 0%,#b8d8ff 55%,var(--teal) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hdr-rule{width:480px;max-width:90%;height:1px;margin:18px auto;background:linear-gradient(90deg,transparent,var(--teal),transparent);}
+.hdr-sub{font-size:10px;letter-spacing:3px;color:var(--soft);margin-bottom:18px;}
+.hdr-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(41,121,200,0.06);border:1px solid rgba(41,121,200,0.18);
+  padding:8px 22px;border-radius:30px;
+  font-size:9.5px;font-weight:700;letter-spacing:2px;color:#6aaad8;
+}
+
+/* ── TWO-LANE GRID ── */
+.lanes{display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;}
+
+/* Center divider */
+.lanes::before{
+  content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;transform:translateX(-50%);
+  background:linear-gradient(180deg,transparent,rgba(100,140,180,0.15) 10%,rgba(100,140,180,0.15) 90%,transparent);
+  z-index:0;
+}
+
+.lane{position:relative;z-index:1;}
+
+/* ── LANE HEADER ── */
+.lane-hdr{
+  display:flex;align-items:center;gap:14px;
+  padding:18px 22px;border-radius:var(--radius) var(--radius) 0 0;
+  background:var(--glass);border:1px solid var(--border);border-bottom:none;
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  position:relative;overflow:hidden;
+}
+.lane-hdr::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.lh-content::before{background:linear-gradient(90deg,var(--blue),rgba(41,121,200,0.3));}
+.lh-runtime::before{background:linear-gradient(90deg,var(--teal),rgba(0,196,212,0.3));}
+.lh-icon{font-size:22px;}
+.lh-num{font-size:7.5px;font-weight:700;letter-spacing:3px;color:var(--soft);margin-bottom:2px;}
+.lh-title{font-family:var(--disp);font-size:16px;font-weight:700;color:var(--text);}
+.lh-sub{font-size:9px;color:var(--soft);margin-top:2px;}
+
+/* ── LANE BODY ── */
+.lane-body{
+  border:1px solid var(--border);border-radius:0 0 var(--radius) var(--radius);
+  padding:24px;background:var(--glass);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+
+/* ── SECTION LABEL ── */
+.sec-lbl{
+  font-size:7.5px;font-weight:700;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--soft);margin-bottom:12px;
+  display:flex;align-items:center;gap:10px;
+}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* ── FORMAT CARDS (Left Lane) ── */
+.fc{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:16px 18px;border-radius:8px;
+  border:1px solid var(--border);background:var(--s2);
+  cursor:pointer;transition:all .3s var(--ease);
+  position:relative;overflow:hidden;margin-bottom:10px;
+}
+.fc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;}
+.fc:hover{transform:translateX(4px);border-color:rgba(0,196,212,0.25);box-shadow:0 4px 20px rgba(0,0,0,0.15);}
+.fc.sigma::before{background:var(--blue);}.fc.wazuh::before{background:var(--amber);}.fc.splunk::before{background:var(--purple);}
+.fc-icon{font-size:22px;flex-shrink:0;margin-top:1px;}
+.fc-title{font-size:11px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.fc-sub{font-size:9px;color:var(--soft);line-height:1.55;}
+.fc-count{font-family:var(--disp);font-size:24px;font-weight:700;line-height:1;flex-shrink:0;}
+.fc-count-lbl{font-size:7px;color:var(--soft);letter-spacing:1px;margin-top:2px;text-align:right;}
+.fc.sigma .fc-count{color:var(--blue);}.fc.wazuh .fc-count{color:var(--amber);}.fc.splunk .fc-count{color:var(--purple);}
+
+/* Expand panel */
+.fc-expand{
+  max-height:0;overflow:hidden;transition:max-height .4s var(--ease),padding .3s;
+  padding:0 18px;
+  font-size:9px;color:var(--soft);line-height:1.7;
+  background:rgba(0,0,0,0.15);border-radius:0 0 8px 8px;
+  margin-top:-1px;margin-bottom:10px;
+  border:1px solid transparent;border-top:none;
+}
+.fc-expand.open{
+  max-height:200px;padding:12px 18px;
+  border-color:var(--border);
+}
+.fc-expand strong{color:var(--text);}
+
+/* Translation arrow */
+.trans-note{
+  display:flex;align-items:center;gap:8px;
+  padding:7px 14px;margin:0 0 10px 18px;
+  font-size:9px;color:var(--amber);
+  border-left:1px solid rgba(232,160,32,0.25);
+}
+
+/* IR + Portfolio */
+.ir-card{
+  padding:14px 16px;border-radius:8px;background:var(--s2);
+  border:1px solid var(--border);margin-bottom:16px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.portfolio-row{
+  display:flex;gap:6px;flex-wrap:wrap;
+  padding:14px 16px;border-radius:8px;
+  background:rgba(41,121,200,0.05);border:1px solid rgba(41,121,200,0.12);
+}
+.pr-label{width:100%;font-size:7.5px;font-weight:700;letter-spacing:2px;color:var(--blue);margin-bottom:6px;text-transform:uppercase;}
+.tag{
+  display:inline-block;padding:3px 10px;border-radius:20px;
+  font-size:8px;font-weight:700;letter-spacing:.8px;
+  transition:transform .2s;
+}
+.tag:hover{transform:scale(1.05);}
+.t-blue{background:rgba(41,121,200,0.10);color:#6aaad8;border:1px solid rgba(41,121,200,0.18);}
+.t-teal{background:rgba(0,196,212,0.08);color:var(--teal);border:1px solid rgba(0,196,212,0.18);}
+.t-amber{background:rgba(232,160,32,0.08);color:var(--amber);border:1px solid rgba(232,160,32,0.18);}
+.t-green{background:rgba(39,201,122,0.08);color:var(--green);border:1px solid rgba(39,201,122,0.18);}
+.t-purple{background:rgba(155,107,224,0.08);color:var(--purple);border:1px solid rgba(155,107,224,0.18);}
+
+/* Arch note */
+.arch-note{
+  margin-top:18px;padding:14px 16px;border-radius:8px;
+  background:rgba(155,107,224,0.04);border:1px solid rgba(155,107,224,0.12);
+  font-size:9px;color:var(--soft);line-height:1.7;
+}
+.arch-note strong{color:var(--text);}
+.arch-note-lbl{font-size:7.5px;font-weight:700;letter-spacing:2px;color:var(--purple);margin-bottom:7px;text-transform:uppercase;}
+
+/* ── RIGHT LANE: PIPELINE ── */
+.source-node{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 18px;border-radius:var(--radius);
+  background:rgba(39,201,122,0.05);border:1px solid rgba(39,201,122,0.18);
+  margin-bottom:16px;position:relative;overflow:hidden;
+}
+.source-node::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--green);border-radius:3px 0 0 3px;}
+.sn-icon{font-size:24px;}
+.sn-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.sn-sub{font-size:9px;color:var(--soft);}
+.sn-badge{
+  margin-left:auto;padding:4px 14px;border-radius:20px;
+  font-size:9px;font-weight:700;
+  background:rgba(72,104,128,0.10);color:var(--soft);
+  border:1px solid rgba(72,104,128,0.22);flex-shrink:0;
+}
+
+/* Pipeline nodes */
+.pipeline{display:flex;flex-direction:column;gap:0;}
+.pipe-node{display:flex;gap:0;align-items:stretch;cursor:pointer;}
+
+.pipe-rail{
+  width:36px;flex-shrink:0;
+  display:flex;flex-direction:column;align-items:center;
+}
+.pr-dot{
+  width:14px;height:14px;border-radius:50%;
+  border:2px solid;flex-shrink:0;margin-top:18px;
+  position:relative;z-index:1;transition:all .25s var(--ease);
+}
+.pipe-node:hover .pr-dot{transform:scale(1.3);box-shadow:0 0 12px rgba(0,196,212,0.3);}
+.pr-line{flex:1;width:2px;background:var(--border);margin:0 auto;}
+.pipe-node:last-child .pr-line{display:none;}
+
+.pipe-card{
+  flex:1;padding:14px 16px 14px 14px;
+  border-radius:8px;border:1px solid var(--border);
+  background:var(--s2);margin:6px 0;
+  transition:all .3s var(--ease);position:relative;overflow:hidden;
+  border-left:3px solid var(--muted);
+}
+.pipe-node:hover .pipe-card{
+  border-color:rgba(0,196,212,0.25);
+  background:rgba(0,196,212,0.03);
+  transform:translateX(3px);
+  box-shadow:0 4px 20px rgba(0,0,0,0.12);
+}
+.pipe-node.active .pipe-card{
+  border-left-color:var(--teal);
+  background:rgba(0,196,212,0.05);
+  box-shadow:0 0 20px rgba(0,196,212,0.06);
+}
+.pc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.pc-num{font-size:7.5px;font-weight:700;color:var(--muted);letter-spacing:1px;}
+.pc-badge{
+  font-size:7.5px;font-weight:700;padding:2px 10px;
+  border-radius:20px;letter-spacing:.8px;
+}
+.pc-title{font-size:11px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.pc-script{font-size:9px;color:var(--soft);}
+.pc-sub{font-size:9px;color:var(--soft);margin-top:4px;line-height:1.55;max-height:0;overflow:hidden;transition:max-height .4s var(--ease),margin .3s;}
+.pipe-node.active .pc-sub{max-height:100px;margin-top:8px;}
+
+/* Triage branch */
+.triage-branch{
+  margin:0 0 6px 36px;padding:12px 14px;
+  border-radius:6px;background:rgba(0,196,212,0.03);
+  border:1px solid rgba(0,196,212,0.10);
+  display:flex;gap:6px;flex-wrap:wrap;
+}
+.tb-lbl{width:100%;font-size:7.5px;font-weight:700;letter-spacing:2px;color:var(--soft);margin-bottom:4px;}
+.triage-pill{
+  padding:5px 12px;border-radius:20px;
+  font-size:9px;font-weight:700;letter-spacing:.8px;
+  border:1px solid;display:flex;align-items:center;gap:6px;
+  transition:transform .2s;
+}
+.triage-pill:hover{transform:scale(1.05);}
+.tp-b{background:rgba(39,201,122,0.08);color:var(--green);border-color:rgba(39,201,122,0.22);}
+.tp-f{background:rgba(232,160,32,0.08);color:var(--amber);border-color:rgba(232,160,32,0.22);}
+.tp-e{background:rgba(0,196,212,0.08);color:var(--teal);border-color:rgba(0,196,212,0.22);}
+.tp-dot{width:6px;height:6px;border-radius:50%;}
+
+/* Stats strip */
+.stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px;}
+.ss-cell{
+  padding:12px 10px;border-radius:8px;
+  background:var(--s2);border:1px solid var(--border);
+  text-align:center;transition:border-color .2s;
+}
+.ss-cell:hover{border-color:var(--border-h);}
+.ss-val{font-family:var(--disp);font-size:18px;font-weight:700;line-height:1;margin-bottom:4px;}
+.ss-lbl{font-size:7px;color:var(--soft);letter-spacing:1px;text-transform:uppercase;}
+.ss-sub{font-size:7px;color:var(--muted);margin-top:2px;}
+
+/* Output node */
+.output-node{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 18px;border-radius:var(--radius);
+  background:rgba(0,196,212,0.04);border:1px solid rgba(0,196,212,0.18);
+  margin-top:12px;position:relative;overflow:hidden;
+}
+.output-node::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--teal);}
+.on-icon{font-size:22px;}
+.on-title{font-size:11px;font-weight:700;color:var(--teal);margin-bottom:6px;}
+.on-pills{display:flex;gap:6px;flex-wrap:wrap;}
+
+/* ── TRUTH BOX ── */
+.truth-box{
+  margin-top:32px;padding:24px 28px;border-radius:12px;
+  background:var(--glass);border:1px solid rgba(0,196,212,0.12);
+  backdrop-filter:blur(12px);position:relative;overflow:hidden;
+}
+.truth-box::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,var(--blue),var(--teal));
+}
+.truth-box::after{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:200px;height:200px;
+  background:radial-gradient(circle,rgba(0,196,212,0.05),transparent 70%);
+  pointer-events:none;
+}
+.tb-label{font-size:7.5px;font-weight:700;letter-spacing:3px;color:var(--soft);text-transform:uppercase;margin-bottom:12px;}
+.tb-quote{font-size:12px;line-height:1.85;color:var(--text);position:relative;z-index:1;}
+.tb-quote em{font-style:normal;color:var(--teal);font-weight:600;}
+.tb-quote strong{color:var(--text);font-weight:700;}
+
+/* ── LEGEND ── */
+.legend{
+  display:flex;flex-wrap:wrap;gap:18px;justify-content:center;
+  margin-top:20px;padding:14px 20px;
+  background:var(--glass);border:1px solid var(--border);
+  border-radius:8px;backdrop-filter:blur(8px);
+}
+.lg{display:flex;align-items:center;gap:7px;font-size:9px;color:var(--soft);}
+.lg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+
+/* ── CTA ── */
+.arch-cta{
+  margin-top:32px;padding:28px 32px;
+  background:var(--glass-b);border:1px solid rgba(0,196,212,0.15);
+  border-radius:14px;display:flex;
+  align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:20px;position:relative;overflow:hidden;
+  backdrop-filter:blur(20px);
+}
+.arch-cta::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--teal));}
+.arch-cta-title{font-family:var(--disp);font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;}
+.arch-cta-sub{font-size:10px;color:var(--soft);}
+.arch-cta-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.btn{
+  display:flex;align-items:center;gap:5px;
+  padding:12px 24px;border-radius:8px;
+  font-size:10px;font-weight:700;letter-spacing:1px;
+  text-decoration:none;font-family:var(--mono);
+  transition:all .25s var(--ease);border:1px solid;
+}
+.btn-p{background:rgba(0,196,212,0.08);color:var(--teal);border-color:rgba(0,196,212,0.22);}
+.btn-p:hover{background:rgba(0,196,212,0.16);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,196,212,0.1);}
+.btn-s{background:rgba(41,121,200,0.08);color:#6aaad8;border-color:rgba(41,121,200,0.2);}
+.btn-s:hover{background:rgba(41,121,200,0.15);transform:translateY(-1px);}
+
+/* ── ANIMATIONS ── */
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.15;}}
+@keyframes pipeIn{from{opacity:0;transform:translateX(-8px);}to{opacity:1;transform:translateX(0);}}
+
+.pipe-node{animation:pipeIn .4s var(--ease) both;}
+.pipe-node:nth-child(1){animation-delay:.1s}
+.pipe-node:nth-child(2){animation-delay:.2s}
+.pipe-node:nth-child(3){animation-delay:.3s}
+.pipe-node:nth-child(4){animation-delay:.4s}
+.pipe-node:nth-child(5){animation-delay:.5s}
+.pipe-node:nth-child(6){animation-delay:.6s}
+.pipe-node:nth-child(7){animation-delay:.7s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .lanes{grid-template-columns:1fr;}
+  .lanes::before{display:none;}
+  .hdr-name{font-size:30px;}
+  .stats-strip{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-i">
+    <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
+    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
+    <ul class="nav-l">
+      <li><a href="/">Home</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
+      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
+      <li><a href="/detections">Detections</a></li>
+      <li><a href="/soc-lab">Lab</a></li>
+      <li><a href="/resume">Resume</a></li>
+    </ul>
+    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
+  </div>
+</nav>
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+  <a href="/">Home</a>
+  <a href="/proof">Proof</a>
+  <a href="/operations-bridge">Ops &rarr; Cyber</a>
+  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/detections">Detections</a>
+  <a href="/soc-lab">Lab</a>
+  <a href="/resume">Resume</a>
+</div>
+
+<div class="page">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="hdr reveal">
+    <div class="hdr-eye">hawkinsops.com · Detection Engineering · Security Operations</div>
+    <div class="hdr-name">Signal Architecture</div>
+    <div class="hdr-rule"></div>
+    <div class="hdr-sub">Two-Lane System Model &nbsp;·&nbsp; Lab Environment</div>
+    <div class="hdr-badge">Architecture Overview &nbsp;·&nbsp; as of 03-20-2026</div>
+  </div>
+
+  <!-- ═══ TWO LANES ═══ -->
+  <div class="lanes">
+
+    <!-- ═══ LEFT: DETECTION CONTENT ═══ -->
+    <div class="lane reveal d1">
+      <div class="lane-hdr lh-content" style="background:rgba(41,121,200,0.04);">
+        <div class="lh-icon">🧠</div>
+        <div>
+          <div class="lh-num">LANE 1 · CONTENT LAYER</div>
+          <div class="lh-title">Detection Engineering</div>
+          <div class="lh-sub">Detection logic across multiple formats</div>
+        </div>
+      </div>
+      <div class="lane-body">
+        <div class="sec-lbl">Detection Formats</div>
+
+        <!-- Sigma -->
+        <div class="fc sigma" data-expand="exp-sigma">
+          <div class="fc-icon">σ</div>
+          <div style="flex:1;">
+            <div class="fc-title">Sigma Rules</div>
+            <div class="fc-sub">Vendor-agnostic detection logic across all mapped MITRE ATT&amp;CK tactics. Portable — translates into Wazuh XML and Splunk SPL.</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div class="fc-count" data-verified="sigma">103</div>
+            <div class="fc-count-lbl">rules</div>
+          </div>
+        </div>
+        <div class="fc-expand" id="exp-sigma">
+          Coverage spans <strong>Initial Access</strong>, <strong>Execution</strong>, <strong>Persistence</strong>, <strong>Privilege Escalation</strong>, <strong>Defense Evasion</strong>, <strong>Credential Access</strong>, <strong>Discovery</strong>, <strong>Lateral Movement</strong>, <strong>Collection</strong>, and <strong>C2</strong>. Each rule verified against repo — counts are script-generated.
+        </div>
+
+        <div class="trans-note">↳ Sigma rules translated/adapted → Wazuh XML where applicable</div>
+
+        <!-- Wazuh XML -->
+        <div class="fc wazuh" data-expand="exp-wazuh">
+          <div class="fc-icon">⚙</div>
+          <div style="flex:1;">
+            <div class="fc-title">Wazuh XML Rules</div>
+            <div class="fc-sub">Custom rule blocks running natively in Wazuh Manager. Direct detection content — separate from AutoSOC runtime ingestion.</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div class="fc-count" data-verified="wazuh">28</div>
+            <div class="fc-count-lbl">rule blocks</div>
+          </div>
+        </div>
+        <div class="fc-expand" id="exp-wazuh">
+          Includes both <strong>Sigma-translated</strong> rules and <strong>native custom rules</strong> targeting Wazuh-specific telemetry (syscheck, syscollector, vulnerability detection). All deployed to Wazuh Manager config.
+        </div>
+
+        <!-- Splunk SPL -->
+        <div class="fc splunk" data-expand="exp-splunk">
+          <div class="fc-icon">›</div>
+          <div style="flex:1;">
+            <div class="fc-title">Splunk SPL Detections</div>
+            <div class="fc-sub">Parallel detection format. Splunk is an investigation lane — not the live ingestion backbone of AutoSOC.</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div class="fc-count" data-verified="splunk">9</div>
+            <div class="fc-count-lbl">detections</div>
+          </div>
+        </div>
+        <div class="fc-expand" id="exp-splunk">
+          Includes <strong>EventID 4688 process creation</strong> analysis, regex field extraction, and the independent threat hunt that correctly classified <strong>375 Codex AI tool instances</strong> spawning pwsh.exe as tool behavior.
+        </div>
+
+        <!-- IR Playbooks -->
+        <div class="sec-lbl" style="margin-top:18px;">Supporting Content</div>
+        <div class="ir-card">
+          <div>
+            <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:3px;">📋 IR Playbooks</div>
+            <div style="font-size:9px;color:var(--soft);">7-step structured format · linked to triage outputs · reproducible evidence capture</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;margin-left:14px;">
+            <div style="font-family:var(--disp);font-size:24px;font-weight:700;color:var(--green);" data-verified="ir">10</div>
+            <div style="font-size:7px;color:var(--soft);letter-spacing:1px;">playbooks</div>
+          </div>
+        </div>
+
+        <!-- Portfolio -->
+        <div class="sec-lbl">Portfolio Output</div>
+        <div class="portfolio-row">
+          <div class="pr-label">Published to GitHub + hawkinsops.com</div>
+          <span class="tag t-blue">Proof credibility</span>
+          <span class="tag t-blue">Portability demo</span>
+          <span class="tag t-teal">Detection depth</span>
+          <span class="tag t-purple">Format coverage</span>
+          <span class="tag t-green">Verified counts</span>
+        </div>
+
+        <!-- Arch note -->
+        <div class="arch-note">
+          <div class="arch-note-lbl">⚠ Architectural Note</div>
+          Splunk is <strong>not</strong> upstream of Wazuh. These are parallel detection content lanes — they share the same skill domain, not the same data path.
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ RIGHT: RUNTIME ═══ -->
+    <div class="lane reveal d2">
+      <div class="lane-hdr lh-runtime" style="background:rgba(0,196,212,0.04);">
+        <div class="lh-icon">⚡</div>
+        <div>
+          <div class="lh-num">LANE 2 · RUNTIME LAYER</div>
+          <div class="lh-title">AutoSOC Live Pipeline</div>
+          <div class="lh-sub">Wazuh-driven · unattended · deterministic · auditable</div>
+        </div>
+      </div>
+      <div class="lane-body">
+
+        <!-- Source -->
+        <div class="sec-lbl">Alert Source</div>
+        <div class="source-node">
+          <div class="sn-icon">🖥</div>
+          <div>
+            <div class="sn-title">Lab Endpoints · Wazuh Manager · Wazuh Indexer</div>
+            <div class="sn-sub">Monitored lab hosts · agent-reported telemetry · home lab environment</div>
+          </div>
+          <div class="sn-badge">Lab Active</div>
+        </div>
+
+        <!-- Pipeline -->
+        <div class="sec-lbl">Runtime Stages — click to expand</div>
+        <div class="pipeline" id="pipeline">
+
+          <div class="pipe-node" data-i="0">
+            <div class="pipe-rail">
+              <div class="pr-dot" style="border-color:var(--blue);background:rgba(41,121,200,0.12);"></div>
+              <div class="pr-line"></div>
+            </div>
+            <div class="pipe-card" style="border-left-color:var(--blue);">
+              <div class="pc-top"><span class="pc-num">STAGE 01</span><span class="pc-badge" style="background:var(--blue-dim);color:var(--blue);border:1px solid rgba(41,121,200,0.2);">Ingest</span></div>
+              <div class="pc-title">Alert Polling</div>
+              <div class="pc-script">poll-alerts.py</div>
+              <div class="pc-sub">Scheduled pull from Wazuh Indexer API. Raw alert objects ingested into pipeline state for triage processing.</div>
+            </div>
+          </div>
+
+          <div class="pipe-node" data-i="1">
+            <div class="pipe-rail">
+              <div class="pr-dot" style="border-color:var(--teal);background:rgba(0,196,212,0.10);"></div>
+              <div class="pr-line"></div>
+            </div>
+            <div class="pipe-card" style="border-left-color:var(--teal);">
+              <div class="pc-top"><span class="pc-num">STAGE 02</span><span class="pc-badge" style="background:var(--teal-dim);color:var(--teal);border:1px solid rgba(0,196,212,0.2);">Triage</span></div>
+              <div class="pc-title">Policy-Driven Disposition</div>
+              <div class="pc-script">triage.py</div>
+              <div class="pc-sub">Deterministic rule application — every alert gets a verdict. No ambiguous states passed forward.</div>
+            </div>
+          </div>
+
+          <!-- Triage branch -->
+          <div class="triage-branch">
+            <div class="tb-lbl">Triage Outcomes</div>
+            <div class="triage-pill tp-b"><div class="tp-dot" style="background:var(--green);"></div>AUTO_CLOSE_BENIGN</div>
+            <div class="triage-pill tp-f"><div class="tp-dot" style="background:var(--amber);"></div>AUTO_CLOSE_KNOWN_FP</div>
+            <div class="triage-pill tp-e"><div class="tp-dot" style="background:var(--teal);animation:blink 1.6s ease-in-out infinite;"></div>ESCALATE</div>
+          </div>
+
+          <div class="pipe-node" data-i="2">
+            <div class="pipe-rail">
+              <div class="pr-dot" style="border-color:var(--amber);background:rgba(232,160,32,0.10);"></div>
+              <div class="pr-line"></div>
+            </div>
+            <div class="pipe-card" style="border-left-color:var(--amber);">
+              <div class="pc-top"><span class="pc-num">STAGE 03</span><span class="pc-badge" style="background:var(--amber-dim);color:var(--amber);border:1px solid rgba(232,160,32,0.2);">Redact</span></div>
+              <div class="pc-title">Redaction Gate</div>
+              <div class="pc-script">redact.py</div>
+              <div class="pc-sub">Mandatory. PII and host identifiers sanitized before any output is assembled. Cannot be bypassed.</div>
+            </div>
+          </div>
+
+          <div class="pipe-node" data-i="3">
+            <div class="pipe-rail">
+              <div class="pr-dot" style="border-color:var(--blue);background:rgba(41,121,200,0.10);"></div>
+              <div class="pr-line"></div>
+            </div>
+            <div class="pipe-card" style="border-left-color:var(--blue);">
+              <div class="pc-top"><span class="pc-num">STAGE 04</span><span class="pc-badge" style="background:var(--blue-dim);color:var(--blue);border:1px solid rgba(41,121,200,0.2);">Pack</span></div>
+              <div class="pc-title">Evidence Pack Assembly</div>
+              <div class="pc-script">assemble-pack.py</div>
+              <div class="pc-sub">Standardized escalation artifact. JSON structure, redacted fields, linked to triage decision record.</div>
+            </div>
+          </div>
+
+          <div class="pipe-node" data-i="4">
+            <div class="pipe-rail">
+              <div class="pr-dot" style="border-color:var(--green);background:rgba(39,201,122,0.10);"></div>
+              <div class="pr-line"></div>
+            </div>
+            <div class="pipe-card" style="border-left-color:var(--green);">
+              <div class="pc-top"><span class="pc-num">STAGE 05</span><span class="pc-badge" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(39,201,122,0.2);">Reconcile</span></div>
+              <div class="pc-title">Ledger Integrity Check</div>
+              <div class="pc-script">reconciliation.py</div>
+              <div class="pc-sub">All output counts verified against repo state. Mismatch count: 0. Cannot publish until PASS.</div>
+            </div>
+          </div>
+
+          <div class="pipe-node" data-i="5">
+            <div class="pipe-rail">
+              <div class="pr-dot" style="border-color:var(--teal);background:rgba(0,196,212,0.10);"></div>
+              <div class="pr-line"></div>
+            </div>
+            <div class="pipe-card" style="border-left-color:var(--teal);">
+              <div class="pc-top"><span class="pc-num">STAGE 06</span><span class="pc-badge" style="background:var(--teal-dim);color:var(--teal);border:1px solid rgba(0,196,212,0.2);">Gate</span></div>
+              <div class="pc-title">Coverage + Heartbeat Gate</div>
+              <div class="pc-script">coverage-check.py</div>
+              <div class="pc-sub">All lab hosts must report heartbeat SUCCESS. Coverage gate must pass or publish is blocked. See <a href="/proof" style="color:var(--teal);">proof.html</a> for current coverage status.</div>
+            </div>
+          </div>
+
+          <div class="pipe-node" data-i="6">
+            <div class="pipe-rail">
+              <div class="pr-dot" style="border-color:var(--teal);background:rgba(0,196,212,0.15);box-shadow:0 0 10px rgba(0,196,212,0.3);"></div>
+            </div>
+            <div class="pipe-card" style="border-left-color:var(--teal);background:rgba(0,196,212,0.04);border-color:rgba(0,196,212,0.2);">
+              <div class="pc-top"><span class="pc-num">STAGE 07</span><span class="pc-badge" style="background:rgba(0,196,212,0.10);color:var(--teal);border:1px solid rgba(0,196,212,0.25);">Publish</span></div>
+              <div class="pc-title">Repo + Portfolio Staging</div>
+              <div class="pc-script">generate-metrics.js · run-factory.ps1</div>
+              <div class="pc-sub">Outputs staged to repo. Metrics pushed to hawkinsops.com. Proof artifacts locked to canonical snapshot.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Stats — date-qualified; no animated counters -->
+        <div class="sec-lbl" style="margin-top:18px;">Pipeline Stats · as of 03-20-2026</div>
+        <div class="stats-strip">
+          <div class="ss-cell"><div class="ss-val" style="color:var(--teal);">49,774</div><div class="ss-lbl">Total Cases</div><div class="ss-sub">as of 03-20-2026</div></div>
+          <div class="ss-cell"><div class="ss-val" style="color:var(--teal);">89%</div><div class="ss-lbl">Auto-Close</div></div>
+          <div class="ss-cell"><div class="ss-val" style="color:var(--teal);">2,478</div><div class="ss-lbl">Escalations</div><div class="ss-sub">as of 03-20-2026</div></div>
+          <div class="ss-cell"><div class="ss-val" style="color:var(--soft);">→</div><div class="ss-lbl">Coverage Gate</div><div class="ss-sub"><a href="/proof" style="color:var(--teal);font-size:7px;">see proof.html</a></div></div>
+        </div>
+
+        <!-- Output node -->
+        <div class="output-node">
+          <div class="on-icon">📤</div>
+          <div>
+            <div class="on-title">Auditable Outputs</div>
+            <div class="on-pills">
+              <span class="tag t-teal">hawkinsops.com</span>
+              <span class="tag t-teal">GitHub</span>
+              <span class="tag t-blue">proof_pack/</span>
+              <span class="tag t-green">ops-metrics.json</span>
+              <span class="tag t-amber">VERIFIED_COUNTS.md</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TRUTH ═══ -->
+  <div class="truth-box reveal">
+    <div class="tb-label">The accurate one-sentence description</div>
+    <div class="tb-quote">
+      "My detection engineering spans <em>Sigma</em>, <em>Splunk SPL</em>, and <em>Wazuh XML</em> —
+      but the live AutoSOC runtime pipeline is <strong>Wazuh-driven</strong>:
+      Wazuh alerts are <em>polled</em>, <em>triaged</em>, <em>redacted</em>, <em>packaged</em>,
+      and <em>staged into auditable outputs</em> through a scheduled, unattended pipeline
+      that enforces reconciliation and coverage gates before anything publishes."
+    </div>
+  </div>
+
+  <!-- ═══ LEGEND ═══ -->
+  <div class="legend reveal">
+    <div class="lg"><div class="lg-dot" style="background:var(--blue)"></div>Detection content</div>
+    <div class="lg"><div class="lg-dot" style="background:var(--teal)"></div>AutoSOC runtime</div>
+    <div class="lg"><div class="lg-dot" style="background:var(--green)"></div>Gate / status</div>
+    <div class="lg"><div class="lg-dot" style="background:var(--amber)"></div>Governance / redaction</div>
+    <div class="lg"><div class="lg-dot" style="background:var(--purple)"></div>Portfolio / proof</div>
+  </div>
+
+  <!-- ═══ CTA ═══ -->
+  <div class="arch-cta reveal">
+    <div>
+      <div class="arch-cta-title">Verify the system — explore the proof</div>
+      <div class="arch-cta-sub">All counts are script-generated. Reproduction commands documented in the repo.</div>
+    </div>
+    <div class="arch-cta-actions">
+      <a href="/proof" class="btn btn-p">System Proof →</a>
+      <a href="/start-here" class="btn btn-s">Start Here →</a>
+      <a href="/resume" class="btn btn-s">Resume →</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ═══ SIGNAL ARCHITECTURE — RUNTIME ═══ */
+
+// Mobile nav toggle
+const mobBtn = document.getElementById('mobBtn');
+if (mobBtn) {
+  mobBtn.addEventListener('click', () => {
+    const expanded = mobBtn.getAttribute('aria-expanded') === 'true';
+    mobBtn.setAttribute('aria-expanded', String(!expanded));
+    const menu = document.getElementById('mobMenu');
+    if (menu) menu.setAttribute('data-open', String(!expanded));
+  });
+}
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Format card expand
+document.querySelectorAll('.fc[data-expand]').forEach(fc => {
+  fc.addEventListener('click', () => {
+    const target = document.getElementById(fc.dataset.expand);
+    if (!target) return;
+    document.querySelectorAll('.fc-expand.open').forEach(ex => {
+      if (ex !== target) ex.classList.remove('open');
+    });
+    target.classList.toggle('open');
+  });
+});
+
+// Pipeline node expand
+document.querySelectorAll('.pipe-node').forEach(node => {
+  node.addEventListener('click', () => {
+    const wasActive = node.classList.contains('active');
+    document.querySelectorAll('.pipe-node').forEach(n => n.classList.remove('active'));
+    if (!wasActive) node.classList.add('active');
+  });
+});
+// Auto-open first node
+setTimeout(() => document.querySelector('.pipe-node')?.classList.add('active'), 800);
+
+// Force reveal elements in viewport on load
+setTimeout(() => {
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('vis');
+  });
+}, 50);
+</script>
+<script src="/assets/app.js" defer></script>
+<script src="/data/counts.js" defer></script>
+</body>
+</html>

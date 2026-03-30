@@ -4,38 +4,38 @@
     "runtime_label": "Lifetime processed (runtime snapshot)"
   },
   "stable_benchmark": {
-    "total_cases": 55665,
-    "auto_closed_benign": "~92%",
-    "known_fp": "5,898",
-    "escalated": "2,545",
+    "total_cases": 54700,
+    "auto_closed_benign": "~93%",
+    "known_fp": "1,925",
+    "escalated": "2,531",
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
-    "locked_date": "03-25-2026",
-    "statement": "March 25 live snapshot: 55,665 total cases, ~92% auto-close, 2,545 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS."
+    "locked_date": "03-24-2026",
+    "statement": "March 24 canonical snapshot: 54,700 total cases, ~93% auto-close, 2,531 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS."
   },
   "lifetime_runtime": {
-    "total_cases": 55665,
-    "auto_closed_benign": "~92%",
-    "known_fp": "5,898",
-    "escalated": "2,545",
-    "review": 1860,
-    "staged_pending": 67,
+    "total_cases": 54700,
+    "auto_closed_benign": "~93%",
+    "known_fp": "1,925",
+    "escalated": "2,531",
+    "review": 417,
+    "staged_pending": 53,
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
-    "last_updated": "2026-03-25T00:00:00Z"
+    "last_updated": "2026-03-24T00:00:00Z"
   },
   "running_totals": {
-    "total_cases": 55665,
-    "auto_closed_benign": 45334,
-    "known_fp": 5898,
-    "escalated": 2478,
-    "review": 1860,
-    "staged_pending": 67
+    "total_cases": 54700,
+    "auto_closed_benign": 0,
+    "known_fp": 1925,
+    "escalated": 0,
+    "review": 417,
+    "staged_pending": 53
   },
   "host_coverage": "8/8",
   "reconciliation_mismatch": 0,
   "heartbeat": "SUCCESS",
-  "last_updated": "2026-03-25T00:00:00Z",
+  "last_updated": "2026-03-24T00:00:00Z",
   "stress_test_window": {
     "profile": "active_pipeline_snapshot",
     "baseline_window": "C:/RH/OPS/30_Projects/Active/AutoSOC/Output",
@@ -54,8 +54,8 @@
     "sigma": 103,
     "wazuh_files": 24,
     "wazuh_rule_blocks": 28,
-    "splunk": 8,
+    "splunk": 9,
     "ir_playbooks": 10
   },
-  "canonical_source": "source_of_truth/metrics_canonical_2026-03-25.json"
+  "canonical_source": "source_of_truth/metrics_canonical_2026-03-24.json"
 }

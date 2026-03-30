@@ -37,7 +37,7 @@ HawkinsOperations/
 │   └── media.json              # Media manifest
 ├── content/detection-rules/            # Multi-platform detection content
 │   ├── sigma/                  # 103 Sigma YAML rules, organized by MITRE tactic
-│   ├── splunk/                 # 8 SPL queries
+│   ├── splunk/                 # 9 SPL queries
 │   ├── content/detection-rules/wazuh/rules/  # 24 Wazuh XML files (28 rule blocks)
 │   └── mappings/               # MITRE ATT&CK mapping files
 ├── docs/                       # Execution notes, architecture docs, hosting runbooks
@@ -47,6 +47,7 @@ HawkinsOperations/
 │   └── templates/              # IR-Template.md baseline
 ├── content/lab/                        # Lab infrastructure docs (Proxmox, Wazuh, Grafana)
 ├── content/projects/                   # Reference/legacy projects
+│   ├── lab/enterprise-hardening/  # Enterprise security Phase 2 artifacts
 │   ├── repo-history/           # Historical context; contains its own CLAUDE.md
 │   └── migration-rh/           # Migration project; contains its own CLAUDE.md
 ├── proof/                      # Wazuh honeypot proof artifacts (auto-updated)
@@ -124,10 +125,10 @@ Current verified inventory (as of last CI run):
 | Platform | Count | Location |
 |---|---|---|
 | Sigma (YAML) | 103 rules | `content/detection-rules/sigma/` |
-| Splunk (SPL) | 8 queries | `content/detection-rules/splunk/` |
+| Splunk (SPL) | 9 queries | `content/detection-rules/splunk/` |
 | Wazuh (XML) | 24 files / 28 rule blocks | `content/detection-rules/wazuh/rules/` |
 | IR Playbooks | 10 playbooks | `content/incident-response/playbooks/` |
-| Total detections | 139 | (Sigma + Wazuh + Splunk) |
+| Total detections | 140 | (Sigma + Wazuh + Splunk) |
 
 **Never hardcode counts. Never inflate claims ("200+ detections").**
 If counts change, run verification scripts to update `VERIFIED_COUNTS.md` first, then

@@ -40,7 +40,7 @@ CAPTURE INSTRUCTION
   Open VERIFIED_COUNTS.md. Screenshot the detection rules table.
   Best result: re-create in Canva:
     Row 1: Sigma (YAML) | 103 rules | MITRE ATT&CK organized
-    Row 2: Splunk (SPL) | 8 queries | tactic-grouped
+    Row 2: Splunk (SPL) | 9 queries | tactic-grouped
     Row 3: Wazuh (XML)  | 24 files / 28 rule blocks | production-deployable
     Row 4: IR Playbooks | 10 | 7-step framework
   Add footnote: "Counts verified by script — run verify-counts.ps1 to reproduce."

@@ -288,21 +288,21 @@
 
   <!-- Metric 1 -->
   <text x="60" y="345" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" letter-spacing="2" fill="#2a4060">TOTAL CASES</text>
-  <text x="60" y="378" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="26" font-weight="700" fill="#c8e0f0">55,665</text>
+  <text x="60" y="378" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="26" font-weight="700" fill="#c8e0f0">54,700</text>
   <text x="60" y="398" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#2a4060">ledger-verified</text>
 
   <line x1="130" y1="322" x2="130" y2="408" stroke="#131d2a" stroke-width="1"/>
 
   <!-- Metric 2 -->
   <text x="225" y="345" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" letter-spacing="2" fill="#2a4060">AUTO-CLOSE</text>
-  <text x="225" y="378" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="26" font-weight="700" fill="#c8e0f0">~92%</text>
+  <text x="225" y="378" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="26" font-weight="700" fill="#c8e0f0">~93%</text>
   <text x="225" y="398" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#2a4060">policy-driven triage</text>
 
   <line x1="330" y1="322" x2="330" y2="408" stroke="#131d2a" stroke-width="1"/>
 
   <!-- Metric 3 -->
   <text x="430" y="345" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" letter-spacing="2" fill="#2a4060">ESCALATIONS</text>
-  <text x="430" y="378" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="26" font-weight="700" fill="#c8e0f0">2,545</text>
+  <text x="430" y="378" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="26" font-weight="700" fill="#c8e0f0">2,531</text>
   <text x="430" y="398" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#2a4060">published artifacts</text>
 
   <line x1="535" y1="322" x2="535" y2="408" stroke="#131d2a" stroke-width="1"/>

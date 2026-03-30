@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <title>SignalFoundry Case Study | Alert triage to escalation artifacts</title>
@@ -90,7 +90,7 @@
 
       <div class="m-kpi-grid" aria-label="SignalFoundry proof metrics">
         <article class="m-kpi">
-          <div class="m-kpi-value"><span data-verified="detections">139</span></div>
+          <div class="m-kpi-value"><span data-verified="detections">140</span></div>
           <div class="m-kpi-label">Detection context</div>
           <p class="m-kpi-copy">The case study sits inside a broader, script-verified public detection corpus rather than an isolated project page.</p>
         </article>
@@ -335,7 +335,7 @@
           <!-- Event 5: Authority locked -->
           <div style="position:relative;">
             <div style="position:absolute;left:-20px;top:4px;width:10px;height:10px;border-radius:50%;background:#71c7b8;box-shadow:0 0 6px rgba(113,199,184,0.4);"></div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#71c7b8;"><span data-ops="stable_locked_date">03-25-2026</span></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#71c7b8;"><span data-ops="stable_locked_date">03-24-2026</span></div>
             <div style="font-size:0.82rem;font-weight:600;color:#e5edff;margin-top:2px;">Authority snapshot locked</div>
             <div style="font-size:0.72rem;color:var(--muted,#8ea4c7);">Public benchmark frozen for reviewer reference</div>
           </div>
@@ -542,6 +542,29 @@
           <strong>March release timeline</strong>
           <span>Bridge between project narrative and release execution history.</span>
         </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="m-section m-stage">
+  <div class="m-wrap">
+    <div class="m-card">
+      <div class="m-card-kicker">Field notes</div>
+      <h2>Engineering case studies</h2>
+      <p class="m-copy">Documented operational decisions from the AutoSOC project — infrastructure migrations and incident RCAs with source evidence, not post-hoc summaries.</p>
+      <div class="m-grid-2" style="margin-top:16px;">
+        <a href="/autosoc-cutover" class="m-link-item">
+          <strong>Infrastructure Cutover &mdash; 2026-03-23</strong>
+          <span>Production migration to canonical root. Preflight gate, five retargeted Task Scheduler tasks, legacy ref count = 0. CUTOVER_READY=YES with signed proof artifact.</span>
+        </a>
+        <a href="/autosoc-hotfix-rca" class="m-link-item">
+          <strong>Hotfix RCA: Triage Quality Chart &mdash; 2026-03-23</strong>
+          <span>Assert-CanonicalPath called before declaration. Function moved above call site. EXIT=0, 30 data points rendered, 104KB artifact confirmed. Parent pipeline validated.</span>
+        </a>
+      </div>
+      <div style="margin-top:16px;">
+        <a href="/case-studies" class="m-cta m-cta-secondary">All field notes &rarr;</a>
       </div>
     </div>
   </div>

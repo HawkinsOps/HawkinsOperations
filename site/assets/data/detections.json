@@ -39,7 +39,7 @@
     {
       "id": "splunk",
       "platform": "Splunk",
-      "count": 8,
+      "count": 9,
       "format": "SPL",
       "location": "content/detection-rules/splunk/",
       "tags": ["search", "spl", "hunting"],

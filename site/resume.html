@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
 <title>Raylee Hawkins | Resume (SOC, Detection Engineering, Security Automation)</title>
 <meta name="description" content="Resume for Raylee Hawkins: SOC analyst candidate focused on detection engineering and automation. Projects include HawkinsOperations detections and proof pack.">
@@ -60,20 +60,170 @@
 
 <!-- @include:nav:end -->
 
-<main>
-<section class="resume-shell">
-  <div class="ctr">
-    <div class="resume-sheet">
-      <div class="resume-head">
-        <h1>Raylee Hawkins</h1>
-        <div class="resume-headline">SOC Analyst &middot; Detection Engineering &middot; Security Automation</div>
-        <div class="resume-contact">
-          North Alabama (Huntsville-adjacent) | <a href="mailto:raylee@hawkinsops.com">raylee@hawkinsops.com</a> |
-          <a href="https://hawkinsops.com" target="_blank" rel="noopener noreferrer">hawkinsops.com</a> |
-          <a href="https://github.com/raylee-hawkins" target="_blank" rel="noopener noreferrer">GitHub</a> |
-          <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  <!-- ══ HEADER ══ -->
+  <div class="rh-header fade-in d1">
+    <div class="rh-left">
+      <div class="rh-eyebrow">SOC Analyst &nbsp;|&nbsp; Detection Engineering &nbsp;|&nbsp; Security Automation</div>
+      <div class="rh-name">Raylee Hawkins</div>
+      <div class="rh-role-tags">
+        <span class="rt rt-teal">SOC T1/T2</span>
+        <span class="rt rt-teal">Detection Engineering</span>
+        <span class="rt rt-blue">Security Automation</span>
+        <span class="rt rt-soft">North Alabama · Huntsville</span>
+      </div>
+      <div class="rh-meta">
+        <span>📍 North Alabama (Huntsville preferred)</span>
+        <a href="mailto:Raylee@hawkinsops.com">Raylee@hawkinsops.com</a>
+        <!-- Phone: print/PDF only — never shown on screen -->
+        <span class="print-only" style="font-family:var(--mono);font-size:10px;">📞 (256) 328-3711</span>
+        <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://hawkinsops.com">hawkinsops.com</a>
+        <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="rh-right">
+      <div class="avail-badge">
+        <div class="avail-dot"></div>
+        Available for SOC / Detection roles
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PROOF STRIP ══ -->
+  <div class="proof-strip fade-in d2">
+    <div class="ps-cell ps-teal">
+      <div class="ps-val" id="ps-cases">54,700</div>
+      <div class="ps-lbl">Cases Processed</div>
+      <div class="ps-sub">ledger-verified</div>
+    </div>
+    <div class="ps-cell ps-teal">
+      <div class="ps-val">2,531</div>
+      <div class="ps-lbl">Escalations (Analyst-Ready)</div>
+      <div class="ps-sub">reviewable artifacts</div>
+    </div>
+    <div class="ps-cell ps-green">
+      <div class="ps-val">8/8</div>
+      <div class="ps-lbl">Host Coverage</div>
+      <div class="ps-sub">0 mismatches</div>
+    </div>
+    <div class="ps-cell ps-amber">
+      <div class="ps-val">139</div>
+      <div class="ps-lbl">Detection Rules (Sigma · Wazuh · SPL)</div>
+      <div class="ps-sub">103σ · 28W · 8SPL</div>
+    </div>
+  </div>
+
+  <!-- ══ OUTCOMES FLOW (visual kill shot) ══ -->
+  <div class="section fade-in d2">
+    <div class="outcomes-flow">
+      <div class="of-node of-source">
+        <div class="of-val">54,700</div>
+        <div class="of-lbl">Alerts Ingested</div>
+      </div>
+      <div class="of-arrow">→</div>
+      <div class="of-node of-engine">
+        <div class="of-val">AutoSOC</div>
+        <div class="of-lbl">Pipeline</div>
+      </div>
+      <div class="of-arrow">→</div>
+      <div class="of-node of-auto">
+        <div class="of-val" style="color:var(--green);">93%</div>
+        <div class="of-lbl">Auto-Closed</div>
+      </div>
+      <div class="of-arrow">→</div>
+      <div class="of-node of-esc">
+        <div class="of-val" style="color:var(--teal);">2,531</div>
+        <div class="of-lbl">Escalated</div>
+      </div>
+      <div class="of-arrow">→</div>
+      <div class="of-node of-pass">
+        <div class="of-val" style="color:var(--green);">0</div>
+        <div class="of-lbl">Reconcile Errors</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:8px;font-size:9px;color:var(--soft);letter-spacing:.5px;">
+      Ledger-backed pipeline &nbsp;·&nbsp; reproducible results &nbsp;·&nbsp; no hand-edited metrics
+    </div>
+  </div>
+  <div class="section fade-in d2">
+    <div class="talk-track">
+      <div class="tt-label">30-Second Talk Track</div>
+      <div class="tt-text">
+        I build and operate automated SOC pipelines that classify, triage, and validate alerts at scale. SignalFoundry — my AutoSOC engine — processes Wazuh alerts through a deterministic triage loop: <strong>89% auto-close rate</strong>, enforced redaction, reconciliation gates before anything publishes, and 2,478 escalation packs staged as auditable artifacts. Before security I ran production floors — 30+ operators, 12-hour shifts, IATF audit compliance. The domain changed. The control logic didn't. I'm not replacing analysts. I can do triage work and build tooling that makes investigations more consistent.
+      </div>
+      <div style="margin-top:10px;font-size:10px;color:var(--soft);line-height:1.7;">I am comfortable operating as a Tier 1 SOC analyst while continuing to build automation that reduces analyst workload and improves triage consistency.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SKILLS ══ -->
+  <div class="section fade-in d3">
+    <div class="sec-hdr">
+      <div class="sec-num">01</div>
+      <div class="sec-title">Skills</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="sg-title" style="color:var(--teal)"><span class="sg-icon">⚡</span>Detection</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--teal)"></div>Sigma rule authoring</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--teal)"></div>Wazuh XML rule blocks</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--teal)"></div>Splunk SPL detections</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--teal)"></div>MITRE ATT&amp;CK mapping</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--teal)"></div>Alert triage workflow</div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-title" style="color:var(--blue)"><span class="sg-icon">🔧</span>Tooling</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--blue)"></div>Python (pipeline scripts)</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--blue)"></div>PowerShell / fish shell</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--blue)"></div>Git + GitHub Actions</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--blue)"></div>Wazuh API</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--blue)"></div>Cloudflare Pages / CI</div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-title" style="color:var(--purple)"><span class="sg-icon">🗺</span>Frameworks</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--purple)"></div>MITRE ATT&amp;CK</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--purple)"></div>SOC triage methodology</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--purple)"></div>IR fundamentals</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--purple)"></div>Evidence-first workflow</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--purple)"></div>Reconciliation gates</div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-title" style="color:var(--soft)"><span class="sg-icon">🔬</span>Lab / Infra</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--soft)"></div>Proxmox VE</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--soft)"></div>Windows / Linux telemetry</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--soft)"></div>Wazuh Manager</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--soft)"></div>Splunk Enterprise</div>
+        <div class="sk-item"><div class="sk-dot" style="background:var(--soft)"></div>Reproducible test runs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CYBER WORK HISTORY ══ -->
+  <div class="section fade-in d4">
+    <div class="sec-hdr">
+      <div class="sec-num">02</div>
+      <div class="sec-title">Security Operations Lab</div>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="work-card wc-cyber">
+      <div class="wc-top">
+        <div>
+          <div class="wc-role">Detection Engineer · Security Automation</div>
+          <div class="wc-company">HawkinsOperations — Independent SOC Lab (Production-Mode Simulation)</div>
         </div>
       </div>
+      <ul class="wc-bullets">
+        <li>Built and operate <strong>SignalFoundry (AutoSOC engine)</strong> — 35-script Python automation system processing 54,700+ alerts with an <em>93% auto-resolution rate</em> (benign + known false positives handled without analyst intervention).</li>
+        <li>Deterministic triage with enforced redaction and reconciliation gates — outputs auditable evidence packs and staged artifacts. <em>8/8 host coverage · 0 mismatches · Heartbeat SUCCESS.</em></li>
+        <li>Authored <strong><span data-verified="sigma">103</span> Sigma rules</strong> across 10 MITRE ATT&amp;CK tactics, translated into Wazuh XML where applicable; <strong><span data-verified="splunk">9</span> Splunk SPL detections</strong>, <strong><span data-verified="ir">10</span> IR playbooks</strong> in structured 7-step format with reproducible evidence capture.</li>
+        <li>Diagnosed and recovered full SignalFoundry ingestion outage (March 13, 2026) — separated infrastructure reachability from application logic, isolated reconciliation-path fault, restored end-to-end <em>SUCCESS</em> in one session.</li>
+        <li>Independent Splunk threat hunt: built regex field extraction from scratch, correctly classified <strong>375 Codex AI tool instances spawning pwsh.exe</strong> as tool behavior, not malicious activity.</li>
+        <li>All proof metrics generated by scripts, not hand-edited. Reviewers can reproduce every claim directly from repo state. Verification commands documented.</li>
+      </ul>
+    </div>
+  </div>
 
       <!-- SUMMARY -->
       <div class="resume-section">
@@ -118,7 +268,7 @@
           <h3>Detection Engineer / SOC Operations &mdash; HawkinsOps <span style="font-weight:400;color:var(--dim);">(Sep 2025 &ndash; Present)</span></h3>
           <ul>
             <li>Built and operate <a href="/case-study-autosoc">SignalFoundry</a>: 7-stage pipeline from Wazuh alert ingest through policy-driven triage, mandatory redaction, evidence pack assembly, reconciliation, and gated publish.</li>
-            <li>Authored <span data-verified="sigma">103</span> Sigma detection rules, <span data-verified="wazuh">28</span> Wazuh rule blocks, <span data-verified="splunk">8</span> Splunk queries (home lab), and <span data-verified="ir">10</span> IR playbooks &mdash; <span data-verified="detections">139</span> total detections mapped to MITRE ATT&amp;CK.</li>
+            <li>Authored <span data-verified="sigma">103</span> Sigma detection rules, <span data-verified="wazuh">28</span> Wazuh rule blocks, <span data-verified="splunk">9</span> Splunk queries (home lab), and <span data-verified="ir">10</span> IR playbooks &mdash; <span data-verified="detections">140</span> total detections mapped to MITRE ATT&amp;CK.</li>
             <li>Diagnosed and restored a pipeline ingestion outage by isolating infrastructure reachability from application logic, returning reconciliation to SUCCESS with 0 mismatches.</li>
             <li>Reduced Splunk EventID 4688 forwarder noise from 70% to 0%; correctly classified 375 process instances as expected tool behavior during independent threat hunt.</li>
             <li>All metrics CI-gated, publicly verifiable, and tied to reproducible repo artifacts. <a href="/proof">Proof &rarr;</a></li>
