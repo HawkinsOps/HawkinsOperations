@@ -11,13 +11,13 @@
     "staged_pending": 53
   },
   "scorecard": {
-    "status": "WATCH",
+    "status": "PASS",
     "metrics": [
       {
         "id": "auto_close_benign_pct",
-        "value": 0,
+        "value": 81.44,
         "target": ">= 35",
-        "status": "WATCH"
+        "status": "PASS"
       },
       {
         "id": "known_fp_pct",

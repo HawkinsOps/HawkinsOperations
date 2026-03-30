@@ -1,56 +1,396 @@
 ﻿<!doctype html>
 <html lang="en">
 <head>
-<title>SignalFoundry — Proof &amp; Verified Metrics</title>
+<title>SignalFoundry - Proof &amp; Verified Metrics</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="SignalFoundry proof page: public evidence, verified counts, verification commands, and current metrics contract.">
-<link rel="stylesheet" href="/assets/styles.css">
-<link rel="stylesheet" href="/assets/design-tokens.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/base.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<meta name="description" content="SignalFoundry proof surface: traceable metrics, reproducible artifacts, and verification commands for every public claim.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SignalFoundry — Proof &amp; Verified Metrics">
+<meta property="og:description" content="55,665 cases processed. ~92% auto-close. 8/8 hosts. Reconciliation PASS. Every metric traced to source. Every claim reproducible.">
+<meta property="og:url" content="https://hawkinsops.com/proof">
+<meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SignalFoundry — Proof &amp; Verified Metrics">
+<meta name="twitter:description" content="55,665 cases processed. ~92% auto-close. 8/8 hosts. Every metric traced to source.">
+<meta name="twitter:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <script>
   document.documentElement.setAttribute('data-theme', 'dark');
 </script>
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/design-tokens.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/base.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
+<link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
+<link rel="stylesheet" href="/assets/home.css?v=03-25-2026-1">
 <style>
-@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.15;} }
-body {
+/* ── Proof-page authority styles ── */
+body.proof-page {
+  min-height: 100vh;
   background:
-    radial-gradient(ellipse 100% 55% at 0% 0%,rgba(41,121,200,0.09) 0%,transparent 55%),
-    radial-gradient(ellipse 80% 50% at 100% 100%,rgba(0,196,212,0.07) 0%,transparent 55%),
-    #03060b !important;
+    radial-gradient(1400px 720px at 72% -14%, rgba(22, 52, 88, 0.44), transparent 60%),
+    radial-gradient(900px 500px at -18% 106%, rgba(12, 36, 64, 0.48), transparent 68%),
+    radial-gradient(600px 400px at 90% 60%, rgba(14, 46, 80, 0.22), transparent 55%),
+    linear-gradient(180deg, #050609 0%, #060913 48%, #080c16 100%);
+  color: var(--text, #f5f8ff);
+  font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+/* Proof hero */
+.proof-hero {
+  padding: 110px 0 60px;
+}
+.proof-hero-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 clamp(1.2rem, 4vw, 3rem);
+}
+.proof-eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--acc, #71c7b8);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.proof-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--acc, #71c7b8);
+  opacity: 0.6;
+}
+.proof-hero-title {
+  font-family: "Sora", "Inter", sans-serif;
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  color: #f0f6ff;
+  margin: 0 0 20px;
+}
+.proof-hero-title .hl {
+  background: linear-gradient(135deg, #9fd6ff 0%, #71c7b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.proof-hero-thesis {
+  font-size: clamp(1rem, 2vw, 1.18rem);
+  color: var(--muted, #c2ccde);
+  line-height: 1.68;
+  max-width: 64ch;
+  margin: 0 0 32px;
+}
+
+/* Integrity status cluster */
+.proof-integrity-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+.proof-integrity-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(184, 227, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.76rem;
+  color: var(--muted, #c2ccde);
+  white-space: nowrap;
+}
+.proof-integrity-badge .badge-label {
+  opacity: 0.65;
+  margin-right: 2px;
+}
+.proof-integrity-badge .badge-value {
+  color: #f0f6ff;
+  font-weight: 600;
+}
+.proof-integrity-badge[data-status="success"] {
+  border-color: rgba(113, 199, 184, 0.3);
+  background: rgba(113, 199, 184, 0.06);
+}
+.proof-integrity-badge[data-status="success"] .badge-value {
+  color: #71c7b8;
+}
+.proof-integrity-badge[data-status="pass"] {
+  border-color: rgba(113, 199, 184, 0.3);
+  background: rgba(113, 199, 184, 0.06);
+}
+.proof-integrity-badge[data-status="pass"] .badge-value {
+  color: #71c7b8;
+}
+.proof-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* KPI ledger */
+.proof-kpi-section {
+  padding: 0 0 64px;
+}
+.proof-kpi-header {
+  max-width: 860px;
+  margin: 0 auto 28px;
+  padding: 0 clamp(1.2rem, 4vw, 3rem);
+}
+.proof-kpi-section-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted, #8ea4c7);
+  margin-bottom: 8px;
+}
+.proof-kpi-section-title {
+  font-family: "Sora", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #e5edff;
+  margin: 0 0 6px;
+}
+.proof-kpi-section-sub {
+  font-size: 0.875rem;
+  color: var(--muted, #8ea4c7);
+  margin: 0;
+}
+.proof-kpi-grid {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 clamp(1.2rem, 4vw, 3rem);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+@media (max-width: 720px) {
+  .proof-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .proof-kpi-grid { grid-template-columns: 1fr 1fr; }
+}
+.proof-kpi-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(184, 227, 255, 0.12);
+  border-radius: 10px;
+  padding: 22px 20px 18px;
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease, transform 120ms ease;
+  position: relative;
+  overflow: hidden;
+}
+.proof-kpi-card:hover {
+  border-color: rgba(184, 227, 255, 0.28);
+  background: rgba(255,255,255,0.07);
+  transform: translateY(-1px);
+}
+.proof-kpi-card:focus-visible {
+  outline: 2px solid rgba(159, 214, 255, 0.5);
+  outline-offset: 2px;
+}
+.proof-kpi-value {
+  font-family: "Sora", sans-serif;
+  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #e5edff;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.proof-kpi-value.status-success { color: #71c7b8; }
+.proof-kpi-value.status-pass { color: #71c7b8; }
+.proof-kpi-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted, #8ea4c7);
+  margin-bottom: 10px;
+}
+.proof-kpi-hint {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.68rem;
+  color: rgba(159, 214, 255, 0.5);
+  letter-spacing: 0.04em;
+  transition: color 160ms ease;
+}
+.proof-kpi-card:hover .proof-kpi-hint {
+  color: rgba(159, 214, 255, 0.85);
+}
+
+/* Modal body content styles */
+.proof-modal-section { margin-bottom: 18px; }
+.proof-modal-section h4 {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--acc, #71c7b8);
+  margin: 0 0 6px;
+}
+.proof-modal-section p { margin: 0 0 8px; }
+.proof-modal-divider {
+  height: 1px;
+  background: rgba(184,227,255,0.1);
+  margin: 16px 0;
+}
+.proof-modal-host-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin: 10px 0;
+}
+.proof-modal-host {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(184,227,255,0.1);
+  border-radius: 6px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  color: var(--muted, #c2ccde);
+}
+.proof-modal-host .host-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #71c7b8;
+  flex-shrink: 0;
+}
+.proof-modal-cmd {
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(184,227,255,0.12);
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.73rem;
+  color: #c2ccde;
+  margin: 8px 0;
+  overflow-x: auto;
+  white-space: pre;
+}
+.proof-modal-tag {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 4px;
+  background: rgba(113,199,184,0.1);
+  border: 1px solid rgba(113,199,184,0.25);
+  color: #71c7b8;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.68rem;
+  margin: 2px 3px 2px 0;
 }
 </style>
 </head>
-<body>
+<body class="proof-page">
 <nav>
   <div class="nav-i">
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
-      <li><a href="/">Home</a></li>
-      <li><a href="/proof">Proof</a></li>
-      <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
+      <li><a href="/start-here">Start Here</a></li>
       <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
+      <li><a href="/proof" aria-current="page">Proof</a></li>
       <li><a href="/detections">Detections</a></li>
-      <li><a href="/soc-lab">Lab</a></li>
       <li><a href="/resume">Resume</a></li>
+      <li><a href="/soc-lab">Lab</a></li>
     </ul>
     <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-  <a href="/">Home</a>
-  <a href="/proof">Proof</a>
-  <a href="/operations-bridge">Ops &rarr; Cyber</a>
+  <a href="/start-here">Start Here</a>
   <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
+  <a href="/proof" aria-current="page">Proof</a>
   <a href="/detections">Detections</a>
-  <a href="/soc-lab">Lab</a>
   <a href="/resume">Resume</a>
+  <a href="/soc-lab">Lab</a>
 </div>
-<main class="modernize-shell">
-  <section class="m-section" style="padding-top:96px;">
+
+<main>
+
+  <!-- ── HERO ── -->
+  <section class="proof-hero" aria-labelledby="proof-title">
+    <div class="proof-hero-inner">
+      <div class="proof-eyebrow">Verified &middot; Reproducible &middot; Evidence-Backed</div>
+      <h1 id="proof-title" class="proof-hero-title">
+        The evidence<br><span class="hl">speaks for itself.</span>
+      </h1>
+      <p class="proof-hero-thesis">
+        Every metric is traceable. Every claim is reproducible. Every artifact is committed.
+        The pipeline doesn&rsquo;t need a human to defend it &mdash; it publishes its own proof.
+      </p>
+
+      <!-- Integrity cluster -->
+      <div class="proof-integrity-cluster" data-ops-scope="stable" aria-label="Pipeline integrity status">
+        <div class="proof-integrity-badge">
+          <span class="badge-label">Source</span>
+          <span class="badge-value">current-authority.json</span>
+        </div>
+        <div class="proof-integrity-badge">
+          <span class="badge-label">Locked</span>
+          <span class="badge-value" data-ops="stable_locked_date">03-25-2026</span>
+        </div>
+        <div class="proof-integrity-badge">
+          <span class="badge-label">Verified</span>
+          <span class="badge-value" data-verified-date>03-25-2026</span>
+        </div>
+        <div class="proof-integrity-badge" data-status="success">
+          <span class="badge-label">Heartbeat</span>
+          <span class="badge-value" data-ops-status="stable_heartbeat">SUCCESS</span>
+        </div>
+        <div class="proof-integrity-badge" data-status="pass">
+          <span class="badge-label">Reconciliation</span>
+          <span class="badge-value">PASS</span>
+        </div>
+      </div>
+
+      <!-- Detection inventory strip -->
+      <div class="m-proof-strip" style="margin-bottom:24px;">
+        <div class="m-proof-inline">
+          <strong><span data-verified="detections">139</span> detections</strong>
+          <strong><span data-verified="sigma">103</span> Sigma</strong>
+          <strong><span data-verified="wazuh">28</span> Wazuh rule blocks</strong>
+          <strong><span data-verified="ir">10</span> IR playbooks</strong>
+        </div>
+      </div>
+
+      <!-- Provenance labels required by site-runtime-contract -->
+      <ul style="font-size:0.8rem;color:var(--muted,#8ea4c7);list-style:none;padding:0;margin:0 0 20px;display:grid;gap:3px;">
+        <li><strong>Public benchmark snapshot:</strong> reviewer-authoritative values from <code>data/truth/current-authority.json</code>.</li>
+        <li><strong>Runtime snapshot:</strong> telemetry from <code>data/truth/current-live.json</code>, displayed as informational only.</li>
+        <li><strong>Generated at:</strong> <span data-ops="stable_locked_date">03-25-2026</span></li>
+        <li><strong>Source artifact:</strong> <code>site/data/truth/current-authority.json</code></li>
+      </ul>
+
+      <div class="proof-hero-actions">
+        <a href="/case-study-autosoc" class="btn btn-p">Full Case Study &rarr;</a>
+        <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" class="btn btn-s">GitHub Repo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VISUAL DASHBOARD ── -->
+  <section class="m-section" style="padding:0 0 48px;">
     <div class="m-wrap">
       <div class="m-eyebrow">Proof</div>
       <h1 class="m-title" style="font-size: clamp(2.2rem, 4vw, 3.7rem);">SignalFoundry — Proof &amp; Verified Metrics</h1>
@@ -99,6 +439,53 @@ body {
           <strong>Runtime known FP <span data-ops="lifetime_known_fp">N/A</span></strong>
           <strong>Runtime updated <span data-ops="lifetime_last_updated">03-24-2026</span></strong>
         </div>
+
+        <!-- Detection Inventory Chart -->
+        <div class="sf-card" style="padding:24px;">
+          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Detection Inventory &mdash; <span data-verified="detections">139</span> Total</div>
+          <!-- Sigma -->
+          <div style="margin-bottom:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+              <span style="font-size:0.82rem;color:#d4e0ec;font-weight:600;">Sigma YAML</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:#7ab8ff;font-weight:700;" data-verified="sigma">103</span>
+            </div>
+            <div style="height:8px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden;">
+              <div style="width:74%;height:100%;background:linear-gradient(90deg,rgba(122,184,255,0.4),rgba(122,184,255,0.2));border-radius:4px;"></div>
+            </div>
+          </div>
+          <!-- Wazuh -->
+          <div style="margin-bottom:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+              <span style="font-size:0.82rem;color:#d4e0ec;font-weight:600;">Wazuh Rule Blocks</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:#7ab8ff;font-weight:700;" data-verified="wazuh">28</span>
+            </div>
+            <div style="height:8px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden;">
+              <div style="width:20%;height:100%;background:linear-gradient(90deg,rgba(122,184,255,0.4),rgba(122,184,255,0.2));border-radius:4px;"></div>
+            </div>
+          </div>
+          <!-- IR -->
+          <div style="margin-bottom:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+              <span style="font-size:0.82rem;color:#d4e0ec;font-weight:600;">IR Playbooks</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:#fbbf24;font-weight:700;" data-verified="ir">10</span>
+            </div>
+            <div style="height:8px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden;">
+              <div style="width:7%;height:100%;background:linear-gradient(90deg,rgba(251,191,36,0.4),rgba(251,191,36,0.2));border-radius:4px;"></div>
+            </div>
+          </div>
+          <!-- Splunk -->
+          <div style="margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+              <span style="font-size:0.82rem;color:#d4e0ec;font-weight:600;">Splunk SPL <span style="font-size:0.68rem;opacity:0.5;">(lab)</span></span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:#4ade80;font-weight:700;" data-verified="splunk">8</span>
+            </div>
+            <div style="height:8px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden;">
+              <div style="width:6%;height:100%;background:linear-gradient(90deg,rgba(74,222,128,0.4),rgba(74,222,128,0.2));border-radius:4px;"></div>
+            </div>
+          </div>
+          <p style="font-size:0.7rem;color:var(--muted,#8ea4c7);margin-top:12px;"><a href="/detections" style="color:#7ab8ff;">Full searchable inventory &rarr;</a></p>
+        </div>
+
       </div>
       <p class="m-copy" style="margin-top:12px">Public benchmark snapshot: locked candidate-facing benchmark from committed proof. Runtime snapshot: rolling totals from the same metrics artifact.</p>
       <p class="m-copy">Generated at <span data-ops="stable_locked_date">03-24-2026</span> | Source artifact <code>/assets/data/ops-metrics.json</code></p>
@@ -117,23 +504,25 @@ body {
           <li><strong>EVIDENCE:</strong> <code>/assets/pp_soc_integration/t3-workflow.png</code> -> proves a concrete workflow snapshot of the triage and evidence-pack pipeline surface.</li>
         </ul>
       </article>
-      <article class="m-card">
-        <div class="m-card-kicker">Proof links</div>
-        <h2>Primary artifacts</h2>
-        <ul class="m-list-tight">
-          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">VERIFIED_COUNTS.md</a></li>
-          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/detection-rules/mappings/technique_map.csv" target="_blank" rel="noopener noreferrer">technique_map.csv</a></li>
-          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/docs/execution/AUTOSOC_PIPELINE_RECOVERY_PUBLIC_SNIPPETS_03-13-2026.md" target="_blank" rel="noopener noreferrer">AUTOSOC_COVERAGE_TRUTH_SHIFT_SNIPPET_03-19-2026.md</a></li>
-          <li><a href="/proof/grafana/latest.md" target="_blank" rel="noopener noreferrer">Grafana proof lane</a></li>
-          <li><a href="/proof/validation/latest.md" target="_blank" rel="noopener noreferrer">Continuous detection validation lane</a></li>
-          <li><a href="/proof/quality/latest.md" target="_blank" rel="noopener noreferrer">Alert quality scorecard lane</a></li>
-          <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/scripts/check-md-links.sh" target="_blank" rel="noopener noreferrer">check-md-links.sh</a></li>
-        </ul>
+
+      <article class="proof-kpi-card"
+        data-modal="modal-autoclose"
+        data-modal-title="Auto-Close Rate — How It Is Computed"
+        role="button" tabindex="0"
+        aria-label="~92% auto-close rate — click to inspect">
+        <div class="proof-kpi-value"><span data-ops="stable_auto_closed_benign">~92%</span></div>
+        <div class="proof-kpi-label">Auto-Close Rate</div>
+        <div class="proof-kpi-hint">&#x2197; Computation method</div>
       </article>
-      <article class="m-card">
-        <div class="m-card-kicker">Verification</div>
-        <h2>Validation path</h2>
-        <p class="m-copy">Clone the repository, run the public verification commands, then compare the output to the published proof artifacts. The operational strip above reflects the latest committed proof snapshot, not a hand-maintained health claim.</p>
+
+      <article class="proof-kpi-card"
+        data-modal="modal-escalations"
+        data-modal-title="Published Escalations — Evidence Pack Definition"
+        role="button" tabindex="0"
+        aria-label="2,545 escalations — click to inspect evidence pack definition">
+        <div class="proof-kpi-value"><span data-ops="stable_escalated">2,545</span></div>
+        <div class="proof-kpi-label">Published Escalations</div>
+        <div class="proof-kpi-hint">&#x2197; What each escalation pack contains</div>
       </article>
       <article class="m-card" style="grid-column:1/-1;">
         <div class="m-card-kicker">Field notes</div>
@@ -155,10 +544,155 @@ body {
       </article>
     </div>
   </section>
+
+  <!-- ── SECTION 2: RECOVERY PROOF ── -->
+  <section id="recovery-proof" class="m-section">
+    <div class="m-wrap">
+      <div class="m-eyebrow">Operational Evidence</div>
+      <h2 class="m-title" style="font-size: clamp(1.4rem, 2.5vw, 2rem);">Recovery &amp; Reconciliation Proof</h2>
+      <p class="m-copy">The pipeline was exercised through a documented recovery event. The run log below proves a real execution cycle with zero reconciliation mismatches &mdash; not a hand-maintained health claim.</p>
+
+      <div class="m-grid-2" style="margin-top:24px;">
+        <article class="m-card">
+          <div class="m-card-kicker">Current authority snapshot</div>
+          <h3>SignalFoundry Pipeline &mdash; Reconciliation Proof</h3>
+          <ul class="m-list-tight">
+            <li><strong>Total cases processed:</strong> <span data-ops="stable_total_cases">55,665</span></li>
+            <li><strong>Auto-close rate:</strong> <span data-ops="stable_auto_closed_benign">~92%</span></li>
+            <li><strong>Escalations:</strong> <span data-ops="stable_escalated">2,545</span></li>
+            <li><strong>Host coverage:</strong> <span data-ops="stable_coverage_ratio">8/8</span></li>
+            <li><strong>Reconciliation:</strong> PASS (0 mismatches)</li>
+            <li><strong>Heartbeat:</strong> SUCCESS</li>
+          </ul>
+          <p class="m-copy" style="margin-top:10px;font-size:0.85rem;color:var(--muted,#8ea4c7);">Source: <code>current-authority.json</code> &mdash; reviewer-authoritative</p>
+        </article>
+
+        <article class="m-card">
+          <div class="m-card-kicker">Historical reference &mdash; 03-13-2026 run log</div>
+          <h3>Recovery Run Evidence</h3>
+          <p class="m-copy">Pipeline recovery case study from 03-13-2026. Final run: <code>run_id=autosoc-20260313T215029Z-31020</code>, <code>status=SUCCESS</code>, <code>cases_processed=173</code>, <code>reconciliation.mismatch_count=0</code>. Proves concrete execution output and validated recovery path.</p>
+          <ul class="m-list-tight" style="margin-top:10px;">
+            <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/docs/execution/AUTOSOC_PIPELINE_RECOVERY_PUBLIC_SNIPPETS_03-13-2026.md" target="_blank" rel="noopener noreferrer">Pipeline recovery public snippets (GitHub)</a></li>
+            <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">VERIFIED_COUNTS.md (GitHub)</a></li>
+          </ul>
+          <p class="m-copy" style="margin-top:10px;font-size:0.85rem;color:var(--muted,#8ea4c7);">Historical reference only &mdash; not current-facing authority</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 3: SPLUNK LANE ── -->
+  <section id="splunk-lane" class="m-section">
+    <div class="m-wrap">
+      <div class="m-eyebrow">Splunk Evidence</div>
+      <h2 class="m-title" style="font-size: clamp(1.4rem, 2.5vw, 2rem);">Splunk Proof Lane</h2>
+      <p class="m-copy"><strong>Scope: home lab environment.</strong> <span data-verified="splunk">8</span> Splunk queries were written and tested against Wazuh-forwarded log data in a local Proxmox VM (vm104). This is not a production SOC or enterprise Splunk deployment. The evidence below reflects that honest scope.</p>
+
+      <div class="m-grid-2" style="margin-top:24px;">
+        <article class="m-card">
+          <div class="m-card-kicker">Detection inventory</div>
+          <h3>Splunk Query Count</h3>
+          <ul class="m-list-tight">
+            <li><strong>Splunk queries:</strong> <span data-verified="splunk">8</span> (lab environment, home lab only)</li>
+            <li><strong>Context:</strong> Queries target Wazuh-forwarded events ingested via Splunk Universal Forwarder in vm104</li>
+            <li><strong>Claim ceiling:</strong> Lab-deployed, integration-tested; not enterprise, not production SOC</li>
+          </ul>
+        </article>
+
+        <article class="m-card">
+          <div class="m-card-kicker">Artifact reference</div>
+          <h3>Splunk Ingest Proof</h3>
+          <p class="m-copy">Pipeline proof artifact confirms Splunk ingest was operational for the locked reviewer snapshot. The export remains in the repository under the Splunk evidence path.</p>
+          <ul class="m-list-tight" style="margin-top:10px;">
+            <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/detection-rules/mappings/technique_map.csv" target="_blank" rel="noopener noreferrer">technique_map.csv &mdash; detection coverage map (GitHub)</a></li>
+          </ul>
+          <p class="m-copy" style="margin-top:10px;font-size:0.85rem;color:var(--muted,#8ea4c7);">Splunk role: home lab only &mdash; verified per <code>current-authority.json</code> claim ceiling</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 4: HISTORICAL ── -->
+  <section id="historical" class="m-section">
+    <div class="m-wrap">
+      <div class="m-eyebrow">Historical Reference</div>
+      <h2 class="m-title" style="font-size: clamp(1.4rem, 2.5vw, 2rem);">Historical Evidence Artifacts</h2>
+      <p class="m-copy">The following artifacts pre-date the March 24 authority snapshot. They are preserved as supporting evidence for the operational timeline but <strong>must not be read as current authority</strong>.</p>
+
+      <div class="m-grid-2" style="margin-top:24px;">
+        <article class="m-card">
+          <div class="m-card-kicker">Historical benchmark reference</div>
+          <h3>Canonical Metrics Snapshot</h3>
+          <p class="m-copy">The canonical metrics artifact records the locked benchmark used for the current public authority layer. Treat it as historical support, not live telemetry.</p>
+          <p class="m-copy" style="margin-top:8px;font-size:0.85rem;color:var(--muted,#8ea4c7);">Historical only &mdash; superseded by the current authority snapshot</p>
+        </article>
+
+        <article class="m-card">
+          <div class="m-card-kicker">Historical detection validation</div>
+          <h3>Continuous Detection Validation</h3>
+          <p class="m-copy">The automated validation suite passed all required checks for the locked public benchmark and preserved the supporting proof artifacts in the repository.</p>
+          <ul class="m-list-tight" style="margin-top:10px;">
+            <li>Grafana dashboard export: <code>proof/grafana/latest.md</code> (repo artifact)</li>
+            <li>Workflow snapshot: <code>/assets/pp_soc_integration/t3-workflow.png</code></li>
+          </ul>
+          <p class="m-copy" style="margin-top:8px;font-size:0.85rem;color:var(--muted,#8ea4c7);">Historical only &mdash; run date 03-21-2026</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 5: ARTIFACTS & VERIFICATION ── -->
+  <section id="links-and-telemetry" class="m-section">
+    <div class="m-wrap">
+      <div class="m-eyebrow">Artifacts &amp; Verification</div>
+      <h2 class="m-title" style="font-size: clamp(1.4rem, 2.5vw, 2rem);">Primary Artifacts &amp; Verification Path</h2>
+      <p class="m-copy">Clone the repository, run the public verification commands, and compare output to the committed proof artifacts. The KPI ledger above reflects the latest committed proof snapshot &mdash; not a hand-maintained health claim.</p>
+
+      <div class="m-grid-2" style="margin-top:24px;">
+        <article class="m-card">
+          <div class="m-card-kicker">Proof links</div>
+          <h3>Primary artifacts</h3>
+          <ul class="m-list-tight">
+            <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">VERIFIED_COUNTS.md &mdash; detection inventory source (GitHub)</a></li>
+            <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/detection-rules/mappings/technique_map.csv" target="_blank" rel="noopener noreferrer">technique_map.csv &mdash; MITRE coverage map (GitHub)</a></li>
+            <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/docs/execution/AUTOSOC_PIPELINE_RECOVERY_PUBLIC_SNIPPETS_03-13-2026.md" target="_blank" rel="noopener noreferrer">AutoSOC pipeline recovery snippets (GitHub)</a></li>
+          </ul>
+        </article>
+
+        <article class="m-card">
+          <div class="m-card-kicker">Case study</div>
+          <h3>Full operational narrative</h3>
+          <p class="m-copy">The SignalFoundry case study covers architecture, detection design, pipeline recovery, and the full operational context behind these metrics.</p>
+          <ul class="m-list-tight" style="margin-top:10px;">
+            <li><a href="/case-study-autosoc" class="m-link-item"><strong>SignalFoundry / AutoSOC Case Study</strong><span> &mdash; full build narrative, architecture, and operational detail</span></a></li>
+            <li><a href="/detections" class="m-link-item"><strong>Detection library</strong><span> &mdash; Sigma, Wazuh, and Splunk rule browser</span></a></li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- Telemetry widget -->
+      <div class="m-telemetry-widget" data-live-widget aria-label="Pipeline telemetry - informational only, non-authoritative" style="margin-top:36px;">
+        <div class="m-telemetry-header" style="font-size:0.82rem;color:var(--muted,#8ea4c7);margin-bottom:6px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;">
+          Telemetry Feed &mdash; Informational Only &mdash; Non-Authoritative
+        </div>
+        <div class="m-proof-strip" style="margin-top:4px;">
+          <div class="m-proof-inline">
+            <strong>Cases <span data-live="total_cases">55,665</span></strong>
+            <strong>Escalations <span data-live="escalations">2,545</span></strong>
+            <strong>Auto-close <span data-live="auto_close_rate">~92%</span></strong>
+            <strong>Snapshot <span data-live="snapshot_date">2026-03-25</span></strong>
+          </div>
+        </div>
+        <p style="font-size:0.78rem;color:var(--muted,#8ea4c7);margin-top:6px;">Source: <code>current-live.json</code> (_layer_rank 2) &mdash; non-authoritative for public claims. Reviewer-authoritative metrics are in the KPI ledger above.</p>
+      </div>
+    </div>
+  </section>
+
 </main>
+
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
     <div class="fl">
       <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
       <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
@@ -166,24 +700,201 @@ body {
     </div>
   </div>
 </footer>
-<script src="/assets/app.js" defer></script>
+
+<!-- Modal backdrop -->
+<div id="modalBg" class="modal-backdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-h">
+      <div id="modalTitle" class="modal-ttl">DETAILS</div>
+      <button id="modalClose" class="modal-x" type="button" aria-label="Close">&#x2715;</button>
+    </div>
+    <div id="modalBody" class="modal-b"></div>
+  </div>
+</div>
+
+<!-- ── Modal templates ── -->
+
+<template id="modal-cases">
+  <div class="proof-modal-section">
+    <h4>Metric definition</h4>
+    <p><strong>Total cases</strong> is the cumulative count of alert events ingested and processed by the SignalFoundry pipeline since operational baseline. Each case corresponds to one Wazuh alert that entered the triage loop and received a disposition.</p>
+  </div>
+  <div class="proof-modal-divider"></div>
+  <div class="proof-modal-section">
+    <h4>What is counted</h4>
+    <p>A case is counted when <code>poll-alerts.py</code> ingests a Wazuh alert and <code>triage.py</code> assigns a disposition: <code>AUTO_CLOSE_BENIGN</code>, <code>AUTO_CLOSE_KNOWN_FP</code>, or <code>ESCALATE</code>. Cases that stall before disposition are not counted.</p>
+  </div>
+  <div class="proof-modal-divider"></div>
+  <div class="proof-modal-section">
+    <h4>What is excluded</h4>
+    <ul>
+      <li>Duplicate alert events deduplicated at ingest</li>
+      <li>Test/synthetic events injected during pipeline development</li>
+      <li>Cases that did not complete the redaction gate</li>
+    </ul>
+  </div>
+  <div class="proof-modal-divider"></div>
+  <div class="proof-modal-section">
+    <h4>Provenance</h4>
+    <p>Value sourced from <code>data/truth/current-authority.json</code> &mdash; <code>metrics.stable_total_cases</code>. Derived from the operational ledger at the locked authority snapshot. Confirmed by <code>scripts/verify/verify-counts.ps1</code>.</p>
+    <div class="proof-modal-cmd">pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1</div>
+  </div>
+  <div class="proof-modal-section">
+    <span class="proof-modal-tag">reviewer-authoritative</span>
+    <span class="proof-modal-tag">03-25-2026</span>
+    <span class="proof-modal-tag">current-authority.json</span>
+  </div>
+</template>
+
+<template id="modal-autoclose">
+  <div class="proof-modal-section">
+    <h4>Computation method</h4>
+    <p>Auto-close rate is the percentage of total cases that received a <code>AUTO_CLOSE_BENIGN</code> or <code>AUTO_CLOSE_KNOWN_FP</code> disposition without requiring analyst escalation.</p>
+    <div class="proof-modal-cmd">auto_close_rate = (AUTO_CLOSE_BENIGN + AUTO_CLOSE_KNOWN_FP) / total_cases</div>
+  </div>
+  <div class="proof-modal-divider"></div>
+  <div class="proof-modal-section">
+    <h4>Operational meaning</h4>
+    <p>~92% auto-close means the pipeline deterministically handled roughly 51,232 of 55,665 cases through benign plus known-false-positive handling without analyst escalation. The remaining cases either escalated or were flagged for manual review. This demonstrates the signal-to-noise reduction the triage policy enforces.</p>
+  </div>
+  <div class="proof-modal-divider"></div>
+  <div class="proof-modal-section">
+    <h4>Label format</h4>
+    <p>Displayed as <code>~92%</code> (approximate label) because the operational ledger uses integer counts and the displayed percentage is rounded. The raw combined count is <code>auto_closed_benign + known_fp = 51,232</code>.</p>
+  </div>
+  <div class="proof-modal-section">
+    <span class="proof-modal-tag">51,232 auto-closed</span>
+    <span class="proof-modal-tag">55,665 total</span>
+    <span class="proof-modal-tag">5,898 known_fp</span>
+  </div>
+</template>
+
+<template id="modal-escalations">
+  <div class="proof-modal-section">
+    <h4>What an escalation is</h4>
+    <p>An escalation is a case where <code>triage.py</code> assigned disposition <code>ESCALATE</code>, triggering <code>assemble-pack.py</code> to generate a structured evidence pack and publish it as a GitHub artifact.</p>
+  </div>
+  <div class="proof-modal-divider"></div>
+  <div class="proof-modal-section">
+    <h4>What each escalation pack contains</h4>
+    <ul>
+      <li><code>00_one_pager.md</code> &mdash; intake summary, analyst-ready</li>
+      <li><code>01_full_report.md</code> &mdash; investigative narrative with full context</li>
+      <li><code>02_timeline.csv</code> &mdash; event timeline with timestamps</li>
+      <li><code>03_queries.md</code> &mdash; reproduction queries for the alert</li>
+      <li><code>04_closure_report.md</code> &mdash; disposition rationale and audit trail</li>
+    </ul>
+    <p>All packs pass the redaction gate before publication. Host identifiers, internal IPs, and environment-specific values are sanitized per <code>PROOF_PACK/REDACTION_RULES.md</code>.</p>
+  </div>
+  <div class="proof-modal-divider"></div>
+  <div class="proof-modal-section">
+    <h4>Provenance</h4>
+    <p>Value: <code>escalated: 2545</code> from <code>data/truth/current-authority.json</code>. This is an exact integer count, not an approximation.</p>
+  </div>
+  <div class="proof-modal-section">
+    <span class="proof-modal-tag">2,545 exact</span>
+    <span class="proof-modal-tag">published to GitHub</span>
+    <span class="proof-modal-tag">redaction-gated</span>
+  </div>
+</template>
+
+<template id="modal-hosts">
+  <div class="proof-modal-section">
+    <h4>Coverage definition</h4>
+    <p>8/8 means all monitored lab endpoints were actively reporting telemetry at the time of the authority snapshot. Coverage is computed by the pipeline gate: if any endpoint stops reporting, coverage drops and the gate fails.</p>
+  </div>
+  <div class="proof-modal-divider"></div>
+  <div class="proof-modal-section">
+    <h4>Endpoint roster</h4>
+    <p>Specific host identifiers are redacted per the repo redaction policy. The roster below uses sanitized labels. All endpoints are Proxmox VMs in the home lab environment.</p>
+    <div class="proof-modal-host-grid">
+      <div class="proof-modal-host"><span class="host-dot"></span>lab-endpoint-01 &middot; REPORTING</div>
+      <div class="proof-modal-host"><span class="host-dot"></span>lab-endpoint-02 &middot; REPORTING</div>
+      <div class="proof-modal-host"><span class="host-dot"></span>lab-endpoint-03 &middot; REPORTING</div>
+      <div class="proof-modal-host"><span class="host-dot"></span>lab-endpoint-04 &middot; REPORTING</div>
+      <div class="proof-modal-host"><span class="host-dot"></span>lab-endpoint-05 &middot; REPORTING</div>
+      <div class="proof-modal-host"><span class="host-dot"></span>lab-endpoint-06 &middot; REPORTING</div>
+      <div class="proof-modal-host"><span class="host-dot"></span>lab-endpoint-07 &middot; REPORTING</div>
+      <div class="proof-modal-host"><span class="host-dot"></span>lab-endpoint-08 &middot; REPORTING</div>
+    </div>
+    <p style="font-size:0.78rem;opacity:0.65;margin-top:8px;">Last confirmed: authority snapshot &middot; Identifiers redacted per repo redaction policy &middot; Lab environment only</p>
+  </div>
+  <div class="proof-modal-divider"></div>
+  <div class="proof-modal-section">
+    <h4>What a coverage failure looks like</h4>
+    <p>If any endpoint goes silent, the pipeline coverage gate sets <code>coverage_status: FAIL</code> and the heartbeat drops to a warning state. No coverage failure was recorded in the authority snapshot.</p>
+  </div>
+  <div class="proof-modal-section">
+    <span class="proof-modal-tag">8/8 reporting</span>
+    <span class="proof-modal-tag">0 gaps</span>
+    <span class="proof-modal-tag">Proxmox lab</span>
+    <span class="proof-modal-tag">Wazuh agents</span>
+  </div>
+</template>
+
+<template id="modal-reconciliation">
+  <div class="proof-modal-section">
+    <h4>What reconciliation means</h4>
+    <p>Reconciliation is a post-run ledger check. After the pipeline processes a batch of cases, it compares the count of cases that entered the triage loop against the count of cases with committed dispositions. A mismatch means a case was lost or processed twice.</p>
+  </div>
+  <div class="proof-modal-divider"></div>
+  <div class="proof-modal-section">
+    <h4>PASS definition</h4>
+    <p><code>PASS (0 mismatches)</code> means: for every case ingested, exactly one disposition was recorded. No cases dropped. No cases duplicated. The ledger is clean.</p>
+    <div class="proof-modal-cmd">reconciliation.mismatch_count = 0
+reconciliation.success_rate    = 100.00%
+reconciliation.status          = PASS</div>
+  </div>
+  <div class="proof-modal-divider"></div>
+  <div class="proof-modal-section">
+    <h4>Operational significance</h4>
+    <p>This matters because evidence packs depend on the triage ledger being accurate. If a case slips through without a disposition, an escalation artifact may never be generated &mdash; silent evidence loss. PASS means that didn&rsquo;t happen.</p>
+  </div>
+  <div class="proof-modal-divider"></div>
+  <div class="proof-modal-section">
+    <h4>Provenance</h4>
+    <p>Value: <code>reconciliation_mismatch: 0</code> from <code>data/truth/current-authority.json</code>. Confirmed in recovery run log <code>autosoc-20260313T215029Z-31020</code>.</p>
+  </div>
+  <div class="proof-modal-section">
+    <span class="proof-modal-tag">0 mismatches</span>
+    <span class="proof-modal-tag">100% success rate</span>
+    <span class="proof-modal-tag">ledger-verified</span>
+  </div>
+</template>
+
+<template id="modal-heartbeat">
+  <div class="proof-modal-section">
+    <h4>What heartbeat validates</h4>
+    <p>Heartbeat is the pipeline&rsquo;s self-certification signal. It runs after each processing cycle and confirms: the ingest process reached the Wazuh API, triage policy loaded successfully, at least one case was processed to completion, and the reconciliation gate passed.</p>
+  </div>
+  <div class="proof-modal-divider"></div>
+  <div class="proof-modal-section">
+    <h4>SUCCESS definition</h4>
+    <p><code>SUCCESS</code> means all four conditions cleared in the last confirmed run. It is the highest-confidence pipeline health signal and is the only state that permits proof artifacts to be published.</p>
+    <div class="proof-modal-cmd">heartbeat.status   = SUCCESS
+heartbeat.gate     = LIVE
+heartbeat.blocker  = NONE</div>
+  </div>
+  <div class="proof-modal-divider"></div>
+  <div class="proof-modal-section">
+    <h4>What a non-SUCCESS state means</h4>
+    <p>If heartbeat is <code>DEGRADED</code> or <code>FAIL</code>, the pipeline gate blocks publication. The March 24 authority snapshot was locked only after the pipeline returned to <code>SUCCESS</code> following the 03-13-2026 recovery event.</p>
+  </div>
+  <div class="proof-modal-divider"></div>
+  <div class="proof-modal-section">
+    <h4>Provenance</h4>
+    <p>Value: <code>heartbeat: "SUCCESS"</code> from <code>data/truth/current-authority.json</code>. Cross-referenced against recovery run log <code>autosoc-20260313T215029Z-31020</code>.</p>
+  </div>
+  <div class="proof-modal-section">
+    <span class="proof-modal-tag">pipeline live</span>
+    <span class="proof-modal-tag">gate passed</span>
+    <span class="proof-modal-tag">no blockers</span>
+  </div>
+</template>
+
 <script src="/assets/fetch-utils.js" defer></script>
 <script src="/data/counts.js" defer></script>
 <script src="/data/ops-metrics.js" defer></script>
-<script>
-  (function () {
-    function loadHydrate() {
-      var s = document.createElement('script');
-      s.src = '/assets/hydrate.js';
-      s.defer = true;
-      document.body.appendChild(s);
-    }
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(function () { setTimeout(loadHydrate, 0); }, {timeout:1500});
-    } else {
-      window.addEventListener('load', loadHydrate);
-    }
-  })();
-</script>
+<script src="/assets/app.js" defer></script>
 </body>
 </html>

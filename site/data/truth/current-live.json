@@ -1,0 +1,28 @@
+{
+  "_schema": "truth-live-v1",
+  "_layer": "live_operational_feed",
+  "_layer_rank": 2,
+  "_authority_note": "INFORMATIONAL ONLY - non-authoritative for public claims. Do not present values from this file as canonical, final, or reviewer-authoritative. Values represent the last known pipeline snapshot and may have changed.",
+  "_source": "source_of_truth/metrics_canonical_2026-03-25.json",
+  "_generated_at": "2026-03-25T01:44:00Z",
+  "_last_pipeline_snapshot": "2026-03-25",
+  "_warning": "All values in pipeline_runtime are dated 2026-03-25. They are historical evidence, not current-facing authority. Display only in clearly labeled telemetry widgets.",
+  "system_name": "SignalFoundry",
+  "pipeline_runtime": {
+    "total_cases": 55665,
+    "auto_close_rate": "~92%",
+    "escalations": "2,545",
+    "hosts_reporting": "8/8",
+    "reconciliation": "PASS (0 mismatches)",
+    "heartbeat": "SUCCESS",
+    "snapshot_date": "2026-03-25",
+    "display_label": "As of 2026-03-25 - informational snapshot only",
+    "claim_class": "Supported with date qualifier - historical only for current-facing pages"
+  },
+  "display_rules": [
+    "Must show snapshot_date (2026-03-25) any time these values appear publicly.",
+    "Must not be presented as current pipeline state without a new verified snapshot.",
+    "Must not appear on public pages as the primary metric without date qualification.",
+    "Telemetry widget label must read: 'Pipeline snapshot as of 2026-03-25 (informational)'."
+  ]
+}

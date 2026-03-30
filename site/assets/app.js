@@ -216,15 +216,46 @@
   }
 
   async function loadOpsMetrics() {
+    // Preload baseline from inline script (ops-metrics.js) - may carry stale data, overridden below
     if (window.HAWKINSOPS_OPS_METRICS && typeof window.HAWKINSOPS_OPS_METRICS === 'object') {
       applyOpsMetricsPayload(window.HAWKINSOPS_OPS_METRICS);
     }
+    // Primary authority source: current-authority.json (verified_snapshot, tier 1)
+    try {
+      const payload = await fetchJsonWithFallback('/data/truth/current-authority.json', OPS_TIMEOUT_MS);
+      if (payload && typeof payload === 'object') {
+        applyOpsMetricsPayload(payload);
+        return;
+      }
+    } catch { /* fall through to legacy fallback */ }
+    // Fallback only: ops-metrics.json (used if authority fetch fails)
     try {
       const payload = await fetchJsonWithFallback('/assets/data/ops-metrics.json', OPS_TIMEOUT_MS);
       applyOpsMetricsPayload(payload);
     } catch {
-      // keep existing values if the payload is unavailable
+      // keep existing values if all payloads are unavailable
     }
+  }
+
+  async function loadLiveWidget() {
+    var liveContainers = $$('[data-live-widget]');
+    if (!liveContainers.length) return;
+    try {
+      var payload = await fetchJsonWithFallback('/data/truth/current-live.json', OPS_TIMEOUT_MS);
+      if (!payload || typeof payload !== 'object') return;
+      var live = (payload.pipeline_runtime && typeof payload.pipeline_runtime === 'object')
+        ? payload.pipeline_runtime : payload;
+      liveContainers.forEach(function (container) {
+        $$('[data-live]', container).forEach(function (node) {
+          var key = node.getAttribute('data-live');
+          if (!key) return;
+          var value = live[key];
+          if (value !== undefined && value !== null) {
+            node.textContent = String(formatMetricValue(value));
+          }
+        });
+      });
+    } catch { /* non-critical - live widget is informational only */ }
   }
 
   async function imageExists(src) {
@@ -403,9 +434,47 @@
     return `${mm}-${dd}-${yyyy}`;
   }
 
+  // Animated number counter — counts up from 0 when element enters viewport.
+  function animateCounters() {
+    var targets = $$('.sf-metric-value, .proof-kpi-value, .m-kpi-value');
+    if (!targets.length || typeof IntersectionObserver !== 'function') return;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        if (el.__counted) return;
+        el.__counted = true;
+        observer.unobserve(el);
+        var textNode = el.querySelector('[data-ops], [data-verified], [data-ops-status]') || el;
+        var raw = (textNode.textContent || '').trim();
+        var numMatch = raw.replace(/[,%~+]/g, '').match(/\d+/);
+        if (!numMatch) return;
+        var target = parseInt(numMatch[0], 10);
+        if (target < 2 || target > 999999) return;
+        var prefix = raw.match(/^[~]/) ? '~' : '';
+        var suffix = raw.replace(/^[~]*[\d,]+/, '');
+        var duration = Math.min(1200, Math.max(400, target / 50));
+        var start = performance.now();
+        function tick(now) {
+          var elapsed = now - start;
+          var progress = Math.min(elapsed / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          var current = Math.round(target * eased);
+          textNode.textContent = prefix + new Intl.NumberFormat('en-US').format(current) + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.3 });
+    targets.forEach(function (el) { observer.observe(el); });
+  }
+
   loadVerifiedCounts();
   loadOpsMetrics();
+  loadLiveWidget();
   hydrateLabScreenshots();
+  // Run counters after data binding completes.
+  setTimeout(animateCounters, 300);
 
   // DEV-only overflow detector: local hosts only.
   if (isLocalDebugHost) {

@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>HawkinsOps | Case Study: Cowrie Honeypot + Grafana + Wazuh — Attacker Intelligence Stack</title>
+<title>HawkinsOps | Case Study: Cowrie Honeypot + Grafana + Wazuh - Attacker Intelligence Stack</title>
 <meta name="description" content="Docker-based Cowrie SSH/Telnet honeypot feeding Wazuh Indexer with a Grafana dashboard for attacker session visualization. Minimal, auditable, and LAN-only by default.">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07070b">
 <link rel="canonical" href="https://hawkinsops.com/case-study-honeypot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Case Study | Cowrie Honeypot + Grafana + Wazuh — Attacker Intelligence Stack">
+<meta property="og:title" content="Case Study | Cowrie Honeypot + Grafana + Wazuh - Attacker Intelligence Stack">
 <meta property="og:description" content="Docker Compose stack: Cowrie SSH/Telnet honeypot, Grafana dashboard querying Wazuh Indexer. LAN-only binding, no credentials on disk, CI-validated.">
 <meta property="og:url" content="https://hawkinsops.com/case-study-honeypot">
 <meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/t5-proxmox-redacted.png?v=02-20-2026-1">
@@ -23,8 +23,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <script>document.documentElement.setAttribute('data-theme', 'dark');</script>
 <link rel="stylesheet" href="/assets/styles.css">
-<link rel="stylesheet" href="/assets/modernize.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
+<link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -37,6 +38,7 @@
       <li><a href="/proof">Proof</a></li>
       <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
       <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/detections">Detections</a></li>
       <li><a href="/soc-lab">Lab</a></li>
       <li><a href="/resume">Resume</a></li>
@@ -49,6 +51,7 @@
   <a href="/proof">Proof</a>
   <a href="/operations-bridge">Ops &rarr; Cyber</a>
   <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/detections">Detections</a>
   <a href="/soc-lab">Lab</a>
   <a href="/resume">Resume</a>
@@ -73,9 +76,9 @@
           <div>
             <p><b>Components:</b></p>
             <ul style="padding-left:18px;margin-top:8px">
-              <li><b>Cowrie</b> — low-interaction SSH/Telnet honeypot. Records attacker commands, credentials attempted, session duration, and payload downloads. Writes structured JSON logs.</li>
-              <li><b>Grafana OSS</b> — dashboard provisioned from code (<code>grafana/dashboards/honeypot_ops.json</code>). Queries Wazuh Indexer directly via OpenSearch datasource.</li>
-              <li><b>Wazuh Indexer</b> — already in the lab infrastructure. Cowrie JSON logs ingested via Wazuh agent localfile config → decoded → indexed under <code>rule.groups:cowrie</code>.</li>
+              <li><b>Cowrie</b> - low-interaction SSH/Telnet honeypot. Records attacker commands, credentials attempted, session duration, and payload downloads. Writes structured JSON logs.</li>
+              <li><b>Grafana OSS</b> - dashboard provisioned from code (<code>grafana/dashboards/honeypot_ops.json</code>). Queries Wazuh Indexer directly via OpenSearch datasource.</li>
+              <li><b>Wazuh Indexer</b> - already in the lab infrastructure. Cowrie JSON logs ingested via Wazuh agent localfile config -> decoded -> indexed under <code>rule.groups:cowrie</code>.</li>
             </ul>
           </div>
           <div>
@@ -85,7 +88,7 @@
               <li>Cowrie logs session to <code>/var/log/cowrie/cowrie.json</code></li>
               <li>Wazuh agent reads JSON log via localfile config</li>
               <li>Wazuh manager decodes and indexes to Wazuh Indexer</li>
-              <li>Grafana queries <code>rule.groups:cowrie</code> → dashboard panels update</li>
+              <li>Grafana queries <code>rule.groups:cowrie</code> -> dashboard panels update</li>
             </ol>
           </div>
         </div>
@@ -117,7 +120,7 @@
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
       - ./grafana/dashboards:/var/lib/grafana/dashboards</pre>
-        <p style="margin-top:10px">All secrets live in <code>.env</code> (not committed). <code>LAN_BIND_IP</code> defaults to <code>localhost</code> — services are LAN-only unless explicitly overridden.</p>
+        <p style="margin-top:10px">All secrets live in <code>.env</code> (not committed). <code>LAN_BIND_IP</code> defaults to <code>localhost</code> - services are LAN-only unless explicitly overridden.</p>
       </div>
     </div>
 
@@ -129,11 +132,11 @@
         <div class="card-sub">
           <p>Dashboard JSON lives in <code>grafana/dashboards/honeypot_ops.json</code> and is provisioned automatically on container start. Three panels:</p>
           <ul style="padding-left:18px;margin-top:8px">
-            <li><b>Sessions Over Time</b> — time series of Cowrie session events (<code>rule.groups:cowrie</code>). Shows attacker activity volume across the monitoring window.</li>
-            <li><b>Top Usernames</b> — aggregated credential spray patterns. Shows which usernames attackers try most.</li>
-            <li><b>Top Commands</b> — what attackers type after gaining access. Shows adversary objectives and tooling.</li>
+            <li><b>Sessions Over Time</b> - time series of Cowrie session events (<code>rule.groups:cowrie</code>). Shows attacker activity volume across the monitoring window.</li>
+            <li><b>Top Usernames</b> - aggregated credential spray patterns. Shows which usernames attackers try most.</li>
+            <li><b>Top Commands</b> - what attackers type after gaining access. Shows adversary objectives and tooling.</li>
           </ul>
-          <p style="margin-top:10px">No manual dashboard config — dashboard state is version-controlled and reproduced identically on every deploy.</p>
+          <p style="margin-top:10px">No manual dashboard config - dashboard state is version-controlled and reproduced identically on every deploy.</p>
         </div>
       </div>
       <div class="card">
@@ -176,10 +179,10 @@ docker compose up -d
       <div class="card">
         <h2 class="card-ttl">Lessons + next hardening step</h2>
         <ul class="card-sub" style="padding-left:18px">
-          <li><b>LAN-only by default</b> — <code>LAN_BIND_IP</code> defaults to <code>localhost</code>. Public-facing deployment requires explicit <code>.env</code> change.</li>
-          <li><b>No credentials on disk</b> — all secrets via environment variables from <code>.env</code>. No hardcoded values in compose file or scripts.</li>
-          <li><b>Proxmox DMZ placement</b> — docs specify isolating the honeypot VM on a DMZ bridge segment; DMZ cannot initiate connections to LAN.</li>
-          <li><b>CI validation</b> — GitHub Actions validates <code>docker-compose.yml</code> syntax and shellchecks scripts on every push.</li>
+          <li><b>LAN-only by default</b> - <code>LAN_BIND_IP</code> defaults to <code>localhost</code>. Public-facing deployment requires explicit <code>.env</code> change.</li>
+          <li><b>No credentials on disk</b> - all secrets via environment variables from <code>.env</code>. No hardcoded values in compose file or scripts.</li>
+          <li><b>Proxmox DMZ placement</b> - docs specify isolating the honeypot VM on a DMZ bridge segment; DMZ cannot initiate connections to LAN.</li>
+          <li><b>CI validation</b> - GitHub Actions validates <code>docker-compose.yml</code> syntax and shellchecks scripts on every push.</li>
         </ul>
       </div>
     </div>
@@ -189,9 +192,9 @@ docker compose up -d
     <div class="card">
       <h2 class="card-ttl">Why this matters to a hiring team</h2>
       <p class="card-sub">
-        A honeypot generates attacker intelligence — real credential spray patterns, post-auth command sequences, and tooling fingerprints from actual threat actors (or automated scanners).
+        A honeypot generates attacker intelligence - real credential spray patterns, post-auth command sequences, and tooling fingerprints from actual threat actors (or automated scanners).
         That data feeds directly into detection rule refinement: if the top username spray list from the honeypot shows <code>admin</code>, <code>root</code>, and <code>ubuntu</code>, the Sigma and Wazuh authentication failure rules should be tuned to weight those patterns.
-        The Grafana dashboard makes that feedback loop visible. The Wazuh integration means attacker session data is indexed alongside endpoint telemetry — enabling correlation between honeypot hits and lateral movement patterns on monitored systems.
+        The Grafana dashboard makes that feedback loop visible. The Wazuh integration means attacker session data is indexed alongside endpoint telemetry - enabling correlation between honeypot hits and lateral movement patterns on monitored systems.
       </p>
     </div>
 
@@ -217,7 +220,7 @@ docker compose up -d
 <!-- @include:footer:start -->
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
     <div class="fl">
       <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
       <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>

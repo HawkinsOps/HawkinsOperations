@@ -1,19 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>HawkinsOps | Case Study: Sigma Detection Library — Platform-Agnostic ATT&CK Coverage</title>
+<title>HawkinsOps | Case Study: Sigma Detection Library - Platform-Agnostic ATT&CK Coverage</title>
 <meta name="description" content="How verified Sigma detection rules were authored across MITRE ATT&CK tactics: logsource schema, false positive filters, technique tagging, and multi-platform portability.">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07070b">
 <link rel="canonical" href="https://hawkinsops.com/case-study-sigma-library">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Case Study | Sigma Detection Library — Verified Rules, Full ATT&CK Coverage">
+<meta property="og:title" content="Case Study | Sigma Detection Library - Verified Rules, Full ATT&CK Coverage">
 <meta property="og:description" content="Platform-agnostic detection rules authored to Sigma spec. Logsource schema, false positive filters, MITRE tagging, and portability across Splunk, Wazuh, and Elastic backends.">
 <meta property="og:url" content="https://hawkinsops.com/case-study-sigma-library">
 <meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/t5-proxmox-redacted.png?v=02-20-2026-1">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Case Study | Sigma Detection Library — Verified Rules, Full ATT&CK Coverage">
+<meta name="twitter:title" content="Case Study | Sigma Detection Library - Verified Rules, Full ATT&CK Coverage">
 <meta name="twitter:description" content="Platform-agnostic Sigma rules authored to spec. Covers credential access, lateral movement, ransomware, exfiltration, and more.">
 <meta name="twitter:image" content="https://hawkinsops.com/assets/pp_soc_integration/t5-proxmox-redacted.png?v=02-20-2026-1">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -23,8 +23,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <script>document.documentElement.setAttribute('data-theme', 'dark');</script>
 <link rel="stylesheet" href="/assets/styles.css">
-<link rel="stylesheet" href="/assets/modernize.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
+<link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -37,6 +38,7 @@
       <li><a href="/proof">Proof</a></li>
       <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
       <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/detections">Detections</a></li>
       <li><a href="/soc-lab">Lab</a></li>
       <li><a href="/resume">Resume</a></li>
@@ -49,6 +51,7 @@
   <a href="/proof">Proof</a>
   <a href="/operations-bridge">Ops &rarr; Cyber</a>
   <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/detections">Detections</a>
   <a href="/soc-lab">Lab</a>
   <a href="/resume">Resume</a>
@@ -62,7 +65,7 @@
     <div class="slbl">Detection engineering</div>
     <h1 class="stitle">Sigma detection library: <span data-verified="sigma">103</span> platform-agnostic rules across 10 MITRE ATT&CK tactics</h1>
     <p class="sdesc">
-      Sigma is the detection rule format that compiles to anything — Splunk SPL, Elasticsearch queries, Wazuh rules, QRadar.
+      Sigma is the detection rule format that compiles to anything - Splunk SPL, Elasticsearch queries, Wazuh rules, QRadar.
       Write once, deploy anywhere.
       These <span data-verified="sigma">103</span> rules were authored to Sigma spec with explicit logsource schemas, false positive filters, and MITRE technique tags,
       so they are deployable without modification in any SIEM that supports Sigma compilation.
@@ -77,7 +80,7 @@
         Write a Wazuh XML rule, and it runs only in Wazuh.
         Sigma decouples the detection logic from the implementation.
         The rules in this library were authored to the Sigma specification so they can be compiled
-        to any supported backend — which means the coverage survives a SIEM migration.
+        to any supported backend - which means the coverage survives a SIEM migration.
         It also means every rule documents its own logsource, technique mapping, and false-positive
         considerations as part of the format, not as a separate document.
       </p>
@@ -157,15 +160,15 @@ level: high</pre>
       <div class="card">
         <h2 class="card-ttl">Required fields in every rule</h2>
         <ul class="card-sub" style="padding-left:18px">
-          <li><b>title</b> — human-readable, unambiguous name.</li>
-          <li><b>id</b> — stable UUID for deduplication across environments.</li>
-          <li><b>status</b> — stable / experimental / test. No rule ships as "test" without a comment.</li>
-          <li><b>description</b> — what this detects and why it matters.</li>
-          <li><b>tags</b> — MITRE ATT&amp;CK tactic + technique IDs. Required. No untagged rules.</li>
-          <li><b>logsource</b> — explicit product, category, service. Required for compilation.</li>
-          <li><b>detection</b> — selection + condition. Filter blocks for known-good processes.</li>
-          <li><b>falsepositives</b> — at least one entry. Empty false positives is a red flag.</li>
-          <li><b>level</b> — informational / low / medium / high / critical. Not defaulted.</li>
+          <li><b>title</b> - human-readable, unambiguous name.</li>
+          <li><b>id</b> - stable UUID for deduplication across environments.</li>
+          <li><b>status</b> - stable / experimental / test. No rule ships as "test" without a comment.</li>
+          <li><b>description</b> - what this detects and why it matters.</li>
+          <li><b>tags</b> - MITRE ATT&amp;CK tactic + technique IDs. Required. No untagged rules.</li>
+          <li><b>logsource</b> - explicit product, category, service. Required for compilation.</li>
+          <li><b>detection</b> - selection + condition. Filter blocks for known-good processes.</li>
+          <li><b>falsepositives</b> - at least one entry. Empty false positives is a red flag.</li>
+          <li><b>level</b> - informational / low / medium / high / critical. Not defaulted.</li>
         </ul>
       </div>
     </div>
@@ -179,7 +182,7 @@ level: high</pre>
           <p>A detection rule without false positive handling is a noisy alert factory.
              Every rule in this library includes explicit filter conditions for known-good behavior.
              The LSASS rule filters <code>wmiprvse.exe</code>, <code>taskmgr.exe</code>, <code>MsMpEng.exe</code>,
-             and common EDR agents before firing — because those processes legitimately access LSASS memory.</p>
+             and common EDR agents before firing - because those processes legitimately access LSASS memory.</p>
           <p style="margin-top:10px">This matters for hiring teams: a rule that fires on everything is not a detection.
              It's a visibility tax that burns analyst time.</p><p style="margin-top:10px"><b>Next hardening step:</b> add tactic-level replay tests so each false-positive filter is validated against real telemetry before promotion.</p>
         </div>
@@ -194,7 +197,7 @@ level: high</pre>
             <li>Microsoft Sentinel KQL</li>
             <li>QRadar AQL</li>
           </ul>
-          <p style="margin-top:10px">The same credential-access detection set exists in both Sigma YAML (platform-agnostic) and Splunk SPL (direct implementation) in this repo — illustrating the same logic expressed in both formats.</p>
+          <p style="margin-top:10px">The same credential-access detection set exists in both Sigma YAML (platform-agnostic) and Splunk SPL (direct implementation) in this repo - illustrating the same logic expressed in both formats.</p>
         </div>
       </div>
     </div>
@@ -219,7 +222,7 @@ level: high</pre>
   }</pre>
           </div>
         </div>
-        <p style="margin-top:12px">Source of truth: <code>PROOF_PACK/VERIFIED_COUNTS.md</code> — generated by CI on every commit via <code>scripts/verify/generate-verified-counts.ps1</code>.</p>
+        <p style="margin-top:12px">Source of truth: <code>PROOF_PACK/VERIFIED_COUNTS.md</code> - generated by CI on every commit via <code>scripts/verify/generate-verified-counts.ps1</code>.</p>
       </div>
     </div>
 
@@ -245,7 +248,7 @@ level: high</pre>
 <!-- @include:footer:start -->
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
     <div class="fl">
       <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
       <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>

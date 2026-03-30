@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>SignalFoundry Engineering Case Study — March 2026 | HawkinsOps</title>
+<meta name="description" content="Engineering deep-dive: how SignalFoundry was built, broke, and recovered — processing 49,774+ security alerts with root-cause analysis, policy tuning, and verified proof.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07070b">
+<link rel="canonical" href="https://hawkinsops.com/march-2026-deep-dive">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SignalFoundry Engineering Case Study — March 2026">
+<meta property="og:description" content="How I built, broke, and recovered a SOC automation pipeline processing ~50,000 security alerts.">
+<meta property="og:url" content="https://hawkinsops.com/march-2026-deep-dive">
+<meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SignalFoundry Engineering Case Study — March 2026">
+<meta name="twitter:description" content="Root-cause analysis, policy tuning, and verified recovery on a live SOC pipeline.">
+<meta name="twitter:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.setAttribute('data-theme','dark');</script>
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
+<link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
+</head>
+<body>
+<!-- @include:nav:start -->
+<nav class="m-nav">
+  <div class="m-nav-inner m-wrap">
+    <a href="/" class="m-nav-logo logo" aria-label="Home"><span class="logo-mark">RH</span> Hawkins <span style="font-weight:400;">Ops</span></a>
+    <div class="m-nav-links">
+      <a href="/start-here">Start Here</a>
+      <a href="/case-study-autosoc">SignalFoundry</a>
+      <a href="/enterprise-security">Enterprise Security</a>
+      <a href="/proof">Proof</a>
+      <a href="/detections">Detections</a>
+      <a href="/resume">Resume</a>
+      <a href="/soc-lab">Lab</a>
+      <a href="/start-here" class="m-btn m-btn-nav">Start Here</a>
+    </div>
+  </div>
+</nav>
+<!-- @include:nav:end -->
+
+<main class="m-shell m-wrap" style="max-width:860px;padding-top:48px;padding-bottom:64px;">
+
+  <div class="m-eyebrow">Engineering Case Study</div>
+  <h1 class="m-title" style="font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:12px;">SignalFoundry: March 2026 System Hardening &amp; Pipeline Evolution</h1>
+
+  <!-- HOOK -->
+  <p style="font-size:1.05rem;line-height:1.65;color:#71c7b8;font-weight:600;margin-bottom:24px;max-width:72ch;">This case study documents how I built, broke, and recovered a SOC automation pipeline processing ~50,000 security alerts and what that revealed about detection quality, system trust, and operational reliability.</p>
+
+  <p style="font-size:0.82rem;color:var(--muted);margin-bottom:32px;">Author: Raylee Hawkins &middot; Date: March 25, 2026 &middot; Target reader: technical hiring manager, MSSP team lead, or senior detection engineer</p>
+
+  <!-- KEY FINDING -->
+  <div class="sf-card" style="padding:24px;margin-bottom:40px;border-left:3px solid #71c7b8;">
+    <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:#71c7b8;margin-bottom:8px;">Key Finding</div>
+    <p style="font-size:1rem;font-weight:600;color:var(--text);margin:0 0 12px;">The most important outcome was not a detection. It was identifying that critical telemetry required for triage did not exist.</p>
+    <ul style="margin:0;padding:0 0 0 16px;font-size:0.9rem;color:var(--muted);display:grid;gap:4px;">
+      <li>Command-line logging was disabled on key endpoints</li>
+      <li>Failed logon events were absent from expected sources</li>
+      <li>Key detection paths could not be validated regardless of rule quality</li>
+    </ul>
+    <p style="font-size:0.92rem;font-weight:600;color:#71c7b8;margin:12px 0 0;">Detection quality is limited by telemetry quality.</p>
+  </div>
+
+  <hr style="border:0;border-top:1px solid rgba(255,255,255,0.06);margin:40px 0;">
+
+  <!-- 1. EXECUTIVE SUMMARY -->
+  <h2 style="font-size:1.4rem;margin-bottom:12px;">1. Executive Summary</h2>
+
+  <h3 style="font-size:1rem;color:var(--muted);margin-bottom:8px;">What SignalFoundry Is</h3>
+  <p style="line-height:1.7;margin-bottom:16px;">SignalFoundry is the detection-automation and case-management engine at the core of the HawkinsOps home SOC. It is not a commercial product. It is a bespoke Python-and-PowerShell pipeline built to transform raw Wazuh SIEM alerts into structured, evidence-backed incident cases without human intervention on the majority of events. It runs continuously via Windows Task Scheduler and publishes vetted escalations as GitHub pull requests with full sanitization enforced at the pipeline level.</p>
+  <p style="line-height:1.7;margin-bottom:20px;">The system demonstrates a core engineering thesis: that a single operator with a manufacturing background, the right tooling judgment, and disciplined automation can run a SOC-quality detection loop at scale, producing artifacts that are reviewable, reproducible, and CI-verified.</p>
+
+  <h3 style="font-size:1rem;color:var(--muted);margin-bottom:8px;">Scale of Operation</h3>
+  <div class="sf-card" style="padding:20px;margin-bottom:20px;overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
+      <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;">
+        <th style="padding:8px 10px;color:var(--muted);font-weight:600;">Metric</th>
+        <th style="padding:8px 10px;color:var(--muted);font-weight:600;">Value</th>
+        <th style="padding:8px 10px;color:var(--muted);font-weight:600;">Source</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="padding:8px 10px;">Total lifetime cases processed</td><td style="padding:8px 10px;color:#7ab8ff;font-family:'JetBrains Mono',monospace;font-weight:700;">49,774</td><td style="padding:8px 10px;color:var(--muted);">Canonical snapshot, March 2026</td></tr>
+        <tr><td style="padding:8px 10px;">Auto-close rate</td><td style="padding:8px 10px;color:#4ade80;font-family:'JetBrains Mono',monospace;font-weight:700;">~89%</td><td style="padding:8px 10px;color:var(--muted);">Canonical snapshot</td></tr>
+        <tr><td style="padding:8px 10px;">Escalated cases (published)</td><td style="padding:8px 10px;color:#fbbf24;font-family:'JetBrains Mono',monospace;font-weight:700;">2,478</td><td style="padding:8px 10px;color:var(--muted);">Reconciliation</td></tr>
+        <tr><td style="padding:8px 10px;">Hosts monitored</td><td style="padding:8px 10px;color:#4ade80;font-family:'JetBrains Mono',monospace;font-weight:700;">8 / 8</td><td style="padding:8px 10px;color:var(--muted);">Canonical snapshot</td></tr>
+        <tr><td style="padding:8px 10px;">Ledger-to-repo mismatches</td><td style="padding:8px 10px;color:#4ade80;font-family:'JetBrains Mono',monospace;font-weight:700;">0</td><td style="padding:8px 10px;color:var(--muted);">Canonical snapshot</td></tr>
+        <tr><td style="padding:8px 10px;">Pipeline run duration</td><td style="padding:8px 10px;color:#7ab8ff;font-family:'JetBrains Mono',monospace;font-weight:700;">~5.4s</td><td style="padding:8px 10px;color:var(--muted);">Latest heartbeat</td></tr>
+        <tr><td style="padding:8px 10px;">Detection inventory</td><td style="padding:8px 10px;color:#7ab8ff;font-family:'JetBrains Mono',monospace;font-weight:700;"><span data-verified="detections">139</span> rules</td><td style="padding:8px 10px;color:var(--muted);">VERIFIED_COUNTS.md</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:1rem;color:var(--muted);margin-bottom:8px;">What Changed in the Past 14 Days</h3>
+  <p style="line-height:1.7;margin-bottom:32px;">The March 11-25 window captured the system recovering from a two-failure sequence (poller timeout + reconciliation serialization defect), completing a multi-day stress-test validation window, and advancing policy tuning on known-FP noise. The pipeline reached a verified SUCCESS state and held it. Every change was made under test coverage and without modifying the public portfolio count sources out-of-band.</p>
+
+  <hr style="border:0;border-top:1px solid rgba(255,255,255,0.06);margin:40px 0;">
+
+  <!-- 2. SYSTEM ARCHITECTURE -->
+  <h2 style="font-size:1.4rem;margin-bottom:12px;">2. System Architecture</h2>
+
+  <h3 style="font-size:1rem;color:var(--muted);margin-bottom:8px;">Pipeline Stages</h3>
+  <div class="sf-card" style="padding:20px;margin-bottom:20px;overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+      <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;">
+        <th style="padding:8px 10px;color:var(--muted);">Stage</th>
+        <th style="padding:8px 10px;color:var(--muted);">Script</th>
+        <th style="padding:8px 10px;color:var(--muted);">Purpose</th>
+        <th style="padding:8px 10px;color:var(--muted);">Duration</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="padding:6px 10px;"><code>tests</code></td><td style="padding:6px 10px;"><code>pytest</code></td><td style="padding:6px 10px;">Triage logic regression gate</td><td style="padding:6px 10px;font-family:'JetBrains Mono',monospace;">0.227s</td></tr>
+        <tr><td style="padding:6px 10px;"><code>poll_alerts</code></td><td style="padding:6px 10px;"><code>poll-alerts.py</code></td><td style="padding:6px 10px;">Query Wazuh Indexer, write queue</td><td style="padding:6px 10px;font-family:'JetBrains Mono',monospace;">0.397s</td></tr>
+        <tr><td style="padding:6px 10px;"><code>triage</code></td><td style="padding:6px 10px;"><code>triage.py</code></td><td style="padding:6px 10px;">Disposition all queued alerts</td><td style="padding:6px 10px;font-family:'JetBrains Mono',monospace;">0.790s</td></tr>
+        <tr><td style="padding:6px 10px;"><code>triage_quality</code></td><td style="padding:6px 10px;"><code>triage-quality.py</code></td><td style="padding:6px 10px;">Score and classify triaged cases</td><td style="padding:6px 10px;font-family:'JetBrains Mono',monospace;">1.765s</td></tr>
+        <tr><td style="padding:6px 10px;"><code>cases</code></td><td style="padding:6px 10px;"><code>redact + pack + PR</code></td><td style="padding:6px 10px;">Sanitize and publish escalations</td><td style="padding:6px 10px;font-family:'JetBrains Mono',monospace;">0.460s</td></tr>
+        <tr><td style="padding:6px 10px;"><code>reconcile</code></td><td style="padding:6px 10px;"><code>reconcile-state.py</code></td><td style="padding:6px 10px;">4-way consistency check</td><td style="padding:6px 10px;font-family:'JetBrains Mono',monospace;">0.279s</td></tr>
+        <tr><td style="padding:6px 10px;"><code>coverage</code></td><td style="padding:6px 10px;"><code>coverage-check.py</code></td><td style="padding:6px 10px;">168-hour host presence validation</td><td style="padding:6px 10px;font-family:'JetBrains Mono',monospace;">0.513s</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:1rem;color:var(--muted);margin-bottom:8px;">Infrastructure Stack</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px;">
+    <div class="sf-card" style="padding:16px;">
+      <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;">Compute &amp; Storage</div>
+      <ul style="margin:0;padding:0 0 0 14px;font-size:0.85rem;color:var(--text);display:grid;gap:4px;">
+        <li>Proxmox hypervisor (multi-VM)</li>
+        <li>Wazuh Manager + Indexer (OpenSearch)</li>
+        <li>pfSense network perimeter</li>
+        <li>Windows Task Scheduler (contract host)</li>
+      </ul>
+    </div>
+    <div class="sf-card" style="padding:16px;">
+      <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;">Pipeline &amp; Delivery</div>
+      <ul style="margin:0;padding:0 0 0 14px;font-size:0.85rem;color:var(--text);display:grid;gap:4px;">
+        <li>Python 3.14 (core automation)</li>
+        <li>PowerShell 7 (orchestration, reporting)</li>
+        <li>GitHub Actions CI/CD</li>
+        <li>Cloudflare Pages (static portfolio)</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr style="border:0;border-top:1px solid rgba(255,255,255,0.06);margin:40px 0;">
+
+  <!-- 3. RECOVERY EVENT -->
+  <h2 style="font-size:1.4rem;margin-bottom:12px;">3. Recovery Event: March 13, 2026</h2>
+  <p style="line-height:1.7;margin-bottom:16px;">The pipeline failed on March 13 due to two independent defects. Both were diagnosed from heartbeat telemetry and fixed in the same operational session.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+    <div class="sf-card" style="padding:20px;border-left:3px solid #f87171;">
+      <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:#f87171;margin-bottom:8px;">Failure 1: Poller Timeout</div>
+      <p style="font-size:0.88rem;line-height:1.65;color:var(--text);margin:0 0 8px;">The <code>poll-alerts.py</code> script was not correctly entering the retry path on the first connection timeout. URLError under delayed connection reset silently exhausted the timeout window without triggering retry logic.</p>
+      <p style="font-size:0.82rem;color:var(--muted);margin:0;"><strong>Fix:</strong> Separated HTTPError (auth/server, some non-retriable) from URLError (connection, always retriable). Ensured retry counter increments before sleep.</p>
+    </div>
+    <div class="sf-card" style="padding:20px;border-left:3px solid #f87171;">
+      <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:#f87171;margin-bottom:8px;">Failure 2: Reconciliation Scoping</div>
+      <p style="font-size:0.88rem;line-height:1.65;color:var(--text);margin:0 0 8px;">The <code>reconcile-state.py</code> script was computing mismatch counts against the unscoped repo ID list, including non-SignalFoundry-format directories. This inflated mismatch counts and triggered false FAIL status.</p>
+      <p style="font-size:0.82rem;color:var(--muted);margin:0;"><strong>Fix:</strong> Scoped all six mismatch category calculations to SignalFoundry-format case IDs only.</p>
+    </div>
+  </div>
+
+  <div class="sf-card" style="padding:16px;border-left:3px solid #4ade80;margin-bottom:32px;">
+    <p style="margin:0;font-size:0.9rem;color:var(--text);"><strong style="color:#4ade80;">Result:</strong> Both fixes applied same session. Pipeline returned to SUCCESS. Reconciliation dropped to zero hard mismatches. 8/8 hosts confirmed post-recovery.</p>
+  </div>
+
+  <hr style="border:0;border-top:1px solid rgba(255,255,255,0.06);margin:40px 0;">
+
+  <!-- 4. POLICY TUNING -->
+  <h2 style="font-size:1.4rem;margin-bottom:12px;">4. Policy Tuning Work</h2>
+
+  <div style="display:grid;gap:16px;margin-bottom:32px;">
+    <div class="sf-card" style="padding:18px;">
+      <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:4px;">Windows Workstation FP Suppression</div>
+      <p style="font-size:0.85rem;color:var(--muted);margin:0;">Persistent device enumeration noise (rule 60227: HP printer, Bluetooth audio, monitor attach/detach) consuming queue depth. Added <code>rule_overrides</code> in <code>policy.yaml</code> with <code>contains_any</code> fragments covering known device strings. Disposition: AUTO_CLOSE_KNOWN_FP.</p>
+    </div>
+    <div class="sf-card" style="padding:18px;">
+      <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:4px;">Linux dpkg Churn Suppression</div>
+      <p style="font-size:0.85rem;color:var(--muted);margin:0;">Honeypot and file server generating rules 2902/2904 (dpkg status messages) during apt maintenance windows. Scoped overrides added for these agents matching on <code>/var/log/dpkg.log</code> location.</p>
+    </div>
+    <div class="sf-card" style="padding:18px;">
+      <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:4px;">Sysmon Event 3 Escalation Hardening</div>
+      <p style="font-size:0.85rem;color:var(--muted);margin:0;">Network connection events matching high-risk binaries (<code>rundll32</code>, <code>regsvr32</code>, <code>mshta</code>, <code>powershell</code>, <code>certutil</code>, <code>bitsadmin</code>) now escalate instead of routing to REVIEW. Prevents living-off-the-land lateral movement indicators from being silently downgraded.</p>
+    </div>
+    <div class="sf-card" style="padding:18px;">
+      <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:4px;">Coverage-Check Host Alias Normalization</div>
+      <p style="font-size:0.85rem;color:var(--muted);margin:0;">Older alerts used historical hostname tokens. Added <code>LEGACY_TOKEN_HOST_MAP</code> dict applied during normalization pass across five candidate fields. Required hosts no longer falsely reported as missing.</p>
+    </div>
+  </div>
+
+  <h3 style="font-size:1rem;color:var(--muted);margin-bottom:8px;">Metrics Evolution</h3>
+  <div class="sf-card" style="padding:20px;margin-bottom:32px;overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+      <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);text-align:left;">
+        <th style="padding:8px 10px;color:var(--muted);">Metric</th>
+        <th style="padding:8px 10px;color:var(--muted);">Before Hardening</th>
+        <th style="padding:8px 10px;color:var(--muted);">After</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="padding:6px 10px;">FP queue depth</td><td style="padding:6px 10px;color:#f87171;">High (device / dpkg / Sysmon noise)</td><td style="padding:6px 10px;color:#4ade80;">Suppressed by policy</td></tr>
+        <tr><td style="padding:6px 10px;">Auto-close rate</td><td style="padding:6px 10px;">~87-88%</td><td style="padding:6px 10px;color:#4ade80;">89%+</td></tr>
+        <tr><td style="padding:6px 10px;">Reconciliation hard mismatches</td><td style="padding:6px 10px;color:#f87171;">1+ (serialization defect)</td><td style="padding:6px 10px;color:#4ade80;">0</td></tr>
+        <tr><td style="padding:6px 10px;">Sysmon Event 3 LOtL coverage</td><td style="padding:6px 10px;">REVIEW only</td><td style="padding:6px 10px;color:#4ade80;">ESCALATE on high-risk match</td></tr>
+        <tr><td style="padding:6px 10px;">Pipeline run time</td><td style="padding:6px 10px;">~6-8s</td><td style="padding:6px 10px;color:#4ade80;">5.4s</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr style="border:0;border-top:1px solid rgba(255,255,255,0.06);margin:40px 0;">
+
+  <!-- 5. STRESS TEST -->
+  <h2 style="font-size:1.4rem;margin-bottom:12px;">5. Stress-Test Window: March 2-4, 2026</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;">
+    <div class="sf-card" style="padding:16px;text-align:center;">
+      <div style="font-size:1.6rem;font-weight:800;color:#7ab8ff;">25,167</div>
+      <div style="font-size:0.75rem;color:var(--muted);">Cases processed</div>
+    </div>
+    <div class="sf-card" style="padding:16px;text-align:center;">
+      <div style="font-size:1.6rem;font-weight:800;color:#4ade80;">90.1%</div>
+      <div style="font-size:0.75rem;color:var(--muted);">Auto-close rate</div>
+    </div>
+    <div class="sf-card" style="padding:16px;text-align:center;">
+      <div style="font-size:1.6rem;font-weight:800;color:#7ab8ff;">3 days</div>
+      <div style="font-size:0.75rem;color:var(--muted);">Continuous window</div>
+    </div>
+  </div>
+  <p style="line-height:1.7;margin-bottom:32px;">Highest-volume burst the pipeline has processed in a single continuous window. Auto-close rate held above 90% throughout, demonstrating that triage policy scales without degradation under load. Escalated cases were processed through the full redact, assemble-pack, and create-PR pipeline.</p>
+
+  <hr style="border:0;border-top:1px solid rgba(255,255,255,0.06);margin:40px 0;">
+
+  <!-- 6. WHAT THIS DEMONSTRATES -->
+  <h2 style="font-size:1.4rem;margin-bottom:12px;">6. What This Demonstrates</h2>
+
+  <div style="display:grid;gap:16px;margin-bottom:24px;">
+    <div class="sf-card" style="padding:20px;">
+      <div style="font-size:0.82rem;font-weight:700;color:#71c7b8;margin-bottom:6px;">Engineering Judgment Under Failure</div>
+      <p style="font-size:0.88rem;line-height:1.65;color:var(--muted);margin:0;">When the pipeline failed, I did not restart blindly. The heartbeat JSON provided the exact failure stage. The reconcile defect required reading the Python control flow, identifying the scoping error in a multi-list join, and understanding how the case ID predicate interacted with the mismatch calculation. The poller defect required distinguishing between three error types and understanding backoff semantics. Both fixes were surgical, each tested against existing behavior without modifying surrounding logic.</p>
+    </div>
+    <div class="sf-card" style="padding:20px;">
+      <div style="font-size:0.82rem;font-weight:700;color:#71c7b8;margin-bottom:6px;">AI-Augmented Development, Human-Owned Validation</div>
+      <p style="font-size:0.88rem;line-height:1.65;color:var(--muted);margin:0;">SignalFoundry was developed with AI code assistance, but all validation, policy decisions, and operational truth surfaces are human-owned. The CI pipeline enforces that counts cannot be inflated. The triage policy is a human-authored decision tree encoded in YAML. The known-FP library is built from observed signals, not vendor templates. AI tooling accelerated implementation; the operator owns the logic.</p>
+    </div>
+    <div class="sf-card" style="padding:20px;">
+      <div style="font-size:0.82rem;font-weight:700;color:#71c7b8;margin-bottom:6px;">Manufacturing Systems Thinking Applied to Security</div>
+      <p style="font-size:0.88rem;line-height:1.65;color:var(--muted);margin:0;">The architecture reflects a manufacturing-derived mental model: define the process, instrument every stage, make failure modes visible and recoverable, and validate outputs against known-good state. The queue cap, backoff retries, and freshness thresholds are deliberate operating parameters, not defaults left in place. On a manufacturing floor, a bad process kills throughput at scale; the same is true in a SOC at volume.</p>
+    </div>
+  </div>
+
+  <!-- HUMAN SENTENCE -->
+  <div style="border-left:3px solid #71c7b8;padding:16px 20px;margin-bottom:32px;">
+    <p style="font-size:1rem;font-weight:600;font-style:italic;color:var(--text);margin:0;">This project forced me to think less like someone writing detections, and more like someone responsible for whether a system can be trusted.</p>
+  </div>
+
+  <hr style="border:0;border-top:1px solid rgba(255,255,255,0.06);margin:40px 0;">
+
+  <!-- 7. NAVIGATION -->
+  <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+    <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">SignalFoundry Overview</a>
+    <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof &amp; Metrics</a>
+    <a class="sf-button sf-button-secondary sf-focus-ring" href="/start-here">Start Here</a>
+    <a class="sf-button sf-button-secondary sf-focus-ring" href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+  </div>
+
+</main>
+
+<!-- @include:footer:start -->
+<footer class="m-footer">
+  <div class="m-wrap" style="text-align:center;padding:24px 0;">
+    <p style="font-size:0.78rem;color:var(--muted);">HawkinsOps &middot; Raylee Hawkins &middot; <a href="mailto:raylee@hawkinsops.com" style="color:#7ab8ff;">raylee@hawkinsops.com</a></p>
+  </div>
+</footer>
+<!-- @include:footer:end -->
+<script src="/data/counts.js" defer></script>
+<script src="/data/ops-metrics.js" defer></script>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>

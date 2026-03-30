@@ -491,15 +491,6 @@ Fill out `.github/PULL_REQUEST_TEMPLATE.md` fully when submitting.
 
 ---
 
-## Sub-Project CLAUDE.md Files
-
-Two sub-directories contain their own CLAUDE.md with narrower scope:
-
-- `content/projects/repo-history/CLAUDE.md` — SOC content library context for that subdirectory
-- `content/projects/migration-rh/SRC/reference/migration-patterns/CLAUDE.md` — migration project guardrails
-
-When working within those directories, read the local CLAUDE.md as well.
-
 ---
 
 ## Standard AI Workflow (no vibes)

@@ -1,0 +1,59 @@
+{
+  "_schema": "truth-manifest-v1",
+  "_created": "2026-03-24",
+  "_description": "Two-layer truth model for the SignalFoundry public site (HawkinsOperations portfolio). Defines layer precedence, public usage rules, and governance constraints for all agents editing site content.",
+
+  "system_name": "SignalFoundry",
+  "current_authority_date": "2026-03-24",
+
+  "layers": [
+    {
+      "id": "verified_snapshot",
+      "rank": 1,
+      "file": "site/data/truth/current-authority.json",
+      "description": "CI-verified, citation-backed claims. The sole source of truth for all public-facing and reviewer-facing claims.",
+      "authority": "CANONICAL",
+      "public_use": "REQUIRED for all public claims",
+      "update_requirement": "Human instruction + CI verification required to change any value"
+    },
+    {
+      "id": "live_operational_feed",
+      "rank": 2,
+      "file": "site/data/truth/current-live.json",
+      "description": "Runtime pipeline telemetry from the last operator snapshot (2026-03-24). Informational only.",
+      "authority": "NON-AUTHORITATIVE",
+      "public_use": "Permitted only in clearly labeled telemetry widgets with explicit date qualification",
+      "update_requirement": "Operator snapshot update; never auto-promoted to authority"
+    }
+  ],
+
+  "precedence_rule": "If a value differs between verified_snapshot and live_operational_feed, public pages MUST display verified_snapshot. live_operational_feed may appear only in clearly labeled telemetry widgets and may never be presented as canonical, final, or reviewer-authoritative.",
+
+  "current_authority_date_rule": "2026-03-24 is the only current-facing authority date. All public claims must be qualified to this date or to a specific verified date.",
+
+  "snapshot_files": {
+    "directory": "site/data/truth/snapshots/",
+    "current": "site/data/truth/snapshots/2026-03-24_verified.json",
+    "naming_convention": "YYYY-MM-DD_verified.json",
+    "rule": "Each snapshot must match current-authority.json at the time of creation. Snapshots are immutable once written."
+  },
+
+  "public_claim_rules": [
+    "All detection counts must match PROOF_PACK/VERIFIED_COUNTS.md exactly.",
+    "Pipeline runtime stats (cases, auto-close rate, escalations) require explicit date qualification (as of YYYY-MM-DD).",
+    "Forbidden claims: '200+ detections', 'Production SOC experience', any unqualified current-state claim from live_operational_feed.",
+    "Approximation markers (~, +) must not be stripped from claims that require them.",
+    "Clearance line must appear verbatim: 'Eligible to obtain clearance; willing to pursue sponsorship.'",
+    "Platform claims must include context qualifiers: (home lab), (lab environment).",
+    "No claim may be elevated in class without human review and explicit instruction."
+  ],
+
+  "agent_governance": [
+    "Read this manifest before editing any site file that contains metrics, counts, or capability claims.",
+    "If a value is not in current-authority.json, it is not authority. Do not invent or interpolate.",
+    "Do not promote live_operational_feed values to public claims without creating a new verified_snapshot.",
+    "Any conflict between this manifest and site HTML is a drift violation - flag it, do not silently resolve.",
+    "This is a truth-system creation pass. Do not modify HTML layout or redesign page structure in this pass.",
+    "SignalFoundry is the canonical flagship system name. Use it consistently."
+  ]
+}

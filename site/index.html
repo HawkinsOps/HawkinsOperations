@@ -1,180 +1,94 @@
 ﻿<!doctype html>
 <html lang="en">
 <head>
-<title>Raylee Hawkins | SOC Analyst &amp; Detection Engineering Portfolio</title>
-<meta name="description" content="Evidence-first cybersecurity portfolio built around SignalFoundry, an auto-updating SOC triage and evidence pipeline with verified public metrics and reproducible proof artifacts.">
+<title>Raylee Hawkins | SOC Analyst &amp; Detection Engineer | HawkinsOps</title>
+<meta name="description" content="Raylee Hawkins — SOC Analyst and Detection Engineer based in Huntsville, Alabama. Builder of SignalFoundry, a production-grade security automation pipeline.">
+<meta name="author" content="Raylee Hawkins">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#03060b">
+<meta name="theme-color" content="#07070b">
 <link rel="canonical" href="https://hawkinsops.com/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Raylee Hawkins | SOC Analyst &amp; Detection Engineering Portfolio">
-<meta property="og:description" content="Evidence-first cybersecurity portfolio built around SignalFoundry — an auto-updating SOC triage and evidence pipeline with verified public metrics.">
+<meta property="og:title" content="Raylee Hawkins | SOC Analyst &amp; Detection Engineer | HawkinsOps">
+<meta property="og:description" content="Raylee Hawkins — SOC Analyst and Detection Engineer based in Huntsville, Alabama. Builder of SignalFoundry, a production-grade security automation pipeline.">
 <meta property="og:url" content="https://hawkinsops.com/">
 <meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
 <meta property="og:image:width" content="1600">
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Raylee Hawkins | SOC Analyst &amp; Detection Engineering Portfolio">
-<meta name="twitter:description" content="Evidence-first cybersecurity portfolio built around SignalFoundry — an auto-updating SOC triage and evidence pipeline with verified public metrics.">
+<meta name="twitter:title" content="Raylee Hawkins | SOC Analyst &amp; Detection Engineer | HawkinsOps">
+<meta name="twitter:description" content="Raylee Hawkins — SOC Analyst and Detection Engineer based in Huntsville, Alabama. Builder of SignalFoundry, a production-grade security automation pipeline.">
 <meta name="twitter:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script>document.documentElement.setAttribute('data-theme','dark');</script>
-<link rel="stylesheet" href="/assets/styles.css">
-<style>
-body {
-  background:
-    radial-gradient(ellipse 100% 55% at 0% 0%,   rgba(41,121,200,0.10) 0%, transparent 55%),
-    radial-gradient(ellipse 80%  50% at 100% 100%,rgba(0,196,212,0.08)  0%, transparent 55%),
-    radial-gradient(ellipse 50%  40% at 50%  50%, rgba(155,107,224,0.04) 0%, transparent 60%),
-    #03060b !important;
-}
-body::after {
-  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  background-size:256px 256px;
-}
-#hero-canvas {
-  position:fixed; inset:0; z-index:0; pointer-events:none;
-  opacity:0; transition:opacity 1.4s ease;
-}
-#hero-canvas.visible { opacity:1; }
-.sf-home, .sf-shell { position:relative; z-index:1; }
-
-/* Hero entrance animations */
-.sf-hero h1              { animation:heroUp .6s cubic-bezier(.16,1,.3,1) .1s both; }
-.sf-hero .sf-role-line   { animation:heroUp .6s cubic-bezier(.16,1,.3,1) .22s both; }
-.sf-hero .sf-body-lead   { animation:heroUp .6s cubic-bezier(.16,1,.3,1) .34s both; }
-.sf-hero .hero-bridge    { animation:heroUp .6s cubic-bezier(.16,1,.3,1) .46s both; }
-.sf-hero .outcomes-strip { animation:heroUp .6s cubic-bezier(.16,1,.3,1) .58s both; }
-.sf-hero .sf-actions     { animation:heroUp .6s cubic-bezier(.16,1,.3,1) .70s both; }
-@keyframes heroUp { from{opacity:0;transform:translateY(18px);} to{opacity:1;transform:translateY(0);} }
-@keyframes blink  { 0%,100%{opacity:1;} 50%{opacity:.15;} }
-@keyframes scanL  { 0%{left:-30%;} 100%{left:110%;} }
-
-/* Ops bridge callout */
-.hero-bridge {
-  display:flex; align-items:flex-start; gap:10px;
-  padding:12px 18px; border-radius:6px;
-  background:rgba(232,160,32,.07); border:1px solid rgba(232,160,32,.2);
-  border-left:3px solid #e8a020;
-  font-size:11px; font-family:'JetBrains Mono',monospace; line-height:1.7;
-  color:#b8cce0; max-width:640px; margin:14px 0;
-}
-.hero-bridge strong { color:#e8a020; }
-
-/* Outcomes strip */
-.outcomes-strip {
-  display:flex; align-items:center; justify-content:center; gap:0;
-  padding:18px 24px; background:rgba(8,13,22,.75);
-  border:1px solid rgba(100,140,180,.13); border-radius:10px;
-  flex-wrap:wrap; position:relative; overflow:hidden;
-  backdrop-filter:blur(4px);
-}
-.outcomes-strip::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:2px;
-  background:linear-gradient(90deg,#2979c8,#00c4d4,#27c97a);
-}
-.outcomes-strip::after {
-  content:''; position:absolute; top:0; left:-30%; width:30%; height:100%;
-  background:linear-gradient(90deg,transparent,rgba(0,196,212,.04),transparent);
-  animation:scanL 5s linear infinite; pointer-events:none;
-}
-.of-node { text-align:center; padding:10px 16px; }
-.of-val  { font-size:22px; font-weight:700; font-family:'JetBrains Mono',monospace; line-height:1; margin-bottom:3px; color:#8ab8dc; }
-.of-lbl  { font-size:8px; font-weight:700; letter-spacing:1.5px; color:#486880; text-transform:uppercase; }
-.of-arr  { font-size:18px; color:#1a3248; padding:0 4px; margin-bottom:10px; flex-shrink:0; }
-.of-teal .of-val  { color:#00c4d4; }
-.of-green .of-val { color:#27c97a; }
-.outcomes-note { width:100%; text-align:center; font-size:9px; color:#1e3248; font-family:'JetBrains Mono',monospace; letter-spacing:.5px; margin-top:6px; }
-
-/* Status dot */
-.sdot { display:inline-block; width:8px; height:8px; border-radius:50%; background:#27c97a; margin-right:5px; box-shadow:0 0 8px #27c97a; animation:blink 2s ease-in-out infinite; vertical-align:middle; }
-
-/* Detection inventory */
-.det-inventory {
-  background:rgba(8,13,22,.8); border:1px solid rgba(100,140,180,.12);
-  border-radius:8px; padding:20px; margin-top:16px;
-}
-.det-inv-hdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
-.det-inv-title { font-size:9px; font-weight:700; letter-spacing:2.5px; color:#486880; text-transform:uppercase; }
-.det-inv-total { font-size:26px; font-weight:700; color:#00c4d4; font-family:'JetBrains Mono',monospace; }
-.det-rows { display:flex; flex-direction:column; gap:7px; }
-.det-row {
-  display:flex; align-items:center; gap:12px;
-  padding:9px 12px; border-radius:6px;
-  background:rgba(12,18,32,.9); border:1px solid rgba(100,140,180,.09);
-  cursor:pointer; transition:all .2s;
-}
-.det-row:hover { border-color:rgba(0,196,212,.3); transform:translateX(4px); background:rgba(0,196,212,.04); }
-.det-icon { font-size:14px; width:20px; text-align:center; flex-shrink:0; font-family:'JetBrains Mono',monospace; font-weight:700; }
-.det-label { font-size:10px; font-weight:700; color:#c0d4e8; flex-shrink:0; font-family:'JetBrains Mono',monospace; min-width:88px; }
-.det-sub { font-size:8px; color:#486880; flex:1; }
-.det-bar-track { width:80px; height:5px; background:rgba(255,255,255,.04); border-radius:3px; overflow:hidden; flex-shrink:0; }
-.det-bar-fill { height:100%; border-radius:3px; width:0; transition:width 1.2s cubic-bezier(.16,1,.3,1); }
-.det-count { font-size:15px; font-weight:700; font-family:'JetBrains Mono',monospace; text-align:right; min-width:30px; flex-shrink:0; }
-.dr-sigma  .det-bar-fill  { background:linear-gradient(90deg,#2979c8,#5aaad4); }
-.dr-sigma  .det-count     { color:#6aaad8; }
-.dr-wazuh  .det-bar-fill  { background:linear-gradient(90deg,#1a5878,#00c4d4); }
-.dr-wazuh  .det-count     { color:#00c4d4; }
-.dr-splunk .det-bar-fill  { background:linear-gradient(90deg,#4a3010,#e8a020); }
-.dr-splunk .det-count     { color:#e8a020; }
-.dr-ir     .det-bar-fill  { background:linear-gradient(90deg,#1a3a28,#27c97a); }
-.dr-ir     .det-count     { color:#27c97a; }
-
-/* Route card hover upgrades */
-.sf-route-card { transition:all .25s !important; position:relative !important; }
-.sf-route-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; border-radius:3px 0 0 3px; background:rgba(100,140,180,.15); transition:background .2s; }
-.sf-route-card:hover { transform:translateY(-3px) !important; box-shadow:0 8px 32px rgba(0,196,212,.1) !important; }
-.sf-route-card:nth-child(1)::before { background:rgba(0,196,212,.4); }
-.sf-route-card:nth-child(2)::before { background:rgba(39,201,122,.35); }
-.sf-route-card:nth-child(3)::before { background:rgba(41,121,200,.35); }
-.sf-route-card:nth-child(4)::before { background:rgba(232,160,32,.35); }
-
-/* Scroll reveals */
-.reveal { opacity:0; transform:translateY(22px); transition:opacity .55s ease,transform .55s cubic-bezier(.16,1,.3,1); }
-.reveal.in-view { opacity:1; transform:none; }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script>
+  document.documentElement.setAttribute('data-theme', 'dark');
+</script>
+<link rel="stylesheet" href="/assets/styles.css?v=02-24-2026-3">
+<link rel="stylesheet" href="/assets/design-tokens.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/base.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
+<link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
+<link rel="stylesheet" href="/assets/system-map.css?v=03-25-2026-1">
+<link rel="stylesheet" href="/assets/page-shells.css?v=03-16-2026-1">
 </head>
 <body>
-<canvas id="hero-canvas" aria-hidden="true"></canvas>
-
+<!-- @include:nav:start -->
 <nav>
   <div class="nav-i">
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
-    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle navigation">Menu</button>
+    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
-      <li><a href="/">Home</a></li>
-      <li><a href="/case-study-autosoc">SignalFoundry</a></li>
+      <li><a href="/start-here">Start Here</a></li>
+      <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/proof">Proof</a></li>
+      <li><a href="/detections">Detections</a></li>
       <li><a href="/resume">Resume</a></li>
       <li><a href="/soc-lab">Lab</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/case-study-autosoc">SignalFoundry →</a>
+    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
   </div>
 </nav>
-<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile navigation">
-  <a href="/">Home</a>
-  <a href="/case-study-autosoc">SignalFoundry</a>
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+  <a href="/start-here">Start Here</a>
+  <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/proof">Proof</a>
+  <a href="/detections">Detections</a>
   <a href="/resume">Resume</a>
   <a href="/soc-lab">Lab</a>
 </div>
+<!-- @include:nav:end -->
 
 <main class="sf-home">
   <div class="sf-shell">
 
-    <!-- HERO -->
-    <section id="hero" class="sf-section sf-hero" aria-labelledby="hero-title">
-      <h1 id="hero-title">Raylee Hawkins</h1>
-      <div class="sf-role-line">
-        <span class="sf-role-tag">SOC Analyst</span>
-        <span class="sf-role-tag">Detection Engineering</span>
-        <span class="sf-role-tag">Security Automation</span>
+    <!-- 
+         SECTION 1: HERO - Candidate first
+          -->
+    <section id="hero" class="sf-section sf-hero" aria-labelledby="hero-title" style="display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:start;">
+      <!-- LEFT: Name, role, core copy, CTAs -->
+      <div>
+        <h1 id="hero-title">Raylee Hawkins</h1>
+        <div class="sf-role-line">
+          <span class="sf-role-tag">SOC Analyst</span>
+          <span class="sf-role-tag">Detection Engineering</span>
+          <span class="sf-role-tag">Security Automation</span>
+        </div>
+        <p style="font-family:'Sora','Inter',sans-serif;font-size:1.05rem;font-weight:700;line-height:1.5;color:#71c7b8;margin:0 0 14px;">This is a working security operations system, not a static portfolio.</p>
+        <p class="sf-body" style="line-height:1.7;margin-bottom:14px;">I design, build, and operate SignalFoundry: a production-grade detection-to-escalation pipeline across Sigma, Wazuh, and Splunk that automatically triages alerts, collects forensic evidence, and only escalates verified threats with full proof attached.</p>
+        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:14px;">In 7 months, I transitioned from factory operations into cybersecurity and built a pipeline that has processed 55,665 verified cases with <span data-verified="detections">139</span> custom detections (<span data-verified="sigma">103</span> Sigma rules, <span data-verified="wazuh">28</span> Wazuh blocks, <span data-verified="splunk">8</span> Splunk queries) while working 12-hour manufacturing shifts.</p>
+        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:14px;">Factory-trained discipline meets modern SOC automation. Every metric is real, every detection is version-controlled, and every claim is reproducible.</p>
+        <p style="font-size:0.95rem;font-weight:600;line-height:1.5;color:#71c7b8;margin:0 0 20px;">If you're looking for someone who can actually build and run detection engineering and security automation, not just talk about it, you're in the right place.</p>
+        <div class="sf-actions">
+          <a class="sf-button sf-button-primary sf-focus-ring" href="/start-here">Start Here &rarr;</a>
+          <a class="sf-button sf-button-secondary sf-focus-ring" href="/case-study-autosoc">SignalFoundry Case Study</a>
+        </div>
       </div>
       <p class="sf-body sf-body-lead">I build and operate automated SOC pipelines that classify, triage, and validate alerts at scale.</p>
       <div class="hero-bridge">
@@ -285,10 +199,166 @@ body::after {
           <span class="sf-metric-value"><span class="sdot" aria-hidden="true"></span><span data-ops-status="stable_heartbeat">SUCCESS</span></span>
           <p class="sf-metric-note">Live pipeline gate — operational.</p>
         </article>
-        <article class="sf-card sf-metric">
+        <article class="sf-card sf-metric" data-modal="tpl-escalated" data-modal-title="Auto-Close Rate">
+          <span class="sf-metric-label">Auto-Close Rate</span>
+          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_auto_closed_benign">~92%</span></span>
+          <p class="sf-metric-note">Benign alerts resolved without human action.</p>
+        </article>
+        <article class="sf-card sf-metric" data-modal="tpl-escalated" data-modal-title="Escalated Cases">
+          <span class="sf-metric-label">Escalated</span>
+          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_escalated">2,545</span></span>
+          <p class="sf-metric-note">Non-trivial cases requiring analyst review.</p>
+        </article>
+        <article class="sf-card sf-metric" data-modal="tpl-heartbeat" data-modal-title="Reconciliation">
+          <span class="sf-metric-label">Reconciliation</span>
+          <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="reconciliation">PASS</span></span>
+          <p class="sf-metric-note">Ledger check: 0 mismatches between stages.</p>
+        </article>
+      </div>
+    </section>
+
+    <!--
+         SECTION 4: CASE PROCESSING FUNNEL
+          -->
+    <section id="case-funnel" class="sf-section" aria-labelledby="funnel-title">
+      <div class="sf-section-label">Case Flow</div>
+      <h2 id="funnel-title">How alerts become evidence</h2>
+      <p class="sf-body sf-copy-gap-lg">Every alert enters the same pipeline. Most are auto-closed. The rest produce structured evidence packs.</p>
+      <div class="sf-card sf-panel" style="padding:28px;overflow-x:auto;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" role="img" aria-label="Case processing funnel: 55,665 total cases to evidence packs" style="width:100%;min-width:700px;height:auto;">
+          <title>Case Processing Funnel</title>
+          <defs>
+            <linearGradient id="funnel-g1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="rgba(122,184,255,0.18)"/><stop offset="100%" stop-color="rgba(122,184,255,0.06)"/></linearGradient>
+            <linearGradient id="funnel-g2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="rgba(74,222,128,0.16)"/><stop offset="100%" stop-color="rgba(74,222,128,0.06)"/></linearGradient>
+            <linearGradient id="funnel-g3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="rgba(251,191,36,0.16)"/><stop offset="100%" stop-color="rgba(251,191,36,0.06)"/></linearGradient>
+            <linearGradient id="funnel-g4" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="rgba(59,143,217,0.22)"/><stop offset="100%" stop-color="rgba(59,143,217,0.08)"/></linearGradient>
+          </defs>
+          <style>
+            .f-label { fill:#e5edff; font:600 13px Inter,system-ui,sans-serif; }
+            .f-val { fill:#7ab8ff; font:700 18px Inter,system-ui,sans-serif; }
+            .f-pct { fill:#9eb4d8; font:500 12px 'JetBrains Mono',monospace; }
+            .f-note { fill:#7a94aa; font:400 11px Inter,system-ui,sans-serif; }
+            .f-arrow { fill:#3d5273; }
+          </style>
+          <!-- Tier 1: Total Ingested -->
+          <rect x="20" y="16" width="860" height="52" rx="10" fill="url(#funnel-g1)" stroke="rgba(122,184,255,0.2)" stroke-width="1"/>
+          <text class="f-label" x="40" y="47">Alert Intake</text>
+          <text class="f-val" x="480" y="48" data-ops="stable_total_cases">55,665</text>
+          <text class="f-pct" x="600" y="48">total cases</text>
+          <!-- Arrow -->
+          <path class="f-arrow" d="M450 72 L440 80 L460 80 Z"/>
+          <!-- Tier 2: Auto-Closed -->
+          <rect x="80" y="84" width="740" height="52" rx="10" fill="url(#funnel-g2)" stroke="rgba(74,222,128,0.18)" stroke-width="1"/>
+          <text class="f-label" x="100" y="115">Auto-Closed Benign</text>
+          <text class="f-val" x="480" y="116" style="fill:#4ade80;" data-ops="stable_auto_closed_benign">~92%</text>
+          <text class="f-pct" x="560" y="116">policy-matched, no human action</text>
+          <!-- Arrow -->
+          <path class="f-arrow" d="M450 140 L440 148 L460 148 Z"/>
+          <!-- Tier 3: Escalated -->
+          <rect x="180" y="152" width="540" height="52" rx="10" fill="url(#funnel-g3)" stroke="rgba(251,191,36,0.18)" stroke-width="1"/>
+          <text class="f-label" x="200" y="183">Escalated for Review</text>
+          <text class="f-val" x="480" y="184" style="fill:#fbbf24;" data-ops="stable_escalated">2,545</text>
+          <text class="f-pct" x="600" y="184">analyst judgment required</text>
+          <!-- Arrow -->
+          <path class="f-arrow" d="M450 208 L440 216 L460 216 Z"/>
+          <!-- Tier 4: Evidence Packs -->
+          <rect x="280" y="220" width="340" height="48" rx="10" fill="url(#funnel-g4)" stroke="rgba(59,143,217,0.25)" stroke-width="1"/>
+          <text class="f-label" x="300" y="249" style="fill:#3b8fd9;">Evidence Packs Published</text>
+          <text class="f-note" x="544" y="249">redacted, gated, repo-committed</text>
+        </svg>
+      </div>
+    </section>
+
+    <!--
+         SECTION 5: DETECTION PLATFORM BREAKDOWN
+          -->
+    <section id="detection-chart" class="sf-section" aria-labelledby="det-title">
+      <div class="sf-section-label">Detection Inventory</div>
+      <h2 id="det-title">What the pipeline watches for</h2>
+      <p class="sf-body sf-copy-gap-lg"><span data-verified="detections">139</span> detections across 4 platforms, mapped to MITRE ATT&amp;CK. <a href="/detections" class="sf-inline-link">Full searchable inventory &rarr;</a></p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;">
+        <!-- Chart -->
+        <div class="sf-card sf-panel" style="padding:24px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 220" role="img" aria-label="Detection platform breakdown: Sigma 103, Wazuh 28, IR 10, Splunk 8" style="width:100%;height:auto;">
+            <title>Detection Platform Breakdown</title>
+            <style>
+              .bar-label { fill:#d4e0ec; font:500 13px Inter,system-ui,sans-serif; }
+              .bar-count { fill:#7ab8ff; font:700 14px 'JetBrains Mono',monospace; }
+              .bar-tag { fill:#7a94aa; font:400 11px Inter,system-ui,sans-serif; }
+            </style>
+            <!-- Sigma -->
+            <text class="bar-label" x="10" y="30">Sigma</text>
+            <rect x="100" y="16" width="280" height="22" rx="4" fill="rgba(122,184,255,0.2)" stroke="rgba(122,184,255,0.3)" stroke-width="0.5"/>
+            <rect x="100" y="16" width="280" height="22" rx="4" fill="rgba(122,184,255,0.12)"/>
+            <text class="bar-count" x="390" y="33" data-verified="sigma">103</text>
+            <text class="bar-tag" x="420" y="33">rules</text>
+            <!-- Wazuh -->
+            <text class="bar-label" x="10" y="80">Wazuh</text>
+            <rect x="100" y="66" width="280" height="22" rx="4" fill="rgba(122,184,255,0.06)"/>
+            <rect x="100" y="66" width="76" height="22" rx="4" fill="rgba(122,184,255,0.2)" stroke="rgba(122,184,255,0.3)" stroke-width="0.5"/>
+            <text class="bar-count" x="390" y="83" data-verified="wazuh">28</text>
+            <text class="bar-tag" x="420" y="83">rule blocks</text>
+            <!-- IR Playbooks -->
+            <text class="bar-label" x="10" y="130">IR</text>
+            <rect x="100" y="116" width="280" height="22" rx="4" fill="rgba(122,184,255,0.06)"/>
+            <rect x="100" y="116" width="27" height="22" rx="4" fill="rgba(251,191,36,0.2)" stroke="rgba(251,191,36,0.25)" stroke-width="0.5"/>
+            <text class="bar-count" x="390" y="133" style="fill:#fbbf24;" data-verified="ir">10</text>
+            <text class="bar-tag" x="420" y="133">playbooks</text>
+            <!-- Splunk -->
+            <text class="bar-label" x="10" y="180">Splunk</text>
+            <rect x="100" y="166" width="280" height="22" rx="4" fill="rgba(122,184,255,0.06)"/>
+            <rect x="100" y="166" width="22" height="22" rx="4" fill="rgba(74,222,128,0.2)" stroke="rgba(74,222,128,0.25)" stroke-width="0.5"/>
+            <text class="bar-count" x="390" y="183" style="fill:#4ade80;" data-verified="splunk">8</text>
+            <text class="bar-tag" x="420" y="183">queries</text>
+            <!-- Home lab note -->
+            <text class="bar-tag" x="100" y="212" style="opacity:0.6;">Splunk: home lab only. Not an enterprise or production SOC claim.</text>
+          </svg>
+        </div>
+        <!-- Platform cards -->
+        <div style="display:grid;gap:14px;">
+          <div class="sf-card" style="padding:16px;">
+            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:4px;">Sigma YAML</div>
+            <p style="margin:0;font-size:0.9rem;">MITRE-mapped behavioral detections across tactic folders: process creation, lateral movement, credential access, persistence, and more.</p>
+          </div>
+          <div class="sf-card" style="padding:16px;">
+            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:4px;">Wazuh XML</div>
+            <p style="margin:0;font-size:0.9rem;">Custom rule IDs (100000+ range), deployed to Wazuh Manager. Lab-validated with detection harness.</p>
+          </div>
+          <div class="sf-card" style="padding:16px;">
+            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:4px;">IR Playbooks</div>
+            <p style="margin:0;font-size:0.9rem;">7-step structured response: detect, triage (5 min), investigate (30 min), contain, eradicate, recover, document.</p>
+          </div>
+          <div class="sf-card" style="padding:16px;">
+            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:4px;">Splunk SPL</div>
+            <p style="margin:0;font-size:0.9rem;">Investigation queries against Wazuh-forwarded events. Home lab scope &mdash; not enterprise deployment.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--
+         SECTION 6: OPERATIONAL PROOF SNAPSHOT
+          -->
+    <section id="proof-snapshot" class="sf-section" aria-labelledby="health-title">
+      <div class="sf-section-label">Stable Benchmark</div>
+      <h2 id="health-title">Pipeline integrity</h2>
+      <p class="sf-body sf-copy-gap-md">Locked snapshot from <code>data/truth/current-authority.json</code>. These values do not change from live telemetry. <a href="/proof" class="sf-inline-link">Full proof &rarr;</a></p>
+      <ul class="sf-body" style="font-size:0.78rem;color:var(--muted);margin-top:8px;display:grid;gap:3px;list-style:none;padding:0;">
+        <li><strong>Public benchmark snapshot:</strong> reviewer-authoritative values from <code>data/truth/current-authority.json</code>.</li>
+        <li><strong>Runtime snapshot:</strong> informational telemetry remains subordinate and is disclosed on <a href="/proof" class="sf-inline-link">/proof</a>.</li>
+        <li><strong>Generated at:</strong> <span data-ops="stable_locked_date">LOCKED</span></li>
+        <li><strong>Source artifact:</strong> <code>site/data/truth/current-authority.json</code></li>
+      </ul>
+      <div class="sf-metrics" role="status" aria-live="polite" aria-label="Stable benchmark metrics">
+        <article class="sf-card sf-metric" aria-label="Heartbeat status" data-modal="tpl-heartbeat" data-modal-title="Heartbeat Status">
+          <span class="sf-metric-label">Heartbeat</span>
+          <span class="sf-metric-value"><span data-ops-status="stable_heartbeat">SUCCESS</span></span>
+          <p class="sf-metric-note">Pipeline health check.</p>
+        </article>
+        <article class="sf-card sf-metric" aria-label="Coverage gate status" data-modal="tpl-coverage" data-modal-title="Coverage Gate — 8/8 Hosts">
           <span class="sf-metric-label">Host Coverage</span>
           <span class="sf-metric-value"><span data-ops="stable_coverage_ratio">8/8</span></span>
-          <p class="sf-metric-note">All endpoints reporting. 0 gaps.</p>
+          <p class="sf-metric-note">All endpoints reporting.</p>
         </article>
         <article class="sf-card sf-metric">
           <span class="sf-metric-label">Escalations</span>
@@ -297,159 +367,233 @@ body::after {
         </article>
         <article class="sf-card sf-metric">
           <span class="sf-metric-label">Reconciliation</span>
-          <span class="sf-metric-value" style="color:#27c97a;">PASS</span>
-          <p class="sf-metric-note">0 mismatches · 100% success rate.</p>
+          <span class="sf-metric-value">PASS</span>
+          <p class="sf-metric-note">0 mismatches between stages.</p>
+        </article>
+        <article class="sf-card sf-metric" aria-label="Stable benchmark date" data-modal="tpl-benchmark" data-modal-title="Benchmark Lock Date">
+          <span class="sf-metric-label">Locked</span>
+          <span class="sf-metric-value"><span data-ops="stable_locked_date">LOCKED</span></span>
+          <p class="sf-metric-note">Snapshot date.</p>
         </article>
       </div>
       <p class="sf-body" style="font-size:.82rem;margin-top:10px;opacity:.45;">Source: <code>/assets/data/ops-metrics.json</code> · Locked: <span data-ops="stable_locked_date">03-20-2026</span> · <a href="/proof" style="color:#00c4d4;">Full verification →</a></p>
       <p class="sf-body" style="font-size:.76rem;margin-top:6px;opacity:.40;">Public benchmark snapshot · Runtime snapshot · Generated at <span data-ops="lifetime_last_updated">03-24-2026</span> · Source artifact <code>/assets/data/ops-metrics.json</code></p>
     </section>
 
-    <!-- OPS BRIDGE -->
-    <section id="bridge-teaser" class="sf-section reveal" aria-labelledby="bridge-title">
-      <div class="sf-section-label">Operator Bridge</div>
-      <h2 id="bridge-title">Operations background → security execution</h2>
-      <p class="sf-body sf-copy-gap-sm">Same cognitive operation. Different domain. The production floor demanded the same discipline now running this pipeline.</p>
-      <div style="margin-top:16px;border-radius:10px;overflow:hidden;border:1px solid rgba(100,140,180,.13);">
-        <img src="/assets/ops-bridge.svg" alt="Operations to security skills translation matrix" loading="lazy" width="900" height="620" style="display:block;width:100%;height:auto;">
+    <!--
+         SECTION 7: CAREER BRIDGE — Manufacturing Ops → Security Ops
+          -->
+    <section id="career-bridge" class="sf-section" aria-labelledby="career-title">
+      <div class="sf-section-label">Operator Origin</div>
+      <h2 id="career-title">Manufacturing discipline, applied to security</h2>
+      <p class="sf-body sf-copy-gap-lg">I didn't break into cybersecurity. I transitioned operator discipline from automotive manufacturing into detection engineering. The systems instinct predates the portfolio.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <!-- Manufacturing side -->
+        <div class="sf-card sf-panel" style="padding:22px;">
+          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:#fbbf24;margin-bottom:10px;">Manufacturing Operations</div>
+          <ul style="margin:0;padding-left:16px;display:grid;gap:8px;font-size:0.9rem;color:var(--muted);">
+            <li><strong style="color:var(--text);">Fehrer Automotive</strong> &mdash; Team Lead, A/B/I lines. Mercedes, BMW, VW, Tesla. IATF 16949 / TISAX. Promoted in under 5 months.</li>
+            <li><strong style="color:var(--text);">Unipres Alabama</strong> &mdash; Team Lead Supervisor, hot stamp + laser for Nissan. Schuler 16,000 kN press. ISO 9001. Mandatory 12-hour shifts.</li>
+            <li><strong style="color:var(--text);">Carrington Foods</strong> &mdash; Quality Control, Tier-1 U.S. Armed Forces supplier. SQF Ed. 9 "Excellent" / Platinum Award.</li>
+          </ul>
+        </div>
+        <!-- Cyber side -->
+        <div class="sf-card sf-panel" style="padding:22px;">
+          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:#3b8fd9;margin-bottom:10px;">Security Operations</div>
+          <ul style="margin:0;padding-left:16px;display:grid;gap:8px;font-size:0.9rem;color:var(--muted);">
+            <li><strong style="color:var(--text);">Sept 2025:</strong> Zero computer experience.</li>
+            <li><strong style="color:var(--text);">Dec 2025:</strong> Left Unipres. Started AI Model Evaluator role (detection, scripting, security reasoning).</li>
+            <li><strong style="color:var(--text);">Mar 2026:</strong> Production-grade pipeline. Verified public benchmark. <span data-verified="detections">139</span> detections. Anthropic MCP + Claude API certified.</li>
+            <li><strong style="color:var(--text);">Result:</strong> <a href="/case-study-autosoc" class="sf-inline-link">SignalFoundry</a> &mdash; built during mandatory 12-hour shifts.</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Quality framework parallel -->
+      <div class="sf-card sf-panel" style="padding:22px;margin-top:20px;">
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;">The Parallel</div>
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:start;font-size:0.88rem;">
+          <div>
+            <strong style="color:var(--text);">Factory floor</strong>
+            <p style="margin:6px 0 0;color:var(--muted);">Quality gates, process control, escalation handling, reconciliation against spec, audit-ready documentation.</p>
+          </div>
+          <div style="color:#3b8fd9;font-size:1.6rem;padding-top:4px;">&rarr;</div>
+          <div>
+            <strong style="color:var(--text);">SOC pipeline</strong>
+            <p style="margin:6px 0 0;color:var(--muted);">Quality gates, policy-driven triage, escalation handling, reconciliation against truth, verified proof artifacts.</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- ROUTES -->
-    <section id="routes" class="sf-section reveal" aria-labelledby="routes-title">
-      <div class="sf-section-label">Where to go next</div>
-      <h2 id="routes-title">Pick your review path</h2>
+    <!--
+         SECTION 8: VERIFICATION TERMINAL
+          -->
+    <section id="verify" class="sf-section" aria-labelledby="verify-title">
+      <div class="sf-section-label">Reproducible</div>
+      <h2 id="verify-title">Verify it yourself</h2>
+      <p class="sf-body sf-copy-gap-md">Every claim on this site traces back to a verification command. Clone the repo and run these:</p>
+      <div class="sf-card" style="padding:0;overflow:hidden;">
+        <div style="padding:10px 16px;background:rgba(122,184,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Terminal</div>
+        <pre style="margin:0;padding:18px 20px;font-family:'JetBrains Mono',monospace;font-size:0.82rem;line-height:1.8;color:#d4e0ec;overflow-x:auto;"><code><span style="color:#7a94aa;"># Count verification (source of truth)</span>
+pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
+
+<span style="color:#7a94aa;"># Drift scan (HTML/JSON/Markdown consistency)</span>
+python scripts/drift_scan.py
+
+<span style="color:#7a94aa;"># Metrics schema validation</span>
+python scripts/validate_metrics.py
+
+<span style="color:#7a94aa;"># Site health diagnosis</span>
+node scripts/diagnose-site.js
+
+<span style="color:#7a94aa;"># Full site data pipeline</span>
+node scripts/generate-site-data.js</code></pre>
+      </div>
+    </section>
+
+    <!-- 
+         SECTION 5: REVIEWER ROUTES
+          -->
+    <section id="routes" class="sf-section" aria-labelledby="routes-title">
+      <div class="sf-section-label">Review Routes</div>
+      <h2 id="routes-title">Where to go next</h2>
+      <p class="sf-body sf-copy-gap-lg">Pick the path that answers your decision fastest.</p>
       <div class="sf-route-grid">
+        <a class="sf-card sf-route-card sf-focus-ring" href="/start-here">
+          <h3>Start Here</h3>
+          <p>Fastest reviewer path: verified counts, case study, and proof in one view.</p>
+        </a>
         <a class="sf-card sf-route-card sf-focus-ring" href="/case-study-autosoc">
           <h3>SignalFoundry</h3>
-          <p>Architecture, triage logic, recovery model, and full case study.</p>
+          <p>Flagship system architecture, triage logic, outputs, and recovery model.</p>
         </a>
         <a class="sf-card sf-route-card sf-focus-ring" href="/proof">
           <h3>Proof</h3>
-          <p>Benchmark source, evidence trail, and verification commands.</p>
-        </a>
-        <a class="sf-card sf-route-card sf-focus-ring" href="/soc-lab">
-          <h3>Lab</h3>
-          <p>Proxmox topology, VM inventory, and real environment behind the data.</p>
+          <p>Stable benchmark source, evidence trail, and verification path.</p>
         </a>
         <a class="sf-card sf-route-card sf-focus-ring" href="/resume">
           <h3>Resume</h3>
-          <p>Role fit, outcomes, ops-to-security bridge, and PDF download.</p>
+          <p>Role fit, outcomes, and recruiter-ready resume formats.</p>
         </a>
       </div>
     </section>
 
   </div>
 </main>
-
+<div id="modalBg" class="modal-backdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-h">
+      <div id="modalTitle" class="modal-ttl">DETAILS</div>
+      <button id="modalClose" class="modal-x" type="button">Close</button>
+    </div>
+    <div id="modalBody" class="modal-b"></div>
+  </div>
+</div>
+<!-- @include:footer:start -->
 <footer>
   <div class="ctr">
-    <p><b>Raylee Hawkins</b> &middot; North Alabama (Huntsville)</p>
+    <p><b>Raylee Hawkins</b> &middot; North Alabama (Huntsville-adjacent)</p>
     <div class="fl">
       <a href="/resume">Resume</a>
-      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="mailto:Raylee@hawkinsops.com">Raylee@hawkinsops.com</a>
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
+      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
     </div>
-    <p class="sf-footer-line">Eligible to obtain clearance · Willing to pursue sponsorship</p>
+    <p class="sf-footer-line">Eligible to obtain clearance; willing to pursue sponsorship.</p>
   </div>
 </footer>
+
+<!-- @include:footer:end -->
+
+<!-- Metric card modal templates -->
+<template id="tpl-heartbeat">
+  <div class="modal-detail">
+    <div>
+      <div class="detail-label">Definition</div>
+      <p>Pipeline health check confirming SignalFoundry's triage loop completed its last scheduled run without errors. All 7 stages — ingest, triage, redact, pack, reconcile, gate, publish — must succeed.</p>
+    </div>
+    <div>
+      <div class="detail-label">Provenance</div>
+      <p><code>data/truth/current-authority.json</code> &rarr; <code>metrics.heartbeat</code></p>
+    </div>
+    <div>
+      <div class="detail-label">Interpretation</div>
+      <p><strong>SUCCESS</strong> = full pipeline pass within the verification window. <strong>FAIL</strong> = automatic hold on public metric updates until root cause is resolved. <strong>WARN</strong> = partial pass with non-blocking anomaly.</p>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-coverage">
+  <div class="modal-detail">
+    <div>
+      <div class="detail-label">Definition</div>
+      <p>Ratio of monitored lab hosts that reported telemetry within the last verification window. Full coverage (8/8) means every endpoint in the lab environment submitted logs to the Wazuh manager.</p>
+    </div>
+    <div>
+      <div class="detail-label">Host Inventory (Lab Environment)</div>
+      <table>
+        <thead><tr><th>Host</th><th>Role</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><code>wazuh-mgr</code></td><td>SIEM Manager</td><td style="color:#4ade80;">Reporting</td></tr>
+          <tr><td><code>dc01</code></td><td>Domain Controller</td><td style="color:#4ade80;">Reporting</td></tr>
+          <tr><td><code>win10-pc01</code></td><td>Workstation (Sysmon)</td><td style="color:#4ade80;">Reporting</td></tr>
+          <tr><td><code>win10-pc02</code></td><td>Workstation (Sysmon)</td><td style="color:#4ade80;">Reporting</td></tr>
+          <tr><td><code>linux-web</code></td><td>Web Server</td><td style="color:#4ade80;">Reporting</td></tr>
+          <tr><td><code>linux-db</code></td><td>Database Server</td><td style="color:#4ade80;">Reporting</td></tr>
+          <tr><td><code>honeypot</code></td><td>Honeypot Sensor</td><td style="color:#4ade80;">Reporting</td></tr>
+          <tr><td><code>splunk-fwd</code></td><td>Splunk Forwarder (vm104)</td><td style="color:#4ade80;">Reporting</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="detail-label">Provenance</div>
+      <p><code>data/truth/current-authority.json</code> &rarr; <code>metrics.coverage_ratio</code></p>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-escalated">
+  <div class="modal-detail">
+    <div>
+      <div class="detail-label">Definition</div>
+      <p>Cases that exceeded benign auto-close thresholds and were escalated for human review or evidence pack assembly. These represent the non-trivial alerts that required analyst judgment.</p>
+    </div>
+    <div>
+      <div class="detail-label">Breakdown</div>
+      <p>Of 55,665 total cases processed, ~92% were automatically resolved through benign plus known-false-positive handling. The remaining cases produced 2,545 escalation artifacts for review.</p>
+    </div>
+    <div>
+      <div class="detail-label">Provenance</div>
+      <p><code>data/truth/current-authority.json</code> &rarr; <code>metrics.stable_escalated</code></p>
+    </div>
+    <div>
+      <div class="detail-label">Why this matters</div>
+      <p>A high auto-close rate with meaningful escalation volume demonstrates that detection rules are tuned — not noisy, not over-suppressed. Each escalated case generates a structured evidence pack for review.</p>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-benchmark">
+  <div class="modal-detail">
+    <div>
+      <div class="detail-label">Definition</div>
+      <p>The date the public-facing metrics were locked from the live pipeline output. Once locked, these values remain stable for reviewer reference — they do not update from live telemetry.</p>
+    </div>
+    <div>
+      <div class="detail-label">Lock process</div>
+      <p>Pipeline runs &rarr; output captured to <code>source_of_truth/</code> &rarr; verified by <code>scripts/verify/verify-counts.ps1</code> &rarr; promoted to <code>data/truth/current-authority.json</code> &rarr; deployed to public site. Subsequent pipeline runs do not overwrite locked values.</p>
+    </div>
+    <div>
+      <div class="detail-label">Provenance</div>
+      <p><code>data/truth/current-authority.json</code> &rarr; <code>metrics.stable_locked_date</code></p>
+    </div>
+  </div>
+</template>
 
 <script src="/assets/fetch-utils.js" defer></script>
 <script src="/data/counts.js" defer></script>
 <script src="/data/ops-metrics.js" defer></script>
 <script src="/assets/app.js" defer></script>
-<script>
-(function(){
-  'use strict';
-
-  /* ── PARTICLE CANVAS ── */
-  var cvs = document.getElementById('hero-canvas');
-  if(cvs){
-    var ctx = cvs.getContext('2d'), pts = [], W, H;
-    function rsz(){ W=cvs.width=innerWidth; H=cvs.height=innerHeight; }
-    rsz(); addEventListener('resize',rsz);
-    for(var i=0;i<55;i++) pts.push({
-      x:Math.random()*1920, y:Math.random()*1080,
-      vx:(Math.random()-.5)*.28, vy:(Math.random()-.5)*.28,
-      r:Math.random()*1.6+.4, a:Math.random()*.45+.08
-    });
-    function draw(){
-      ctx.clearRect(0,0,W,H);
-      for(var i=0;i<pts.length;i++){
-        for(var j=i+1;j<pts.length;j++){
-          var dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
-          if(d<140){ ctx.beginPath(); ctx.strokeStyle='rgba(0,196,212,'+(.15*(1-d/140))+')'; ctx.lineWidth=.5; ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.stroke(); }
-        }
-      }
-      pts.forEach(function(p){
-        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fillStyle='rgba(0,196,212,'+p.a+')'; ctx.fill();
-        p.x+=p.vx; p.y+=p.vy;
-        if(p.x<0||p.x>W) p.vx*=-1;
-        if(p.y<0||p.y>H) p.vy*=-1;
-      });
-      requestAnimationFrame(draw);
-    }
-    draw();
-    setTimeout(function(){ cvs.classList.add('visible'); }, 300);
-  }
-
-  /* ── COUNTER ANIMATION ── */
-  function animCount(el, target, dur){
-    var s=performance.now();
-    (function frame(now){
-      var p=Math.min((now-s)/dur,1), ease=1-Math.pow(1-p,4);
-      var v=Math.floor(target*ease);
-      el.textContent = v>=1000 ? v.toLocaleString() : String(v);
-      if(p<1) requestAnimationFrame(frame);
-    })(s);
-  }
-
-  var cntDone=false;
-  new IntersectionObserver(function(e){
-    if(e[0].isIntersecting&&!cntDone){
-      cntDone=true;
-      document.querySelectorAll('.counter').forEach(function(el){
-        animCount(el, parseInt(el.dataset.target), 1600);
-      });
-    }
-  },{threshold:.1}).observe(document.getElementById('hero')||document.body);
-
-  /* ── DET BAR ANIMATIONS ── */
-  var barsDone=false;
-  var detEl=document.querySelector('.det-inventory');
-  if(detEl) new IntersectionObserver(function(e){
-    if(e[0].isIntersecting&&!barsDone){
-      barsDone=true;
-      document.querySelectorAll('.det-bar-fill').forEach(function(b,i){
-        setTimeout(function(){ b.style.width=b.dataset.w+'%'; }, i*130+200);
-      });
-    }
-  },{threshold:.2}).observe(detEl);
-
-  /* ── SCROLL REVEALS ── */
-  var revObs=new IntersectionObserver(function(e){
-    e.forEach(function(x){ if(x.isIntersecting) x.target.classList.add('in-view'); });
-  },{threshold:.07});
-  document.querySelectorAll('.reveal').forEach(function(el){ revObs.observe(el); });
-
-  /* ── MOBILE NAV ── */
-  var btn=document.getElementById('mobBtn'), men=document.getElementById('mobMenu');
-  if(btn&&men) btn.addEventListener('click',function(){
-    var o=men.getAttribute('data-open')==='true';
-    men.setAttribute('data-open',String(!o));
-    men.style.display=o?'none':'block';
-    btn.setAttribute('aria-expanded',String(!o));
-  });
-})();
-
-/* lazy hydrate */
-(function(){
-  function lh(){ var s=document.createElement('script'); s.src='/assets/hydrate.js'; s.defer=true; document.body.appendChild(s); }
-  if('requestIdleCallback' in window) requestIdleCallback(function(){ setTimeout(lh,0); },{timeout:1500});
-  else addEventListener('load',lh);
-})();
-</script>
+<script src="/assets/system-map.js" defer></script>
 </body>
 </html>

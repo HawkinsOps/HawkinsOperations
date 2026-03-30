@@ -27,7 +27,8 @@
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="stylesheet" href="/assets/design-system.css?v=03-16-2026-1">
 <link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
+<link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
 <link rel="stylesheet" href="/assets/page-shells.css?v=03-16-2026-2">
 </head>
 <body>
@@ -37,25 +38,25 @@
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
-      <li><a href="/">Home</a></li>
-      <li><a href="/proof">Proof</a></li>
-      <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
+      <li><a href="/start-here">Start Here</a></li>
       <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
-      <li><a href="/detections">Detections</a></li>
-      <li><a href="/soc-lab">Lab</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/detections" aria-current="page">Detections</a></li>
       <li><a href="/resume">Resume</a></li>
+      <li><a href="/soc-lab">Lab</a></li>
     </ul>
     <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-  <a href="/">Home</a>
-  <a href="/proof">Proof</a>
-  <a href="/operations-bridge">Ops &rarr; Cyber</a>
+  <a href="/start-here">Start Here</a>
   <a href="/case-study-autosoc">SignalFoundry Case Study</a>
-  <a href="/detections">Detections</a>
-  <a href="/soc-lab">Lab</a>
+  <a href="/enterprise-security">Enterprise Security</a>
+  <a href="/proof">Proof</a>
+  <a href="/detections" aria-current="page">Detections</a>
   <a href="/resume">Resume</a>
+  <a href="/soc-lab">Lab</a>
 </div>
 <!-- @include:nav:end -->
 
@@ -67,7 +68,7 @@
       <div class="sf-stage-lede">
         <p class="sf-body sf-body-lead">This page is built for fast reviewer validation: understand the strongest case studies, inspect the verified inventory, then pivot straight into the repo proof.</p>
         <p class="sf-body">Counts on this page are generated from repository artifacts and cross-checked in CI. The goal is not to look broad; it is to be reproducible.</p>
-        <p class="sf-body" style="font-size:0.9rem">Generated: <span data-verified-date>03-15-2026</span> | Source artifact: <code>/assets/verified-counts.json</code> | Command: <code>pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1</code></p>
+        <p class="sf-body" style="font-size:0.9rem">Generated: <span data-verified-date>03-25-2026</span> | Source artifact: <code>/assets/verified-counts.json</code> | Command: <code>pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1</code></p>
       </div>
       <div class="sf-kpi-grid" aria-label="Detection inventory snapshot">
         <article class="sf-card sf-kpi-card">
@@ -86,6 +87,84 @@
           <strong><span data-verified="ir">10</span></strong>
           <span>IR playbooks</span>
         </article>
+      </div>
+
+      <!-- MITRE ATT&CK Detection Coverage Heatmap -->
+      <div class="sf-card sf-panel" style="padding:24px;margin-top:28px;">
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:16px;">MITRE ATT&amp;CK Detection Coverage</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
+          <!-- Execution -->
+          <div style="padding:14px 10px;background:rgba(74,222,128,0.14);border:1px solid rgba(74,222,128,0.25);border-radius:10px;text-align:center;">
+            <div style="font-size:1.4rem;font-weight:800;color:#4ade80;">22</div>
+            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Execution</div>
+            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1059, T1204</div>
+            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:85%;height:100%;background:#4ade80;border-radius:2px;"></div></div>
+          </div>
+          <!-- Persistence -->
+          <div style="padding:14px 10px;background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.2);border-radius:10px;text-align:center;">
+            <div style="font-size:1.4rem;font-weight:800;color:#4ade80;">18</div>
+            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Persistence</div>
+            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1547, T1053</div>
+            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:70%;height:100%;background:#4ade80;border-radius:2px;"></div></div>
+          </div>
+          <!-- Defense Evasion -->
+          <div style="padding:14px 10px;background:rgba(122,184,255,0.1);border:1px solid rgba(122,184,255,0.2);border-radius:10px;text-align:center;">
+            <div style="font-size:1.4rem;font-weight:800;color:#7ab8ff;">16</div>
+            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Def. Evasion</div>
+            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1070, T1036</div>
+            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:62%;height:100%;background:#7ab8ff;border-radius:2px;"></div></div>
+          </div>
+          <!-- Discovery -->
+          <div style="padding:14px 10px;background:rgba(122,184,255,0.1);border:1px solid rgba(122,184,255,0.2);border-radius:10px;text-align:center;">
+            <div style="font-size:1.4rem;font-weight:800;color:#7ab8ff;">14</div>
+            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Discovery</div>
+            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1087, T1018</div>
+            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:54%;height:100%;background:#7ab8ff;border-radius:2px;"></div></div>
+          </div>
+          <!-- Credential Access -->
+          <div style="padding:14px 10px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.2);border-radius:10px;text-align:center;">
+            <div style="font-size:1.4rem;font-weight:800;color:#fbbf24;">12</div>
+            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Cred. Access</div>
+            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1003, T1110</div>
+            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:46%;height:100%;background:#fbbf24;border-radius:2px;"></div></div>
+          </div>
+          <!-- Lateral Movement -->
+          <div style="padding:14px 10px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.15);border-radius:10px;text-align:center;">
+            <div style="font-size:1.4rem;font-weight:800;color:#fbbf24;">8</div>
+            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Lat. Movement</div>
+            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1021, T1570</div>
+            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:31%;height:100%;background:#fbbf24;border-radius:2px;"></div></div>
+          </div>
+          <!-- Collection -->
+          <div style="padding:14px 10px;background:rgba(122,184,255,0.06);border:1px solid rgba(122,184,255,0.12);border-radius:10px;text-align:center;">
+            <div style="font-size:1.4rem;font-weight:800;color:#7ab8ff;">5</div>
+            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Collection</div>
+            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1560, T1113</div>
+            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:19%;height:100%;background:#7ab8ff;border-radius:2px;"></div></div>
+          </div>
+          <!-- Privilege Escalation -->
+          <div style="padding:14px 10px;background:rgba(122,184,255,0.06);border:1px solid rgba(122,184,255,0.12);border-radius:10px;text-align:center;">
+            <div style="font-size:1.4rem;font-weight:800;color:#7ab8ff;">5</div>
+            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Priv. Escalation</div>
+            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1548, T1134</div>
+            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:19%;height:100%;background:#7ab8ff;border-radius:2px;"></div></div>
+          </div>
+          <!-- Exfiltration -->
+          <div style="padding:14px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;text-align:center;">
+            <div style="font-size:1.4rem;font-weight:800;color:var(--muted);">2</div>
+            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Exfiltration</div>
+            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1048</div>
+            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:8%;height:100%;background:var(--muted);border-radius:2px;"></div></div>
+          </div>
+          <!-- Impact -->
+          <div style="padding:14px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;text-align:center;">
+            <div style="font-size:1.4rem;font-weight:800;color:var(--muted);">1</div>
+            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Impact</div>
+            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1486</div>
+            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:4%;height:100%;background:var(--muted);border-radius:2px;"></div></div>
+          </div>
+        </div>
+        <p style="font-size:0.68rem;color:var(--muted);margin-top:14px;opacity:0.6;"><span data-verified="sigma">103</span> Sigma rules mapped across MITRE ATT&amp;CK tactic folders. Color intensity = detection density. <a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/detection-rules/mappings/technique_map.csv" target="_blank" rel="noopener noreferrer" style="color:#7ab8ff;">Full technique map &rarr;</a></p>
       </div>
     </div>
   </section>
@@ -151,15 +230,52 @@
       </div>
 
       <aside class="sf-library-stack">
-        <div class="panel-glass sf-chart-shell">
+        <div class="panel-glass sf-chart-shell" style="padding:20px;">
           <div class="section-intro">
-            <div class="kicker">Tag Distribution</div>
-            <h3>Tag concentration</h3>
-            <p>Current detection tags cluster around portable detection, SOC process, SIEM deployment, and hunting-oriented content.</p>
+            <div class="kicker">Platform Distribution</div>
+            <h3>Detection breakdown</h3>
           </div>
-          <div id="detectionsChart"></div>
-          <div id="securityTagMiniChart"></div>
-          <p id="mitre-tag-status" class="lupd"></p>
+          <!-- Sigma -->
+          <div style="margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px;">
+              <span style="color:#d4e0ec;font-weight:600;">Sigma</span>
+              <span style="font-family:'JetBrains Mono',monospace;color:#7ab8ff;font-weight:700;" data-verified="sigma">103</span>
+            </div>
+            <div style="height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;">
+              <div style="width:74%;height:100%;background:linear-gradient(90deg,rgba(122,184,255,0.5),rgba(122,184,255,0.2));border-radius:3px;"></div>
+            </div>
+          </div>
+          <!-- Wazuh -->
+          <div style="margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px;">
+              <span style="color:#d4e0ec;font-weight:600;">Wazuh</span>
+              <span style="font-family:'JetBrains Mono',monospace;color:#7ab8ff;font-weight:700;" data-verified="wazuh">28</span>
+            </div>
+            <div style="height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;">
+              <div style="width:20%;height:100%;background:linear-gradient(90deg,rgba(122,184,255,0.5),rgba(122,184,255,0.2));border-radius:3px;"></div>
+            </div>
+          </div>
+          <!-- IR -->
+          <div style="margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px;">
+              <span style="color:#d4e0ec;font-weight:600;">IR Playbooks</span>
+              <span style="font-family:'JetBrains Mono',monospace;color:#fbbf24;font-weight:700;" data-verified="ir">10</span>
+            </div>
+            <div style="height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;">
+              <div style="width:7%;height:100%;background:linear-gradient(90deg,rgba(251,191,36,0.5),rgba(251,191,36,0.2));border-radius:3px;"></div>
+            </div>
+          </div>
+          <!-- Splunk -->
+          <div style="margin-bottom:6px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px;">
+              <span style="color:#d4e0ec;font-weight:600;">Splunk <span style="font-size:0.68rem;opacity:0.5;">(lab)</span></span>
+              <span style="font-family:'JetBrains Mono',monospace;color:#4ade80;font-weight:700;" data-verified="splunk">8</span>
+            </div>
+            <div style="height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;">
+              <div style="width:6%;height:100%;background:linear-gradient(90deg,rgba(74,222,128,0.5),rgba(74,222,128,0.2));border-radius:3px;"></div>
+            </div>
+          </div>
+          <p style="font-size:0.68rem;color:var(--muted);margin-top:10px;opacity:0.5;">Total: <span data-verified="detections">139</span> detections</p>
         </div>
 
         <div class="panel-glass sf-library-status" data-security-kpis>
@@ -192,7 +308,7 @@
 <!-- @include:footer:start -->
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
     <div class="fl">
       <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
       <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>

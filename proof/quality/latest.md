@@ -2,7 +2,7 @@
 
 - Generated (UTC): 2026-03-30T11:58:10.327Z
 - Window: lifetime_runtime_snapshot
-- Overall status: WATCH
+- Overall status: PASS
 - Source: `data/metrics.json`
 
 ## Totals

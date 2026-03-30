@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title>HawkinsOps | About</title>
-<meta name="description" content="Background, approach, and what I'm building next — plus an interactive SOC triage simulator for workflow practice.">
+<meta name="description" content="Background, approach, and what I'm building next - plus an interactive SOC triage simulator for workflow practice.">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07070b">
@@ -23,8 +23,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <script>document.documentElement.setAttribute('data-theme', 'dark');</script>
 <link rel="stylesheet" href="/assets/styles.css">
-<link rel="stylesheet" href="/assets/modernize.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
+<link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -37,6 +38,7 @@
       <li><a href="/proof">Proof</a></li>
       <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
       <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/detections">Detections</a></li>
       <li><a href="/soc-lab">Lab</a></li>
       <li><a href="/resume">Resume</a></li>
@@ -49,6 +51,7 @@
   <a href="/proof">Proof</a>
   <a href="/operations-bridge">Ops &rarr; Cyber</a>
   <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/detections">Detections</a>
   <a href="/soc-lab">Lab</a>
   <a href="/resume">Resume</a>
@@ -79,21 +82,21 @@
         </p>
         <p class="about-body">
           Security clicked because it's the intersection of "how does this actually work" and
-          "what happens when it doesn't." The adversary mindset — understanding attack chains well
-          enough to write detections for them — is the part I keep returning to.
+          "what happens when it doesn't." The adversary mindset - understanding attack chains well
+          enough to write detections for them - is the part I keep returning to.
         </p>
         <p class="about-body" style="margin-top:10px">
           Everything on this site is self-directed. The lab, the rules, the playbooks, the verification
-          pipeline — built because I wanted to understand how a real SOC workflow holds together,
+          pipeline - built because I wanted to understand how a real SOC workflow holds together,
           not because a course told me to.
         </p>
-        <div class="sbadge" style="margin-top:14px"><span class="sdot"></span>Open to SOC Analyst / Detection Engineer roles — Huntsville, AL • Sept 2026 target</div>
+        <div class="sbadge" style="margin-top:14px"><span class="sdot"></span>Open to SOC Analyst / Detection Engineer roles - Huntsville, AL | Sept 2026 target</div>
       </div>
       <div>
         <div class="tl">
           <div class="tli on">
             <div class="tld"></div>
-            <div class="tl-dt">2024 – Present</div>
+            <div class="tl-dt">2024 - Present</div>
             <div class="tl-tt">Built HawkinsOps from scratch</div>
             <div class="tl-ds">Proxmox lab, Wazuh SIEM, Splunk, <span data-verified="detections">140</span> verified detections, <span data-verified="ir">10</span> IR playbooks. All public, all reproducible.</div>
           </div>
@@ -127,12 +130,12 @@
     <div class="g2">
       <div class="card">
         <div class="card-ttl">Detection as code</div>
-        <div class="card-sub">Rules in YAML and SPL aren't "security theater" — they're testable, version-controlled, and deployable across platforms. Sigma's platform-agnostic format means a rule written once can be converted to Wazuh, Splunk, or Elastic without rewriting the logic.</div>
+        <div class="card-sub">Rules in YAML and SPL aren't "security theater" - they're testable, version-controlled, and deployable across platforms. Sigma's platform-agnostic format means a rule written once can be converted to Wazuh, Splunk, or Elastic without rewriting the logic.</div>
         <div class="card-meta"><span class="tag">Sigma</span><span class="tag">YAML</span><span class="tag">Multi-backend</span></div>
       </div>
       <div class="card">
         <div class="card-ttl">Reproducibility as credibility</div>
-        <div class="card-sub">A count that can't be reproduced isn't a count — it's a claim. Every number on this site traces back to a script that walks the repo and counts files. That's not extra work. That's the only work that matters.</div>
+        <div class="card-sub">A count that can't be reproduced isn't a count - it's a claim. Every number on this site traces back to a script that walks the repo and counts files. That's not extra work. That's the only work that matters.</div>
         <div class="card-meta"><span class="tag">Verification scripts</span><span class="tag">CI gates</span><span class="tag">Public repo</span></div>
       </div>
     </div>
@@ -339,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- @include:footer:start -->
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
     <div class="fl">
       <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
       <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>

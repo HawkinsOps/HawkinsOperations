@@ -13,15 +13,15 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SignalFoundry | Start Here">
 <meta name="twitter:description" content="Fast reviewer path for SignalFoundry: proof, verified counts, case study, and reproduction commands.">
+<meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
+<meta name="twitter:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
 <link rel="stylesheet" href="/assets/styles.css">
-<link rel="stylesheet" href="/assets/design-tokens.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/base.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/modernize.css?v=03-15-2026-1">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/design-tokens.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/base.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
+<link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
 <script>document.documentElement.setAttribute('data-theme', 'dark');</script>
-<style>
-body { background: radial-gradient(ellipse 100% 55% at 0% 0%,rgba(41,121,200,0.09) 0%,transparent 55%), radial-gradient(ellipse 80% 50% at 100% 100%,rgba(0,196,212,0.07) 0%,transparent 55%), #03060b !important; }
-</style>
 </head>
 <body data-ops-scope="stable">
 <nav>
@@ -29,63 +29,55 @@ body { background: radial-gradient(ellipse 100% 55% at 0% 0%,rgba(41,121,200,0.0
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
-      <li><a href="/">Home</a></li>
-      <li><a href="/proof">Proof</a></li>
-      <li><a href="/operations-bridge">Ops &rarr; Cyber</a></li>
+      <li><a href="/start-here" aria-current="page">Start Here</a></li>
       <li><a href="/case-study-autosoc">SignalFoundry Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
+      <li><a href="/proof">Proof</a></li>
       <li><a href="/detections">Detections</a></li>
-      <li><a href="/soc-lab">Lab</a></li>
       <li><a href="/resume">Resume</a></li>
+      <li><a href="/soc-lab">Lab</a></li>
     </ul>
-    <a class="btn btn-p nav-cta" href="/start-here">Start Here</a>
+    <a class="btn btn-p nav-cta" href="/case-study-autosoc">SignalFoundry &rarr;</a>
   </div>
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
-  <a href="/">Home</a>
-  <a href="/proof">Proof</a>
-  <a href="/operations-bridge">Ops &rarr; Cyber</a>
+  <a href="/start-here" aria-current="page">Start Here</a>
   <a href="/case-study-autosoc">SignalFoundry Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
+  <a href="/proof">Proof</a>
   <a href="/detections">Detections</a>
-  <a href="/soc-lab">Lab</a>
   <a href="/resume">Resume</a>
+  <a href="/soc-lab">Lab</a>
 </div>
 <main class="sf-shell">
   <section class="sf-section">
     <div class="sf-eyebrow">Reviewer Path</div>
     <h1 style="font-size:clamp(2rem,4vw,3rem);margin:12px 0 16px;">Start here if you need to validate SignalFoundry fast.</h1>
-    <p style="max-width:64ch;color:var(--muted);">This page is the shortest public path through the system story: what exists, what is verified, where the implementation lives, and how to reproduce the counts.</p>
-    <div style="margin-top:20px;padding:18px 22px;border-left:3px solid var(--accent,#3b82f6);background:#0f172a;border-radius:0 6px 6px 0">
-      <p style="margin:0;font-size:0.975rem;line-height:1.7">I come from Tier 1 manufacturing where I managed production systems under pressure. My cybersecurity work is an extension of that same operational thinking applied to security monitoring, detection, and incident response. <a href="/operations-bridge" style="color:var(--accent,#3b82f6);white-space:nowrap">Read the full bridge →</a></p>
-    </div>
+    <p style="max-width:64ch;color:var(--muted);">This page exists so a reviewer can confirm what was built, what is verified, and where to find the implementation - without navigating the full site. Follow the cards in order.</p>
+    <p style="max-width:64ch;color:var(--muted);margin-top:10px;"><span data-verified="sigma">103</span> Sigma rules &middot; <span data-verified="wazuh">28</span> Wazuh rule blocks &middot; <span data-verified="splunk">8</span> Splunk queries (home lab) &middot; <span data-verified="ir">10</span> IR playbooks &middot; <span data-ops="stable_total_cases">55,665</span> cases &middot; <span data-ops="stable_auto_closed_benign">~92%</span> auto-closed.</p>
     <div class="m-proof-strip" style="margin-top:18px;">
       <div class="m-proof-inline">
-        <strong>Last verified <span data-verified-date>03-20-2026</span></strong>
-        <strong>Heartbeat <span data-ops-status="stable_heartbeat">SUCCESS</span></strong>
-        <strong>Coverage <span data-ops="stable_coverage_ratio">—</span></strong>
-        <strong>Latest proof <span data-ops="stable_locked_date">—</span></strong>
+        <strong>Heartbeat <span data-ops-status="stable_heartbeat">UNKNOWN</span></strong>
+        <strong>Coverage <span data-ops="stable_coverage_ratio"> - </span></strong>
+        <strong>Snapshot date <span data-ops="stable_locked_date">03-25-2026</span></strong>
       </div>
     </div>
   </section>
   <section class="sf-section sf-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
     <article class="sf-card" style="padding:24px;">
-      <h2>0. Career narrative</h2>
-      <p>Operations-to-cyber positioning page with runtime metric bindings and domain mapping.</p>
-      <p style="margin-top:16px;"><a class="sf-focus-ring" href="/career-intelligence">Open career intelligence narrative</a></p>
+      <h2>1. SignalFoundry Case Study</h2>
+      <p>System architecture, triage logic, evidence packing, and recovery model - the full implementation story.</p>
+      <p style="margin-top:16px;"><a class="btn btn-p sf-focus-ring" href="/case-study-autosoc">Open case study &rarr;</a></p>
     </article>
     <article class="sf-card" style="padding:24px;">
-      <h2>1. Proof surface</h2>
-      <p>Open the proof page for the curated artifact path and verification entry points.</p>
+      <h2>2. Proof</h2>
+      <p>Stable benchmark, evidence trail, and the verification path tied to this snapshot.</p>
       <p style="margin-top:16px;"><a class="sf-focus-ring" href="/proof">Open proof</a></p>
     </article>
     <article class="sf-card" style="padding:24px;">
-      <h2>2. Verified counts</h2>
-      <p>Repository inventory for Sigma, Wazuh, Splunk, and IR playbooks.</p>
+      <h2>3. Verified counts</h2>
+      <p>Repository inventory for Sigma, Wazuh, Splunk, and IR playbooks - the authoritative source file.</p>
       <p style="margin-top:16px;"><a class="sf-focus-ring" href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">Open VERIFIED_COUNTS.md</a></p>
-    </article>
-    <article class="sf-card" style="padding:24px;">
-      <h2>3. Implementation</h2>
-      <p>The SignalFoundry case study explains the system architecture, while AutoSOC is the internal engine behind it.</p>
-      <p style="margin-top:16px;"><a class="sf-focus-ring" href="/case-study-autosoc">Open SignalFoundry case study</a></p>
     </article>
   </section>
   <section class="sf-section">
@@ -101,7 +93,7 @@ python .\scripts\validate_metrics.py</pre>
 </main>
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> • Eligible to obtain clearance; willing to pursue sponsorship.</p>
+    <p><b>HawkinsOps</b> | Eligible to obtain clearance; willing to pursue sponsorship.</p>
   </div>
 </footer>
 <script src="/assets/fetch-utils.js" defer></script>
