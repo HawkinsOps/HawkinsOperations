@@ -9,7 +9,7 @@ A structured Splunk threat hunt across 283,976 Windows Security events identifie
 
 1. **Command-line auditing disabled** — Event ID 4688 fired on every process creation, but the CommandLine field was empty. Every process chain observed during the hunt was visible by name only. Arguments were unknown.
 2. **No failed logon events** — Zero EventID 4625 events across seven days on an internet-connected workstation. Brute force, password spray, and unauthorized access attempts were completely invisible.
-3. **No credential validation telemetry** — EventID 4776 (NTLM credential validation) was not being captured.
+3. **No network logon telemetry** — EventID 4776 (NTLM network credential validation) was not being captured. Lateral movement via network logons had no evidentiary trail.
 4. **No Windows TA in Splunk** — All field extraction was manual regex against raw XML, limiting the speed and depth of analysis.
 
 Gaps 1–3 were configuration issues. They could be fixed. This case study documents the fix.
