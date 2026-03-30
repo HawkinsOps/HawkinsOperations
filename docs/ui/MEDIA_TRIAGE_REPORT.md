@@ -1,10 +1,10 @@
 # MEDIA TRIAGE REPORT
 
-Generated: `2026-03-21`
+Generated: `2026-03-30`
 
-- Total discovered assets: **82**
+- Total discovered assets: **115**
 - Safe to publish: **11**
-- Needs privacy review: **71**
+- Needs privacy review: **104**
 
 ## Top 10 safe to publish
 
@@ -25,16 +25,16 @@ Generated: `2026-03-21`
 
 | id | source | reason | tags | size | suggested placement |
 |---|---|---|---|---:|---|
+| `playwright-cli-page-2026-03-09t20-35-15-236z-ab296a258c` | `.playwright-cli/page-2026-03-09T20-35-15-236Z.png` | privacy_review=required | proof | 802252 | home proof strip |
+| `playwright-cli-page-2026-03-09t20-35-55-085z-dfc4b95fa6` | `.playwright-cli/page-2026-03-09T20-35-55-085Z.png` | privacy_review=required | proof | 802252 | home proof strip |
+| `playwright-cli-page-2026-03-09t20-34-34-920z-a5c4462038` | `.playwright-cli/page-2026-03-09T20-34-34-920Z.png` | privacy_review=required | proof | 794253 | home proof strip |
+| `playwright-cli-page-2026-03-09t20-34-35-296z-7ab84f8792` | `.playwright-cli/page-2026-03-09T20-34-35-296Z.png` | privacy_review=required | proof | 654638 | home proof strip |
+| `output-playwright-autosoc-desktop-1a38710d1f` | `output/playwright/autosoc-desktop.png` | privacy_review=required | proof | 570813 | home proof strip |
 | `2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-06-event-dc85286f46` | `content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/06_event_detail_json_full.png` | privacy_review=required | incident, proof | 503893 | home proof strip |
 | `evidence-public-images-02-vuln-0critical-31high-redacted-1d70eee371` | `content/projects/lab/PP_SOC_Integration/evidence/public_images/02_vuln_0critical_31high_redacted.png` | privacy_review=required | lab, proof | 486909 | projects page gallery |
 | `assets-pp-soc-integration-02-vuln-0critical-31high-redacted-129823dfc5` | `site/assets/pp_soc_integration/02_vuln_0critical_31high_redacted.png` | privacy_review=required | proof | 486909 | home proof strip |
 | `evidence-public-images-04-nodejs-patch-terminal-0a8725700a` | `content/projects/lab/PP_SOC_Integration/evidence/public_images/04_nodejs_patch_terminal.png` | privacy_review=required | lab, proof | 448259 | projects page gallery |
 | `assets-pp-soc-integration-04-nodejs-patch-terminal-3412a16941` | `site/assets/pp_soc_integration/04_nodejs_patch_terminal.png` | privacy_review=required | proof | 448259 | home proof strip |
-| `evidence-public-images-03-cve-2025-55130-detected-redacted-84544d3fbe` | `content/projects/lab/PP_SOC_Integration/evidence/public_images/03_cve_2025_55130_detected_redacted.png` | privacy_review=required | lab, proof | 401913 | projects page gallery |
-| `assets-pp-soc-integration-03-cve-2025-55130-detected-redacted-8283cd3456` | `site/assets/pp_soc_integration/03_cve_2025_55130_detected_redacted.png` | privacy_review=required | proof | 401913 | home proof strip |
-| `assets-pp-soc-integration-t3-workflow-0cc0edc8ce` | `site/assets/pp_soc_integration/t3-workflow.png` | privacy_review=required | proof | 357129 | home proof strip |
-| `assets-pp-soc-integration-autosoc-system-map-0f36ac9a1a` | `site/assets/pp_soc_integration/autosoc-system-map.png` | privacy_review=required | proof | 299170 | home proof strip |
-| `assets-pp-soc-integration-t5-infrastructure-map-410c451f79` | `site/assets/pp_soc_integration/t5-infrastructure-map.png` | privacy_review=required | proof | 299170 | home proof strip |
 
 ## Placement suggestions
 

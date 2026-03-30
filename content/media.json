@@ -1,9 +1,201 @@
 {
-  "generated_on": "2026-03-21",
-  "total_assets": 82,
+  "generated_on": "2026-03-30",
+  "total_assets": 115,
   "safe_assets": 11,
-  "review_required_assets": 71,
+  "review_required_assets": 104,
   "media": [
+    {
+      "id": "playwright-cli-page-2026-03-09t20-05-22-290z-0af4cedc4a",
+      "path": ".playwright-cli/page-2026-03-09T20-05-22-290Z.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "page 2026 03 09T20 05 22 290Z",
+      "alt": "screenshot artifact: page 2026 03 09T20 05 22 290Z",
+      "privacy_review": "required",
+      "source": ".playwright-cli/page-2026-03-09T20-05-22-290Z.png",
+      "width": 1280,
+      "height": 720,
+      "bytes": 328652,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "playwright-cli-page-2026-03-09t20-06-16-254z-c88bb64a46",
+      "path": ".playwright-cli/page-2026-03-09T20-06-16-254Z.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "page 2026 03 09T20 06 16 254Z",
+      "alt": "screenshot artifact: page 2026 03 09T20 06 16 254Z",
+      "privacy_review": "required",
+      "source": ".playwright-cli/page-2026-03-09T20-06-16-254Z.png",
+      "width": 1440,
+      "height": 1800,
+      "bytes": 20309,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "playwright-cli-page-2026-03-09t20-06-17-133z-db433e2cc0",
+      "path": ".playwright-cli/page-2026-03-09T20-06-17-133Z.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "page 2026 03 09T20 06 17 133Z",
+      "alt": "screenshot artifact: page 2026 03 09T20 06 17 133Z",
+      "privacy_review": "required",
+      "source": ".playwright-cli/page-2026-03-09T20-06-17-133Z.png",
+      "width": 1440,
+      "height": 1800,
+      "bytes": 20309,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "playwright-cli-page-2026-03-09t20-07-28-431z-891d65db52",
+      "path": ".playwright-cli/page-2026-03-09T20-07-28-431Z.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "page 2026 03 09T20 07 28 431Z",
+      "alt": "screenshot artifact: page 2026 03 09T20 07 28 431Z",
+      "privacy_review": "required",
+      "source": ".playwright-cli/page-2026-03-09T20-07-28-431Z.png",
+      "width": 390,
+      "height": 1200,
+      "bytes": 197607,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "playwright-cli-page-2026-03-09t20-07-28-618z-132437ad62",
+      "path": ".playwright-cli/page-2026-03-09T20-07-28-618Z.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "page 2026 03 09T20 07 28 618Z",
+      "alt": "screenshot artifact: page 2026 03 09T20 07 28 618Z",
+      "privacy_review": "required",
+      "source": ".playwright-cli/page-2026-03-09T20-07-28-618Z.png",
+      "width": 390,
+      "height": 1200,
+      "bytes": 197607,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "playwright-cli-page-2026-03-09t20-11-14-353z-9a29607c6d",
+      "path": ".playwright-cli/page-2026-03-09T20-11-14-353Z.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "page 2026 03 09T20 11 14 353Z",
+      "alt": "screenshot artifact: page 2026 03 09T20 11 14 353Z",
+      "privacy_review": "required",
+      "source": ".playwright-cli/page-2026-03-09T20-11-14-353Z.png",
+      "width": 390,
+      "height": 1400,
+      "bytes": 221150,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "playwright-cli-page-2026-03-09t20-11-15-878z-a3be1a972c",
+      "path": ".playwright-cli/page-2026-03-09T20-11-15-878Z.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "page 2026 03 09T20 11 15 878Z",
+      "alt": "screenshot artifact: page 2026 03 09T20 11 15 878Z",
+      "privacy_review": "required",
+      "source": ".playwright-cli/page-2026-03-09T20-11-15-878Z.png",
+      "width": 390,
+      "height": 1400,
+      "bytes": 222870,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "playwright-cli-page-2026-03-09t20-12-07-484z-c2f19b92a8",
+      "path": ".playwright-cli/page-2026-03-09T20-12-07-484Z.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "page 2026 03 09T20 12 07 484Z",
+      "alt": "screenshot artifact: page 2026 03 09T20 12 07 484Z",
+      "privacy_review": "required",
+      "source": ".playwright-cli/page-2026-03-09T20-12-07-484Z.png",
+      "width": 390,
+      "height": 1400,
+      "bytes": 209379,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "playwright-cli-page-2026-03-09t20-34-34-920z-a5c4462038",
+      "path": ".playwright-cli/page-2026-03-09T20-34-34-920Z.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "page 2026 03 09T20 34 34 920Z",
+      "alt": "screenshot artifact: page 2026 03 09T20 34 34 920Z",
+      "privacy_review": "required",
+      "source": ".playwright-cli/page-2026-03-09T20-34-34-920Z.png",
+      "width": 1440,
+      "height": 2000,
+      "bytes": 794253,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "playwright-cli-page-2026-03-09t20-34-35-296z-7ab84f8792",
+      "path": ".playwright-cli/page-2026-03-09T20-34-35-296Z.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "page 2026 03 09T20 34 35 296Z",
+      "alt": "screenshot artifact: page 2026 03 09T20 34 35 296Z",
+      "privacy_review": "required",
+      "source": ".playwright-cli/page-2026-03-09T20-34-35-296Z.png",
+      "width": 1440,
+      "height": 2000,
+      "bytes": 654638,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "playwright-cli-page-2026-03-09t20-35-15-236z-ab296a258c",
+      "path": ".playwright-cli/page-2026-03-09T20-35-15-236Z.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "page 2026 03 09T20 35 15 236Z",
+      "alt": "screenshot artifact: page 2026 03 09T20 35 15 236Z",
+      "privacy_review": "required",
+      "source": ".playwright-cli/page-2026-03-09T20-35-15-236Z.png",
+      "width": 1440,
+      "height": 2000,
+      "bytes": 802252,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "playwright-cli-page-2026-03-09t20-35-55-085z-dfc4b95fa6",
+      "path": ".playwright-cli/page-2026-03-09T20-35-55-085Z.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "page 2026 03 09T20 35 55 085Z",
+      "alt": "screenshot artifact: page 2026 03 09T20 35 55 085Z",
+      "privacy_review": "required",
+      "source": ".playwright-cli/page-2026-03-09T20-35-55-085Z.png",
+      "width": 1440,
+      "height": 2000,
+      "bytes": 802252,
+      "suggested_placement": "home proof strip"
+    },
     {
       "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-01-wazuh-ce9ea4c828",
       "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/01_wazuh_overview_dashboard.png",
@@ -661,6 +853,248 @@
       "suggested_placement": "home proof strip"
     },
     {
+      "id": "output-playwright-autosoc-desktop-1a38710d1f",
+      "path": "output/playwright/autosoc-desktop.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "autosoc desktop",
+      "alt": "screenshot artifact: autosoc desktop",
+      "privacy_review": "required",
+      "source": "output/playwright/autosoc-desktop.png",
+      "width": 1440,
+      "height": 1100,
+      "bytes": 570813,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "output-playwright-autosoc-mobile-after-b9d4cb7581",
+      "path": "output/playwright/autosoc-mobile-after.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "autosoc mobile after",
+      "alt": "screenshot artifact: autosoc mobile after",
+      "privacy_review": "required",
+      "source": "output/playwright/autosoc-mobile-after.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 153644,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "output-playwright-autosoc-mobile-0e441b500c",
+      "path": "output/playwright/autosoc-mobile.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "autosoc mobile",
+      "alt": "screenshot artifact: autosoc mobile",
+      "privacy_review": "required",
+      "source": "output/playwright/autosoc-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 153644,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "output-playwright-home-desktop-898db68962",
+      "path": "output/playwright/home-desktop.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "home desktop",
+      "alt": "screenshot artifact: home desktop",
+      "privacy_review": "required",
+      "source": "output/playwright/home-desktop.png",
+      "width": 1440,
+      "height": 1100,
+      "bytes": 439953,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "output-playwright-home-mobile-after-2-55305844ea",
+      "path": "output/playwright/home-mobile-after-2.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "home mobile after 2",
+      "alt": "screenshot artifact: home mobile after 2",
+      "privacy_review": "required",
+      "source": "output/playwright/home-mobile-after-2.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 159910,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "output-playwright-home-mobile-after-efb36a3b04",
+      "path": "output/playwright/home-mobile-after.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "home mobile after",
+      "alt": "screenshot artifact: home mobile after",
+      "privacy_review": "required",
+      "source": "output/playwright/home-mobile-after.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 153644,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "output-playwright-home-mobile-1a6c63c0a7",
+      "path": "output/playwright/home-mobile.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "home mobile",
+      "alt": "screenshot artifact: home mobile",
+      "privacy_review": "required",
+      "source": "output/playwright/home-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 139823,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "output-playwright-home-review-925b10da77",
+      "path": "output/playwright/home-review.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "home review",
+      "alt": "screenshot artifact: home review",
+      "privacy_review": "required",
+      "source": "output/playwright/home-review.png",
+      "width": 1280,
+      "height": 720,
+      "bytes": 413364,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "output-playwright-proof-desktop-final-e1277ec9b5",
+      "path": "output/playwright/proof-desktop-final.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "proof desktop final",
+      "alt": "screenshot artifact: proof desktop final",
+      "privacy_review": "required",
+      "source": "output/playwright/proof-desktop-final.png",
+      "width": 1440,
+      "height": 1100,
+      "bytes": 348768,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "output-playwright-proof-desktop-eb66a42aa9",
+      "path": "output/playwright/proof-desktop.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "proof desktop",
+      "alt": "screenshot artifact: proof desktop",
+      "privacy_review": "required",
+      "source": "output/playwright/proof-desktop.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 162903,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "output-playwright-proof-mobile-after-d33dcdef9f",
+      "path": "output/playwright/proof-mobile-after.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "proof mobile after",
+      "alt": "screenshot artifact: proof mobile after",
+      "privacy_review": "required",
+      "source": "output/playwright/proof-mobile-after.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 153644,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "output-playwright-proof-mobile-final-eff8249d91",
+      "path": "output/playwright/proof-mobile-final.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "proof mobile final",
+      "alt": "screenshot artifact: proof mobile final",
+      "privacy_review": "required",
+      "source": "output/playwright/proof-mobile-final.png",
+      "width": 1440,
+      "height": 1100,
+      "bytes": 348768,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "output-playwright-proof-mobile-b692a8e281",
+      "path": "output/playwright/proof-mobile.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "proof mobile",
+      "alt": "screenshot artifact: proof mobile",
+      "privacy_review": "required",
+      "source": "output/playwright/proof-mobile.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 162903,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "output-playwright-soc-lab-review-fixed-ecfd0907c1",
+      "path": "output/playwright/soc-lab-review-fixed.png",
+      "type": "screenshot",
+      "tags": [
+        "lab",
+        "proof"
+      ],
+      "caption": "soc lab review fixed",
+      "alt": "screenshot artifact: soc lab review fixed",
+      "privacy_review": "required",
+      "source": "output/playwright/soc-lab-review-fixed.png",
+      "width": 1280,
+      "height": 720,
+      "bytes": 434410,
+      "suggested_placement": "projects page gallery"
+    },
+    {
+      "id": "output-playwright-soc-lab-review-05a4bdebcb",
+      "path": "output/playwright/soc-lab-review.png",
+      "type": "screenshot",
+      "tags": [
+        "lab",
+        "proof"
+      ],
+      "caption": "soc lab review",
+      "alt": "screenshot artifact: soc lab review",
+      "privacy_review": "required",
+      "source": "output/playwright/soc-lab-review.png",
+      "width": 1280,
+      "height": 720,
+      "bytes": 371211,
+      "suggested_placement": "projects page gallery"
+    },
+    {
       "id": "evidence-screenshots-resume-txt-render-02-14-2026-ee86fdbe46",
       "path": "PROOF_PACK/features/resume-ats-txt-endpoint/run_02-14-2026_000051/evidence/screenshots/resume_txt_render_02-14-2026.png",
       "type": "screenshot",
@@ -912,6 +1346,22 @@
       "suggested_placement": "projects page gallery"
     },
     {
+      "id": "site-assets-autosoc-decision-flow-5244b45962",
+      "path": "site/assets/autosoc-decision-flow.svg",
+      "type": "diagram",
+      "tags": [
+        "proof"
+      ],
+      "caption": "autosoc decision flow",
+      "alt": "diagram artifact: autosoc decision flow",
+      "privacy_review": "required",
+      "source": "site/assets/autosoc-decision-flow.svg",
+      "width": 900,
+      "height": 720,
+      "bytes": 20236,
+      "suggested_placement": "home proof strip"
+    },
+    {
       "id": "assets-badges-automation-36aa2147ed",
       "path": "assets/media/assets-badges-automation-36aa2147ed.svg",
       "type": "logo",
@@ -1091,6 +1541,23 @@
       "suggested_placement": "home proof strip"
     },
     {
+      "id": "site-assets-lab-topology-addb65b279",
+      "path": "site/assets/lab-topology.svg",
+      "type": "screenshot",
+      "tags": [
+        "lab",
+        "proof"
+      ],
+      "caption": "lab topology",
+      "alt": "screenshot artifact: lab topology",
+      "privacy_review": "required",
+      "source": "site/assets/lab-topology.svg",
+      "width": 960,
+      "height": 540,
+      "bytes": 17281,
+      "suggested_placement": "projects page gallery"
+    },
+    {
       "id": "assets-logos-automation-85a1e87692",
       "path": "assets/media/assets-logos-automation-85a1e87692.svg",
       "type": "logo",
@@ -1171,6 +1638,22 @@
       "width": 1200,
       "height": 630,
       "bytes": 63868,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "site-assets-ops-bridge-312b808c55",
+      "path": "site/assets/ops-bridge.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "ops bridge",
+      "alt": "screenshot artifact: ops bridge",
+      "privacy_review": "required",
+      "source": "site/assets/ops-bridge.svg",
+      "width": 900,
+      "height": 620,
+      "bytes": 17275,
       "suggested_placement": "home proof strip"
     },
     {
@@ -1299,7 +1782,39 @@
       "source": "site/assets/pp_soc_integration/linkedin-autosoc-milestone-03-02-2026.svg",
       "width": 1600,
       "height": 900,
-      "bytes": 3239,
+      "bytes": 3184,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "assets-pp-soc-integration-ops-bridge-2799ced5e8",
+      "path": "site/assets/pp_soc_integration/ops-bridge.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "ops bridge",
+      "alt": "screenshot artifact: ops bridge",
+      "privacy_review": "required",
+      "source": "site/assets/pp_soc_integration/ops-bridge.svg",
+      "width": 900,
+      "height": 620,
+      "bytes": 17275,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "assets-pp-soc-integration-signalfoundry-pipeline-f0a98b9092",
+      "path": "site/assets/pp_soc_integration/signalfoundry-pipeline.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "signalfoundry pipeline",
+      "alt": "screenshot artifact: signalfoundry pipeline",
+      "privacy_review": "required",
+      "source": "site/assets/pp_soc_integration/signalfoundry-pipeline.svg",
+      "width": 1100,
+      "height": 420,
+      "bytes": 20797,
       "suggested_placement": "home proof strip"
     },
     {
@@ -1348,6 +1863,22 @@
       "width": 2800,
       "height": 2000,
       "bytes": 294403,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "site-assets-signalfoundry-pipeline-0d3e93e639",
+      "path": "site/assets/signalfoundry-pipeline.svg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "signalfoundry pipeline",
+      "alt": "screenshot artifact: signalfoundry pipeline",
+      "privacy_review": "required",
+      "source": "site/assets/signalfoundry-pipeline.svg",
+      "width": 1100,
+      "height": 420,
+      "bytes": 20797,
       "suggested_placement": "home proof strip"
     }
   ]

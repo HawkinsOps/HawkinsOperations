@@ -5,8 +5,8 @@
   },
   "stable_benchmark": {
     "total_cases": 54700,
-    "auto_closed_benign": "~83%",
-    "known_fp": "5,453",
+    "auto_closed_benign": "~93%",
+    "known_fp": "1,925",
     "escalated": "2,531",
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
@@ -15,10 +15,10 @@
   },
   "lifetime_runtime": {
     "total_cases": 54700,
-    "auto_closed_benign": "~83%",
-    "known_fp": "5,453",
+    "auto_closed_benign": "~93%",
+    "known_fp": "1,925",
     "escalated": "2,531",
-    "review": 1354,
+    "review": 417,
     "staged_pending": 53,
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
@@ -26,10 +26,10 @@
   },
   "running_totals": {
     "total_cases": 54700,
-    "auto_closed_benign": 45334,
-    "known_fp": 5453,
-    "escalated": 2531,
-    "review": 1354,
+    "auto_closed_benign": 0,
+    "known_fp": 1925,
+    "escalated": 0,
+    "review": 417,
     "staged_pending": 53
   },
   "host_coverage": "8/8",
@@ -38,7 +38,7 @@
   "last_updated": "2026-03-24T00:00:00Z",
   "stress_test_window": {
     "profile": "active_pipeline_snapshot",
-    "baseline_window": "C:/OPS/Control/Automation/AutoSOC/Output",
+    "baseline_window": "C:/RH/OPS/30_Projects/Active/AutoSOC/Output",
     "queue_backlog_target": 10000,
     "latency_targets_ms": {
       "per_event_under_load": 200,
@@ -54,7 +54,7 @@
     "sigma": 103,
     "wazuh_files": 24,
     "wazuh_rule_blocks": 28,
-    "splunk": 8,
+    "splunk": 9,
     "ir_playbooks": 10
   },
   "canonical_source": "source_of_truth/metrics_canonical_2026-03-24.json"
