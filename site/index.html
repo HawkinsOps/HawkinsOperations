@@ -35,6 +35,8 @@
 <link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
 <link rel="stylesheet" href="/assets/system-map.css?v=03-25-2026-1">
 <link rel="stylesheet" href="/assets/page-shells.css?v=03-16-2026-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -74,9 +76,7 @@
       <div>
         <h1 id="hero-title">Raylee Hawkins</h1>
         <div class="sf-role-line">
-          <span class="sf-role-tag">SOC Analyst</span>
-          <span class="sf-role-tag">Detection Engineering</span>
-          <span class="sf-role-tag">Security Automation</span>
+          <span class="sf-role-tag typed-target"></span>
         </div>
         <p style="font-family:'Sora','Inter',sans-serif;font-size:1.05rem;font-weight:700;line-height:1.5;color:#71c7b8;margin:0 0 14px;">This is a working security operations system, not a static portfolio.</p>
         <p class="sf-body" style="line-height:1.7;margin-bottom:14px;">I design, build, and operate SignalFoundry: a production-grade detection-to-escalation pipeline across Sigma, Wazuh, and Splunk that automatically triages alerts, collects forensic evidence, and only escalates verified threats with full proof attached.</p>
@@ -92,7 +92,7 @@
       <div class="hero-bridge">
         <strong>Background:</strong>&nbsp; Production supervisor → detection engineer. 30+ operators, IATF audit compliance, 12-hr rotating shifts. The domain changed. The control logic didn't.
       </div>
-      <div class="outcomes-strip" role="region" aria-label="Pipeline outcomes summary">
+      <div class="outcomes-strip" data-aos="fade-up" role="region" aria-label="Pipeline outcomes summary">
         <div class="of-node">
           <div class="of-val counter" data-target="55665">0</div>
           <div class="of-lbl">Alerts Ingested</div>
@@ -128,13 +128,13 @@
     </section>
 
     <!-- FLAGSHIP SYSTEM -->
-    <section id="flagship" class="sf-section reveal" aria-labelledby="flagship-title">
+    <section id="flagship" class="sf-section reveal" data-aos="fade-up" aria-labelledby="flagship-title">
       <div class="sf-section-label">Flagship System</div>
       <div class="sf-proof-grid">
-        <div class="sf-card sf-panel">
+        <div class="sf-card sf-panel" data-aos="fade-up">
           <h2 id="flagship-title">SignalFoundry</h2>
           <p class="sf-body sf-copy-gap-sm">Wazuh alerts in → policy-driven triage → mandatory redaction → evidence packs → reconciliation gate → published proof. 35-script Python pipeline. Deterministic. Nothing publishes without PASS.</p>
-          <div class="det-inventory" aria-label="Detection inventory">
+          <div class="det-inventory" data-aos="fade-in" aria-label="Detection inventory">
             <div class="det-inv-hdr">
               <div class="det-inv-title">Detection Inventory</div>
               <div class="det-inv-total"><span data-verified="detections">140</span> rules</div>
@@ -175,7 +175,7 @@
             <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof Artifacts</a>
           </div>
         </div>
-        <div class="sf-card sf-panel">
+        <div class="sf-card sf-panel" data-aos="fade-up">
           <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(100,140,180,.13);">
             <img src="/assets/signalfoundry-pipeline.svg" alt="SignalFoundry 7-stage pipeline diagram" loading="eager" width="1100" height="420" style="display:block;width:100%;height:auto;">
           </div>
@@ -187,27 +187,27 @@
     </section>
 
     <!-- PROOF METRICS -->
-    <section id="proof-snapshot" class="sf-section reveal" aria-labelledby="health-title">
+    <section id="proof-snapshot" class="sf-section reveal" data-aos="fade-up" aria-labelledby="health-title">
       <div class="sf-section-label">Stable Benchmark</div>
       <h2 id="health-title">Canonical snapshot — 03-25-2026</h2>
       <p class="sf-body sf-copy-gap-lg"><span data-ops="stable_statement">March 25 canonical snapshot: 55,665 total cases, ~92% auto-close, 2,545 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
       <div class="sf-metrics" role="status" aria-live="polite">
-        <article class="sf-card sf-metric">
+        <article class="sf-card sf-metric" data-aos="fade-up" data-aos-delay="0">
           <span class="sf-metric-label">Heartbeat</span>
           <span class="sf-metric-value"><span class="sdot" aria-hidden="true"></span><span data-ops-status="stable_heartbeat">SUCCESS</span></span>
           <p class="sf-metric-note">Live pipeline gate — operational.</p>
         </article>
-        <article class="sf-card sf-metric" data-modal="tpl-escalated" data-modal-title="Auto-Close Rate">
+        <article class="sf-card sf-metric" data-aos="fade-up" data-aos-delay="100" data-modal="tpl-escalated" data-modal-title="Auto-Close Rate">
           <span class="sf-metric-label">Auto-Close Rate</span>
           <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_auto_closed_benign">~92%</span></span>
           <p class="sf-metric-note">Benign alerts resolved without human action.</p>
         </article>
-        <article class="sf-card sf-metric" data-modal="tpl-escalated" data-modal-title="Escalated Cases">
+        <article class="sf-card sf-metric" data-aos="fade-up" data-aos-delay="200" data-modal="tpl-escalated" data-modal-title="Escalated Cases">
           <span class="sf-metric-label">Escalated</span>
           <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="stable_escalated">2,545</span></span>
           <p class="sf-metric-note">Non-trivial cases requiring analyst review.</p>
         </article>
-        <article class="sf-card sf-metric" data-modal="tpl-heartbeat" data-modal-title="Reconciliation">
+        <article class="sf-card sf-metric" data-aos="fade-up" data-aos-delay="300" data-modal="tpl-heartbeat" data-modal-title="Reconciliation">
           <span class="sf-metric-label">Reconciliation</span>
           <span class="sf-metric-value" style="font-size:2.2rem;"><span data-ops="reconciliation">PASS</span></span>
           <p class="sf-metric-note">Ledger check: 0 mismatches between stages.</p>
@@ -218,11 +218,11 @@
     <!--
          SECTION 4: CASE PROCESSING FUNNEL
           -->
-    <section id="case-funnel" class="sf-section" aria-labelledby="funnel-title">
+    <section id="case-funnel" class="sf-section" data-aos="fade-up" aria-labelledby="funnel-title">
       <div class="sf-section-label">Case Flow</div>
       <h2 id="funnel-title">How alerts become evidence</h2>
       <p class="sf-body sf-copy-gap-lg">Every alert enters the same pipeline. Most are auto-closed. The rest produce structured evidence packs.</p>
-      <div class="sf-card sf-panel" style="padding:28px;overflow-x:auto;">
+      <div class="sf-card sf-panel" data-aos="fade-up" style="padding:28px;overflow-x:auto;">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" role="img" aria-label="Case processing funnel: 55,665 total cases to evidence packs" style="width:100%;min-width:700px;height:auto;">
           <title>Case Processing Funnel</title>
           <defs>
@@ -270,13 +270,13 @@
     <!--
          SECTION 5: DETECTION PLATFORM BREAKDOWN
           -->
-    <section id="detection-chart" class="sf-section" aria-labelledby="det-title">
+    <section id="detection-chart" class="sf-section" data-aos="fade-up" aria-labelledby="det-title">
       <div class="sf-section-label">Detection Inventory</div>
       <h2 id="det-title">What the pipeline watches for</h2>
       <p class="sf-body sf-copy-gap-lg"><span data-verified="detections">140</span> detections across 4 platforms, mapped to MITRE ATT&amp;CK. <a href="/detections" class="sf-inline-link">Full searchable inventory &rarr;</a></p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;">
         <!-- Chart -->
-        <div class="sf-card sf-panel" style="padding:24px;">
+        <div class="sf-card sf-panel" data-aos="fade-up" style="padding:24px;">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 220" role="img" aria-label="Detection platform breakdown: Sigma 103, Wazuh 28, IR 10, Splunk 9" style="width:100%;height:auto;">
             <title>Detection Platform Breakdown</title>
             <style>
@@ -314,19 +314,19 @@
         </div>
         <!-- Platform cards -->
         <div style="display:grid;gap:14px;">
-          <div class="sf-card" style="padding:16px;">
+          <div class="sf-card" data-aos="fade-up" style="padding:16px;">
             <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:4px;">Sigma YAML</div>
             <p style="margin:0;font-size:0.9rem;">MITRE-mapped behavioral detections across tactic folders: process creation, lateral movement, credential access, persistence, and more.</p>
           </div>
-          <div class="sf-card" style="padding:16px;">
+          <div class="sf-card" data-aos="fade-up" style="padding:16px;">
             <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:4px;">Wazuh XML</div>
             <p style="margin:0;font-size:0.9rem;">Custom rule IDs (100000+ range), deployed to Wazuh Manager. Lab-validated with detection harness.</p>
           </div>
-          <div class="sf-card" style="padding:16px;">
+          <div class="sf-card" data-aos="fade-up" style="padding:16px;">
             <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:4px;">IR Playbooks</div>
             <p style="margin:0;font-size:0.9rem;">7-step structured response: detect, triage (5 min), investigate (30 min), contain, eradicate, recover, document.</p>
           </div>
-          <div class="sf-card" style="padding:16px;">
+          <div class="sf-card" data-aos="fade-up" style="padding:16px;">
             <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:4px;">Splunk SPL</div>
             <p style="margin:0;font-size:0.9rem;">Investigation queries against Wazuh-forwarded events. Home lab scope &mdash; not enterprise deployment.</p>
           </div>
@@ -337,7 +337,7 @@
     <!--
          SECTION 6: OPERATIONAL PROOF SNAPSHOT
           -->
-    <section id="proof-snapshot" class="sf-section" aria-labelledby="health-title">
+    <section id="proof-snapshot" class="sf-section" data-aos="fade-up" aria-labelledby="health-title">
       <div class="sf-section-label">Stable Benchmark</div>
       <h2 id="health-title">Pipeline integrity</h2>
       <p class="sf-body sf-copy-gap-md">Locked snapshot from <code>data/truth/current-authority.json</code>. These values do not change from live telemetry. <a href="/proof" class="sf-inline-link">Full proof &rarr;</a></p>
@@ -348,27 +348,27 @@
         <li><strong>Source artifact:</strong> <code>site/data/truth/current-authority.json</code></li>
       </ul>
       <div class="sf-metrics" role="status" aria-live="polite" aria-label="Stable benchmark metrics">
-        <article class="sf-card sf-metric" aria-label="Heartbeat status" data-modal="tpl-heartbeat" data-modal-title="Heartbeat Status">
+        <article class="sf-card sf-metric" data-aos="fade-up" data-aos-delay="0" aria-label="Heartbeat status" data-modal="tpl-heartbeat" data-modal-title="Heartbeat Status">
           <span class="sf-metric-label">Heartbeat</span>
           <span class="sf-metric-value"><span data-ops-status="stable_heartbeat">SUCCESS</span></span>
           <p class="sf-metric-note">Pipeline health check.</p>
         </article>
-        <article class="sf-card sf-metric" aria-label="Coverage gate status" data-modal="tpl-coverage" data-modal-title="Coverage Gate — 8/8 Hosts">
+        <article class="sf-card sf-metric" data-aos="fade-up" data-aos-delay="100" aria-label="Coverage gate status" data-modal="tpl-coverage" data-modal-title="Coverage Gate — 8/8 Hosts">
           <span class="sf-metric-label">Host Coverage</span>
           <span class="sf-metric-value"><span data-ops="stable_coverage_ratio">8/8</span></span>
           <p class="sf-metric-note">All endpoints reporting.</p>
         </article>
-        <article class="sf-card sf-metric">
+        <article class="sf-card sf-metric" data-aos="fade-up" data-aos-delay="200">
           <span class="sf-metric-label">Escalations</span>
           <span class="sf-metric-value"><span data-ops="stable_escalated">2,545</span></span>
           <p class="sf-metric-note">Analyst-ready evidence packs.</p>
         </article>
-        <article class="sf-card sf-metric">
+        <article class="sf-card sf-metric" data-aos="fade-up" data-aos-delay="300">
           <span class="sf-metric-label">Reconciliation</span>
           <span class="sf-metric-value">PASS</span>
           <p class="sf-metric-note">0 mismatches between stages.</p>
         </article>
-        <article class="sf-card sf-metric" aria-label="Stable benchmark date" data-modal="tpl-benchmark" data-modal-title="Benchmark Lock Date">
+        <article class="sf-card sf-metric" data-aos="fade-up" data-aos-delay="400" aria-label="Stable benchmark date" data-modal="tpl-benchmark" data-modal-title="Benchmark Lock Date">
           <span class="sf-metric-label">Locked</span>
           <span class="sf-metric-value"><span data-ops="stable_locked_date">LOCKED</span></span>
           <p class="sf-metric-note">Snapshot date.</p>
@@ -381,13 +381,13 @@
     <!--
          SECTION 7: CAREER BRIDGE — Manufacturing Ops → Security Ops
           -->
-    <section id="career-bridge" class="sf-section" aria-labelledby="career-title">
+    <section id="career-bridge" class="sf-section" data-aos="fade-up" aria-labelledby="career-title">
       <div class="sf-section-label">Operator Origin</div>
       <h2 id="career-title">Manufacturing discipline, applied to security</h2>
       <p class="sf-body sf-copy-gap-lg">I didn't break into cybersecurity. I transitioned operator discipline from automotive manufacturing into detection engineering. The systems instinct predates the portfolio.</p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
         <!-- Manufacturing side -->
-        <div class="sf-card sf-panel" style="padding:22px;">
+        <div class="sf-card sf-panel" data-aos="fade-up" style="padding:22px;">
           <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:#fbbf24;margin-bottom:10px;">Manufacturing Operations</div>
           <ul style="margin:0;padding-left:16px;display:grid;gap:8px;font-size:0.9rem;color:var(--muted);">
             <li><strong style="color:var(--text);">Fehrer Automotive</strong> &mdash; Team Lead, A/B/I lines. Mercedes, BMW, VW, Tesla. IATF 16949 / TISAX. Promoted in under 5 months.</li>
@@ -396,7 +396,7 @@
           </ul>
         </div>
         <!-- Cyber side -->
-        <div class="sf-card sf-panel" style="padding:22px;">
+        <div class="sf-card sf-panel" data-aos="fade-up" style="padding:22px;">
           <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:#3b8fd9;margin-bottom:10px;">Security Operations</div>
           <ul style="margin:0;padding-left:16px;display:grid;gap:8px;font-size:0.9rem;color:var(--muted);">
             <li><strong style="color:var(--text);">Sept 2025:</strong> Zero computer experience.</li>
@@ -407,7 +407,7 @@
         </div>
       </div>
       <!-- Quality framework parallel -->
-      <div class="sf-card sf-panel" style="padding:22px;margin-top:20px;">
+      <div class="sf-card sf-panel" data-aos="fade-up" style="padding:22px;margin-top:20px;">
         <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;">The Parallel</div>
         <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:start;font-size:0.88rem;">
           <div>
@@ -426,11 +426,11 @@
     <!--
          SECTION 8: VERIFICATION TERMINAL
           -->
-    <section id="verify" class="sf-section" aria-labelledby="verify-title">
+    <section id="verify" class="sf-section" data-aos="fade-up" aria-labelledby="verify-title">
       <div class="sf-section-label">Reproducible</div>
       <h2 id="verify-title">Verify it yourself</h2>
       <p class="sf-body sf-copy-gap-md">Every claim on this site traces back to a verification command. Clone the repo and run these:</p>
-      <div class="sf-card" style="padding:0;overflow:hidden;">
+      <div class="sf-card" data-aos="fade-up" style="padding:0;overflow:hidden;">
         <div style="padding:10px 16px;background:rgba(122,184,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Terminal</div>
         <pre style="margin:0;padding:18px 20px;font-family:'JetBrains Mono',monospace;font-size:0.82rem;line-height:1.8;color:#d4e0ec;overflow-x:auto;"><code><span style="color:#7a94aa;"># Count verification (source of truth)</span>
 pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
@@ -455,24 +455,24 @@ node scripts/generate-site-data.js</code></pre>
     <!-- 
          SECTION 5: REVIEWER ROUTES
           -->
-    <section id="routes" class="sf-section" aria-labelledby="routes-title">
+    <section id="routes" class="sf-section" data-aos="fade-up" aria-labelledby="routes-title">
       <div class="sf-section-label">Review Routes</div>
       <h2 id="routes-title">Where to go next</h2>
       <p class="sf-body sf-copy-gap-lg">Pick the path that answers your decision fastest.</p>
       <div class="sf-route-grid">
-        <a class="sf-card sf-route-card sf-focus-ring" href="/">
+        <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/">
           <h3>Start Here</h3>
           <p>Fastest reviewer path: verified counts, case study, and proof in one view.</p>
         </a>
-        <a class="sf-card sf-route-card sf-focus-ring" href="/case-study-autosoc">
+        <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/case-study-autosoc">
           <h3>SignalFoundry</h3>
           <p>Flagship system architecture, triage logic, outputs, and recovery model.</p>
         </a>
-        <a class="sf-card sf-route-card sf-focus-ring" href="/proof">
+        <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/proof">
           <h3>Proof</h3>
           <p>Stable benchmark source, evidence trail, and verification path.</p>
         </a>
-        <a class="sf-card sf-route-card sf-focus-ring" href="/resume">
+        <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/resume">
           <h3>Resume</h3>
           <p>Role fit, outcomes, and recruiter-ready resume formats.</p>
         </a>
@@ -594,5 +594,10 @@ node scripts/generate-site-data.js</code></pre>
 <script src="/data/ops-metrics.js" defer></script>
 <script src="/assets/app.js" defer></script>
 <script src="/assets/system-map.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
 </body>
 </html>

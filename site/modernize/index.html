@@ -20,6 +20,8 @@
   })();
 </script>
 <link rel="stylesheet" href="/assets/modernize.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="modernize-shell">
@@ -70,7 +72,7 @@
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap">
         <div class="m-proof-strip">
           <div><strong><span data-verified="detections">140</span></strong> detections, <strong><span data-verified="sigma">103</span></strong> Sigma, <strong><span data-verified="wazuh">28</span></strong> Wazuh, <strong><span data-verified="splunk">9</span></strong> Splunk, <strong><span data-verified="ir">10</span></strong> playbooks</div>
@@ -79,11 +81,11 @@
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap">
         <div class="m-grid-3">
           <article class="m-card">
-            <div class="m-card-kicker">Start here</div>
+            <div class="m-card-kicker" data-aos="fade-up">Start here</div>
             <h2>AutoSOC case study</h2>
             <p>The strongest recruiter path: what was built, why it matters, and how the pipeline turns alerts into reviewable proof artifacts.</p>
             <div class="m-chip-row">
@@ -95,7 +97,7 @@
             </div>
           </article>
           <article class="m-card">
-            <div class="m-card-kicker">Receipts</div>
+            <div class="m-card-kicker" data-aos="fade-up">Receipts</div>
             <h2>Proof pack</h2>
             <p>Verified counts, release notes, runbooks, and curated artifacts that let a reviewer validate claims without hunting through the repo.</p>
             <div class="m-chip-row">
@@ -107,7 +109,7 @@
             </div>
           </article>
           <article class="m-card">
-            <div class="m-card-kicker">Role fit</div>
+            <div class="m-card-kicker" data-aos="fade-up">Role fit</div>
             <h2>Resume and lab depth</h2>
             <p>A faster route for hiring managers who want SOC T1/T2 fit, lab credibility, and practical automation signals in one scan.</p>
             <div class="m-chip-row">
@@ -122,11 +124,11 @@
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap">
         <div class="m-grid-2">
           <article class="m-card">
-            <div class="m-card-kicker">Interactive proof lane</div>
+            <div class="m-card-kicker" data-aos="fade-up">Interactive proof lane</div>
             <h2>Demo page</h2>
             <p>A reviewer-safe demo route that shows local commands, proof screenshots, and the exact operational steps without pretending the browser is running the pipeline.</p>
             <div class="m-chip-row">
@@ -138,12 +140,12 @@
             </div>
           </article>
           <article class="m-card">
-            <div class="m-card-kicker">Why this mode</div>
+            <div class="m-card-kicker" data-aos="fade-up">Why this mode</div>
             <h2>MODERNIZE keeps the proof-first tone</h2>
             <p>The redesign uses better spacing, calmer surfaces, and stronger CTA hierarchy, but it avoids looking like a generic SaaS landing page. The reviewer still sees evidence first.</p>
           </article>
           <article class="m-card">
-            <div class="m-card-kicker">Canary strategy</div>
+            <div class="m-card-kicker" data-aos="fade-up">Canary strategy</div>
             <h2>Low-risk static rollout</h2>
             <p>This version lives at `/modernize/` so layout, copy, and accessibility can be reviewed before any production route is replaced. It is safe to iterate quickly.</p>
           </article>
@@ -166,5 +168,10 @@
 
 <script src="/data/counts.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
 </body>
 </html>

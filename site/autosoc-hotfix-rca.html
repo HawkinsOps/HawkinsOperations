@@ -64,6 +64,8 @@ body {
   white-space:nowrap; margin-top:2px;
 }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body data-ops-scope="stable">
 <nav>
@@ -91,7 +93,7 @@ body {
 </div>
 
 <main class="modernize-shell">
-<section class="m-section" style="padding-top:96px;">
+<section class="m-section" data-aos="fade-up" style="padding-top:96px;">
   <div class="m-wrap">
     <a class="cs-nav-back" href="/case-studies">&larr; All field notes</a>
     <div class="m-eyebrow">Field Note &mdash; Incident / RCA</div>
@@ -109,7 +111,7 @@ body {
   </div>
 </section>
 
-<section class="m-section m-stage">
+<section class="m-section m-stage" data-aos="fade-up">
   <div class="m-wrap m-rail-layout">
     <div class="cs-prose">
 
@@ -189,7 +191,7 @@ POINTS_RENDERED: 30</pre>
 
     <aside class="m-rail">
       <section class="m-rail-section">
-        <div class="m-card-kicker">RCA summary</div>
+        <div class="m-card-kicker" data-aos="fade-up">RCA summary</div>
         <h2>What happened</h2>
         <ul class="m-list-tight">
           <li><strong>Symptom:</strong> chart artifact not updating on scheduled runs</li>
@@ -200,12 +202,12 @@ POINTS_RENDERED: 30</pre>
         </ul>
       </section>
       <section class="m-rail-section">
-        <div class="m-card-kicker">Open item</div>
+        <div class="m-card-kicker" data-aos="fade-up">Open item</div>
         <h2>Needs follow-up</h2>
         <p class="m-subtitle"><span class="m-inline-code">-1073741510</span> on 10:09 PM scheduled run. Hotfix is not the cause — chart renders successfully in log evidence. Process termination source is not yet isolated.</p>
       </section>
       <section class="m-rail-section">
-        <div class="m-card-kicker">Related</div>
+        <div class="m-card-kicker" data-aos="fade-up">Related</div>
         <h2>See also</h2>
         <div class="m-link-list">
           <a href="/autosoc-cutover" class="m-link-item">
@@ -226,10 +228,10 @@ POINTS_RENDERED: 30</pre>
   </div>
 </section>
 
-<section class="m-section m-stage">
+<section class="m-section m-stage" data-aos="fade-up">
   <div class="m-wrap">
-    <div class="m-card">
-      <div class="m-card-kicker">Continue reading</div>
+    <div class="m-card" data-aos="fade-up">
+      <div class="m-card-kicker" data-aos="fade-up">Continue reading</div>
       <h2>Field notes</h2>
       <div class="m-grid-2">
         <a href="/autosoc-cutover" class="m-link-item">
@@ -261,5 +263,10 @@ POINTS_RENDERED: 30</pre>
 <script src="/data/counts.js" defer></script>
 <script src="/data/ops-metrics.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
 </body>
 </html>

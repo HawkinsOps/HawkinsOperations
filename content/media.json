@@ -1,8 +1,8 @@
 {
   "generated_on": "2026-03-30",
-  "total_assets": 123,
+  "total_assets": 128,
   "safe_assets": 11,
-  "review_required_assets": 112,
+  "review_required_assets": 117,
   "media": [
     {
       "id": "linkedin-carousel-review-01-cover-home-desktop-c0be5094a6",
@@ -292,6 +292,86 @@
       "width": 1440,
       "height": 2000,
       "bytes": 802252,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "carousel-preview-page1-7770a424c4",
+      "path": "carousel_preview_page1.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "carousel preview page1",
+      "alt": "screenshot artifact: carousel preview page1",
+      "privacy_review": "required",
+      "source": "carousel_preview_page1.png",
+      "width": 1122,
+      "height": 816,
+      "bytes": 66631,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "carousel-slide2-ac0358f538",
+      "path": "carousel_slide2.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "carousel slide2",
+      "alt": "screenshot artifact: carousel slide2",
+      "privacy_review": "required",
+      "source": "carousel_slide2.png",
+      "width": 1122,
+      "height": 816,
+      "bytes": 78357,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "carousel-slide3-6605facd16",
+      "path": "carousel_slide3.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "carousel slide3",
+      "alt": "screenshot artifact: carousel slide3",
+      "privacy_review": "required",
+      "source": "carousel_slide3.png",
+      "width": 1122,
+      "height": 816,
+      "bytes": 66343,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "carousel-slide5-63eac3874f",
+      "path": "carousel_slide5.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "carousel slide5",
+      "alt": "screenshot artifact: carousel slide5",
+      "privacy_review": "required",
+      "source": "carousel_slide5.png",
+      "width": 1122,
+      "height": 816,
+      "bytes": 76670,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "carousel-slide6-0709af33f8",
+      "path": "carousel_slide6.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "carousel slide6",
+      "alt": "screenshot artifact: carousel slide6",
+      "privacy_review": "required",
+      "source": "carousel_slide6.png",
+      "width": 1122,
+      "height": 816,
+      "bytes": 63435,
       "suggested_placement": "home proof strip"
     },
     {

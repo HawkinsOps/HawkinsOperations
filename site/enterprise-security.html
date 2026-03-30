@@ -26,6 +26,8 @@
 <link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
 <link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 <link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -57,7 +59,7 @@
 <main class="modernize-shell">
 
 <!-- ── HERO ── -->
-<section class="m-section" style="padding-top:96px;">
+<section class="m-section" data-aos="fade-up" style="padding-top:96px;">
   <div class="m-wrap m-rail-layout">
     <div>
       <div class="m-eyebrow">Enterprise hardening &mdash; Phase 2</div>
@@ -77,22 +79,22 @@
       </div>
 
       <div class="m-kpi-grid" aria-label="Enterprise security hardening metrics" style="margin-top:24px;">
-        <article class="m-kpi">
+        <article class="m-kpi" data-aos="fade-up" data-aos-delay="0">
           <div class="m-kpi-value">27</div>
           <div class="m-kpi-label">Audit subcategories</div>
           <p class="m-kpi-copy">All 27 subcategories set to Success and Failure. 22 changed state from defaults. Zero errors.</p>
         </article>
-        <article class="m-kpi">
+        <article class="m-kpi" data-aos="fade-up" data-aos-delay="100">
           <div class="m-kpi-value">11</div>
           <div class="m-kpi-label">MITRE techniques unblocked</div>
           <p class="m-kpi-copy">11 ATT&amp;CK techniques moved from undetectable to detectable, including Kerberoasting and SAM dumping.</p>
         </article>
-        <article class="m-kpi">
+        <article class="m-kpi" data-aos="fade-up" data-aos-delay="200">
           <div class="m-kpi-value">60</div>
           <div class="m-kpi-label">Baseline subcategories compared</div>
           <p class="m-kpi-copy">Full comparison against Microsoft Windows 11 Security Baseline. Zero regressions. 12 intentional additions.</p>
         </article>
-        <article class="m-kpi">
+        <article class="m-kpi" data-aos="fade-up" data-aos-delay="300">
           <div class="m-kpi-value">0</div>
           <div class="m-kpi-label">Regressions</div>
           <p class="m-kpi-copy">Every subcategory where Microsoft recommends auditing is audited. No baseline requirement is missing.</p>
@@ -102,7 +104,7 @@
 
     <aside class="m-rail">
       <section class="m-rail-section">
-        <div class="m-card-kicker">Reviewer path</div>
+        <div class="m-card-kicker" data-aos="fade-up">Reviewer path</div>
         <h2>Navigate the hardening</h2>
         <p class="m-subtitle">Four phases of enterprise security work, each with verifiable artifacts and documented rationale.</p>
         <div class="m-link-list">
@@ -126,7 +128,7 @@
       </section>
 
       <section class="m-rail-section">
-        <div class="m-card-kicker">Core outcome</div>
+        <div class="m-card-kicker" data-aos="fade-up">Core outcome</div>
         <h2>Why it matters</h2>
         <ul class="m-list-tight">
           <li>14 audit subcategories were at No Auditing &mdash; entire attack categories were invisible.</li>
@@ -139,21 +141,21 @@
 </section>
 
 <!-- ── LAB INFRASTRUCTURE ── -->
-<section id="lab-infrastructure" class="m-section m-stage">
+<section id="lab-infrastructure" class="m-section m-stage" data-aos="fade-up">
   <div class="m-wrap">
     <div class="m-divider-title">
-      <div class="m-card-kicker">Foundation &mdash; Lab environment</div>
+      <div class="m-card-kicker" data-aos="fade-up">Foundation &mdash; Lab environment</div>
     </div>
     <h2 class="m-title" style="font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:12px;">Lab Infrastructure &mdash; the environment behind the hardening</h2>
     <p class="m-copy" style="max-width:64ch;margin-bottom:24px;">All enterprise hardening, detection development, and pipeline operations run on a self-hosted Proxmox lab. The infrastructure is purpose-built for reproducible security validation.</p>
 
-    <div class="m-card" style="padding:22px;margin-bottom:24px;">
-      <div class="m-card-kicker">Proxmox host</div>
+    <div class="m-card" data-aos="fade-up" style="padding:22px;margin-bottom:24px;">
+      <div class="m-card-kicker" data-aos="fade-up">Proxmox host</div>
       <p class="m-copy" style="margin-top:8px;">72-core dual Xeon E5-2697 v4 &middot; 2 TB RAM &middot; ~96 TB across local/local-lvm/opsvault storage pools &middot; Uptime measured in weeks &middot; Proxmox VE 9.x</p>
     </div>
 
-    <div class="m-card" style="padding:22px;margin-bottom:24px;">
-      <div class="m-card-kicker">VM inventory</div>
+    <div class="m-card" data-aos="fade-up" style="padding:22px;margin-bottom:24px;">
+      <div class="m-card-kicker" data-aos="fade-up">VM inventory</div>
       <div style="overflow-x:auto;margin-top:12px;">
         <table style="width:100%;border-collapse:collapse;font-size:.88rem;">
           <thead>
@@ -179,52 +181,52 @@
     </div>
 
     <div class="m-grid-2" style="margin-bottom:24px;">
-      <div class="m-card" style="padding:22px;">
-        <div class="m-card-kicker">Lab topology</div>
+      <div class="m-card" data-aos="fade-up" style="padding:22px;">
+        <div class="m-card-kicker" data-aos="fade-up">Lab topology</div>
         <figure style="margin:12px 0 0;">
           <img src="/assets/pp_soc_integration/lab-architecture.svg" alt="SOC lab topology showing Proxmox, Windows endpoint, Wazuh, Splunk, and SignalFoundry pipeline boundaries" width="1200" height="510" loading="lazy" style="display:block;width:100%;height:auto;border-radius:6px;">
         </figure>
       </div>
-      <div class="m-card" style="padding:22px;">
-        <div class="m-card-kicker">Proxmox VM layout</div>
+      <div class="m-card" data-aos="fade-up" style="padding:22px;">
+        <div class="m-card-kicker" data-aos="fade-up">Proxmox VM layout</div>
         <figure style="margin:12px 0 0;">
           <img src="/assets/pp_soc_integration/t5-proxmox-redacted.png" alt="Redacted Proxmox interface screenshot showing VM layout for the SOC lab" width="1600" height="900" loading="lazy" style="display:block;width:100%;height:auto;border-radius:6px;">
         </figure>
       </div>
     </div>
 
-    <div class="m-evidence-note m-stage-surface" style="margin-bottom:24px;">
-      <div class="m-card-kicker">Data flow</div>
+    <div class="m-evidence-note m-stage-surface" data-aos="fade-up" style="margin-bottom:24px;">
+      <div class="m-card-kicker" data-aos="fade-up">Data flow</div>
       <h3>Detection-to-escalation pipeline</h3>
       <p>Endpoints run Wazuh agents that forward to HO-WAZUH-01. Wazuh events flow to Splunk (HO-SPLUNK-01) via NFS pipeline for investigation. Grafana (HO-GRAFANA-01) provides dashboard visualization. The full detection-to-escalation pipeline runs across this infrastructure.</p>
     </div>
 
-    <div class="m-card" style="padding:22px;">
-      <div class="m-card-kicker">Network</div>
+    <div class="m-card" data-aos="fade-up" style="padding:22px;">
+      <div class="m-card-kicker" data-aos="fade-up">Network</div>
       <p class="m-copy" style="margin-top:8px;">Isolated RFC 1918 lab subnet with Tailscale secure mesh for remote access. All traffic stays within the private network boundary.</p>
     </div>
   </div>
 </section>
 
 <!-- ── AUDIT POLICY HARDENING ── -->
-<section id="audit-policy" class="m-section m-stage">
+<section id="audit-policy" class="m-section m-stage" data-aos="fade-up">
   <div class="m-wrap">
     <div class="m-divider-title">
-      <div class="m-card-kicker">Phase 1 &mdash; Audit policy</div>
+      <div class="m-card-kicker" data-aos="fade-up">Phase 1 &mdash; Audit policy</div>
     </div>
     <h2 class="m-title" style="font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:12px;">Audit Policy Hardening</h2>
     <p class="m-copy" style="max-width:64ch;margin-bottom:24px;">A structured review of HO-WE-01's Advanced Audit Policy identified 14 subcategories at No Auditing and 8 with only partial coverage. The hardening script set all 27 targeted subcategories to Success and Failure in a single, verified execution.</p>
 
-    <div class="m-evidence-note m-stage-surface" style="margin-bottom:24px;">
-      <div class="m-card-kicker">The gap</div>
+    <div class="m-evidence-note m-stage-surface" data-aos="fade-up" style="margin-bottom:24px;">
+      <div class="m-card-kicker" data-aos="fade-up">The gap</div>
       <h3>What was dark</h3>
       <p>Kerberoasting, SAM dumping, SSP injection, USB exfiltration, DPAPI credential harvest, registry persistence &mdash; all completely invisible. Not low-fidelity. Zero events. 14 categories of attacker activity generating nothing for any tool in the stack.</p>
       <p>CommandLine logging was off: every 4688 event showed <code class="m-inline-code">cmd.exe</code> but never the arguments. Process name without arguments is weak signal.</p>
     </div>
 
     <!-- Dark subcategories table -->
-    <div class="m-card" style="padding:22px;margin-bottom:24px;">
-      <div class="m-card-kicker">14 subcategories at No Auditing</div>
+    <div class="m-card" data-aos="fade-up" style="padding:22px;margin-bottom:24px;">
+      <div class="m-card-kicker" data-aos="fade-up">14 subcategories at No Auditing</div>
       <div style="overflow-x:auto;margin-top:12px;">
         <table style="width:100%;border-collapse:collapse;font-size:.88rem;">
           <thead>
@@ -255,8 +257,8 @@
     </div>
 
     <!-- MITRE techniques unblocked -->
-    <div class="m-card" style="padding:22px;margin-bottom:24px;">
-      <div class="m-card-kicker">Detection coverage delta &mdash; 11 techniques unblocked</div>
+    <div class="m-card" data-aos="fade-up" style="padding:22px;margin-bottom:24px;">
+      <div class="m-card-kicker" data-aos="fade-up">Detection coverage delta &mdash; 11 techniques unblocked</div>
       <div style="overflow-x:auto;margin-top:12px;">
         <table style="width:100%;border-collapse:collapse;font-size:.88rem;">
           <thead>
@@ -285,8 +287,8 @@
 
     <!-- Additional changes -->
     <div class="m-grid-2" style="margin-bottom:24px;">
-      <div class="m-card" style="padding:22px;">
-        <div class="m-card-kicker">Additional hardening</div>
+      <div class="m-card" data-aos="fade-up" style="padding:22px;">
+        <div class="m-card-kicker" data-aos="fade-up">Additional hardening</div>
         <div style="display:grid;gap:12px;margin-top:12px;">
           <div style="display:flex;align-items:start;gap:12px;padding:12px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
             <code style="font-size:0.78rem;color:#7ab8ff;min-width:180px;flex-shrink:0;">CommandLine logging</code>
@@ -299,8 +301,8 @@
         </div>
       </div>
 
-      <div class="m-card" style="padding:22px;">
-        <div class="m-card-kicker">Verification evidence</div>
+      <div class="m-card" data-aos="fade-up" style="padding:22px;">
+        <div class="m-card-kicker" data-aos="fade-up">Verification evidence</div>
         <p class="m-copy" style="margin-top:8px;">All verification captured at 2026-03-29T20:50:18 &mdash; approximately 2.5 minutes post-hardening.</p>
         <div style="display:grid;gap:8px;margin-top:12px;">
           <div style="padding:10px 14px;background:rgba(113,199,184,0.04);border:1px solid rgba(113,199,184,0.12);border-radius:8px;">
@@ -320,8 +322,8 @@
     </div>
 
     <!-- Pipeline flow -->
-    <div class="m-evidence-note m-stage-surface">
-      <div class="m-card-kicker">Pipeline integration</div>
+    <div class="m-evidence-note m-stage-surface" data-aos="fade-up">
+      <div class="m-card-kicker" data-aos="fade-up">Pipeline integration</div>
       <h3>Events flow into the existing stack without changes</h3>
       <p>New events enter the Wazuh &rarr; Splunk &rarr; Grafana pipeline through the same architecture already in place. Wazuh ships rules targeting Windows Security events by rule ID ranges 18100&ndash;18107 (account management), 18200&ndash;18206 (logon), 60100+ (Windows audit). The newly-generating event IDs fall within existing detection groups &mdash; events start alerting immediately without rule changes.</p>
     </div>
@@ -329,43 +331,43 @@
 </section>
 
 <!-- ── MICROSOFT BASELINE COMPARISON ── -->
-<section id="baseline" class="m-section m-stage">
+<section id="baseline" class="m-section m-stage" data-aos="fade-up">
   <div class="m-wrap">
     <div class="m-divider-title">
-      <div class="m-card-kicker">Phase 2 &mdash; Baseline comparison</div>
+      <div class="m-card-kicker" data-aos="fade-up">Phase 2 &mdash; Baseline comparison</div>
     </div>
     <h2 class="m-title" style="font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:12px;">Microsoft Security Baseline Comparison</h2>
     <p class="m-copy" style="max-width:64ch;margin-bottom:24px;">Full comparison of HO-WE-01's audit policy against the Microsoft Windows 11 Security Baseline (Security Compliance Toolkit, 23H2/24H2) across all 60 audit subcategories.</p>
 
     <!-- Compliance summary cards -->
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;">
-      <div class="m-card" style="padding:18px;text-align:center;">
+      <div class="m-card" data-aos="fade-up" style="padding:18px;text-align:center;">
         <div style="font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:#e5edff;">14</div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#71c7b8;margin-top:4px;">Exact match</div>
       </div>
-      <div class="m-card" style="padding:18px;text-align:center;">
+      <div class="m-card" data-aos="fade-up" style="padding:18px;text-align:center;">
         <div style="font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:#e5edff;">9</div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#7ab8ff;margin-top:4px;">Superset of baseline</div>
       </div>
-      <div class="m-card" style="padding:18px;text-align:center;">
+      <div class="m-card" data-aos="fade-up" style="padding:18px;text-align:center;">
         <div style="font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:#e5edff;">12</div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#fbbf24;margin-top:4px;">Hardened beyond baseline</div>
       </div>
-      <div class="m-card" style="padding:18px;text-align:center;">
+      <div class="m-card" data-aos="fade-up" style="padding:18px;text-align:center;">
         <div style="font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:#e5edff;">25</div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted,#8ea4c7);margin-top:4px;">No Auditing (compliant)</div>
       </div>
     </div>
 
-    <div class="m-evidence-note m-stage-surface" style="margin-bottom:24px;">
-      <div class="m-card-kicker">Result</div>
+    <div class="m-evidence-note m-stage-surface" data-aos="fade-up" style="margin-bottom:24px;">
+      <div class="m-card-kicker" data-aos="fade-up">Result</div>
       <h3>Zero regressions. 12 intentional additions beyond baseline.</h3>
       <p>Every subcategory where Microsoft recommends auditing, we audit it. In 12 cases we go further than the baseline requires &mdash; each addition is documented with a SOC-aligned rationale.</p>
     </div>
 
     <!-- Intentional deviations -->
-    <div class="m-card" style="padding:22px;margin-bottom:24px;">
-      <div class="m-card-kicker">12 intentional additions &mdash; rationale</div>
+    <div class="m-card" data-aos="fade-up" style="padding:22px;margin-bottom:24px;">
+      <div class="m-card-kicker" data-aos="fade-up">12 intentional additions &mdash; rationale</div>
       <div style="overflow-x:auto;margin-top:12px;">
         <table style="width:100%;border-collapse:collapse;font-size:.88rem;">
           <thead>
@@ -396,8 +398,8 @@
 
     <!-- Additional verified settings -->
     <div class="m-grid-2">
-      <div class="m-card" style="padding:22px;">
-        <div class="m-card-kicker">Additional settings verified</div>
+      <div class="m-card" data-aos="fade-up" style="padding:22px;">
+        <div class="m-card-kicker" data-aos="fade-up">Additional settings verified</div>
         <div style="display:grid;gap:10px;margin-top:12px;">
           <div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(113,199,184,0.04);border:1px solid rgba(113,199,184,0.12);border-radius:8px;">
             <span style="font-size:0.82rem;color:#e5edff;">CommandLine logging</span>
@@ -414,8 +416,8 @@
         </div>
       </div>
 
-      <div class="m-card" style="padding:22px;">
-        <div class="m-card-kicker">Gaps to address</div>
+      <div class="m-card" data-aos="fade-up" style="padding:22px;">
+        <div class="m-card-kicker" data-aos="fade-up">Gaps to address</div>
         <div style="display:grid;gap:10px;margin-top:12px;">
           <div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.12);border-radius:8px;">
             <span style="font-size:0.82rem;color:#e5edff;">MPSSVC Rule-Level Policy Change</span>
@@ -436,17 +438,17 @@
 </section>
 
 <!-- ── GPO DEPLOYMENT ── -->
-<section id="gpo" class="m-section m-stage">
+<section id="gpo" class="m-section m-stage" data-aos="fade-up">
   <div class="m-wrap">
     <div class="m-divider-title">
-      <div class="m-card-kicker">Phase 3 &mdash; Domain deployment</div>
+      <div class="m-card-kicker" data-aos="fade-up">Phase 3 &mdash; Domain deployment</div>
     </div>
     <h2 class="m-title" style="font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:12px;">GPO Deployment Plan</h2>
     <p class="m-copy" style="max-width:64ch;margin-bottom:24px;">Promotes HO-WE-01's hardened local audit policy into a domain-wide GPO, enforcing the same 27-subcategory baseline across all domain-joined machines. Commands are documented and ready to execute once domain join is completed.</p>
 
     <div class="m-grid-2" style="margin-bottom:24px;">
-      <div class="m-card" style="padding:22px;">
-        <div class="m-card-kicker">GPO creation workflow</div>
+      <div class="m-card" data-aos="fade-up" style="padding:22px;">
+        <div class="m-card-kicker" data-aos="fade-up">GPO creation workflow</div>
         <div style="display:grid;gap:10px;margin-top:12px;">
           <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
             <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#7ab8ff;min-width:22px;">01</div>
@@ -486,18 +488,18 @@
         </div>
       </div>
 
-      <div class="m-card" style="padding:22px;">
-        <div class="m-card-kicker">GPO scope</div>
+      <div class="m-card" data-aos="fade-up" style="padding:22px;">
+        <div class="m-card-kicker" data-aos="fade-up">GPO scope</div>
         <div style="margin-top:12px;">
-          <div class="m-evidence-note" style="margin-bottom:14px;">
+          <div class="m-evidence-note" data-aos="fade-up" style="margin-bottom:14px;">
             <h3>27 audit subcategories</h3>
             <p>Account Logon (4), Account Management (4), Detailed Tracking (4), Logon/Logoff (5), Object Access (4), Policy Change (2), Privilege Use (1), System (3).</p>
           </div>
-          <div class="m-evidence-note" style="margin-bottom:14px;">
+          <div class="m-evidence-note" data-aos="fade-up" style="margin-bottom:14px;">
             <h3>Registry policy</h3>
             <p>CommandLine logging enabled via <code class="m-inline-code">ProcessCreationIncludeCmdLine_Enabled = 1</code> at HKLM registry path.</p>
           </div>
-          <div class="m-evidence-note">
+          <div class="m-evidence-note" data-aos="fade-up">
             <h3>Event log sizing</h3>
             <p>Security log maximum set to 1 GB (1,048,576 KB). Retention: overwrite as needed.</p>
           </div>
@@ -505,8 +507,8 @@
       </div>
     </div>
 
-    <div class="m-evidence-note m-stage-surface">
-      <div class="m-card-kicker">Current status</div>
+    <div class="m-evidence-note m-stage-surface" data-aos="fade-up">
+      <div class="m-card-kicker" data-aos="fade-up">Current status</div>
       <h3>Blocker: domain join required</h3>
       <p>HO-WE-01 is currently in WORKGROUP mode. The GPO deployment plan is fully documented and ready to execute once domain join is completed and RSAT is installed. An alternative <code class="m-inline-code">auditpol /restore</code> startup script approach is also documented for environments where direct GPO configuration is unavailable.</p>
     </div>
@@ -514,17 +516,17 @@
 </section>
 
 <!-- ── RSAT INSTALLATION ── -->
-<section id="rsat" class="m-section m-stage">
+<section id="rsat" class="m-section m-stage" data-aos="fade-up">
   <div class="m-wrap">
     <div class="m-divider-title">
-      <div class="m-card-kicker">Phase 4 &mdash; Administration tools</div>
+      <div class="m-card-kicker" data-aos="fade-up">Phase 4 &mdash; Administration tools</div>
     </div>
     <h2 class="m-title" style="font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:12px;">RSAT Installation</h2>
     <p class="m-copy" style="max-width:64ch;margin-bottom:24px;">Remote Server Administration Tools enable domain administration from the hardened, monitored workstation &mdash; eliminating RDP sessions to dc01 and consolidating all admin activity into the SIEM pipeline.</p>
 
     <div class="m-grid-2" style="margin-bottom:24px;">
-      <div class="m-card" style="padding:22px;">
-        <div class="m-card-kicker">Key capabilities installed</div>
+      <div class="m-card" data-aos="fade-up" style="padding:22px;">
+        <div class="m-card-kicker" data-aos="fade-up">Key capabilities installed</div>
         <div style="display:grid;gap:8px;margin-top:12px;">
           <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;">
             <code style="font-size:0.72rem;color:#7ab8ff;min-width:100px;">AD DS-LDS</code>
@@ -553,14 +555,14 @@
         </div>
       </div>
 
-      <div class="m-card" style="padding:22px;">
-        <div class="m-card-kicker">Operational value</div>
+      <div class="m-card" data-aos="fade-up" style="padding:22px;">
+        <div class="m-card-kicker" data-aos="fade-up">Operational value</div>
         <div style="margin-top:12px;">
-          <div class="m-evidence-note" style="margin-bottom:14px;">
+          <div class="m-evidence-note" data-aos="fade-up" style="margin-bottom:14px;">
             <h3>Before RSAT</h3>
             <p>Every administrative action required an RDP session to dc01 &mdash; expanding attack surface, exposing session tokens, and generating admin events on the DC rather than the monitored workstation.</p>
           </div>
-          <div class="m-evidence-note" style="margin-bottom:14px;">
+          <div class="m-evidence-note" data-aos="fade-up" style="margin-bottom:14px;">
             <h3>After RSAT</h3>
             <p>Domain administration is consolidated to HO-WE-01. All admin actions produce 4688 (Process Creation) events locally &mdash; feeding directly into the Wazuh &rarr; Splunk &rarr; Grafana pipeline with full CommandLine arguments.</p>
           </div>
@@ -575,10 +577,10 @@
 </section>
 
 <!-- ── PROOF / NEXT STEPS ── -->
-<section class="m-section m-stage">
+<section class="m-section m-stage" data-aos="fade-up">
   <div class="m-wrap">
-    <div class="m-card">
-      <div class="m-card-kicker">Proof links</div>
+    <div class="m-card" data-aos="fade-up">
+      <div class="m-card-kicker" data-aos="fade-up">Proof links</div>
       <h2>Validate the hardening</h2>
       <div class="m-grid-2">
         <a href="https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/projects/lab/enterprise-hardening" target="_blank" rel="noopener noreferrer" class="m-link-item">
@@ -602,10 +604,10 @@
   </div>
 </section>
 
-<section class="m-section m-stage">
+<section class="m-section m-stage" data-aos="fade-up">
   <div class="m-wrap">
-    <div class="m-card">
-      <div class="m-card-kicker">Next steps</div>
+    <div class="m-card" data-aos="fade-up">
+      <div class="m-card-kicker" data-aos="fade-up">Next steps</div>
       <h2>What the reviewer should do next</h2>
       <div class="m-next-grid">
         <a href="/" class="m-link-item">
@@ -647,5 +649,10 @@
 <script src="/data/counts.js" defer></script>
 <script src="/data/ops-metrics.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
 </body>
 </html>

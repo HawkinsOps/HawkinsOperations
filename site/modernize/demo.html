@@ -29,6 +29,8 @@
   })();
 </script>
 <link rel="stylesheet" href="/assets/modernize.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="modernize-shell">
@@ -57,7 +59,7 @@
 </div>
 
   <main>
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap m-demo-grid" style="grid-template-columns: 5fr 7fr;">
         <article class="m-card">
           <div class="m-badge">Demo lane</div>
@@ -96,10 +98,10 @@
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap m-grid-2">
         <article class="m-card" id="demo-commands">
-          <div class="m-card-kicker">Local run commands</div>
+          <div class="m-card-kicker" data-aos="fade-up">Local run commands</div>
           <h2>Copyable validation path</h2>
           <p>These commands are intentionally local-only. They are styled like real terminal output because that is the trust cue reviewers expect when they need something executable.</p>
           <div class="m-terminal">
@@ -115,7 +117,7 @@ python .\scripts\drift_scan.py
           </div>
         </article>
         <article class="m-card">
-          <div class="m-card-kicker">What the reviewer should check</div>
+          <div class="m-card-kicker" data-aos="fade-up">What the reviewer should check</div>
           <h2>Quick validation checklist</h2>
           <ol class="m-checklist">
             <li>Verify counts and drift status from the public repo.</li>
@@ -127,10 +129,10 @@ python .\scripts\drift_scan.py
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap">
         <article class="m-card">
-          <div class="m-card-kicker">Walkthrough</div>
+          <div class="m-card-kicker" data-aos="fade-up">Walkthrough</div>
           <h2>Numbered demo steps</h2>
           <div class="m-step-grid">
             <div class="m-step">
@@ -153,7 +155,7 @@ python .\scripts\drift_scan.py
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap">
         <div class="m-panel">
           <div class="m-panel-head">Media gallery</div>
@@ -181,10 +183,10 @@ python .\scripts\drift_scan.py
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap m-grid-2">
         <article class="m-card">
-          <div class="m-card-kicker">Guardrails</div>
+          <div class="m-card-kicker" data-aos="fade-up">Guardrails</div>
           <h2>Why this page is built this way</h2>
           <ul class="m-list">
             <li>No fake "Run now" backend button that implies browser-triggered automation.</li>
@@ -194,7 +196,7 @@ python .\scripts\drift_scan.py
           </ul>
         </article>
         <article class="m-card">
-          <div class="m-card-kicker">Next implementation step</div>
+          <div class="m-card-kicker" data-aos="fade-up">Next implementation step</div>
           <h2>What this enables</h2>
           <p>This demo page gives the canary a complete three-page reviewer lane: homepage, AutoSOC page, and demo page. From here the most rational follow-up is either visual refinement from preview feedback or wiring a light discoverability link from production routes.</p>
           <div class="m-actions">
@@ -220,5 +222,10 @@ python .\scripts\drift_scan.py
 
 <script src="/data/counts.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
 </body>
 </html>

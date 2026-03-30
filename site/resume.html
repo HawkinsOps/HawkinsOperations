@@ -29,6 +29,8 @@
 <link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 <link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
 <link rel="stylesheet" href="/assets/page-shells.css?v=03-16-2026-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -88,7 +90,7 @@
   </div>
 
   <!-- ══ PROOF STRIP ══ -->
-  <div class="proof-strip fade-in d2">
+  <div class="proof-strip fade-in d2" data-aos="fade-up">
     <div class="ps-cell ps-teal">
       <div class="ps-val" id="ps-cases">55,665</div>
       <div class="ps-lbl">Cases Processed</div>
@@ -113,7 +115,7 @@
 
   <!-- ══ OUTCOMES FLOW (visual kill shot) ══ -->
   <div class="section fade-in d2">
-    <div class="outcomes-flow">
+    <div class="outcomes-flow" data-aos="fade-up">
       <div class="of-node of-source">
         <div class="of-val">55,665</div>
         <div class="of-lbl">Alerts Ingested</div>
@@ -144,7 +146,7 @@
     </div>
   </div>
   <div class="section fade-in d2">
-    <div class="talk-track">
+    <div class="talk-track" data-aos="fade-up">
       <div class="tt-label">30-Second Talk Track</div>
       <div class="tt-text">
         I build and operate automated SOC pipelines that classify, triage, and validate alerts at scale. SignalFoundry — my AutoSOC engine — processes Wazuh alerts through a deterministic triage loop: <strong>~92% auto-close rate</strong>, enforced redaction, reconciliation gates before anything publishes, and 2,545 escalation packs staged as auditable artifacts. Before security I ran production floors — 30+ operators, 12-hour shifts, IATF audit compliance. The domain changed. The control logic didn't. I'm not replacing analysts. I can do triage work and build tooling that makes investigations more consistent.
@@ -162,7 +164,7 @@
       <div class="sec-line"></div>
     </div>
     <div class="skills-grid">
-      <div class="skill-group">
+      <div class="skill-group" data-aos="fade-up" data-aos-delay="0">
         <div class="sg-title" style="color:var(--teal)"><span class="sg-icon">⚡</span>Detection</div>
         <div class="sk-item"><div class="sk-dot" style="background:var(--teal)"></div>Sigma rule authoring</div>
         <div class="sk-item"><div class="sk-dot" style="background:var(--teal)"></div>Wazuh XML rule blocks</div>
@@ -170,7 +172,7 @@
         <div class="sk-item"><div class="sk-dot" style="background:var(--teal)"></div>MITRE ATT&amp;CK mapping</div>
         <div class="sk-item"><div class="sk-dot" style="background:var(--teal)"></div>Alert triage workflow</div>
       </div>
-      <div class="skill-group">
+      <div class="skill-group" data-aos="fade-up" data-aos-delay="100">
         <div class="sg-title" style="color:var(--blue)"><span class="sg-icon">🔧</span>Tooling</div>
         <div class="sk-item"><div class="sk-dot" style="background:var(--blue)"></div>Python (pipeline scripts)</div>
         <div class="sk-item"><div class="sk-dot" style="background:var(--blue)"></div>PowerShell / fish shell</div>
@@ -178,7 +180,7 @@
         <div class="sk-item"><div class="sk-dot" style="background:var(--blue)"></div>Wazuh API</div>
         <div class="sk-item"><div class="sk-dot" style="background:var(--blue)"></div>Cloudflare Pages / CI</div>
       </div>
-      <div class="skill-group">
+      <div class="skill-group" data-aos="fade-up" data-aos-delay="200">
         <div class="sg-title" style="color:var(--purple)"><span class="sg-icon">🗺</span>Frameworks</div>
         <div class="sk-item"><div class="sk-dot" style="background:var(--purple)"></div>MITRE ATT&amp;CK</div>
         <div class="sk-item"><div class="sk-dot" style="background:var(--purple)"></div>SOC triage methodology</div>
@@ -186,7 +188,7 @@
         <div class="sk-item"><div class="sk-dot" style="background:var(--purple)"></div>Evidence-first workflow</div>
         <div class="sk-item"><div class="sk-dot" style="background:var(--purple)"></div>Reconciliation gates</div>
       </div>
-      <div class="skill-group">
+      <div class="skill-group" data-aos="fade-up" data-aos-delay="300">
         <div class="sg-title" style="color:var(--soft)"><span class="sg-icon">🔬</span>Lab / Infra</div>
         <div class="sk-item"><div class="sk-dot" style="background:var(--soft)"></div>Proxmox VE</div>
         <div class="sk-item"><div class="sk-dot" style="background:var(--soft)"></div>Windows / Linux telemetry</div>
@@ -205,7 +207,7 @@
       <div class="sec-line"></div>
     </div>
 
-    <div class="work-card wc-cyber">
+    <div class="work-card wc-cyber" data-aos="fade-up">
       <div class="wc-top">
         <div>
           <div class="wc-role">Detection Engineer · Security Automation</div>
@@ -224,7 +226,7 @@
   </div>
 
       <!-- SUMMARY -->
-      <div class="resume-section">
+      <div class="resume-section" data-aos="fade-up">
         <h2>Summary</h2>
         <ul>
           <li>Transitioning from industrial operations leadership into security operations &mdash; not breaking into cyber, but applying the same process discipline, escalation rigor, and quality-gate thinking that drove outcomes on the factory floor.</li>
@@ -235,7 +237,7 @@
 
       <!-- SKILLS -->
       <div class="resume-grid">
-        <div class="resume-section">
+        <div class="resume-section" data-aos="fade-up">
           <h2>Security Skills</h2>
           <ul>
             <li><b>Detection:</b> Sigma (<span data-verified="sigma">103</span> rules), Wazuh rule authoring, Splunk SPL (home lab)</li>
@@ -246,7 +248,7 @@
             <li><b>Evidence:</b> Proof-pack assembly, redaction, reconciliation, CI-gated verification</li>
           </ul>
         </div>
-        <div class="resume-section">
+        <div class="resume-section" data-aos="fade-up">
           <h2>Operations Skills</h2>
           <ul>
             <li><b>Leadership:</b> 30+ operator supervision, shift scheduling, performance tracking</li>
@@ -259,10 +261,10 @@
       </div>
 
       <!-- WORK HISTORY -->
-      <div class="resume-section">
+      <div class="resume-section" data-aos="fade-up">
         <h2>Work History</h2>
 
-        <div class="resume-project">
+        <div class="resume-project" data-aos="fade-up">
           <h3>Detection Engineer / SOC Operations &mdash; HawkinsOps <span style="font-weight:400;color:var(--dim);">(Sep 2025 &ndash; Present)</span></h3>
           <ul>
             <li>Built and operate <a href="/case-study-autosoc">SignalFoundry</a>: 7-stage pipeline from Wazuh alert ingest through policy-driven triage, mandatory redaction, evidence pack assembly, reconciliation, and gated publish.</li>
@@ -273,7 +275,7 @@
           </ul>
         </div>
 
-        <div class="resume-project">
+        <div class="resume-project" data-aos="fade-up">
           <h3>AI Model Evaluator &mdash; Outlier / DataAnnotation <span style="font-weight:400;color:var(--dim);">(Dec 2025 &ndash; Present)</span></h3>
           <ul>
             <li>Technical quality review of LLM outputs: detection engineering correctness, scripting accuracy (PowerShell, Python), cybersecurity reasoning validation.</li>
@@ -281,7 +283,7 @@
           </ul>
         </div>
 
-        <div class="resume-project">
+        <div class="resume-project" data-aos="fade-up">
           <h3>Team Lead Supervisor &mdash; Unipres Alabama, Inc. <span style="font-weight:400;color:var(--dim);">(Mar &ndash; Dec 2025)</span></h3>
           <p style="font-size:0.82rem;color:var(--dim);margin:0 0 6px;">Tier-1 Nissan supplier &middot; Steele, AL &middot; Hot stamp &amp; laser (safety-critical B-pillars, roof rails)</p>
           <ul>
@@ -293,7 +295,7 @@
           </ul>
         </div>
 
-        <div class="resume-project">
+        <div class="resume-project" data-aos="fade-up">
           <h3>Team Lead &mdash; Fehrer Automotive North America <span style="font-weight:400;color:var(--dim);">(Jan 2024 &ndash; Feb 2025)</span></h3>
           <p style="font-size:0.82rem;color:var(--dim);margin:0 0 6px;">Tier-1 Mercedes / BMW / VW / Tesla &middot; Gadsden, AL &middot; Foam production</p>
           <ul>
@@ -304,7 +306,7 @@
           </ul>
         </div>
 
-        <div class="resume-project">
+        <div class="resume-project" data-aos="fade-up">
           <h3>Quality Control &mdash; Carrington Foods <span style="font-weight:400;color:var(--dim);">(Previous)</span></h3>
           <p style="font-size:0.82rem;color:var(--dim);margin:0 0 6px;">Tier-1 U.S. Armed Forces supplier &middot; Saraland, AL &middot; SQF Ed. 9 "Excellent" / Platinum Award</p>
           <ul>
@@ -316,7 +318,7 @@
       </div>
 
       <!-- TRANSFERABLE SKILLS -->
-      <div class="resume-section">
+      <div class="resume-section" data-aos="fade-up">
         <h2>Transferable Skills &mdash; Manufacturing &rarr; Security</h2>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.88rem;">
           <div style="padding:12px;border-left:2px solid #fbbf24;">
@@ -347,7 +349,7 @@
       </div>
 
       <!-- REFERENCE -->
-      <div class="resume-section">
+      <div class="resume-section" data-aos="fade-up">
         <h2>What My Reference Says</h2>
         <div style="border-left:3px solid #3b8fd9;padding:12px 16px;font-size:0.9rem;color:var(--muted);font-style:italic;">
           "Raylee does not just learn tools &mdash; she builds around systems. Systems thinking is evident in endpoint telemetry, alert handling, validation steps, and supporting documentation. She takes technical ideas, expands them, and turns them into complete systems."
@@ -356,7 +358,7 @@
       </div>
 
       <!-- CERTIFICATIONS -->
-      <div class="resume-section">
+      <div class="resume-section" data-aos="fade-up">
         <h2>Certifications &amp; Training</h2>
         <ul>
           <li><b>Anthropic MCP Certification</b> &mdash; Model Context Protocol (2026)</li>
@@ -368,7 +370,7 @@
       </div>
 
       <!-- EDUCATION -->
-      <div class="resume-section">
+      <div class="resume-section" data-aos="fade-up">
         <h2>Education</h2>
         <ul>
           <li><b>High School Diploma</b> &mdash; Gadsden City High School, 2021</li>
@@ -378,7 +380,7 @@
 
       <!-- COMMUNITY & CLEARANCE -->
       <div class="resume-grid">
-        <div class="resume-section">
+        <div class="resume-section" data-aos="fade-up">
           <h2>Community</h2>
           <ul>
             <li>NAC-ISSA member</li>
@@ -386,7 +388,7 @@
             <li>Huntsville cyber network</li>
           </ul>
         </div>
-        <div class="resume-section">
+        <div class="resume-section" data-aos="fade-up">
           <h2>Additional</h2>
           <ul>
             <li>Eligible to obtain clearance; willing to pursue sponsorship.</li>
@@ -431,5 +433,10 @@
 <script src="/assets/fetch-utils.js" defer></script>
 <script src="/data/counts.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
 </body>
 </html>

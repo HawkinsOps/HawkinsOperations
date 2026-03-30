@@ -20,6 +20,8 @@
   })();
 </script>
 <link rel="stylesheet" href="/assets/modernize.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="modernize-shell">
@@ -48,7 +50,7 @@
 </div>
 
   <main>
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap m-project-grid" style="grid-template-columns: 8fr 4fr;">
         <article class="m-card">
           <div class="m-eyebrow">Featured project</div>
@@ -60,7 +62,7 @@
           </div>
         </article>
         <aside class="m-card">
-          <div class="m-card-kicker">Evidence rail</div>
+          <div class="m-card-kicker" data-aos="fade-up">Evidence rail</div>
           <h2>Reviewer path</h2>
           <p>Keep proof visible while the story unfolds. This side rail stays short and functional.</p>
           <div class="m-chip-row">
@@ -73,7 +75,7 @@
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap">
         <div class="m-panel">
           <div class="m-panel-head">Architecture snapshot</div>
@@ -84,7 +86,7 @@
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap m-stat-grid">
         <div class="m-stat">
           <div class="m-stat-value"><span data-verified="detections">140</span></div>
@@ -105,10 +107,10 @@
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap m-grid-2">
         <article class="m-card">
-          <div class="m-card-kicker">Decision logic</div>
+          <div class="m-card-kicker" data-aos="fade-up">Decision logic</div>
           <h2>What the page emphasizes</h2>
           <p>The layout makes the triage pipeline legible to non-specialists without dumbing it down. Outcome, workflow, and validation stay connected.</p>
           <ul>
@@ -118,7 +120,7 @@
           </ul>
         </article>
         <article class="m-card">
-          <div class="m-card-kicker">Local demo guidance</div>
+          <div class="m-card-kicker" data-aos="fade-up">Local demo guidance</div>
           <h2>Command block</h2>
           <pre class="m-code">pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1
 python .\scripts\drift_scan.py
@@ -127,10 +129,10 @@ python .\scripts\drift_scan.py
       </div>
     </section>
 
-    <section class="m-section">
+    <section class="m-section" data-aos="fade-up">
       <div class="m-wrap m-demo-grid" style="grid-template-columns: 5fr 7fr;">
         <article class="m-card">
-          <div class="m-card-kicker">Demo runner</div>
+          <div class="m-card-kicker" data-aos="fade-up">Demo runner</div>
           <h2>Honest interaction model</h2>
           <p>The canary avoids fake backend controls. It shows what to run locally and keeps the browser UI focused on explanation and proof.</p>
           <div class="m-actions">
@@ -165,5 +167,10 @@ python .\scripts\drift_scan.py
 
 <script src="/data/counts.js" defer></script>
 <script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
 </body>
 </html>

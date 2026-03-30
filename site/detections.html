@@ -30,6 +30,8 @@
 <link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 <link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
 <link rel="stylesheet" href="/assets/page-shells.css?v=03-16-2026-2">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -88,7 +90,7 @@
       </div>
 
       <!-- MITRE ATT&CK Detection Coverage Heatmap -->
-      <div class="sf-card sf-panel" style="padding:24px;margin-top:28px;">
+      <div class="sf-card sf-panel" data-aos="fade-up" style="padding:24px;margin-top:28px;">
         <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:16px;">MITRE ATT&amp;CK Detection Coverage</div>
         <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
           <!-- Execution -->
@@ -319,5 +321,10 @@
 <script src="/data/counts.js" defer></script>
 <script src="/assets/app.js" defer></script>
 <script type="module" src="/assets/portfolio-data.js"></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
 </body>
 </html>
