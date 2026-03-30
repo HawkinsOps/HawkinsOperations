@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GPO Export: HawkinsOps Security Baseline -->
+<!-- Sanitized: domain names, SIDs, and hostnames redacted -->
+<!-- Date: 2026-03-29 -->
+<GPO xmlns="http://www.microsoft.com/GroupPolicy/Settings" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifier>
+    <Identifier>{REDACTED-GUID}</Identifier>
+    <Domain>SIGNALFOUNDRY.LOCAL</Domain>
+  </Identifier>
+  <Name>HawkinsOps Security Baseline</Name>
+  <IncludeComments>true</IncludeComments>
+  <CreatedTime>2026-03-29T14:40:00Z</CreatedTime>
+  <ModifiedTime>2026-03-29T14:45:00Z</ModifiedTime>
+  <ReadTime>2026-03-29T15:00:00Z</ReadTime>
+  <Computer>
+    <VersionDirectory>1</VersionDirectory>
+    <VersionSysvol>1</VersionSysvol>
+    <Enabled>true</Enabled>
+    <ExtensionData>
+      <!-- Advanced Audit Policy Configuration -->
+      <Extension xsi:type="AuditSettings">
+        <AuditSetting>
+          <SubcategoryName>Credential Validation</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Kerberos Authentication Service</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Kerberos Service Ticket Operations</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Other Account Logon Events</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Computer Account Management</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Other Account Management Events</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Security Group Management</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Process Creation</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Process Termination</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>DPAPI Activity</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Logon</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Other Logon/Logoff Events</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Special Logon</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>File System</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Registry</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>SAM</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Removable Storage</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Audit Policy Change</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Sensitive Privilege Use</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Security State Change</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>Security System Extension</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+        <AuditSetting>
+          <SubcategoryName>System Integrity</SubcategoryName>
+          <SettingValue>Success and Failure</SettingValue>
+        </AuditSetting>
+      </Extension>
+      <!-- CommandLine Logging -->
+      <Extension xsi:type="RegistrySettings">
+        <RegistrySetting>
+          <KeyPath>SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit</KeyPath>
+          <ValueName>ProcessCreationIncludeCmdLine_Enabled</ValueName>
+          <Value>1</Value>
+          <Type>REG_DWORD</Type>
+        </RegistrySetting>
+      </Extension>
+      <!-- Security Log Size -->
+      <Extension xsi:type="EventLogSettings">
+        <EventLog>
+          <Name>Security</Name>
+          <MaxSize>1048576</MaxSize>
+          <RetentionDays>0</RetentionDays>
+        </EventLog>
+      </Extension>
+    </ExtensionData>
+  </Computer>
+</GPO>

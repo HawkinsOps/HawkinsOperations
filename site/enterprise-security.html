@@ -63,11 +63,11 @@
   <div class="m-wrap m-rail-layout">
     <div>
       <div class="m-eyebrow">Enterprise hardening &mdash; Phase 2</div>
-      <h1 class="m-title" style="font-size: clamp(2.3rem, 4vw, 3.9rem);">Enterprise Security Hardening</h1>
-      <p class="m-subtitle">Audit policy hardening, Microsoft baseline comparison, domain GPO deployment plan, and RSAT installation on a domain-joined Windows 11 Enterprise workstation.</p>
-      <p class="m-outcome">27 audit subcategories hardened with MITRE mappings. 60 subcategories compared against the Microsoft Security Baseline with zero regressions and 12 intentional additions. Full GPO promotion plan documented and ready to execute.</p>
+      <h1 class="m-title" style="font-size: clamp(2.3rem, 4vw, 3.9rem);">14 attack categories were invisible. We fixed the audit pipeline.</h1>
+      <p class="m-subtitle" style="font-weight:600;color:#71c7b8;">22 audit subcategories hardened &rarr; 96% coverage. 14 previously invisible attack types now produce telemetry. First detection = audit-policy change (Event 4719).</p>
+      <p class="m-outcome" style="font-size:0.85rem;">Testbed: 72-core Proxmox with dedicated Wazuh, Splunk, and Grafana VMs. Host coverage: 8/8 (Windows Server 2022).</p>
       <div class="m-actions">
-        <a class="m-cta m-cta-dominant" href="/">Home</a>
+        <a class="m-cta m-cta-dominant" href="/assets/evidence/enterprise-hardening-evidence.zip" download>Download Evidence Pack</a>
         <a class="m-cta m-cta-accent" href="https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/projects/lab/enterprise-hardening" target="_blank" rel="noopener noreferrer">Source Artifacts</a>
         <a class="m-cta m-cta-secondary" href="/proof">Proof Receipts</a>
       </div>
@@ -572,6 +572,126 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROOF BOX ── -->
+<section class="m-section m-stage" data-aos="fade-up">
+  <div class="m-wrap">
+    <div class="m-divider-title">
+      <div class="m-card-kicker">Proof of detection</div>
+    </div>
+    <div class="m-card" style="padding:22px;border-left:3px solid #4ade80;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;color:#4ade80;margin-bottom:10px;">First detection: Event 4719</div>
+      <p class="m-copy" style="margin-bottom:12px;">The first alert from the hardened stack was the hardening action itself &mdash; the system detected its own policy change.</p>
+      <div style="display:grid;gap:6px;font-family:'JetBrains Mono',monospace;font-size:0.78rem;">
+        <div style="display:flex;gap:12px;padding:8px 12px;background:rgba(74,222,128,0.04);border:1px solid rgba(74,222,128,0.1);border-radius:4px;">
+          <span style="color:#7a94aa;min-width:100px;">Event</span>
+          <span style="color:#e5edff;">4719 &mdash; Audit Policy Change</span>
+        </div>
+        <div style="display:flex;gap:12px;padding:8px 12px;background:rgba(74,222,128,0.04);border:1px solid rgba(74,222,128,0.1);border-radius:4px;">
+          <span style="color:#7a94aa;min-width:100px;">Date</span>
+          <span style="color:#e5edff;">2026-03-29</span>
+        </div>
+        <div style="display:flex;gap:12px;padding:8px 12px;background:rgba(74,222,128,0.04);border:1px solid rgba(74,222,128,0.1);border-radius:4px;">
+          <span style="color:#7a94aa;min-width:100px;">Subcategory</span>
+          <span style="color:#e5edff;">Kerberos Service Ticket Operations</span>
+        </div>
+        <div style="display:flex;gap:12px;padding:8px 12px;background:rgba(74,222,128,0.04);border:1px solid rgba(74,222,128,0.1);border-radius:4px;">
+          <span style="color:#7a94aa;min-width:100px;">Changes</span>
+          <span style="color:#4ade80;">Success and Failure added</span>
+        </div>
+        <div style="display:flex;gap:12px;padding:8px 12px;background:rgba(74,222,128,0.04);border:1px solid rgba(74,222,128,0.1);border-radius:4px;">
+          <span style="color:#7a94aa;min-width:100px;">Splunk query</span>
+          <span style="color:#7ab8ff;font-size:0.72rem;">sourcetype=&quot;WinEventLog:Security&quot; EventCode=4719 (full query in evidence pack)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EVIDENCE DOWNLOAD ── -->
+<section class="m-section m-stage" data-aos="fade-up">
+  <div class="m-wrap">
+    <div class="m-divider-title">
+      <div class="m-card-kicker">Downloadable artifacts</div>
+    </div>
+    <h2 class="m-title" style="font-size:clamp(1.2rem,2vw,1.6rem);margin-bottom:12px;">Enterprise Hardening Evidence Pack</h2>
+    <p class="m-copy" style="max-width:64ch;margin-bottom:20px;">All artifacts sanitized and documented. Hostnames, IPs, SIDs, and account names redacted. See <code class="m-inline-code">collection-metadata.txt</code> for full redaction documentation.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+      <div class="m-card" style="padding:18px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#7ab8ff;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">GPO</div>
+        <div style="font-size:0.82rem;color:#e5edff;">GPO-export.xml &middot; GPO-readme.txt</div>
+        <div style="font-size:0.72rem;color:#7a94aa;margin-top:4px;">Full GPO export (sanitized) + import instructions</div>
+      </div>
+      <div class="m-card" style="padding:18px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#7ab8ff;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Splunk</div>
+        <div style="font-size:0.82rem;color:#e5edff;">splunk-queries.txt &middot; 4719.json &middot; 4688_before.json &middot; 4688_after.json</div>
+        <div style="font-size:0.72rem;color:#7a94aa;margin-top:4px;">Saved searches + sanitized event exports (before/after)</div>
+      </div>
+      <div class="m-card" style="padding:18px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#7ab8ff;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Evidence</div>
+        <div style="font-size:0.82rem;color:#e5edff;">kpi-before-after.csv &middot; change-log.md &middot; collection-metadata.txt</div>
+        <div style="font-size:0.72rem;color:#7a94aa;margin-top:4px;">KPI delta, timestamped changelog, redaction documentation</div>
+      </div>
+      <div class="m-card" style="padding:18px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#7ab8ff;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">README</div>
+        <div style="font-size:0.82rem;color:#e5edff;">Artifact index + reproduction steps</div>
+        <div style="font-size:0.72rem;color:#7a94aa;margin-top:4px;">auditpol commands, registry, GPO, Splunk verification</div>
+      </div>
+    </div>
+    <a class="m-cta m-cta-dominant" href="/assets/evidence/enterprise-hardening-evidence.zip" download style="display:inline-block;">Download enterprise-hardening-evidence.zip</a>
+  </div>
+</section>
+
+<!-- ── HOW TO REPRODUCE ── -->
+<section class="m-section m-stage" data-aos="fade-up">
+  <div class="m-wrap">
+    <div class="m-divider-title">
+      <div class="m-card-kicker">Reproduction</div>
+    </div>
+    <h2 class="m-title" style="font-size:clamp(1.2rem,2vw,1.6rem);margin-bottom:12px;">How to reproduce</h2>
+    <p class="m-copy" style="max-width:64ch;margin-bottom:20px;">Exact commands. Run elevated on the target Windows host.</p>
+    <div class="m-card" style="padding:22px;margin-bottom:16px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#7ab8ff;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">1. Inventory current subcategories</div>
+      <pre style="margin:0;padding:14px;background:rgba(13,17,23,0.8);border:1px solid rgba(122,184,255,0.1);border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:#d4e0ec;overflow-x:auto;">cmd.exe /c 'auditpol /list /subcategory:*' &gt; C:\temp\audit_subcategories_raw.txt</pre>
+    </div>
+    <div class="m-card" style="padding:22px;margin-bottom:16px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#7ab8ff;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">2. Enable CommandLine capture</div>
+      <pre style="margin:0;padding:14px;background:rgba(13,17,23,0.8);border:1px solid rgba(122,184,255,0.1);border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:#d4e0ec;overflow-x:auto;"><span style="color:#7a94aa;"># Registry (local / quick method)</span>
+Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit' `
+  -Name 'ProcessCreationIncludeCmdLine_Enabled' -Value 1 -Type DWord
+
+<span style="color:#7a94aa;"># Verify</span>
+Get-ItemProperty -Path 'HKLM:\...\Audit' | Select ProcessCreationIncludeCmdLine_Enabled</pre>
+    </div>
+    <div class="m-card" style="padding:22px;margin-bottom:16px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#7ab8ff;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">3. Enable audit subcategories</div>
+      <pre style="margin:0;padding:14px;background:rgba(13,17,23,0.8);border:1px solid rgba(122,184,255,0.1);border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:#d4e0ec;overflow-x:auto;"><span style="color:#7a94aa;"># Single subcategory</span>
+auditpol /set /subcategory:"Process Creation" /success:enable /failure:enable
+
+<span style="color:#7a94aa;"># Batch (PowerShell)</span>
+$subs = @("Process Creation","Credential Validation","Kerberos Authentication Service",
+  "Kerberos Service Ticket Operations","DPAPI Activity","Removable Storage",
+  "Registry","Audit Policy Change","Security Group Management")
+foreach ($s in $subs) { cmd.exe /c "auditpol /set /subcategory:`"$s`" /success:enable /failure:enable" }
+
+<span style="color:#7a94aa;"># Verify</span>
+auditpol /get /subcategory:"Process Creation"</pre>
+    </div>
+    <div class="m-card" style="padding:22px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:#7ab8ff;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">4. Verify with Splunk</div>
+      <pre style="margin:0;padding:14px;background:rgba(13,17,23,0.8);border:1px solid rgba(122,184,255,0.1);border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:#d4e0ec;overflow-x:auto;"><span style="color:#7a94aa;"># Confirm Event 4719 fired during hardening window</span>
+sourcetype="WinEventLog:Security" EventCode=4719
+| rex "Subcategory:\\s+(?&lt;subcategory&gt;.+)"
+| table _time ComputerName subcategory changes
+
+<span style="color:#7a94aa;"># Confirm CommandLine now populated in 4688</span>
+sourcetype="WinEventLog:Security" EventCode=4688
+| eval cmd=coalesce(CommandLine, Command_Line, "")
+| where NOT (cmd="" OR isnull(cmd))
+| table _time host NewProcessName cmd</pre>
     </div>
   </div>
 </section>
