@@ -1,0 +1,255 @@
+{
+  "thresholds": {
+    "auto_close_benign_max_level": 3,
+    "auto_close_known_fp_max_level": 13,
+    "escalate_min_level": 12,
+    "protected_agent_min_level_escalate": 7
+  },
+  "always_escalate_rule_ids": [
+    "100053",
+    "5715"
+  ],
+  "always_escalate_groups": [
+    "rootkit",
+    "malware",
+    "ransomware",
+    "data_exfiltration",
+    "sql_injection",
+    "credential_dumping",
+    "lateral_movement"
+  ],
+  "protected_agents": [
+    "HO-SR-01",
+    "HO-Wazuh-01",
+    "HO-GRAFANA-01",
+    "HO-HONEYPOT-01",
+    "ho-sr-01",
+    "ho-sr-wm-01",
+    "ho-grafana-01",
+    "ho-honeypot-01"
+  ],
+  "auto_close_rule_ids": [
+    "67027",
+    "60118",
+    "67023",
+    "60642",
+    "5501",
+    "5502"
+  ],
+  "review_rule_ids": [
+    "202",
+    "203",
+    "204",
+    "533",
+    "553",
+    "554",
+    "5710",
+    "594",
+    "750",
+    "752",
+    "2902",
+    "2904",
+    "60104",
+    "60132",
+    "60227",
+    "60702",
+    "60789",
+    "61102",
+    "92151",
+    "92153",
+    "550",
+    "19004",
+    "19005",
+    "19007",
+    "19014",
+    "23503",
+    "23504",
+    "23505",
+    "40704"
+  ],
+  "rule_overrides": [
+    {
+      "rule_ids": [
+        "60227"
+      ],
+      "agent_names": [
+        "HOWE01",
+        "HO-WE-01",
+        "win-hawkinsops"
+      ],
+      "provider_names": [
+        "Microsoft-Windows-Security-Auditing"
+      ],
+      "contains_any": [
+        "HP DeskJet 2800 series",
+        "HP0E6B66",
+        "CR270QB",
+        "AMD High Definition Audio Device",
+        "Bluetooth LE Generic Attribute Service",
+        "Generic Access Profile",
+        "Device Information Service",
+        "Bluetooth Low Energy GATT compliant HID device",
+        "Avrcp Transport",
+        "JL_SPP",
+        "iPhone",
+        "Generic Attribute Profile",
+        "Standard Serial over Bluetooth link",
+        "Service Discovery Service",
+        "Wireless iAP",
+        "MMDEVAPI",
+        "PRINTENUM",
+        "DAFWSDProvider",
+        "WSDPrintDevice",
+        "PrintQueue",
+        "Microsoft Print to PDF",
+        "Generic Monitor"
+      ],
+      "disposition": "AUTO_CLOSE_KNOWN_FP",
+      "reason": "Known workstation external-device churn from monitor, audio endpoint, and printer enumeration"
+    },
+    {
+      "rule_ids": [
+        "60104"
+      ],
+      "agent_names": [
+        "HOWE01",
+        "HO-WE-01",
+        "win-hawkinsops"
+      ],
+      "provider_names": [
+        "Microsoft-Windows-Security-Auditing"
+      ],
+      "contains_all": [
+        "Microsoft Software Key Storage Provider",
+        "Key2WrapEncryptionKey",
+        "0x80090016"
+      ],
+      "disposition": "AUTO_CLOSE_KNOWN_FP",
+      "reason": "Known Windows key-storage open-key failure noise on workstation"
+    },
+    {
+      "rule_ids": [
+        "61102"
+      ],
+      "agent_names": [
+        "HOWE01",
+        "HO-WE-01",
+        "win-hawkinsops"
+      ],
+      "provider_names": [
+        "Microsoft-Windows-DistributedCOM"
+      ],
+      "contains_all": [
+        "2147942403"
+      ],
+      "contains_any": [
+        "LinkedIn\\\\LinkedIn.exe",
+        "HPPrinterControl",
+        "HPPrinterDriver"
+      ],
+      "disposition": "AUTO_CLOSE_KNOWN_FP",
+      "reason": "Known workstation DCOM app-launch noise from LinkedIn and HP printer Windows apps"
+    },
+    {
+      "rule_ids": [
+        "2902"
+      ],
+      "agent_names": [
+        "HO-HONEYPOT-01",
+        "ho-fs-01"
+      ],
+      "locations": [
+        "/var/log/dpkg.log"
+      ],
+      "contains_any": [
+        "status installed"
+      ],
+      "disposition": "AUTO_CLOSE_KNOWN_FP",
+      "reason": "Known package installation churn during routine apt/dpkg maintenance on Linux hosts"
+    },
+    {
+      "rule_ids": [
+        "2904"
+      ],
+      "agent_names": [
+        "HO-HONEYPOT-01",
+        "ho-fs-01"
+      ],
+      "locations": [
+        "/var/log/dpkg.log"
+      ],
+      "contains_any": [
+        "status half-configured"
+      ],
+      "disposition": "AUTO_CLOSE_KNOWN_FP",
+      "reason": "Known transient dpkg half-configured churn during routine apt/dpkg maintenance on Linux hosts"
+    }
+  ],
+  "sysmon": {
+    "escalate_event_ids": [
+      1,
+      3,
+      10
+    ],
+    "require_sysmon_source": true,
+    "source_markers": [
+      "sysmon",
+      "microsoft-windows-sysmon"
+    ],
+    "tiering": {
+      "enabled": true,
+      "event_dispositions": {
+        "1": "REVIEW",
+        "3": "REVIEW",
+        "10": "ESCALATE"
+      },
+      "event3_high_risk_contains_any": [
+        "rundll32.exe",
+        "regsvr32.exe",
+        "mshta.exe",
+        "powershell.exe",
+        "pwsh.exe",
+        "certutil.exe",
+        "bitsadmin"
+      ]
+    },
+    "suppressions": [
+      {
+        "rule_ids": [
+          "92151"
+        ],
+        "agent_names": [
+          "HOWE01",
+          "HO-WE-01",
+          "win-hawkinsops"
+        ],
+        "contains_any": [
+          "\\program files\\powershell\\7\\pwsh.exe"
+        ],
+        "reason": "Known PowerShell 7 automation host module-load noise on workstation"
+      },
+      {
+        "rule_ids": [
+          "92153"
+        ],
+        "agent_names": [
+          "HOWE01",
+          "HO-WE-01",
+          "win-hawkinsops"
+        ],
+        "contains_any": [
+          "\\windows\\system32\\backgroundtaskhost.exe",
+          "\\windows\\system32\\taskhostw.exe",
+          "\\windows\\system32\\svchost.exe",
+          "\\windows\\system32\\runtimebroker.exe",
+          "\\windows\\uus\\packages\\preview\\amd64\\mousocoreworker.exe"
+        ],
+        "reason": "Known Windows service-host VaultCli module-load noise on workstation"
+      }
+    ]
+  },
+  "defaults": {
+    "disposition": "ESCALATE"
+  },
+  "notes": "Best-fit baseline from 2026-03-02 closeout board + known incident history. Review weekly."
+}

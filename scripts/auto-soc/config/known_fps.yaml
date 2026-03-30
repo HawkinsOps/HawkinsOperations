@@ -1,0 +1,17 @@
+{
+  "rules": [
+    {
+      "rule_id": "100052",
+      "agent": "HOWE01",
+      "contains": "hosts.ics",
+      "reason": "Known ICS-managed hosts.ics false positive"
+    },
+    {
+      "rule_id": "100052",
+      "agent": "HO-WE-01",
+      "contains": "hosts.ics",
+      "reason": "Known ICS-managed hosts.ics false positive"
+    }
+  ],
+  "notes": "Only confirmed patterns should be listed here. Do not add speculative noise patterns."
+}

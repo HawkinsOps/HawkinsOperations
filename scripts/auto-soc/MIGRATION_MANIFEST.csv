@@ -1,0 +1,52 @@
+original_source_root,original_path,new_path,action_taken,notes
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,run-pipeline.py,scripts/auto-soc/run-pipeline.py,copied,Main orchestrator from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,common.py,scripts/auto-soc/common.py,copied,Path constants module from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,poll-alerts.py,scripts/auto-soc/poll-alerts.py,copied,Wazuh alert poller from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,triage.py,scripts/auto-soc/triage.py,copied,Core triage engine from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,triage-quality.py,scripts/auto-soc/triage-quality.py,copied,Triage quality scoring from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,reconcile-state.py,scripts/auto-soc/reconcile-state.py,copied,Ledger reconciliation from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,coverage-check.py,scripts/auto-soc/coverage-check.py,copied,Host coverage validation from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,policy-audit.py,scripts/auto-soc/policy-audit.py,copied,Policy tuning audit from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,policy-audit-delta.py,scripts/auto-soc/policy-audit-delta.py,copied,Policy change deltas from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,escalation-quality.py,scripts/auto-soc/escalation-quality.py,copied,Escalation quality metrics from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,export-publish-bundle.py,scripts/auto-soc/export-publish-bundle.py,copied,Bundle export from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,promote-publish-bundle.py,scripts/auto-soc/promote-publish-bundle.py,copied,Bundle promotion from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,create-pr.py,scripts/auto-soc/create-pr.py,copied,GitHub PR creator from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,heartbeat-trend.py,scripts/auto-soc/heartbeat-trend.py,copied,Heartbeat aggregation from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,incident-taxonomy.py,scripts/auto-soc/incident-taxonomy.py,copied,Taxonomy generation from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,reclassify-pending-review-backlog.py,scripts/auto-soc/reclassify-pending-review-backlog.py,copied,Case reclassification from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,redact.py,scripts/auto-soc/redact.py,copied,Redaction utility from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,retention-policy.py,scripts/auto-soc/retention-policy.py,copied,Data retention rules from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,assemble-pack.py,scripts/auto-soc/assemble-pack.py,copied,Pack assembly from Source B (identical to Source A)
+Z:\Intake\from_OPS\system\Automation\AutoSOC,build_march_truth_index.ps1,scripts/auto-soc/build_march_truth_index.ps1,copied,CANONICAL from Source A (newer: 5523B vs 5088B)
+Z:\Intake\from_OPS\system\Automation\AutoSOC,build_runs_index.ps1,scripts/auto-soc/build_runs_index.ps1,copied,CANONICAL from Source A (newer: 7377B vs 6938B)
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,build_run_manifest.ps1,scripts/auto-soc/build_run_manifest.ps1,copied,From Source B (identical to Source A)
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,daily-ops.ps1,scripts/auto-soc/daily-ops.ps1,copied,Daily operations coordinator from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,run-autosoc-contract.ps1,scripts/auto-soc/run-autosoc-contract.ps1,copied,Contract verification runner from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,run-autosoc-contract-task.ps1,scripts/auto-soc/run-autosoc-contract-task.ps1,copied,Task scheduler wrapper from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,run-autosoc-live-task.ps1,scripts/auto-soc/run-autosoc-live-task.ps1,copied,Live task wrapper from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,run-autosoc-live-task.cmd,scripts/auto-soc/run-autosoc-live-task.cmd,copied,CMD wrapper from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,install-autosoc-contract-task.ps1,scripts/auto-soc/install-autosoc-contract-task.ps1,copied,Scheduled task installer from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,install-autosoc-live-task.ps1,scripts/auto-soc/install-autosoc-live-task.ps1,copied,Live mode task installer from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,refresh-march-soc-progress.ps1,scripts/auto-soc/refresh-march-soc-progress.ps1,copied,March progress refresh from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,render-triage-quality-chart.ps1,scripts/auto-soc/render-triage-quality-chart.ps1,copied,Quality visualization from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,show-achievements.ps1,scripts/auto-soc/show-achievements.ps1,copied,Summary reporting from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,capture-passfile-acl.ps1,scripts/auto-soc/capture-passfile-acl.ps1,copied,ACL auditing from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,import-manager-agents.ps1,scripts/auto-soc/import-manager-agents.ps1,copied,Agent inventory import from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,coverage-diagnose.ps1,scripts/auto-soc/coverage-diagnose.ps1,copied,Coverage diagnostics from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc,validate_runs_contract.ps1,scripts/auto-soc/validate_runs_contract.ps1,copied,Run artifact validation from Source B
+Z:\Intake\from_OPS\system\Configs\AutoSOC,policy.yaml,scripts/auto-soc/config/policy.yaml,copied,ONLY in Source A - triage thresholds and rules
+Z:\Intake\from_OPS\system\Configs\AutoSOC,known_fps.yaml,scripts/auto-soc/config/known_fps.yaml,copied,ONLY in Source A - false positive patterns
+Z:\Intake\from_OPS\system\Configs\AutoSOC,agent_inventory.json,scripts/auto-soc/config/agent_inventory.json,copied,ONLY in Source A - host coverage definitions
+Z:\Intake\from_OPS\system\Automation\AutoSOC,canonical_baseline.json,scripts/auto-soc/config/canonical_baseline.json,copied,Locked metrics baseline from Source A
+Z:\Intake\from_OPS\system\Configs\AutoSOC\secrets,wazuh_indexer_pass.txt,scripts/auto-soc/config/secrets/wazuh_indexer_pass.txt.TEMPLATE,templated,Secret file converted to template
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc\tests,test_triage.py,scripts/auto-soc/tests/test_triage.py,copied,Triage unit tests from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc\tests,test_redact.py,scripts/auto-soc/tests/test_redact.py,copied,Redaction tests from Source B
+Z:\Intake\from_RH_OPS\50_System\Scripts\Automation\auto-soc\templates,portfolio.gitignore.snippet,scripts/auto-soc/templates/portfolio.gitignore.snippet,copied,Gitignore template from Source B
+Z:\Intake\from_RH_OPS\30_Projects\Active\AutoSOC\Build\Cases,*,Z:\AutoSOC\data\Cases\,copied,2508 case directories from Source B (operational data)
+Z:\Intake\from_RH_OPS\30_Projects\Active\AutoSOC\Build\Queue,*,Z:\AutoSOC\data\Queue\,copied,Alert queue from Source B (operational data)
+Z:\Intake\from_RH_OPS\30_Projects\Active\AutoSOC\Output,*,Z:\AutoSOC\data\Output\,copied,Ledger + metrics + escalation staging from Source B
+Z:\Intake\from_OPS\system\Logs\AutoSOC\Runtime,*,Z:\AutoSOC\logs\Runtime\,copied,Runtime logs from Source A (most complete)
+Z:\Intake\from_OPS\system\Logs\AutoSOC\Reports,*,Z:\AutoSOC\logs\Reports\,copied,Reports from Source A (most complete)
+Z:\Intake\from_OPS\system\Logs\AutoSOC\Indexes,*,Z:\AutoSOC\logs\Indexes\,copied,Global + monthly indexes from Source A
+Z:\Intake\from_OPS\system\Logs\AutoSOC\Runs,*,Z:\AutoSOC\logs\Runs\,copied,Run manifests from Source A

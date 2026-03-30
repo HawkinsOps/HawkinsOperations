@@ -1,0 +1,120 @@
+{
+  "updated_local": "2026-03-04",
+  "note": "Canonical AutoSOC machine/agent names for policy matching and incident attribution.",
+  "proxmox_node": "HO-SR-01",
+  "coverage_policy": {
+    "include_in_required_coverage": [
+      "HO-RUNNER-01",
+      "HO-WAZUH-01",
+      "HO-GPU-01",
+      "HO-GRAFANA-01",
+      "HO-HONEYPOT-01",
+      "ho-fs-01",
+      "HO-WE-01",
+      "HO-LM-01"
+    ],
+    "exclude_from_required_coverage": [
+      "HO-WIN11-TEMPLATE",
+      "HO-UBU-TEMPLATE",
+      "HO-WIN11-LEGACY-01"
+    ],
+    "note": "Templates and legacy images are tracked assets but excluded from required SOC coverage denominator."
+  },
+  "vms": [
+    {
+      "vmid": 100,
+      "hostname": "HO-RUNNER-01",
+      "role": "Detection VM",
+      "aliases": [
+        "ho-sr-01"
+      ]
+    },
+    {
+      "vmid": 101,
+      "hostname": "HO-WAZUH-01",
+      "role": "Wazuh Manager",
+      "aliases": [
+        "ho-sr-wm-01"
+      ]
+    },
+    {
+      "vmid": 102,
+      "hostname": "HO-GPU-01",
+      "role": "OpenClo / GPU workloads",
+      "aliases": [
+        "ho-gpu-01"
+      ]
+    },
+    {
+      "vmid": 120,
+      "hostname": "HO-GRAFANA-01",
+      "role": "Grafana / visualization",
+      "aliases": [
+        "ho-grafana-01"
+      ]
+    },
+    {
+      "vmid": 130,
+      "hostname": "HO-HONEYPOT-01",
+      "role": "Honeypot",
+      "aliases": [
+        "ho-honeypot-01",
+        "ubuntu"
+      ],
+      "note": "Wazuh agent registered as 'ubuntu' (agent 014) — rename pending"
+    },
+    {
+      "vmid": 250,
+      "hostname": "ho-fs-01",
+      "role": "File services",
+      "aliases": [
+        "ho-fs-01"
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "vmid": 9000,
+      "hostname": "HO-WIN11-TEMPLATE",
+      "role": "Windows golden template",
+      "coverage_required": false
+    },
+    {
+      "vmid": 9001,
+      "hostname": "HO-UBU-TEMPLATE",
+      "role": "Ubuntu golden template",
+      "coverage_required": false
+    }
+  ],
+  "endpoints": [
+    {
+      "hostname": "HO-WE-01",
+      "role": "Primary operator workstation (Windows 11 Enterprise)",
+      "platform": "windows",
+      "coverage_required": true,
+      "aliases": [
+        "ho-we-01",
+        "howe01",
+        "win-hawkinsops"
+      ]
+    },
+    {
+      "hostname": "HO-LM-01",
+      "role": "Linux Mint endpoint 1",
+      "platform": "linux-mint",
+      "coverage_required": true,
+      "aliases": [
+        "ho-lm-01"
+      ]
+    },
+    {
+      "hostname": "core",
+      "role": "Linux Mint endpoint 2",
+      "platform": "linux-mint",
+      "coverage_required": false,
+      "aliases": [
+        "core"
+      ]
+    }
+  ]
+}

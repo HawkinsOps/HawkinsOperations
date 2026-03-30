@@ -1,0 +1,11 @@
+{
+  "locked_date": "2026-03-24",
+  "total_cases": 54700,
+  "escalated": 2531,
+  "auto_closed_known_fp": 5453,
+  "review": 1354,
+  "staged_pending": 53,
+  "auto_closed_benign": 45309,
+  "_source": "C:\\OPS\\Portfolio\\HawkinsOperations\\data\\metrics.json",
+  "_updated_utc": "2026-03-24T19:40:17Z"
+}
