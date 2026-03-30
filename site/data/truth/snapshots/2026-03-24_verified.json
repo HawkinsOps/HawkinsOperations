@@ -10,11 +10,11 @@
   "system_label": "SignalFoundry / AutoSOC",
   "detection_inventory": {
     "sigma_rules": 103,
-    "splunk_queries": 8,
+    "splunk_queries": 9,
     "wazuh_xml_files": 24,
     "wazuh_rule_blocks": 28,
     "ir_playbooks": 10,
-    "total_detections": 139,
+    "total_detections": 140,
     "as_of": "2026-03-24",
     "source_file": "PROOF_PACK/VERIFIED_COUNTS.md",
     "claim_class": "Fully supported"
@@ -27,9 +27,9 @@
   },
   "public_claim_formats": {
     "sigma": "103 Sigma detection rules",
-    "splunk": "8 Splunk queries",
+    "splunk": "9 Splunk queries",
     "wazuh": "24 Wazuh XML files (28 rule blocks)",
-    "total_detections": "139 detections",
+    "total_detections": "140 detections",
     "ir_playbooks": "10 IR playbooks"
   },
   "clearance": "Eligible to obtain clearance; willing to pursue sponsorship.",

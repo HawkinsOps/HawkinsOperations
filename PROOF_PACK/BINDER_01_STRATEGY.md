@@ -124,7 +124,7 @@ This framing — **AI accelerates investigation, analyst decides** — is the co
 | Claim | Backing Artifact | How to Verify |
 |-------|-----------------|---------------|
 | 103 Sigma rules, MITRE-organized | `content/detection-rules/sigma/` (10 tactic folders) | `ls` the directory tree |
-| 8 Splunk SPL queries | `content/detection-rules/splunk/` | Count files |
+| 9 Splunk SPL queries | `content/detection-rules/splunk/` | Count files |
 | 28 Wazuh rule blocks | `content/detection-rules/wazuh/rules/` | Inspect XML files |
 | 10 IR playbooks | `content/incident-response/playbooks/` | IR-001 through IR-022 |
 | 1,191 lines automation code | `scripts/` (.ps1, .py, .sh) | `wc -l` recursive |
@@ -187,7 +187,7 @@ Step 3: → Resume (site navigation) → GitHub link
 
 Step 4: → PROOF_PACK/VERIFIED_COUNTS.md (in repo)
   Confirms: reproducible counts via verify-counts.ps1
-            103 Sigma | 8 Splunk | 28 Wazuh blocks | 10 IR playbooks
+            103 Sigma | 9 Splunk | 28 Wazuh blocks | 10 IR playbooks
 
 Step 5: → START_HERE.md (repo root)
   Confirms: evidence-first methodology, 5-minute proof path,
@@ -449,7 +449,7 @@ Hi [Name],
 Jason Garstka suggested I reach out to you regarding SOC analyst or cybersecurity analyst opportunities at Chenega.
 
 My background:
-- Home lab SOC with Wazuh SIEM deployment, 103 Sigma detection rules (MITRE-organized), 8 Splunk queries, 10 IR playbooks — all publicly verifiable at hawkinsops.com
+- Home lab SOC with Wazuh SIEM deployment, 103 Sigma detection rules (MITRE-organized), 9 Splunk queries, 10 IR playbooks — all publicly verifiable at hawkinsops.com
 - Security+: [scheduled for [date] / PASSED — update per status]
 - Clearance: Eligible to obtain; willing to pursue sponsorship
 - Relocating to Huntsville; committed to start date
@@ -541,7 +541,7 @@ I'm a Tier 1 SOC analyst candidate with a documented, verifiable home lab securi
 
 What I've built at HawkinsOps (hawkinsops.com):
 — Wazuh SIEM deployed against instrumented Windows endpoints (Sysmon + agent). Live alerts, real telemetry.
-— 103 Sigma detection rules organized by MITRE ATT&CK tactic. 8 Splunk SPL queries. 28 Wazuh rule blocks.
+— 103 Sigma detection rules organized by MITRE ATT&CK tactic. 9 Splunk SPL queries. 28 Wazuh rule blocks.
 — 10 incident response playbooks (IR-001 through IR-022 catalog).
 — Full SOC investigation documented: Level 12 FIM alert → 9 evidence artifacts → triage → BENIGN verdict with reasoning → tuning recommendation.
 — AI-assisted investigation workflow: structured pivot sequences, human-in-the-loop decisions, standardized output.
@@ -579,7 +579,7 @@ SOC Analyst | Wazuh SIEM | MITRE ATT&CK Detection | Incident Response Documentat
 **Summary (3 bullets, ATS-optimized):**
 ```
 • Operate home lab SOC with Wazuh SIEM, Sysmon-instrumented endpoints, and structured alert triage workflow; documented full IR lifecycle from alert to BENIGN verdict with 9 evidence artifacts (hawkinsops.com).
-• Maintain and validate detection library: 103 Sigma rules (MITRE ATT&CK-organized), 8 Splunk SPL queries, 28 Wazuh rule blocks, 10 IR playbooks — all counts script-verified and reproducible from public repo.
+• Maintain and validate detection library: 103 Sigma rules (MITRE ATT&CK-organized), 9 Splunk SPL queries, 28 Wazuh rule blocks, 10 IR playbooks — all counts script-verified and reproducible from public repo.
 • Eligible to obtain clearance; willing to pursue sponsorship. Security+ [in progress / PASSED]. Relocating to Huntsville, AL.
 ```
 

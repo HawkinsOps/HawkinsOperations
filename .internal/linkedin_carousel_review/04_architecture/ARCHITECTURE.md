@@ -249,7 +249,7 @@ Test alert generation
 4. Portfolio presentation (clear structure, easy to validate)
 
 **Interview Talking Points:**
-- "I have 105 Sigma rules covering X tactics"
+- "I have 103 Sigma rules covering X tactics"
 - "Here's my Wazuh deployment script that bundles rules for production"
 - "My IR playbooks follow a 7-step framework with time-boxed phases"
 - "Run this PowerShell command to verify my detection counts"

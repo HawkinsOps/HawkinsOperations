@@ -21,10 +21,10 @@ AS_OF: 2026-02-14
 - `[x]` Counts verification executed with:
   - `pwsh -NoProfile -File scripts/verify/verify-counts.ps1`
   - Latest observed output:
-    - Sigma: `105`
-    - Splunk: `8`
-    - Wazuh XML files: `25`
-    - Wazuh `<rule id=>` blocks: `29`
+    - Sigma: `103`
+    - Splunk: `9`
+    - Wazuh XML files: `24`
+    - Wazuh `<rule id=>` blocks: `28`
     - IR playbooks: `10`
 - `[x]` Source-of-truth counts file present.
   - Evidence: `PROOF_PACK/VERIFIED_COUNTS.md`

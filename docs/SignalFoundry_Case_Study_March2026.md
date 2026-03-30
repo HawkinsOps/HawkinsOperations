@@ -26,7 +26,7 @@ The system demonstrates a core engineering thesis: that a single operator with a
 | Hosts monitored | 8 / 8 | Canonical snapshot, March 20 2026 |
 | Ledger-to-repo mismatches | 0 | Canonical snapshot, March 20 2026 |
 | Pipeline run duration | ~5.4 seconds | Latest heartbeat, March 23 2026 |
-| Detection inventory | 139 rules across 3 platforms | VERIFIED_COUNTS.md |
+| Detection inventory | 140 rules across 3 platforms | VERIFIED_COUNTS.md |
 
 ### What Changed in the Past 14 Days and Why It Matters
 
@@ -339,7 +339,7 @@ The existing test suite (`test_triage.py`, `test_redact.py`) covers core disposi
 
 ### 7.5 Detection Count Growth
 
-Current inventory: 103 Sigma / 8 Splunk SPL / 28 Wazuh rule blocks / 10 IR playbooks. The Sigma library has tactic gaps in `collection` and `initial-access`. IR playbook coverage ends at IR-022 (by ID) with 10 active; the gap between the highest ID and count suggests retired or consolidated playbooks. Filling these gaps increases the MITRE coverage percentage and the portfolio depth for detection engineering roles.
+Current inventory: 103 Sigma / 9 Splunk SPL / 28 Wazuh rule blocks / 10 IR playbooks. The Sigma library has tactic gaps in `collection` and `initial-access`. IR playbook coverage ends at IR-022 (by ID) with 10 active; the gap between the highest ID and count suggests retired or consolidated playbooks. Filling these gaps increases the MITRE coverage percentage and the portfolio depth for detection engineering roles.
 
 ### 7.6 Heartbeat Trend Reporting
 

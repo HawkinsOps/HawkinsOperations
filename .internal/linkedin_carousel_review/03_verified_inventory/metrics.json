@@ -54,7 +54,7 @@
     "sigma": 103,
     "wazuh_files": 24,
     "wazuh_rule_blocks": 28,
-    "splunk": 8,
+    "splunk": 9,
     "ir_playbooks": 10
   },
   "canonical_source": "source_of_truth/metrics_canonical_2026-03-25.json"

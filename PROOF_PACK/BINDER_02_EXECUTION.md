@@ -53,7 +53,7 @@ Defense contractor technical recruiters screening for Tier 1 SOC roles are looki
 |---|---|---|
 | "I need to be employed by April/May" | Signals desperation; shifts negotiating leverage | "I'm available ASAP and onsite-ready" |
 | "My lease ends in May" | Personal detail that invites lowball offers | Say nothing. It is not the recruiter's business. |
-| "I built 139 rules" (as the opener) | Sounds like a number, not a skill | "I can triage alerts, investigate incidents, and document findings. Here's proof." |
+| "I built 140 rules" (as the opener) | Sounds like a number, not a skill | "I can triage alerts, investigate incidents, and document findings. Here's proof." |
 | "I'm basically a detection engineer" | Wrong role label for this target | "I'm targeting Tier 1 SOC. Detection work is in my background." |
 | "I'm relocating for a September birthday deadline" | Bizarre in a professional context | Say nothing about September. Move timeline is your business. |
 | "I've been building my lab for months" | Implies you've been unemployed building things | "I've been developing and validating security operations skills through a structured home lab." |
@@ -296,7 +296,7 @@ I applied to [Position Title / Req ID] on [Date] and wanted to put a face to the
 
 I'm a Tier 1 SOC candidate with documented Wazuh SIEM experience, a structured alert triage workflow, and a complete incident investigation published at hawkinsops.com — Level 12 FIM alert, 9 evidence artifacts, BENIGN verdict with reasoning and tuning recommendation.
 
-Detection library: 103 Sigma rules (MITRE ATT&CK tactic-organized), 8 Splunk SPL queries, 28 Wazuh rule blocks, 10 IR playbooks. Counts are script-verified and reproducible.
+Detection library: 103 Sigma rules (MITRE ATT&CK tactic-organized), 9 Splunk SPL queries, 28 Wazuh rule blocks, 10 IR playbooks. Counts are script-verified and reproducible.
 
 [PRE: Security+ exam is scheduled for [date].]
 [POST: CompTIA Security+ certified.]
@@ -326,7 +326,7 @@ Hi [Name],
 
 My background:
 — Home lab SOC: Wazuh SIEM, instrumented Windows endpoints, structured triage workflow
-— 103 Sigma detection rules organized by MITRE ATT&CK tactic; 8 Splunk SPL queries; 28 Wazuh rule blocks
+— 103 Sigma detection rules organized by MITRE ATT&CK tactic; 9 Splunk SPL queries; 28 Wazuh rule blocks
 — 10 IR playbooks; full investigation case study at hawkinsops.com (verified, publicly accessible)
 — [PRE: Security+ exam scheduled for [date]] [POST: CompTIA Security+ certified]
 — Eligible to obtain clearance; willing to pursue sponsorship
@@ -432,7 +432,7 @@ I'm a Tier 1 SOC analyst candidate with a publicly verifiable home lab security 
 
 What I've built at HawkinsOps (hawkinsops.com):
 — Wazuh SIEM deployed against instrumented Windows endpoints (Sysmon + Wazuh agent). Live telemetry. Real alerts.
-— Detection library: 103 Sigma rules (MITRE ATT&CK tactic-organized), 8 Splunk SPL queries, 28 Wazuh rule blocks.
+— Detection library: 103 Sigma rules (MITRE ATT&CK tactic-organized), 9 Splunk SPL queries, 28 Wazuh rule blocks.
 — 10 incident response playbooks.
 — Full IR lifecycle documented: Level 12 FIM alert → 9 evidence artifacts → structured triage → BENIGN verdict with reasoning → tuning recommendation (hawkinsops.com/case-study-ir-howe01).
 — AI-assisted investigation workflow: structured pivot sequences, human-in-the-loop decisions, standardized output format.
@@ -621,7 +621,7 @@ Tier 1 SOC analyst candidate with documented, publicly verifiable home lab secur
 
 • Security operations: Alert triage, Windows Event ID investigation, pivot-sequence documentation, escalation with clean hand-off, tuning recommendations. AI-assisted investigation workflow with human-in-the-loop decisions at every classification point.
 
-• Detection library: 103 Sigma rules (MITRE ATT&CK tactic-organized), 8 Splunk SPL queries, 28 Wazuh rule blocks, 10 IR playbooks — all counts script-verified and reproducible (verify-counts.ps1).
+• Detection library: 103 Sigma rules (MITRE ATT&CK tactic-organized), 9 Splunk SPL queries, 28 Wazuh rule blocks, 10 IR playbooks — all counts script-verified and reproducible (verify-counts.ps1).
 
 • Automation: 1,191 total lines of PowerShell, Python, and shell scripts for detection verification, build, and deployment (github.com/raylee-hawkins).
 
