@@ -40,7 +40,7 @@
     // === LAYER: SIEM / ANALYSIS (upper-right) ===
     { id: 'splunk', label: 'Splunk', icon: 'SPL', x: 72, y: 14, size: 'major', color: 'c-siem', delay: 4,
       panel: { title: 'Splunk (Lab)', role: 'Investigation / Threat Hunting',
-        metrics: [['Queries', '8 SPL'], ['Scope', 'Home lab'], ['Achievement', '70%→0% noise reduction']],
+        metrics: [['Queries', '9 SPL'], ['Scope', 'Home lab'], ['Achievement', '70%→0% noise reduction']],
         desc: 'Investigation layer. EventID 4688 analysis reduced forwarder noise from 70% to 0%. Correctly classified 375 process instances as expected tool behavior.' }},
     { id: 'grafana', label: 'Grafana', icon: 'GF', x: 82, y: 10, size: 'minor', color: 'c-siem', delay: 4 },
 

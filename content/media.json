@@ -1,9 +1,107 @@
 {
   "generated_on": "2026-03-30",
-  "total_assets": 115,
+  "total_assets": 123,
   "safe_assets": 11,
-  "review_required_assets": 104,
+  "review_required_assets": 112,
   "media": [
+    {
+      "id": "linkedin-carousel-review-01-cover-home-desktop-c0be5094a6",
+      "path": ".internal/linkedin_carousel_review/01_cover/home-desktop.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "home desktop",
+      "alt": "screenshot artifact: home desktop",
+      "privacy_review": "required",
+      "source": ".internal/linkedin_carousel_review/01_cover/home-desktop.png",
+      "width": 1440,
+      "height": 1100,
+      "bytes": 439953,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "linkedin-carousel-review-03-verified-inventory-01-overview-7agents-0crit-9cf308e4cc",
+      "path": ".internal/linkedin_carousel_review/03_verified_inventory/01_overview_7agents_0critical_redacted.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "01 overview 7agents 0critical redacted",
+      "alt": "screenshot artifact: 01 overview 7agents 0critical redacted",
+      "privacy_review": "required",
+      "source": ".internal/linkedin_carousel_review/03_verified_inventory/01_overview_7agents_0critical_redacted.png",
+      "width": 1920,
+      "height": 1032,
+      "bytes": 139999,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "linkedin-carousel-review-03-verified-inventory-05-discover-15052-hits-re-bf01f9b1c8",
+      "path": ".internal/linkedin_carousel_review/03_verified_inventory/05_discover_15052_hits_redacted.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "05 discover 15052 hits redacted",
+      "alt": "screenshot artifact: 05 discover 15052 hits redacted",
+      "privacy_review": "required",
+      "source": ".internal/linkedin_carousel_review/03_verified_inventory/05_discover_15052_hits_redacted.png",
+      "width": 1452,
+      "height": 779,
+      "bytes": 146378,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "linkedin-carousel-review-04-architecture-autosoc-desktop-2ee931a6c6",
+      "path": ".internal/linkedin_carousel_review/04_architecture/autosoc-desktop.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "autosoc desktop",
+      "alt": "screenshot artifact: autosoc desktop",
+      "privacy_review": "required",
+      "source": ".internal/linkedin_carousel_review/04_architecture/autosoc-desktop.png",
+      "width": 1440,
+      "height": 1100,
+      "bytes": 570813,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "linkedin-carousel-review-04-architecture-proof-desktop-final-fb50ff3712",
+      "path": ".internal/linkedin_carousel_review/04_architecture/proof-desktop-final.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "proof desktop final",
+      "alt": "screenshot artifact: proof desktop final",
+      "privacy_review": "required",
+      "source": ".internal/linkedin_carousel_review/04_architecture/proof-desktop-final.png",
+      "width": 1440,
+      "height": 1100,
+      "bytes": 348768,
+      "suggested_placement": "home proof strip"
+    },
+    {
+      "id": "linkedin-carousel-review-05-repo-map-or-proof-lane-01-wazuh-overview-das-1af3882dc5",
+      "path": ".internal/linkedin_carousel_review/05_repo_map_or_proof_lane/01_wazuh_overview_dashboard.png",
+      "type": "dashboard",
+      "tags": [
+        "wazuh",
+        "proof",
+        "dashboard"
+      ],
+      "caption": "01 wazuh overview dashboard",
+      "alt": "dashboard artifact: 01 wazuh overview dashboard",
+      "privacy_review": "required",
+      "source": ".internal/linkedin_carousel_review/05_repo_map_or_proof_lane/01_wazuh_overview_dashboard.png",
+      "width": 1739,
+      "height": 1035,
+      "bytes": 229913,
+      "suggested_placement": "security page proof gallery"
+    },
     {
       "id": "playwright-cli-page-2026-03-09t20-05-22-290z-0af4cedc4a",
       "path": ".playwright-cli/page-2026-03-09T20-05-22-290Z.png",
@@ -1477,6 +1575,22 @@
       "suggested_placement": "global identity strip"
     },
     {
+      "id": "site-assets-headshot-1e1adfbacb",
+      "path": "site/assets/headshot.jpg",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "headshot",
+      "alt": "screenshot artifact: headshot",
+      "privacy_review": "required",
+      "source": "site/assets/headshot.jpg",
+      "width": 400,
+      "height": 400,
+      "bytes": 37348,
+      "suggested_placement": "home proof strip"
+    },
+    {
       "id": "assets-howe01-02-threat-hunting-level12-filter-7479f9a70b",
       "path": "site/assets/howe01/02_threat_hunting_level12_filter.png",
       "type": "screenshot",
@@ -1623,6 +1737,22 @@
       "height": 64,
       "bytes": 273,
       "suggested_placement": "global identity strip"
+    },
+    {
+      "id": "site-assets-og-image-a7a371b893",
+      "path": "site/assets/og-image.png",
+      "type": "screenshot",
+      "tags": [
+        "proof"
+      ],
+      "caption": "og image",
+      "alt": "screenshot artifact: og image",
+      "privacy_review": "required",
+      "source": "site/assets/og-image.png",
+      "width": 1200,
+      "height": 630,
+      "bytes": 76893,
+      "suggested_placement": "home proof strip"
     },
     {
       "id": "site-assets-og-84f412f582",

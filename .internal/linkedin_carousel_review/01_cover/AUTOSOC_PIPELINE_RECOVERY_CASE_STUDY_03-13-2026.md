@@ -19,10 +19,10 @@ This project is not a static portfolio mock-up. It is an operating SOC workflow 
 ## Starting State
 
 Pre-failure validated system metrics:
-- Total detections: `139`
+- Total detections: `140`
 - Sigma rules: `103`
 - Wazuh rule blocks: `28`
-- Splunk detections: `8`
+- Splunk detections: `9`
 - IR playbooks: `10`
 - Total AutoSOC cases: `25167`
 - Auto-closed benign: `20942`

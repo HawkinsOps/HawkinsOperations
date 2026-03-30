@@ -14,7 +14,7 @@ Wazuh alerts → triage engine → redaction gate → escalation pack → verifi
 ```
 
 - **55,665** total cases processed · **~92%** auto-closed · **2,545** escalated
-- **139 detections** — 103 Sigma rules, 28 Wazuh blocks, 8 Splunk queries, 10 IR playbooks
+- **140 detections** — 103 Sigma rules, 28 Wazuh blocks, 9 Splunk queries, 10 IR playbooks
 - 8/8 hosts covered · continuous CI verification · every metric script-generated
 
 → **[hawkinsops.com](https://hawkinsops.com)** · [Case Study](https://hawkinsops.com/case-study-autosoc) · [Proof](https://hawkinsops.com/proof)

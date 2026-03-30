@@ -40,7 +40,7 @@ Canonical metrics locked and all proof artifacts refreshed:
 |---|---|---|
 | Recruiter / Hiring Manager | [`START_HERE.md`](START_HERE.md) | Proof lane — validated claims in under 5 minutes |
 | Technical Reviewer | [`PROOF_PACK/VERIFIED_COUNTS.md`](PROOF_PACK/VERIFIED_COUNTS.md) | Script-generated counts, exact locations, reproducible |
-| Detection Engineer | [`content/detection-rules/INDEX.md`](content/detection-rules/INDEX.md) | 103 Sigma + 28 Wazuh + 8 Splunk, organized by MITRE tactic |
+| Detection Engineer | [`content/detection-rules/INDEX.md`](content/detection-rules/INDEX.md) | 103 Sigma + 28 Wazuh + 9 Splunk, organized by MITRE tactic |
 | Incident Responder | [`content/incident-response/INDEX.md`](content/incident-response/INDEX.md) | 10 playbooks, 7-step format, consistent framework |
 | Engine Reviewer | [`docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md`](docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md) | Live architecture, scheduler config, failure playbook |
 | Portfolio Overview | [`PROOF_PACK/PROOF_INDEX.md`](PROOF_PACK/PROOF_INDEX.md) | Curated reviewer lane with sample artifacts |
@@ -57,7 +57,7 @@ Source of truth: [`PROOF_PACK/VERIFIED_COUNTS.md`](PROOF_PACK/VERIFIED_COUNTS.md
 |---|---:|---|
 | Sigma (YAML) | 103 rules | `content/detection-rules/sigma/` |
 | Wazuh (XML) | 24 files / 28 rule blocks | `content/detection-rules/wazuh/rules/` |
-| Splunk (SPL) | 8 queries | `content/detection-rules/splunk/` |
+| Splunk (SPL) | 9 queries | `content/detection-rules/splunk/` |
 
 ### Incident response
 
@@ -141,11 +141,11 @@ PROOF_PACK/VERIFIED_COUNTS.md
 
 | Area | What it contains |
 |---|---|
-| `content/detection-rules/` | 103 Sigma + 8 Splunk + 24 Wazuh XML, organized by MITRE tactic |
+| `content/detection-rules/` | 103 Sigma + 9 Splunk + 24 Wazuh XML, organized by MITRE tactic |
 | `content/incident-response/` | 10 IR playbooks + templates + AutoSOC-generated incident packs |
 | `PROOF_PACK/` | Verified counts, sample artifacts, evidence checklist, redaction rules |
 | `docs/execution/` | AutoSOC operations runbook, rootcheck closeout, lab change control |
-| `content/projects/lab/` | PP_SOC_Integration, detection harness, honeypot stack |
+| `content/projects/lab/` | PP_SOC_Integration, detection harness, honeypot stack, enterprise hardening |
 | `scripts/` | Verification pipeline, bundle builders, site data generators |
 | `site/` | Static portfolio site source (Cloudflare Pages -> hawkinsops.com) |
 | `content/threat-hunting/` | Hunt matrices and hypothesis notes |

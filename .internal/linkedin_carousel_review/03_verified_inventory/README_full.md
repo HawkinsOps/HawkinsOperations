@@ -9,7 +9,7 @@
 
 ## What this repo is
 
-A security operations portfolio built around SignalFoundry, with the AutoSOC engine handling ingest, triage, redaction, and escalation-pack assembly from Wazuh alerts into public-safe proof artifacts. Detection content — 103 Sigma rules, 28 Wazuh rule blocks, 8 Splunk queries — is organized by MITRE ATT&CK tactic. IR playbooks follow a consistent 7-step format. Every count is script-verified. If a claim cannot be reproduced, it does not belong here.
+A security operations portfolio built around SignalFoundry, with the AutoSOC engine handling ingest, triage, redaction, and escalation-pack assembly from Wazuh alerts into public-safe proof artifacts. Detection content — 103 Sigma rules, 28 Wazuh rule blocks, 9 Splunk queries — is organized by MITRE ATT&CK tactic. IR playbooks follow a consistent 7-step format. Every count is script-verified. If a claim cannot be reproduced, it does not belong here.
 
 ---
 
@@ -31,7 +31,7 @@ SignalFoundry proof lane and release metadata refreshed:
 |---|---|---|
 | Recruiter / Hiring Manager | [`START_HERE.md`](START_HERE.md) | Proof lane + sample artifacts in under 5 minutes |
 | Technical Reviewer | [`PROOF_PACK/VERIFIED_COUNTS.md`](PROOF_PACK/VERIFIED_COUNTS.md) | Script-generated counts, exact locations, reproducible |
-| Detection Engineer | [`content/detection-rules/INDEX.md`](content/detection-rules/INDEX.md) | 103 Sigma + 28 Wazuh + 8 Splunk, organized by MITRE tactic |
+| Detection Engineer | [`content/detection-rules/INDEX.md`](content/detection-rules/INDEX.md) | 103 Sigma + 28 Wazuh + 9 Splunk, organized by MITRE tactic |
 | Incident Responder | [`content/incident-response/INDEX.md`](content/incident-response/INDEX.md) | 10 playbooks, 7-step format, consistent framework |
 | SignalFoundry / Engine Reviewer | [`docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md`](docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md) | Live engine architecture, scheduler config, failure playbook |
 | Portfolio Reviewer | [`PROOF_PACK/PROOF_INDEX.md`](PROOF_PACK/PROOF_INDEX.md) | Curated reviewer lane with sample artifacts |
@@ -47,7 +47,7 @@ Source of truth: [`PROOF_PACK/VERIFIED_COUNTS.md`](PROOF_PACK/VERIFIED_COUNTS.md
 | Platform | Count | Location |
 |---|---:|---|
 | Sigma (YAML) | 103 rules | `content/detection-rules/sigma/` |
-| Splunk (SPL) | 8 queries | `content/detection-rules/splunk/` |
+| Splunk (SPL) | 9 queries | `content/detection-rules/splunk/` |
 | Wazuh (XML) | 24 files / 28 rule blocks | `content/detection-rules/wazuh/rules/` |
 
 ### Incident response
@@ -95,7 +95,7 @@ Expected artifacts:
 
 | Area | What it contains | Why it exists |
 |---|---|---|
-| `content/detection-rules/` | 103 Sigma + 8 Splunk + 24 Wazuh XML, organized by MITRE tactic | Multi-platform detection library, triage-ready |
+| `content/detection-rules/` | 103 Sigma + 9 Splunk + 24 Wazuh XML, organized by MITRE tactic | Multi-platform detection library, triage-ready |
 | `content/incident-response/` | 10 IR playbooks + templates + AutoSOC-generated incident packs | Consistent execution model + live pipeline output |
 | `PROOF_PACK/` | Verified counts, sample artifacts, evidence checklist, redaction rules | Curated reviewer lane — the front-door proof path |
 | `docs/execution/` | AutoSOC operations runbook, rootcheck closeout, lab change control | Operational context for the live pipeline |

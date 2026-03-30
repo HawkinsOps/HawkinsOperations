@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-03-30T11:58:10.327Z",
+  "generated_utc": "2026-03-30T12:03:46.850Z",
   "scorecard_window": "lifetime_runtime_snapshot",
   "source_metrics": "data/metrics.json",
   "totals": {
@@ -11,13 +11,13 @@
     "staged_pending": 53
   },
   "scorecard": {
-    "status": "PASS",
+    "status": "WATCH",
     "metrics": [
       {
         "id": "auto_close_benign_pct",
-        "value": 81.44,
+        "value": 0,
         "target": ">= 35",
-        "status": "PASS"
+        "status": "WATCH"
       },
       {
         "id": "known_fp_pct",

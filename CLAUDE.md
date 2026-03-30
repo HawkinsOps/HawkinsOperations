@@ -37,7 +37,7 @@ HawkinsOperations/
 │   └── media.json              # Media manifest
 ├── content/detection-rules/            # Multi-platform detection content
 │   ├── sigma/                  # 103 Sigma YAML rules, organized by MITRE tactic
-│   ├── splunk/                 # 8 SPL queries
+│   ├── splunk/                 # 9 SPL queries
 │   ├── content/detection-rules/wazuh/rules/  # 24 Wazuh XML files (28 rule blocks)
 │   └── mappings/               # MITRE ATT&CK mapping files
 ├── docs/                       # Execution notes, architecture docs, hosting runbooks
@@ -47,6 +47,7 @@ HawkinsOperations/
 │   └── templates/              # IR-Template.md baseline
 ├── content/lab/                        # Lab infrastructure docs (Proxmox, Wazuh, Grafana)
 ├── content/projects/                   # Reference/legacy projects
+│   ├── lab/enterprise-hardening/  # Enterprise security Phase 2 artifacts
 │   ├── repo-history/           # Historical context; contains its own CLAUDE.md
 │   └── migration-rh/           # Migration project; contains its own CLAUDE.md
 ├── proof/                      # Wazuh honeypot proof artifacts (auto-updated)

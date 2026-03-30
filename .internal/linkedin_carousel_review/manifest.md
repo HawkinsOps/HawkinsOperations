@@ -243,7 +243,7 @@ This is a higher-trust close for a LinkedIn carousel.
    - This number is consistent across data/metrics.json AND all execution docs. Safe to use without qualification.
 
 3. **Detection counts:**
-   - Sigma 103 | Splunk 8 | Wazuh 28 rule blocks (24 XML files) — consistent across VERIFIED_COUNTS.md, metrics.json, and README.md. Safe to use.
+   - Sigma 103 | Splunk 9 | Wazuh 28 rule blocks (24 XML files) — consistent across VERIFIED_COUNTS.md, metrics.json, and README.md. Safe to use.
 
 4. **8/8 host coverage / heartbeat SUCCESS:**
    - Confirmed in metrics.json, all execution docs, and COVERAGE_TRUTH_SHIFT snippet. Safe to use.
