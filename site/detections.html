@@ -1,29 +1,26 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
-<title>HawkinsOps | Raylee Hawkins | Detections</title>
-<meta name="description" content="Verified detection and IR content with reproducible commands. Public counts align to PROOF_PACK/VERIFIED_COUNTS.md.">
+<title>Detection Surface | HawkinsOps</title>
+<meta name="description" content="140 detections across Sigma, Wazuh, and Splunk mapped to MITRE ATT&CK. Filterable grid, coverage map, pipeline integration. CI-verified counts.">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07070b">
 <link rel="canonical" href="https://hawkinsops.com/detections">
 <meta property="og:type" content="website">
-<meta property="og:title" content="HawkinsOps | Raylee Hawkins | Detections">
-<meta property="og:description" content="Verified detection and IR content with reproducible commands. Public counts align to PROOF_PACK/VERIFIED_COUNTS.md.">
+<meta property="og:title" content="Detection Surface | HawkinsOps">
+<meta property="og:description" content="140 detections across Sigma, Wazuh, and Splunk mapped to MITRE ATT&CK. Filterable grid, coverage map, pipeline integration.">
 <meta property="og:url" content="https://hawkinsops.com/detections">
-<meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/t5-proxmox-redacted.png?v=02-20-2026-1">
+<meta property="og:image" content="https://hawkinsops.com/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="HawkinsOps | Raylee Hawkins | Detections">
-<meta name="twitter:description" content="Verified detection and IR content with reproducible commands. Public counts align to PROOF_PACK/VERIFIED_COUNTS.md.">
-<meta name="twitter:image" content="https://hawkinsops.com/assets/pp_soc_integration/t5-proxmox-redacted.png?v=02-20-2026-1">
+<meta name="twitter:title" content="Detection Surface | HawkinsOps">
+<meta name="twitter:description" content="140 detections across Sigma, Wazuh, and Splunk mapped to MITRE ATT&CK.">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-<script>
-  document.documentElement.setAttribute('data-theme', 'dark');
-</script>
+<script>document.documentElement.setAttribute('data-theme','dark');</script>
 <link rel="stylesheet" href="/assets/styles.css">
 <link rel="stylesheet" href="/assets/design-system.css?v=03-16-2026-1">
 <link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
@@ -32,6 +29,92 @@
 <link rel="stylesheet" href="/assets/page-shells.css?v=03-16-2026-2">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Detection page styles */
+.det-page{max-width:1200px;margin:0 auto;padding:0 24px;}
+.det-hero{padding:100px 0 40px;border-bottom:1px solid rgba(122,184,255,0.08);}
+.det-hero h1{font-family:'JetBrains Mono',monospace;font-size:clamp(1.6rem,3vw,2.4rem);margin:0 0 8px;letter-spacing:0.02em;}
+.det-hero .sub{color:#7a94aa;font-size:0.9rem;max-width:64ch;margin:0 0 20px;}
+.det-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(122,184,255,0.12);border-radius:4px;background:rgba(17,24,39,0.4);margin-top:20px;}
+.det-kpi{padding:16px;text-align:center;border-right:1px solid rgba(122,184,255,0.06);}
+.det-kpi:last-child{border-right:none;}
+.det-kpi .val{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:#7ab8ff;}
+.det-kpi .lbl{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:#7a94aa;margin-top:2px;}
+
+/* MITRE Coverage */
+.mitre-section{padding:60px 0;background:rgba(17,24,39,0.3);border-bottom:1px solid rgba(122,184,255,0.06);}
+.mitre-bar{display:grid;grid-template-columns:110px 1fr 40px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid rgba(122,184,255,0.03);}
+.mitre-bar .tactic{font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.04em;color:#d4e0ec;}
+.mitre-bar .track{height:20px;background:rgba(255,255,255,0.03);border-radius:2px;overflow:hidden;}
+.mitre-bar .fill{height:100%;border-radius:2px;transition:width 0.6s ease;}
+.mitre-bar .cnt{font-family:'JetBrains Mono',monospace;font-size:0.82rem;font-weight:700;text-align:right;}
+
+/* Filter bar */
+.filter-section{padding:40px 0 20px;position:sticky;top:59px;z-index:10;background:rgba(8,12,16,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(122,184,255,0.06);}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.filter-row input[type=search]{flex:1;min-width:200px;padding:8px 14px;background:rgba(17,24,39,0.6);border:1px solid rgba(122,184,255,0.12);border-radius:3px;color:#d4e0ec;font-family:'JetBrains Mono',monospace;font-size:0.78rem;}
+.filter-row input::placeholder{color:#4a5568;}
+.fbtn{padding:5px 12px;font-family:'JetBrains Mono',monospace;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.04em;background:transparent;border:1px solid rgba(122,184,255,0.15);border-radius:3px;color:#7a94aa;cursor:pointer;transition:all 0.15s;}
+.fbtn:hover,.fbtn.active{background:rgba(122,184,255,0.1);border-color:rgba(122,184,255,0.3);color:#7ab8ff;}
+.filter-count{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:#7a94aa;margin-left:auto;}
+
+/* Detection grid */
+.det-grid-section{padding:20px 0 60px;}
+.det-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.det-card{padding:14px 16px;background:rgba(17,24,39,0.5);border:1px solid rgba(122,184,255,0.08);border-left:3px solid rgba(122,184,255,0.2);border-radius:3px;transition:border-color 0.15s;}
+.det-card:hover{border-color:rgba(122,184,255,0.25);}
+.det-card .dtitle{font-size:0.82rem;font-weight:600;color:#e5edff;margin:0 0 6px;line-height:1.3;}
+.det-card .dmeta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.det-card .dtag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:2px 6px;border-radius:2px;text-transform:uppercase;letter-spacing:0.04em;}
+.dtag.sigma{background:rgba(122,184,255,0.1);color:#7ab8ff;}
+.dtag.wazuh{background:rgba(0,196,212,0.1);color:#00c4d4;}
+.dtag.splunk{background:rgba(74,222,128,0.1);color:#4ade80;}
+.dtag.ir{background:rgba(251,191,36,0.1);color:#fbbf24;}
+.dtag.sev-critical{background:rgba(239,68,68,0.15);color:#ef4444;}
+.dtag.sev-high{background:rgba(251,146,60,0.12);color:#fb923c;}
+.dtag.sev-medium{background:rgba(251,191,36,0.1);color:#fbbf24;}
+.dtag.sev-low{background:rgba(122,184,255,0.06);color:#7a94aa;}
+.det-card .dtactic{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:#7a94aa;margin-top:4px;}
+.det-card[hidden]{display:none;}
+
+/* High-signal section */
+.hs-section{padding:60px 0;background:rgba(17,24,39,0.3);border-top:1px solid rgba(122,184,255,0.06);border-bottom:1px solid rgba(122,184,255,0.06);}
+.hs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px;}
+.hs-card{padding:18px 20px;background:rgba(17,24,39,0.5);border:1px solid rgba(239,68,68,0.15);border-left:3px solid #ef4444;border-radius:3px;}
+.hs-card .htitle{font-size:0.88rem;font-weight:700;color:#e5edff;margin:0 0 6px;}
+.hs-card .hdesc{font-size:0.78rem;color:#7a94aa;margin:0 0 8px;line-height:1.5;}
+.hs-card .hmeta{display:flex;gap:6px;flex-wrap:wrap;}
+
+/* Pipeline strip */
+.pipe-section{padding:40px 0;text-align:center;}
+.pipe-flow{display:flex;justify-content:center;align-items:center;gap:0;flex-wrap:wrap;margin-top:16px;}
+.pipe-node{padding:10px 18px;background:rgba(17,24,39,0.6);border:1px solid rgba(122,184,255,0.12);border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:#d4e0ec;}
+.pipe-node.active{border-color:rgba(122,184,255,0.3);color:#7ab8ff;font-weight:600;}
+.pipe-arr{color:#3d5273;font-size:1.2rem;padding:0 6px;}
+
+/* Verification */
+.ver-section{padding:40px 0 60px;}
+.ver-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;}
+.ver-card{padding:14px 16px;background:rgba(17,24,39,0.4);border:1px solid rgba(122,184,255,0.08);border-radius:3px;}
+.ver-card .vlbl{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.06em;color:#7a94aa;margin:0 0 4px;}
+.ver-card .vval{font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:#d4e0ec;}
+.ver-card code{font-size:0.72rem;color:#7ab8ff;background:rgba(122,184,255,0.08);padding:1px 5px;border-radius:2px;}
+
+.sec-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.12em;color:#7ab8ff;margin-bottom:8px;}
+.sec-title{font-family:'JetBrains Mono',monospace;font-size:clamp(1.1rem,2vw,1.5rem);margin:0 0 8px;letter-spacing:0.02em;}
+.sec-sub{color:#7a94aa;font-size:0.85rem;max-width:56ch;}
+
+@media(max-width:900px){
+  .det-grid{grid-template-columns:repeat(2,1fr);}
+  .hs-grid{grid-template-columns:1fr;}
+  .det-kpi-row{grid-template-columns:repeat(2,1fr);}
+  .ver-grid{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .det-grid{grid-template-columns:1fr;}
+  .mitre-bar{grid-template-columns:80px 1fr 30px;}
+}
+</style>
 </head>
 <body>
 <!-- @include:nav:start -->
@@ -60,252 +143,149 @@
 </div>
 <!-- @include:nav:end -->
 
-<main class="sf-home">
-  <section class="sf-shell sf-section sf-stage-shell" aria-labelledby="detections-title">
-    <div class="sf-stage-intro">
-      <div class="sf-section-label">Detection Library</div>
-      <h1 id="detections-title">Verified detections, with proof paths first</h1>
-      <div class="sf-stage-lede">
-        <p class="sf-body sf-body-lead">This page is built for fast reviewer validation: understand the strongest case studies, inspect the verified inventory, then pivot straight into the repo proof.</p>
-        <p class="sf-body">Counts on this page are generated from repository artifacts and cross-checked in CI. The goal is not to look broad; it is to be reproducible.</p>
-        <p class="sf-body" style="font-size:0.9rem">Generated: <span data-verified-date>03-30-2026</span> | Source artifact: <code>/assets/verified-counts.json</code> | Command: <code>pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1</code></p>
-      </div>
-      <div class="sf-kpi-grid" aria-label="Detection inventory snapshot">
-        <article class="sf-card sf-kpi-card">
-          <strong><span data-verified="sigma">103</span></strong>
-          <span>Sigma rules</span>
-        </article>
-        <article class="sf-card sf-kpi-card">
-          <strong><span data-verified="wazuh">28</span></strong>
-          <span>Wazuh rule blocks</span>
-        </article>
-        <article class="sf-card sf-kpi-card">
-          <strong><span data-verified="splunk">9</span></strong>
-          <span>Splunk queries</span>
-        </article>
-        <article class="sf-card sf-kpi-card">
-          <strong><span data-verified="ir">10</span></strong>
-          <span>IR playbooks</span>
-        </article>
-      </div>
+<main>
+<div class="det-page">
 
-      <!-- MITRE ATT&CK Detection Coverage Heatmap -->
-      <div class="sf-card sf-panel" data-aos="fade-up" style="padding:24px;margin-top:28px;">
-        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:16px;">MITRE ATT&amp;CK Detection Coverage</div>
-        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
-          <!-- Execution -->
-          <div style="padding:14px 10px;background:rgba(74,222,128,0.14);border:1px solid rgba(74,222,128,0.25);border-radius:10px;text-align:center;">
-            <div style="font-size:1.4rem;font-weight:800;color:#4ade80;">22</div>
-            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Execution</div>
-            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1059, T1204</div>
-            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:85%;height:100%;background:#4ade80;border-radius:2px;"></div></div>
-          </div>
-          <!-- Persistence -->
-          <div style="padding:14px 10px;background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.2);border-radius:10px;text-align:center;">
-            <div style="font-size:1.4rem;font-weight:800;color:#4ade80;">18</div>
-            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Persistence</div>
-            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1547, T1053</div>
-            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:70%;height:100%;background:#4ade80;border-radius:2px;"></div></div>
-          </div>
-          <!-- Defense Evasion -->
-          <div style="padding:14px 10px;background:rgba(122,184,255,0.1);border:1px solid rgba(122,184,255,0.2);border-radius:10px;text-align:center;">
-            <div style="font-size:1.4rem;font-weight:800;color:#7ab8ff;">16</div>
-            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Def. Evasion</div>
-            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1070, T1036</div>
-            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:62%;height:100%;background:#7ab8ff;border-radius:2px;"></div></div>
-          </div>
-          <!-- Discovery -->
-          <div style="padding:14px 10px;background:rgba(122,184,255,0.1);border:1px solid rgba(122,184,255,0.2);border-radius:10px;text-align:center;">
-            <div style="font-size:1.4rem;font-weight:800;color:#7ab8ff;">14</div>
-            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Discovery</div>
-            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1087, T1018</div>
-            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:54%;height:100%;background:#7ab8ff;border-radius:2px;"></div></div>
-          </div>
-          <!-- Credential Access -->
-          <div style="padding:14px 10px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.2);border-radius:10px;text-align:center;">
-            <div style="font-size:1.4rem;font-weight:800;color:#fbbf24;">12</div>
-            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Cred. Access</div>
-            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1003, T1110</div>
-            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:46%;height:100%;background:#fbbf24;border-radius:2px;"></div></div>
-          </div>
-          <!-- Lateral Movement -->
-          <div style="padding:14px 10px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.15);border-radius:10px;text-align:center;">
-            <div style="font-size:1.4rem;font-weight:800;color:#fbbf24;">8</div>
-            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Lat. Movement</div>
-            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1021, T1570</div>
-            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:31%;height:100%;background:#fbbf24;border-radius:2px;"></div></div>
-          </div>
-          <!-- Collection -->
-          <div style="padding:14px 10px;background:rgba(122,184,255,0.06);border:1px solid rgba(122,184,255,0.12);border-radius:10px;text-align:center;">
-            <div style="font-size:1.4rem;font-weight:800;color:#7ab8ff;">5</div>
-            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Collection</div>
-            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1560, T1113</div>
-            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:19%;height:100%;background:#7ab8ff;border-radius:2px;"></div></div>
-          </div>
-          <!-- Privilege Escalation -->
-          <div style="padding:14px 10px;background:rgba(122,184,255,0.06);border:1px solid rgba(122,184,255,0.12);border-radius:10px;text-align:center;">
-            <div style="font-size:1.4rem;font-weight:800;color:#7ab8ff;">5</div>
-            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Priv. Escalation</div>
-            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1548, T1134</div>
-            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:19%;height:100%;background:#7ab8ff;border-radius:2px;"></div></div>
-          </div>
-          <!-- Exfiltration -->
-          <div style="padding:14px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;text-align:center;">
-            <div style="font-size:1.4rem;font-weight:800;color:var(--muted);">2</div>
-            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Exfiltration</div>
-            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1048</div>
-            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:8%;height:100%;background:var(--muted);border-radius:2px;"></div></div>
-          </div>
-          <!-- Impact -->
-          <div style="padding:14px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;text-align:center;">
-            <div style="font-size:1.4rem;font-weight:800;color:var(--muted);">1</div>
-            <div style="font-size:0.68rem;font-weight:600;color:#e5edff;margin-top:4px;">Impact</div>
-            <div style="font-size:0.58rem;color:var(--muted);margin-top:2px;">T1486</div>
-            <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:6px;overflow:hidden;"><div style="width:4%;height:100%;background:var(--muted);border-radius:2px;"></div></div>
-          </div>
+  <!-- HERO -->
+  <div class="det-hero">
+    <div class="sec-label">Detection Surface</div>
+    <h1>Detection Coverage &mdash; <span data-verified="detections">140</span> rules across 10 MITRE tactics</h1>
+    <p class="sub">These are the entry points into SignalFoundry. Each detection feeds the triage pipeline, influences escalation logic, and produces evidence packs. Not a list &mdash; a surface area model.</p>
+    <div class="det-kpi-row">
+      <div class="det-kpi"><div class="val" data-verified="sigma">103</div><div class="lbl">Sigma</div></div>
+      <div class="det-kpi"><div class="val" data-verified="wazuh">28</div><div class="lbl">Wazuh</div></div>
+      <div class="det-kpi"><div class="val" data-verified="splunk">9</div><div class="lbl">Splunk (lab)</div></div>
+      <div class="det-kpi"><div class="val" data-verified="ir">10</div><div class="lbl">IR Playbooks</div></div>
+    </div>
+  </div>
+
+  <!-- MITRE ATT&CK COVERAGE MAP -->
+  <div class="mitre-section">
+    <div class="det-page">
+      <div class="sec-label">MITRE ATT&amp;CK Coverage</div>
+      <h2 class="sec-title">Detection density by tactic</h2>
+      <p class="sec-sub" style="margin-bottom:20px;">Sigma rule distribution across 10 ATT&amp;CK tactics. Bar width = relative coverage. Based on actual repo file count.</p>
+      <div class="mitre-bar"><span class="tactic">Impact</span><div class="track"><div class="fill" style="width:100%;background:linear-gradient(90deg,#ef4444,rgba(239,68,68,0.4));"></div></div><span class="cnt" style="color:#ef4444;">13</span></div>
+      <div class="mitre-bar"><span class="tactic">Persistence</span><div class="track"><div class="fill" style="width:85%;background:linear-gradient(90deg,#4ade80,rgba(74,222,128,0.4));"></div></div><span class="cnt" style="color:#4ade80;">11</span></div>
+      <div class="mitre-bar"><span class="tactic">Priv Esc</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">10</span></div>
+      <div class="mitre-bar"><span class="tactic">Def Evasion</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">10</span></div>
+      <div class="mitre-bar"><span class="tactic">Cred Access</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#fbbf24,rgba(251,191,36,0.4));"></div></div><span class="cnt" style="color:#fbbf24;">10</span></div>
+      <div class="mitre-bar"><span class="tactic">Discovery</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">10</span></div>
+      <div class="mitre-bar"><span class="tactic">Lat Movement</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">10</span></div>
+      <div class="mitre-bar"><span class="tactic">Collection</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">10</span></div>
+      <div class="mitre-bar"><span class="tactic">Exfiltration</span><div class="track"><div class="fill" style="width:77%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">10</span></div>
+      <div class="mitre-bar"><span class="tactic">Execution</span><div class="track"><div class="fill" style="width:69%;background:linear-gradient(90deg,#7ab8ff,rgba(122,184,255,0.4));"></div></div><span class="cnt" style="color:#7ab8ff;">9</span></div>
+      <p style="font-size:0.68rem;color:#4a5568;margin-top:12px;">Source: <code style="font-size:0.65rem;color:#7ab8ff;background:rgba(122,184,255,0.08);padding:1px 5px;border-radius:2px;">content/detection-rules/sigma/</code> &middot; 103 YAML files across 10 tactic folders</p>
+    </div>
+  </div>
+
+  <!-- HIGH-SIGNAL DETECTIONS -->
+  <div class="hs-section">
+    <div class="det-page">
+      <div class="sec-label">High-Signal Detections</div>
+      <h2 class="sec-title">Critical-severity rules &mdash; real attacker TTPs</h2>
+      <p class="sec-sub">These detections target the techniques that matter most. Each maps to a documented attack chain and feeds directly into SignalFoundry&rsquo;s escalation pipeline.</p>
+      <div class="hs-grid">
+        <div class="hs-card">
+          <div class="htitle">DCSync Attack Detection</div>
+          <div class="hdesc">Detects directory replication service requests used to extract credential data from Active Directory.</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1003</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Cred Access</span></div>
         </div>
-        <p style="font-size:0.68rem;color:var(--muted);margin-top:14px;opacity:0.6;"><span data-verified="sigma">103</span> Sigma rules mapped across MITRE ATT&amp;CK tactic folders. Color intensity = detection density. <a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/detection-rules/mappings/technique_map.csv" target="_blank" rel="noopener noreferrer" style="color:#7ab8ff;">Full technique map &rarr;</a></p>
+        <div class="hs-card">
+          <div class="htitle">LSASS Memory Dump via Comsvcs.dll</div>
+          <div class="hdesc">Detects credential harvesting through comsvcs.dll MiniDump export targeting the LSASS process.</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1003</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Cred Access</span></div>
+        </div>
+        <div class="hs-card">
+          <div class="htitle">AMSI Bypass Attempt</div>
+          <div class="hdesc">Detects attempts to disable or bypass the Antimalware Scan Interface to execute undetected payloads.</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1562</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Def Evasion</span></div>
+        </div>
+        <div class="hs-card">
+          <div class="htitle">Masquerading as Windows Process</div>
+          <div class="hdesc">Detects executables mimicking legitimate Windows process names from non-standard paths.</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1036</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Def Evasion</span></div>
+        </div>
+        <div class="hs-card">
+          <div class="htitle">Ransomware File Encryption Activity</div>
+          <div class="hdesc">Detects mass file extension changes and encryption patterns associated with ransomware behavior.</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1486</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Impact</span></div>
+        </div>
+        <div class="hs-card">
+          <div class="htitle">NTDS.dit Credential Extraction</div>
+          <div class="hdesc">Detects access to the NTDS.dit Active Directory database file for offline credential extraction.</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1003</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Cred Access</span></div>
+        </div>
+        <div class="hs-card">
+          <div class="htitle">Firmware Corruption Attempt</div>
+          <div class="hdesc">Detects attempts to modify system firmware for persistent, pre-boot level compromise.</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1495</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Impact</span></div>
+        </div>
+        <div class="hs-card">
+          <div class="htitle">Potential Rootkit Behavior</div>
+          <div class="hdesc">Detects kernel-level persistence and process hiding patterns characteristic of rootkit deployment.</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1014</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Def Evasion</span></div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section class="sf-shell sf-section" aria-labelledby="focus-title">
-    <div class="sf-section-label">What To Read First</div>
-    <h2 id="focus-title">Three fastest proof lanes</h2>
-    <p class="sf-body sf-copy-gap-lg">If you only need the strongest signal, start with one of these. They connect the rule inventory to actual operational outcomes.</p>
-    <div class="sf-focus-grid">
-      <a class="sf-card sf-focus-card sf-focus-ring" href="/case-study-autosoc">
-        <h3>SignalFoundry flagship case study</h3>
-        <p>High-volume alert flow, telemetry-backed evidence, and a detection-to-remediation loop that ends with verified closure.</p>
-        <div class="sf-chip-row">
-          <span class="sf-chip">Featured</span>
-          <span class="sf-chip">Telemetry evidence</span>
-          <span class="sf-chip">CVE response</span>
-        </div>
-      </a>
-      <a class="sf-card sf-focus-card sf-focus-ring" href="/case-study-sigma-library">
-        <h3>Sigma library methodology</h3>
-        <p>How the portable rule corpus is structured, mapped, and validated across tactics rather than presented as raw file count alone.</p>
-        <div class="sf-chip-row">
-          <span class="sf-chip">Sigma</span>
-          <span class="sf-chip">MITRE ATT&amp;CK</span>
-          <span class="sf-chip">Method</span>
-        </div>
-      </a>
-      <a class="sf-card sf-focus-card sf-focus-ring" href="/case-study-detection-harness">
-        <h3>Detection harness</h3>
-        <p>Python-based validation that proves expected detections fire when intended, with run artifacts and pass/fail evidence.</p>
-        <div class="sf-chip-row">
-          <span class="sf-chip">Python</span>
-          <span class="sf-chip">Validation</span>
-          <span class="sf-chip">Evidence</span>
-        </div>
-      </a>
+  <!-- PIPELINE INTEGRATION -->
+  <div class="pipe-section">
+    <div class="sec-label">Pipeline Integration</div>
+    <h2 class="sec-title">How detections enter the system</h2>
+    <p class="sec-sub" style="margin:0 auto 0;">Every rule on this page is an entry point. Alerts flow through SignalFoundry&rsquo;s 7-stage pipeline before anything publishes.</p>
+    <div class="pipe-flow">
+      <div class="pipe-node active">Detection Fires</div>
+      <div class="pipe-arr">&rarr;</div>
+      <div class="pipe-node">Wazuh Alert</div>
+      <div class="pipe-arr">&rarr;</div>
+      <div class="pipe-node">SignalFoundry Ingest</div>
+      <div class="pipe-arr">&rarr;</div>
+      <div class="pipe-node">Policy Triage</div>
+      <div class="pipe-arr">&rarr;</div>
+      <div class="pipe-node">Redaction</div>
+      <div class="pipe-arr">&rarr;</div>
+      <div class="pipe-node">Evidence Pack</div>
+      <div class="pipe-arr">&rarr;</div>
+      <div class="pipe-node" style="border-color:rgba(74,222,128,0.3);color:#4ade80;">Escalation</div>
     </div>
-  </section>
+  </div>
 
-  <section class="sf-shell sf-section" aria-labelledby="library-title">
-    <div class="sf-library-grid" data-detections-root>
-      <div class="sf-library-stack">
-        <div class="section-intro">
-          <div class="kicker">Inventory + Search</div>
-          <h2 id="library-title">Filter the public detection inventory</h2>
-          <p>Use the filters to reduce the library to the format or workflow you care about, then pivot directly into the repo or supporting proof links.</p>
-        </div>
-
-        <div class="panel-glass filter-shell">
-          <label class="sf-search-label" for="detectionSearch">Search verified inventory</label>
-          <input id="detectionSearch" class="filter-search" type="search" placeholder="Search Sigma, Wazuh, Splunk, playbooks" data-search>
-          <div class="filter-bar" data-chips></div>
-        </div>
-
-        <div class="panel-glass">
-          <div class="section-intro">
-            <div class="kicker">Library View</div>
-            <h3>Verified formats and proof links</h3>
-            <p>Each row points to the public repo location plus one or two verification surfaces. No hidden lanes, no inflated totals.</p>
-          </div>
-          <div class="listing" data-listing></div>
-        </div>
-      </div>
-
-      <aside class="sf-library-stack">
-        <div class="panel-glass sf-chart-shell" style="padding:20px;">
-          <div class="section-intro">
-            <div class="kicker">Platform Distribution</div>
-            <h3>Detection breakdown</h3>
-          </div>
-          <!-- Sigma -->
-          <div style="margin-bottom:12px;">
-            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px;">
-              <span style="color:#d4e0ec;font-weight:600;">Sigma</span>
-              <span style="font-family:'JetBrains Mono',monospace;color:#7ab8ff;font-weight:700;" data-verified="sigma">103</span>
-            </div>
-            <div style="height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;">
-              <div style="width:74%;height:100%;background:linear-gradient(90deg,rgba(122,184,255,0.5),rgba(122,184,255,0.2));border-radius:3px;"></div>
-            </div>
-          </div>
-          <!-- Wazuh -->
-          <div style="margin-bottom:12px;">
-            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px;">
-              <span style="color:#d4e0ec;font-weight:600;">Wazuh</span>
-              <span style="font-family:'JetBrains Mono',monospace;color:#7ab8ff;font-weight:700;" data-verified="wazuh">28</span>
-            </div>
-            <div style="height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;">
-              <div style="width:20%;height:100%;background:linear-gradient(90deg,rgba(122,184,255,0.5),rgba(122,184,255,0.2));border-radius:3px;"></div>
-            </div>
-          </div>
-          <!-- IR -->
-          <div style="margin-bottom:12px;">
-            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px;">
-              <span style="color:#d4e0ec;font-weight:600;">IR Playbooks</span>
-              <span style="font-family:'JetBrains Mono',monospace;color:#fbbf24;font-weight:700;" data-verified="ir">10</span>
-            </div>
-            <div style="height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;">
-              <div style="width:7%;height:100%;background:linear-gradient(90deg,rgba(251,191,36,0.5),rgba(251,191,36,0.2));border-radius:3px;"></div>
-            </div>
-          </div>
-          <!-- Splunk -->
-          <div style="margin-bottom:6px;">
-            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:3px;">
-              <span style="color:#d4e0ec;font-weight:600;">Splunk <span style="font-size:0.68rem;opacity:0.5;">(lab)</span></span>
-              <span style="font-family:'JetBrains Mono',monospace;color:#4ade80;font-weight:700;" data-verified="splunk">9</span>
-            </div>
-            <div style="height:6px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;">
-              <div style="width:6%;height:100%;background:linear-gradient(90deg,rgba(74,222,128,0.5),rgba(74,222,128,0.2));border-radius:3px;"></div>
-            </div>
-          </div>
-          <p style="font-size:0.68rem;color:var(--muted);margin-top:10px;opacity:0.5;">Total: <span data-verified="detections">140</span> detections</p>
-        </div>
-
-        <div class="panel-glass sf-library-status" data-security-kpis>
-          <div class="section-intro">
-            <div class="kicker">Proof Notes</div>
-            <h3>How to verify this page</h3>
-          </div>
-          <ul class="sf-note-list">
-            <li>Counts map to <code>PROOF_PACK/VERIFIED_COUNTS.md</code> and are rechecked by CI.</li>
-            <li>Repo-facing evidence links stay visible so this page does not become a detached summary.</li>
-            <li>Fastest validation path is case study -&gt; Start Here -&gt; repo artifacts (proof remains corroboration).</li>
-          </ul>
-          <p class="lupd">Local verification: <code>pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1</code></p>
-          <p class="lupd">Canonical validation path: <a class="sf-inline-link" href="/">home</a> then <a class="sf-inline-link" href="/proof">/proof</a></p>
-        </div>
-      </aside>
+  <!-- FILTER BAR -->
+  <div class="filter-section" id="filterBar">
+    <div class="filter-row">
+      <input type="search" id="detSearch" placeholder="Search detections..." aria-label="Search detections">
+      <button class="fbtn" data-filter="all" onclick="filterDet('all')">All</button>
+      <button class="fbtn" data-filter="sigma" onclick="filterDet('sigma')">Sigma</button>
+      <button class="fbtn" data-filter="wazuh" onclick="filterDet('wazuh')">Wazuh</button>
+      <button class="fbtn" data-filter="splunk" onclick="filterDet('splunk')">Splunk</button>
+      <button class="fbtn" data-filter="ir" onclick="filterDet('ir')">IR</button>
+      <span class="filter-count" id="filterCount"><span data-verified="detections">140</span> shown</span>
     </div>
-  </section>
+  </div>
+
+  <!-- DETECTION GRID -->
+  <div class="det-grid-section">
+    <div class="det-grid" id="detGrid">
+      <!-- Populated by JS below -->
+    </div>
+  </div>
+
+  <!-- VERIFICATION -->
+  <div class="ver-section">
+    <div class="sec-label">Verification</div>
+    <h2 class="sec-title">Reproduce these counts</h2>
+    <div class="ver-grid">
+      <div class="ver-card"><div class="vlbl">Source of Truth</div><div class="vval"><code>PROOF_PACK/VERIFIED_COUNTS.md</code></div></div>
+      <div class="ver-card"><div class="vlbl">Verification Command</div><div class="vval"><code>pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1</code></div></div>
+      <div class="ver-card"><div class="vlbl">Last Verified</div><div class="vval"><span data-verified-date>03-30-2026</span></div></div>
+    </div>
+  </div>
+
+</div>
 </main>
 
-<div id="modalBg" class="modal-backdrop" aria-hidden="true">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-h">
-      <div id="modalTitle" class="modal-ttl">DETAILS</div>
-      <button id="modalClose" class="modal-x" type="button">Close</button>
-    </div>
-    <div id="modalBody" class="modal-b"></div>
-  </div>
-</div>
-<!-- @include:footer:start -->
 <footer>
   <div class="ctr">
     <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
@@ -316,11 +296,220 @@
     </div>
   </div>
 </footer>
-<!-- @include:footer:end -->
+
+<script>
+// Detection data — sourced from repo artifacts
+var DETECTIONS=[
+// Sigma — Collection (10)
+{t:"Archive Collection Preparation",p:"sigma",s:"low",tac:"collection",tech:"T1560"},
+{t:"Audio Capture Detection",p:"sigma",s:"high",tac:"collection",tech:"T1123"},
+{t:"Clipboard Data Collection",p:"sigma",s:"medium",tac:"collection",tech:"T1115"},
+{t:"Data Staging for Exfiltration",p:"sigma",s:"low",tac:"collection",tech:"T1074"},
+{t:"Email Collection Activity",p:"sigma",s:"medium",tac:"collection",tech:"T1114"},
+{t:"Keylogging Activity Detection",p:"sigma",s:"high",tac:"collection",tech:"T1056"},
+{t:"Linux Command History Access",p:"sigma",s:"low",tac:"collection",tech:"T1552"},
+{t:"Screen Capture Activity",p:"sigma",s:"medium",tac:"collection",tech:"T1113"},
+{t:"Sensitive File Access",p:"sigma",s:"low",tac:"collection",tech:"T1005"},
+{t:"Video Capture Detection",p:"sigma",s:"medium",tac:"collection",tech:"T1125"},
+// Sigma — Credential Access (10)
+{t:"Browser Credential Store Access",p:"sigma",s:"high",tac:"credential-access",tech:"T1555"},
+{t:"SSH Private Key Access",p:"sigma",s:"medium",tac:"credential-access",tech:"T1552"},
+{t:"DCSync Attack Detection",p:"sigma",s:"critical",tac:"credential-access",tech:"T1003"},
+{t:"Kerberoasting Attack Detection",p:"sigma",s:"medium",tac:"credential-access",tech:"T1558"},
+{t:"Suspicious LSASS Process Access",p:"sigma",s:"high",tac:"credential-access",tech:"T1003"},
+{t:"LSASS Memory Dump via Comsvcs.dll",p:"sigma",s:"critical",tac:"credential-access",tech:"T1003"},
+{t:"NTDS.dit Credential Extraction",p:"sigma",s:"critical",tac:"credential-access",tech:"T1003"},
+{t:"Linux Password File Access",p:"sigma",s:"high",tac:"credential-access",tech:"T1003"},
+{t:"PowerShell Credential Prompt",p:"sigma",s:"medium",tac:"credential-access",tech:"T1056"},
+{t:"SAM Registry Hive Dump",p:"sigma",s:"high",tac:"credential-access",tech:"T1003"},
+// Sigma — Defense Evasion (10)
+{t:"AMSI Bypass Attempt",p:"sigma",s:"critical",tac:"defense-evasion",tech:"T1562"},
+{t:"Windows Event Log Cleared",p:"sigma",s:"high",tac:"defense-evasion",tech:"T1070"},
+{t:"Windows Firewall Disabled",p:"sigma",s:"high",tac:"defense-evasion",tech:"T1562"},
+{t:"Windows Defender Disabled",p:"sigma",s:"high",tac:"defense-evasion",tech:"T1562"},
+{t:"Suspicious DLL Side-Loading",p:"sigma",s:"medium",tac:"defense-evasion",tech:"T1574"},
+{t:"Linux Log File Deletion",p:"sigma",s:"medium",tac:"defense-evasion",tech:"T1070"},
+{t:"Masquerading as Windows Process",p:"sigma",s:"critical",tac:"defense-evasion",tech:"T1036"},
+{t:"Process Injection Detected",p:"sigma",s:"high",tac:"defense-evasion",tech:"T1055"},
+{t:"Potential Rootkit Behavior",p:"sigma",s:"critical",tac:"defense-evasion",tech:"T1014"},
+{t:"File Timestamp Manipulation",p:"sigma",s:"medium",tac:"defense-evasion",tech:"T1070"},
+// Sigma — Discovery (10)
+{t:"Active Directory Enumeration",p:"sigma",s:"low",tac:"discovery",tech:"T1087"},
+{t:"Cloud Service Discovery",p:"sigma",s:"low",tac:"discovery",tech:"T1580"},
+{t:"Domain Trust Discovery",p:"sigma",s:"medium",tac:"discovery",tech:"T1482"},
+{t:"File and Directory Discovery",p:"sigma",s:"low",tac:"discovery",tech:"T1083"},
+{t:"Linux Network Discovery",p:"sigma",s:"low",tac:"discovery",tech:"T1016"},
+{t:"Network Recon Commands",p:"sigma",s:"low",tac:"discovery",tech:"T1018"},
+{t:"Network Share Discovery",p:"sigma",s:"low",tac:"discovery",tech:"T1135"},
+{t:"Process Discovery Commands",p:"sigma",s:"low",tac:"discovery",tech:"T1057"},
+{t:"System Information Discovery",p:"sigma",s:"low",tac:"discovery",tech:"T1082"},
+{t:"Whoami Command Execution",p:"sigma",s:"low",tac:"discovery",tech:"T1033"},
+// Sigma — Execution (9)
+{t:"AT Command Scheduled Task",p:"sigma",s:"medium",tac:"execution",tech:"T1053"},
+{t:"Suspicious CMD Execution",p:"sigma",s:"high",tac:"execution",tech:"T1059"},
+{t:"Suspicious Bash Execution",p:"sigma",s:"medium",tac:"execution",tech:"T1059"},
+{t:"Office Macro Execution",p:"sigma",s:"medium",tac:"execution",tech:"T1204"},
+{t:"Suspicious MSHTA Execution",p:"sigma",s:"high",tac:"execution",tech:"T1218"},
+{t:"Suspicious PowerShell Execution",p:"sigma",s:"medium",tac:"execution",tech:"T1059"},
+{t:"Suspicious Regsvr32 Execution",p:"sigma",s:"high",tac:"execution",tech:"T1218"},
+{t:"Suspicious Scheduled Task",p:"sigma",s:"low",tac:"execution",tech:"T1053"},
+{t:"Script via WScript/CScript",p:"sigma",s:"medium",tac:"execution",tech:"T1059"},
+// Sigma — Exfiltration (10)
+{t:"Cloud Sync Client Abuse",p:"sigma",s:"low",tac:"exfiltration",tech:"T1567"},
+{t:"DNS Tunneling Detection",p:"sigma",s:"medium",tac:"exfiltration",tech:"T1048"},
+{t:"Email-Based Exfiltration",p:"sigma",s:"low",tac:"exfiltration",tech:"T1048"},
+{t:"Exfil Over C2 Channel",p:"sigma",s:"low",tac:"exfiltration",tech:"T1041"},
+{t:"Exfil to Web Service",p:"sigma",s:"low",tac:"exfiltration",tech:"T1567"},
+{t:"FTP Exfiltration Detection",p:"sigma",s:"medium",tac:"exfiltration",tech:"T1048"},
+{t:"Linux SCP Data Exfiltration",p:"sigma",s:"low",tac:"exfiltration",tech:"T1048"},
+{t:"Exfil to Removable Media",p:"sigma",s:"low",tac:"exfiltration",tech:"T1052"},
+{t:"Scheduled Data Transfer",p:"sigma",s:"medium",tac:"exfiltration",tech:"T1029"},
+{t:"SMB Data Exfiltration",p:"sigma",s:"low",tac:"exfiltration",tech:"T1048"},
+// Sigma — Impact (13)
+{t:"Account Manipulation for Impact",p:"sigma",s:"medium",tac:"impact",tech:"T1531"},
+{t:"Boot Config Modification",p:"sigma",s:"high",tac:"impact",tech:"T1490"},
+{t:"Data Destruction Activity",p:"sigma",s:"medium",tac:"impact",tech:"T1485"},
+{t:"Database Destruction",p:"sigma",s:"medium",tac:"impact",tech:"T1485"},
+{t:"Web Defacement Detection",p:"sigma",s:"medium",tac:"impact",tech:"T1491"},
+{t:"Disk Wipe Activity",p:"sigma",s:"high",tac:"impact",tech:"T1561"},
+{t:"Firmware Corruption Attempt",p:"sigma",s:"critical",tac:"impact",tech:"T1495"},
+{t:"Linux Data Destruction",p:"sigma",s:"high",tac:"impact",tech:"T1485"},
+{t:"Network Denial of Service",p:"sigma",s:"high",tac:"impact",tech:"T1498"},
+{t:"Ransomware File Encryption",p:"sigma",s:"critical",tac:"impact",tech:"T1486"},
+{t:"Resource Hijacking / Cryptomining",p:"sigma",s:"high",tac:"impact",tech:"T1496"},
+{t:"Critical Service Stop",p:"sigma",s:"high",tac:"impact",tech:"T1489"},
+{t:"Volume Shadow Copy Deletion",p:"sigma",s:"high",tac:"impact",tech:"T1490"},
+// Sigma — Lateral Movement (10)
+{t:"DCOM Lateral Movement",p:"sigma",s:"medium",tac:"lateral-movement",tech:"T1021"},
+{t:"Pass-the-Hash Detection",p:"sigma",s:"medium",tac:"lateral-movement",tech:"T1550"},
+{t:"PsExec Service Installation",p:"sigma",s:"medium",tac:"lateral-movement",tech:"T1021"},
+{t:"Suspicious RDP Logon",p:"sigma",s:"low",tac:"lateral-movement",tech:"T1021"},
+{t:"Remote File Copy via SMB",p:"sigma",s:"low",tac:"lateral-movement",tech:"T1570"},
+{t:"Remote Service Creation",p:"sigma",s:"medium",tac:"lateral-movement",tech:"T1021"},
+{t:"Suspicious SSH Connection",p:"sigma",s:"low",tac:"lateral-movement",tech:"T1021"},
+{t:"Windows Admin Share Access",p:"sigma",s:"low",tac:"lateral-movement",tech:"T1021"},
+{t:"WinRM Lateral Movement",p:"sigma",s:"low",tac:"lateral-movement",tech:"T1021"},
+{t:"WMI Remote Process Execution",p:"sigma",s:"medium",tac:"lateral-movement",tech:"T1047"},
+// Sigma — Persistence (11)
+{t:"BITS Job Persistence",p:"sigma",s:"medium",tac:"persistence",tech:"T1197"},
+{t:"Linux Shell Profile Modification",p:"sigma",s:"low",tac:"persistence",tech:"T1546"},
+{t:"Linux Cron Job Persistence",p:"sigma",s:"medium",tac:"persistence",tech:"T1053"},
+{t:"Suspicious Systemd Service",p:"sigma",s:"medium",tac:"persistence",tech:"T1543"},
+{t:"Suspicious Windows Service",p:"sigma",s:"medium",tac:"persistence",tech:"T1543"},
+{t:"Office Add-in Persistence",p:"sigma",s:"medium",tac:"persistence",tech:"T1137"},
+{t:"Registry Run Key Persistence",p:"sigma",s:"high",tac:"persistence",tech:"T1547"},
+{t:"Suspicious Scheduled Task Creation",p:"sigma",s:"medium",tac:"persistence",tech:"T1053"},
+{t:"Screensaver Registry Modification",p:"sigma",s:"medium",tac:"persistence",tech:"T1546"},
+{t:"Startup Folder File Creation",p:"sigma",s:"medium",tac:"persistence",tech:"T1547"},
+{t:"WMI Event Subscription",p:"sigma",s:"high",tac:"persistence",tech:"T1546"},
+// Sigma — Privilege Escalation (10)
+{t:"AlwaysInstallElevated Abuse",p:"sigma",s:"high",tac:"privilege-escalation",tech:"T1548"},
+{t:"UAC Bypass via Event Viewer",p:"sigma",s:"high",tac:"privilege-escalation",tech:"T1548"},
+{t:"Suspicious Kernel Module Load",p:"sigma",s:"medium",tac:"privilege-escalation",tech:"T1547"},
+{t:"Named Pipe Impersonation",p:"sigma",s:"high",tac:"privilege-escalation",tech:"T1134"},
+{t:"Print Spooler Priv Esc",p:"sigma",s:"high",tac:"privilege-escalation",tech:"T1068"},
+{t:"RunAs Command Execution",p:"sigma",s:"low",tac:"privilege-escalation",tech:"T1134"},
+{t:"Suspicious Sudo Execution",p:"sigma",s:"medium",tac:"privilege-escalation",tech:"T1548"},
+{t:"Suspicious SUID Binary",p:"sigma",s:"medium",tac:"privilege-escalation",tech:"T1548"},
+{t:"Token Manipulation Detection",p:"sigma",s:"medium",tac:"privilege-escalation",tech:"T1134"},
+{t:"UAC Bypass via Fodhelper",p:"sigma",s:"high",tac:"privilege-escalation",tech:"T1548"},
+// Wazuh (28 rule blocks across 24 files)
+{t:"File Integrity \u2014 Critical System",p:"wazuh",s:"high",tac:"defense-evasion",tech:"T1565"},
+{t:"Rootkit Detection",p:"wazuh",s:"critical",tac:"defense-evasion",tech:"T1014"},
+{t:"Web Attack \u2014 SQL Injection",p:"wazuh",s:"high",tac:"initial-access",tech:"T1190"},
+{t:"Malware Detection (VirusTotal)",p:"wazuh",s:"critical",tac:"execution",tech:"T1204"},
+{t:"Process Anomaly Detection",p:"wazuh",s:"medium",tac:"defense-evasion",tech:"T1055"},
+{t:"Windows Defender Disabled",p:"wazuh",s:"high",tac:"defense-evasion",tech:"T1562"},
+{t:"Suspicious PowerShell Download",p:"wazuh",s:"high",tac:"execution",tech:"T1059"},
+{t:"New Service Creation",p:"wazuh",s:"medium",tac:"persistence",tech:"T1543"},
+{t:"Unauthorized Privileged Account Use",p:"wazuh",s:"high",tac:"privilege-escalation",tech:"T1078"},
+{t:"Port Scan Detection",p:"wazuh",s:"medium",tac:"discovery",tech:"T1046"},
+{t:"File Encryption \u2014 Ransomware",p:"wazuh",s:"critical",tac:"impact",tech:"T1486"},
+{t:"Data Exfiltration Detection",p:"wazuh",s:"high",tac:"exfiltration",tech:"T1048"},
+{t:"Impossible Travel Detection",p:"wazuh",s:"medium",tac:"credential-access",tech:"T1078"},
+{t:"AWS S3 Bucket Public Exposure",p:"wazuh",s:"high",tac:"collection",tech:"T1530"},
+{t:"Suspicious Sudo/Password Change",p:"wazuh",s:"medium",tac:"privilege-escalation",tech:"T1548"},
+{t:"DNS Tunneling Detection",p:"wazuh",s:"medium",tac:"exfiltration",tech:"T1048"},
+{t:"Suspicious Scheduled Task (XML)",p:"wazuh",s:"medium",tac:"persistence",tech:"T1053"},
+{t:"Lateral Movement \u2014 PsExec",p:"wazuh",s:"high",tac:"lateral-movement",tech:"T1021"},
+{t:"Registry Autorun Modification",p:"wazuh",s:"high",tac:"persistence",tech:"T1547"},
+{t:"Suspicious WMI Process Creation",p:"wazuh",s:"medium",tac:"execution",tech:"T1047"},
+{t:"Kerberoasting Detection",p:"wazuh",s:"high",tac:"credential-access",tech:"T1558"},
+{t:"Suspicious Network Share Access",p:"wazuh",s:"medium",tac:"lateral-movement",tech:"T1021"},
+{t:"Container Escape Attempt",p:"wazuh",s:"critical",tac:"privilege-escalation",tech:"T1611"},
+{t:"Credential Dumping \u2014 Comsvcs",p:"wazuh",s:"critical",tac:"credential-access",tech:"T1003"},
+// Additional Wazuh rule blocks (4 files have 2 blocks each)
+{t:"Brute Force \u2014 SSH",p:"wazuh",s:"medium",tac:"credential-access",tech:"T1110"},
+{t:"Brute Force \u2014 RDP",p:"wazuh",s:"medium",tac:"credential-access",tech:"T1110"},
+{t:"Log Tampering Detection",p:"wazuh",s:"high",tac:"defense-evasion",tech:"T1070"},
+{t:"Suspicious Cron Modification",p:"wazuh",s:"medium",tac:"persistence",tech:"T1053"},
+// Splunk SPL (9 queries)
+{t:"Execution Detections",p:"splunk",s:"medium",tac:"execution",tech:"T1059"},
+{t:"Persistence Detections",p:"splunk",s:"medium",tac:"persistence",tech:"T1547"},
+{t:"Privilege Escalation Detections",p:"splunk",s:"medium",tac:"privilege-escalation",tech:"T1548"},
+{t:"Defense Evasion Detections",p:"splunk",s:"medium",tac:"defense-evasion",tech:"T1070"},
+{t:"Credential Access Detections",p:"splunk",s:"medium",tac:"credential-access",tech:"T1003"},
+{t:"Discovery Detections",p:"splunk",s:"low",tac:"discovery",tech:"T1087"},
+{t:"Lateral Movement Detections",p:"splunk",s:"medium",tac:"lateral-movement",tech:"T1021"},
+{t:"Collection/Exfil/Impact",p:"splunk",s:"medium",tac:"collection",tech:"T1560"},
+{t:"Windows Security EventLog",p:"splunk",s:"medium",tac:"defense-evasion",tech:"T1070"},
+// IR Playbooks (10)
+{t:"IR-001: LSASS Access Response",p:"ir",s:"critical",tac:"credential-access",tech:"T1003"},
+{t:"IR-002: Suspicious PowerShell",p:"ir",s:"high",tac:"execution",tech:"T1059"},
+{t:"IR-003: Ransomware Detected",p:"ir",s:"critical",tac:"impact",tech:"T1486"},
+{t:"IR-004: Brute Force Response",p:"ir",s:"medium",tac:"credential-access",tech:"T1110"},
+{t:"IR-005: Malware Response",p:"ir",s:"high",tac:"execution",tech:"T1204"},
+{t:"IR-006: Privilege Escalation",p:"ir",s:"high",tac:"privilege-escalation",tech:"T1068"},
+{t:"IR-007: AD Compromise",p:"ir",s:"critical",tac:"credential-access",tech:"T1003"},
+{t:"IR-008: Lateral Movement",p:"ir",s:"high",tac:"lateral-movement",tech:"T1021"},
+{t:"IR-015: Exfiltration Response",p:"ir",s:"high",tac:"exfiltration",tech:"T1048"},
+{t:"IR-022: Supply Chain Response",p:"ir",s:"critical",tac:"initial-access",tech:"T1195"}
+];
+
+// Render grid
+var grid=document.getElementById('detGrid');
+function renderCards(list){
+  grid.innerHTML='';
+  list.forEach(function(d){
+    var card=document.createElement('div');
+    card.className='det-card';
+    card.setAttribute('data-platform',d.p);
+    card.setAttribute('data-tactic',d.tac);
+    card.setAttribute('data-severity',d.s);
+    card.innerHTML='<div class="dtitle">'+d.t+'</div><div class="dmeta"><span class="dtag '+d.p+'">'+d.p+'</span><span class="dtag sev-'+d.s+'">'+d.s+'</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">'+d.tech+'</span></div><div class="dtactic">'+d.tac.replace(/-/g,' ')+'</div>';
+    grid.appendChild(card);
+  });
+}
+renderCards(DETECTIONS);
+
+// Filter
+var activeFilter='all';
+function filterDet(f){
+  activeFilter=f;
+  document.querySelectorAll('.fbtn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-filter')===f);});
+  applyFilters();
+}
+document.getElementById('detSearch').addEventListener('input',function(){applyFilters();});
+function applyFilters(){
+  var q=document.getElementById('detSearch').value.toLowerCase();
+  var shown=0;
+  var cards=grid.querySelectorAll('.det-card');
+  cards.forEach(function(c){
+    var matchPlatform=activeFilter==='all'||c.getAttribute('data-platform')===activeFilter;
+    var matchSearch=!q||c.textContent.toLowerCase().indexOf(q)!==-1;
+    var vis=matchPlatform&&matchSearch;
+    c.hidden=!vis;
+    if(vis)shown++;
+  });
+  document.getElementById('filterCount').textContent=shown+' shown';
+}
+// Set "all" active on load
+document.querySelector('.fbtn[data-filter="all"]').classList.add('active');
+</script>
+
 <script src="/assets/fetch-utils.js" defer></script>
 <script src="/data/counts.js" defer></script>
 <script src="/assets/app.js" defer></script>
-<script type="module" src="/assets/portfolio-data.js"></script>
 <div id="tsparticles"></div>
 <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
