@@ -26,8 +26,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <script>document.documentElement.setAttribute('data-theme','dark');</script>
 <link rel="stylesheet" href="/assets/styles.css">
-<link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
-<link rel="stylesheet" href="/assets/coherence.css?v=03-15-2026-3">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 <style>
 body {
   background:
@@ -172,6 +172,100 @@ body {
           <span class="cs-card-tag orange">PowerShell bug</span>
           <span class="cs-card-tag green">EXIT=0</span>
           <span class="cs-card-tag teal">POINTS_RENDERED=30</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+    </div>
+
+    <div class="cs-section-label">Detection &amp; Response</div>
+    <div class="cs-index-grid">
+
+      <a class="cs-card" href="/case-study-sigma-library">
+        <div class="cs-card-type">Detection Engineering</div>
+        <div class="cs-card-title">Sigma Detection Library</div>
+        <div class="cs-card-desc">Platform-agnostic ATT&amp;CK coverage: logsource schema, false positive filters, technique tagging, and multi-platform portability across 103 Sigma rules.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag teal">103 Sigma rules</span>
+          <span class="cs-card-tag">MITRE ATT&amp;CK</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+      <a class="cs-card" href="/case-study-detection-harness">
+        <div class="cs-card-type">Detection Validation</div>
+        <div class="cs-card-title">Wazuh Detection Harness</div>
+        <div class="cs-card-desc">Python harness querying Wazuh Indexer REST API after Atomic Red Team tests. Pass/fail reports per ATT&amp;CK technique with evidence artifacts.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag teal">Atomic Red Team</span>
+          <span class="cs-card-tag green">Automated validation</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+      <a class="cs-card" href="/case-study-ir-playbooks">
+        <div class="cs-card-type">Incident Response</div>
+        <div class="cs-card-title">IR Playbook Library</div>
+        <div class="cs-card-desc">10 structured analyst playbooks built around a 7-section template: from alert detection to documentation, with escalation logic and MITRE ATT&amp;CK coverage.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag">10 playbooks</span>
+          <span class="cs-card-tag teal">7-step template</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+      <a class="cs-card" href="/case-study-ir-howe01">
+        <div class="cs-card-type">Incident Response</div>
+        <div class="cs-card-title">IR Case: Level 12 FIM Alert</div>
+        <div class="cs-card-desc">Full IR lifecycle on a Level 12 Wazuh FIM alert. Triaged and closed as BENIGN in 35 minutes. Evidence trail, PowerShell validation, and rule-tuning recommendations.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag orange">Level 12</span>
+          <span class="cs-card-tag green">BENIGN in 35 min</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+      <a class="cs-card" href="/case-study-splunk-codex-hunt">
+        <div class="cs-card-type">Threat Hunting</div>
+        <div class="cs-card-title">When AI Tooling Looks Like a LOLBin</div>
+        <div class="cs-card-desc">Live Splunk hunt on EventID 4688: codex.exe spawning pwsh.exe 375x per session &mdash; indistinguishable from LOLBin abuse until parent process path told the real story.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag orange">pwsh.exe 375x</span>
+          <span class="cs-card-tag teal">Splunk hunt</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+      <a class="cs-card" href="/case-study-cve-patch">
+        <div class="cs-card-type">Vulnerability Response</div>
+        <div class="cs-card-title">CVE-2025-55130: Detect to Remediation</div>
+        <div class="cs-card-desc">Critical Node.js CVE detected by Wazuh during live monitoring, triaged, patched via winget, and verified closed. Full detect-to-remediation cycle with evidence.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag red">CVE-2025-55130</span>
+          <span class="cs-card-tag green">Patched + verified</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+      <a class="cs-card" href="/case-study-soc-integration">
+        <div class="cs-card-type">SOC Operations</div>
+        <div class="cs-card-title">PP_SOC Integration: Live Detection Workflow</div>
+        <div class="cs-card-desc">Wazuh rules deployed into a live SOC workflow: active agent coverage, 15,052 alerts in 24h, CVE remediation verified. Evidence-first approach.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag">15,052 alerts/24h</span>
+          <span class="cs-card-tag teal">Live workflow</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+      <a class="cs-card" href="/case-study-honeypot">
+        <div class="cs-card-type">Lab Infrastructure</div>
+        <div class="cs-card-title">Cowrie Honeypot + Wazuh + Grafana</div>
+        <div class="cs-card-desc">Docker-based SSH/Telnet honeypot feeding Wazuh Indexer with a Grafana dashboard for attacker session visualization. LAN-only, auditable deployment.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag teal">Cowrie SSH</span>
+          <span class="cs-card-tag">Grafana</span>
+          <span class="cs-card-tag">Docker</span>
         </div>
         <div class="cs-card-arrow">Read &rarr;</div>
       </a>
