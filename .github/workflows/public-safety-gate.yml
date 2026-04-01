@@ -35,6 +35,6 @@ jobs:
       - name: Run public safety scan
         shell: pwsh
         run: |
-          pwsh -NoProfile -File ".\scripts\verify\public-safety-scan.ps1"
+          pwsh -NoProfile -File "./scripts/verify/public-safety-scan.ps1"
 
 
