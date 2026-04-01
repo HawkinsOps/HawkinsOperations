@@ -20,7 +20,7 @@ This repo is the portfolio artifact for that work: detection content, IR playboo
 
 ---
 
-## Latest update (03-24-2026)
+## Latest update (03-31-2026)
 
 Canonical metrics locked and all proof artifacts refreshed:
 

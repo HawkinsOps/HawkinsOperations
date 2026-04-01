@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Enterprise Security Hardening — Audit Policy Baseline Assessment | HawkinsOps</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07070b">
+<meta name="description" content="Case study: Windows audit policy baseline assessment against Microsoft Security Baseline. 27 subcategories audited, 11 MITRE ATT&CK techniques unblocked, zero regressions.">
+<link rel="canonical" href="https://hawkinsops.com/case-study-security-hardening">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Enterprise Security Hardening — Audit Policy Baseline | HawkinsOps">
+<meta property="og:description" content="27 subcategories audited against Microsoft baseline. 11 MITRE ATT&CK techniques unblocked. Zero regressions. CommandLine logging enabled. Security log expanded 20MB to 1GB.">
+<meta property="og:url" content="https://hawkinsops.com/case-study-security-hardening">
+<meta property="og:image" content="https://hawkinsops.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Enterprise Security Hardening — Audit Policy Baseline | HawkinsOps">
+<meta name="twitter:description" content="27 subcategories audited against Microsoft baseline. 11 ATT&CK techniques unblocked. Zero regressions.">
+<meta name="twitter:image" content="https://hawkinsops.com/assets/og-image.png">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.setAttribute('data-theme','dark');</script>
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
+<style>
+body {
+  background:
+    radial-gradient(ellipse 100% 55% at 0% 0%,rgba(41,121,200,0.09) 0%,transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 100%,rgba(0,196,212,0.07) 0%,transparent 55%),
+    #03060b !important;
+}
+.cs-meta { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 0; }
+.cs-meta-tag {
+  padding:3px 12px; border-radius:20px; font-size:10px; font-weight:700;
+  font-family:'JetBrains Mono',monospace; letter-spacing:.5px;
+  background:rgba(41,121,200,.1); color:#6aaad8; border:1px solid rgba(41,121,200,.2);
+}
+.cs-meta-tag.green { background:rgba(39,201,122,.1); color:#27c97a; border-color:rgba(39,201,122,.2); }
+.cs-meta-tag.teal  { background:rgba(0,196,212,.1);  color:#00c4d4; border-color:rgba(0,196,212,.2); }
+.cs-meta-tag.orange { background:rgba(232,160,32,.1); color:#e8a020; border-color:rgba(232,160,32,.2); }
+.cs-prose { max-width:740px; }
+.cs-prose p { margin:0 0 16px; line-height:1.75; color:#b8cce0; font-size:1rem; }
+.cs-prose h2 { font-size:1.25rem; color:#e0eeff; margin:36px 0 10px; font-family:'Sora',sans-serif; }
+.cs-prose h3 { font-size:1rem; color:#00c4d4; margin:24px 0 8px; font-weight:600; }
+.cs-prose strong { color:#e0eeff; }
+.cs-nav-back { font-size:.82rem; color:#486880; margin-bottom:24px; display:inline-block; }
+.cs-nav-back:hover { color:#00c4d4; }
+.outcome-bar {
+  border-left:3px solid #27c97a; padding:14px 18px; background:rgba(39,201,122,.05);
+  border-radius:0 6px 6px 0; margin:24px 0;
+}
+.outcome-bar p { margin:0; color:#b8cce0; line-height:1.7; }
+.outcome-bar strong { color:#27c97a; }
+.kpi-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; margin:20px 0; }
+.kpi-box { padding:16px; text-align:center; border:1px solid rgba(122,184,255,.08); border-radius:4px; background:rgba(17,24,39,.4); }
+.kpi-val { font-family:'JetBrains Mono',monospace; font-size:1.4rem; font-weight:700; color:#4ade80; }
+.kpi-val.blue { color:#7ab8ff; }
+.kpi-val.teal { color:#00c4d4; }
+.kpi-lbl { font-size:0.65rem; text-transform:uppercase; letter-spacing:0.06em; color:#7a94aa; margin-top:4px; }
+.technique-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:0.85rem; }
+.technique-table th { text-align:left; padding:8px 10px; border-bottom:1px solid rgba(122,184,255,.15); font-family:'JetBrains Mono',monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; color:#7ab8ff; }
+.technique-table td { padding:8px 10px; border-bottom:1px solid rgba(122,184,255,.04); color:#b8cce0; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+</head>
+<body data-ops-scope="stable">
+<nav>
+  <div class="nav-i">
+    <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
+    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
+    <ul class="nav-l">
+      <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/detections">Detections</a></li>
+      <li><a href="/resume">Resume</a></li>
+    </ul>
+    <a class="btn btn-p nav-cta" href="/resume">Resume</a>
+  </div>
+</nav>
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+  <a href="/">Home</a>
+  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
+  <a href="/proof">Proof</a>
+  <a href="/detections">Detections</a>
+  <a href="/resume">Resume</a>
+</div>
+
+<main class="modernize-shell">
+<section class="m-section" data-aos="fade-up" style="padding-top:96px;">
+  <div class="m-wrap">
+    <a class="cs-nav-back" href="/case-studies">&larr; All case studies</a>
+    <div class="m-eyebrow">Case Study &mdash; Security Hardening</div>
+    <h1 class="m-title" style="font-size:clamp(2rem,3.5vw,3.2rem);max-width:820px;">
+      Enterprise Security Hardening
+    </h1>
+    <p class="m-subtitle" style="max-width:680px;">Windows Advanced Audit Policy baseline assessment against Microsoft Security Baseline. 27 subcategories audited. 11 ATT&amp;CK techniques unblocked. Zero regressions.</p>
+    <div class="cs-meta">
+      <span class="cs-meta-tag">2026-03-29</span>
+      <span class="cs-meta-tag teal">Audit policy</span>
+      <span class="cs-meta-tag teal">Microsoft baseline</span>
+      <span class="cs-meta-tag orange">MITRE ATT&amp;CK</span>
+      <span class="cs-meta-tag green">0 regressions</span>
+    </div>
+  </div>
+</section>
+
+<section class="m-section m-stage" data-aos="fade-up">
+  <div class="m-wrap">
+    <div class="m-wrap m-rail-layout">
+      <div class="cs-prose">
+
+        <h2>Problem / Hypothesis</h2>
+        <p>A structured Splunk threat hunt across 283,976 Windows Security events had identified critical audit gaps &mdash; command-line logging disabled, zero failed logon events, no NTLM credential validation telemetry. But closing individual gaps is not the same as having a defensible baseline.</p>
+        <p>The hypothesis: a systematic subcategory-by-subcategory audit against the Microsoft Security Baseline would reveal the full scope of what was configured, what was missing, and what I had already hardened beyond the baseline.</p>
+
+        <h2>Environment</h2>
+        <p>Windows 11 Enterprise, domain-joined. Domain controller dc01 (Active Directory). Tools: <span class="m-inline-code">auditpol /get /category:*</span>, <span class="m-inline-code">wevtutil</span>, PowerShell registry operations. Pipeline: Windows Security Log &rarr; Wazuh Agent &rarr; Wazuh Manager &rarr; Splunk / OpenSearch &rarr; Grafana.</p>
+
+        <h2>Methodology</h2>
+        <h3>Step 1 &mdash; Capture before-state snapshot</h3>
+        <p>Full Advanced Audit Policy exported in three formats: plain text, CSV, and Local Security Policy export. This is the documented baseline &mdash; everything that follows is diffed against it.</p>
+
+        <h3>Step 2 &mdash; Map against Microsoft Security Baseline</h3>
+        <p>All 27 audit subcategories compared against Microsoft-recommended settings. For each: current state, baseline recommendation, and delta classification (match, superset, gap, or hardened-beyond).</p>
+
+        <h3>Step 3 &mdash; Enable subcategories</h3>
+        <p>Each subcategory enabled for both Success and Failure, with documented justification mapping to detection capability and MITRE ATT&amp;CK technique.</p>
+
+        <h3>Step 4 &mdash; Enable command-line logging</h3>
+        <p>Registry key <span class="m-inline-code">ProcessCreationIncludeCmdLine_Enabled = 1</span> set. The single highest-priority gap from the threat hunt &mdash; the fix that unlocks triage of every process creation event.</p>
+
+        <h3>Step 5 &mdash; Expand Security Event Log</h3>
+        <p>Default 20MB fills in hours with 27 subcategories active. Expanded to 1GB via <span class="m-inline-code">wevtutil sl Security /ms:1073741824</span>.</p>
+
+        <h3>Step 6 &mdash; After snapshot and diff</h3>
+        <p>After snapshot captured. Diff report generated as markdown table showing every subcategory change.</p>
+
+        <h2>Findings</h2>
+
+        <div class="kpi-grid">
+          <div class="kpi-box"><div class="kpi-val blue">27</div><div class="kpi-lbl">Subcategories assessed</div></div>
+          <div class="kpi-box"><div class="kpi-val">14</div><div class="kpi-lbl">Matched baseline</div></div>
+          <div class="kpi-box"><div class="kpi-val teal">9</div><div class="kpi-lbl">Superset</div></div>
+          <div class="kpi-box"><div class="kpi-val">12</div><div class="kpi-lbl">Hardened beyond</div></div>
+          <div class="kpi-box"><div class="kpi-val">0</div><div class="kpi-lbl">Regressions</div></div>
+          <div class="kpi-box"><div class="kpi-val" style="color:#fbbf24;">11</div><div class="kpi-lbl">ATT&amp;CK techniques unblocked</div></div>
+        </div>
+
+        <h3>MITRE ATT&amp;CK Techniques Unblocked</h3>
+        <table class="technique-table">
+          <thead><tr><th>Technique</th><th>ID</th><th>Enabling Subcategory</th></tr></thead>
+          <tbody>
+            <tr><td>Brute Force</td><td>T1110</td><td>Credential Validation</td></tr>
+            <tr><td>Golden Ticket / AS-REP Roasting</td><td>T1558</td><td>Kerberos Auth Service</td></tr>
+            <tr><td>Kerberoasting</td><td>T1558.003</td><td>Kerberos Service Ticket Ops</td></tr>
+            <tr><td>Account Manipulation</td><td>T1098</td><td>Security Group Mgmt</td></tr>
+            <tr><td>Create Account</td><td>T1136</td><td>User Account Mgmt</td></tr>
+            <tr><td>Windows Credential Manager</td><td>T1555.004</td><td>DPAPI Activity</td></tr>
+            <tr><td>Removable Media</td><td>T1091</td><td>Plug and Play Events</td></tr>
+            <tr><td>Data from Local System</td><td>T1005</td><td>File System</td></tr>
+            <tr><td>Run Keys / SAM Dumping</td><td>T1547.001</td><td>Registry, SAM</td></tr>
+            <tr><td>Exfil over USB</td><td>T1052.001</td><td>Removable Storage</td></tr>
+            <tr><td>Disable Event Logging</td><td>T1562.002</td><td>Audit Policy Change</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Command-Line Logging</h3>
+        <div class="m-terminal" style="margin:20px 0;">
+          <div class="m-terminal-head">
+            <span class="m-terminal-label">Before / After</span>
+            <span class="m-frame-tag">4688</span>
+          </div>
+          <pre class="m-code">BEFORE: EventID 4688 CommandLine = [EMPTY in 100% of events]
+AFTER:  EventID 4688 CommandLine = populated with full arguments</pre>
+        </div>
+
+        <h3>Security Log Expansion</h3>
+        <div class="m-terminal" style="margin:20px 0;">
+          <div class="m-terminal-head">
+            <span class="m-terminal-label">Log size change</span>
+            <span class="m-frame-tag">50x</span>
+          </div>
+          <pre class="m-code">BEFORE: 20 MB (default)
+AFTER:  1 GB (1,073,741,824 bytes)</pre>
+        </div>
+
+        <h3>Self-Detection</h3>
+        <p>Event ID 4719 (Audit Policy Change) fired immediately after the hardening changes. The hardening activity was captured by the same pipeline being hardened. Any future attempt to weaken auditing generates the same event class.</p>
+
+        <h2>Operational Impact</h2>
+        <div class="outcome-bar">
+          <p><strong>Gaps closed:</strong> bash &rarr; base64 pattern (30,855 hits) now includes full command-line arguments. Browser &rarr; shell spawning (59 hits) can be classified. Failed logon visibility established. NTLM credential validation captured. Meta-detection via 4719 operational.</p>
+        </div>
+
+        <h2>Verification</h2>
+        <ul style="color:#b8cce0;line-height:1.8;padding-left:20px;">
+          <li><strong>Before/after exports:</strong> Plain text, CSV, and Local Security Policy at <span class="m-inline-code">C:\OPS\audit-hardening\</span></li>
+          <li><strong>CommandLine:</strong> <span class="m-inline-code">index=wazuh data.win.system.eventID=4688 | where len(commandLine)>0 | head 20</span></li>
+          <li><strong>Failed logon:</strong> <span class="m-inline-code">index=wazuh data.win.system.eventID=4625 | head 20</span></li>
+          <li><strong>Meta-detection:</strong> <span class="m-inline-code">index=wazuh data.win.system.eventID=4719</span></li>
+          <li><strong>Log size:</strong> <span class="m-inline-code">wevtutil gl Security</span> &mdash; <span class="m-inline-code">maxSize=1073741824</span></li>
+          <li><strong>Registry:</strong> <span class="m-inline-code">reg query "HKLM\SOFTWARE\...\Audit" /v ProcessCreationIncludeCmdLine_Enabled</span> &rarr; <span class="m-inline-code">0x1</span></li>
+        </ul>
+
+        <h2>What This Demonstrates</h2>
+        <p>Individual gap remediation is reactive. Baseline assessment is systematic. I did both.</p>
+        <p>The before/after snapshot discipline is borrowed from manufacturing process validation. You don&rsquo;t declare a changeover complete because you believe it worked. You declare it complete because you can show the documented delta between the before state and the after state, and verify the output changed.</p>
+
+      </div>
+
+      <aside class="m-rail">
+        <section class="m-rail-section">
+          <div class="m-card-kicker" data-aos="fade-up">At a glance</div>
+          <h2>Results</h2>
+          <ul class="m-list-tight">
+            <li>27 audit subcategories assessed</li>
+            <li>14 matched Microsoft baseline</li>
+            <li>9 configured as superset (S+F)</li>
+            <li>12 hardened beyond baseline</li>
+            <li><strong style="color:#4ade80;">0 regressions</strong></li>
+            <li>11 ATT&amp;CK techniques unblocked</li>
+            <li>CommandLine logging: <strong style="color:#4ade80;">enabled</strong></li>
+            <li>Security log: 20MB &rarr; <strong>1GB</strong></li>
+          </ul>
+        </section>
+        <section class="m-rail-section">
+          <div class="m-card-kicker" data-aos="fade-up">Related</div>
+          <h2>See also</h2>
+          <div class="m-link-list">
+            <a href="/case-study-splunk-detection-audit" class="m-link-item">
+              <strong>Splunk Detection Rule Audit</strong>
+              <span>The audit that triggered this hardening work.</span>
+            </a>
+            <a href="/case-study-threat-hunt-4688" class="m-link-item">
+              <strong>Live Splunk Threat Hunt</strong>
+              <span>EventID 4688 hunt across 283,976 events.</span>
+            </a>
+            <a href="/enterprise-security" class="m-link-item">
+              <strong>Enterprise Security page</strong>
+              <span>Full Phase 2 hardening with GPO deployment.</span>
+            </a>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="m-section m-stage" data-aos="fade-up">
+  <div class="m-wrap">
+    <div class="m-card" data-aos="fade-up">
+      <div class="m-card-kicker" data-aos="fade-up">Continue reading</div>
+      <h2>More case studies</h2>
+      <div class="m-grid-2">
+        <a href="/case-study-splunk-detection-audit" class="m-link-item">
+          <strong>Splunk Detection Rule Audit</strong>
+          <span>Four ways my own rules would flood a real analyst with noise. The audit that triggered this hardening.</span>
+        </a>
+        <a href="/case-study-pipeline-recovery" class="m-link-item">
+          <strong>Pipeline Fault Recovery</strong>
+          <span>Two independent defects diagnosed and fixed in one session. Pipeline restored to SUCCESS.</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="ctr">
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
+    <div class="fl">
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
+      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/fetch-utils.js" defer></script>
+<script src="/data/counts.js" defer></script>
+<script src="/data/ops-metrics.js" defer></script>
+<script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
+</body>
+</html>

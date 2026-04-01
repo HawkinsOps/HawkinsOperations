@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Live Splunk Threat Hunt — EventID 4688 Process Creation | HawkinsOps</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07070b">
+<meta name="description" content="Case study: rex-based field extraction built from scratch, parent-process exclusion logic, Codex AI tool spawning pwsh.exe 375x correctly classified as tool behavior vs LOLBin abuse.">
+<link rel="canonical" href="https://hawkinsops.com/case-study-threat-hunt-4688">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Live Splunk Threat Hunt — EventID 4688 | HawkinsOps">
+<meta property="og:description" content="Rex-based extraction, parent-process exclusion, Codex AI spawning pwsh.exe 375x — classified as tool behavior, not LOLBin abuse.">
+<meta property="og:url" content="https://hawkinsops.com/case-study-threat-hunt-4688">
+<meta property="og:image" content="https://hawkinsops.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Live Splunk Threat Hunt — EventID 4688 | HawkinsOps">
+<meta name="twitter:description" content="Rex-based extraction, parent-process exclusion, Codex AI spawning pwsh.exe 375x — classified as tool behavior.">
+<meta name="twitter:image" content="https://hawkinsops.com/assets/og-image.png">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.setAttribute('data-theme','dark');</script>
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
+<style>
+body {
+  background:
+    radial-gradient(ellipse 100% 55% at 0% 0%,rgba(41,121,200,0.09) 0%,transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 100%,rgba(0,196,212,0.07) 0%,transparent 55%),
+    #03060b !important;
+}
+.cs-meta { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 0; }
+.cs-meta-tag {
+  padding:3px 12px; border-radius:20px; font-size:10px; font-weight:700;
+  font-family:'JetBrains Mono',monospace; letter-spacing:.5px;
+  background:rgba(41,121,200,.1); color:#6aaad8; border:1px solid rgba(41,121,200,.2);
+}
+.cs-meta-tag.green { background:rgba(39,201,122,.1); color:#27c97a; border-color:rgba(39,201,122,.2); }
+.cs-meta-tag.teal  { background:rgba(0,196,212,.1);  color:#00c4d4; border-color:rgba(0,196,212,.2); }
+.cs-meta-tag.orange { background:rgba(232,160,32,.1); color:#e8a020; border-color:rgba(232,160,32,.2); }
+.cs-prose { max-width:740px; }
+.cs-prose p { margin:0 0 16px; line-height:1.75; color:#b8cce0; font-size:1rem; }
+.cs-prose h2 { font-size:1.25rem; color:#e0eeff; margin:36px 0 10px; font-family:'Sora',sans-serif; }
+.cs-prose h3 { font-size:1rem; color:#00c4d4; margin:24px 0 8px; font-weight:600; }
+.cs-prose strong { color:#e0eeff; }
+.cs-nav-back { font-size:.82rem; color:#486880; margin-bottom:24px; display:inline-block; }
+.cs-nav-back:hover { color:#00c4d4; }
+.outcome-bar {
+  border-left:3px solid #27c97a; padding:14px 18px; background:rgba(39,201,122,.05);
+  border-radius:0 6px 6px 0; margin:24px 0;
+}
+.outcome-bar p { margin:0; color:#b8cce0; line-height:1.7; }
+.outcome-bar strong { color:#27c97a; }
+.finding-bar {
+  border-left:3px solid #fbbf24; padding:14px 18px; background:rgba(251,191,36,.05);
+  border-radius:0 6px 6px 0; margin:16px 0;
+}
+.finding-bar p { margin:0; color:#b8cce0; line-height:1.7; }
+.finding-bar strong { color:#fbbf24; }
+.finding-bar.resolved { border-left-color:#4ade80; background:rgba(74,222,128,.05); }
+.finding-bar.resolved strong { color:#4ade80; }
+.findings-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:0.85rem; }
+.findings-table th { text-align:left; padding:8px 10px; border-bottom:1px solid rgba(122,184,255,.15); font-family:'JetBrains Mono',monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; color:#7ab8ff; }
+.findings-table td { padding:8px 10px; border-bottom:1px solid rgba(122,184,255,.04); color:#b8cce0; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+</head>
+<body data-ops-scope="stable">
+<nav>
+  <div class="nav-i">
+    <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
+    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
+    <ul class="nav-l">
+      <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/detections">Detections</a></li>
+      <li><a href="/resume">Resume</a></li>
+    </ul>
+    <a class="btn btn-p nav-cta" href="/resume">Resume</a>
+  </div>
+</nav>
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+  <a href="/">Home</a>
+  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
+  <a href="/proof">Proof</a>
+  <a href="/detections">Detections</a>
+  <a href="/resume">Resume</a>
+</div>
+
+<main class="modernize-shell">
+<section class="m-section" data-aos="fade-up" style="padding-top:96px;">
+  <div class="m-wrap">
+    <a class="cs-nav-back" href="/case-studies">&larr; All case studies</a>
+    <div class="m-eyebrow">Case Study &mdash; Threat Hunting</div>
+    <h1 class="m-title" style="font-size:clamp(2rem,3.5vw,3.2rem);max-width:820px;">
+      Live Splunk Threat Hunt: EventID 4688
+    </h1>
+    <p class="m-subtitle" style="max-width:680px;">Rex-based field extraction built from scratch, parent-process exclusion logic, and Codex AI tool spawning pwsh.exe 375x &mdash; correctly classified as tool behavior vs LOLBin abuse.</p>
+    <div class="cs-meta">
+      <span class="cs-meta-tag">2026-03-24</span>
+      <span class="cs-meta-tag teal">Threat hunting</span>
+      <span class="cs-meta-tag teal">EventID 4688</span>
+      <span class="cs-meta-tag orange">Rex extraction</span>
+      <span class="cs-meta-tag green">375x classified</span>
+    </div>
+  </div>
+</section>
+
+<section class="m-section m-stage" data-aos="fade-up">
+  <div class="m-wrap">
+    <div class="m-wrap m-rail-layout">
+      <div class="cs-prose">
+
+        <h2>Problem / Hypothesis</h2>
+        <p>Event ID 4688 (Process Creation) is one of the highest-volume Windows Security events and one of the most valuable for behavioral detection. In a constrained Splunk environment &mdash; single sourcetype, no Windows TA, no CIM fields &mdash; the question was whether meaningful threat hunting could be conducted using only manual field extraction against raw XML.</p>
+        <p>The hypothesis: with <span class="m-inline-code">rex</span>-based extraction and parent-process chain analysis built from scratch, I could surface anomalous process behavior in live endpoint telemetry and distinguish genuine threats from tool behavior.</p>
+
+        <h2>Environment</h2>
+        <p>Splunk Enterprise, REST API on port 8089. Single Windows 11 workstation (HO-WE-01).
+7-day window, ~283k security events. Sourcetype: <span class="m-inline-code">XmlWinEventLog:Security</span>. All field extraction via manual <span class="m-inline-code">rex</span>. CommandLine field empty (auditing not yet enabled at time of hunt).</p>
+
+        <h2>Methodology</h2>
+        <h3>Step 1 &mdash; Build the field extraction layer</h3>
+        <p>Every field extracted from raw XML via <span class="m-inline-code">rex</span>:</p>
+        <div class="m-terminal" style="margin:20px 0;">
+          <div class="m-terminal-head">
+            <span class="m-terminal-label">Rex extraction patterns</span>
+            <span class="m-frame-tag">SPL</span>
+          </div>
+          <pre class="m-code">| rex field=_raw "&lt;Data Name='NewProcessName'&gt;(?&lt;NewProcessName&gt;[^&lt;]+)&lt;/Data&gt;"
+| rex field=_raw "&lt;Data Name='ParentProcessName'&gt;(?&lt;ParentProcessName&gt;[^&lt;]+)&lt;/Data&gt;"
+| rex field=_raw "&lt;Data Name='CommandLine'&gt;(?&lt;CommandLine&gt;[^&lt;]+)&lt;/Data&gt;"
+| eval process=mvindex(split(NewProcessName,"\\"),-1)
+| eval parent=mvindex(split(ParentProcessName,"\\"),-1)</pre>
+        </div>
+
+        <h3>Step 2 &mdash; Baseline parent-child relationships</h3>
+        <p>Full parent &rarr; child frequency analysis across the 7-day window. Top entries: <span class="m-inline-code">svchost.exe</span> spawning services, <span class="m-inline-code">explorer.exe</span> spawning applications, <span class="m-inline-code">RuntimeBroker.exe</span> lifecycle events.</p>
+
+        <h3>Step 3 &mdash; Build parent-process exclusion logic</h3>
+        <p>Exclusions were additive &mdash; each added only after verifying the parent-child pair was legitimate baseline behavior. Every exclusion documented with the volume it suppressed.</p>
+
+        <h3>Step 4 &mdash; Hunt for anomalies</h3>
+        <p>With baseline noise suppressed, the remaining events surfaced high-volume automated process chains and low-volume unusual parent-child pairs.</p>
+
+        <h3>Step 5 &mdash; Deep-dive the top anomaly</h3>
+        <p>Single highest-volume non-baseline finding: <span class="m-inline-code">pwsh.exe</span> spawned 375 times by a process chain originating from Codex, an AI coding tool.</p>
+
+        <h2>Findings</h2>
+
+        <div class="finding-bar resolved">
+          <p><strong>Finding 1: Codex &rarr; node.exe &rarr; pwsh.exe &mdash; 375 occurrences.</strong> Clustered during development hours (09:00&ndash;18:00). Zero off-hours activity. Consistent spawn intervals. <strong>Verdict: developer tool behavior, not LOLBin abuse.</strong> Baselined.</p>
+        </div>
+        <div class="finding-bar">
+          <p><strong>Finding 2: bash.exe &rarr; base64.exe &mdash; 30,855 occurrences.</strong> Highest-volume non-system process chain. Without CommandLine content, remains triage-worthy but unresolvable. Primary driver for enabling command-line auditing.</p>
+        </div>
+        <div class="finding-bar">
+          <p><strong>Finding 3: Browser &rarr; cmd.exe &mdash; 59 occurrences.</strong> chrome.exe and msedge.exe spawning cmd.exe. Correctly not suppressed by exclusion logic &mdash; browser &rarr; shell is never baseline. Without CommandLine, each requires manual triage.</p>
+        </div>
+
+        <table class="findings-table">
+          <thead><tr><th>Finding</th><th>Volume</th><th>Classification</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Codex &rarr; pwsh.exe</td><td>375</td><td style="color:#4ade80;">Tool behavior</td><td>Baselined</td></tr>
+            <tr><td>bash.exe &rarr; base64.exe</td><td>30,855</td><td style="color:#fbbf24;">Triage-worthy</td><td>Enable CommandLine</td></tr>
+            <tr><td>Browser &rarr; cmd.exe</td><td>59</td><td style="color:#fbbf24;">Triage-worthy</td><td>Enable CommandLine</td></tr>
+            <tr><td>Rex extraction (CommandLine)</td><td>100% null</td><td>Audit gap</td><td>Enable CommandLine</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Rex Extraction Validation</h3>
+        <p>Extraction success rate >99.9% for <span class="m-inline-code">NewProcessName</span> and <span class="m-inline-code">ParentProcessName</span>. CommandLine returned null in 100% of events &mdash; confirmed as audit configuration gap, not extraction failure.</p>
+
+        <h2>Operational Impact</h2>
+        <div class="outcome-bar">
+          <p><strong>Codex/pwsh.exe baselined</strong> &mdash; 375 events per week removed from future analyst queues. <strong>Parent-process exclusion methodology documented</strong> &mdash; reusable for new endpoints. <strong>CommandLine auditing gap confirmed as blocking</strong> &mdash; directly triggered Phase 1 audit policy hardening.</p>
+        </div>
+
+        <h2>Verification</h2>
+        <ul style="color:#b8cce0;line-height:1.8;padding-left:20px;">
+          <li><strong>All SPL queries reproducible</strong> against <span class="m-inline-code">index=wazuh</span> with <span class="m-inline-code">EventCode=4688</span></li>
+          <li><strong>Codex temporal profile:</strong> <span class="m-inline-code">| where match(NewProcessName, "pwsh\\.exe$") | timechart span=1h count</span></li>
+          <li><strong>Cross-reference:</strong> <a href="/case-study-splunk-detection-audit" style="color:#7ab8ff;">Detection Rule Audit</a> and <a href="/case-study-security-hardening" style="color:#7ab8ff;">Security Hardening</a> document downstream actions</li>
+        </ul>
+
+        <h2>What This Demonstrates</h2>
+        <p>Threat hunting on constrained telemetry is not an excuse for shallow analysis. The rex extraction layer achieved >99.9% accuracy. The parent-process exclusion logic was additive and documented. And the Codex classification required actual analytical work: temporal profiling, volume characterization, and parent-chain tracing to correctly classify 375 PowerShell spawns as tool behavior, not adversary behavior.</p>
+        <p>The easy answer was to flag <span class="m-inline-code">pwsh.exe</span> spawned by a non-standard parent as suspicious. The correct answer required understanding what was actually happening.</p>
+
+      </div>
+
+      <aside class="m-rail">
+        <section class="m-rail-section">
+          <div class="m-card-kicker" data-aos="fade-up">At a glance</div>
+          <h2>Hunt results</h2>
+          <ul class="m-list-tight">
+            <li>283,976 events analyzed</li>
+            <li>Rex extraction: >99.9% accuracy</li>
+            <li>375 pwsh.exe spawns classified</li>
+            <li>30,855 bash&rarr;base64 documented</li>
+            <li>59 browser&rarr;shell flagged</li>
+            <li>Verdict: tool behavior, not LOLBin</li>
+          </ul>
+        </section>
+        <section class="m-rail-section">
+          <div class="m-card-kicker" data-aos="fade-up">Related</div>
+          <h2>See also</h2>
+          <div class="m-link-list">
+            <a href="/case-study-splunk-detection-audit" class="m-link-item">
+              <strong>Splunk Detection Rule Audit</strong>
+              <span>Four noise sources found. The systematic audit of every rule.</span>
+            </a>
+            <a href="/case-study-security-hardening" class="m-link-item">
+              <strong>Enterprise Security Hardening</strong>
+              <span>The hardening that closed the gaps this hunt identified.</span>
+            </a>
+            <a href="/case-study-autosoc" class="m-link-item">
+              <strong>SignalFoundry case study</strong>
+              <span>Full pipeline architecture and triage logic.</span>
+            </a>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="m-section m-stage" data-aos="fade-up">
+  <div class="m-wrap">
+    <div class="m-card" data-aos="fade-up">
+      <div class="m-card-kicker" data-aos="fade-up">Continue reading</div>
+      <h2>More case studies</h2>
+      <div class="m-grid-2">
+        <a href="/case-study-splunk-detection-audit" class="m-link-item">
+          <strong>Splunk Detection Rule Audit</strong>
+          <span>Audited every SPL rule against 283,976 events. Found four noise sources that would flood an analyst queue.</span>
+        </a>
+        <a href="/case-study-pipeline-recovery" class="m-link-item">
+          <strong>Pipeline Fault Recovery</strong>
+          <span>Two independent defects diagnosed in one session. Poller retry + reconciliation scoping.</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="ctr">
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
+    <div class="fl">
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
+      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/fetch-utils.js" defer></script>
+<script src="/data/counts.js" defer></script>
+<script src="/data/ops-metrics.js" defer></script>
+<script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
+</body>
+</html>

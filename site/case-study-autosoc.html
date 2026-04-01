@@ -1,23 +1,23 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>SignalFoundry | Production Pipeline</title>
-<meta name="description" content="SignalFoundry: 35-script Python pipeline. Wazuh alert intake, policy-driven triage, mandatory redaction, evidence packs, reconciliation gates. 55,665 cases processed.">
+<title>Case Study: Pipeline Outage Recovery | SignalFoundry | HawkinsOps</title>
+<meta name="description" content="Case study: March 13 SignalFoundry pipeline outage — diagnosed and restored in one session. Infrastructure reachability separated from application logic, reconciliation-path defect isolated, full recovery to SUCCESS.">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07070b">
 <link rel="canonical" href="https://hawkinsops.com/case-study-autosoc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SignalFoundry | Production Pipeline">
-<meta property="og:description" content="35-script Python pipeline. Wazuh alert intake, policy-driven triage, mandatory redaction, evidence packs, reconciliation gates.">
+<meta property="og:title" content="Case Study: Pipeline Outage Recovery | SignalFoundry">
+<meta property="og:description" content="March 13 pipeline outage — diagnosed and restored in one session. Reconciliation-path defect isolated. Full recovery to SUCCESS.">
 <meta property="og:url" content="https://hawkinsops.com/case-study-autosoc">
 <meta property="og:image" content="https://hawkinsops.com/assets/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SignalFoundry | Production Pipeline">
-<meta name="twitter:description" content="35-script Python pipeline. Wazuh alert intake, policy-driven triage, mandatory redaction, evidence packs.">
+<meta name="twitter:title" content="Case Study: Pipeline Outage Recovery | SignalFoundry">
+<meta name="twitter:description" content="March 13 pipeline outage — diagnosed and restored in one session. Reconciliation-path defect isolated.">
 <meta name="twitter:image" content="https://hawkinsops.com/assets/og-card.png">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
@@ -26,24 +26,65 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <script>document.documentElement.setAttribute('data-theme','dark');</script>
 <link rel="stylesheet" href="/assets/styles.css">
-<link rel="stylesheet" href="/assets/modernize.css?v=03-09-2026-2">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
 <link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 <link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 .cs-page{max-width:1100px;margin:0 auto;padding:0 24px;}
-.cs-hero{padding:100px 0 40px;}
-.cs-status-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid rgba(122,184,255,0.12);border-radius:4px;background:rgba(17,24,39,0.4);margin-top:20px;}
-.cs-stat{padding:14px 12px;text-align:center;border-right:1px solid rgba(122,184,255,0.06);}
-.cs-stat:last-child{border-right:none;}
-.cs-stat .sv{font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;}
-.cs-stat .sl{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;color:#7a94aa;margin-top:2px;}
+.cs-hero{padding:100px 0 48px;}
 .cs-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.12em;color:#7ab8ff;margin-bottom:8px;}
+.cs-label.incident{color:#fbbf24;}
 .cs-title{font-size:clamp(1.1rem,2vw,1.5rem);margin:0 0 8px;letter-spacing:0.01em;}
 .cs-sub{color:#7a94aa;font-size:0.85rem;max-width:60ch;}
 .cs-section{padding:60px 0;border-top:1px solid rgba(122,184,255,0.06);}
 .cs-section.alt{background:rgba(17,24,39,0.3);}
+
+/* Incident summary card */
+.cs-incident-card{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(251,191,36,0.15);border-radius:4px;background:rgba(17,24,39,0.5);margin-top:24px;}
+.cs-incident-row{display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(122,184,255,0.04);}
+.cs-incident-row:last-child{border-bottom:none;}
+.cs-incident-key{font-family:'JetBrains Mono',monospace;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;color:#7a94aa;}
+.cs-incident-val{font-size:0.82rem;font-weight:600;color:#e5edff;}
+.cs-incident-val.success{color:#4ade80;}
+.cs-incident-val.warn{color:#fbbf24;}
+.cs-incident-val.error{color:#ef4444;}
+
+/* Timeline */
+.cs-timeline{position:relative;padding-left:28px;margin-top:20px;}
+.cs-timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,#ef4444,#fbbf24,#4ade80);border-radius:1px;}
+.cs-tl-event{position:relative;margin-bottom:22px;}
+.cs-tl-event:last-child{margin-bottom:0;}
+.cs-tl-dot{position:absolute;left:-24px;top:4px;width:10px;height:10px;border-radius:50%;box-shadow:0 0 6px currentColor;}
+
+/* Case breakdown blocks */
+.cs-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
+.cs-block{padding:20px;border:1px solid rgba(122,184,255,0.08);border-radius:4px;background:rgba(17,24,39,0.4);}
+.cs-block-label{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.cs-block-label .dot{width:6px;height:6px;border-radius:50%;}
+.cs-block-text{font-size:0.85rem;color:#b8cce0;line-height:1.6;}
+.cs-block.full{grid-column:1/-1;}
+
+/* Related cases */
+.cs-case-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
+.cs-case-card{display:block;padding:18px;border:1px solid rgba(122,184,255,0.1);border-left:3px solid rgba(122,184,255,0.2);border-radius:3px;text-decoration:none;transition:border-color 0.15s,background 0.15s;}
+.cs-case-card:hover{border-color:rgba(122,184,255,0.3);background:rgba(17,24,39,0.5);text-decoration:none;}
+.cs-case-card .cc-date{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#7a94aa;letter-spacing:0.04em;}
+.cs-case-card strong{display:block;font-size:0.88rem;color:#e5edff;margin:4px 0;}
+.cs-case-card span{font-size:0.75rem;color:#7a94aa;line-height:1.5;}
+.cs-case-card.index-card{border-left-color:rgba(74,222,128,0.3);}
+
+/* Supporting context label */
+.cs-context-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.14em;color:#4a5568;padding:4px 12px;border:1px solid rgba(122,184,255,0.06);border-radius:3px;display:inline-block;margin-bottom:16px;}
+
+/* System status strip */
+.cs-status-strip{display:flex;gap:20px;flex-wrap:wrap;margin-top:16px;padding:12px 16px;border:1px solid rgba(122,184,255,0.08);border-radius:4px;background:rgba(17,24,39,0.3);}
+.cs-status-strip .ss-item{display:flex;align-items:center;gap:6px;}
+.cs-status-strip .ss-val{font-family:'JetBrains Mono',monospace;font-size:0.82rem;font-weight:700;}
+.cs-status-strip .ss-lbl{font-size:0.62rem;text-transform:uppercase;letter-spacing:0.06em;color:#7a94aa;}
+
+/* Pipeline */
 .cs-pipeline{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:20px 0;}
 .cs-stage{text-align:center;padding:14px 4px;background:rgba(17,24,39,0.5);border:1px solid rgba(122,184,255,0.1);border-radius:3px;}
 .cs-stage .sn{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:#7ab8ff;}
@@ -51,35 +92,44 @@
 .cs-stage .sdesc{font-size:0.58rem;color:#7a94aa;}
 .cs-stage.final{border-color:rgba(74,222,128,0.25);background:rgba(74,222,128,0.04);}
 .cs-stage.final .sn{color:#4ade80;}
+
+/* Disposition table */
 .cs-disp-table{width:100%;border-collapse:collapse;font-size:0.85rem;margin-top:16px;}
 .cs-disp-table th{text-align:left;padding:10px;border-bottom:1px solid rgba(122,184,255,0.15);font-family:'JetBrains Mono',monospace;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;color:#7ab8ff;}
 .cs-disp-table td{padding:10px;border-bottom:1px solid rgba(122,184,255,0.04);}
 .cs-disp-table code{font-family:'JetBrains Mono',monospace;font-size:0.78rem;padding:2px 6px;border-radius:2px;}
+
+/* Evidence pack */
 .cs-pack{display:grid;gap:6px;margin-top:16px;}
 .cs-pack-item{display:grid;grid-template-columns:140px 1fr;gap:10px;padding:10px 14px;border:1px solid rgba(122,184,255,0.08);border-left:3px solid rgba(122,184,255,0.2);border-radius:3px;align-items:center;}
 .cs-pack-item code{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:#7ab8ff;}
 .cs-pack-item span{font-size:0.78rem;color:#7a94aa;}
 .cs-pack-item.closure{border-left-color:rgba(251,191,36,0.4);}
 .cs-pack-item.closure code{color:#fbbf24;}
-.cs-timeline{position:relative;padding-left:28px;margin-top:20px;}
-.cs-timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,#fbbf24,#4ade80);border-radius:1px;}
-.cs-tl-event{position:relative;margin-bottom:18px;}
-.cs-tl-event:last-child{margin-bottom:0;}
-.cs-tl-dot{position:absolute;left:-24px;top:4px;width:10px;height:10px;border-radius:50%;box-shadow:0 0 6px currentColor;}
+
+/* Validate nav */
 .cs-nav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
 .cs-nav-card{display:block;padding:16px;border:1px solid rgba(122,184,255,0.1);border-left:3px solid rgba(122,184,255,0.2);border-radius:3px;text-decoration:none;transition:border-color 0.15s;}
 .cs-nav-card:hover{border-color:rgba(122,184,255,0.3);text-decoration:none;}
 .cs-nav-card strong{display:block;font-size:0.85rem;color:#e5edff;margin-bottom:4px;}
 .cs-nav-card span{font-size:0.72rem;color:#7a94aa;}
-.cs-donut{display:flex;align-items:center;gap:24px;margin-top:16px;}
+
+/* CTA row */
+.cs-ctas{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+.cs-cta{padding:8px 18px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.04em;border:1px solid rgba(122,184,255,0.12);border-radius:3px;color:#7a94aa;text-decoration:none;transition:all 0.15s;}
+.cs-cta:hover{border-color:rgba(122,184,255,0.3);color:#7ab8ff;text-decoration:none;}
+.cs-cta.primary{background:rgba(122,184,255,0.08);border-color:rgba(122,184,255,0.2);color:#7ab8ff;}
+
 @media(max-width:900px){
-  .cs-status-bar{grid-template-columns:repeat(3,1fr);}
+  .cs-incident-card{grid-template-columns:1fr;}
+  .cs-breakdown{grid-template-columns:1fr;}
+  .cs-case-grid{grid-template-columns:1fr;}
   .cs-pipeline{grid-template-columns:repeat(4,1fr);}
   .cs-nav-grid{grid-template-columns:1fr;}
 }
 @media(max-width:600px){
   .cs-pipeline{grid-template-columns:repeat(2,1fr);}
-  .cs-status-bar{grid-template-columns:repeat(2,1fr);}
+  .cs-status-strip{flex-direction:column;gap:10px;}
 }
 </style>
 </head>
@@ -113,52 +163,199 @@
 <main>
 <div class="cs-page">
 
-  <!-- HERO: System state, not explanation -->
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 1: CASE STUDY HERO — Incident-first
+       ════════════════════════════════════════════════════════ -->
   <div class="cs-hero">
-    <div class="cs-label">SignalFoundry</div>
-    <h1 style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin:0 0 10px;">Alert triage to escalation artifacts</h1>
-    <p class="cs-sub">35-script Python pipeline. Wazuh alerts in, policy-driven triage, mandatory redaction, evidence packs out. Nothing publishes without reconciliation PASS.</p>
-    <div class="cs-status-bar">
-      <div class="cs-stat"><div class="sv" style="color:#4ade80;" data-ops-status="stable_heartbeat">SUCCESS</div><div class="sl">Heartbeat</div></div>
-      <div class="cs-stat"><div class="sv" style="color:#7ab8ff;" class="counter" data-target="55665">55,665</div><div class="sl">Cases</div></div>
-      <div class="cs-stat"><div class="sv" style="color:#4ade80;">~92%</div><div class="sl">Auto-Closed</div></div>
-      <div class="cs-stat"><div class="sv" style="color:#fbbf24;" data-ops="stable_escalated">2,545</div><div class="sl">Escalated</div></div>
-      <div class="cs-stat"><div class="sv" style="color:#4ade80;" data-ops="stable_coverage_ratio">8/8</div><div class="sl">Coverage</div></div>
+    <div class="cs-label incident">Case Study / Flagship Incident</div>
+    <h1 style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin:0 0 10px;line-height:1.15;">Pipeline outage diagnosed and restored in one session</h1>
+    <p class="cs-sub">SignalFoundry ingestion went down. I separated infrastructure reachability from application logic, isolated a reconciliation-path defect, and restored full pipeline operation to SUCCESS.</p>
+
+    <!-- Incident summary card -->
+    <div class="cs-incident-card">
+      <div style="padding:0;">
+        <div class="cs-incident-row"><span class="cs-incident-key">Incident</span><span class="cs-incident-val warn">Ingestion outage</span></div>
+        <div class="cs-incident-row"><span class="cs-incident-key">System</span><span class="cs-incident-val">SignalFoundry / AutoSOC</span></div>
+        <div class="cs-incident-row"><span class="cs-incident-key">Date</span><span class="cs-incident-val">03-13-2026</span></div>
+        <div class="cs-incident-row"><span class="cs-incident-key">Duration</span><span class="cs-incident-val">Single session</span></div>
+      </div>
+      <div style="padding:0;">
+        <div class="cs-incident-row"><span class="cs-incident-key">Root cause</span><span class="cs-incident-val">Reconciliation-path validation defect</span></div>
+        <div class="cs-incident-row"><span class="cs-incident-key">Resolution</span><span class="cs-incident-val success">Full recovery &mdash; SUCCESS</span></div>
+        <div class="cs-incident-row"><span class="cs-incident-key">Coverage</span><span class="cs-incident-val success" data-ops="stable_coverage_ratio">8/8</span></div>
+        <div class="cs-incident-row"><span class="cs-incident-key">Reconciliation</span><span class="cs-incident-val success">PASS &mdash; 0 mismatches</span></div>
+      </div>
     </div>
-    <div style="display:flex;gap:10px;margin-top:20px;">
-      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" style="padding:8px 18px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.04em;background:rgba(122,184,255,0.08);border:1px solid rgba(122,184,255,0.2);border-radius:3px;color:#7ab8ff;text-decoration:none;">Open Repo</a>
-      <a href="/proof" style="padding:8px 18px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.04em;border:1px solid rgba(122,184,255,0.12);border-radius:3px;color:#7a94aa;text-decoration:none;">Proof Receipts</a>
-      <a href="/detections" style="padding:8px 18px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.04em;border:1px solid rgba(122,184,255,0.12);border-radius:3px;color:#7a94aa;text-decoration:none;">Detections</a>
+
+    <div class="cs-ctas">
+      <a href="/proof" class="cs-cta primary">View Proof Receipts</a>
+      <a href="#related-cases" class="cs-cta">Related Cases</a>
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" class="cs-cta">Inspect Repository</a>
     </div>
   </div>
 
-  <!-- 7-STAGE PIPELINE -->
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 2: INCIDENT TIMELINE
+       ════════════════════════════════════════════════════════ -->
+  <div class="cs-section" data-aos="fade-up">
+    <div class="cs-label incident">Incident Timeline</div>
+    <h2 class="cs-title">March 13 &mdash; outage to recovery</h2>
+    <div class="cs-timeline">
+      <div class="cs-tl-event">
+        <div class="cs-tl-dot" style="background:#ef4444;color:#ef4444;"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#ef4444;">03-13-2026 &mdash; DETECTED</div>
+        <div style="font-size:0.88rem;font-weight:600;color:#e5edff;margin-top:2px;">Ingestion outage &mdash; heartbeat dropped to DEGRADED</div>
+        <div style="font-size:0.75rem;color:#7a94aa;margin-top:4px;">Pipeline stopped ingesting Wazuh alerts. No new cases processing. Existing escalation artifacts unaffected.</div>
+      </div>
+      <div class="cs-tl-event">
+        <div class="cs-tl-dot" style="background:#fbbf24;color:#fbbf24;"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#fbbf24;">DIAGNOSIS</div>
+        <div style="font-size:0.88rem;font-weight:600;color:#e5edff;margin-top:2px;">Infrastructure reachability separated from application logic</div>
+        <div style="font-size:0.75rem;color:#7a94aa;margin-top:4px;">Network path to Wazuh API confirmed functional. Problem isolated to the reconciliation validation path inside the pipeline.</div>
+      </div>
+      <div class="cs-tl-event">
+        <div class="cs-tl-dot" style="background:#7ab8ff;color:#7ab8ff;"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#7ab8ff;">ROOT CAUSE</div>
+        <div style="font-size:0.88rem;font-weight:600;color:#e5edff;margin-top:2px;">Reconciliation-path validation defect isolated</div>
+        <div style="font-size:0.75rem;color:#7a94aa;margin-top:4px;">The ledger reconciliation gate was rejecting valid ingestion batches due to a path validation fault introduced during a prior refactor.</div>
+      </div>
+      <div class="cs-tl-event">
+        <div class="cs-tl-dot" style="background:#4ade80;color:#4ade80;"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#4ade80;">RESTORED</div>
+        <div style="font-size:0.88rem;font-weight:600;color:#e5edff;margin-top:2px;">Pipeline returned to SUCCESS</div>
+        <div style="font-size:0.75rem;color:#7a94aa;margin-top:4px;">Fix applied. Full pipeline validated end-to-end. 8/8 host coverage confirmed, 0 reconciliation mismatches, heartbeat SUCCESS.</div>
+      </div>
+      <div class="cs-tl-event">
+        <div class="cs-tl-dot" style="background:#4ade80;color:#4ade80;"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#4ade80;"><span data-ops="stable_locked_date">03-25-2026</span> &mdash; LOCKED</div>
+        <div style="font-size:0.88rem;font-weight:600;color:#e5edff;margin-top:2px;">Authority snapshot frozen</div>
+        <div style="font-size:0.75rem;color:#7a94aa;margin-top:4px;">Post-recovery metrics locked as public benchmark: 55,665 cases, ~92% auto-close, 2,545 escalations. Verification commands documented.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 3: CASE BREAKDOWN
+       ════════════════════════════════════════════════════════ -->
   <div class="cs-section alt" data-aos="fade-up">
-    <div class="cs-label">Pipeline Stages</div>
+    <div class="cs-label">Case Breakdown</div>
+    <h2 class="cs-title">What happened, what I did, how it was validated</h2>
+    <div class="cs-breakdown">
+      <div class="cs-block">
+        <div class="cs-block-label" style="color:#ef4444;"><span class="dot" style="background:#ef4444;"></span>Problem</div>
+        <div class="cs-block-text">SignalFoundry pipeline stopped ingesting Wazuh alerts on March 13. Heartbeat status dropped from SUCCESS to DEGRADED. No new cases were being processed or triaged.</div>
+      </div>
+      <div class="cs-block">
+        <div class="cs-block-label" style="color:#fbbf24;"><span class="dot" style="background:#fbbf24;"></span>Impact</div>
+        <div class="cs-block-text">Complete halt of alert triage automation. New Wazuh alerts were queuing without classification, redaction, or evidence pack generation. Escalation pipeline stalled.</div>
+      </div>
+      <div class="cs-block">
+        <div class="cs-block-label" style="color:#7ab8ff;"><span class="dot" style="background:#7ab8ff;"></span>Root Cause</div>
+        <div class="cs-block-text">The reconciliation-path validation gate was rejecting valid ingestion batches. A prior refactor introduced a path validation defect that caused the ledger check to fail on well-formed input. Infrastructure (Wazuh API, network) was confirmed operational &mdash; this was purely application logic.</div>
+      </div>
+      <div class="cs-block">
+        <div class="cs-block-label" style="color:#00c4d4;"><span class="dot" style="background:#00c4d4;"></span>Fix</div>
+        <div class="cs-block-text">Isolated the defect by separating infrastructure reachability testing from application-layer validation. Corrected the reconciliation-path logic. Applied the fix and re-ran the full pipeline end-to-end in one session.</div>
+      </div>
+      <div class="cs-block">
+        <div class="cs-block-label" style="color:#a78bfa;"><span class="dot" style="background:#a78bfa;"></span>Validation</div>
+        <div class="cs-block-text">Post-fix verification: pipeline heartbeat returned to SUCCESS, 8/8 host coverage confirmed, reconciliation PASS with 0 mismatches, all triage dispositions operating as expected.</div>
+      </div>
+      <div class="cs-block">
+        <div class="cs-block-label" style="color:#4ade80;"><span class="dot" style="background:#4ade80;"></span>Final State</div>
+        <div class="cs-block-text">Authority snapshot locked on 03-25-2026: 55,665 total cases processed, ~92% auto-close rate, 2,545 escalations with auditable evidence packs. All metrics CI-gated and publicly verifiable.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 4: RELATED CASES INDEX
+       ════════════════════════════════════════════════════════ -->
+  <div class="cs-section" data-aos="fade-up" id="related-cases">
+    <div class="cs-label">Related Cases</div>
+    <h2 class="cs-title">More cases from this system</h2>
+    <div class="cs-case-grid">
+      <a href="/autosoc-cutover" class="cs-case-card">
+        <div class="cc-date">03-23-2026</div>
+        <strong>Infrastructure Cutover</strong>
+        <span>Production migration to canonical root. Preflight gate, 5 retargeted tasks, legacy ref count = 0.</span>
+      </a>
+      <a href="/autosoc-hotfix-rca" class="cs-case-card">
+        <div class="cc-date">03-23-2026</div>
+        <strong>Hotfix RCA</strong>
+        <span>Assert-CanonicalPath call order defect. Function moved above call site. EXIT=0, pipeline validated.</span>
+      </a>
+      <a href="/case-study-pipeline-recovery" class="cs-case-card">
+        <div class="cc-date">03-13-2026</div>
+        <strong>Pipeline Fault Recovery</strong>
+        <span>Two independent defects diagnosed in one session. Poller retry + reconciliation scoping. SUCCESS restored.</span>
+      </a>
+      <a href="/case-study-splunk-codex-hunt" class="cs-case-card">
+        <div class="cc-date">March 2026</div>
+        <strong>Splunk Threat Hunt &mdash; Codex AI</strong>
+        <span>375 pwsh.exe instances classified as expected AI tool behavior, not LOLBin activity.</span>
+      </a>
+      <a href="/case-study-honeypot" class="cs-case-card">
+        <div class="cc-date">Lab deployment</div>
+        <strong>Cowrie Honeypot Case Study</strong>
+        <span>Docker-based SSH/Telnet honeypot with Wazuh integration and live alert validation.</span>
+      </a>
+      <a href="/case-studies" class="cs-case-card index-card">
+        <div class="cc-date">Index</div>
+        <strong>All Case Studies &rarr;</strong>
+        <span>Complete engineering documentation index across all projects.</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 5: SUPPORTING SYSTEM CONTEXT
+       ════════════════════════════════════════════════════════ -->
+  <div class="cs-section alt" data-aos="fade-up">
+    <div class="cs-context-label">Supporting Context &mdash; The System Behind the Case</div>
+
+    <!-- Current system state -->
+    <div class="cs-label">System State</div>
+    <h2 class="cs-title">SignalFoundry &mdash; post-recovery metrics</h2>
+    <div class="cs-status-strip">
+      <div class="ss-item"><span class="ss-val" style="color:#4ade80;" data-ops-status="stable_heartbeat">SUCCESS</span><span class="ss-lbl">Heartbeat</span></div>
+      <div class="ss-item"><span class="ss-val" style="color:#7ab8ff;" data-target="55665">55,665</span><span class="ss-lbl">Cases</span></div>
+      <div class="ss-item"><span class="ss-val" style="color:#4ade80;">~92%</span><span class="ss-lbl">Auto-closed</span></div>
+      <div class="ss-item"><span class="ss-val" style="color:#fbbf24;" data-ops="stable_escalated">2,545</span><span class="ss-lbl">Escalated</span></div>
+      <div class="ss-item"><span class="ss-val" style="color:#4ade80;" data-ops="stable_coverage_ratio">8/8</span><span class="ss-lbl">Coverage</span></div>
+    </div>
+  </div>
+
+  <!-- Pipeline -->
+  <div class="cs-section" data-aos="fade-up">
+    <div class="cs-context-label">Supporting Context</div>
+    <div class="cs-label">Pipeline Architecture</div>
     <h2 class="cs-title">7-stage deterministic workflow</h2>
-    <p class="cs-sub">Every alert passes through every stage in order. No skip paths. No manual overrides.</p>
+    <p class="cs-sub">Every alert passes through every stage in order. No skip paths. No manual overrides. The outage above occurred at the reconciliation gate (stage 05).</p>
     <div class="cs-pipeline">
       <div class="cs-stage"><div class="sn">01</div><div class="sname">INGEST</div><div class="sdesc">poll-alerts.py</div></div>
       <div class="cs-stage"><div class="sn">02</div><div class="sname">TRIAGE</div><div class="sdesc">classify.py</div></div>
       <div class="cs-stage"><div class="sn">03</div><div class="sname">REDACT</div><div class="sdesc">sanitize.py</div></div>
       <div class="cs-stage"><div class="sn">04</div><div class="sname">PACK</div><div class="sdesc">evidence.py</div></div>
-      <div class="cs-stage"><div class="sn">05</div><div class="sname">RECONCILE</div><div class="sdesc">ledger.py</div></div>
+      <div class="cs-stage" style="border-color:rgba(251,191,36,0.3);background:rgba(251,191,36,0.04);"><div class="sn" style="color:#fbbf24;">05</div><div class="sname" style="color:#fbbf24;">RECONCILE</div><div class="sdesc">ledger.py</div></div>
       <div class="cs-stage"><div class="sn">06</div><div class="sname">GATE</div><div class="sdesc">quality.py</div></div>
       <div class="cs-stage final"><div class="sn">07</div><div class="sname">PUBLISH</div><div class="sdesc">proof output</div></div>
     </div>
   </div>
 
-  <!-- ARCHITECTURE -->
-  <div class="cs-section" data-aos="fade-up">
+  <!-- Architecture map -->
+  <div class="cs-section alt" data-aos="fade-up">
+    <div class="cs-context-label">Supporting Context</div>
     <div class="cs-label">Architecture</div>
     <h2 class="cs-title">System map</h2>
     <div style="margin-top:16px;border-radius:4px;overflow:hidden;border:1px solid rgba(122,184,255,0.1);">
-      <img src="/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1" alt="SignalFoundry architecture: sources, pipeline gates, output controls" width="1600" height="900" loading="eager" style="display:block;width:100%;height:auto;">
+      <img src="/assets/pp_soc_integration/autosoc-system-map.png?v=03-03-2026-1" alt="SignalFoundry architecture: sources, pipeline gates, output controls" width="1600" height="900" loading="lazy" style="display:block;width:100%;height:auto;">
     </div>
   </div>
 
-  <!-- DECISION LOGIC -->
-  <div class="cs-section alt" data-aos="fade-up">
+  <!-- Decision logic -->
+  <div class="cs-section" data-aos="fade-up">
+    <div class="cs-context-label">Supporting Context</div>
     <div class="cs-label">Decision Logic</div>
     <h2 class="cs-title">Deterministic dispositions</h2>
     <p class="cs-sub">No analyst judgment in the triage path. Policy dictates disposition. Every outcome is auditable.</p>
@@ -185,17 +382,9 @@
     </div>
   </div>
 
-  <!-- WORKFLOW -->
-  <div class="cs-section" data-aos="fade-up">
-    <div class="cs-label">Workflow</div>
-    <h2 class="cs-title">Alert movement through pipeline</h2>
-    <div style="margin-top:16px;border-radius:4px;overflow:hidden;border:1px solid rgba(122,184,255,0.1);">
-      <img src="/assets/pp_soc_integration/autosoc-pipe-diagram.svg" alt="SignalFoundry workflow: poll, triage, redact, pack, escalate" width="1200" height="240" loading="lazy" style="display:block;width:100%;height:auto;">
-    </div>
-  </div>
-
-  <!-- EVIDENCE PACK -->
+  <!-- Evidence pack -->
   <div class="cs-section alt" data-aos="fade-up">
+    <div class="cs-context-label">Supporting Context</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
       <div>
         <div class="cs-label">Escalation Output</div>
@@ -215,64 +404,9 @@
     </div>
   </div>
 
-  <!-- RECOVERY TIMELINE -->
-  <div class="cs-section" data-aos="fade-up">
-    <div class="cs-label">Incident Recovery</div>
-    <h2 class="cs-title">March 13 pipeline outage &mdash; diagnosed and restored in one session</h2>
-    <p class="cs-sub">Separated infrastructure reachability from application logic. Isolated reconciliation-path defect. Restored end-to-end SUCCESS.</p>
-    <div class="cs-timeline">
-      <div class="cs-tl-event">
-        <div class="cs-tl-dot" style="background:#fbbf24;color:#fbbf24;"></div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#fbbf24;">03-13-2026</div>
-        <div style="font-size:0.85rem;font-weight:600;color:#e5edff;margin-top:2px;">Ingestion outage detected</div>
-        <div style="font-size:0.72rem;color:#7a94aa;">Pipeline heartbeat dropped to DEGRADED</div>
-      </div>
-      <div class="cs-tl-event">
-        <div class="cs-tl-dot" style="background:#7ab8ff;color:#7ab8ff;"></div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#7ab8ff;">Root cause</div>
-        <div style="font-size:0.85rem;font-weight:600;color:#e5edff;margin-top:2px;">Infra vs. application logic separated</div>
-        <div style="font-size:0.72rem;color:#7a94aa;">Reconciliation-path validation defect isolated</div>
-      </div>
-      <div class="cs-tl-event">
-        <div class="cs-tl-dot" style="background:#4ade80;color:#4ade80;"></div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#4ade80;">Restored</div>
-        <div style="font-size:0.85rem;font-weight:600;color:#e5edff;margin-top:2px;">Pipeline returned to SUCCESS</div>
-        <div style="font-size:0.72rem;color:#7a94aa;">8/8 coverage confirmed &middot; 0 mismatches &middot; heartbeat SUCCESS</div>
-      </div>
-      <div class="cs-tl-event">
-        <div class="cs-tl-dot" style="background:#4ade80;color:#4ade80;"></div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#4ade80;"><span data-ops="stable_locked_date">03-25-2026</span></div>
-        <div style="font-size:0.85rem;font-weight:600;color:#e5edff;margin-top:2px;">Authority snapshot locked</div>
-        <div style="font-size:0.72rem;color:#7a94aa;">Public benchmark frozen for reviewer reference</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FIELD NOTES -->
-  <div class="cs-section alt" data-aos="fade-up">
-    <div class="cs-label">Field Notes</div>
-    <h2 class="cs-title">Engineering case studies from this project</h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;">
-      <a href="/autosoc-cutover" class="cs-nav-card">
-        <strong>Infrastructure Cutover &mdash; 03-23-2026</strong>
-        <span>Production migration to canonical root. Preflight gate, 5 retargeted tasks, legacy ref count = 0.</span>
-      </a>
-      <a href="/autosoc-hotfix-rca" class="cs-nav-card">
-        <strong>Hotfix RCA &mdash; 03-23-2026</strong>
-        <span>Assert-CanonicalPath call order. Function moved above call site. EXIT=0, pipeline validated.</span>
-      </a>
-      <a href="/march-2026-deep-dive" class="cs-nav-card">
-        <strong>March 2026 Deep Dive</strong>
-        <span>Root-cause analysis, policy tuning, stress test, recovery documentation.</span>
-      </a>
-      <a href="/case-studies" class="cs-nav-card">
-        <strong>All Field Notes &rarr;</strong>
-        <span>Complete engineering documentation index.</span>
-      </a>
-    </div>
-  </div>
-
-  <!-- VALIDATE + NEXT -->
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 6: VALIDATE + NEXT
+       ════════════════════════════════════════════════════════ -->
   <div class="cs-section" data-aos="fade-up">
     <div class="cs-label">Validate</div>
     <h2 class="cs-title">Verify and continue</h2>

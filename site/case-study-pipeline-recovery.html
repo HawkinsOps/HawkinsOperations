@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Pipeline Fault Recovery — Two Failure Domains, One Session | HawkinsOps</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07070b">
+<meta name="description" content="Case study: sequential poller timeout and reconciliation serialization defect diagnosed under production load. Both failure domains isolated, pipeline restored to SUCCESS in one session.">
+<link rel="canonical" href="https://hawkinsops.com/case-study-pipeline-recovery">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pipeline Fault Recovery — Two Failure Domains | HawkinsOps">
+<meta property="og:description" content="Sequential poller timeout and reconciliation serialization defect diagnosed under production load. Both failure domains isolated, pipeline restored to SUCCESS.">
+<meta property="og:url" content="https://hawkinsops.com/case-study-pipeline-recovery">
+<meta property="og:image" content="https://hawkinsops.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pipeline Fault Recovery — Two Failure Domains | HawkinsOps">
+<meta name="twitter:description" content="Sequential poller timeout and reconciliation serialization defect diagnosed under production load. Both failure domains isolated, pipeline restored to SUCCESS.">
+<meta name="twitter:image" content="https://hawkinsops.com/assets/og-image.png">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.setAttribute('data-theme','dark');</script>
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
+<style>
+body {
+  background:
+    radial-gradient(ellipse 100% 55% at 0% 0%,rgba(41,121,200,0.09) 0%,transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 100%,rgba(0,196,212,0.07) 0%,transparent 55%),
+    #03060b !important;
+}
+.cs-meta { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 0; }
+.cs-meta-tag {
+  padding:3px 12px; border-radius:20px; font-size:10px; font-weight:700;
+  font-family:'JetBrains Mono',monospace; letter-spacing:.5px;
+  background:rgba(41,121,200,.1); color:#6aaad8; border:1px solid rgba(41,121,200,.2);
+}
+.cs-meta-tag.green { background:rgba(39,201,122,.1); color:#27c97a; border-color:rgba(39,201,122,.2); }
+.cs-meta-tag.teal  { background:rgba(0,196,212,.1);  color:#00c4d4; border-color:rgba(0,196,212,.2); }
+.cs-meta-tag.orange { background:rgba(232,160,32,.1); color:#e8a020; border-color:rgba(232,160,32,.2); }
+.cs-prose { max-width:740px; }
+.cs-prose p { margin:0 0 16px; line-height:1.75; color:#b8cce0; font-size:1rem; }
+.cs-prose h2 { font-size:1.25rem; color:#e0eeff; margin:36px 0 10px; font-family:'Sora',sans-serif; }
+.cs-prose h3 { font-size:1rem; color:#00c4d4; margin:24px 0 8px; font-weight:600; }
+.cs-prose strong { color:#e0eeff; }
+.cs-nav-back { font-size:.82rem; color:#486880; margin-bottom:24px; display:inline-block; }
+.cs-nav-back:hover { color:#00c4d4; }
+.outcome-bar {
+  border-left:3px solid #27c97a; padding:14px 18px; background:rgba(39,201,122,.05);
+  border-radius:0 6px 6px 0; margin:24px 0;
+}
+.outcome-bar p { margin:0; color:#b8cce0; line-height:1.7; }
+.outcome-bar strong { color:#27c97a; }
+.finding-bar {
+  border-left:3px solid #fbbf24; padding:14px 18px; background:rgba(251,191,36,.05);
+  border-radius:0 6px 6px 0; margin:16px 0;
+}
+.finding-bar p { margin:0; color:#b8cce0; line-height:1.7; }
+.finding-bar strong { color:#fbbf24; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+</head>
+<body data-ops-scope="stable">
+<nav>
+  <div class="nav-i">
+    <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
+    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
+    <ul class="nav-l">
+      <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/detections">Detections</a></li>
+      <li><a href="/resume">Resume</a></li>
+    </ul>
+    <a class="btn btn-p nav-cta" href="/resume">Resume</a>
+  </div>
+</nav>
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+  <a href="/">Home</a>
+  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
+  <a href="/proof">Proof</a>
+  <a href="/detections">Detections</a>
+  <a href="/resume">Resume</a>
+</div>
+
+<main class="modernize-shell">
+<section class="m-section" data-aos="fade-up" style="padding-top:96px;">
+  <div class="m-wrap">
+    <a class="cs-nav-back" href="/case-studies">&larr; All case studies</a>
+    <div class="m-eyebrow">Case Study &mdash; Incident Response</div>
+    <h1 class="m-title" style="font-size:clamp(2rem,3.5vw,3.2rem);max-width:820px;">
+      Pipeline Fault Recovery: Two Failure Domains, One Session
+    </h1>
+    <p class="m-subtitle" style="max-width:680px;">Sequential poller timeout and reconciliation serialization defect diagnosed under production load. Both root causes isolated, pipeline restored to SUCCESS.</p>
+    <div class="cs-meta">
+      <span class="cs-meta-tag">2026-03-13</span>
+      <span class="cs-meta-tag orange">Dual-fault incident</span>
+      <span class="cs-meta-tag teal">Poller retry defect</span>
+      <span class="cs-meta-tag teal">Reconciliation scoping</span>
+      <span class="cs-meta-tag green">MISMATCH_COUNT=0</span>
+    </div>
+  </div>
+</section>
+
+<section class="m-section m-stage" data-aos="fade-up">
+  <div class="m-wrap">
+    <div class="m-wrap m-rail-layout">
+      <div class="cs-prose">
+
+        <h2>Problem / Hypothesis</h2>
+        <p>On March 13, 2026, SignalFoundry &mdash; a 7-stage automated SOC triage pipeline processing live Wazuh alerts &mdash; began failing on every scheduled run. The pipeline heartbeat reported repeated failures at the <span class="m-inline-code">poll_alerts</span> stage at roughly 5-minute intervals. No unit test regression. No missing configuration. No credential rotation.</p>
+        <p>The hypothesis: something between the runner and the Wazuh Indexer endpoint had broken. But the failure mode masked a second, independent defect that only surfaced after the first was resolved.</p>
+
+        <h2>Environment</h2>
+        <div class="m-terminal" style="margin:20px 0;">
+          <div class="m-terminal-head">
+            <span class="m-terminal-label">Pre-failure validated state</span>
+            <span class="m-frame-tag">Baseline</span>
+          </div>
+          <pre class="m-code">total_cases:       25,167
+escalated_cases:   2,478
+detection_rules:   140 (CI-verified)
+host_coverage:     8/8
+mismatch_count:    0</pre>
+        </div>
+        <p>Stack: SignalFoundry (Python + PowerShell), Wazuh Manager + Indexer (OpenSearch), Windows Task Scheduler (5-min interval), <span class="m-inline-code">heartbeat.json</span> telemetry.</p>
+
+        <h2>Methodology</h2>
+        <h3>Step 1 &mdash; Locate the failure</h3>
+        <p>Read <span class="m-inline-code">heartbeat.json</span>. The <span class="m-inline-code">fail_stage</span> field pointed directly to <span class="m-inline-code">poll_alerts</span>. No ambiguity. The pipeline was dying before triage, before case processing, before reconciliation.</p>
+
+        <h3>Step 2 &mdash; Rule out configuration drift</h3>
+        <p>Confirmed the poller had a configured endpoint, valid user value, and readable password-file source. No credential rotation. No config modifications since last successful run.</p>
+
+        <h3>Step 3 &mdash; Separate local from remote</h3>
+        <p>The runner had general network connectivity. Direct connection to the Wazuh Indexer REST API was timing out. Failure isolated to the network path &mdash; not the poller logic itself.</p>
+
+        <h3>Step 4 &mdash; Trace the retry defect</h3>
+        <p><span class="m-inline-code">fetch_with_retry</span> handled <span class="m-inline-code">HTTPError</span> and <span class="m-inline-code">URLError</span> differently. On <span class="m-inline-code">URLError</span> (connection timeout), the retry counter was not incremented before the sleep call. Under delayed connection reset conditions, the first attempt consumed an exception without entering the retry path.</p>
+
+        <div class="m-terminal" style="margin:20px 0;">
+          <div class="m-terminal-head">
+            <span class="m-terminal-label">Retry defect &mdash; before fix (pseudocode)</span>
+            <span class="m-frame-tag">Bug</span>
+          </div>
+          <pre class="m-code">def fetch_with_retry(url, retries=3, backoff=2):
+    for attempt in range(retries):
+        try:
+            return urlopen(Request(url, ...))
+        except HTTPError as e:
+            if e.code == 401:
+                raise
+        except URLError as e:
+            pass  # BUG: counter not incremented, sleep skipped
+        time.sleep(backoff ** attempt)</pre>
+        </div>
+
+        <h3>Step 5 &mdash; Restore polling and re-run</h3>
+        <p>After upstream connectivity was corrected and the retry logic fixed, the poller completed successfully. Full pipeline triggered. It failed again &mdash; this time at <span class="m-inline-code">reconcile</span>.</p>
+
+        <h3>Step 6 &mdash; Diagnose the reconciliation defect</h3>
+        <p><span class="m-inline-code">reconcile-state.py</span> was computing mismatches against unscoped <span class="m-inline-code">repo_ids</span> instead of <span class="m-inline-code">repo_ids_autosoc</span>. Non-AutoSOC directories were counted as phantom mismatches, inflating <span class="m-inline-code">mismatch_count</span> and triggering FAIL even though the actual ledger/content state was clean.</p>
+
+        <h3>Step 7 &mdash; Fix and validate</h3>
+        <p>Scoped all six mismatch computations to <span class="m-inline-code">repo_ids_autosoc</span>. Re-ran strict reconciliation.</p>
+
+        <h2>Evidence</h2>
+        <div class="m-terminal" style="margin:20px 0;">
+          <div class="m-terminal-head">
+            <span class="m-terminal-label">Standalone poller validation after fix</span>
+            <span class="m-frame-tag">PASS</span>
+          </div>
+          <pre class="m-code">SECRET_SOURCE=PASS_FILE
+MODE=realtime
+POLLED=0
+SAVED=0
+NO_NEW_ALERTS=TRUE</pre>
+        </div>
+
+        <div class="m-terminal" style="margin:20px 0;">
+          <div class="m-terminal-head">
+            <span class="m-terminal-label">Reconciliation validation after scoping fix</span>
+            <span class="m-frame-tag">PASS</span>
+          </div>
+          <pre class="m-code">ledger_total_cases=25167
+ledger_escalated_metric=2478
+repo_incident_dirs_autosoc_scoped=2478
+content_incidents=2478
+MISMATCH_COUNT=0</pre>
+        </div>
+
+        <div class="m-terminal" style="margin:20px 0;">
+          <div class="m-terminal-head">
+            <span class="m-terminal-label">Full platform-health validation &mdash; same day</span>
+            <span class="m-frame-tag">SUCCESS</span>
+          </div>
+          <pre class="m-code">run_id: autosoc-20260313T215029Z-31020
+status: SUCCESS
+duration_seconds: 31.843
+cases_scanned: 26032
+cases_processed: 173
+reconciliation.status: PASS
+reconciliation.mismatch_count: 0
+coverage.status: PASS
+coverage.present_hosts: 8
+coverage.missing_hosts: 0</pre>
+        </div>
+
+        <h2>Findings</h2>
+        <div class="finding-bar">
+          <p><strong>Root Cause 1:</strong> Poller retry defect &mdash; <span class="m-inline-code">URLError</span> on connection timeout did not enter the retry path on the first attempt. Every run hit the same failure and exhausted retries without meaningful backoff.</p>
+        </div>
+        <div class="finding-bar">
+          <p><strong>Root Cause 2:</strong> Reconciliation scoping error &mdash; mismatches computed against unscoped <span class="m-inline-code">repo_ids</span> instead of <span class="m-inline-code">repo_ids_autosoc</span>. Latent since the repo was small; manifested at scale when non-AutoSOC directories accumulated.</p>
+        </div>
+        <p>The second defect was invisible while the first was active. The poller failure prevented the pipeline from reaching reconciliation. Only after polling was restored did the reconciliation defect surface &mdash; a sequential failure domain that would have been missed by restarting the pipeline without a full end-to-end validation pass.</p>
+
+        <h2>Operational Impact</h2>
+        <div class="outcome-bar">
+          <p><strong>Pipeline restored</strong> from repeated FAIL to sustained SUCCESS in one session. Strict reconciliation restored to zero hard mismatches. 173 new cases processed on the recovery run, confirming live alert ingestion was operational. Host telemetry coverage confirmed at 8/8 &mdash; no monitoring gaps during the outage window.</p>
+        </div>
+
+        <h2>Verification</h2>
+        <p>A reviewer can confirm these claims through:</p>
+        <ul style="color:#b8cce0;line-height:1.8;padding-left:20px;">
+          <li><strong>Pipeline recovery documentation:</strong> <span class="m-inline-code">docs/execution/AUTOSOC_PIPELINE_RECOVERY_CASE_STUDY_03-13-2026.md</span></li>
+          <li><strong>Debug trace:</strong> <span class="m-inline-code">docs/execution/AUTOSOC_PIPELINE_INCIDENT_DEBUG_03-13-2026.md</span></li>
+          <li><strong>Authority snapshot (locked 03-25):</strong> <span class="m-inline-code">PROOF_PACK/VERIFIED_COUNTS.md</span> &mdash; 55,665 total cases post-recovery</li>
+          <li><strong>Reconciliation fix:</strong> Commit history for <span class="m-inline-code">reconcile-state.py</span> &mdash; <span class="m-inline-code">repo_ids_autosoc</span> replacing <span class="m-inline-code">repo_ids</span></li>
+        </ul>
+
+      </div>
+
+      <aside class="m-rail">
+        <section class="m-rail-section">
+          <div class="m-card-kicker" data-aos="fade-up">At a glance</div>
+          <h2>What happened</h2>
+          <ul class="m-list-tight">
+            <li>Two independent defects surfaced simultaneously</li>
+            <li>Poller retry logic failed on URLError path</li>
+            <li>Reconciliation scoped against wrong directory set</li>
+            <li>Both diagnosed and fixed in one session</li>
+            <li>Pipeline: <strong style="color:#4ade80;">SUCCESS</strong></li>
+            <li>Mismatches: <strong style="color:#4ade80;">0</strong></li>
+          </ul>
+        </section>
+        <section class="m-rail-section">
+          <div class="m-card-kicker" data-aos="fade-up">Related</div>
+          <h2>See also</h2>
+          <div class="m-link-list">
+            <a href="/case-study-autosoc" class="m-link-item">
+              <strong>SignalFoundry case study</strong>
+              <span>Full architecture and triage logic for the pipeline system.</span>
+            </a>
+            <a href="/case-study-splunk-detection-audit" class="m-link-item">
+              <strong>Splunk Detection Rule Audit</strong>
+              <span>Four noise sources found in my own detection rules.</span>
+            </a>
+            <a href="/proof" class="m-link-item">
+              <strong>Proof page</strong>
+              <span>Verified metrics, reconciliation status, canonical snapshot.</span>
+            </a>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="m-section m-stage" data-aos="fade-up">
+  <div class="m-wrap">
+    <div class="m-card" data-aos="fade-up">
+      <div class="m-card-kicker" data-aos="fade-up">Continue reading</div>
+      <h2>More case studies</h2>
+      <div class="m-grid-2">
+        <a href="/case-study-splunk-detection-audit" class="m-link-item">
+          <strong>Splunk Detection Rule Audit</strong>
+          <span>Audited every SPL rule. Found four ways they would flood a real analyst with noise.</span>
+        </a>
+        <a href="/case-study-security-hardening" class="m-link-item">
+          <strong>Enterprise Security Hardening</strong>
+          <span>27 subcategories audited against Microsoft baseline. 11 ATT&amp;CK techniques unblocked.</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="ctr">
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
+    <div class="fl">
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
+      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/fetch-utils.js" defer></script>
+<script src="/data/counts.js" defer></script>
+<script src="/data/ops-metrics.js" defer></script>
+<script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
+</body>
+</html>
