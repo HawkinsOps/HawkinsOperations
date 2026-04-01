@@ -1,6 +1,6 @@
 # HawkinsOps Splunk Detection Queries - Defense Evasion
 # Author: HawkinsOps SOC
-# Updated: 2026-03-29
+# Updated: 2026-04-01
 
 # ========================================
 # Windows Event Log Clearing
@@ -34,9 +34,13 @@ index=windows EventCode=4104 (ScriptBlockText="*AmsiUtils*" OR ScriptBlockText="
 index=windows EventCode=8
 | where NOT match(SourceImage, "(?i)^C:\\\\Program Files")
 | where NOT match(TargetImage, "(?i)^C:\\\\Program Files")
-| where NOT match(SourceImage, "(?i)(MsMpEng|MsSense|SentinelOne|CrowdStrike|Cylance|cbdefense|elastic-agent|splunkd|sysmon)")
-| where NOT match(TargetImage, "(?i)(MsMpEng|svchost|RuntimeBroker|SearchHost|explorer)")
+# Exclude known EDR/security tools that use cross-process memory operations
+| where NOT match(SourceImage, "(?i)(MsMpEng|MsSense|SentinelOne|CrowdStrike|CSFalconService|CSFalconContainer|Cylance|cbdefense|elastic-agent|splunkd|sysmon)")
+# Exclude common system targets of legitimate cross-process operations
+| where NOT match(TargetImage, "(?i)(MsMpEng|svchost|RuntimeBroker|SearchHost|explorer|ShellExperienceHost|StartMenuExperienceHost|ctfmon)")
 | where NOT match(SourceImage, "(?i)^C:\\\\Windows\\\\System32")
+# Exclude AI coding tool runtimes that may use cross-process IPC
+| where NOT match(SourceImage, "(?i)(code\\.exe|codex|claude|cursor\\.exe|node\\.exe)")
 | table _time, Computer, SourceImage, TargetImage, SourceProcessId, TargetProcessId
 | sort -_time
 
@@ -63,6 +67,8 @@ index=windows EventCode=1 (CommandLine="*netsh*advfirewall*off*" OR CommandLine=
 # ========================================
 index=windows EventCode=7 Signed="false" (ImageLoaded="*\\Users\\Public\\*" OR ImageLoaded="*\\ProgramData\\*" OR ImageLoaded="*\\AppData\\Local\\Temp\\*")
 | where NOT match(Image, "(?i)(MsMpEng|Defender|WindowsApps)")
+# Exclude Electron-based developer tools that load unsigned DLLs from AppData
+| where NOT match(Image, "(?i)(code\\.exe|cursor\\.exe|slack\\.exe|teams\\.exe|discord\\.exe)")
 | table _time, Computer, Image, ImageLoaded, Signed
 | sort -_time
 
@@ -71,7 +77,9 @@ index=windows EventCode=7 Signed="false" (ImageLoaded="*\\Users\\Public\\*" OR I
 # MITRE: T1070.006
 # ========================================
 index=windows EventCode=1 (CommandLine="*CreationTime*" OR CommandLine="*LastWriteTime*" OR CommandLine="*Set-ItemProperty*")
-| where NOT match(User, "(?i)(system|network service|local service)")
+| where NOT match(User, "(?i)(system|network service|local service|trustedinstaller)")
+# Exclude known installer and update processes that legitimately set file timestamps
+| where NOT match(ParentImage, "(?i)(msiexec|setup|install|update|OneDrive)")
 | table _time, Computer, User, CommandLine
 | sort -_time
 

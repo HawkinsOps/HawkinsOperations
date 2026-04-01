@@ -1,6 +1,6 @@
 # HawkinsOps Splunk Detection Queries - Lateral Movement
 # Author: HawkinsOps SOC
-# Updated: 2026-03-29
+# Updated: 2026-04-01
 
 # ========================================
 # PsExec Service Installation
@@ -27,7 +27,10 @@ index=windows EventCode=4624 LogonType=10
 # ========================================
 index=windows EventCode=1 ParentImage="*\\wmiprvse.exe"
 | where NOT match(Image, "(?i)^C:\\\\Windows\\\\System32")
-| where NOT match(Image, "(?i)(MsMpEng|svchost|taskhostw|msiexec)")
+# Exclude known security tools and system processes spawned by WMI
+| where NOT match(Image, "(?i)(MsMpEng|svchost|taskhostw|msiexec|ccmexec|scrcons)")
+# Exclude EDR agents that use WMI for endpoint telemetry
+| where NOT match(Image, "(?i)(CrowdStrike|SentinelOne|elastic-agent|cbdefense)")
 | table _time, Computer, Image, CommandLine, ParentImage
 | sort -_time
 

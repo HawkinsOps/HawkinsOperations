@@ -1,6 +1,6 @@
 # HawkinsOps Splunk Detection Queries - Persistence
 # Author: HawkinsOps SOC
-# Updated: 2026-03-29
+# Updated: 2026-04-01
 
 # ========================================
 # Scheduled Task Creation
@@ -18,7 +18,10 @@ index=windows EventCode=4698
 # ========================================
 index=windows EventCode=13 TargetObject="*\\Microsoft\\Windows\\CurrentVersion\\Run*"
 | where NOT match(Image, "(?i)^C:\\\\Program Files")
-| where NOT match(Image, "(?i)(OneDrive|Dropbox|Slack|Teams|Zoom|Chrome|Firefox|Edge|Spotify)")
+# Exclude known applications that legitimately register Run key entries
+| where NOT match(Image, "(?i)(OneDrive|Dropbox|Slack|Teams|Zoom|Chrome|Firefox|Edge|Spotify|Discord|Steam|Brave|1Password|Bitwarden)")
+# Exclude update/installer processes modifying Run keys
+| where NOT match(Image, "(?i)(msiexec|setup|install|update)")
 | table _time, Computer, Image, TargetObject, Details
 | sort -_time
 
@@ -29,7 +32,10 @@ index=windows EventCode=13 TargetObject="*\\Microsoft\\Windows\\CurrentVersion\\
 index=windows EventCode=7045
 | where NOT match(ServiceName, "(?i)(^Microsoft|^Windows|^WPD|^TrustedInstaller)")
 | where NOT match(ImagePath, "(?i)^C:\\\\Windows")
-| where NOT match(ImagePath, "(?i)(Program Files\\\\(Microsoft|Windows|Intel|NVIDIA|Realtek|Malwarebytes|Sophos|CrowdStrike|SentinelOne|Carbon Black|Elastic))")
+# Exclude services installed by known security and infrastructure vendors
+| where NOT match(ImagePath, "(?i)(Program Files\\\\(Microsoft|Windows|Intel|NVIDIA|Realtek|Malwarebytes|Sophos|CrowdStrike|SentinelOne|Carbon Black|Elastic|Rapid7|Qualys|Tanium|Wazuh))")
+# Exclude Docker and container runtime service installations
+| where NOT match(ImagePath, "(?i)(docker|containerd|kubelet)")
 | table _time, Computer, ServiceName, ImagePath, ServiceType, StartType
 | sort -_time
 
@@ -55,7 +61,7 @@ index=windows EventCode=11 TargetFilename="*\\Start Menu\\Programs\\Startup\\*"
 # MITRE: T1197
 # ========================================
 index=windows EventCode=59
-| where NOT match(RemoteUrl, "(?i)(microsoft\\.com|windowsupdate\\.com|office\\.com|live\\.com|visualstudio\\.com|aka\\.ms)")
+| where NOT match(RemoteUrl, "(?i)(microsoft\\.com|windowsupdate\\.com|office\\.com|live\\.com|visualstudio\\.com|aka\\.ms|github\\.com|githubusercontent\\.com)")
 | table _time, Computer, User, RemoteUrl, LocalFile
 | sort -_time
 

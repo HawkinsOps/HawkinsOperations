@@ -1,6 +1,6 @@
 # HawkinsOps Splunk Detection Queries - Privilege Escalation
 # Author: HawkinsOps SOC
-# Updated: 2026-03-29
+# Updated: 2026-04-01
 
 # ========================================
 # UAC Bypass via Fodhelper
@@ -28,7 +28,11 @@ index=windows EventCode=13 TargetObject="*mscfile\\shell\\open\\command*"
 index=windows EventCode=4672 (PrivilegeList="*SeDebugPrivilege*" OR PrivilegeList="*SeImpersonatePrivilege*")
 | where NOT match(SubjectUserName, "(?i)(^SYSTEM$|\\$|network service|local service)")
 | where NOT match(SubjectUserName, "(?i)(^DWM-|^UMFD-)")
-| table _time, Computer, SubjectUserName, PrivilegeList
+# Bin by hour to suppress repeated privilege assignments from the same account
+| bin _time span=1h
+| stats count by _time, Computer, SubjectUserName, PrivilegeList
+| where count > 1
+| table _time, Computer, SubjectUserName, PrivilegeList, count
 | sort -_time
 
 # ========================================

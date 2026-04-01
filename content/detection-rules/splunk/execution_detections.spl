@@ -1,6 +1,6 @@
 # HawkinsOps Splunk Detection Queries - Execution
 # Author: HawkinsOps SOC
-# Updated: 2026-03-29
+# Updated: 2026-04-01
 
 # ========================================
 # Suspicious PowerShell Commands
@@ -15,8 +15,13 @@ index=windows EventCode=4104 (ScriptBlockText="*DownloadString*" OR ScriptBlockT
 # Encoded PowerShell
 # MITRE: T1027
 # ========================================
-index=windows EventCode=1 Image="*powershell.exe" (CommandLine="* -e *" OR CommandLine="* -en *" OR CommandLine="* -enc *" OR CommandLine="* -encoded*")
-| where NOT match(ParentImage, "(?i)(vscode|code\\.exe|node\\.exe|codex\\.exe|cursor\\.exe)")
+index=windows EventCode=1 (Image="*\\powershell.exe" OR Image="*\\pwsh.exe") (CommandLine="* -e *" OR CommandLine="* -en *" OR CommandLine="* -enc *" OR CommandLine="* -encoded*")
+# Exclude AI coding tools that spawn encoded PowerShell as part of normal tool-call operation
+| where NOT match(ParentImage, "(?i)(code\\.exe|codex|claude|copilot|cursor\\.exe|aider|codeium|windsurf)")
+# Exclude Node.js runtime (host process for Electron-based AI tools)
+| where NOT match(ParentImage, "(?i)\\\\node\\.exe$")
+# Exclude enterprise management tools (SCCM, PDQ Deploy, Intune)
+| where NOT match(ParentImage, "(?i)(ccmexec|CcmExec|PDQDeploy|intune)")
 | where NOT match(CommandLine, "(?i)^C:\\\\Program Files")
 | table _time, Computer, User, CommandLine, ParentImage
 | sort -_time
@@ -51,7 +56,7 @@ index=windows EventCode=1 Image="*\\regsvr32.exe" (CommandLine="*scrobj.dll*" OR
 # Macro-spawned Process
 # MITRE: T1204.002
 # ========================================
-index=windows EventCode=1 (ParentImage="*\\WINWORD.EXE" OR ParentImage="*\\EXCEL.EXE" OR ParentImage="*\\POWERPNT.EXE") (Image="*\\cmd.exe" OR Image="*\\powershell.exe" OR Image="*\\wscript.exe")
+index=windows EventCode=1 (ParentImage="*\\WINWORD.EXE" OR ParentImage="*\\EXCEL.EXE" OR ParentImage="*\\POWERPNT.EXE") (Image="*\\cmd.exe" OR Image="*\\powershell.exe" OR Image="*\\pwsh.exe" OR Image="*\\wscript.exe")
 | table _time, Computer, ParentImage, Image, CommandLine
 | sort -_time
 

@@ -1,7 +1,6 @@
-```
 # HawkinsOps Splunk Detection Queries - Windows Security Event Log
 # Author: HawkinsOps SOC
-# Date: 2026-03-24
+# Updated: 2026-04-01
 # Sourcetype: XmlWinEventLog:Security (Security Event Log via Wazuh agent)
 # Note: Splunk Add-on for Windows not installed — fields extracted via rex field=_raw
 #       Field names reference XML Data Name attributes, not CIM-normalized names.
@@ -18,6 +17,7 @@ index=* sourcetype="XmlWinEventLog:Security" EventID=4688
 | eval child_proc=lower(mvindex(split(NewProcessName,"\\"),-1))
 | where match(parent_proc,"(winword|excel|powerpnt|outlook|chrome|firefox|iexplore|msedge|opera|brave)")
   AND match(child_proc,"(cmd|powershell|pwsh|wscript|cscript|mshta|rundll32|regsvr32|certutil|bitsadmin|bash|wmic|msiexec)")
+  AND NOT match(parent_proc,"(code|codex|claude|copilot|cursor|node)")
 | rex field=_raw "SubjectUserName'>(?<actor>[^<]+)<"
 | rex field=_raw "CommandLine'>(?<cmdline>[^<]+)<"
 | table _time host actor parent_proc child_proc cmdline
@@ -63,6 +63,8 @@ index=* sourcetype="XmlWinEventLog:Security" EventID=4688
   AND NOT match(actor,"^SYSTEM$|^-$|^\$|^DWM|^UMFD|^LOCAL SERVICE|^NETWORK SERVICE")
 | eval child_proc=lower(mvindex(split(NewProcessName,"\\"),-1))
 | where NOT match(child_proc,"(svchost|services|lsass|wininit|winlogon|smss|csrss|dllhost|taskhost|conhost|fontdrvhost)")
+# Exclude AI coding tool processes that commonly run after-hours during development sessions
+| where NOT match(child_proc,"(code|codex|claude|copilot|cursor|node|pwsh|git)")
 | stats count by actor child_proc hour host
 | sort -count
 
@@ -79,4 +81,3 @@ index=* sourcetype="XmlWinEventLog:Security" EventID IN (4798,4799)
 | eval event_desc=if(EventID="4798","User_Enum","Group_Enum")
 | table _time host actor proc_name event_desc
 | sort _time desc
-```

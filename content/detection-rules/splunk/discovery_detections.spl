@@ -1,6 +1,6 @@
 # HawkinsOps Splunk Detection Queries - Discovery
 # Author: HawkinsOps SOC
-# Updated: 2026-03-29
+# Updated: 2026-04-01
 
 # ========================================
 # Whoami Execution
@@ -8,6 +8,8 @@
 # ========================================
 index=windows EventCode=1 Image="*\\whoami.exe"
 | where NOT match(ParentImage, "(?i)(sysmon|ccmexec|lsass)")
+# Exclude AI coding tools that run whoami for environment context
+| where NOT match(ParentImage, "(?i)(code\\.exe|codex|claude|copilot|cursor\\.exe|node\\.exe)")
 | bin _time span=1h
 | stats count by _time, Computer, User
 | where count > 3
@@ -28,6 +30,8 @@ index=windows EventCode=1 (Image="*\\net.exe" OR Image="*\\net1.exe") (CommandLi
 # ========================================
 index=windows EventCode=1 (Image="*\\systeminfo.exe" OR Image="*\\hostname.exe")
 | where NOT match(ParentImage, "(?i)(sccm|configmgr|ccmexec|puppet|chef)")
+# Exclude AI coding tools that query system info for environment detection
+| where NOT match(ParentImage, "(?i)(code\\.exe|codex|claude|copilot|cursor\\.exe|node\\.exe)")
 | table _time, Computer, User, Image
 | sort -_time
 
@@ -56,6 +60,8 @@ index=windows EventCode=1 (CommandLine="*nltest /domain_trusts*" OR CommandLine=
 # ========================================
 index=windows EventCode=1 (CommandLine="*dir /s*" OR CommandLine="*tree /f*" OR CommandLine="*findstr /si password*")
 | where NOT match(User, "(?i)(system|network service)")
+# Exclude AI coding tools that use dir/tree for codebase exploration
+| where NOT match(ParentImage, "(?i)(code\\.exe|codex|claude|copilot|cursor\\.exe|node\\.exe)")
 | table _time, Computer, User, CommandLine
 | sort -_time
 
