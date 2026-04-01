@@ -1,0 +1,36 @@
+title: "SignalFoundry Pipeline Outage: Diagnosed and Restored in One Session"
+slug: autosoc-pipeline-recovery
+date: "2026-03-25"
+author: Raylee Hawkins
+tags:
+  - incident-response
+  - pipeline-engineering
+  - wazuh
+  - automation
+  - root-cause-analysis
+locked_snapshot: "2026-03-25"
+canonical_metrics:
+  source_file: PROOF_PACK/VERIFIED_COUNTS.md
+  generated_at_utc: "2026-03-24T10:36:20+00:00"
+  detection_counts:
+    sigma: 103
+    splunk: 9
+    wazuh_xml_files: 24
+    wazuh_rule_blocks: 28
+    ir_playbooks: 10
+    total_detections: 140
+  pipeline_snapshot:
+    source: docs/SignalFoundry_Case_Study_March2026.md
+    snapshot_date: "2026-03-25"
+    total_cases: 55665
+    auto_close_rate: "~92%"
+    escalated_cases: 2545
+    hosts_monitored: "8/8"
+    hard_mismatches: 0
+abstract: >
+  On March 13, 2026, the SignalFoundry automated SOC pipeline stopped ingesting
+  Wazuh alerts. Two root causes were identified in one session: a poller retry
+  control-flow defect (URLError not entering retry path on first attempt) and a
+  reconciliation scoping error (unscoped repo_ids list inflating mismatch count).
+  Both fixes were surgical, pipeline restored to SUCCESS, and a locked authority
+  snapshot was frozen on March 25 with 55,665 cases processed.

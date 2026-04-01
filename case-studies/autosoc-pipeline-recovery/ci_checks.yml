@@ -1,0 +1,81 @@
+# CI checks for AutoSOC Pipeline Recovery case study
+# Add to .github/workflows/ or include as a reusable workflow
+
+name: Case Study Verification
+
+on:
+  push:
+    paths:
+      - 'case-studies/autosoc-pipeline-recovery/**'
+      - 'PROOF_PACK/VERIFIED_COUNTS.md'
+      - 'PROOF_PACK/verified_counts.json'
+      - 'content/detection-rules/**'
+      - 'content/incident-response/**'
+  pull_request:
+    paths:
+      - 'case-studies/**'
+      - 'PROOF_PACK/**'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-case-study:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Check 1: Canonical metrics parity
+      - name: Verify detection counts
+        shell: pwsh
+        run: |
+          pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
+
+      # Check 2: Sitemap integrity
+      - name: Verify sitemap references
+        shell: pwsh
+        run: |
+          $sitemap = Get-Content ".\site\sitemap.xml" -Raw
+          $required = @(
+            "hawkinsops.com/case-study-autosoc",
+            "hawkinsops.com/proof",
+            "hawkinsops.com/detections",
+            "hawkinsops.com/resume"
+          )
+          $missing = @()
+          foreach ($url in $required) {
+            if ($sitemap -notmatch [regex]::Escape($url)) {
+              $missing += $url
+            }
+          }
+          if ($missing.Count -gt 0) {
+            Write-Error "Sitemap missing URLs: $($missing -join ', ')"
+            exit 1
+          }
+          Write-Host "Sitemap: all required URLs present"
+
+      # Check 3: Case study verify script
+      - name: Run case study verification
+        shell: pwsh
+        run: |
+          pwsh -NoProfile -ExecutionPolicy Bypass -File ".\case-studies\autosoc-pipeline-recovery\evidence\verify.ps1"
+
+      # Check 4: Drift scan
+      - name: Run drift scan
+        shell: bash
+        run: python scripts/drift_scan.py
+
+      # Check 5: Site diagnosis
+      - name: Run site diagnosis
+        run: node scripts/diagnose-site.js --fail-on-issues

@@ -1,0 +1,157 @@
+# Evidence Pack — AutoSOC Pipeline Recovery Case Study
+# Generated: 2026-03-30
+# Locked Snapshot: 2026-03-25
+# Source of Truth: PROOF_PACK/VERIFIED_COUNTS.md
+
+artifacts:
+
+  - id: verified_counts_md
+    name: "Verified Counts (Markdown)"
+    path: "PROOF_PACK/VERIFIED_COUNTS.md"
+    type: source_of_truth
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\PROOF_PACK\VERIFIED_COUNTS.md').Hash"
+    verification_command: |
+      pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
+    expected_output: "All counts match"
+
+  - id: verified_counts_json
+    name: "Verified Counts (JSON)"
+    path: "PROOF_PACK/verified_counts.json"
+    type: source_of_truth
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\PROOF_PACK\verified_counts.json').Hash"
+    verification_command: |
+      pwsh -NoProfile -Command "(Get-Content '.\PROOF_PACK\verified_counts.json' | ConvertFrom-Json).counts.detections"
+    expected_output: "140"
+
+  - id: signalfoundry_case_study
+    name: "SignalFoundry Engineering Case Study"
+    path: "docs/SignalFoundry_Case_Study_March2026.md"
+    type: narrative_evidence
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\docs\SignalFoundry_Case_Study_March2026.md').Hash"
+    note: "Contains canonical snapshot metrics (March 20 baseline + March 25 locked state)"
+
+  - id: case_study_html
+    name: "Published Case Study Page"
+    path: "site/case-study-autosoc.html"
+    url: "https://hawkinsops.com/case-study-autosoc"
+    type: published_artifact
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\site\case-study-autosoc.html').Hash"
+
+  - id: autosoc_pipeline_recovery_doc
+    name: "Pipeline Recovery Public Snippets"
+    path: "docs/execution/AUTOSOC_PIPELINE_RECOVERY_PUBLIC_SNIPPETS_03-13-2026.md"
+    type: incident_evidence
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\docs\execution\AUTOSOC_PIPELINE_RECOVERY_PUBLIC_SNIPPETS_03-13-2026.md').Hash"
+
+  - id: autosoc_pipeline_recovery_full
+    name: "Pipeline Recovery Case Study (detailed)"
+    path: "docs/execution/AUTOSOC_PIPELINE_RECOVERY_CASE_STUDY_03-13-2026.md"
+    type: incident_evidence
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\docs\execution\AUTOSOC_PIPELINE_RECOVERY_CASE_STUDY_03-13-2026.md').Hash"
+
+  - id: autosoc_operations_runbook
+    name: "AutoSOC Operations Runbook"
+    path: "docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md"
+    type: operational_evidence
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\docs\execution\AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md').Hash"
+
+  - id: architecture_doc
+    name: "SOC Architecture"
+    path: "PROOF_PACK/ARCHITECTURE.md"
+    type: architecture
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\PROOF_PACK\ARCHITECTURE.md').Hash"
+
+  - id: proof_page
+    name: "Published Proof Page"
+    path: "site/proof.html"
+    url: "https://hawkinsops.com/proof"
+    type: published_artifact
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\site\proof.html').Hash"
+
+  - id: resume_pdf
+    name: "Resume PDF"
+    path: "site/assets/Raylee_Hawkins_Resume.pdf"
+    url: "https://hawkinsops.com/assets/Raylee_Hawkins_Resume.pdf"
+    type: resume
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\site\assets\Raylee_Hawkins_Resume.pdf').Hash"
+
+  - id: resume_txt
+    name: "Resume ATS Plain Text"
+    path: "site/resume.txt"
+    url: "https://hawkinsops.com/resume.txt"
+    type: resume
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\site\resume.txt').Hash"
+
+  - id: sitemap
+    name: "Sitemap"
+    path: "site/sitemap.xml"
+    url: "https://hawkinsops.com/sitemap.xml"
+    type: seo
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\site\sitemap.xml').Hash"
+
+  - id: robots_txt
+    name: "robots.txt"
+    path: "site/robots.txt"
+    url: "https://hawkinsops.com/robots.txt"
+    type: seo
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\site\robots.txt').Hash"
+
+metric_reconciliation:
+  detection_counts:
+    source: PROOF_PACK/verified_counts.json
+    sigma: 103
+    splunk: 9
+    wazuh_xml_files: 24
+    wazuh_rule_blocks: 28
+    ir_playbooks: 10
+    total_detections: 140
+    status: CONSISTENT
+    note: "All surfaces (VERIFIED_COUNTS.md, verified_counts.json, HTML data-verified attrs, drift_scan.py) agree"
+
+  pipeline_metrics:
+    note: >
+      Pipeline operational metrics (cases processed, auto-close rate, escalations)
+      are NOT tracked in VERIFIED_COUNTS.md. They originate from the SignalFoundry
+      system's heartbeat.json and ledger.json, which are external to this portfolio repo.
+    snapshots:
+      - source: "docs/SignalFoundry_Case_Study_March2026.md (Section 5.1)"
+        date: "2026-03-20"
+        total_cases: 49774
+        auto_close_rate: "~89%"
+        escalated: 2478
+      - source: "site/case-study-autosoc.html (locked snapshot)"
+        date: "2026-03-25"
+        total_cases: 55665
+        auto_close_rate: "~92%"
+        escalated: 2545
+    drift_explanation: >
+      The March 20 and March 25 values represent two different temporal snapshots
+      of a live system. The delta (5,891 new cases, +67 escalations, +3% auto-close)
+      is consistent with continued pipeline operation over 5 days. No reconciliation
+      error. The March 25 values are the locked authority snapshot.
