@@ -1,0 +1,36 @@
+title: "Production Race Condition Recovery: TOCTOU at 505K-File Scale"
+slug: autosoc-race-condition
+date: "2026-04-01"
+author: Raylee Hawkins
+tags:
+  - incident-response
+  - race-condition
+  - toctou
+  - pipeline-engineering
+  - filesystem
+  - root-cause-analysis
+locked_snapshot: "2026-04-01"
+canonical_metrics:
+  source_file: PROOF_PACK/VERIFIED_COUNTS.md
+  detection_counts:
+    sigma: 103
+    splunk: 9
+    wazuh_xml_files: 24
+    wazuh_rule_blocks: 28
+    ir_playbooks: 10
+    total_detections: 140
+  pipeline_snapshot:
+    snapshot_date: "2026-04-01"
+    total_cases: 321351
+    auto_close_rate: "~92%"
+    escalated_cases: 7950
+    hosts_monitored: "8/8"
+    hard_mismatches: 0
+abstract: >
+  On April 1, 2026, the SignalFoundry pipeline crashed three times in 2.5 hours
+  due to a TOCTOU race condition at 505,836-file queue depth. The race existed
+  from inception but only surfaced at scale when glob-to-stat windows stretched
+  to seconds. Fixed with 4 defensive guards across 2 files (~20 lines), verified
+  under live load with 1,056 files vanishing during sort — zero unhandled
+  exceptions. Pipeline recovered from sub-10-second crashes to 80+ minutes
+  sustained processing. Zero data loss.

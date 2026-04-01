@@ -246,7 +246,7 @@
 
   <rect x="700" y="530" width="172" height="26" rx="4" fill="#0a1a20" stroke="#1a2d3a" stroke-width="1"/>
   <circle cx="720" cy="543" r="3" fill="#00c4d4"/>
-  <text x="730" y="547" font-family="'JetBrains Mono', monospace" font-size="10" fill="#6a9aaa">54,700 cases processed</text>
+  <text x="730" y="547" font-family="'JetBrains Mono', monospace" font-size="10" fill="#6a9aaa">321,351 cases processed</text>
 
   <rect x="560" y="564" width="130" height="26" rx="4" fill="#0d1a14" stroke="#1a3020" stroke-width="1"/>
   <circle cx="580" cy="577" r="3" fill="#e8a020"/>
@@ -254,7 +254,7 @@
 
   <rect x="700" y="564" width="172" height="26" rx="4" fill="#0a1a20" stroke="#1a2d3a" stroke-width="1"/>
   <circle cx="720" cy="577" r="3" fill="#00c4d4"/>
-  <text x="730" y="581" font-family="'JetBrains Mono', monospace" font-size="10" fill="#6a9aaa">2,531 escalations pub.</text>
+  <text x="730" y="581" font-family="'JetBrains Mono', monospace" font-size="10" fill="#6a9aaa">7,950 escalations pub.</text>
 
   <!-- Vertical center divider (full height) -->
   <line x1="430" y1="126" x2="430" y2="518" stroke="#131d28" stroke-width="1"/>
