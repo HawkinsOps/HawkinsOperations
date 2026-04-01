@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study: Production Race Condition Recovery | SignalFoundry | HawkinsOps</title>
+<meta name="description" content="Diagnosing and resolving a TOCTOU race condition in a live SOC automation pipeline processing 505,000+ alert files. Zero data loss. Verified under production load.">
+<meta name="theme-color" content="#07070b">
+<link rel="canonical" href="https://hawkinsops.com/case-study-race-condition">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Case Study: Production Race Condition Recovery | SignalFoundry | HawkinsOps">
+<meta property="og:description" content="TOCTOU race condition at 505K-file scale. Diagnosed from production tracebacks, fixed with 20 lines, verified under live load. Zero data loss.">
+<meta property="og:url" content="https://hawkinsops.com/case-study-race-condition">
+<meta property="og:image" content="https://hawkinsops.com/assets/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Case Study: Production Race Condition Recovery | SignalFoundry | HawkinsOps">
+<meta name="twitter:description" content="TOCTOU race condition at 505K-file scale. Diagnosed, fixed with 20 lines, verified under live load.">
+<meta name="twitter:image" content="https://hawkinsops.com/assets/og-card.png">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.setAttribute('data-theme','dark');</script>
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
+<style>
+:root{--bg:#060a10;--bg1:#0a0f18;--bg2:#0d1320;--bg3:#111827;--bgt:#080c14;--cy:#00e5ff;--cyd:#00e5ff88;--cyg:#00e5ff22;--gr:#28c840;--grd:#28c84066;--am:#febc2e;--amd:#febc2e55;--rd:#ff5f57;--rdd:#ff5f5755;--t1:#e2e8f0;--t2:#94a3b8;--t3:#64748b;--bd:#1e293b;--bdc:#00e5ff15}
+.pg{max-width:820px;margin:0 auto;padding:0 24px}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .6s ease-out,transform .6s ease-out}
+.rv.vis{opacity:1;transform:translateY(0)}
+.hero{padding:120px 0 48px;border-bottom:1px solid var(--bdc)}
+.hk{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--cy);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.hk::before{content:'';width:8px;height:8px;background:var(--cy);border-radius:50%;box-shadow:0 0 8px var(--cy),0 0 20px var(--cyg);animation:pul 2.5s ease-in-out infinite}
+@keyframes pul{0%,100%{opacity:1}50%{opacity:.6}}
+.hero h1{font-size:2.2rem;font-weight:700;line-height:1.15;letter-spacing:-.5px;margin-bottom:16px}
+.hero-sub{font-size:1rem;color:var(--t2);line-height:1.7;max-width:680px}
+.hmeta{margin-top:24px;display:flex;flex-wrap:wrap;gap:12px}
+.pill{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--t3);background:var(--bg2);border:1px solid var(--bd);padding:6px 14px;border-radius:100px}
+.pill span{color:var(--t2)}.pill .g{color:var(--gr)}
+.rc-toc{padding:32px 0;border-bottom:1px solid var(--bd)}
+.toc-t{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:16px}
+.toc-g{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:4px 32px}
+.toc-g a{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--cyd);text-decoration:none;padding:5px 0;display:block;transition:color .2s,padding-left .2s}
+.toc-g a:hover{color:var(--cy);padding-left:4px}
+.toc-g .n{color:var(--t3);margin-right:8px}
+.rc-sec{padding:56px 0 0}
+.sk{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--cyd);margin-bottom:12px}
+.pg h2{font-size:1.5rem;font-weight:600;margin-bottom:20px;letter-spacing:-.3px}
+.pg h3{font-size:1.1rem;font-weight:600;margin-top:32px;margin-bottom:12px}
+.pg p{margin-bottom:16px;color:var(--t2);font-size:.95rem}
+.pg p strong{color:var(--t1);font-weight:600}
+.pg code{font-family:'IBM Plex Mono',monospace;font-size:.85em;background:var(--bg3);padding:2px 6px;border-radius:3px;color:var(--cyd)}
+.rc-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:24px 0}
+.st{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:20px;text-align:center;transition:border-color .3s,transform .3s}
+.st:hover{border-color:var(--cyg);transform:translateY(-2px)}
+.stn{font-family:'IBM Plex Mono',monospace;font-size:1.8rem;font-weight:600;color:var(--cy);letter-spacing:-1px;line-height:1.2}
+.stl{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--t3);letter-spacing:1px;text-transform:uppercase;margin-top:6px}
+.st.gr .stn{color:var(--gr)}
+.cw{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:24px;margin:24px 0}
+.cwt{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:16px}
+.bc{display:flex;flex-direction:column;gap:12px}
+.br{display:grid;grid-template-columns:120px 1fr 70px;gap:12px;align-items:center}
+.bl{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--t3);text-align:right}
+.bt{height:28px;background:var(--bg3);border-radius:4px;overflow:hidden}
+.bf{height:100%;border-radius:4px;width:0%;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.bf.c{background:linear-gradient(90deg,var(--cyd),var(--cy))}.bf.g{background:linear-gradient(90deg,var(--grd),var(--gr))}.bf.a{background:linear-gradient(90deg,var(--amd),var(--am))}.bf.r{background:linear-gradient(90deg,var(--rdd),var(--rd))}
+.bv{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--t2);text-align:right}
+.tl{margin:24px 0;position:relative;padding-left:28px}
+.tl::before{content:'';position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--rd),var(--am),var(--gr));border-radius:2px}
+.tli{position:relative;padding:12px 0 12px 20px}
+.tld{position:absolute;left:-24px;top:18px;width:10px;height:10px;border-radius:50%;border:2px solid;background:var(--bg)}
+.tld.r{border-color:var(--rd)}.tld.a{border-color:var(--am)}.tld.g{border-color:var(--gr)}
+.tlt{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--t3)}
+.tlx{font-size:.9rem;color:var(--t2);margin-top:4px}
+.tlx strong{color:var(--t1)}
+.tm{background:var(--bgt);border:1px solid var(--bdc);border-radius:10px;margin:20px 0 24px;overflow:hidden}
+.tmb{background:var(--bg3);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bdc)}
+.tmd{display:flex;gap:6px}.tmd span{width:10px;height:10px;border-radius:50%}.tmd .r{background:var(--rd)}.tmd .y{background:var(--am)}.tmd .g{background:var(--gr)}
+.tmt{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--t3);letter-spacing:1px}
+.tmx{padding:20px 24px;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.9;color:var(--t2);overflow-x:auto}
+.tmx .ln{display:flex;justify-content:space-between;padding:1px 0}
+.tmx .k{color:var(--t3)}.tmx .vc{color:var(--cy);font-weight:500}.tmx .vg{color:var(--gr);font-weight:500}.tmx .va{color:var(--am);font-weight:500}.tmx .vr{color:var(--rd);font-weight:500}
+.tmx .cm{color:var(--t3);font-style:italic}
+.tmx hr{border:none;border-top:1px solid var(--bdc);margin:14px 0}
+.bas{margin:32px 0;background:var(--bg2);border:1px solid var(--bd);border-radius:12px;overflow:hidden}
+.bah{padding:16px 24px;border-bottom:1px solid var(--bd);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--t3)}
+.batabs{display:flex;border-bottom:1px solid var(--bd)}
+.batab{flex:1;padding:12px;text-align:center;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;border:none;background:none;transition:background .2s,color .2s}
+.batab.bf2{color:var(--rdd)}.batab.af{color:var(--grd)}
+.batab.act.bf2{color:var(--rd);background:#ff5f5708;border-bottom:2px solid var(--rd)}
+.batab.act.af{color:var(--gr);background:#28c84008;border-bottom:2px solid var(--gr)}
+.bac{padding:24px}
+.bap{display:none}.bap.act{display:block}
+.bar2{display:grid;grid-template-columns:140px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--bd);align-items:center}
+.bar2:last-child{border-bottom:none}
+.bak{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--t3)}
+.bav{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500}
+.bav.r{color:var(--rd)}.bav.g{color:var(--gr)}.bav.a{color:var(--am)}
+.coll{display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--cyd);padding:10px 0;background:none;border:none;width:100%;text-align:left;transition:color .2s}
+.coll:hover{color:var(--cy)}
+.coll .aw{transition:transform .3s;display:inline-block;font-size:10px}
+.coll.op .aw{transform:rotate(90deg)}
+.colb{max-height:0;overflow:hidden;transition:max-height .4s ease-out}
+.colb.op{max-height:2000px}
+.dt{width:100%;border-collapse:collapse;margin:20px 0 24px;font-size:.9rem}
+.dt th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);text-align:left;padding:12px 16px;border-bottom:1px solid var(--bdc);background:var(--bg2)}
+.dt td{padding:10px 16px;border-bottom:1px solid var(--bd);color:var(--t2);font-size:.88rem}
+.dt .mono{font-family:'IBM Plex Mono',monospace;font-size:.82rem}
+.dt .pass{color:var(--gr);font-weight:600}.dt .fail{color:var(--rd);font-weight:600}
+.rc-fl{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:24px;margin:24px 0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.fln{font-family:'IBM Plex Mono',monospace;font-size:12px;padding:8px 16px;border-radius:6px;background:var(--bg3);border:1px solid var(--bd);color:var(--t2);text-align:center;max-width:420px;width:100%}
+.fln.fl-fail{border-color:var(--rdd);color:var(--rd)}
+.fla{color:var(--t3);font-size:18px;line-height:1}
+.vd{background:#28c84008;border:1px solid #28c84025;border-radius:10px;padding:20px 24px;margin:24px 0;display:flex;justify-content:space-between;align-items:center}
+.vdt{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--t2)}
+.vdr{font-family:'IBM Plex Mono',monospace;font-size:1.2rem;font-weight:600;color:var(--gr);letter-spacing:2px}
+.co{background:#00e5ff08;border-left:3px solid var(--cyd);padding:16px 20px;margin:24px 0;border-radius:0 8px 8px 0}
+.co p{margin:0;color:var(--t2);font-size:.92rem}.co strong{color:var(--cy)}
+.pbar{position:fixed;top:0;left:0;height:2px;z-index:100;background:linear-gradient(90deg,var(--cy),#2dd4bf);width:0%;transition:width .1s linear}
+.snav{position:fixed;top:48px;left:0;right:0;z-index:90;background:#060a10ee;backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);transform:translateY(-100%);transition:transform .3s;padding:10px 24px}
+.snav.v{transform:translateY(0)}
+.snav-i{max-width:820px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.snav-t{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cyd);letter-spacing:1px}
+.snav-s{font-family:'IBM Plex Sans',sans-serif;font-size:13px;color:var(--t3);font-weight:500}
+.rc-pf{margin-top:64px;padding:32px 0;border-top:1px solid var(--bd);text-align:center}
+.rc-pf p{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--t3);letter-spacing:1px}
+.rc-pf a{color:var(--cyd);text-decoration:none}.rc-pf a:hover{color:var(--cy)}
+@media(max-width:640px){.hero h1{font-size:1.6rem}.toc-g{grid-template-columns:1fr}.rc-stats{grid-template-columns:1fr 1fr}.pg{padding:0 16px}.br{grid-template-columns:80px 1fr 50px}.bar2{grid-template-columns:100px 1fr}}
+</style>
+</head>
+<body data-ops-scope="stable">
+<!-- @include:nav:start -->
+<nav>
+  <div class="nav-i">
+    <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
+    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
+    <ul class="nav-l">
+      <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/detections">Detections</a></li>
+      <li><a href="/resume">Resume</a></li>
+    </ul>
+    <a class="btn btn-p nav-cta" href="/resume">Resume</a>
+  </div>
+</nav>
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+  <a href="/">Home</a>
+  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
+  <a href="/proof">Proof</a>
+  <a href="/detections">Detections</a>
+  <a href="/resume">Resume</a>
+</div>
+<!-- @include:nav:end -->
+
+<div class="pbar" id="pb"></div>
+<div class="snav" id="sn"><div class="snav-i"><span class="snav-t">SignalFoundry</span><span class="snav-s" id="ns"></span></div></div>
+<div class="pg">
+
+<div class="hero">
+<div class="hk">SignalFoundry Case Study</div>
+<h1>Live Recovery of a Production Race Condition at 505,000-File Scale</h1>
+<p class="hero-sub">A production SOC automation pipeline hit a scaling threshold that turned a latent filesystem race condition into a guaranteed crash. The infrastructure held. The data held. The defect was diagnosed from production tracebacks, fixed with 20 lines across 4 code sites, and verified under live load&mdash;with the race actively firing and every instance caught.</p>
+<div class="hmeta">
+<div class="pill">System <span>SignalFoundry</span></div>
+<div class="pill">Status <span class="g">Resolved</span></div>
+<div class="pill">Data Loss <span class="g">Zero</span></div>
+<div class="pill">Date <span>April 2026</span></div>
+</div>
+</div>
+
+<nav class="rc-toc"><div class="toc-t">Contents</div>
+<ol class="toc-g">
+<li><a href="#s1"><span class="n">01</span> System Context</a></li>
+<li><a href="#s2"><span class="n">02</span> The Incident</a></li>
+<li><a href="#s3"><span class="n">03</span> Root Cause</a></li>
+<li><a href="#s4"><span class="n">04</span> Failure Loop</a></li>
+<li><a href="#s5"><span class="n">05</span> The Fix</a></li>
+<li><a href="#s6"><span class="n">06</span> Verification</a></li>
+<li><a href="#s7"><span class="n">07</span> Integrity</a></li>
+<li><a href="#s8"><span class="n">08</span> Analysis</a></li>
+<li><a href="#s9"><span class="n">09</span> What This Demonstrates</a></li>
+<li><a href="#s10"><span class="n">10</span> Lessons Learned</a></li>
+</ol></nav>
+
+<div class="rc-sec rv" id="s1" data-s="System Context">
+<div class="sk">01 &mdash; System Context</div>
+<h2>What SignalFoundry Does</h2>
+<p>SignalFoundry is a Python-based SOC automation pipeline that processes security alerts end-to-end without manual intervention. It runs on a scheduled cadence, executing a seven-stage workflow: poll alerts from a Wazuh SIEM indexer via HTTPS, enforce queue capacity limits, triage each alert against a policy engine with false-positive signatures and agent alias mappings, generate structured case directories, assemble escalation packs for high-severity detections, reconcile ledger totals against case counts on disk, and write pipeline health heartbeats with per-run metrics.</p>
+<p>The system handles alerts from a multi-host environment spanning Windows and Linux endpoints. Rule types range from file-integrity monitoring and rootcheck anomalies to Sysmon behavioral detections and authentication events.</p>
+<div class="rc-stats">
+<div class="st"><div class="stn" data-c="321351">0</div><div class="stl">Total Cases</div></div>
+<div class="st"><div class="stn">7</div><div class="stl">Pipeline Stages</div></div>
+<div class="st"><div class="stn" data-c="7950">0</div><div class="stl">Escalated</div></div>
+<div class="st gr"><div class="stn">0</div><div class="stl">Ledger Mismatches</div></div>
+</div>
+<div class="cw rv"><div class="cwt">Case Disposition Breakdown</div>
+<div class="bc">
+<div class="br"><div class="bl">Benign</div><div class="bt"><div class="bf c" data-w="62.1"></div></div><div class="bv">199,672</div></div>
+<div class="br"><div class="bl">Known FP</div><div class="bt"><div class="bf g" data-w="26.5"></div></div><div class="bv">85,185</div></div>
+<div class="br"><div class="bl">Review</div><div class="bt"><div class="bf a" data-w="8.9"></div></div><div class="bv">28,544</div></div>
+<div class="br"><div class="bl">Escalated</div><div class="bt"><div class="bf r" data-w="2.5"></div></div><div class="bv">7,950</div></div>
+</div></div>
+<p>The sum&mdash;199,672 + 85,185 + 28,544 + 7,950 = <strong>321,351</strong>&mdash;matches <code>total_cases</code> exactly. Reconciliation mismatches: zero before, during, and after.</p>
+</div>
+
+<div class="rc-sec rv" id="s2" data-s="The Incident">
+<div class="sk">02 &mdash; The Incident</div>
+<h2>Three Crashes Before Breakfast</h2>
+<p>Three consecutive pipeline runs crashed at the alert-ingestion stage within 2.5 hours. Each terminated the entire pipeline. Two stages, three files, same exception: <code>FileNotFoundError</code>.</p>
+<div class="tl rv">
+<div class="tli"><div class="tld r"></div><div class="tlt">05:29:07 UTC</div><div class="tlx"><strong>Crash #1</strong> &mdash; <code>poll-alerts.py enforce_queue_cap()</code> &mdash; <code>stat()</code> on vanished file. Exited in 5.4s.</div></div>
+<div class="tli"><div class="tld r"></div><div class="tlt">05:39:02 UTC</div><div class="tlx"><strong>Crash #2</strong> &mdash; <code>triage.py main()</code> &mdash; <code>read_text()</code> on different vanished file.</div></div>
+<div class="tli"><div class="tld r"></div><div class="tlt">07:44:03 UTC</div><div class="tlx"><strong>Crash #3</strong> &mdash; <code>poll-alerts.py</code> again &mdash; third file. Heartbeat: <code>FAILED</code>. All downstream blocked.</div></div>
+<div class="tli"><div class="tld a"></div><div class="tlt">~10:00 UTC</div><div class="tlx"><strong>Root cause identified.</strong> TOCTOU race at 4 code sites across 2 files.</div></div>
+<div class="tli"><div class="tld a"></div><div class="tlt">~10:30 UTC</div><div class="tlx"><strong>Hotfix applied.</strong> 4 guards, ~20 lines. 28/28 tests pass. Zero behavioral changes.</div></div>
+<div class="tli"><div class="tld g"></div><div class="tlt">11:54 UTC</div><div class="tlx"><strong>First post-hotfix run.</strong> Will sustain 80+ minutes without crashing.</div></div>
+<div class="tli"><div class="tld g"></div><div class="tlt">12:49 UTC</div><div class="tlx"><strong>Live verification.</strong> 1,056 files vanished during sort&mdash;all caught. <code>VERDICT=PASS</code>.</div></div>
+</div>
+<p>Three crashes, three different files, same exception class = <strong>timing-dependent</strong>, not data-dependent. Queue at incident start: <strong>505,836 files</strong>. Intended cap: 2,000.</p>
+</div>
+
+<div class="rc-sec rv" id="s3" data-s="Root Cause">
+<div class="sk">03 &mdash; Root Cause Analysis</div>
+<h2>TOCTOU: The Race Between Enumeration and Action</h2>
+<p>A <strong>TOCTOU (time-of-check-to-time-of-use) race condition</strong>&mdash;state observed at T<sub>0</sub> is invalid at T<sub>1</sub> when code acts on it.</p>
+<div class="tm rv"><div class="tmb"><div class="tmd"><span class="r"></span><span class="y"></span><span class="g"></span></div><span class="tmt">vulnerable code path (before fix)</span></div>
+<div class="tmx"><span class="cm"># Step 1: enumerate (snapshot) &mdash; Step 2: stat() each &mdash; crashes if moved</span><br><br>queue_files = <span class="vc">sorted</span>(<br>&nbsp;&nbsp;[p <span class="k">for</span> p <span class="k">in</span> QUEUE_ROOT.<span class="vc">glob</span>(<span class="va">"*.json"</span>)],<br>&nbsp;&nbsp;<span class="k">key=</span><span class="k">lambda</span> p: p.<span class="vc">stat</span>().st_mtime &nbsp;<span class="vr">&larr; crashes here</span><br>)</div></div>
+<p>With 505,836 files, <code>glob()</code> takes seconds. During that window, files move to the processed archive. Any vanished file throws <code>FileNotFoundError</code>, terminating the pipeline.</p>
+<h3>Why It Surfaced at This Scale</h3>
+<p>The race existed from inception. At &lt;10K files, the glob-to-stat window is milliseconds. At 505K, it stretches to seconds. Overflow archival moves hundreds of thousands of files per pass. The race goes from theoretical to near-certain.</p>
+<div class="co rv"><p><strong>The infrastructure was architecturally sound.</strong> Queue logic, triage, policy rules, ledger accounting, reconciliation&mdash;all correct. What failed was a single assumption: that <code>glob()</code> results remain valid across subsequent operations.</p></div>
+</div>
+
+<div class="rc-sec rv" id="s4" data-s="Failure Loop">
+<div class="sk">04 &mdash; The Failure Loop</div>
+<h2>Self-Reinforcing Failure Cycle</h2>
+<div class="rc-fl rv">
+<div class="fln fl-fail">Pipeline crashes at enforce_queue_cap()</div>
+<div class="fla">&darr;</div>
+<div class="fln">Cap enforcement never completes &rarr; queue grows</div>
+<div class="fla">&darr;</div>
+<div class="fln">Larger queue = wider glob-to-stat window</div>
+<div class="fla">&darr;</div>
+<div class="fln fl-fail">Next crash guaranteed &rarr; cycle repeats</div>
+</div>
+<p>The symptom was "pipeline keeps crashing." The cause was a race condition. The <em>amplifier</em> was that crashing prevented cap enforcement from completing. Each failure guaranteed the next.</p>
+</div>
+
+<div class="rc-sec rv" id="s5" data-s="The Fix">
+<div class="sk">05 &mdash; The Fix</div>
+<h2>Four Guards, Two Files, Twenty Lines</h2>
+<p>Minimum viable change. No behavioral modifications. Defensive-only. Immediately reversible.</p>
+<table class="dt"><thead><tr><th>Site</th><th>File</th><th>Operation</th><th>Guard</th></tr></thead>
+<tbody>
+<tr><td class="mono">1</td><td>poll-alerts.py</td><td><code>stat()</code> in sort</td><td><code>_safe_mtime()</code> &rarr; returns 0.0</td></tr>
+<tr><td class="mono">2</td><td>poll-alerts.py</td><td><code>shutil.move()</code></td><td><code>.exists()</code> + <code>try/except</code></td></tr>
+<tr><td class="mono">3</td><td>triage.py</td><td><code>read_text()</code></td><td><code>try/except: continue</code></td></tr>
+<tr><td class="mono">4</td><td>triage.py</td><td><code>shutil.move()</code></td><td><code>try/except: pass</code></td></tr>
+</tbody></table>
+<button class="coll" onclick="tog(this)"><span class="aw">&#9654;</span> What did NOT change</button>
+<div class="colb"><p style="padding:12px 0 0">Queue ordering. Cursor state. Credentials. Config files. Lock logic. Heartbeat and reconciliation. Processing order. Triage rules. Ledger accounting. The only difference: vanished files are skipped instead of crashing the pipeline.</p></div>
+</div>
+
+<div class="rc-sec rv" id="s6" data-s="Verification">
+<div class="sk">06 &mdash; Verification</div>
+<h2>Verified Under Production Load</h2>
+<p>Three verification levels&mdash;static, targeted live, full-scale live&mdash;all against the production queue while the pipeline was processing. No downtime. No flush. No restart.</p>
+<div class="vd rv"><span class="vdt">py_compile clean &middot; 28/28 tests &middot; 0.029s</span><span class="vdr">PASS</span></div>
+
+<h3>Targeted Race Exercise</h3>
+<div class="tm rv"><div class="tmb"><div class="tmd"><span class="r"></span><span class="y"></span><span class="g"></span></div><span class="tmt">3/3 vanished &mdash; all caught</span></div>
+<div class="tmx">
+<div class="ln"><span class="k">QUEUE_SAMPLE_SIZE</span><span class="vc">3</span></div>
+<div class="ln"><span class="k">&nbsp;&nbsp;STAT_VANISHED</span><span class="va">file_1.json (guard &rarr; 0.0)</span></div>
+<div class="ln"><span class="k">&nbsp;&nbsp;STAT_VANISHED</span><span class="va">file_2.json (guard &rarr; 0.0)</span></div>
+<div class="ln"><span class="k">&nbsp;&nbsp;STAT_VANISHED</span><span class="va">file_3.json (guard &rarr; 0.0)</span></div>
+<hr>
+<div class="ln"><span class="k">GUARD_CAUGHT</span><span class="vg">TRUE</span></div>
+<div class="ln"><span class="k">FILENOTFOUNDERROR</span><span class="vg">FALSE</span></div>
+<div class="ln"><span class="k">VERDICT</span><span class="vg">PASS</span></div>
+</div></div>
+
+<h3>Full-Queue Sort</h3>
+<div class="tm rv"><div class="tmb"><div class="tmd"><span class="r"></span><span class="y"></span><span class="g"></span></div><span class="tmt">1,056 vanished &mdash; all caught</span></div>
+<div class="tmx">
+<div class="ln"><span class="k">FILES_ENUMERATED</span><span class="vc">35,162</span></div>
+<div class="ln"><span class="k">SORT_DURATION</span><span>307.3s</span></div>
+<div class="ln"><span class="k">FILES_VANISHED</span><span class="va">1,056</span></div>
+<div class="ln"><span class="k">UNHANDLED_EXCEPTIONS</span><span class="vg">0</span></div>
+<hr>
+<div class="ln"><span class="k">VERDICT</span><span class="vg">PASS</span></div>
+</div></div>
+
+<h3>Before / After</h3>
+<div class="bas rv">
+<div class="bah">Pipeline Run Comparison</div>
+<div class="batabs">
+<button class="batab bf2 act" onclick="stab(this,'b')">Before Fix</button>
+<button class="batab af" onclick="stab(this,'a')">After Fix</button>
+</div>
+<div class="bac">
+<div class="bap act" id="p-b">
+<div class="bar2"><div class="bak">Stability</div><div class="bav r">&lt;10 seconds to crash</div></div>
+<div class="bar2"><div class="bak">Queue</div><div class="bav r">Growing (crashes block cleanup)</div></div>
+<div class="bar2"><div class="bak">Processed</div><div class="bav r">0 files per run</div></div>
+<div class="bar2"><div class="bak">Exceptions</div><div class="bav r">1 per run (fatal)</div></div>
+<div class="bar2"><div class="bak">Stages</div><div class="bav r">0 of 7</div></div>
+<div class="bar2"><div class="bak">Heartbeat</div><div class="bav r">FAILED</div></div>
+</div>
+<div class="bap" id="p-a">
+<div class="bar2"><div class="bak">Stability</div><div class="bav g">80+ minutes sustained</div></div>
+<div class="bar2"><div class="bak">Queue</div><div class="bav g">Draining: 35,340 &rarr; 28,901</div></div>
+<div class="bar2"><div class="bak">Drain rate</div><div class="bav g">~340 files/min</div></div>
+<div class="bar2"><div class="bak">Exceptions</div><div class="bav g">0 unhandled</div></div>
+<div class="bar2"><div class="bak">Stages</div><div class="bav g">All 7 progressing</div></div>
+<div class="bar2"><div class="bak">Heartbeat</div><div class="bav g">Active (no errors)</div></div>
+</div>
+</div></div>
+</div>
+
+<div class="rc-sec rv" id="s7" data-s="Integrity">
+<div class="sk">07 &mdash; Infrastructure Integrity</div>
+<h2>What Held</h2>
+<p>The pipeline architecture did not fail. What failed was a single assumption at four code sites.</p>
+<div class="rc-stats">
+<div class="st gr"><div class="stn">0</div><div class="stl">Data Loss</div></div>
+<div class="st gr"><div class="stn">0</div><div class="stl">Recon Mismatches</div></div>
+<div class="st gr"><div class="stn" data-c="321351">0</div><div class="stl">Ledger Verified</div></div>
+<div class="st gr"><div class="stn" data-c="328115">0</div><div class="stl">Case Dirs Intact</div></div>
+</div>
+<p>~7 hours of processing delay. <strong>Zero data loss. Zero credential exposure. Zero architectural compromise.</strong> Pipeline resumed from exactly where it left off, draining the backlog at 340 files per minute.</p>
+</div>
+
+<div class="rc-sec rv" id="s8" data-s="Quantitative Analysis">
+<div class="sk">08 &mdash; Quantitative Analysis</div>
+<h2>The Math Behind the Race</h2>
+<p>At ~114 files/second throughput, glob at 505K files takes ~4.4s. Full sort: ~74 minutes of stat calls. Files enumerated early have their stat calls occur seconds to minutes later.</p>
+<div class="cw rv"><div class="cwt">Observed Race Frequency</div>
+<div class="bc">
+<div class="br"><div class="bl">Targeted (3)</div><div class="bt"><div class="bf r" data-w="100"></div></div><div class="bv">100%</div></div>
+<div class="br"><div class="bl">Full sort (35K)</div><div class="bt"><div class="bf a" data-w="30"></div></div><div class="bv">3.0%</div></div>
+</div></div>
+<p>3% vanish rate across 35K files = ~1,055 crash-triggering events per sort without the fix. Failure was <strong>guaranteed</strong>.</p>
+</div>
+
+<div class="rc-sec rv" id="s9" data-s="What This Demonstrates">
+<div class="sk">09 &mdash; What This Demonstrates</div>
+<h2>Incident Response on a Live System</h2>
+<p>Symptom (heartbeat FAILED) &rarr; evidence (exact tracebacks) &rarr; pattern (three crashes, three files = timing) &rarr; root cause (TOCTOU at scale) &rarr; fix (four guards) &rarr; verification (race firing, all caught).</p>
+<p>The system could not be taken offline. Diagnosis, fix, and verification all occurred under active load.</p>
+<div class="co"><p><strong>The fix was 20 lines. The diagnosis was the hard part.</strong></p></div>
+</div>
+
+<div class="rc-sec rv" id="s10" data-s="Lessons Learned">
+<div class="sk">10 &mdash; Lessons Learned</div>
+<h2>What Broke, What Held, What Changed</h2>
+<h3>Scale is a threat model</h3>
+<p>Code safe at 1,000 files is unsafe at 500,000. Performance characteristics become security characteristics when they widen race windows.</p>
+<h3>glob() returns a snapshot, not a contract</h3>
+<p>Every <code>stat()</code>, <code>read()</code>, and <code>move()</code> on a globbed path must handle <code>FileNotFoundError</code>.</p>
+<h3>Feedback loops hide root causes</h3>
+<p>Each crash grew the queue, which widened the window, which guaranteed the next crash. Breaking the cycle required fixing the race, not restarting the pipeline.</p>
+<h3>Defensive filesystem code is not optional</h3>
+<p>The cost of <code>try/except FileNotFoundError</code> is zero in the success path and prevents a pipeline-terminating crash in the failure path. On any live queue, this is not defensive programming. It is correct programming.</p>
+</div>
+
+<div class="rc-pf">
+<p><a href="https://hawkinsops.com">hawkinsops.com</a> &middot; SignalFoundry</p>
+<p style="margin-top:8px">All evidence from production logs and live filesystem state&mdash;not synthetic tests or staging.</p>
+</div>
+
+</div>
+
+<footer>
+  <div class="ctr">
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
+    <div class="fl">
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
+      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/fetch-utils.js" defer></script>
+<script src="/data/counts.js" defer></script>
+<script src="/data/ops-metrics.js" defer></script>
+<script src="/assets/app.js" defer></script>
+<script>
+const pb=document.getElementById('pb'),sn=document.getElementById('sn'),ns=document.getElementById('ns'),secs=document.querySelectorAll('.rc-sec[data-s]');
+function upd(){const st=window.scrollY,dh=document.documentElement.scrollHeight-window.innerHeight;pb.style.width=Math.min(st/dh*100,100)+'%';st>400?sn.classList.add('v'):sn.classList.remove('v');let c='';secs.forEach(s=>{if(s.getBoundingClientRect().top<200)c=s.dataset.s});ns.textContent=c}
+window.addEventListener('scroll',upd,{passive:true});
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');e.target.querySelectorAll('.bf[data-w]').forEach(b=>{setTimeout(()=>{b.style.width=b.dataset.w+'%'},200)});e.target.querySelectorAll('.stn[data-c]').forEach(el=>{ac(el,parseInt(el.dataset.c))})}})},{threshold:.15});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+function ac(el,t){if(el.dataset.a)return;el.dataset.a='1';const d=1200,s=performance.now();function tk(n){const p=Math.min((n-s)/d,1),e=1-Math.pow(1-p,3),c=Math.floor(e*t);el.textContent=c.toLocaleString();p<1?requestAnimationFrame(tk):el.textContent=t.toLocaleString()}requestAnimationFrame(tk)}
+function stab(btn,w){const s=btn.closest('.bas');s.querySelectorAll('.batab').forEach(t=>t.classList.remove('act'));s.querySelectorAll('.bap').forEach(p=>p.classList.remove('act'));btn.classList.add('act');document.getElementById('p-'+w).classList.add('act')}
+function tog(t){t.classList.toggle('op');t.nextElementSibling.classList.toggle('op')}
+</script>
+</body>
+</html>

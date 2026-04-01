@@ -1,0 +1,38 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://hawkinsops.com/#website",
+      "url": "https://hawkinsops.com/",
+      "name": "HawkinsOps",
+      "description": "Evidence-first SOC portfolio — detection engineering, automation, and incident response"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://hawkinsops.com/#person",
+      "name": "Raylee Hawkins",
+      "url": "https://hawkinsops.com",
+      "email": "raylee@hawkinsops.com",
+      "jobTitle": "SOC Analyst / Detection Engineer",
+      "sameAs": [
+        "https://github.com/raylee-hawkins",
+        "https://linkedin.com/in/raylee-hawkins"
+      ]
+    },
+    {
+      "@type": "Article",
+      "@id": "https://hawkinsops.com/case-study-autosoc#article",
+      "isPartOf": { "@id": "https://hawkinsops.com/#website" },
+      "author": { "@id": "https://hawkinsops.com/#person" },
+      "headline": "SignalFoundry Pipeline Outage: Diagnosed and Restored in One Session",
+      "description": "March 13 pipeline outage — two root causes identified, surgical fixes applied, full recovery to SUCCESS. Authority snapshot frozen March 25: 55,665 cases, ~92% auto-close, 2,545 escalations.",
+      "datePublished": "2026-03-25",
+      "dateModified": "2026-03-30",
+      "url": "https://hawkinsops.com/case-study-autosoc",
+      "image": "https://hawkinsops.com/assets/og-card.png",
+      "keywords": ["SOC automation", "incident response", "Wazuh", "pipeline engineering", "detection engineering", "MITRE ATT&CK"],
+      "mainEntityOfPage": "https://hawkinsops.com/case-study-autosoc"
+    }
+  ]
+}

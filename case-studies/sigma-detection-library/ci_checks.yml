@@ -1,0 +1,48 @@
+name: Sigma Case Study Verification
+
+on:
+  push:
+    paths:
+      - 'case-studies/sigma-detection-library/**'
+      - 'content/detection-rules/sigma/**'
+      - 'PROOF_PACK/VERIFIED_COUNTS.md'
+  pull_request:
+    paths:
+      - 'case-studies/sigma-detection-library/**'
+      - 'content/detection-rules/sigma/**'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-sigma:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify Sigma count
+        shell: pwsh
+        run: |
+          $count = (Get-ChildItem -Recurse .\content\detection-rules\sigma -Filter *.yml).Count
+          if ($count -ne 103) {
+            Write-Error "Sigma count mismatch: expected 103, got $count"
+            exit 1
+          }
+          Write-Host "Sigma count: $count (OK)"
+
+      - name: Verify detection counts (full CI gate)
+        shell: pwsh
+        run: pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
+
+      - name: Run drift scan
+        shell: bash
+        run: python scripts/drift_scan.py
+
+      - name: Run case study verification
+        shell: pwsh
+        run: pwsh -NoProfile -ExecutionPolicy Bypass -File ".\case-studies\sigma-detection-library\evidence\verify.ps1"

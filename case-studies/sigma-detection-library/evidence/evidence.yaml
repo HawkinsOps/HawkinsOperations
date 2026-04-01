@@ -1,0 +1,77 @@
+# Evidence Pack — Sigma Detection Library Case Study
+# Generated: 2026-03-30
+# Locked Snapshot: 2026-03-25
+# Source of Truth: PROOF_PACK/VERIFIED_COUNTS.md
+
+artifacts:
+
+  - id: sigma_rules_dir
+    name: "Sigma Rules Directory"
+    path: "content/detection-rules/sigma/"
+    type: detection_content
+    verification_command: |
+      pwsh -NoProfile -Command "(Get-ChildItem -Recurse '.\content\detection-rules\sigma' -Filter *.yml).Count"
+    expected_output: "103"
+
+  - id: verified_counts_md
+    name: "Verified Counts (Markdown)"
+    path: "PROOF_PACK/VERIFIED_COUNTS.md"
+    type: source_of_truth
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\PROOF_PACK\VERIFIED_COUNTS.md').Hash"
+
+  - id: verified_counts_json
+    name: "Verified Counts (JSON)"
+    path: "PROOF_PACK/verified_counts.json"
+    type: source_of_truth
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\PROOF_PACK\verified_counts.json').Hash"
+
+  - id: case_study_html
+    name: "Published Case Study Page"
+    path: "site/case-study-sigma-library.html"
+    url: "https://hawkinsops.com/case-study-sigma-library"
+    type: published_artifact
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\site\case-study-sigma-library.html').Hash"
+
+  - id: architecture_doc
+    name: "SOC Architecture"
+    path: "PROOF_PACK/ARCHITECTURE.md"
+    type: architecture
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\PROOF_PACK\ARCHITECTURE.md').Hash"
+
+  - id: detection_index
+    name: "Detection Rules Index"
+    path: "content/detection-rules/INDEX.md"
+    type: catalog
+    sha256: MISSING_CHECKSUM
+    compute_checksum: |
+      pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\content\detection-rules\INDEX.md').Hash"
+
+tactic_breakdown:
+  collection: 10
+  credential-access: 10
+  defense-evasion: 10
+  discovery: 10
+  execution: 9
+  exfiltration: 10
+  impact: 13
+  lateral-movement: 10
+  persistence: 11
+  privilege-escalation: 10
+  total: 103
+
+metric_reconciliation:
+  status: CONSISTENT
+  surfaces_checked:
+    - PROOF_PACK/VERIFIED_COUNTS.md
+    - PROOF_PACK/verified_counts.json
+    - site/case-study-sigma-library.html (data-verified attrs)
+    - Physical file count
+    - drift_scan.py

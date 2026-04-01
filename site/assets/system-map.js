@@ -11,7 +11,7 @@
     // === LAYER: CORE (center, dominant) ===
     { id: 'sf-core', label: 'SignalFoundry Core', sublabel: 'Autonomous Decision Engine', icon: 'SF\nCORE', x: 48, y: 44, size: 'core', color: 'c-core', delay: 2,
       panel: { title: 'SignalFoundry Core', role: 'Central Orchestration Engine',
-        metrics: [['Cases processed', '55,665'], ['Auto-close rate', '~92%'], ['Escalated', '2,545'], ['Reconciliation', 'PASS (0)'], ['Heartbeat', 'SUCCESS']],
+        metrics: [['Cases processed', '321,351'], ['Auto-close rate', '~92%'], ['Escalated', '7,950'], ['Reconciliation', 'PASS (0)'], ['Heartbeat', 'SUCCESS']],
         desc: 'Policy-driven triage engine. Receives all ingested alerts, applies deterministic disposition logic, routes to evidence assembly or auto-close. Every case gets a disposition. No alert is silently dropped.' }},
 
     // === LAYER: INGESTION (far left) ===

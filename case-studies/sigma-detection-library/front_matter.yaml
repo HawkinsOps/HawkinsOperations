@@ -1,0 +1,22 @@
+title: "Sigma Detection Library: 103 Platform-Agnostic Rules Across 10 MITRE ATT&CK Tactics"
+slug: sigma-detection-library
+date: "2026-03-30"
+author: Raylee Hawkins
+tags:
+  - detection-engineering
+  - sigma
+  - mitre-attack
+  - siem
+  - platform-agnostic
+locked_snapshot: "2026-03-25"
+canonical_metrics:
+  source_file: PROOF_PACK/VERIFIED_COUNTS.md
+  generated_at_utc: "2026-03-24T10:36:20+00:00"
+  sigma_rules: 103
+  sigma_tactics: 10
+  technique_ids: "36+"
+abstract: >
+  103 Sigma detection rules authored to spec with explicit logsource schemas,
+  false positive filters, and MITRE technique tags. Organized by ATT&CK tactic,
+  compilable to Splunk, Elastic, Wazuh, QRadar, and Sentinel backends. Count
+  CI-enforced on every push.
