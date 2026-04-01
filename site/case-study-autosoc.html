@@ -202,6 +202,12 @@
     <h2 class="cs-title">March 13 &mdash; outage to recovery</h2>
     <div class="cs-timeline">
       <div class="cs-tl-event">
+        <div class="cs-tl-dot" style="background:#4ade80;color:#4ade80;"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#4ade80;">04-01-2026 &mdash; RESOLVED</div>
+        <div style="font-size:0.88rem;font-weight:600;color:#e5edff;margin-top:2px;">Production race condition &mdash; diagnosed and resolved under live load</div>
+        <div style="font-size:0.75rem;color:#7a94aa;margin-top:4px;">TOCTOU race at 505K queue depth. 4 guard sites, 20 lines, zero behavioral changes. Verified with race actively firing. <a href="/case-study-race-condition" style="color:#7ab8ff;text-decoration:none;">Full case study &rarr;</a></div>
+      </div>
+      <div class="cs-tl-event">
         <div class="cs-tl-dot" style="background:#ef4444;color:#ef4444;"></div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#ef4444;">03-13-2026 &mdash; DETECTED</div>
         <div style="font-size:0.88rem;font-weight:600;color:#e5edff;margin-top:2px;">Ingestion outage &mdash; heartbeat dropped to DEGRADED</div>
@@ -229,7 +235,7 @@
         <div class="cs-tl-dot" style="background:#4ade80;color:#4ade80;"></div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#4ade80;"><span data-ops="stable_locked_date">03-25-2026</span> &mdash; LOCKED</div>
         <div style="font-size:0.88rem;font-weight:600;color:#e5edff;margin-top:2px;">Authority snapshot frozen</div>
-        <div style="font-size:0.75rem;color:#7a94aa;margin-top:4px;">Post-recovery metrics locked as public benchmark: 55,665 cases, ~92% auto-close, 2,545 escalations. Verification commands documented.</div>
+        <div style="font-size:0.75rem;color:#7a94aa;margin-top:4px;">Post-recovery metrics locked as public benchmark: 321,351 cases, ~92% auto-close, 7,950 escalations. Verification commands documented.</div>
       </div>
     </div>
   </div>
@@ -263,7 +269,7 @@
       </div>
       <div class="cs-block">
         <div class="cs-block-label" style="color:#4ade80;"><span class="dot" style="background:#4ade80;"></span>Final State</div>
-        <div class="cs-block-text">Authority snapshot locked on 03-25-2026: 55,665 total cases processed, ~92% auto-close rate, 2,545 escalations with auditable evidence packs. All metrics CI-gated and publicly verifiable.</div>
+        <div class="cs-block-text">Authority snapshot locked on 03-25-2026: 321,351 total cases processed, ~92% auto-close rate, 7,950 escalations with auditable evidence packs. All metrics CI-gated and publicly verifiable.</div>
       </div>
     </div>
   </div>
@@ -275,6 +281,11 @@
     <div class="cs-label">Related Cases</div>
     <h2 class="cs-title">More cases from this system</h2>
     <div class="cs-case-grid">
+      <a href="/case-study-race-condition" class="cs-case-card">
+        <div class="cc-date">04-01-2026</div>
+        <strong>Race Condition Recovery</strong>
+        <span>TOCTOU race at 505K queue depth. 4 guards, 20 lines, zero data loss. Verified under live load.</span>
+      </a>
       <a href="/autosoc-cutover" class="cs-case-card">
         <div class="cc-date">03-23-2026</div>
         <strong>Infrastructure Cutover</strong>
@@ -319,9 +330,9 @@
     <h2 class="cs-title">SignalFoundry &mdash; post-recovery metrics</h2>
     <div class="cs-status-strip">
       <div class="ss-item"><span class="ss-val" style="color:#4ade80;" data-ops-status="stable_heartbeat">SUCCESS</span><span class="ss-lbl">Heartbeat</span></div>
-      <div class="ss-item"><span class="ss-val" style="color:#7ab8ff;" data-target="55665">55,665</span><span class="ss-lbl">Cases</span></div>
+      <div class="ss-item"><span class="ss-val" style="color:#7ab8ff;" data-target="321351">321,351</span><span class="ss-lbl">Cases</span></div>
       <div class="ss-item"><span class="ss-val" style="color:#4ade80;">~92%</span><span class="ss-lbl">Auto-closed</span></div>
-      <div class="ss-item"><span class="ss-val" style="color:#fbbf24;" data-ops="stable_escalated">2,545</span><span class="ss-lbl">Escalated</span></div>
+      <div class="ss-item"><span class="ss-val" style="color:#fbbf24;" data-ops="stable_escalated">7,950</span><span class="ss-lbl">Escalated</span></div>
       <div class="ss-item"><span class="ss-val" style="color:#4ade80;" data-ops="stable_coverage_ratio">8/8</span><span class="ss-lbl">Coverage</span></div>
     </div>
   </div>

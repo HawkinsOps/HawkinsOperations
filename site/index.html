@@ -126,7 +126,7 @@
         </div>
         <p class="sf-body" style="line-height:1.7;margin-bottom:6px;font-weight:600;color:#71c7b8;">This is a working security operations system, not a static portfolio.</p>
         <p class="sf-body" style="line-height:1.7;margin-bottom:14px;">I built and operate <a href="/case-study-autosoc" class="sf-inline-link">SignalFoundry</a> — a 35-script Python pipeline that ingests Wazuh alerts, performs policy-driven triage, and publishes redacted escalation packs. <span data-verified="detections">140</span> detections across Sigma, Wazuh, and Splunk. Every metric is CI-verified. Every claim is <a href="/proof" class="sf-inline-link">reproducible</a>.</p>
-        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:20px;">Sept 2025: zero computer experience. Mar 2026: 55,665 verified cases processed, production pipeline running 24/7. Previous career: production supervisor — 30+ operators, IATF audit compliance, mandatory 12-hour shifts. The domain changed. The discipline didn't.</p>
+        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:20px;">Sept 2025: zero computer experience. Mar 2026: 321,351 verified cases processed, production pipeline running 24/7. Previous career: production supervisor — 30+ operators, IATF audit compliance, mandatory 12-hour shifts. The domain changed. The discipline didn't.</p>
         <div class="sf-actions">
           <a class="sf-button sf-button-primary sf-focus-ring" href="/case-study-autosoc">SignalFoundry Case Study &rarr;</a>
           <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof</a>
@@ -147,7 +147,7 @@
     <section style="padding:24px 0 32px;">
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center;max-width:800px;margin:0 auto;border:1px solid rgba(122,184,255,0.12);border-radius:6px;background:rgba(17,24,39,0.5);">
         <div style="padding:20px 12px;border-right:1px solid rgba(122,184,255,0.08);">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:#7ab8ff;" class="counter" data-target="55665">0</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:#7ab8ff;" class="counter" data-target="321351">0</div>
           <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:#7a94aa;margin-top:4px;">Cases</div>
         </div>
         <div style="padding:20px 12px;border-right:1px solid rgba(122,184,255,0.08);">
@@ -155,7 +155,7 @@
           <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:#7a94aa;margin-top:4px;">Auto-Closed</div>
         </div>
         <div style="padding:20px 12px;border-right:1px solid rgba(122,184,255,0.08);">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:#fbbf24;" class="counter" data-target="2545">0</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:#fbbf24;" class="counter" data-target="7950">0</div>
           <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:#7a94aa;margin-top:4px;">Escalated</div>
         </div>
         <div style="padding:20px 12px;">
@@ -191,7 +191,7 @@
           <div style="position:relative;max-width:280px;margin:0 auto;">
             <canvas id="donutChart" height="280" width="280"></canvas>
             <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;">
-              <div style="font-family:'JetBrains Mono',monospace;font-size:1.8rem;font-weight:700;color:#e5edff;">55,665</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:1.8rem;font-weight:700;color:#e5edff;">321,351</div>
               <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:#7a94aa;">total cases</div>
             </div>
           </div>
@@ -274,7 +274,7 @@
       <h2 id="funnel-title">How alerts become evidence</h2>
       <p class="sf-body sf-copy-gap-lg">Every alert enters the same pipeline. Most are auto-closed. The rest produce structured evidence packs.</p>
       <div class="sf-card sf-panel" data-aos="fade-up" style="padding:28px;overflow-x:auto;">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" role="img" aria-label="Case processing funnel: 55,665 total cases to evidence packs" style="width:100%;min-width:700px;height:auto;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" role="img" aria-label="Case processing funnel: 321,351 total cases to evidence packs" style="width:100%;min-width:700px;height:auto;">
           <title>Case Processing Funnel</title>
           <defs>
             <linearGradient id="funnel-g1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="rgba(122,184,255,0.18)"/><stop offset="100%" stop-color="rgba(122,184,255,0.06)"/></linearGradient>
@@ -292,7 +292,7 @@
           <!-- Tier 1: Total Ingested -->
           <rect x="20" y="16" width="860" height="52" rx="10" fill="url(#funnel-g1)" stroke="rgba(122,184,255,0.2)" stroke-width="1"/>
           <text class="f-label" x="40" y="47">Alert Intake</text>
-          <text class="f-val" x="480" y="48" data-ops="stable_total_cases">55,665</text>
+          <text class="f-val" x="480" y="48" data-ops="stable_total_cases">321,351</text>
           <text class="f-pct" x="600" y="48">total cases</text>
           <!-- Arrow -->
           <path class="f-arrow" d="M450 72 L440 80 L460 80 Z"/>
@@ -306,7 +306,7 @@
           <!-- Tier 3: Escalated -->
           <rect x="180" y="152" width="540" height="52" rx="10" fill="url(#funnel-g3)" stroke="rgba(251,191,36,0.18)" stroke-width="1"/>
           <text class="f-label" x="200" y="183">Escalated for Review</text>
-          <text class="f-val" x="480" y="184" style="fill:#fbbf24;" data-ops="stable_escalated">2,545</text>
+          <text class="f-val" x="480" y="184" style="fill:#fbbf24;" data-ops="stable_escalated">7,950</text>
           <text class="f-pct" x="600" y="184">analyst judgment required</text>
           <!-- Arrow -->
           <path class="f-arrow" d="M450 208 L440 216 L460 216 Z"/>
@@ -411,7 +411,7 @@
         </article>
         <article class="sf-card sf-metric" data-aos="fade-up" data-aos-delay="200">
           <span class="sf-metric-label">Escalations</span>
-          <span class="sf-metric-value"><span data-ops="stable_escalated">2,545</span></span>
+          <span class="sf-metric-value"><span data-ops="stable_escalated">7,950</span></span>
           <p class="sf-metric-note">Analyst-ready evidence packs.</p>
         </article>
         <article class="sf-card sf-metric" data-aos="fade-up" data-aos-delay="300">
@@ -519,6 +519,10 @@ node scripts/generate-site-data.js</code></pre>
           <h3>SignalFoundry</h3>
           <p>Flagship system architecture, triage logic, outputs, and recovery model.</p>
         </a>
+        <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/case-study-race-condition">
+          <h3>Race Condition Recovery</h3>
+          <p>TOCTOU race at 505K-file scale. Diagnosed, fixed with 20 lines, verified under live load.</p>
+        </a>
         <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/proof">
           <h3>Proof</h3>
           <p>Stable benchmark source, evidence trail, and verification path.</p>
@@ -610,7 +614,7 @@ node scripts/generate-site-data.js</code></pre>
     </div>
     <div>
       <div class="detail-label">Breakdown</div>
-      <p>Of 55,665 total cases processed, ~92% were automatically resolved through benign plus known-false-positive handling. The remaining cases produced 2,545 escalation artifacts for review.</p>
+      <p>Of 321,351 total cases processed, ~92% were automatically resolved through benign plus known-false-positive handling. The remaining cases produced 7,950 escalation artifacts for review.</p>
     </div>
     <div>
       <div class="detail-label">Provenance</div>
@@ -660,7 +664,7 @@ node scripts/generate-site-data.js</code></pre>
     data:{
       labels:['Auto-Closed Benign','Known False Positive','Escalated'],
       datasets:[{
-        data:[51212,5898,2545],
+        data:[199672,85185,7950],
         backgroundColor:['#22c55e','#f59e0b','#00d4ff'],
         borderColor:['rgba(34,197,94,0.3)','rgba(245,158,11,0.3)','rgba(0,212,255,0.3)'],
         borderWidth:1,
@@ -682,7 +686,7 @@ node scripts/generate-site-data.js</code></pre>
           bodyFont:{family:"'JetBrains Mono',monospace",size:11},
           callbacks:{
             label:function(c){
-              var pct=((c.raw/55665)*100).toFixed(1);
+              var pct=((c.raw/321351)*100).toFixed(1);
               return c.label+': '+c.raw.toLocaleString()+' ('+pct+'%)';
             }
           }

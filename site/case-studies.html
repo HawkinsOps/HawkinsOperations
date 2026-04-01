@@ -99,6 +99,19 @@ body {
     <div class="cs-section-label">Case Studies</div>
     <div class="cs-index-grid">
 
+      <a class="cs-card" href="/case-study-race-condition">
+        <div class="cs-card-type">Incident / IR &mdash; 2026-04-01</div>
+        <div class="cs-card-title">Production Race Condition Recovery</div>
+        <div class="cs-card-desc">TOCTOU race condition in queue-cap enforcement at 505,836-file scale. Diagnosed from production tracebacks, fixed with 4 guard sites across 2 files, verified under live load with 1,056 files vanishing during sort &mdash; zero unhandled exceptions. Pipeline recovered from sub-10-second crashes to 80+ minutes sustained processing.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag red">TOCTOU race</span>
+          <span class="cs-card-tag green">VERDICT=PASS</span>
+          <span class="cs-card-tag teal">20 lines changed</span>
+          <span class="cs-card-tag green">Zero data loss</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
       <a class="cs-card" href="/case-study-pipeline-recovery">
         <div class="cs-card-type">Incident Response &mdash; 2026-03-13</div>
         <div class="cs-card-title">Pipeline Fault Recovery</div>
@@ -151,6 +164,17 @@ body {
 
     <div class="cs-section-label">Field Notes</div>
     <div class="cs-index-grid">
+
+      <a class="cs-card" href="/case-study-race-condition">
+        <div class="cs-card-type">Incident / IR &mdash; 2026-04-01</div>
+        <div class="cs-card-title">Race Condition Recovery &mdash; Full Case Study</div>
+        <div class="cs-card-desc">TOCTOU race at 505K queue depth. 4 guard sites, 20 lines, zero behavioral changes. Verified with race actively firing.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag red">TOCTOU</span>
+          <span class="cs-card-tag green">VERDICT=PASS</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
 
       <a class="cs-card" href="/autosoc-cutover">
         <div class="cs-card-type">Infrastructure &mdash; 2026-03-23</div>
