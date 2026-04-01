@@ -1,23 +1,23 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>Field Notes — Engineering Case Studies | HawkinsOps</title>
+<title>Case Studies — Engineering Documentation | HawkinsOps</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07070b">
-<meta name="description" content="Engineering field notes from the AutoSOC project: infrastructure migrations, incident RCAs, and operational decisions with documented proof.">
+<meta name="description" content="Engineering case studies from the SignalFoundry project: pipeline fault recovery, detection rule audits, security hardening, threat hunting, infrastructure migrations, and incident RCAs with documented proof.">
 <link rel="canonical" href="https://hawkinsops.com/case-studies">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Field Notes — Engineering Case Studies | HawkinsOps">
-<meta property="og:description" content="Engineering field notes from the AutoSOC project: infrastructure migrations, incident RCAs, and operational decisions with documented proof.">
+<meta property="og:title" content="Case Studies — Engineering Documentation | HawkinsOps">
+<meta property="og:description" content="Engineering case studies from the SignalFoundry project: pipeline recovery, detection audits, security hardening, threat hunting, and operational field notes.">
 <meta property="og:url" content="https://hawkinsops.com/case-studies">
 <meta property="og:image" content="https://hawkinsops.com/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Field Notes — Engineering Case Studies | HawkinsOps">
-<meta name="twitter:description" content="Engineering field notes from the AutoSOC project: infrastructure migrations, incident RCAs, and operational decisions with documented proof.">
+<meta name="twitter:title" content="Case Studies — Engineering Documentation | HawkinsOps">
+<meta name="twitter:description" content="Engineering case studies from the SignalFoundry project: pipeline recovery, detection audits, security hardening, and threat hunting.">
 <meta name="twitter:image" content="https://hawkinsops.com/assets/og-image.png">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
@@ -56,11 +56,13 @@ body {
 .cs-card-tag.green  { background:rgba(39,201,122,.1);  color:#27c97a; border-color:rgba(39,201,122,.2); }
 .cs-card-tag.teal   { background:rgba(0,196,212,.1);   color:#00c4d4; border-color:rgba(0,196,212,.2); }
 .cs-card-tag.orange { background:rgba(232,160,32,.1);  color:#e8a020; border-color:rgba(232,160,32,.2); }
+.cs-card-tag.red    { background:rgba(239,68,68,.1);   color:#ef4444; border-color:rgba(239,68,68,.2); }
 .cs-card-arrow { font-size:.8rem; color:#486880; }
 .cs-card:hover .cs-card-arrow { color:#00c4d4; }
+.cs-section-label { font-family:'JetBrains Mono',monospace; font-size:0.6rem; text-transform:uppercase; letter-spacing:0.14em; color:#486880; margin:48px 0 8px; padding-bottom:8px; border-bottom:1px solid rgba(100,140,180,.1); }
+.cs-section-label:first-of-type { margin-top:32px; }
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body data-ops-scope="stable">
 <nav>
@@ -90,10 +92,64 @@ body {
 <main class="modernize-shell">
 <section class="m-section" data-aos="fade-up" style="padding-top:96px;">
   <div class="m-wrap">
-    <div class="m-eyebrow">Field Notes</div>
-    <h1 class="m-title" style="font-size:clamp(2.2rem,4vw,3.5rem);">Engineering Case Studies</h1>
-    <p class="m-subtitle" style="max-width:640px;">Documented technical decisions from the AutoSOC project: infrastructure migrations, incident RCAs, and operational proof artifacts. Each entry covers what happened, why, and what the evidence shows.</p>
+    <div class="m-eyebrow">Portfolio</div>
+    <h1 class="m-title" style="font-size:clamp(2.2rem,4vw,3.5rem);">Case Studies</h1>
+    <p class="m-subtitle" style="max-width:680px;">Technical case studies from the SignalFoundry project. Each documents what happened, what I did, what the evidence shows, and how a reviewer can verify the claims. No sanitized post-mortems &mdash; these are built from session logs and proof artifacts.</p>
 
+    <div class="cs-section-label">Case Studies</div>
+    <div class="cs-index-grid">
+
+      <a class="cs-card" href="/case-study-pipeline-recovery">
+        <div class="cs-card-type">Incident Response &mdash; 2026-03-13</div>
+        <div class="cs-card-title">Pipeline Fault Recovery</div>
+        <div class="cs-card-desc">Two independent defects surfaced simultaneously: poller retry logic failed on URLError, reconciliation scoped against wrong directory set. Both diagnosed and fixed in one session. Pipeline restored to SUCCESS.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag orange">Dual-fault</span>
+          <span class="cs-card-tag green">MISMATCH_COUNT=0</span>
+          <span class="cs-card-tag teal">One session</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+      <a class="cs-card" href="/case-study-splunk-detection-audit">
+        <div class="cs-card-type">Detection Engineering &mdash; 2026-03-24</div>
+        <div class="cs-card-title">Splunk Detection Rule Audit</div>
+        <div class="cs-card-desc">Audited every Splunk detection rule against 283,976 events. Found four ways they would flood a real analyst with noise: empty CommandLine fields, no failed logon baseline, missing sourcetype coverage, and rex extraction fragility.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag red">4 noise sources</span>
+          <span class="cs-card-tag">283,976 events</span>
+          <span class="cs-card-tag teal">Self-audit</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+      <a class="cs-card" href="/case-study-security-hardening">
+        <div class="cs-card-type">Security Hardening &mdash; 2026-03-29</div>
+        <div class="cs-card-title">Enterprise Security Hardening</div>
+        <div class="cs-card-desc">Windows audit policy baseline assessment against Microsoft Security Baseline. 27 subcategories audited, 14 matched, 9 superset, 12 hardened beyond, zero regressions. 11 MITRE ATT&amp;CK techniques unblocked. CommandLine logging enabled, security log expanded 20MB &rarr; 1GB.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag green">0 regressions</span>
+          <span class="cs-card-tag orange">11 ATT&amp;CK techniques</span>
+          <span class="cs-card-tag teal">Microsoft baseline</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+      <a class="cs-card" href="/case-study-threat-hunt-4688">
+        <div class="cs-card-type">Threat Hunting &mdash; 2026-03-24</div>
+        <div class="cs-card-title">Live Splunk Threat Hunt (EventID 4688)</div>
+        <div class="cs-card-desc">Rex-based field extraction built from scratch, parent-process exclusion logic, surfaced Codex AI tool spawning pwsh.exe 375x. Correctly classified as tool behavior vs LOLBin abuse via temporal profiling and volume characterization.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag green">375x classified</span>
+          <span class="cs-card-tag teal">Rex extraction</span>
+          <span class="cs-card-tag">Parent-child analysis</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+    </div>
+
+    <div class="cs-section-label">Field Notes</div>
     <div class="cs-index-grid">
 
       <a class="cs-card" href="/autosoc-cutover">
@@ -103,7 +159,6 @@ body {
         <div class="cs-card-meta">
           <span class="cs-card-tag teal">Canonical migration</span>
           <span class="cs-card-tag green">CUTOVER_READY=YES</span>
-          <span class="cs-card-tag">Preflight gate</span>
           <span class="cs-card-tag">5 tasks retargeted</span>
         </div>
         <div class="cs-card-arrow">Read &rarr;</div>
@@ -117,7 +172,6 @@ body {
           <span class="cs-card-tag orange">PowerShell bug</span>
           <span class="cs-card-tag green">EXIT=0</span>
           <span class="cs-card-tag teal">POINTS_RENDERED=30</span>
-          <span class="cs-card-tag">RCA documented</span>
         </div>
         <div class="cs-card-arrow">Read &rarr;</div>
       </a>
@@ -130,12 +184,12 @@ body {
   <div class="m-wrap">
     <div class="m-card" data-aos="fade-up">
       <div class="m-card-kicker" data-aos="fade-up">Context</div>
-      <h2>About these field notes</h2>
-      <p class="m-copy">These aren't sanitized post-mortems written weeks after the fact. They're documented from the session logs and proof artifacts that exist on-system from the actual work. The source material — preflight output, pipeline logs, scheduler metadata — is real and reviewable.</p>
-      <p class="m-copy">The AutoSOC project processes a live queue of Wazuh security alerts across a home lab environment. These field notes capture the operational and engineering decisions made while keeping that system running.</p>
+      <h2>About these case studies</h2>
+      <p class="m-copy">These aren't sanitized post-mortems written weeks after the fact. They're documented from the session logs and proof artifacts that exist on-system from the actual work. The source material &mdash; preflight output, pipeline logs, scheduler metadata, Splunk queries &mdash; is real and reviewable.</p>
+      <p class="m-copy">The SignalFoundry project processes a live queue of Wazuh security alerts across a home lab environment. These case studies capture the operational and engineering decisions made while keeping that system running and improving its detection capability.</p>
       <div class="m-grid-2" style="margin-top:20px;">
         <a href="/case-study-autosoc" class="m-link-item">
-          <strong>SignalFoundry — Full Case Study</strong>
+          <strong>SignalFoundry &mdash; Full Case Study</strong>
           <span>Architecture, triage logic, and proof strips for the AutoSOC pipeline.</span>
         </a>
         <a href="/proof" class="m-link-item">
