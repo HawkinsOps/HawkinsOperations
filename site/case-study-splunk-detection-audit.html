@@ -125,7 +125,8 @@ body {
         <p>The hypothesis: working rules are not the same as deployable rules. If a real analyst inherited these rules in a production SOC, what would their first week look like?</p>
 
         <h2>Environment</h2>
-        <p>Splunk Enterprise 10.0.2, REST API on port 8089. Single Windows 11 workstation (HO-WE-01). Wazuh agent forwarding Security Event Log as <span class="m-inline-code">XmlWinEventLog:Security</span>. 7-day window, ~283,976 events. All field extraction via manual <span class="m-inline-code">rex</span> against raw XML. No CIM normalization.</p>
+        <p>Splunk Enterprise, REST API on port 8089. Single Windows 11 workstation (HO-WE-01).
+Wazuh agent forwarding Security Event Log as <span class="m-inline-code">XmlWinEventLog:Security</span>. 7-day window, ~283k events. All field extraction via manual <span class="m-inline-code">rex</span> against raw XML. No CIM normalization.</p>
 
         <h2>Methodology</h2>
         <h3>Step 1 &mdash; Inventory</h3>
@@ -214,7 +215,7 @@ body {
             </a>
             <a href="/detections" class="m-link-item">
               <strong>Detection Library</strong>
-              <span>140 verified rules across Sigma, Splunk, and Wazuh.</span>
+              <span><span data-verified="detections">140</span> verified rules across Sigma, Splunk, and Wazuh.</span>
             </a>
           </div>
         </section>

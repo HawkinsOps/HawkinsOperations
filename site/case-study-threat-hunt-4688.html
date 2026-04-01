@@ -125,7 +125,8 @@ body {
         <p>The hypothesis: with <span class="m-inline-code">rex</span>-based extraction and parent-process chain analysis built from scratch, I could surface anomalous process behavior in live endpoint telemetry and distinguish genuine threats from tool behavior.</p>
 
         <h2>Environment</h2>
-        <p>Splunk Enterprise 10.0.2, REST API on port 8089. Single Windows 11 workstation (HO-WE-01). 7-day window, ~283,976 security events. Sourcetype: <span class="m-inline-code">XmlWinEventLog:Security</span>. All field extraction via manual <span class="m-inline-code">rex</span>. CommandLine field empty (auditing not yet enabled at time of hunt).</p>
+        <p>Splunk Enterprise, REST API on port 8089. Single Windows 11 workstation (HO-WE-01).
+7-day window, ~283k security events. Sourcetype: <span class="m-inline-code">XmlWinEventLog:Security</span>. All field extraction via manual <span class="m-inline-code">rex</span>. CommandLine field empty (auditing not yet enabled at time of hunt).</p>
 
         <h2>Methodology</h2>
         <h3>Step 1 &mdash; Build the field extraction layer</h3>
