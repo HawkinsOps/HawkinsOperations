@@ -39,6 +39,6 @@ Source: `PROOF_PACK/VERIFIED_COUNTS.md`
 
 ## Known limitations
 
-- Pipeline telemetry (55,665 cases, ~92% auto-close) is from the internal engine and not independently reproducible from this public repo alone. Detection rule and playbook counts are fully reproducible via `verify-counts.ps1`.
+- Pipeline telemetry (321,351 cases, ~88% auto-close) is from the internal engine and not independently reproducible from this public repo alone. Detection rule and playbook counts are fully reproducible via `verify-counts.ps1`.
 - Branch protection not yet enabled on `main`. Tracked for manual setup.
 - Enterprise hardening evidence pack references Splunk exports that are redacted snapshots, not live queries.

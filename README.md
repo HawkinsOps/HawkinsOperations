@@ -45,6 +45,8 @@ Source of truth: [`PROOF_PACK/VERIFIED_COUNTS.md`](PROOF_PACK/VERIFIED_COUNTS.md
 | Host coverage | 8/8 | All monitored agents reporting |
 | Reconciliation | 0 mismatches | Ledger vs. case directory audit |
 
+> **Escalation count context:** 2,545 is the promoted March 25 public benchmark (locked in `current-authority.json`). The lifetime ledger total including post-benchmark runtime is higher. The difference reflects cases processed after the public snapshot was locked.
+
 ---
 
 ## Quick verification
