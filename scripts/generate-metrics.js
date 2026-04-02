@@ -82,17 +82,18 @@ function toApproxCountString(value) {
 }
 
 function resolveCanonicalMetricsPath(previousMetrics) {
+  const sourceOfTruthDir = path.join(root, "source_of_truth");
+  if (fs.existsSync(sourceOfTruthDir)) {
+    const candidates = fs.readdirSync(sourceOfTruthDir)
+      .filter((name) => /^metrics_canonical_\d{4}-\d{2}-\d{2}\.json$/i.test(name))
+      .sort();
+    if (candidates.length) return path.join(sourceOfTruthDir, candidates[candidates.length - 1]);
+  }
   if (previousMetrics && typeof previousMetrics.canonical_source === "string") {
     const fromPrevious = path.join(root, previousMetrics.canonical_source.replaceAll("/", path.sep));
     if (fs.existsSync(fromPrevious)) return fromPrevious;
   }
-  const sourceOfTruthDir = path.join(root, "source_of_truth");
-  if (!fs.existsSync(sourceOfTruthDir)) return "";
-  const candidates = fs.readdirSync(sourceOfTruthDir)
-    .filter((name) => /^metrics_canonical_\d{4}-\d{2}-\d{2}\.json$/i.test(name))
-    .sort();
-  if (!candidates.length) return "";
-  return path.join(sourceOfTruthDir, candidates[candidates.length - 1]);
+  return "";
 }
 
 function buildMetricsPayload() {
@@ -138,24 +139,32 @@ function buildMetricsPayload() {
       || runtimeLastUpdated
       || ""
   ).trim() || runtimeLastUpdated;
-  const stableLockedDate = String(previousStableBenchmark.locked_date || formatMmDdYyyy(stableLastUpdatedIso) || runtimeLockedDate).trim() || runtimeLockedDate;
+  const stableLockedDate = canonicalMetrics.stable_locked_date
+    ? formatMmDdYyyy(`${canonicalMetrics.stable_locked_date}T00:00:00Z`)
+    : String(previousStableBenchmark.locked_date || formatMmDdYyyy(stableLastUpdatedIso) || runtimeLockedDate).trim() || runtimeLockedDate;
   const stableTotalCases = expectFiniteLoose(
     Number.isFinite(canonicalMetrics.total_cases) ? canonicalMetrics.total_cases : ledgerMetrics.total_cases,
     "ledger.metrics.total_cases"
   );
-  const autoClosedRaw = ledgerMetrics.auto_closed_benign;
+  const autoClosedRaw = Number.isFinite(canonicalMetrics.auto_closed_benign) ? canonicalMetrics.auto_closed_benign : ledgerMetrics.auto_closed_benign;
   let stableAutoClosedBenign = parseLooseNumber(autoClosedRaw);
   if (Number.isFinite(stableAutoClosedBenign) && stableAutoClosedBenign > 0 && stableAutoClosedBenign < 1) {
     stableAutoClosedBenign = Math.round(stableTotalCases * stableAutoClosedBenign);
   }
   stableAutoClosedBenign = expectFinite(stableAutoClosedBenign, "ledger.metrics.auto_closed_benign");
   const stableKnownFp = expectFiniteLoose(
-    Number.isFinite(ledgerMetrics.auto_closed_known_fp) ? ledgerMetrics.auto_closed_known_fp : ledgerMetrics.known_fp,
+    Number.isFinite(canonicalMetrics.auto_closed_known_fp) ? canonicalMetrics.auto_closed_known_fp
+      : Number.isFinite(ledgerMetrics.auto_closed_known_fp) ? ledgerMetrics.auto_closed_known_fp
+      : ledgerMetrics.known_fp,
     "ledger.metrics.auto_closed_known_fp"
   );
-  const stableEscalated = expectFinite(reconciliationCounts.ledger_escalated_status_ids, "reconciliation.counts.ledger_escalated_status_ids");
+  const stableEscalated = Number.isFinite(canonicalMetrics.escalated)
+    ? expectFinite(canonicalMetrics.escalated, "canonical.escalated")
+    : expectFinite(reconciliationCounts.ledger_escalated_status_ids, "reconciliation.counts.ledger_escalated_status_ids");
   const runtimeReview = expectFinite(
-    expectFiniteLoose(Number.isFinite(ledgerMetrics.review) ? ledgerMetrics.review : previousRunningTotals.review, "ledger.metrics.review"),
+    expectFiniteLoose(Number.isFinite(canonicalMetrics.review) ? canonicalMetrics.review
+      : Number.isFinite(ledgerMetrics.review) ? ledgerMetrics.review
+      : previousRunningTotals.review, "ledger.metrics.review"),
     "ledger.metrics.review"
   );
   const runtimeStagedPending = expectFinite(
@@ -166,8 +175,10 @@ function buildMetricsPayload() {
   );
   const stableAutoCloseDisplay = String(canonicalMetrics.auto_close_rate_label || `~${Math.round((stableAutoClosedBenign / Math.max(stableTotalCases, 1)) * 100)}%`);
   const stableEscalatedDisplay = String(canonicalMetrics.escalations_label || toApproxCountString(stableEscalated));
-  const stableStatement = String(previousStableBenchmark.statement || "").trim()
-    || `Validated active benchmark: ${withCommas(stableTotalCases)}-case corpus with ${stableEscalatedDisplay} escalation artifacts, ${stableCoverageRatio} host coverage, and heartbeat ${stableHeartbeat}.`;
+  const stableStatement = canonicalMetrics.date
+    ? `${new Date(canonicalMetrics.date + "T00:00:00Z").toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "UTC" })} canonical snapshot: ${withCommas(stableTotalCases)} total cases, ${stableAutoCloseDisplay} auto-close, ${stableEscalatedDisplay} escalations, ${stableCoverageRatio} hosts reporting, reconciliation ${String(canonicalMetrics.reconciliation || "PASS")}, heartbeat ${stableHeartbeat}.`
+    : String(previousStableBenchmark.statement || "").trim()
+      || `Validated active benchmark: ${withCommas(stableTotalCases)}-case corpus with ${stableEscalatedDisplay} escalation artifacts, ${stableCoverageRatio} host coverage, and heartbeat ${stableHeartbeat}.`;
 
   return {
     display_policy: {
@@ -199,7 +210,7 @@ function buildMetricsPayload() {
       total_cases: stableTotalCases,
       auto_closed_benign: stableAutoClosedBenign,
       known_fp: stableKnownFp,
-      escalated: expectFinite(reconciliationCounts.ledger_escalated_status_ids, "reconciliation.counts.ledger_escalated_status_ids"),
+      escalated: stableEscalated,
       review: runtimeReview,
       staged_pending: runtimeStagedPending
     },

@@ -151,7 +151,7 @@
   <!-- inline stats -->
   <text x="370" y="152" text-anchor="middle" font-size="19" font-weight="700" fill="#2979c8">8/8</text>
   <text x="370" y="162" text-anchor="middle" font-size="7" fill="#2a4a68">hosts</text>
-  <text x="450" y="152" text-anchor="middle" font-size="19" font-weight="700" fill="#2979c8">54,700</text>
+  <text x="450" y="152" text-anchor="middle" font-size="19" font-weight="700" fill="#2979c8">321,351</text>
   <text x="450" y="162" text-anchor="middle" font-size="7" fill="#2a4a68">total alerts</text>
   <text x="530" y="152" text-anchor="middle" font-size="19" font-weight="700" fill="#2979c8">Sched.</text>
   <text x="530" y="162" text-anchor="middle" font-size="7" fill="#2a4a68">poll cycle</text>
@@ -271,7 +271,7 @@
   <rect x="574" y="492" width="265" height="3" rx="2" fill="#2979c8"/>
   <text x="706" y="514" text-anchor="middle" font-size="8" font-weight="700" letter-spacing="2" fill="#2a4a68">→ ANALYST REVIEW</text>
   <line x1="594" y1="522" x2="819" y2="522" stroke="#0e1828" stroke-width="1"/>
-  <text x="668" y="560" text-anchor="middle" font-size="34" font-weight="700" fill="#2979c8" class="ci">2,531</text>
+  <text x="668" y="560" text-anchor="middle" font-size="34" font-weight="700" fill="#2979c8" class="ci">7,950</text>
   <text x="668" y="576" text-anchor="middle" font-size="8" fill="#2a4a68">escalation packs published</text>
   <!-- bar -->
   <rect x="594" y="582" width="224" height="7" rx="3" fill="rgba(255,255,255,.04)"/>
@@ -303,7 +303,7 @@
   <!-- four metrics -->
   <line x1="60" y1="662" x2="540" y2="662" stroke="#0e1828" stroke-width="1"/>
   <!-- M1 -->
-  <text x="142" y="685" text-anchor="middle" font-size="18" font-weight="700" fill="#00c4d4">54,700</text>
+  <text x="142" y="685" text-anchor="middle" font-size="18" font-weight="700" fill="#00c4d4">321,351</text>
   <text x="142" y="696" text-anchor="middle" font-size="7" fill="#2a6878" letter-spacing="1">TOTAL CASES</text>
   <line x1="204" y1="664" x2="204" y2="698" stroke="#0e1828" stroke-width="1"/>
   <!-- M2 -->

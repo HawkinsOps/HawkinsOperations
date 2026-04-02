@@ -23,38 +23,43 @@ jobs:
       - name: Generate verified counts markdown
         shell: pwsh
         run: |
-          pwsh -NoProfile -File ".\scripts\verify\generate-verified-counts.ps1" -OutFile ".\PROOF_PACK\VERIFIED_COUNTS.md"
-          pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
+          pwsh -NoProfile -File "./scripts/verify/generate-verified-counts.ps1" -OutFile "./PROOF_PACK/VERIFIED_COUNTS.md"
+          pwsh -NoProfile -File "./scripts/verify/verify-counts.ps1"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
       - name: Generate site data artifacts
         shell: pwsh
         run: |
-          node .\scripts\generate-metrics.js
-          node .\scripts\generate-proof-lanes.js
-          python .\scripts\validate_metrics.py
-          node .\scripts\generate-site-data.js
-          node .\scripts\generate-site-content.js
-          node .\scripts\generate-media-manifest.js
+          node ./scripts/generate-metrics.js
+          node ./scripts/generate-proof-lanes.js
+          python3 ./scripts/validate_metrics.py
+          node ./scripts/generate-site-data.js
+          node ./scripts/generate-site-content.js
+          node ./scripts/generate-media-manifest.js
 
       - name: Hosting consistency check
         shell: pwsh
         run: |
-          node .\scripts\verify\hosting-cloudflare-only.js
-          node .\scripts\verify\site-runtime-contract.js
+          node ./scripts/verify/hosting-cloudflare-only.js
+          node ./scripts/verify/site-runtime-contract.js
 
       - name: Static site diagnosis gate
         shell: pwsh
         run: |
-          node .\scripts\diagnose-site.js --fail-on-issues
+          node ./scripts/diagnose-site.js --fail-on-issues
 
       - name: Build Wazuh bundle
         shell: pwsh
         run: |
-          pwsh -NoProfile -File ".\scripts\build-wazuh-bundle.ps1"
-          if (-not (Test-Path -LiteralPath ".\dist\wazuh\local_rules.xml")) {
+          pwsh -NoProfile -File "./scripts/build-wazuh-bundle.ps1"
+          if (-not (Test-Path -LiteralPath "./dist/wazuh/local_rules.xml")) {
             throw "dist/wazuh/local_rules.xml was not generated"
           }
-          Get-Item -LiteralPath ".\dist\wazuh\local_rules.xml" | Select-Object Name, Length
+          Get-Item -LiteralPath "./dist/wazuh/local_rules.xml" | Select-Object Name, Length
 
       - name: Upload verified counts artifact
         uses: actions/upload-artifact@v4

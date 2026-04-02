@@ -1,6 +1,6 @@
 # HawkinsOps Splunk Detection Queries - Collection, Exfiltration, Impact
 # Author: HawkinsOps SOC
-# Updated: 2026-03-29
+# Updated: 2026-04-01
 
 # ========================================
 # COLLECTION
@@ -26,6 +26,8 @@ index=windows EventCode=4104 (ScriptBlockText="*GetAsyncKeyState*" OR ScriptBloc
 # Data Archiving - T1560
 index=windows EventCode=1 (CommandLine="*Compress-Archive*" OR CommandLine="*7z.exe a*" OR CommandLine="*rar.exe a*")
 | where NOT match(User, "(?i)(system|network service)")
+# Exclude build/CI tools that archive as part of normal operation
+| where NOT match(ParentImage, "(?i)(msbuild|devenv|gradle|maven|npm|node\\.exe|python)")
 | table _time, Computer, User, CommandLine
 | sort -_time
 
@@ -57,7 +59,8 @@ index=windows EventCode=4104 ScriptBlockText="*Send-MailMessage*" ScriptBlockTex
 
 # DNS Tunneling - T1048.003
 index=dns query_length>100
-| where NOT match(query, "(?i)(microsoft\\.com|windowsupdate\\.com|akadns\\.net|amazonaws\\.com|cloudfront\\.net|akamaiedge\\.net)")
+# Exclude known CDN, cloud, and update domains that generate long DNS queries
+| where NOT match(query, "(?i)(microsoft\\.com|windowsupdate\\.com|akadns\\.net|amazonaws\\.com|cloudfront\\.net|akamaiedge\\.net|googleusercontent\\.com|gstatic\\.com|fbcdn\\.net|apple\\.com|icloud\\.com)")
 | bin _time span=10m
 | stats count dc(query) as unique_queries by _time, src_ip
 | where count > 20 AND unique_queries > 10
@@ -76,6 +79,8 @@ index=windows EventCode=1 (CommandLine="*copy*" OR CommandLine="*xcopy*" OR Comm
 # Ransomware File Encryption - T1486
 index=windows EventCode=11 (TargetFilename="*.encrypted" OR TargetFilename="*.locked" OR TargetFilename="*.crypto" OR TargetFilename="*.ransom")
 | where NOT match(Image, "(?i)(chrome|firefox|edge|onedrive)")
+# Exclude legitimate encryption tools (BitLocker, VeraCrypt, 7-Zip)
+| where NOT match(Image, "(?i)(BitLocker|VeraCrypt|7z\\.exe)")
 | bin _time span=5m
 | stats count by _time, Computer, Image
 | where count > 10

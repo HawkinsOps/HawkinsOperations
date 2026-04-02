@@ -140,10 +140,8 @@ function parseMetricsJson(rawJson) {
   const autoCloseCount = parsedRunningTotals.auto_closed_benign + parsedRunningTotals.known_fp;
   const autoCloseRate = totalCases > 0 ? `${((autoCloseCount / totalCases) * 100).toFixed(2)}%` : "0.00%";
   const stableTotalCases = parseLooseNumeric(stableBenchmark.total_cases, "stable_benchmark.total_cases");
-  const stableAutoClosed = parseLooseNumeric(stableBenchmark.auto_closed_benign, "stable_benchmark.auto_closed_benign", {
-    totalForPercent: stableTotalCases
-  });
-  const stableKnownFp = parseLooseNumeric(stableBenchmark.known_fp, "stable_benchmark.known_fp");
+  const stableAutoClosed = parsedRunningTotals.auto_closed_benign;
+  const stableKnownFp = parsedRunningTotals.known_fp;
   const stableEscalated = parseLooseNumeric(stableBenchmark.escalated, "stable_benchmark.escalated");
   const stableAutoCloseCount = stableAutoClosed + stableKnownFp;
   const stableAutoCloseRate = stableTotalCases > 0
