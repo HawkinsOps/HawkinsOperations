@@ -31,13 +31,13 @@ jobs:
           node-version-file: ".node-version"
 
       - name: Regenerate site data files
-        shell: pwsh
+        shell: bash
         run: |
-          node .\scripts\generate-metrics.js
-          node .\scripts\generate-proof-lanes.js
-          python .\scripts\validate_metrics.py
-          node .\scripts\generate-site-data.js
-          node .\scripts\verify\site-runtime-contract.js
+          node ./scripts/generate-metrics.js
+          node ./scripts/generate-proof-lanes.js
+          python3 ./scripts/validate_metrics.py
+          node ./scripts/generate-site-data.js
+          node ./scripts/verify/site-runtime-contract.js
 
       - name: Check for changes
         id: diff
