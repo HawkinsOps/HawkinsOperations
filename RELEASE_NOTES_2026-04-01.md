@@ -16,9 +16,9 @@
 | Wazuh rules | 24 files / 28 blocks |
 | Splunk queries | 9 |
 | IR Playbooks | 10 |
-| Pipeline cases processed | 55,665 |
-| Escalated artifacts | 2,545 |
-| Auto-close rate | ~92% |
+| Pipeline cases processed | 321,351+ |
+| Escalated artifacts | 6,178 |
+| Auto-close rate | ~88% |
 | Host coverage | 8/8 |
 | Reconciliation | 0 mismatches |
 

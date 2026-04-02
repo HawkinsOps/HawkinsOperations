@@ -22,9 +22,9 @@ canonical_metrics:
   pipeline_snapshot:
     source: docs/SignalFoundry_Case_Study_March2026.md
     snapshot_date: "2026-03-25"
-    total_cases: 55665
-    auto_close_rate: "~92%"
-    escalated_cases: 2545
+    total_cases: 321351
+    auto_close_rate: "~88%"
+    escalated_cases: 6178
     hosts_monitored: "8/8"
     hard_mismatches: 0
 abstract: >

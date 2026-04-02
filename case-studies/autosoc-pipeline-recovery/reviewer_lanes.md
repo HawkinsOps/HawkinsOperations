@@ -7,19 +7,19 @@ case_study: autosoc-pipeline-recovery
 
 ## Recruiter Lane (30 seconds)
 
-**TL;DR:** Raylee Hawkins built a fully automated SOC triage pipeline (SignalFoundry) that processes Wazuh alerts end-to-end: classify, redact, package evidence, escalate. When the pipeline broke, she diagnosed two root causes and restored it in one session. The system has processed 55,665 cases with a ~92% auto-close rate.
+**TL;DR:** Raylee Hawkins built a fully automated SOC triage pipeline (SignalFoundry) that processes Wazuh alerts end-to-end: classify, redact, package evidence, escalate. When the pipeline broke, she diagnosed two root causes and restored it in one session. The system has processed 321,351+ cases with a ~88% auto-close rate.
 
 **Role fit:**
-- **SOC Analyst T1/T2:** Demonstrated alert triage at scale (55,665 cases), policy-based disposition, and false positive tuning from direct observation of a live environment.
+- **SOC Analyst T1/T2:** Demonstrated alert triage at scale (321,351+ cases), policy-based disposition, and false positive tuning from direct observation of a live environment.
 - **Detection Engineering:** 140 verified detection rules across Sigma, Splunk SPL, and Wazuh XML, organized by MITRE ATT&CK tactics. CI-enforced counts.
 - **SOC Automation:** Purpose-built Python+PowerShell pipeline with 8-stage processing, 4-way reconciliation, and evidence sanitization before any artifact leaves the internal store.
 
-**Top metrics (locked 03-25-2026):**
+**Top metrics (locked 04-01-2026):**
 | Metric | Value |
 |---|---|
-| Cases processed | 55,665 |
-| Auto-close rate | ~92% |
-| Escalated cases | 2,545 |
+| Cases processed | 321,351+ |
+| Auto-close rate | ~88% |
+| Escalated cases | 6,178 |
 | Detection rules | 140 (CI-verified) |
 | IR Playbooks | 10 |
 | Host coverage | 8/8 |

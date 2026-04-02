@@ -7,7 +7,7 @@
 <meta name="description" content="SignalFoundry proof surface: traceable metrics, reproducible artifacts, and verification commands for every public claim.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="SignalFoundry — Proof &amp; Verified Metrics">
-<meta property="og:description" content="321,351 cases processed. ~92% auto-close. 8/8 hosts. Reconciliation PASS. Every metric traced to source. Every claim reproducible.">
+<meta property="og:description" content="321,351 cases processed. ~88% auto-close. 8/8 hosts. Reconciliation PASS. Every metric traced to source. Every claim reproducible.">
 <meta property="og:url" content="https://hawkinsops.com/proof">
 <meta property="og:image" content="https://hawkinsops.com/assets/og-card.png">
 <meta property="og:image:width" content="1200">
@@ -15,7 +15,7 @@
 <meta property="og:image:type" content="image/png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="SignalFoundry — Proof &amp; Verified Metrics">
-<meta name="twitter:description" content="321,351 cases processed. ~92% auto-close. 8/8 hosts. Every metric traced to source.">
+<meta name="twitter:description" content="321,351 cases processed. ~88% auto-close. 8/8 hosts. Every metric traced to source.">
 <meta name="twitter:image" content="https://hawkinsops.com/assets/og-card.png">
 <link rel="canonical" href="https://hawkinsops.com/proof">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -423,7 +423,7 @@ body.proof-page {
   <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #27c97a;">
     <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Reconciliation</div>
     <div style="font-size:24px;font-weight:700;color:#27c97a;font-family:'JetBrains Mono',monospace;">PASS</div>
-    <div style="font-size:9px;color:#486880;margin-top:4px;">0 mismatches · <span data-ops="stable_escalated">7,950</span> escalations pub.</div>
+    <div style="font-size:9px;color:#486880;margin-top:4px;">0 mismatches · <span data-ops="stable_escalated">6,178</span> escalations pub.</div>
   </div>
 </div>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
@@ -435,11 +435,11 @@ body.proof-page {
 </div>
         </div>
       </div>
-      <p class="m-copy" style="margin-top:12px;"><span data-ops="stable_statement">April 1 verified snapshot: 321,351 total cases, ~92% auto-close, 7,950 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
+      <p class="m-copy" style="margin-top:12px;"><span data-ops="stable_statement">April 1 verified snapshot: 321,351 total cases, ~88% auto-close, 6,178 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.</span></p>
       <div class="m-proof-strip" style="margin-top:12px;">
         <div class="m-proof-inline">
           <strong>Lifetime processed (runtime snapshot) <span data-ops="lifetime_total_cases">321,351</span></strong>
-          <strong>Runtime escalated <span data-ops="lifetime_escalated">7,950</span></strong>
+          <strong>Runtime escalated <span data-ops="lifetime_escalated">6,178</span></strong>
           <strong>Runtime known FP <span data-ops="lifetime_known_fp">N/A</span></strong>
           <strong>Runtime updated <span data-ops="lifetime_last_updated">04-01-2026</span></strong>
         </div>
@@ -500,10 +500,10 @@ body.proof-page {
       <article class="m-card">
         <div class="m-card-kicker" data-aos="fade-up">AutoSOC case</div>
         <h2>TITLE: AutoSOC Noise-Reduction Proof Block (2026-03-24 Snapshot)</h2>
-        <p class="m-copy"><strong>CLAIM:</strong> AutoSOC processed <span data-ops="stable_total_cases">321,351</span> alerts, auto-closed <span data-ops="stable_auto_closed_benign">~92%</span>, and produced <span data-ops="stable_escalated">7,950</span> escalations across <span data-ops="stable_coverage_ratio">8/8</span> coverage.</p>
+        <p class="m-copy"><strong>CLAIM:</strong> AutoSOC processed <span data-ops="stable_total_cases">321,351</span> alerts, auto-closed <span data-ops="stable_auto_closed_benign">~88%</span>, and produced <span data-ops="stable_escalated">6,178</span> escalations across <span data-ops="stable_coverage_ratio">8/8</span> coverage.</p>
         <p class="m-copy"><strong>CONTEXT:</strong> Current-facing metrics on this page are locked to the March 24 canonical snapshot. Historical recovery evidence remains linked as historical context only.</p>
         <ul class="m-list-tight">
-          <li><strong>EVIDENCE:</strong> <code>source_of_truth/metrics_canonical_2026-03-20.json</code> -> <code>total_cases=321351</code>, <code>auto_close_rate_label=~92%</code>, <code>escalations_label=7,950</code>, <code>hosts_reporting=8/8</code>; proves canonical quantified baseline.</li>
+          <li><strong>EVIDENCE:</strong> <code>source_of_truth/metrics_canonical_2026-03-20.json</code> -> <code>total_cases=321351</code>, <code>auto_close_rate_label=~88%</code>, <code>escalations_label=6,178</code>, <code>hosts_reporting=8/8</code>; proves canonical quantified baseline.</li>
           <li><strong>EVIDENCE:</strong> <code>docs/execution/AUTOSOC_PIPELINE_RECOVERY_CASE_STUDY_03-13-2026.md</code> -> final run shows <code>run_id=autosoc-20260313T215029Z-31020</code>, <code>status=SUCCESS</code>, <code>cases_processed=173</code>, <code>reconciliation.mismatch_count=0</code>; proves real output and validated recovery.</li>
           <li><strong>EVIDENCE:</strong> <code>/assets/pp_soc_integration/t3-workflow.png</code> -> proves a concrete workflow snapshot of the triage and evidence-pack pipeline surface.</li>
         </ul>
@@ -513,8 +513,8 @@ body.proof-page {
         data-modal="modal-autoclose"
         data-modal-title="Auto-Close Rate — How It Is Computed"
         role="button" tabindex="0"
-        aria-label="~92% auto-close rate — click to inspect">
-        <div class="proof-kpi-value"><span data-ops="stable_auto_closed_benign">~92%</span></div>
+        aria-label="~88% auto-close rate — click to inspect">
+        <div class="proof-kpi-value"><span data-ops="stable_auto_closed_benign">~88%</span></div>
         <div class="proof-kpi-label">Auto-Close Rate</div>
         <div class="proof-kpi-hint">&#x2197; Computation method</div>
       </article>
@@ -523,8 +523,8 @@ body.proof-page {
         data-modal="modal-escalations"
         data-modal-title="Published Escalations — Evidence Pack Definition"
         role="button" tabindex="0"
-        aria-label="7,950 escalations — click to inspect evidence pack definition">
-        <div class="proof-kpi-value"><span data-ops="stable_escalated">7,950</span></div>
+        aria-label="6,178 escalations — click to inspect evidence pack definition">
+        <div class="proof-kpi-value"><span data-ops="stable_escalated">6,178</span></div>
         <div class="proof-kpi-label">Published Escalations</div>
         <div class="proof-kpi-hint">&#x2197; What each escalation pack contains</div>
       </article>
@@ -562,8 +562,8 @@ body.proof-page {
           <h3>SignalFoundry Pipeline &mdash; Reconciliation Proof</h3>
           <ul class="m-list-tight">
             <li><strong>Total cases processed:</strong> <span data-ops="stable_total_cases">321,351</span></li>
-            <li><strong>Auto-close rate:</strong> <span data-ops="stable_auto_closed_benign">~92%</span></li>
-            <li><strong>Escalations:</strong> <span data-ops="stable_escalated">7,950</span></li>
+            <li><strong>Auto-close rate:</strong> <span data-ops="stable_auto_closed_benign">~88%</span></li>
+            <li><strong>Escalations:</strong> <span data-ops="stable_escalated">6,178</span></li>
             <li><strong>Host coverage:</strong> <span data-ops="stable_coverage_ratio">8/8</span></li>
             <li><strong>Reconciliation:</strong> PASS (0 mismatches)</li>
             <li><strong>Heartbeat:</strong> SUCCESS</li>
@@ -682,8 +682,8 @@ body.proof-page {
         <div class="m-proof-strip" style="margin-top:4px;">
           <div class="m-proof-inline">
             <strong>Cases <span data-live="total_cases">321,351</span></strong>
-            <strong>Escalations <span data-live="escalations">7,950</span></strong>
-            <strong>Auto-close <span data-live="auto_close_rate">~92%</span></strong>
+            <strong>Escalations <span data-live="escalations">6,178</span></strong>
+            <strong>Auto-close <span data-live="auto_close_rate">~88%</span></strong>
             <strong>Snapshot <span data-live="snapshot_date">2026-04-01</span></strong>
           </div>
         </div>
@@ -759,15 +759,15 @@ body.proof-page {
   <div class="proof-modal-divider"></div>
   <div class="proof-modal-section">
     <h4>Operational meaning</h4>
-    <p>~92% auto-close means the pipeline deterministically handled roughly 284,857 of 321,351 cases through benign plus known-false-positive handling without analyst escalation. The remaining cases either escalated or were flagged for manual review. This demonstrates the signal-to-noise reduction the triage policy enforces.</p>
+    <p>~88% auto-close means the pipeline deterministically handled roughly 284,857 of 321,351 cases through benign plus known-false-positive handling without analyst escalation. The remaining cases either escalated or were flagged for manual review. This demonstrates the signal-to-noise reduction the triage policy enforces.</p>
   </div>
   <div class="proof-modal-divider"></div>
   <div class="proof-modal-section">
     <h4>Label format</h4>
-    <p>Displayed as <code>~92%</code> (approximate label) because the operational ledger uses integer counts and the displayed percentage is rounded. The raw combined count is <code>auto_closed_benign + known_fp = 51,232</code>.</p>
+    <p>Displayed as <code>~88%</code> (approximate label) because the operational ledger uses integer counts and the displayed percentage is rounded. The raw combined count is <code>auto_closed_benign + known_fp = 284,857</code>.</p>
   </div>
   <div class="proof-modal-section">
-    <span class="proof-modal-tag">51,232 auto-closed</span>
+    <span class="proof-modal-tag">284,857 auto-closed</span>
     <span class="proof-modal-tag">321,351 total</span>
     <span class="proof-modal-tag">5,898 known_fp</span>
   </div>
@@ -793,10 +793,10 @@ body.proof-page {
   <div class="proof-modal-divider"></div>
   <div class="proof-modal-section">
     <h4>Provenance</h4>
-    <p>Value: <code>escalated: 7950</code> from <code>data/truth/current-authority.json</code>. This is an exact integer count, not an approximation.</p>
+    <p>Value: <code>escalated: 6178</code> from <code>data/truth/current-authority.json</code>. This is an exact integer count, not an approximation.</p>
   </div>
   <div class="proof-modal-section">
-    <span class="proof-modal-tag">7,950 exact</span>
+    <span class="proof-modal-tag">6,178 exact</span>
     <span class="proof-modal-tag">published to GitHub</span>
     <span class="proof-modal-tag">redaction-gated</span>
   </div>

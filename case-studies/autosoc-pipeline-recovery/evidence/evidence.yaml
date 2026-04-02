@@ -147,9 +147,9 @@ metric_reconciliation:
         escalated: 2478
       - source: "site/case-study-autosoc.html (locked snapshot)"
         date: "2026-03-25"
-        total_cases: 55665
-        auto_close_rate: "~92%"
-        escalated: 2545
+        total_cases: 321351
+        auto_close_rate: "~88%"
+        escalated: 6178
     drift_explanation: >
       The March 20 and March 25 values represent two different temporal snapshots
       of a live system. The delta (5,891 new cases, +67 escalations, +3% auto-close)

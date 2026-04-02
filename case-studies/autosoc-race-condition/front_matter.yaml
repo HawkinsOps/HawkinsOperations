@@ -22,8 +22,8 @@ canonical_metrics:
   pipeline_snapshot:
     snapshot_date: "2026-04-01"
     total_cases: 321351
-    auto_close_rate: "~92%"
-    escalated_cases: 7950
+    auto_close_rate: "~88%"
+    escalated_cases: 6178
     hosts_monitored: "8/8"
     hard_mismatches: 0
 abstract: >
