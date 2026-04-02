@@ -4,7 +4,7 @@
   "_description": "Two-layer truth model for the SignalFoundry public site (HawkinsOperations portfolio). Defines layer precedence, public usage rules, and governance constraints for all agents editing site content.",
 
   "system_name": "SignalFoundry",
-  "current_authority_date": "2026-03-24",
+  "current_authority_date": "2026-04-01",
 
   "layers": [
     {
@@ -20,7 +20,7 @@
       "id": "live_operational_feed",
       "rank": 2,
       "file": "site/data/truth/current-live.json",
-      "description": "Runtime pipeline telemetry from the last operator snapshot (2026-03-24). Informational only.",
+      "description": "Runtime pipeline telemetry from the last operator snapshot. Informational only.",
       "authority": "NON-AUTHORITATIVE",
       "public_use": "Permitted only in clearly labeled telemetry widgets with explicit date qualification",
       "update_requirement": "Operator snapshot update; never auto-promoted to authority"
@@ -29,11 +29,11 @@
 
   "precedence_rule": "If a value differs between verified_snapshot and live_operational_feed, public pages MUST display verified_snapshot. live_operational_feed may appear only in clearly labeled telemetry widgets and may never be presented as canonical, final, or reviewer-authoritative.",
 
-  "current_authority_date_rule": "2026-03-24 is the only current-facing authority date. All public claims must be qualified to this date or to a specific verified date.",
+  "current_authority_date_rule": "current_authority_date is the only current-facing authority date. All public claims must be qualified to this date or to a specific verified date. Update this field when promoting a new verified snapshot.",
 
   "snapshot_files": {
     "directory": "site/data/truth/snapshots/",
-    "current": "site/data/truth/snapshots/2026-03-24_verified.json",
+    "current": "site/data/truth/snapshots/2026-04-01_verified.json",
     "naming_convention": "YYYY-MM-DD_verified.json",
     "rule": "Each snapshot must match current-authority.json at the time of creation. Snapshots are immutable once written."
   },
