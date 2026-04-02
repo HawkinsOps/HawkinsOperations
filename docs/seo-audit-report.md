@@ -186,9 +186,9 @@ No content pages have `noindex`. No `googlebot` directives found.
 
 | Metric | Authority Value | Site Values | Consistent? |
 |--------|----------------|-------------|-------------|
-| Total cases | 55,665 | All instances match | YES |
-| Escalations | 2,545 | All instances match | YES |
-| Auto-close rate | ~92% | All instances match | YES |
+| Total cases | 321,351+ | All instances match | YES |
+| Escalations | 6,178 | All instances match | YES |
+| Auto-close rate | ~88% | All instances match | YES |
 | Detection count | 140 | All instances match | YES |
 | Sigma rules | 103 | All instances match | YES |
 | Splunk queries | 9 | All instances match | YES |

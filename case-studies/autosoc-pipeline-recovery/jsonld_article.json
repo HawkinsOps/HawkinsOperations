@@ -26,7 +26,7 @@
       "isPartOf": { "@id": "https://hawkinsops.com/#website" },
       "author": { "@id": "https://hawkinsops.com/#person" },
       "headline": "SignalFoundry Pipeline Outage: Diagnosed and Restored in One Session",
-      "description": "March 13 pipeline outage — two root causes identified, surgical fixes applied, full recovery to SUCCESS. Authority snapshot frozen March 25: 55,665 cases, ~92% auto-close, 2,545 escalations.",
+      "description": "March 13 pipeline outage — two root causes identified, surgical fixes applied, full recovery to SUCCESS. Authority snapshot frozen March 25: 55,665 cases, ~88% auto-close, 2,545 escalations.",
       "datePublished": "2026-03-25",
       "dateModified": "2026-03-30",
       "url": "https://hawkinsops.com/case-study-autosoc",

@@ -10,8 +10,8 @@
   "system_name": "SignalFoundry",
   "pipeline_runtime": {
     "total_cases": 321351,
-    "auto_close_rate": "~92%",
-    "escalations": "7,950",
+    "auto_close_rate": "~88%",
+    "escalations": "6,178",
     "hosts_reporting": "8/8",
     "reconciliation": "PASS (0 mismatches)",
     "heartbeat": "SUCCESS",

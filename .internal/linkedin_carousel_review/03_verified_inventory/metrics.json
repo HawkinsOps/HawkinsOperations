@@ -11,7 +11,7 @@
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
     "locked_date": "03-25-2026",
-    "statement": "March 25 live snapshot: 55,665 total cases, ~92% auto-close, 2,545 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS."
+    "statement": "March 25 live snapshot: 55,665 total cases, ~88% auto-close, 2,545 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS."
   },
   "lifetime_runtime": {
     "total_cases": 55665,

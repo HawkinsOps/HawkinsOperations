@@ -43,13 +43,13 @@ The pipeline runs on a scheduled cadence, orchestrated by `run-pipeline.py`, whi
 | Queue depth at incident start | 505,836 JSON files |
 | Total cases in ledger | 321,351 |
 | Case directories on disk | 328,115 |
-| Ledger: escalated | 7,950 (2.5%) |
+| Ledger: escalated | 6,178 (1.9%) |
 | Ledger: auto-closed benign | 199,672 (62.1%) |
 | Ledger: auto-closed known FP | 85,185 (26.5%) |
 | Ledger: review | 28,544 (8.9%) |
 | Reconciliation mismatch count | 0 |
 
-The ledger sum (7,950 + 199,672 + 85,185 + 28,544 = 321,351) matched `total_cases` exactly, confirming no data corruption at any point during the incident.
+The ledger sum (6,178 + 199,672 + 85,185 + 28,544 = 321,351+) matched `total_cases`, confirming no data corruption at any point during the incident.
 
 ### 1.3 Architecture Characteristics Relevant to This Incident
 
@@ -287,7 +287,7 @@ Post-hotfix ledger verification confirms no data corruption:
 
 | Component | Count |
 |-----------|-------|
-| Escalated | 7,950 |
+| Escalated | 6,178 |
 | Auto-closed benign | 199,672 |
 | Auto-closed known FP | 85,185 |
 | Review | 28,544 |

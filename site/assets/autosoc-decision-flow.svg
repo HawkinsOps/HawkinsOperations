@@ -245,7 +245,7 @@
   <!-- bar -->
   <rect x="80" y="582" width="224" height="7" rx="3" fill="rgba(255,255,255,.04)"/>
   <rect x="80" y="582" width="200" height="7" rx="3" fill="#27c97a" opacity=".5"/>
-  <text x="305" y="591" text-anchor="end" font-size="8" fill="#27c97a">~92%</text>
+  <text x="305" y="591" text-anchor="end" font-size="8" fill="#27c97a">~88%</text>
   <!-- dot -->
   <circle cx="72" cy="507" r="4" fill="#27c97a" filter="url(#glow-green)" class="pg"/>
 </g>
@@ -271,7 +271,7 @@
   <rect x="574" y="492" width="265" height="3" rx="2" fill="#2979c8"/>
   <text x="706" y="514" text-anchor="middle" font-size="8" font-weight="700" letter-spacing="2" fill="#2a4a68">→ ANALYST REVIEW</text>
   <line x1="594" y1="522" x2="819" y2="522" stroke="#0e1828" stroke-width="1"/>
-  <text x="668" y="560" text-anchor="middle" font-size="34" font-weight="700" fill="#2979c8" class="ci">7,950</text>
+  <text x="668" y="560" text-anchor="middle" font-size="34" font-weight="700" fill="#2979c8" class="ci">6,178</text>
   <text x="668" y="576" text-anchor="middle" font-size="8" fill="#2a4a68">escalation packs published</text>
   <!-- bar -->
   <rect x="594" y="582" width="224" height="7" rx="3" fill="rgba(255,255,255,.04)"/>
@@ -307,7 +307,7 @@
   <text x="142" y="696" text-anchor="middle" font-size="7" fill="#2a6878" letter-spacing="1">TOTAL CASES</text>
   <line x1="204" y1="664" x2="204" y2="698" stroke="#0e1828" stroke-width="1"/>
   <!-- M2 -->
-  <text x="264" y="685" text-anchor="middle" font-size="18" font-weight="700" fill="#00c4d4">~92%</text>
+  <text x="264" y="685" text-anchor="middle" font-size="18" font-weight="700" fill="#00c4d4">~88%</text>
   <text x="264" y="696" text-anchor="middle" font-size="7" fill="#2a6878" letter-spacing="1">AUTO-CLOSE</text>
   <line x1="324" y1="664" x2="324" y2="698" stroke="#0e1828" stroke-width="1"/>
   <!-- M3 -->

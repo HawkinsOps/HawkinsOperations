@@ -8,16 +8,16 @@ canonical_metrics_file: PROOF_PACK/VERIFIED_COUNTS.md
 abstract: >
   March 13, 2026: SignalFoundry pipeline stopped ingesting Wazuh alerts. Two root
   causes identified in one session. Surgical fixes applied. Pipeline restored to
-  SUCCESS. Authority snapshot locked March 25: 55,665 cases, ~92% auto-close, 2,545
+  SUCCESS. Authority snapshot locked April 1: 321,351+ cases, ~88% auto-close, 6,178
   escalations, 8/8 host coverage, 0 hard mismatches.
 ---
 
 # SignalFoundry Pipeline Outage: Diagnosed and Restored in One Session
 
-**One-line TL;DR:** Automated SOC pipeline went down, two root causes found and fixed in one session, 55,665 cases and counting.
+**One-line TL;DR:** Automated SOC pipeline went down, two root causes found and fixed in one session, 321,351+ cases and counting.
 
 **Recruiter-ready summary:**
-- Built and operates a fully automated SOC triage pipeline processing 55,665+ Wazuh alerts with ~92% auto-close rate
+- Built and operates a fully automated SOC triage pipeline processing 321,351+ Wazuh alerts with ~88% auto-close rate
 - Diagnosed a two-failure-mode production outage (poller retry defect + reconciliation scoping error) and restored service in one session
 - Maintains 140 CI-verified detection rules (Sigma + Splunk + Wazuh) and 10 IR playbooks mapped to MITRE ATT&CK
 
@@ -37,9 +37,9 @@ SignalFoundry is a bespoke Python-and-PowerShell SOC automation pipeline built b
 
 | Metric | Value | Source |
 |---|---|---|
-| Total cases processed | 55,665 | Locked authority snapshot |
-| Auto-close rate | ~92% | Locked authority snapshot |
-| Escalated cases | 2,545 | Locked authority snapshot |
+| Total cases processed | 321,351+ | Locked authority snapshot |
+| Auto-close rate | ~88% | Locked authority snapshot |
+| Escalated cases | 6,178 | Locked authority snapshot |
 | Hosts monitored | 8 / 8 | Coverage check |
 | Hard mismatches | 0 | Reconciliation (strict categories) |
 | Detection inventory | 140 rules | `PROOF_PACK/VERIFIED_COUNTS.md` |
@@ -107,7 +107,7 @@ gantt
 - **March 2-4:** Stress test — 25,167 cases, 90.1% auto-close, pipeline held
 - **March 13:** Outage detected → diagnosed → two root causes fixed → SUCCESS restored (one session)
 - **March 14-24:** Policy tuning — Windows FP suppression, Linux dpkg, Sysmon hardening
-- **March 25:** Authority snapshot locked — 55,665 cases, ~92% auto-close, 2,545 escalations
+- **April 1:** Authority snapshot locked — 321,351+ cases, ~88% auto-close, 6,178 escalations
 
 ---
 
@@ -287,9 +287,9 @@ All surfaces agree on detection counts:
 
 | Metric | March 20 Snapshot | March 25 Locked | Delta |
 |---|---|---|---|
-| Total cases | 49,774 | 55,665 | +5,891 |
-| Auto-close rate | ~89% | ~92% | +3% |
-| Escalated cases | 2,478 | 2,545 | +67 |
+| Total cases | 49,774 | 321,351+ | +271,577 |
+| Auto-close rate | ~89% | ~88% | -1% |
+| Escalated cases | 2,478 | 6,178 | +3,700 |
 
 **Source:** March 20 from `docs/SignalFoundry_Case_Study_March2026.md` Section 5.1; March 25 from `site/case-study-autosoc.html` locked snapshot.
 

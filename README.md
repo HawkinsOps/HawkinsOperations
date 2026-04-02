@@ -39,9 +39,11 @@ Source of truth: [`PROOF_PACK/VERIFIED_COUNTS.md`](PROOF_PACK/VERIFIED_COUNTS.md
 | Wazuh rules (XML) | 24 files / 28 blocks | `content/detection-rules/wazuh/rules/` |
 | Splunk queries (SPL) | 9 | `content/detection-rules/splunk/` |
 | IR Playbooks | 10 | `content/incident-response/playbooks/` |
-| Pipeline cases processed | 55,665 | Canonical baseline + post-reset window |
-| Escalated artifacts | 2,545 | Published proof packs |
-| Auto-close rate | ~92% | Benign + known FP |
+| Pipeline cases processed | 321,351+ | Canonical baseline + post-reset window |
+| Escalated artifacts | 6,178 | Published proof packs |
+
+> **Escalation count context:** 6,178 is the promoted April 1 public benchmark (locked in `current-authority.json`). The lifetime ledger total including post-benchmark runtime is 7,950.
+| Auto-close rate | ~88% | Benign + known FP |
 | Host coverage | 8/8 | All monitored agents reporting |
 | Reconciliation | 0 mismatches | Ledger vs. case directory audit |
 
@@ -132,3 +134,4 @@ No real credentials, internal IPs, or identity leakage in committed files.
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
