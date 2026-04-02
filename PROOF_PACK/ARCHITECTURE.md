@@ -33,7 +33,7 @@ privilege-escalation/  → T1055, T1068, T1078, T1134
 - **Format:** Splunk Search Processing Language (.spl files)
 - **Organization:** Grouped by MITRE ATT&CK tactics with multiple queries per file
 - **Strength:** Optimized for Splunk Enterprise Security and detection efficiency
-- **Use Case:** Production-ready searches for Splunk deployments
+- **Use Case:** Investigation-layer SPL queries developed against Wazuh-forwarded events in a home lab Splunk instance
 
 **Query Collections:**
 - Credential Access (LSASS dumps, Mimikatz, Kerberoasting, DCSync)
