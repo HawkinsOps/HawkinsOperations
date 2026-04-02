@@ -21,7 +21,7 @@ window.HAWKINSOPS_OPS_METRICS = {
     "known_fp": "85,185",
     "escalated": "7,950",
     "review": 28544,
-    "staged_pending": 6178,
+    "staged_pending": 67,
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
     "last_updated": "04-01-2026"
@@ -31,7 +31,7 @@ window.HAWKINSOPS_OPS_METRICS = {
     "auto_close_rate": "88.64%",
     "escalated": 7950,
     "review": 28544,
-    "staged_pending": 6178,
+    "staged_pending": 67,
     "known_fp": 85185,
     "auto_closed_benign": 199672,
     "reconciliation": "PASS",
