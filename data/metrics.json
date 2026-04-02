@@ -4,38 +4,38 @@
     "runtime_label": "Lifetime processed (runtime snapshot)"
   },
   "stable_benchmark": {
-    "total_cases": 55665,
+    "total_cases": 321351,
     "auto_closed_benign": "~92%",
-    "known_fp": "5,898",
-    "escalated": "2,545",
+    "known_fp": "85,185",
+    "escalated": "7,950",
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
-    "locked_date": "03-25-2026",
-    "statement": "March 25 canonical snapshot: 55,665 total cases, ~92% auto-close, 2,545 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS."
+    "locked_date": "04-01-2026",
+    "statement": "April 1 canonical snapshot: 321,351 total cases, ~92% auto-close, 7,950 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS."
   },
   "lifetime_runtime": {
-    "total_cases": 55665,
+    "total_cases": 321351,
     "auto_closed_benign": "~92%",
-    "known_fp": "5,898",
-    "escalated": "2,545",
-    "review": 1860,
-    "staged_pending": 67,
+    "known_fp": "85,185",
+    "escalated": "7,950",
+    "review": 28544,
+    "staged_pending": 6178,
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
-    "last_updated": "2026-03-25T00:00:00Z"
+    "last_updated": "2026-04-01T00:00:00Z"
   },
   "running_totals": {
-    "total_cases": 55665,
-    "auto_closed_benign": 45334,
-    "known_fp": 5898,
-    "escalated": 2479,
-    "review": 1860,
-    "staged_pending": 67
+    "total_cases": 321351,
+    "auto_closed_benign": 199672,
+    "known_fp": 85185,
+    "escalated": 7950,
+    "review": 28544,
+    "staged_pending": 6178
   },
   "host_coverage": "8/8",
   "reconciliation_mismatch": 0,
   "heartbeat": "SUCCESS",
-  "last_updated": "2026-03-25T00:00:00Z",
+  "last_updated": "2026-04-01T00:00:00Z",
   "stress_test_window": {
     "profile": "active_pipeline_snapshot",
     "baseline_window": "C:/RH/OPS/30_Projects/Active/AutoSOC/Output",
@@ -57,5 +57,5 @@
     "splunk": 9,
     "ir_playbooks": 10
   },
-  "canonical_source": "source_of_truth/metrics_canonical_2026-03-25.json"
+  "canonical_source": "source_of_truth/metrics_canonical_2026-04-01.json"
 }
