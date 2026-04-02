@@ -1,12 +1,12 @@
 {
-  "generated_utc": "2026-04-02T13:57:00.983Z",
+  "generated_utc": "2026-04-02T19:15:25.997Z",
   "scorecard_window": "lifetime_runtime_snapshot",
   "source_metrics": "data/metrics.json",
   "totals": {
     "total_cases": 321351,
     "auto_closed_benign": 199672,
     "known_fp": 85185,
-    "escalated": 7950,
+    "escalated": 6178,
     "review": 28544,
     "staged_pending": 67
   },
@@ -27,7 +27,7 @@
       },
       {
         "id": "escalation_pct",
-        "value": 2.47,
+        "value": 1.92,
         "target": ">= 3",
         "status": "WATCH"
       },
