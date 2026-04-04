@@ -131,3 +131,20 @@ Runs/**/Logs/
 Runs/**/Diagnostics/
 **/*_catalog*.jsonl
 **/output_catalog_global*.jsonl
+
+# Interview/career prep - NEVER commit
+CALL_PREP_*
+PRACTICE_SCRIPTS*
+POLISH_SPRINT*
+BINDER_*
+.internal/
+
+# Audit files - NEVER commit
+SECURITY_SWEEP*
+PURGE_LIST*
+HISTORY_REWRITE*
+STRUCTURE_AUDIT*
+MIGRATION_PLAN*
+PROPOSED_ARCHITECTURE*
+GITIGNORE_RECOMMENDED*
+MITRE_MAPPING_AUDIT*

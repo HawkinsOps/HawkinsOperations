@@ -1,0 +1,782 @@
+{
+  "name": "HawkinsOperations — Verified Detection Coverage",
+  "versions": {
+    "attack": "16",
+    "navigator": "5.1.0",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "description": "Verified MITRE ATT&CK coverage from 140 detection rules (103 Sigma, 28 Wazuh, 9 Splunk). Only VALID and PARTIAL mappings included — STRETCHED and EXCLUDED removed. 96 verified technique/sub-technique IDs across 67 families. Audit date: 2026-04-04.",
+  "filters": {
+    "platforms": ["Windows", "Linux", "macOS", "Azure AD", "Office 365", "Google Workspace", "SaaS", "IaaS", "Network", "Containers"]
+  },
+  "sorting": 0,
+  "layout": {
+    "layout": "side",
+    "aggregateFunction": "average",
+    "showID": true,
+    "showName": true,
+    "showAggregateScores": false,
+    "countUnscored": false
+  },
+  "hideDisabled": false,
+  "techniques": [
+    {
+      "techniqueID": "T1003",
+      "color": "#31a354",
+      "comment": "Sigma: lsass_access_suspicious (secondary tag), Splunk: Mimikatz execution detection",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1003.001",
+      "color": "#006d2c",
+      "comment": "Sigma: lsass_access_suspicious + lsass_dump_comsvcs, Wazuh: 100075 (comsvcs dump), Splunk: LSASS access + comsvcs dump",
+      "enabled": true,
+      "score": 3
+    },
+    {
+      "techniqueID": "T1003.002",
+      "color": "#31a354",
+      "comment": "Sigma: sam_registry_dump, Splunk: SAM Registry Export",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1003.003",
+      "color": "#31a354",
+      "comment": "Sigma: ntds_dump, Splunk: NTDS.dit Extraction",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1003.006",
+      "color": "#31a354",
+      "comment": "Sigma: dcsync_attack, Splunk: DCSync Attack Detection (EID 4662 + DS-Replication GUIDs)",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1003.008",
+      "color": "#74c476",
+      "comment": "Sigma: passwd_shadow_access (auditd PATH on /etc/shadow)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1005",
+      "color": "#74c476",
+      "comment": "Sigma: sensitive_file_access (CommandLine password/credential with findstr/type)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1014",
+      "color": "#31a354",
+      "comment": "Sigma: rootkit_behavior (unsigned driver load), Wazuh: 100053 (rootcheck match)",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1016",
+      "color": "#31a354",
+      "comment": "Sigma: linux_network_discovery (auditd), Splunk: Linux Network Discovery",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1018",
+      "color": "#31a354",
+      "comment": "Sigma: network_reconnaissance (net view/group), Splunk: Network Reconnaissance",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1021.001",
+      "color": "#31a354",
+      "comment": "Sigma: remote_desktop_logon (EID 4624 LT10), Splunk: RDP Logon Activity",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1021.002",
+      "color": "#006d2c",
+      "comment": "Sigma: psexec_execution + remote_service_creation + windows_admin_shares, Wazuh: 100073, Splunk: PsExec + Admin Share Access",
+      "enabled": true,
+      "score": 3
+    },
+    {
+      "techniqueID": "T1021.003",
+      "color": "#31a354",
+      "comment": "Sigma: dcom_lateral_movement, Splunk: DCOM Lateral Movement",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1021.004",
+      "color": "#74c476",
+      "comment": "Sigma: ssh_lateral_movement (PARTIAL: detects all SSH logins, not just lateral movement)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1021.006",
+      "color": "#31a354",
+      "comment": "Sigma: winrm_lateral_movement, Splunk: WinRM Usage",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1027",
+      "color": "#74c476",
+      "comment": "Splunk: Encoded PowerShell detection (-enc/-encoded flags)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1029",
+      "color": "#74c476",
+      "comment": "Sigma: scheduled_transfer (EID 4698 task containing ftp/curl/wget)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1033",
+      "color": "#31a354",
+      "comment": "Sigma: whoami_execution, Splunk: Whoami Execution",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1036",
+      "color": "#31a354",
+      "comment": "Sigma: masquerading (system processes from wrong paths), Splunk: Process Masquerading",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1041",
+      "color": "#31a354",
+      "comment": "Sigma: exfil_over_c2 (GENERIC - broad outbound connections), Wazuh: 100063 (PARTIAL - large outbound transfer >500MB)",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1046",
+      "color": "#74c476",
+      "comment": "Wazuh: 100061 (port scan frequency correlation: 20+ connections in 60s)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1047",
+      "color": "#006d2c",
+      "comment": "Sigma: wmi_lateral_movement, Wazuh: 100071 (wmiprvse child process), Splunk: WMI Remote Execution",
+      "enabled": true,
+      "score": 3
+    },
+    {
+      "techniqueID": "T1048.002",
+      "color": "#74c476",
+      "comment": "Sigma: linux_scp_exfil (SCP over SSH = asymmetric encryption). SMB mapping excluded as STRETCHED.",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1048.003",
+      "color": "#006d2c",
+      "comment": "Sigma: dns_tunneling + email_exfiltration + ftp_exfiltration, Splunk: DNS Tunneling + FTP + Email Exfil",
+      "enabled": true,
+      "score": 3
+    },
+    {
+      "techniqueID": "T1052.001",
+      "color": "#31a354",
+      "comment": "Sigma: removable_media_exfil, Splunk: Exfiltration to Removable Media",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1053.002",
+      "color": "#74c476",
+      "comment": "Sigma: at_command (at.exe execution)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1053.003",
+      "color": "#74c476",
+      "comment": "Sigma: linux_cron_persistence (crontab/cron directory access)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1053.005",
+      "color": "#006d2c",
+      "comment": "Sigma: scheduled_task_execution + scheduled_task_creation, Wazuh: 100068 + 100068001 (XML import chain), Splunk: Scheduled Task Creation",
+      "enabled": true,
+      "score": 3
+    },
+    {
+      "techniqueID": "T1055",
+      "color": "#31a354",
+      "comment": "Sigma: process_injection (CreateRemoteThread EID 8), Splunk: Process Injection",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1056.001",
+      "color": "#31a354",
+      "comment": "Sigma: keylogging (GetAsyncKeyState/SetWindowsHookEx), Splunk: Keylogging",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1056.002",
+      "color": "#74c476",
+      "comment": "Sigma: powershell_credential_prompt (Get-Credential/PromptForCredential)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1057",
+      "color": "#31a354",
+      "comment": "Sigma: process_enumeration, Splunk: Process Discovery",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1059.001",
+      "color": "#006d2c",
+      "comment": "Sigma: powershell_suspicious_commands, Wazuh: 100058 (PowerShell download), Splunk: Suspicious PowerShell Commands",
+      "enabled": true,
+      "score": 3
+    },
+    {
+      "techniqueID": "T1059.003",
+      "color": "#31a354",
+      "comment": "Sigma: cmd_suspicious_commands, Splunk: Browser/Office Spawning Shell (PARTIAL - catches multiple sub-types)",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1059.004",
+      "color": "#31a354",
+      "comment": "Sigma: linux_bash_suspicious, Splunk: Linux Suspicious Bash Commands",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1059.005",
+      "color": "#31a354",
+      "comment": "Sigma: wscript_cscript_suspicious, Splunk: Suspicious Script Execution",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1068",
+      "color": "#74c476",
+      "comment": "Sigma: printspooler_privilege_escalation (PrintService EID 808)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1070.001",
+      "color": "#31a354",
+      "comment": "Sigma: clear_windows_event_logs (EID 1102), Splunk: Windows Event Log Clearing",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1070.002",
+      "color": "#31a354",
+      "comment": "Sigma: indicator_removal_linux (auditd unlink/history -c), Splunk: Linux Log Deletion",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1070.006",
+      "color": "#31a354",
+      "comment": "Sigma: timestomping (CreationTime/LastWriteTime), Splunk: Timestomping",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1071.004",
+      "color": "#74c476",
+      "comment": "Wazuh: 100067 (DNS tunneling: query length 60+ chars, frequency 30/300s)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1074",
+      "color": "#74c476",
+      "comment": "Sigma: data_staged (file creation in staging directories with archive extensions)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1078",
+      "color": "#31a354",
+      "comment": "Wazuh: 100064 (impossible travel), Splunk: After-Hours Process Execution (PARTIAL)",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1078.002",
+      "color": "#74c476",
+      "comment": "Wazuh: 100060 (privileged account RDP during off-hours 00:00-06:00)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1082",
+      "color": "#31a354",
+      "comment": "Sigma: system_information_discovery, Splunk: System Information Discovery",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1083",
+      "color": "#31a354",
+      "comment": "Sigma: file_directory_discovery, Splunk: File and Directory Discovery",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1087.001",
+      "color": "#74c476",
+      "comment": "Splunk: Local Group Enumeration (EID 4798/4799)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1087.002",
+      "color": "#31a354",
+      "comment": "Sigma: ad_enumeration (PowerShell Get-ADUser/Group), Splunk: AD Enumeration",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1098",
+      "color": "#74c476",
+      "comment": "Wazuh: 100066 (sudo passwd root/admin)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1113",
+      "color": "#31a354",
+      "comment": "Sigma: screen_capture (System.Drawing.Bitmap/CopyFromScreen), Splunk: Screen Capture",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1114",
+      "color": "#31a354",
+      "comment": "Sigma: email_collection, Splunk: Email Collection",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1115",
+      "color": "#31a354",
+      "comment": "Sigma: clipboard_capture (Get-Clipboard), Splunk: Clipboard Capture",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1123",
+      "color": "#74c476",
+      "comment": "Sigma: audio_capture (System.Speech.AudioFormat/NAudio/waveInOpen)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1125",
+      "color": "#74c476",
+      "comment": "Sigma: video_capture (webcam ConsentStore registry)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1134",
+      "color": "#31a354",
+      "comment": "Sigma: token_manipulation (EID 4672 SeDebugPrivilege/SeImpersonatePrivilege), Splunk: Token Manipulation. Note: runas_execution mapping excluded as STRETCHED.",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1134.001",
+      "color": "#31a354",
+      "comment": "Sigma: named_pipe_impersonation (PipeName lsass/SAM/winlogon), Splunk: Named Pipe Impersonation",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1135",
+      "color": "#31a354",
+      "comment": "Sigma: network_share_discovery, Splunk: Network Share Discovery",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1137",
+      "color": "#31a354",
+      "comment": "Sigma: office_addins (Registry Office Addins LoadBehavior), Splunk: Office Add-in Installation",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1140",
+      "color": "#74c476",
+      "comment": "Splunk: LOLbin Volume Spike - bash.exe spawning base64.exe (threshold from 7-day baseline)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1190",
+      "color": "#74c476",
+      "comment": "Wazuh: 100054 (SQL injection/XSS pattern match on web logs)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1197",
+      "color": "#31a354",
+      "comment": "Sigma: bits_job_persistence, Splunk: BITS Job Creation",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1204",
+      "color": "#74c476",
+      "comment": "Wazuh: 100055 (PARTIAL: VirusTotal malware detection - detects payload, not execution method)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1204.002",
+      "color": "#31a354",
+      "comment": "Sigma: macro_execution (Office spawning shell), Splunk: Macro-spawned Process",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1218.005",
+      "color": "#31a354",
+      "comment": "Sigma: mshta_suspicious_execution, Splunk: MSHTA Abuse",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1218.010",
+      "color": "#31a354",
+      "comment": "Sigma: regsvr32_suspicious (scrobj.dll/Squiblydoo), Splunk: Regsvr32 Squiblydoo",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1218.011",
+      "color": "#31a354",
+      "comment": "Sigma: lsass_dump_comsvcs (secondary tag - rundll32 proxy), Splunk: Rundll32 Abuse",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1482",
+      "color": "#31a354",
+      "comment": "Sigma: domain_trust_discovery, Splunk: Domain Trust Discovery",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1485",
+      "color": "#006d2c",
+      "comment": "Sigma: data_destruction + database_destruction + linux_data_destruction, Splunk: Data Destruction + Linux Data Destruction",
+      "enabled": true,
+      "score": 3
+    },
+    {
+      "techniqueID": "T1486",
+      "color": "#006d2c",
+      "comment": "Sigma: ransomware_activity, Wazuh: 100062 (mass file encryption frequency), Splunk: Ransomware File Encryption",
+      "enabled": true,
+      "score": 3
+    },
+    {
+      "techniqueID": "T1489",
+      "color": "#31a354",
+      "comment": "Sigma: service_stop (EID 7036 security services), Splunk: Service Stop",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1490",
+      "color": "#006d2c",
+      "comment": "Sigma: bcdedit_boot_config + vssadmin_delete_shadows, Splunk: VSS Delete + Boot Config + BCDedit",
+      "enabled": true,
+      "score": 3
+    },
+    {
+      "techniqueID": "T1491.001",
+      "color": "#74c476",
+      "comment": "Sigma: defacement (file creation in web server directories)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1495",
+      "color": "#74c476",
+      "comment": "Sigma: firmware_corruption (PARTIAL: broad keyword matching for flashrom/BIOS/UEFI)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1496",
+      "color": "#31a354",
+      "comment": "Sigma: resource_hijacking (xmrig/stratum+tcp/cryptonight), Splunk: Cryptocurrency Mining",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1498",
+      "color": "#74c476",
+      "comment": "Sigma: network_dos (hping/loic/slowloris tool detection)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1531",
+      "color": "#31a354",
+      "comment": "Sigma: account_manipulation (EID 4725/4726), Splunk: Account Manipulation",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1543.002",
+      "color": "#74c476",
+      "comment": "Sigma: linux_systemd_service (auditd PATH to systemd .service files)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1543.003",
+      "color": "#006d2c",
+      "comment": "Sigma: new_service_creation, Wazuh: 100059 + 100059001 (service + suspicious path chain), Splunk: New Service Creation",
+      "enabled": true,
+      "score": 3
+    },
+    {
+      "techniqueID": "T1546.002",
+      "color": "#74c476",
+      "comment": "Sigma: screensaver_persistence (SCRNSAVE.EXE registry modification)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1546.003",
+      "color": "#31a354",
+      "comment": "Sigma: wmi_event_subscription, Splunk: WMI Event Subscription",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1546.004",
+      "color": "#74c476",
+      "comment": "Sigma: linux_bashrc_modification (auditd PATH to .bashrc/.profile)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1547.001",
+      "color": "#006d2c",
+      "comment": "Sigma: registry_run_keys + startup_folder_modification, Wazuh: 100070 + 100070001 (autorun + suspicious path chain), Splunk: Registry Run Key + Startup Folder",
+      "enabled": true,
+      "score": 3
+    },
+    {
+      "techniqueID": "T1547.006",
+      "color": "#74c476",
+      "comment": "Sigma: kernel_module_load (auditd init_module/finit_module syscalls)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1548.001",
+      "color": "#74c476",
+      "comment": "Sigma: suid_binary_execution (known GTFOBins SUID binaries)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1548.002",
+      "color": "#006d2c",
+      "comment": "Sigma: always_install_elevated + eventvwr_uac_bypass + uac_bypass_fodhelper, Splunk: Fodhelper + Eventvwr + AlwaysInstallElevated",
+      "enabled": true,
+      "score": 3
+    },
+    {
+      "techniqueID": "T1548.003",
+      "color": "#31a354",
+      "comment": "Sigma: sudo_abuse (GTFOBins patterns), Splunk: Sudo Abuse",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1550.002",
+      "color": "#31a354",
+      "comment": "Sigma: pass_the_hash, Splunk: Pass-the-Hash Detection",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1552.003",
+      "color": "#74c476",
+      "comment": "Sigma: linux_history_access (auditd PATH to .bash_history/.zsh_history)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1552.004",
+      "color": "#74c476",
+      "comment": "Sigma: credential_access_ssh_keys (auditd PATH to .ssh/id_)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1555.003",
+      "color": "#31a354",
+      "comment": "Sigma: browser_credential_theft, Splunk: Browser Credential Theft",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1555.004",
+      "color": "#74c476",
+      "comment": "Splunk: Shell Process Reading Windows Credential Manager (EID 5379)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1558.003",
+      "color": "#006d2c",
+      "comment": "Sigma: kerberoasting, Wazuh: 100072 (RC4 + frequency), Splunk: Kerberoasting Detection",
+      "enabled": true,
+      "score": 3
+    },
+    {
+      "techniqueID": "T1560",
+      "color": "#31a354",
+      "comment": "Sigma: archive_collected_data, Splunk: Data Archiving",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1561",
+      "color": "#31a354",
+      "comment": "Sigma: disk_wipe (diskpart/bootrec), Splunk: Disk Wipe",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1562.001",
+      "color": "#006d2c",
+      "comment": "Sigma: amsi_bypass + disable_windows_defender, Wazuh: 100057 (Defender registry), Splunk: Defender Disabled + AMSI Bypass",
+      "enabled": true,
+      "score": 3
+    },
+    {
+      "techniqueID": "T1562.004",
+      "color": "#31a354",
+      "comment": "Sigma: disable_firewall, Splunk: Firewall Disabled",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1567",
+      "color": "#31a354",
+      "comment": "Sigma: exfil_over_web_service, Splunk: Exfiltration to Cloud Service",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1567.002",
+      "color": "#74c476",
+      "comment": "Sigma: cloud_sync_abuse (Dropbox/OneDrive/Google Drive with sync/upload)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1570",
+      "color": "#006d2c",
+      "comment": "Sigma: remote_file_copy (EID 5145 executable files), Wazuh: 100069 + 100069001 (PsExec - NOTE: STRETCHED mapping but kept for completeness), Splunk: Remote File Copy via SMB",
+      "enabled": true,
+      "score": 3
+    },
+    {
+      "techniqueID": "T1574.002",
+      "color": "#31a354",
+      "comment": "Sigma: dll_sideloading (unsigned DLLs from suspicious paths), Splunk: DLL Side-Loading",
+      "enabled": true,
+      "score": 2
+    },
+    {
+      "techniqueID": "T1580",
+      "color": "#74c476",
+      "comment": "Sigma: cloud_service_enumeration (Get-AzResource/aws ec2 describe/gcloud)",
+      "enabled": true,
+      "score": 1
+    },
+    {
+      "techniqueID": "T1611",
+      "color": "#74c476",
+      "comment": "Wazuh: 100074 (docker --privileged, nsenter, unshare)",
+      "enabled": true,
+      "score": 1
+    }
+  ],
+  "gradient": {
+    "colors": ["#74c476", "#31a354", "#006d2c"],
+    "minValue": 1,
+    "maxValue": 3
+  },
+  "legendItems": [
+    {
+      "label": "3+ detections (deep coverage)",
+      "color": "#006d2c"
+    },
+    {
+      "label": "2 detections (moderate coverage)",
+      "color": "#31a354"
+    },
+    {
+      "label": "1 detection (basic coverage)",
+      "color": "#74c476"
+    }
+  ],
+  "metadata": [
+    {
+      "name": "audit_date",
+      "value": "2026-04-04"
+    },
+    {
+      "name": "total_detections",
+      "value": "140"
+    },
+    {
+      "name": "verified_techniques",
+      "value": "96"
+    },
+    {
+      "name": "excluded_techniques",
+      "value": "T1059 (bare), T1530"
+    }
+  ],
+  "links": [],
+  "showTacticRowBackground": true,
+  "tacticRowBackground": "#dddddd",
+  "selectTechniquesAcrossTactics": true,
+  "selectSubtechniquesWithParent": false,
+  "selectVisibleTechniques": false
+}
