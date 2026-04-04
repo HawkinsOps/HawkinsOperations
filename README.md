@@ -169,7 +169,6 @@ Selected engineering challenges documented with full context:
 | `PROOF_PACK/` | Verified counts, sample artifacts, evidence checklist, redaction rules |
 | `content/detection-rules/` | Sigma + Splunk + Wazuh XML, organized by MITRE tactic |
 | `content/incident-response/` | 10 IR playbooks + templates + pipeline-generated incident packs |
-| `analysis/` | Post-backlog detection tuning, FP reduction analysis |
 | `case-studies/` | Detailed write-ups of significant engineering challenges |
 | `docs/execution/` | Operations runbook, rootcheck closeout, lab change control |
 | `data/` | Auto-regenerated site data from source artifacts |

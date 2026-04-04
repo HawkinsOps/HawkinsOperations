@@ -1,1 +1,0 @@
-Evidence-first SOC portfolio centered on SignalFoundry, a self-hosted detection and triage pipeline running on a Proxmox/Wazuh lab. Includes verified detection content, IR playbooks, proof artifacts, and reproducible validation workflows.
