@@ -1,0 +1,229 @@
+# AutoSOC Pipeline — scheduled alert ingestion, triage, and case processing.
+#
+# Required secrets:
+#   WAZUH_INDEXER_HOST     — Wazuh Indexer URL (e.g. https://192.168.8.x:9200)
+#   WAZUH_INDEXER_USER     — Wazuh Indexer API username
+#   WAZUH_INDEXER_PASS     — Wazuh Indexer API password
+#
+# Optional secrets / vars:
+#   OPS_ROOT               — Override pipeline state root (default: ~/autosoc-ops)
+#   AUTOSOC_ROOT           — Override AutoSOC project root (default: $OPS_ROOT/30_Projects/Active/AutoSOC)
+#   WAZUH_TLS_INSECURE     — Set "true" to skip TLS verification (lab only)
+#
+# NOTE on script env var names: the poll-alerts.py script reads WAZUH_INDEXER_HOST,
+# WAZUH_INDEXER_USER, and WAZUH_INDEXER_PASS (not WAZUH_HOST / WAZUH_API_USER /
+# WAZUH_API_PASSWORD). Secret names must match what the scripts expect.
+#
+# NOTE on run-pipeline.py: it is a full orchestrator that internally calls
+# poll-alerts.py and triage.py via subprocess. Jobs 1 (poll-alerts) and 2 (triage)
+# run them first for granular visibility and artifact capture. Job 3 then runs
+# run-pipeline.py which re-invokes poll (cursor already advanced, yields 0 new)
+# and triage (queue already drained, yields 0 new) before proceeding to case
+# processing (redact → assemble → create-pr) and reconciliation/coverage.
+
+name: autosoc-pipeline
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Skip triage and pipeline execution (poll-only observation run)"
+        required: false
+        type: boolean
+        default: false
+
+env:
+  OPS_ROOT: ${{ vars.OPS_ROOT || '~/autosoc-ops' }}
+  AUTOSOC_ROOT: ${{ vars.AUTOSOC_ROOT || '' }}
+  WAZUH_INDEXER_HOST: ${{ secrets.WAZUH_INDEXER_HOST }}
+  WAZUH_INDEXER_USER: ${{ secrets.WAZUH_INDEXER_USER }}
+  WAZUH_INDEXER_PASS: ${{ secrets.WAZUH_INDEXER_PASS }}
+  WAZUH_TLS_INSECURE: ${{ vars.WAZUH_TLS_INSECURE || 'false' }}
+
+jobs:
+  poll-alerts:
+    runs-on: [self-hosted, hawkinsops]
+    permissions:
+      contents: read
+    outputs:
+      polled: ${{ steps.poll.outputs.polled }}
+      no_new_alerts: ${{ steps.poll.outputs.no_new_alerts }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Poll Wazuh alerts
+        id: poll
+        working-directory: scripts/auto-soc
+        shell: bash
+        run: |
+          output=$(python3 poll-alerts.py --mode realtime --realtime-window-minutes 35 2>&1) || rc=$?
+          echo "$output"
+          echo "$output" > poll_output.txt
+
+          polled=$(echo "$output" | grep -oP '^POLLED=\K\d+' || echo "")
+          no_new=$(echo "$output" | grep -oP '^NO_NEW_ALERTS=\K\w+' || echo "")
+
+          echo "polled=${polled:-0}" >> "$GITHUB_OUTPUT"
+          echo "no_new_alerts=${no_new:-UNKNOWN}" >> "$GITHUB_OUTPUT"
+
+          if [ "${rc:-0}" -ne 0 ]; then
+            if echo "$output" | grep -q "NO_NEW_ALERTS=TRUE"; then
+              echo "Poller returned non-zero but no-new-alerts flag is set — treating as success."
+            else
+              echo "::error::poll-alerts.py failed with exit code ${rc}"
+              exit "${rc}"
+            fi
+          fi
+
+      - name: Upload poll output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: poll-alerts-output
+          path: scripts/auto-soc/poll_output.txt
+          retention-days: 7
+
+  triage:
+    needs: poll-alerts
+    if: ${{ !(inputs.dry_run || false) }}
+    runs-on: [self-hosted, hawkinsops]
+    permissions:
+      contents: read
+    outputs:
+      triaged: ${{ steps.triage.outputs.triaged }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run triage
+        id: triage
+        working-directory: scripts/auto-soc
+        shell: bash
+        run: |
+          output=$(python3 triage.py 2>&1) || rc=$?
+          echo "$output"
+          echo "$output" > triage_output.txt
+
+          triaged=$(echo "$output" | grep -oP '^TRIAGED=\K\d+' || echo "0")
+          echo "triaged=${triaged}" >> "$GITHUB_OUTPUT"
+
+          if [ "${rc:-0}" -ne 0 ]; then
+            echo "::error::triage.py failed with exit code ${rc}"
+            exit "${rc}"
+          fi
+
+      - name: Upload triage output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: triage-output
+          path: scripts/auto-soc/triage_output.txt
+          retention-days: 7
+
+  run-pipeline:
+    needs: triage
+    runs-on: [self-hosted, hawkinsops]
+    permissions:
+      contents: read
+    outputs:
+      status: ${{ steps.pipeline.outputs.status }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run pipeline
+        id: pipeline
+        working-directory: scripts/auto-soc
+        shell: bash
+        run: |
+          # run-pipeline.py is the full orchestrator. Poll and triage jobs already
+          # ran above so their internal re-invocation is a fast no-op (cursor
+          # advanced, queue drained). The pipeline then handles case processing
+          # (redact, assemble, create-pr for ESCALATED), reconciliation, and coverage.
+          output=$(python3 run-pipeline.py --mode realtime --realtime-window-minutes 35 --skip-tests 2>&1) || rc=$?
+          echo "$output"
+          echo "$output" > pipeline_output.txt
+
+          if [ "${rc:-0}" -ne 0 ]; then
+            echo "status=failure" >> "$GITHUB_OUTPUT"
+            echo "::error::run-pipeline.py failed with exit code ${rc}"
+            exit "${rc}"
+          else
+            echo "status=success" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload pipeline output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-output
+          path: scripts/auto-soc/pipeline_output.txt
+          retention-days: 7
+
+  heartbeat:
+    needs: run-pipeline
+    if: always()
+    runs-on: [self-hosted, hawkinsops]
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run heartbeat trend
+        id: heartbeat
+        working-directory: scripts/auto-soc
+        shell: bash
+        run: |
+          output=$(python3 heartbeat-trend.py 2>&1) || rc=$?
+          echo "$output"
+          echo "$output" > heartbeat_output.txt
+
+          if [ "${rc:-0}" -ne 0 ]; then
+            echo "heartbeat_status=failure" >> "$GITHUB_OUTPUT"
+            echo "::warning::heartbeat-trend.py exited with code ${rc}"
+          else
+            echo "heartbeat_status=success" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload heartbeat output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: heartbeat-output
+          path: scripts/auto-soc/heartbeat_output.txt
+          retention-days: 30
+
+      - name: Post job summary
+        if: always()
+        shell: bash
+        run: |
+          now=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          polled="${{ needs.poll-alerts.outputs.polled || '?' }}"
+          no_new="${{ needs.poll-alerts.outputs.no_new_alerts || '?' }}"
+          triaged="${{ needs.triage.outputs.triaged || 'skipped' }}"
+          pipeline_status="${{ needs.run-pipeline.outputs.status || 'skipped' }}"
+          heartbeat_status="${{ steps.heartbeat.outputs.heartbeat_status || 'unknown' }}"
+          dry_run="${{ inputs.dry_run || 'false' }}"
+
+          cat >> "$GITHUB_STEP_SUMMARY" <<SUMMARY
+          ## AutoSOC Pipeline Run
+
+          | Field | Value |
+          |---|---|
+          | **Timestamp (UTC)** | ${now} |
+          | **Trigger** | ${{ github.event_name }} |
+          | **Dry run** | ${dry_run} |
+          | **Alerts polled** | ${polled} |
+          | **No new alerts** | ${no_new} |
+          | **Alerts triaged** | ${triaged} |
+          | **Pipeline status** | ${pipeline_status} |
+          | **Heartbeat status** | ${heartbeat_status} |
+          SUMMARY

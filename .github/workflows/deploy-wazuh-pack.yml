@@ -1,0 +1,120 @@
+name: deploy-wazuh-pack
+
+on:
+  workflow_run:
+    workflows: ["verify"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    # Only run when verify succeeded (or manual dispatch)
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: [self-hosted, hawkinsops]
+    permissions:
+      contents: read
+
+    env:
+      WAZUH_HOST: ${{ secrets.WAZUH_HOST }}
+      WAZUH_SSH_USER: ${{ secrets.WAZUH_SSH_USER }}
+      WAZUH_SSH_PORT: ${{ secrets.WAZUH_SSH_PORT }}
+      WAZUH_SSH_KEY: ${{ secrets.WAZUH_SSH_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for Wazuh pack changes
+        if: github.event_name != 'workflow_dispatch'
+        id: filter
+        shell: bash
+        run: |
+          BASE=${{ github.event.workflow_run.head_sha }}~1
+          CHANGED=$(git diff --name-only "$BASE" "${{ github.event.workflow_run.head_sha }}" -- \
+            'content/detection-rules/wazuh/**' \
+            'content/wazuh/**' || true)
+          if [ -z "$CHANGED" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "No Wazuh pack changes detected — skipping deploy."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            echo "Changed files:"
+            echo "$CHANGED"
+          fi
+
+      - name: Build Wazuh bundle
+        if: steps.filter.outputs.skip != 'true'
+        shell: pwsh
+        run: |
+          pwsh -NoProfile -File "./scripts/build-wazuh-bundle.ps1"
+          if (-not (Test-Path -LiteralPath "./dist/wazuh/local_rules.xml")) {
+            throw "dist/wazuh/local_rules.xml was not generated"
+          }
+          $info = Get-Item -LiteralPath "./dist/wazuh/local_rules.xml"
+          Write-Host "Bundle built: $($info.Name) ($($info.Length) bytes)"
+
+      - name: Deploy Wazuh pack
+        if: steps.filter.outputs.skip != 'true'
+        id: deploy
+        shell: pwsh
+        run: |
+          $output = pwsh -NoProfile -File "./scripts/deploy_wazuh_pack.ps1" 2>&1 | Tee-Object -Variable deployLog
+          $deployLog | Out-File -LiteralPath "./deploy_output.log" -Encoding UTF8
+          if ($LASTEXITCODE -ne 0) {
+            throw "deploy_wazuh_pack.ps1 exited with code $LASTEXITCODE"
+          }
+          Write-Host "Deploy completed successfully."
+
+      - name: Verify deployment
+        if: steps.filter.outputs.skip != 'true'
+        shell: pwsh
+        run: |
+          $reportFiles = Get-ChildItem -Path "evidence/wazuh" -Filter "deploy_report.md" -Recurse -ErrorAction SilentlyContinue
+          if (-not $reportFiles) {
+            throw "No deploy_report.md found — deployment may not have completed."
+          }
+          $latest = $reportFiles | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+          $content = Get-Content -LiteralPath $latest.FullName -Raw
+          Write-Host $content
+
+          if ($content -match "Status:\s*FAILED") {
+            throw "Deploy report indicates FAILED status."
+          }
+          Write-Host "Deployment verification passed."
+
+      - name: Job summary
+        if: always() && steps.filter.outputs.skip != 'true'
+        shell: pwsh
+        run: |
+          $summaryFile = $env:GITHUB_STEP_SUMMARY
+
+          # Try to include the deploy report if it exists
+          $reportFiles = Get-ChildItem -Path "evidence/wazuh" -Filter "deploy_report.md" -Recurse -ErrorAction SilentlyContinue
+          if ($reportFiles) {
+            $latest = $reportFiles | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+            $content = Get-Content -LiteralPath $latest.FullName -Raw
+            Add-Content -LiteralPath $summaryFile -Value $content
+          } else {
+            Add-Content -LiteralPath $summaryFile -Value "## Wazuh Pack Deployment"
+            Add-Content -LiteralPath $summaryFile -Value ""
+            Add-Content -LiteralPath $summaryFile -Value "No deploy report was generated. Check the workflow logs for errors."
+          }
+
+          # Append log output if available
+          if (Test-Path -LiteralPath "./deploy_output.log") {
+            Add-Content -LiteralPath $summaryFile -Value ""
+            Add-Content -LiteralPath $summaryFile -Value "<details><summary>Deploy log output</summary>"
+            Add-Content -LiteralPath $summaryFile -Value ""
+            Add-Content -LiteralPath $summaryFile -Value '```'
+            Get-Content -LiteralPath "./deploy_output.log" | Add-Content -LiteralPath $summaryFile
+            Add-Content -LiteralPath $summaryFile -Value '```'
+            Add-Content -LiteralPath $summaryFile -Value "</details>"
+          }
+
+      - name: Skipped summary
+        if: steps.filter.outputs.skip == 'true'
+        shell: bash
+        run: echo "## Wazuh Pack Deploy — Skipped (no relevant file changes)" >> "$GITHUB_STEP_SUMMARY"

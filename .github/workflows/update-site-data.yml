@@ -17,7 +17,7 @@ on:
 
 jobs:
   regenerate:
-    runs-on: self-hosted
+    runs-on: [self-hosted, hawkinsops]
     permissions:
       contents: write
 
