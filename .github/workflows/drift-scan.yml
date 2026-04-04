@@ -8,7 +8,7 @@ on:
 
 jobs:
   drift-scan:
-    runs-on: [self-hosted, hawkinsops]
+    runs-on: self-hosted
     permissions:
       contents: read
 

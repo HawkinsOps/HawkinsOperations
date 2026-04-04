@@ -44,7 +44,7 @@ env:
 
 jobs:
   poll-alerts:
-    runs-on: [self-hosted, hawkinsops]
+    runs-on: self-hosted
     permissions:
       contents: read
     outputs:
@@ -90,7 +90,7 @@ jobs:
   triage:
     needs: poll-alerts
     if: ${{ !(inputs.dry_run || false) }}
-    runs-on: [self-hosted, hawkinsops]
+    runs-on: self-hosted
     permissions:
       contents: read
     outputs:
@@ -127,7 +127,7 @@ jobs:
 
   run-pipeline:
     needs: triage
-    runs-on: [self-hosted, hawkinsops]
+    runs-on: self-hosted
     permissions:
       contents: read
     outputs:
@@ -169,7 +169,7 @@ jobs:
   heartbeat:
     needs: run-pipeline
     if: always()
-    runs-on: [self-hosted, hawkinsops]
+    runs-on: self-hosted
     permissions:
       contents: read
 
