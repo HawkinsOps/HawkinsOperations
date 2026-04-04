@@ -1,6 +1,9 @@
-# Splunk SPL Queries (planned)
+# Splunk SPL Queries
 
-This folder is scaffolded for Splunk SPL detections/queries. Add `.spl` files here when ready.
+Home lab Splunk foundation — investigation-layer SPL developed against lab telemetry.
+Not enterprise-scale Splunk operations experience.
+
+9 detection queries organized by MITRE ATT&CK tactic.
 
 Verification:
-- SPL count is computed by `docs/VERIFY_COMMANDS_POWERSHELL.md`.
+- SPL count is computed by `scripts/verify/verify-counts.ps1`.

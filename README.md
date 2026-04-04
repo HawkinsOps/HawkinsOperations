@@ -99,6 +99,43 @@ Full infrastructure details: [`PROOF_PACK/ARCHITECTURE.md`](/PROOF_PACK/ARCHITEC
 
 ---
 
+## Scope and claim ceiling
+
+This is a home lab / self-hosted environment, not an enterprise SOC.
+
+- **CI-verified inventory counts** (Sigma, Wazuh, Splunk, IR playbooks) are script-generated and reproducible. These are the strongest evidence in this repo.
+- **Operational telemetry** (case counts, auto-close rates, escalation volumes) is self-reported from a single-operator pipeline. Treat with appropriate weight.
+- **Direct experience:** Sigma rule authoring, pipeline automation, Wazuh deployment and tuning, lab Splunk investigation, verification/reconciliation engineering.
+- **Conceptual overlap only:** Cribl, Torq, Exabeam, enterprise-scale Splunk operations. No production experience with these tools.
+
+### Escalation count
+
+- **6,178** — April 1 locked canonical snapshot. All public references use this value.
+
+---
+
+## Content verification flow
+
+```
+Rule authoring (Sigma/Wazuh/Splunk)
+        │
+        ▼
+verify-counts.ps1 / generate_verified_counts.py   ← count scripts
+        │
+        ▼
+PROOF_PACK/VERIFIED_COUNTS.md                      ← single source of truth
+        │
+        ▼
+drift_scan.py                                      ← detects markdown/JSON/HTML drift
+        │
+        ▼
+generate-site-data.js → site/assets/data/          ← public proof surface
+```
+
+If a number appears on the site, it traces back through this chain to a counted file on disk.
+
+---
+
 ## Quick verification
 
 Run from repo root (PowerShell):

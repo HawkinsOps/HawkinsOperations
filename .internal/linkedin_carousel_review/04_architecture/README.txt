@@ -25,7 +25,7 @@ CANDIDATE B
   Why:  Names all 6 pipeline scripts (poll-alerts.py, triage.py, redact.py,
         assemble-pack.py, create-pr.py, run-pipeline.py) with clear roles.
         Shows the full ingest→triage→redact→pack→publish flow.
-        Demonstrates production-grade automation architecture.
+        Demonstrates automated security operations architecture.
   Risk:  6 components is a lot for one slide. Consolidate to 3-4 stages visually.
 
 CANDIDATE C

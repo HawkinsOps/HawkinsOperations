@@ -117,7 +117,7 @@ Metric contract: 25,167 validated cases | 2,478 escalation artifacts | 8/8 host 
 - **Repo path:** data/metrics.json
 - **Absolute path:** C:\RH\OPS\10_Portfolio\HawkinsOperations\data\metrics.json
 - **Type:** Generated artifact (machine-readable data contract)
-- **Exact heading/label:** `"detection_inventory"` object — sigma: 103, wazuh_files: 24, wazuh_rule_blocks: 28, splunk: 8, ir_playbooks: 10
+- **Exact heading/label:** `"detection_inventory"` object — sigma: 103, wazuh_files: 24, wazuh_rule_blocks: 28, splunk: 9, ir_playbooks: 10
 - **Why it fits:** Machine-readable proof that counts are bound to a data contract, not hard-coded in docs. Shows CI/CD maturity to technical reviewers.
 - **Risks:** Raw JSON — not LinkedIn-friendly. Do not screenshot. Use only as a backstop reference to verify numbers before finalizing slide.
 - **Use:** Backup only — numbers verification reference

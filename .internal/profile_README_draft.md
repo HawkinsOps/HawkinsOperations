@@ -7,13 +7,13 @@ Huntsville, AL · Eligible to obtain clearance; willing to pursue sponsorship.
 
 ## SignalFoundry
 
-A production-grade detection-to-escalation pipeline I built from zero while working mandatory 12-hour shifts at a Tier-1 automotive supplier. September 2025: no computer experience. March 2026: 54,700 verified cases processed.
+An automated detection-to-escalation pipeline I built from zero while working mandatory 12-hour shifts at a Tier-1 automotive supplier. September 2025: no computer experience. April 2026: 321,351 verified cases processed.
 
 ```
 Wazuh alerts → triage engine → redaction gate → escalation pack → verified proof
 ```
 
-- **54,700** total cases processed · **~93%** auto-closed · **2,531** escalated
+- **321,351** total cases processed · **~88%** auto-closed · **6,178** escalated (April 1 public benchmark)
 - **140 detections** — 103 Sigma rules, 28 Wazuh blocks, 9 Splunk queries, 10 IR playbooks
 - 8/8 hosts covered · continuous CI verification · every metric script-generated
 
@@ -23,7 +23,7 @@ Wazuh alerts → triage engine → redaction gate → escalation pack → verifi
 
 ## Background
 
-Before cybersecurity I ran production lines at Fehrer Automotive (Mercedes/BMW/VW/Tesla) and Unipres Alabama (Nissan hot stamp). Team Lead in under 5 months at Fehrer. Supervised 30+ operators at Unipres. IATF 16949, ISO 9001, SQF Ed. 9 "Excellent."
+Before cybersecurity I ran production lines at Fehrer Automotive (Mercedes/BMW/VW/Tesla) and Unipres Alabama (Nissan hot stamp). Team Lead in under 3 months at Fehrer. Supervised 30+ operators at Unipres. IATF 16949, ISO 9001, SQF Ed. 9 "Excellent."
 
 The process discipline, escalation handling, and audit-ready documentation from manufacturing is what I bring to detection engineering.
 
