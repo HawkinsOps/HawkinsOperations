@@ -92,9 +92,9 @@ def fetch_indexer_alerts(
 
     req.add_header("Authorization", "Basic " + base64.b64encode(token).decode("ascii"))
 
-    ctx = None
-    if insecure:
-        ctx = ssl._create_unverified_context()
+    ctx = ssl.create_default_context()
+    ctx.check_hostname = False
+    ctx.verify_mode = ssl.CERT_NONE
     with urllib.request.urlopen(req, context=ctx, timeout=30) as resp:
         payload = json.loads(resp.read().decode("utf-8"))
     hits = payload.get("hits", {}).get("hits", [])
