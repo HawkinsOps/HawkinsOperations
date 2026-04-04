@@ -56,7 +56,7 @@ Authoritative source: `data/metrics.json` (lifetime_runtime object)
 
 | Metric | Canonical Value | Source |
 |---|---|---|
-| Fehrer promotion timeline | **under 3 months** | `site/index.html:444`, `site/resume.html:362`, `.internal/profile_README_draft.md:26` |
+| Fehrer promotion timeline | **under 5 months** | `site/index.html:455`, `site/resume.html:362` |
 | MITRE ATT&CK technique/sub-technique IDs | **90** across **53** families | `README.md:45` |
 
 ---
@@ -131,12 +131,9 @@ The rate decreased because the case composition changed as the pipeline processe
 
 ### 3C. Fehrer Promotion Timeline
 
-**Audit result: CLEAN.** All references consistently say "under 3 months":
-- `site/index.html:444` — "Promoted in under 3 months"
-- `site/resume.html:362` — "Promoted from second-shift operator to third-shift Team Lead in under 3 months"
-- `.internal/profile_README_draft.md:26` — "Team Lead in under 3 months at Fehrer"
-
-**No instance of "5 months" found anywhere in the repository.** Grep for "5 months" and "five months" returned zero results.
+**Canonical value: under 5 months.** All references updated:
+- `site/index.html:455` — "Promoted in under 5 months"
+- `site/resume.html:362` — "Promoted from second-shift operator to third-shift Team Lead in under 5 months"
 
 ### 3D. MITRE ATT&CK Coverage (90 technique IDs / 53 families)
 
@@ -205,7 +202,7 @@ Every file that contains metric values. When a canonical value changes, these fi
 | `site/proof.html:442` | HTML fallback (6,178) |
 | `README.md:112` | Documentation (6,178) |
 
-### Fehrer Promotion Timeline (under 3 months)
+### Fehrer Promotion Timeline (under 5 months)
 
 | File | Type |
 |---|---|
@@ -234,7 +231,7 @@ Every file that contains metric values. When a canonical value changes, these fi
 | Homepage | Auto-close | ~88% | ~88% | **MATCH** |
 | Homepage | Escalated (stable) | 6,178 | 6,178 | **MATCH** |
 | Homepage | Coverage | 8/8 | 8/8 | **MATCH** |
-| Homepage | Fehrer promotion | under 3 months | under 3 months | **MATCH** |
+| Homepage | Fehrer promotion | under 5 months | under 5 months | **MATCH** |
 | Proof | Stable snapshot | All match | All match | **MATCH** |
 | Proof | Lifetime escalated (JS off) | 6,178 | 6,178 | **RESOLVED** |
 | Proof | Lifetime known FP (JS off) | 85,185 | 85,185 | **RESOLVED** |
