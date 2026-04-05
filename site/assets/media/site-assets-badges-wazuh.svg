@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Wazuh logo">
-  <rect width="64" height="64" rx="12" fill="#0f1220"/>
-  <path d="M10 14h10l12 23 12-23h10L40 50h-8z" fill="#7ab8ff"/>
-  <path d="M20 50h24v4H20z" fill="#b89cff"/>
-</svg>
