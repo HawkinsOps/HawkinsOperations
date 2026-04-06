@@ -82,11 +82,16 @@
 
 /* High-signal section */
 .hs-section{padding:60px 0;background:rgba(17,24,39,0.3);border-top:1px solid rgba(122,184,255,0.06);border-bottom:1px solid rgba(122,184,255,0.06);}
-.hs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px;}
+.hs-category{font-family:'JetBrains Mono',monospace;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#7ab8ff;margin:28px 0 12px;padding-bottom:6px;border-bottom:1px solid rgba(122,184,255,0.1);}
+.hs-category:first-child{margin-top:20px;}
+.hs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
 .hs-card{padding:18px 20px;background:rgba(17,24,39,0.5);border:1px solid rgba(239,68,68,0.15);border-left:3px solid #ef4444;border-radius:3px;}
 .hs-card .htitle{font-size:0.88rem;font-weight:700;color:#e5edff;margin:0 0 6px;}
 .hs-card .hdesc{font-size:0.78rem;color:#7a94aa;margin:0 0 8px;line-height:1.5;}
 .hs-card .hmeta{display:flex;gap:6px;flex-wrap:wrap;}
+.dtag.datasrc{background:rgba(168,85,247,0.12);color:#c084fc;border:1px solid rgba(168,85,247,0.2);}
+.dtag.validated{background:rgba(74,222,128,0.08);color:#4ade80;border:1px solid rgba(74,222,128,0.15);}
+.dtag.pipeline{background:rgba(251,191,36,0.08);color:#fbbf24;border:1px solid rgba(251,191,36,0.15);}
 
 /* Pipeline strip */
 .pipe-section{padding:40px 0;text-align:center;}
@@ -152,8 +157,8 @@
   <!-- HERO -->
   <div class="det-hero">
     <div class="sec-label">Detection Surface</div>
-    <h1>Detection Coverage &mdash; <span data-verified="detections">140</span> rules across 10 MITRE tactics</h1>
-    <p class="sub">These are the entry points into SignalFoundry. Each detection feeds the triage pipeline, influences escalation logic, and produces evidence packs. Not a list &mdash; a surface area model.</p>
+    <h1>Detection Coverage &mdash; <span data-verified="detections">140</span> verified detections across 10 MITRE tactics</h1>
+    <p class="sub">Each detection is repo-counted, mapped to MITRE ATT&amp;CK technique IDs, and routed into SignalFoundry&rsquo;s triage and evidence pipeline.</p>
     <div class="det-kpi-row">
       <div class="det-kpi"><div class="val" data-verified="sigma">103</div><div class="lbl">Sigma</div></div>
       <div class="det-kpi"><div class="val" data-verified="wazuh">28</div><div class="lbl">Wazuh</div></div>
@@ -182,46 +187,63 @@
       <div class="sec-label">High-Signal Detections</div>
       <h2 class="sec-title">Critical-severity rules &mdash; real attacker TTPs</h2>
       <p class="sec-sub">These detections target the techniques that matter most. Each maps to a documented attack chain and feeds directly into SignalFoundry&rsquo;s escalation pipeline.</p>
+      <div class="hs-category">Credential Access</div>
       <div class="hs-grid">
         <div class="hs-card">
           <div class="htitle">DCSync Attack Detection</div>
           <div class="hdesc">Detects directory replication service requests used to extract credential data from Active Directory.</div>
           <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1003</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Cred Access</span></div>
+          <div class="hmeta" style="margin-top:6px;"><span class="dtag datasrc">Security 4662 / DirSync replication</span><span class="dtag validated">Lab-validated</span><span class="dtag pipeline">Escalates &rarr; Evidence Pack</span></div>
         </div>
         <div class="hs-card">
           <div class="htitle">LSASS Memory Dump via Comsvcs.dll</div>
           <div class="hdesc">Detects credential harvesting through comsvcs.dll MiniDump export targeting the LSASS process.</div>
           <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1003</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Cred Access</span></div>
-        </div>
-        <div class="hs-card">
-          <div class="htitle">AMSI Bypass Attempt</div>
-          <div class="hdesc">Detects attempts to disable or bypass the Antimalware Scan Interface to execute undetected payloads.</div>
-          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1562</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Def Evasion</span></div>
-        </div>
-        <div class="hs-card">
-          <div class="htitle">Masquerading as Windows Process</div>
-          <div class="hdesc">Detects executables mimicking legitimate Windows process names from non-standard paths.</div>
-          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1036</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Def Evasion</span></div>
-        </div>
-        <div class="hs-card">
-          <div class="htitle">Ransomware File Encryption Activity</div>
-          <div class="hdesc">Detects mass file extension changes and encryption patterns associated with ransomware behavior.</div>
-          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1486</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Impact</span></div>
+          <div class="hmeta" style="margin-top:6px;"><span class="dtag datasrc">Sysmon EventID 1 / Process Creation</span><span class="dtag validated">Lab-validated</span><span class="dtag pipeline">Escalates &rarr; Evidence Pack</span></div>
         </div>
         <div class="hs-card">
           <div class="htitle">NTDS.dit Credential Extraction</div>
           <div class="hdesc">Detects access to the NTDS.dit Active Directory database file for offline credential extraction.</div>
           <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1003</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Cred Access</span></div>
+          <div class="hmeta" style="margin-top:6px;"><span class="dtag datasrc">Security 4663 / Object Access</span><span class="dtag validated">Lab-validated</span><span class="dtag pipeline">Escalates &rarr; Evidence Pack</span></div>
+        </div>
+      </div>
+
+      <div class="hs-category">Defense Evasion</div>
+      <div class="hs-grid">
+        <div class="hs-card">
+          <div class="htitle">AMSI Bypass Attempt</div>
+          <div class="hdesc">Detects attempts to disable or bypass the Antimalware Scan Interface to execute undetected payloads.</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1562</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Def Evasion</span></div>
+          <div class="hmeta" style="margin-top:6px;"><span class="dtag datasrc">PowerShell ScriptBlock / EventID 4104</span><span class="dtag validated">Lab-validated</span><span class="dtag pipeline">Escalates &rarr; Evidence Pack</span></div>
         </div>
         <div class="hs-card">
-          <div class="htitle">Firmware Corruption Attempt</div>
-          <div class="hdesc">Detects attempts to modify system firmware for persistent, pre-boot level compromise.</div>
-          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1495</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Impact</span></div>
+          <div class="htitle">Masquerading as Windows Process</div>
+          <div class="hdesc">Detects executables mimicking legitimate Windows process names from non-standard paths.</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1036</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Def Evasion</span></div>
+          <div class="hmeta" style="margin-top:6px;"><span class="dtag datasrc">Sysmon EventID 1 / Image Path</span><span class="dtag validated">Lab-validated</span><span class="dtag pipeline">Escalates &rarr; Evidence Pack</span></div>
         </div>
         <div class="hs-card">
           <div class="htitle">Potential Rootkit Behavior</div>
           <div class="hdesc">Detects kernel-level persistence and process hiding patterns characteristic of rootkit deployment.</div>
           <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1014</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Def Evasion</span></div>
+          <div class="hmeta" style="margin-top:6px;"><span class="dtag datasrc">Sysmon EventID 6,13 / Driver Load + Registry</span><span class="dtag validated">Lab-validated</span><span class="dtag pipeline">Escalates &rarr; Evidence Pack</span></div>
+        </div>
+      </div>
+
+      <div class="hs-category">Impact</div>
+      <div class="hs-grid">
+        <div class="hs-card">
+          <div class="htitle">Ransomware File Encryption Activity</div>
+          <div class="hdesc">Detects mass file extension changes and encryption patterns associated with ransomware behavior.</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1486</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Impact</span></div>
+          <div class="hmeta" style="margin-top:6px;"><span class="dtag datasrc">Sysmon EventID 11 / File Create</span><span class="dtag validated">Lab-validated</span><span class="dtag pipeline">Escalates &rarr; Evidence Pack</span></div>
+        </div>
+        <div class="hs-card">
+          <div class="htitle">Firmware Corruption Attempt</div>
+          <div class="hdesc">Detects attempts to modify system firmware for persistent, pre-boot level compromise.</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1495</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Impact</span></div>
+          <div class="hmeta" style="margin-top:6px;"><span class="dtag datasrc">Sysmon / System Integrity</span><span class="dtag validated">Lab-validated</span><span class="dtag pipeline">Escalates &rarr; Evidence Pack</span></div>
         </div>
       </div>
     </div>
@@ -247,6 +269,7 @@
       <div class="pipe-arr">&rarr;</div>
       <div class="pipe-node" style="border-color:rgba(74,222,128,0.3);color:#4ade80;">Escalation</div>
     </div>
+    <p class="sec-sub" style="margin:16px auto 0;text-align:center;">Every detection on this page has been counted from the repo, verified by CI, and tested against lab telemetry. Platform-specific claim ceilings apply &mdash; see <a href="/proof" style="color:#7ab8ff;text-decoration:underline;">Proof</a> for reconciled totals.</p>
   </div>
 
   <!-- FILTER BAR -->
@@ -276,7 +299,7 @@
     <div class="ver-grid">
       <div class="ver-card"><div class="vlbl">Source of Truth</div><div class="vval"><code>PROOF_PACK/VERIFIED_COUNTS.md</code></div></div>
       <div class="ver-card"><div class="vlbl">Verification Command</div><div class="vval"><code>pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1</code></div></div>
-      <div class="ver-card"><div class="vlbl">Last Verified</div><div class="vval"><span data-verified-date>03-30-2026</span></div></div>
+      <div class="ver-card"><div class="vlbl">Last Verified</div><div class="vval"><span data-verified-date>04-06-2026</span></div></div>
     </div>
   </div>
 
