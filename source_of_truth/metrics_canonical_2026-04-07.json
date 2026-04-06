@@ -1,0 +1,26 @@
+{
+  "date": "2026-04-07",
+  "system": "SignalFoundry / AutoSOC",
+  "total_cases": 324074,
+  "auto_closed_benign": 199672,
+  "auto_closed_known_fp": 85953,
+  "escalated": 8574,
+  "review": 29875,
+  "auto_close_rate_label": "~88%",
+  "escalations_label": "8,574",
+  "known_fp_label": "85,953",
+  "hosts_reporting": "8/8",
+  "reconciliation": "PASS (0 mismatches)",
+  "heartbeat": "SUCCESS",
+  "coverage": "8/8",
+  "stable_locked_date": "2026-04-07",
+  "authority": "April 7 ledger snapshot (ledger last_updated 2026-04-06, total_cases 324,074, escalated 8,574, auto_closed_benign 199,672, auto_closed_known_fp 85,953, review 29,875).",
+  "notes": [
+    "Supersedes 2026-04-01 canonical (321,351 cases).",
+    "Ledger totals: 324,074 total cases, 8,574 escalations, 85,953 known FP, 199,672 benign auto-closed, 29,875 review.",
+    "Auto-close rate (benign + known_fp): 285,625 / 324,074 = 88.1%, display rounded to ~88%.",
+    "Coverage confirmed 8/8. Reconciliation mismatch count: 0. Scorecard: PASS.",
+    "Do not interpolate or merge values from other files.",
+    "If exact site payloads disagree, treat them as drift and correct them to this file."
+  ]
+}

@@ -1,47 +1,47 @@
 {
-  "generated_utc": "2026-04-06T19:44:35.691Z",
+  "generated_utc": "2026-04-06T21:14:40.598Z",
   "scorecard_window": "lifetime_runtime_snapshot",
   "source_metrics": "data/metrics.json",
   "totals": {
-    "total_cases": 321351,
+    "total_cases": 324074,
     "auto_closed_benign": 199672,
-    "known_fp": 85185,
-    "escalated": 6178,
-    "review": 28544,
-    "staged_pending": 67
+    "known_fp": 85953,
+    "escalated": 8574,
+    "review": 29875,
+    "staged_pending": 8574
   },
   "scorecard": {
     "status": "WATCH",
     "metrics": [
       {
         "id": "auto_close_benign_pct",
-        "value": 62.14,
+        "value": 61.61,
         "target": ">= 35",
         "status": "PASS"
       },
       {
         "id": "known_fp_pct",
-        "value": 26.51,
+        "value": 26.52,
         "target": "<= 45",
         "status": "PASS"
       },
       {
         "id": "escalation_pct",
-        "value": 1.92,
+        "value": 2.65,
         "target": ">= 3",
         "status": "WATCH"
       },
       {
         "id": "review_backlog_pct",
-        "value": 8.88,
+        "value": 9.22,
         "target": "<= 20",
         "status": "PASS"
       },
       {
         "id": "staged_pending_pct",
-        "value": 0.02,
+        "value": 2.65,
         "target": "<= 1",
-        "status": "PASS"
+        "status": "WATCH"
       },
       {
         "id": "reconciliation_mismatch_count",
