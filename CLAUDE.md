@@ -26,71 +26,116 @@ verification baked into CI.
 HawkinsOperations/
 ├── .github/                    # CI/CD workflows, issue templates, PR template
 │   └── workflows/
-│       ├── verify.yml          # Main verification pipeline (Windows runner)
-│       ├── drift-scan.yml      # Markdown/JSON/HTML consistency (Ubuntu runner)
-│       └── public-safety-gate.yml  # PII/credential scan on site/* PRs
+│       ├── verify.yml              # Main verification pipeline
+│       ├── drift-scan.yml          # Markdown/JSON/HTML consistency
+│       ├── public-safety-gate.yml  # PII/credential scan on site/* PRs
+│       └── update-site-data.yml    # Auto-regenerate site data (cron + push)
 ├── .codex/                     # Claude Codex runtime context
-├── components/                 # Reusable HTML/CSS design system sections
-├── content/                    # Structured JSON content
-│   ├── projects.json           # Project metadata and evidence links
-│   ├── detections.json         # Detection platform summary with counts
-│   └── media.json              # Media manifest
-├── content/detection-rules/            # Multi-platform detection content
-│   ├── sigma/                  # 103 Sigma YAML rules, organized by MITRE tactic
-│   ├── splunk/                 # 9 SPL queries
-│   ├── content/detection-rules/wazuh/rules/  # 24 Wazuh XML files (28 rule blocks)
-│   └── mappings/               # MITRE ATT&CK mapping files
-├── docs/                       # Execution notes, architecture docs, hosting runbooks
-├── evidence/                   # Wazuh deployment evidence logs
-├── content/incident-response/
-│   ├── playbooks/              # 10 IR playbooks (IR-001 through IR-022)
-│   └── templates/              # IR-Template.md baseline
-├── content/lab/                        # Lab infrastructure docs (Proxmox, Wazuh, Grafana)
-├── content/projects/                   # Reference/legacy projects
-│   ├── lab/enterprise-hardening/  # Enterprise security Phase 2 artifacts
-│   └── migration-rh/           # Migration project reference artifacts
-├── proof/                      # Wazuh honeypot proof artifacts (auto-updated)
+├── content/                    # ALL authored source content
+│   ├── projects.json               # Project metadata and evidence links
+│   ├── detections.json             # Detection platform summary with counts
+│   ├── media.json                  # Media manifest
+│   ├── case-studies/               # Case study writeups (markdown + structured)
+│   ├── detection-rules/            # Multi-platform detection content
+│   │   ├── sigma/                  # 103 Sigma YAML rules, by MITRE tactic
+│   │   ├── splunk/                 # 9 SPL queries
+│   │   ├── wazuh/rules/            # 24 Wazuh XML files (28 rule blocks)
+│   │   └── mappings/               # MITRE ATT&CK mapping files
+│   ├── incident-response/
+│   │   ├── playbooks/              # 10 IR playbooks (IR-001 through IR-022)
+│   │   ├── templates/              # IR-Template.md baseline
+│   │   ├── checklists/             # Quick-reference checklists
+│   │   └── incidents/2026/         # Machine-generated triage packs (~2,480 folders)
+│   ├── lab/                        # Lab infrastructure docs (Proxmox, Wazuh, Grafana)
+│   ├── projects/                   # Project docs and evidence packs
+│   │   ├── lab/enterprise-hardening/   # Enterprise security Phase 2
+│   │   ├── lab/honeypot-grafana-wazuh/ # Honeypot + Grafana + Wazuh stack
+│   │   ├── lab/wazuh-detection-harness/# Detection harness project
+│   │   ├── lab/PP_SOC_Integration/     # SOC integration evidence
+│   │   └── migration-rh/              # Migration project reference
+│   ├── threat-hunting/             # Threat hunting matrices and hypotheses
+│   └── wazuh/                      # Wazuh operational pack (distinct from detection-rules/wazuh)
+│       ├── pack/                   # Deployable pack: rules, decoders, lists, tests
+│       ├── playbooks/              # Wazuh-specific response playbooks
+│       ├── sigma/                  # Sigma-to-Wazuh rule mappings
+│       └── suppression/            # False positive logs and suppression notes
+├── data/                       # Generated intermediate data
+│   ├── metrics.json                # Aggregated metrics (generate-metrics.js output)
+│   └── metrics.json.sha256         # Integrity hash
+├── dist/                       # Build output
+│   └── wazuh/local_rules.xml      # Bundled Wazuh rules for deployment
+├── docs/                       # Architecture, design, execution, hosting docs
+│   ├── analysis/                   # Coverage analysis, backlog patterns
+│   ├── archive/                    # Historical docs
+│   ├── design/                     # Mockups, reference components
+│   ├── diagnosis/                  # Site diagnosis reports
+│   ├── execution/                  # Runbooks, pipeline debug, release notes
+│   ├── hosting/                    # Cloudflare Pages docs
+│   ├── ops/                        # Operational contracts
+│   ├── release-notes/              # Release notes by date
+│   └── ui/                         # Media triage, UI docs
+├── proof/                      # Auto-updated proof artifacts (CANONICAL source)
+│   ├── autosoc/latest/             # Pipeline metrics (promoted by autosoc scripts)
+│   ├── grafana/                    # Grafana dashboard proof
+│   ├── quality/                    # Quality scorecard (generated by generate-proof-lanes.js)
+│   ├── validation/                 # Validation checks (generated by generate-proof-lanes.js)
+│   └── wazuh/honeypot/             # Wazuh honeypot proof
 ├── PROOF_PACK/                 # Curated review artifacts — source of truth for counts
-│   ├── VERIFIED_COUNTS.md      # *** THE source of truth for all public numbers ***
-│   ├── verified_counts.json    # Machine-readable version of above
-│   ├── PROOF_INDEX.md          # Entry points for technical reviewers
-│   ├── ARCHITECTURE.md         # Detection and response architecture overview
-│   ├── EVIDENCE_CHECKLIST.md   # Sanitization requirements
-│   └── REDACTION_RULES.md      # Redaction patterns in use
+│   ├── VERIFIED_COUNTS.md          # *** THE source of truth for all public numbers ***
+│   ├── verified_counts.json        # Machine-readable version of above
+│   ├── EVIDENCE/                   # Lab evidence bundles (GPU passthrough, OpenClaw)
+│   ├── SAMPLES/                    # Sample detection/IR artifacts for reviewers
+│   ├── SCREENSHOTS/                # Screenshot evidence
+│   ├── features/                   # Feature validation runs with timestamped evidence
+│   └── hosting_transfer_cloudflare/# Hosting migration evidence
 ├── scripts/                    # Build, verification, and deployment scripts
-│   ├── verify/
-│   │   ├── verify-counts.ps1       # PowerShell count checker
-│   │   ├── generate-verified-counts.ps1  # Generates VERIFIED_COUNTS.md
-│   │   └── hosting-cloudflare-only.js    # Hosting consistency check
+│   ├── auto-soc/                   # AutoSOC pipeline scripts
+│   ├── publish/                    # Proof promotion scripts
+│   ├── verify/                     # CI verification gates
+│   ├── generate-metrics.js         # Aggregates proof → data/metrics.json
+│   ├── generate-proof-lanes.js     # Generates + mirrors proof → site/proof/
+│   ├── generate-site-data.js       # Publishes verified-counts + ops-metrics to site/
+│   ├── generate-site-content.js    # Publishes content/* JSON to site/
 │   ├── drift_scan.py               # Detects markdown/JSON/HTML count drift
-│   ├── generate_verified_counts.py # Python count artifact generator
-│   ├── generate-site-data.js       # Publishes verified-counts.json to site/
-│   ├── generate-site-content.js    # Publishes content/* to site/
-│   ├── generate-media-manifest.js  # Media manifest generation
-│   ├── diagnose-site.js            # Site health checker (1348 LOC)
-│   ├── build-wazuh-bundle.ps1      # Bundles Wazuh XML → dist/wazuh/local_rules.xml
-│   └── smoke-production.js         # Production smoke tests
+│   ├── diagnose-site.js            # Site health checker
+│   └── build-wazuh-bundle.ps1      # Bundles Wazuh XML → dist/wazuh/local_rules.xml
 ├── site/                       # Static portfolio site (Cloudflare Pages publish dir)
-│   ├── index.html              # Homepage
-│   ├── _redirects              # Cloudflare Pages redirect rules
-│   ├── _headers                # Cloudflare security headers
-│   ├── 404.html                # Custom 404 page
-│   └── assets/
-│       ├── design-system.css   # Fluid layout primitives and tokens
-│       ├── styles.css          # Global styles and theme
-│       ├── app.js              # Client-side UX enhancements
-│       ├── home.js             # Homepage-specific logic
-│       ├── portfolio-data.js   # Content-driven data rendering
-│       ├── data/               # Generated JSON (verified-counts.json, etc.)
-│       └── Raylee_Hawkins_Resume.pdf  # Resume — must exist at this exact path
-├── content/threat-hunting/             # Threat hunting matrices and hypothesis notes
-├── tools/python3/              # Python utilities (wazuh_proof_pack.py, etc.)
-├── content/wazuh/                      # Wazuh pack source (rules, decoders, playbooks)
-├── AGENTS.md                   # Codex/AI environment constraints (read this too)
-├── CONTRIBUTING.md             # Full contribution guidelines
-├── README.md                   # Main project overview with verification commands
+│   ├── index.html                  # Homepage
+│   ├── _redirects                  # Cloudflare Pages redirect rules
+│   ├── _headers                    # Cloudflare security headers
+│   ├── assets/
+│   │   ├── data/                   # Generated JSON (ops-metrics, detections, projects)
+│   │   ├── verified-counts.json    # Detection counts for site consumption
+│   │   └── Raylee_Hawkins_Resume.pdf
+│   ├── data/
+│   │   ├── truth/current-authority.json  # Locked public benchmark (fetched by app.js)
+│   │   ├── truth/current-live.json       # Live telemetry (fetched by app.js)
+│   │   ├── counts.js               # JS module wrapper for verified counts
+│   │   └── ops-metrics.js          # JS module wrapper for ops metrics
+│   └── proof/                      # Mirrored from proof/ by generate-proof-lanes.js
+├── source_of_truth/            # Frozen benchmark snapshots (read by generate-metrics.js)
+├── tools/                      # Utility scripts and Python tools
+│   ├── python3/                    # wazuh_proof_pack.py, detection report generator
+│   └── migration-tools/            # Migration utilities (historical)
+├── AGENTS.md                   # Codex/AI environment constraints
+├── CONTRIBUTING.md             # Contribution guidelines
+├── README.md                   # Main project overview
 ├── SECURITY.md                 # Security policy and sanitization standard
-└── START_HERE.md               # 5-minute proof path for technical reviewers
+└── START_HERE.md               # 5-minute proof path for reviewers
+```
+
+### Data flow summary
+
+```
+source_of_truth/  ─┐
+proof/autosoc/     ├─→ generate-metrics.js ──→ data/metrics.json
+PROOF_PACK/        ┘         │
+                             ├─→ generate-site-data.js ──→ site/assets/data/ops-metrics.json
+                             │                           → site/data/ops-metrics.js
+                             │                           → site/data/counts.js
+                             │                           → site/assets/verified-counts.json
+                             │
+proof/*  ───────────────→ generate-proof-lanes.js ──→ site/proof/* (mirrored)
 ```
 
 ---
@@ -245,7 +290,16 @@ Triggered on push to `main` and all pull requests.
 Triggered on PRs/pushes touching `site/*`, `content/projects/lab/PP_SOC_Integration/*`, or README files.
 Runs a PowerShell public safety scan for PII, credentials, and real identifiers.
 
-**Both workflows have `permissions: contents:read` only.** They never commit back.
+### `update-site-data.yml` (self-hosted runner)
+
+Triggered on push to `main` (when proof/script sources change), every 6 hours (cron), and manual dispatch.
+
+1. Checkout repository
+2. `generate-metrics.js` → `generate-proof-lanes.js` → `validate_metrics.py` → `generate-site-data.js` → `site-runtime-contract.js`
+3. If any output files changed, auto-commit and push
+
+**`verify.yml` and `drift-scan.yml` have `permissions: contents:read` only.** They never commit back.
+**`update-site-data.yml` has `permissions: contents:write`** — it auto-commits regenerated data.
 
 ---
 
@@ -422,8 +476,14 @@ content/detection-rules/*  +  content/incident-response/*
   PROOF_PACK/verified_counts.json
           │
           ▼
-  generate-site-data.js → site/assets/data/verified-counts.json
-  generate-site-content.js → site/assets/data/{projects,detections}.json
+  generate-metrics.js → data/metrics.json (aggregated from proof + source_of_truth)
+          │
+          ▼
+  generate-site-data.js → site/assets/verified-counts.json
+                        → site/assets/data/ops-metrics.json
+                        → site/data/counts.js + ops-metrics.js
+  generate-site-content.js → site/assets/data/{projects,detections,media}.json
+  generate-proof-lanes.js → proof/{validation,quality}/ + site/proof/* (mirrored)
           │
           ▼
   drift_scan.py   ← validates HTML data-verified attrs match JSON counts
