@@ -1,5 +1,0 @@
-url=https://hawkinsops.com/resume.txt
-status=404
-content_type=text/html; charset=utf-8
-redirects=0
-

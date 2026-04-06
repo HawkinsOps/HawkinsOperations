@@ -46,13 +46,12 @@ HawkinsOperations/
 │   │   ├── templates/              # IR-Template.md baseline
 │   │   ├── checklists/             # Quick-reference checklists
 │   │   └── incidents/2026/         # Machine-generated triage packs (~2,480 folders)
-│   ├── lab/                        # Lab infrastructure docs (Proxmox, Wazuh, Grafana)
+│   ├── lab/                        # Lab infrastructure docs (Proxmox VMs, Splunk exports)
 │   ├── projects/                   # Project docs and evidence packs
 │   │   ├── lab/enterprise-hardening/   # Enterprise security Phase 2
 │   │   ├── lab/honeypot-grafana-wazuh/ # Honeypot + Grafana + Wazuh stack
 │   │   ├── lab/wazuh-detection-harness/# Detection harness project
-│   │   ├── lab/PP_SOC_Integration/     # SOC integration evidence
-│   │   └── migration-rh/              # Migration project reference
+│   │   └── lab/PP_SOC_Integration/     # SOC integration evidence
 │   ├── threat-hunting/             # Threat hunting matrices and hypotheses
 │   └── wazuh/                      # Wazuh operational pack (distinct from detection-rules/wazuh)
 │       ├── pack/                   # Deployable pack: rules, decoders, lists, tests
@@ -67,7 +66,7 @@ HawkinsOperations/
 ├── docs/                       # Architecture, design, execution, hosting docs
 │   ├── analysis/                   # Coverage analysis, backlog patterns
 │   ├── archive/                    # Historical docs
-│   ├── design/                     # Mockups, reference components
+│   ├── design/                     # Design system tokens
 │   ├── diagnosis/                  # Site diagnosis reports
 │   ├── execution/                  # Runbooks, pipeline debug, release notes
 │   ├── hosting/                    # Cloudflare Pages docs
@@ -86,7 +85,6 @@ HawkinsOperations/
 │   ├── EVIDENCE/                   # Lab evidence bundles (GPU passthrough, OpenClaw)
 │   ├── SAMPLES/                    # Sample detection/IR artifacts for reviewers
 │   ├── SCREENSHOTS/                # Screenshot evidence
-│   ├── features/                   # Feature validation runs with timestamped evidence
 │   └── hosting_transfer_cloudflare/# Hosting migration evidence
 ├── scripts/                    # Build, verification, and deployment scripts
 │   ├── auto-soc/                   # AutoSOC pipeline scripts
@@ -115,8 +113,7 @@ HawkinsOperations/
 │   └── proof/                      # Mirrored from proof/ by generate-proof-lanes.js
 ├── source_of_truth/            # Frozen benchmark snapshots (read by generate-metrics.js)
 ├── tools/                      # Utility scripts and Python tools
-│   ├── python3/                    # wazuh_proof_pack.py, detection report generator
-│   └── migration-tools/            # Migration utilities (historical)
+│   └── python3/                    # wazuh_proof_pack.py, detection report generator
 ├── AGENTS.md                   # Codex/AI environment constraints
 ├── CONTRIBUTING.md             # Contribution guidelines
 ├── README.md                   # Main project overview

@@ -1,7 +1,0 @@
-# HawkinsOps Alert Triage Configuration
-
-# Directory for investigation notes
-notes_directory: ~/PRIMARY_OS/HAWKINS_OPS/system/investigations
-
-# Auto-save notes on exit
-auto_save: true

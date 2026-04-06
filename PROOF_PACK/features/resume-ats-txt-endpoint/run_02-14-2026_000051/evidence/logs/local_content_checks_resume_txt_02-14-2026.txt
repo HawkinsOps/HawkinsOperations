@@ -1,5 +1,0 @@
-contains_html_tags=False
-contains_name=True
-contains_email=True
-contains_experience_projects_section=True
-contains_skills_section=True

@@ -1,6 +1,6 @@
 # Alert Quality Scorecard
 
-- Generated (UTC): 2026-04-06T19:19:32.810Z
+- Generated (UTC): 2026-04-06T19:21:36.409Z
 - Window: lifetime_runtime_snapshot
 - Overall status: WATCH
 - Source: `data/metrics.json`
@@ -12,7 +12,7 @@
 - Known false positive: 85185
 - Escalated: 6178
 - Review backlog: 28544
-- Staged pending: 67
+- Staged pending: 8573
 
 ## Scorecard
 
@@ -22,5 +22,5 @@
 | known_fp_pct | 26.51 | <= 45 | PASS |
 | escalation_pct | 1.92 | >= 3 | WATCH |
 | review_backlog_pct | 8.88 | <= 20 | PASS |
-| staged_pending_pct | 0.02 | <= 1 | PASS |
-| reconciliation_mismatch_count | 0 | 0 | PASS |
+| staged_pending_pct | 2.67 | <= 1 | WATCH |
+| reconciliation_mismatch_count | 1 | 0 | FAIL |
