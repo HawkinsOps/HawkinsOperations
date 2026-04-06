@@ -58,12 +58,10 @@ jobs:
               }
             }
 
-            if (Test-Path -LiteralPath $path -PathType Leaf) {
-              $size = (Get-Item -LiteralPath $path).Length
-              if ($size -gt 5MB) {
-                $mb = [math]::Round($size / 1MB, 2)
-                $errors.Add("Oversized file in change set: $path (${mb}MB)")
-              }
+            $item = Get-Item -LiteralPath $path -ErrorAction SilentlyContinue
+            if ($item -and $item.Length -gt 5MB) {
+              $mb = [math]::Round($item.Length / 1MB, 2)
+              $errors.Add("Oversized file in change set: $path (${mb}MB)")
             }
           }
 

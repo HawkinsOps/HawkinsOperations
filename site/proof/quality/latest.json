@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-04-06T19:19:32.810Z",
+  "generated_utc": "2026-04-06T19:27:37.307Z",
   "scorecard_window": "lifetime_runtime_snapshot",
   "source_metrics": "data/metrics.json",
   "totals": {
@@ -8,7 +8,7 @@
     "known_fp": 85185,
     "escalated": 6178,
     "review": 28544,
-    "staged_pending": 67
+    "staged_pending": 8573
   },
   "scorecard": {
     "status": "WATCH",
@@ -39,15 +39,15 @@
       },
       {
         "id": "staged_pending_pct",
-        "value": 0.02,
+        "value": 2.67,
         "target": "<= 1",
-        "status": "PASS"
+        "status": "WATCH"
       },
       {
         "id": "reconciliation_mismatch_count",
-        "value": 0,
+        "value": 1,
         "target": "0",
-        "status": "PASS"
+        "status": "FAIL"
       }
     ]
   }

@@ -1,6 +1,0 @@
-
-FullName
---------
-C:\RH\OPS\PUBLISH\GITHUB\repos\HawkinsOperations\docs\deferred\PHASE_5_EXTERNAL_PROFILE.md
-C:\RH\OPS\PUBLISH\GITHUB\repos\HawkinsOperations\docs\execution\PHASE_5_DEFERRED_EXTERNAL_PROFILE.md
-

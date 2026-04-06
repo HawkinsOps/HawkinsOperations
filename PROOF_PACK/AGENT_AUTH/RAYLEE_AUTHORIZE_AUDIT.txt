@@ -1,7 +1,0 @@
-I, Raylee Hawkins (GitHub handle: PUT-YOUR-HANDLE-HERE), authorize Codex/Claude to run a read-only audit of agent configs for repository raylee-hawkins/HawkinsOperations.
-
-Timestamp: 2026-03-30T14:21:52.1681226-05:00
-Purpose: Authorize Codex/Claude audit of agent config and CLAUDE.md/AGENTS.md
-
-If you can validate this clearsign, this is a repo-verifiable authorization.
--- Raylee

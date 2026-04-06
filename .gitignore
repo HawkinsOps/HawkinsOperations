@@ -58,19 +58,15 @@ PROOF_PACK/hosting_transfer_cloudflare/run_*/evidence/logs/**
 !PROOF_PACK/hosting_transfer_cloudflare/run_*/evidence/logs/.gitkeep
 !PROOF_PACK/hosting_transfer_cloudflare/run_02-13-2026_232415/evidence/logs/sanitized/
 !PROOF_PACK/hosting_transfer_cloudflare/run_02-13-2026_232415/evidence/logs/sanitized/**
-!PROOF_PACK/features/resume-ats-txt-endpoint/run_*/
-!PROOF_PACK/features/resume-ats-txt-endpoint/run_*/RESULTS.md
-!PROOF_PACK/features/resume-ats-txt-endpoint/run_*/evidence/
-!PROOF_PACK/features/resume-ats-txt-endpoint/run_*/evidence/logs/
-!PROOF_PACK/features/resume-ats-txt-endpoint/run_*/evidence/logs/**
-!PROOF_PACK/features/resume-ats-txt-endpoint/run_*/evidence/screenshots/
-!PROOF_PACK/features/resume-ats-txt-endpoint/run_*/evidence/screenshots/**
-
 # Development dependencies
 node_modules/
 venv/
 __pycache__/
 *.pyc
+
+# Runtime artifacts (never commit)
+tokens/
+scripts/runs/
 
 # Secrets and credentials
 .env

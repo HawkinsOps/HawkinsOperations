@@ -1,9 +1,0 @@
-metric,before,after,delta,notes
-subcategories_audited,5,27,+22,"22 subcategories changed from No Auditing to Success+Failure"
-coverage_pct,19,96,+77,"26/27 targeted subcategories now active"
-attack_categories_visible,13,27,+14,"14 previously invisible MITRE attack categories now produce events"
-commandline_in_4688,false,true,enabled,"ProcessCreationIncludeCmdLine_Enabled = 1"
-security_log_size_kb,20480,1048576,+1028096,"20 MB to 1 GB — 50x headroom for Wazuh forwarding"
-baseline_regressions,0,0,0,"Zero regressions from Microsoft Security Baseline"
-hardened_beyond_baseline,0,12,+12,"12 subcategories set beyond baseline recommendation"
-event_4719_detected,false,true,confirmed,"First detection = the hardening action itself"
