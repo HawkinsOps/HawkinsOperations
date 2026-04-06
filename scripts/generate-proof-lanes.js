@@ -216,6 +216,20 @@ function buildQualityLane() {
   return { payload, md };
 }
 
+function mirrorProofLane(srcDir, destDir) {
+  if (!fs.existsSync(srcDir)) return [];
+  fs.mkdirSync(destDir, { recursive: true });
+  const copied = [];
+  for (const name of fs.readdirSync(srcDir)) {
+    const src = path.join(srcDir, name);
+    if (!fs.statSync(src).isFile()) continue;
+    const dest = path.join(destDir, name);
+    fs.copyFileSync(src, dest);
+    copied.push(dest);
+  }
+  return copied;
+}
+
 function main() {
   const validation = buildValidationLane();
   writeJson(proofValidationJsonPath, validation.payload);
@@ -229,6 +243,15 @@ function main() {
   writeText(proofQualityMdPath, `${quality.md}\n`);
   writeText(siteQualityMdPath, `${quality.md}\n`);
 
+  const grafanaCopied = mirrorProofLane(
+    path.join(root, "proof", "grafana"),
+    path.join(root, "site", "proof", "grafana")
+  );
+  const wazuhCopied = mirrorProofLane(
+    path.join(root, "proof", "wazuh", "honeypot"),
+    path.join(root, "site", "proof", "wazuh", "honeypot")
+  );
+
   console.log(`Generated ${path.relative(root, proofValidationJsonPath)}`);
   console.log(`Generated ${path.relative(root, proofValidationMdPath)}`);
   console.log(`Generated ${path.relative(root, siteValidationJsonPath)}`);
@@ -237,6 +260,9 @@ function main() {
   console.log(`Generated ${path.relative(root, proofQualityMdPath)}`);
   console.log(`Generated ${path.relative(root, siteQualityJsonPath)}`);
   console.log(`Generated ${path.relative(root, siteQualityMdPath)}`);
+  for (const f of [...grafanaCopied, ...wazuhCopied]) {
+    console.log(`Mirrored ${path.relative(root, f)}`);
+  }
 }
 
 main();
