@@ -466,11 +466,10 @@ def make_case_id(alert: Dict[str, Any]) -> str:
     date_part = dt.strftime("%Y-%m-%d")
     agent = str(get_nested(alert, "_autosoc.agent", "") or get_nested(alert, "agent.name", "unknown-agent"))
     rule_id = str(get_nested(alert, "rule.id", "unknown-rule"))
-    desc = str(get_nested(alert, "rule.description", "alert"))
     alert_id = str(alert.get("id", "") or get_nested(alert, "_indexer_meta._id", "") or "")
     suffix = slugify(alert_id)[:20] if alert_id else ""
-    base = f"{date_part}__{slugify(agent)}__rule{rule_id}__{slugify(desc)[:64]}"
-    return f"{base}__{suffix}" if suffix else base
+    base = f"{date_part}_{slugify(agent)}_r{rule_id}"
+    return f"{base}_{suffix}" if suffix else base
 
 
 def update_metrics(ledger: Dict[str, Any], disposition: str) -> None:

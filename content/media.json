@@ -376,7 +376,7 @@
     },
     {
       "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-01-wazuh-ce9ea4c828",
-      "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/01_wazuh_overview_dashboard.png",
+      "path": "content/incident-response/incidents/2026/2026-01-25_howe01_r100052/evidence/01_wazuh_overview_dashboard.png",
       "type": "dashboard",
       "tags": [
         "wazuh",
@@ -387,7 +387,7 @@
       "caption": "01 wazuh overview dashboard",
       "alt": "dashboard artifact: 01 wazuh overview dashboard",
       "privacy_review": "required",
-      "source": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/01_wazuh_overview_dashboard.png",
+      "source": "content/incident-response/incidents/2026/2026-01-25_howe01_r100052/evidence/01_wazuh_overview_dashboard.png",
       "width": 1739,
       "height": 1035,
       "bytes": 229913,
@@ -395,7 +395,7 @@
     },
     {
       "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-02-threa-921ab93b72",
-      "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/02_threat_hunting_level12_filter.png",
+      "path": "content/incident-response/incidents/2026/2026-01-25_howe01_r100052/evidence/02_threat_hunting_level12_filter.png",
       "type": "screenshot",
       "tags": [
         "incident",
@@ -404,7 +404,7 @@
       "caption": "02 threat hunting level12 filter",
       "alt": "screenshot artifact: 02 threat hunting level12 filter",
       "privacy_review": "required",
-      "source": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/02_threat_hunting_level12_filter.png",
+      "source": "content/incident-response/incidents/2026/2026-01-25_howe01_r100052/evidence/02_threat_hunting_level12_filter.png",
       "width": 1920,
       "height": 1032,
       "bytes": 130716,
@@ -412,7 +412,7 @@
     },
     {
       "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-03-threa-48791b66d9",
-      "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/03_threat_hunting_howe01_agent.png",
+      "path": "content/incident-response/incidents/2026/2026-01-25_howe01_r100052/evidence/03_threat_hunting_howe01_agent.png",
       "type": "screenshot",
       "tags": [
         "incident",
@@ -421,7 +421,7 @@
       "caption": "03 threat hunting howe01 agent",
       "alt": "screenshot artifact: 03 threat hunting howe01 agent",
       "privacy_review": "required",
-      "source": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/03_threat_hunting_howe01_agent.png",
+      "source": "content/incident-response/incidents/2026/2026-01-25_howe01_r100052/evidence/03_threat_hunting_howe01_agent.png",
       "width": 1920,
       "height": 1032,
       "bytes": 145440,
@@ -429,7 +429,7 @@
     },
     {
       "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-04-event-ab2d40cf75",
-      "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/04_events_table_rule100052.png",
+      "path": "content/incident-response/incidents/2026/2026-01-25_howe01_r100052/evidence/04_events_table_rule100052.png",
       "type": "table",
       "tags": [
         "incident",
@@ -438,7 +438,7 @@
       "caption": "04 events table rule100052",
       "alt": "table artifact: 04 events table rule100052",
       "privacy_review": "required",
-      "source": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/04_events_table_rule100052.png",
+      "source": "content/incident-response/incidents/2026/2026-01-25_howe01_r100052/evidence/04_events_table_rule100052.png",
       "width": 1920,
       "height": 1032,
       "bytes": 134860,
@@ -446,7 +446,7 @@
     },
     {
       "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-05-power-0eff82eaba",
-      "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/05_powershell_validation_hosts_ics_content.png",
+      "path": "content/incident-response/incidents/2026/2026-01-25_howe01_r100052/evidence/05_powershell_validation_hosts_ics_content.png",
       "type": "screenshot",
       "tags": [
         "incident",
@@ -455,7 +455,7 @@
       "caption": "05 powershell validation hosts ics content",
       "alt": "screenshot artifact: 05 powershell validation hosts ics content",
       "privacy_review": "required",
-      "source": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/05_powershell_validation_hosts_ics_content.png",
+      "source": "content/incident-response/incidents/2026/2026-01-25_howe01_r100052/evidence/05_powershell_validation_hosts_ics_content.png",
       "width": 860,
       "height": 1392,
       "bytes": 77050,
@@ -463,7 +463,7 @@
     },
     {
       "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-06-event-dc85286f46",
-      "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/06_event_detail_json_full.png",
+      "path": "content/incident-response/incidents/2026/2026-01-25_howe01_r100052/evidence/06_event_detail_json_full.png",
       "type": "screenshot",
       "tags": [
         "incident",
@@ -472,7 +472,7 @@
       "caption": "06 event detail json full",
       "alt": "screenshot artifact: 06 event detail json full",
       "privacy_review": "required",
-      "source": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/06_event_detail_json_full.png",
+      "source": "content/incident-response/incidents/2026/2026-01-25_howe01_r100052/evidence/06_event_detail_json_full.png",
       "width": 1920,
       "height": 1032,
       "bytes": 503893,
@@ -480,7 +480,7 @@
     },
     {
       "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-07-event-8d8c308d91",
-      "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/07_events_table_duplicate.png",
+      "path": "content/incident-response/incidents/2026/2026-01-25_howe01_r100052/evidence/07_events_table_duplicate.png",
       "type": "table",
       "tags": [
         "incident",
@@ -489,7 +489,7 @@
       "caption": "07 events table duplicate",
       "alt": "table artifact: 07 events table duplicate",
       "privacy_review": "required",
-      "source": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/07_events_table_duplicate.png",
+      "source": "content/incident-response/incidents/2026/2026-01-25_howe01_r100052/evidence/07_events_table_duplicate.png",
       "width": 1920,
       "height": 1032,
       "bytes": 139601,
@@ -497,7 +497,7 @@
     },
     {
       "id": "2026-01-25-howe01-rule100052-hosts-ics-modified-benign-evidence-08-threa-af1fb8f8eb",
-      "path": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/08_threat_hunting_dashboard_alternate.png",
+      "path": "content/incident-response/incidents/2026/2026-01-25_howe01_r100052/evidence/08_threat_hunting_dashboard_alternate.png",
       "type": "dashboard",
       "tags": [
         "dashboard",
@@ -507,7 +507,7 @@
       "caption": "08 threat hunting dashboard alternate",
       "alt": "dashboard artifact: 08 threat hunting dashboard alternate",
       "privacy_review": "required",
-      "source": "content/incident-response/incidents/2026/2026-01-25__howe01__rule100052__hosts-ics-modified__benign/evidence/08_threat_hunting_dashboard_alternate.png",
+      "source": "content/incident-response/incidents/2026/2026-01-25_howe01_r100052/evidence/08_threat_hunting_dashboard_alternate.png",
       "width": 1920,
       "height": 1032,
       "bytes": 129460,
