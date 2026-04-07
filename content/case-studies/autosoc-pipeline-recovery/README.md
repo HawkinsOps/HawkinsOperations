@@ -42,7 +42,7 @@ SignalFoundry is a bespoke Python-and-PowerShell SOC automation pipeline built b
 | Escalated cases | 8,574 | Locked authority snapshot |
 | Hosts monitored | 8 / 8 | Coverage check |
 | Hard mismatches | 0 | Reconciliation (strict categories) |
-| Detection inventory | 140 rules | `PROOF_PACK/VERIFIED_COUNTS.md` |
+| Detection inventory | 210 detections | `PROOF_PACK/VERIFIED_COUNTS.md` |
 | IR Playbooks | 10 | `PROOF_PACK/VERIFIED_COUNTS.md` |
 
 ---
@@ -54,7 +54,7 @@ SignalFoundry is a bespoke Python-and-PowerShell SOC automation pipeline built b
 - March 2-4 stress test window: 25,167 cases at 90.1% auto-close
 - Policy tuning cycle: Windows workstation FP suppression, Linux dpkg churn, Sysmon tiering hardening
 - Coverage-check host alias normalization fix
-- Detection inventory verification (140 rules, CI-enforced)
+- Detection inventory verification (210 detections, CI-enforced)
 
 ### Excluded
 - SignalFoundry source code (private repository; architecture and behavior documented)

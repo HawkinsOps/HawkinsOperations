@@ -20,7 +20,7 @@ case_study: autosoc-pipeline-recovery
 | Cases processed | 324,074 |
 | Auto-close rate | ~88% |
 | Escalated cases | 8,574 |
-| Detection rules | 140 (CI-verified) |
+| Detection rules | 210 (CI-verified) |
 | IR Playbooks | 10 |
 | Host coverage | 8/8 |
 
