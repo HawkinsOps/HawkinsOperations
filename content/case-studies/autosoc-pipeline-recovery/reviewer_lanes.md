@@ -14,12 +14,12 @@ case_study: autosoc-pipeline-recovery
 - **Detection Engineering:** 140 verified detection rules across Sigma, Splunk SPL, and Wazuh XML, organized by MITRE ATT&CK tactics. CI-enforced counts.
 - **SOC Automation:** Purpose-built Python+PowerShell pipeline with 8-stage processing, 4-way reconciliation, and evidence sanitization before any artifact leaves the internal store.
 
-**Top metrics (locked 04-01-2026):**
+**Top metrics (locked 04-07-2026):**
 | Metric | Value |
 |---|---|
-| Cases processed | 321,351+ |
+| Cases processed | 324,074 |
 | Auto-close rate | ~88% |
-| Escalated cases | 6,178 |
+| Escalated cases | 8,574 |
 | Detection rules | 140 (CI-verified) |
 | IR Playbooks | 10 |
 | Host coverage | 8/8 |

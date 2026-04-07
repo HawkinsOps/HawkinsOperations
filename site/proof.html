@@ -352,11 +352,11 @@ body.proof-page {
         </div>
         <div class="proof-integrity-badge">
           <span class="badge-label">Locked</span>
-          <span class="badge-value" data-ops="stable_locked_date">04-01-2026</span>
+          <span class="badge-value" data-ops="stable_locked_date">04-07-2026</span>
         </div>
         <div class="proof-integrity-badge">
           <span class="badge-label">Verified</span>
-          <span class="badge-value" data-verified-date>04-01-2026</span>
+          <span class="badge-value" data-verified-date>04-07-2026</span>
         </div>
         <div class="proof-integrity-badge" data-status="success">
           <span class="badge-label">Heartbeat</span>
@@ -382,7 +382,7 @@ body.proof-page {
       <ul style="font-size:0.8rem;color:var(--muted,#8ea4c7);list-style:none;padding:0;margin:0 0 20px;display:grid;gap:3px;">
         <li><strong>Public benchmark snapshot:</strong> reviewer-authoritative values from <code>data/truth/current-authority.json</code>.</li>
         <li><strong>Runtime snapshot:</strong> telemetry from <code>data/truth/current-live.json</code>, displayed as informational only.</li>
-        <li><strong>Generated at:</strong> <span data-ops="stable_locked_date">04-01-2026</span></li>
+        <li><strong>Generated at:</strong> <span data-ops="stable_locked_date">04-07-2026</span></li>
         <li><strong>Source artifact:</strong> <code>site/data/truth/current-authority.json</code></li>
       </ul>
 
@@ -431,7 +431,7 @@ body.proof-page {
   <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(0,196,212,.1);color:#00c4d4;border:1px solid rgba(0,196,212,.2);"><span data-verified="wazuh">28</span> Wazuh XML</span>
   <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(232,160,32,.1);color:#e8a020;border:1px solid rgba(232,160,32,.2);"><span data-verified="splunk">9</span> Splunk SPL</span>
   <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(39,201,122,.1);color:#27c97a;border:1px solid rgba(39,201,122,.2);"><span data-verified="ir">10</span> IR Playbooks</span>
-  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(100,140,180,.08);color:#486880;border:1px solid rgba(100,140,180,.13);">Last verified <span data-verified-date>03-30-2026</span></span>
+  <span style="padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;background:rgba(100,140,180,.08);color:#486880;border:1px solid rgba(100,140,180,.13);">Last verified <span data-verified-date>04-07-2026</span></span>
 </div>
         </div>
       </div>
@@ -492,7 +492,7 @@ body.proof-page {
 
       </div>
       <p class="m-copy" style="margin-top:12px">Public benchmark snapshot: locked candidate-facing benchmark from committed proof. Runtime snapshot: rolling totals from the same metrics artifact.</p>
-      <p class="m-copy">Generated at <span data-ops="stable_locked_date">04-01-2026</span> | Source artifact <code>/assets/data/ops-metrics.json</code></p>
+      <p class="m-copy">Generated at <span data-ops="stable_locked_date">04-07-2026</span> | Source artifact <code>/assets/data/ops-metrics.json</code></p>
     </div>
   </section>
   <section class="m-section" data-aos="fade-up">
@@ -503,7 +503,7 @@ body.proof-page {
         <p class="m-copy"><strong>CLAIM:</strong> AutoSOC processed <span data-ops="stable_total_cases">324,074</span> alerts, auto-closed <span data-ops="stable_auto_closed_benign">~88%</span>, and produced <span data-ops="stable_escalated">8,574</span> escalations across <span data-ops="stable_coverage_ratio">8/8</span> coverage.</p>
         <p class="m-copy"><strong>CONTEXT:</strong> Current-facing metrics on this page are locked to the March 24 canonical snapshot. Historical recovery evidence remains linked as historical context only.</p>
         <ul class="m-list-tight">
-          <li><strong>EVIDENCE:</strong> <code>source_of_truth/metrics_canonical_2026-03-20.json</code> -> <code>total_cases=321351</code>, <code>auto_close_rate_label=~88%</code>, <code>escalations_label=6,178</code>, <code>hosts_reporting=8/8</code>; proves canonical quantified baseline.</li>
+          <li><strong>EVIDENCE:</strong> <code>source_of_truth/metrics_canonical_2026-03-20.json</code> -> <code>total_cases=324074</code>, <code>auto_close_rate_label=~88%</code>, <code>escalations_label=8,574</code>, <code>hosts_reporting=8/8</code>; proves canonical quantified baseline.</li>
           <li><strong>EVIDENCE:</strong> <code>docs/execution/AUTOSOC_PIPELINE_RECOVERY_CASE_STUDY_03-13-2026.md</code> -> final run shows <code>run_id=autosoc-20260313T215029Z-31020</code>, <code>status=SUCCESS</code>, <code>cases_processed=173</code>, <code>reconciliation.mismatch_count=0</code>; proves real output and validated recovery.</li>
           <li><strong>EVIDENCE:</strong> <code>/assets/pp_soc_integration/t3-workflow.png</code> -> proves a concrete workflow snapshot of the triage and evidence-pack pipeline surface.</li>
         </ul>
@@ -684,7 +684,7 @@ body.proof-page {
             <strong>Cases <span data-live="total_cases">324,074</span></strong>
             <strong>Escalations <span data-live="escalations">8,574</span></strong>
             <strong>Auto-close <span data-live="auto_close_rate">~88%</span></strong>
-            <strong>Snapshot <span data-live="snapshot_date">2026-04-01</span></strong>
+            <strong>Snapshot <span data-live="snapshot_date">2026-04-07</span></strong>
           </div>
         </div>
         <p style="font-size:0.78rem;color:var(--muted,#8ea4c7);margin-top:6px;">Source: <code>current-live.json</code> (_layer_rank 2) &mdash; non-authoritative for public claims. Reviewer-authoritative metrics are in the KPI ledger above.</p>
@@ -745,7 +745,7 @@ body.proof-page {
   </div>
   <div class="proof-modal-section">
     <span class="proof-modal-tag">reviewer-authoritative</span>
-    <span class="proof-modal-tag">04-01-2026</span>
+    <span class="proof-modal-tag">04-07-2026</span>
     <span class="proof-modal-tag">current-authority.json</span>
   </div>
 </template>

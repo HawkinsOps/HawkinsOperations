@@ -110,7 +110,7 @@ This is a home lab / self-hosted environment, not an enterprise SOC.
 
 ### Escalation count
 
-- **6,178** — April 1 locked canonical snapshot. All public references use this value.
+- **8,574** — April 7 locked canonical snapshot. All public references use this value.
 
 ---
 
