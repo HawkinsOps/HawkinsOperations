@@ -170,8 +170,8 @@
     <div style="margin-top:20px;padding:16px 20px;background:rgba(17,24,39,0.35);border:1px solid rgba(122,184,255,0.08);border-radius:4px;">
       <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;color:#7ab8ff;margin-bottom:8px;">What this page proves</div>
       <ul style="margin:0;padding:0 0 0 16px;font-size:0.82rem;color:#9aadbe;line-height:1.7;">
-        <li>140 detections written and maintained in version control &mdash; not vendor defaults</li>
-        <li>Coverage spans 10 ATT&amp;CK tactics across Sigma, Wazuh, Splunk, and IR playbooks</li>
+        <li><span data-verified="detections">140</span> detections written and maintained in version control &mdash; not vendor defaults</li>
+        <li>Coverage spans <span data-ops="tactic_count">10</span> ATT&amp;CK tactics across Sigma, Wazuh, Splunk, and IR playbooks</li>
         <li>Every rule feeds SignalFoundry&rsquo;s 7-stage triage pipeline and produces auditable evidence</li>
         <li>Pipeline outcome: ~88% auto-close rate, 8,574 escalations with evidence packs attached</li>
       </ul>
@@ -183,7 +183,7 @@
     <div class="det-page">
       <div class="sec-label">MITRE ATT&amp;CK Coverage</div>
       <h2 class="sec-title">Detection density by tactic</h2>
-      <p class="sec-sub" style="margin-bottom:20px;">Sigma rule distribution across ATT&amp;CK tactics (103 rules shown below). Wazuh, Splunk, and IR playbooks add cross-platform depth not reflected in this chart. Based on actual repo file count.</p>
+      <p class="sec-sub" style="margin-bottom:20px;">Sigma rule distribution across ATT&amp;CK tactics (<span data-verified="sigma">103</span> rules shown below). Wazuh, Splunk, and IR playbooks add cross-platform depth not reflected in this chart. Based on actual repo file count.</p>
       <div data-aos="fade-up" style="max-width:700px;margin:0 auto;padding:24px;background:rgba(17,24,39,0.5);border:1px solid rgba(0,212,255,0.1);border-radius:4px;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:#00d4ff;margin-bottom:12px;">MITRE ATT&amp;CK Tactic Coverage</div>
         <canvas id="mitreChart" height="280"></canvas>
