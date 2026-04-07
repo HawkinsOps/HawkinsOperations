@@ -54,7 +54,6 @@
     "sigma": 103,
     "wazuh_files": 24,
     "wazuh_rule_blocks": 28,
-    "splunk_spl_files": 9,
     "splunk": 79,
     "ir_playbooks": 10
   },
