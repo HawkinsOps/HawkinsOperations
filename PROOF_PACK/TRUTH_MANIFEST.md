@@ -153,7 +153,7 @@ The rate decreased because the case composition changed as the pipeline processe
 
 Every file that contains metric values. When a canonical value changes, these files must be checked and updated.
 
-### Detection Inventory (103 / 9 / 24 / 28 / 10 / 140)
+### Detection Inventory (103 / 79 / 24 / 28 / 10 / 210)
 
 | File | Type |
 |---|---|

@@ -14,11 +14,12 @@ canonical_metrics:
   generated_at_utc: "2026-03-24T10:36:20+00:00"
   detection_counts:
     sigma: 103
-    splunk: 9
+    splunk_spl_files: 9
+    splunk: 79
     wazuh_xml_files: 24
     wazuh_rule_blocks: 28
     ir_playbooks: 10
-    total_detections: 140
+    total_detections: 210
   pipeline_snapshot:
     source: docs/SignalFoundry_Case_Study_March2026.md
     snapshot_date: "2026-03-25"

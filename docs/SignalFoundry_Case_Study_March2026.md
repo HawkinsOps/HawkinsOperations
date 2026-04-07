@@ -26,7 +26,7 @@ The system demonstrates a core engineering thesis: that a single operator with a
 | Hosts monitored | 8 / 8 | Canonical snapshot, March 20 2026 |
 | Ledger-to-repo mismatches | 0 | Canonical snapshot, March 20 2026 |
 | Pipeline run duration | ~5.4 seconds | Latest heartbeat, March 23 2026 |
-| Detection inventory | 140 rules across 3 platforms | VERIFIED_COUNTS.md |
+| Detection inventory | 210 detections across 3 platforms | VERIFIED_COUNTS.md |
 
 ### What Changed in the Past 14 Days and Why It Matters
 

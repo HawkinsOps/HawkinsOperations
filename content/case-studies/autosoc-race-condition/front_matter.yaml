@@ -14,11 +14,12 @@ canonical_metrics:
   source_file: PROOF_PACK/VERIFIED_COUNTS.md
   detection_counts:
     sigma: 103
-    splunk: 9
+    splunk_spl_files: 9
+    splunk: 79
     wazuh_xml_files: 24
     wazuh_rule_blocks: 28
     ir_playbooks: 10
-    total_detections: 140
+    total_detections: 210
   pipeline_snapshot:
     snapshot_date: "2026-04-01"
     total_cases: 321351
