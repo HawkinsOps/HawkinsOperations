@@ -17,11 +17,11 @@ Generator script: `scripts/verify/generate-verified-counts.ps1`
 | Metric | Canonical Value | Authoritative Source |
 |---|---|---|
 | Sigma rules (YAML) | **103** | `PROOF_PACK/VERIFIED_COUNTS.md:11` |
-| Splunk queries (SPL) | **9** | `PROOF_PACK/VERIFIED_COUNTS.md:12` |
+| Splunk detection searches (SPL) | **79** (9 SPL files) | `PROOF_PACK/VERIFIED_COUNTS.md:12` |
 | Wazuh XML files | **24** | `PROOF_PACK/VERIFIED_COUNTS.md:13` |
 | Wazuh rule blocks | **28** | `PROOF_PACK/VERIFIED_COUNTS.md:13` |
 | IR Playbooks | **10** | `PROOF_PACK/VERIFIED_COUNTS.md:19` |
-| Total detections | **140** | Computed: 103 + 28 + 9 (by `scripts/generate_verified_counts.py:~78`) |
+| Total detections | **210** | Computed: 103 + 28 + 79 (by `scripts/generate_verified_counts.py:~78`) |
 
 ### 1B. Operational Metrics — April 1, 2026 Stable Benchmark
 
@@ -68,11 +68,11 @@ Authoritative source: `data/metrics.json` (lifetime_runtime object)
 | Metric | Canonical | All Values Found | File:Line | Status |
 |---|---|---|---|---|
 | Sigma rules | 103 | 103 | All files | **MATCH** |
-| Splunk queries | 9 | 9 | All files | **MATCH** |
+| Splunk detection searches | 79 | 79 | All files | **MATCH** |
 | Wazuh XML files | 24 | 24 | All files | **MATCH** |
 | Wazuh rule blocks | 28 | 28 | All files | **MATCH** |
 | IR Playbooks | 10 | 10 | All files | **MATCH** |
-| Total detections | 140 | 140 | All files | **MATCH** |
+| Total detections | 210 | 210 | All files | **MATCH** |
 
 ### 2B. Operational Metrics — April 1 Snapshot
 
@@ -222,10 +222,10 @@ Every file that contains metric values. When a canonical value changes, these fi
 
 | Page | Metric | Live Value | Repo Source | Status |
 |---|---|---|---|---|
-| Homepage | Total detections | 140 | 140 | **MATCH** |
+| Homepage | Total detections | 210 | 210 | **MATCH** |
 | Homepage | Sigma | 103 | 103 | **MATCH** |
 | Homepage | Wazuh | 28 | 28 | **MATCH** |
-| Homepage | Splunk | 9 | 9 | **MATCH** |
+| Homepage | Splunk | 79 | 79 | **MATCH** |
 | Homepage | IR Playbooks | 10 | 10 | **MATCH** |
 | Homepage | Total cases | 321,351 | 321,351 | **MATCH** |
 | Homepage | Auto-close | ~88% | ~88% | **MATCH** |

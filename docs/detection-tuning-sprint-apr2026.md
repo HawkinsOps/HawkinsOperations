@@ -3,7 +3,7 @@
 ## Executive Summary
 
 - **Trigger**: ~328K alert backlog from AutoSOC processing (including 6-day outage recovery period)
-- **Scope**: 9 Splunk SPL detection files covering 10 MITRE ATT&CK tactics, 76 detection queries
+- **Scope**: 9 Splunk SPL detection files covering 10 MITRE ATT&CK tactics, 79 detection searches
 - **Outcome**: 23 new exclusions added across 8 SPL files; AI tool exclusions systematically applied
 - **Philosophy**: Alerts that mean something when they fire
 

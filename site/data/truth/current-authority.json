@@ -28,9 +28,9 @@
   },
   "public_claim_formats": {
     "sigma": "103 Sigma detection rules",
-    "splunk": "9 Splunk queries",
+    "splunk": "79 Splunk detection searches across 9 SPL files",
     "wazuh": "24 Wazuh XML files (28 rule blocks)",
-    "total_detections": "140 detections",
+    "total_detections": "210 detections",
     "ir_playbooks": "10 IR playbooks"
   },
   "clearance": "Eligible to obtain clearance; willing to pursue sponsorship.",
@@ -64,7 +64,7 @@
     "coverage_ratio": "8/8",
     "coverage_status": "PASS",
     "sigma": 103,
-    "splunk": 9,
+    "splunk": 79,
     "wazuh": 28,
     "ir": 10
   }

@@ -4,16 +4,18 @@ window.HAWKINSOPS_COUNTS = {
   "last_verified_utc": "2026-04-06T21:48:58+00:00",
   "counts": {
     "sigma": 103,
-    "splunk": 9,
+    "splunk_spl_files": 9,
+    "splunk": 79,
     "wazuh_xml_files": 24,
     "wazuh": 28,
     "ir": 10,
-    "detections": 140
+    "detections": 210
   },
-  "detections": 140,
+  "detections": 210,
   "sigma": 103,
   "wazuh": 28,
-  "splunk": 9,
+  "splunk": 79,
+  "splunk_spl_files": 9,
   "playbooks": 10,
   "ir": 10,
   "wazuh_xml_files": 24

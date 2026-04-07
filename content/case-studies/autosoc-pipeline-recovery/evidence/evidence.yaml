@@ -25,7 +25,7 @@ artifacts:
       pwsh -NoProfile -Command "(Get-FileHash -Algorithm SHA256 '.\PROOF_PACK\verified_counts.json').Hash"
     verification_command: |
       pwsh -NoProfile -Command "(Get-Content '.\PROOF_PACK\verified_counts.json' | ConvertFrom-Json).counts.detections"
-    expected_output: "140"
+    expected_output: "210"
 
   - id: signalfoundry_case_study
     name: "SignalFoundry Engineering Case Study"
@@ -126,11 +126,12 @@ metric_reconciliation:
   detection_counts:
     source: PROOF_PACK/verified_counts.json
     sigma: 103
-    splunk: 9
+    splunk: 79
+    splunk_spl_files: 9
     wazuh_xml_files: 24
     wazuh_rule_blocks: 28
     ir_playbooks: 10
-    total_detections: 140
+    total_detections: 210
     status: CONSISTENT
     note: "All surfaces (VERIFIED_COUNTS.md, verified_counts.json, HTML data-verified attrs, drift_scan.py) agree"
 

@@ -22,7 +22,7 @@ AS_OF: 2026-02-14
   - `pwsh -NoProfile -File scripts/verify/verify-counts.ps1`
   - Latest observed output:
     - Sigma: `103`
-    - Splunk: `9`
+    - Splunk: `79`
     - Wazuh XML files: `24`
     - Wazuh `<rule id=>` blocks: `28`
     - IR playbooks: `10`

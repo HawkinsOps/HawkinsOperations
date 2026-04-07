@@ -60,7 +60,7 @@ window.HAWKINSOPS_OPS_METRICS = {
     "lifetime_label": "Lifetime processed (runtime snapshot)",
     "lifetime_last_updated": "04-07-2026",
     "sigma": 103,
-    "splunk": 9,
+    "splunk": 79,
     "wazuh": 28,
     "ir": 10
   }

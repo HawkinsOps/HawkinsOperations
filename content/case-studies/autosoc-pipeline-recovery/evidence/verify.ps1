@@ -48,7 +48,7 @@ if ($jsonExists) {
     Write-Check -Name "Sigma count = $sigmaExpected" -Pass ($sigmaActual -eq $sigmaExpected) -Detail "Actual: $sigmaActual"
 
     # ── Check 4: Splunk count ──
-    $splunkExpected = 9
+    $splunkExpected = 79
     $splunkActual = $vc.counts.splunk
     Write-Check -Name "Splunk count = $splunkExpected" -Pass ($splunkActual -eq $splunkExpected) -Detail "Actual: $splunkActual"
 
@@ -68,7 +68,7 @@ if ($jsonExists) {
     Write-Check -Name "IR playbooks = $irExpected" -Pass ($irActual -eq $irExpected) -Detail "Actual: $irActual"
 
     # ── Check 8: Total detections ──
-    $totalExpected = 140
+    $totalExpected = 210
     $totalActual = $vc.counts.detections
     Write-Check -Name "Total detections = $totalExpected" -Pass ($totalActual -eq $totalExpected) -Detail "Actual: $totalActual"
 }

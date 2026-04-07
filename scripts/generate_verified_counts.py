@@ -27,7 +27,10 @@ def parse_verified_counts_md(md_path: Path) -> Tuple[Dict[str, int], Dict[str, R
     counts: Dict[str, int] = {}
 
     sigma_re = re.compile(r"\|\s*\*\*Sigma\*\*.*?\|\s*\*\*(\d+)\*\*\s+rules", re.IGNORECASE)
-    splunk_re = re.compile(r"\|\s*\*\*Splunk\*\*.*?\|\s*\*\*(\d+)\*\*\s+queries", re.IGNORECASE)
+    splunk_re = re.compile(
+        r"\|\s*\*\*Splunk\*\*.*?\|\s*\*\*(\d+)\*\*\s+files,\s*\*\*(\d+)\*\*\s+detection searches",
+        re.IGNORECASE,
+    )
     wazuh_re = re.compile(
         r"\|\s*\*\*Wazuh\*\*.*?\|\s*\*\*(\d+)\*\*\s+files,\s*\*\*(\d+)\*\*\s+rule blocks",
         re.IGNORECASE,
@@ -49,7 +52,9 @@ def parse_verified_counts_md(md_path: Path) -> Tuple[Dict[str, int], Dict[str, R
 
         m = splunk_re.search(line)
         if m:
-            counts["splunk"] = int(m.group(1))
+            counts["splunk_spl_files"] = int(m.group(1))
+            counts["splunk"] = int(m.group(2))
+            refs["splunk_spl_files"] = Ref(line=idx, heading=heading)
             refs["splunk"] = Ref(line=idx, heading=heading)
             continue
 
@@ -67,7 +72,7 @@ def parse_verified_counts_md(md_path: Path) -> Tuple[Dict[str, int], Dict[str, R
             refs["ir"] = Ref(line=idx, heading=heading)
             continue
 
-    required = ("sigma", "splunk", "wazuh_xml_files", "wazuh", "ir")
+    required = ("sigma", "splunk", "splunk_spl_files", "wazuh_xml_files", "wazuh", "ir")
     missing = [k for k in required if k not in counts]
     if missing:
         raise ValueError(

@@ -33,7 +33,7 @@
 
 ## Failing conditions
 
-- Any detection count in `PROOF_PACK/verified_counts.json` differs from expected values (Sigma=103, Splunk=9, Wazuh=24/28, IR=10, Total=140)
+- Any detection count in `PROOF_PACK/verified_counts.json` differs from expected values (Sigma=103, Splunk=79, Wazuh=24/28, IR=10, Total=210)
 - Physical file counts don't match JSON counts
 - Required artifacts missing (VERIFIED_COUNTS.md, case-study-autosoc.html, resume PDF, etc.)
 - sitemap.xml missing case-study-autosoc URL

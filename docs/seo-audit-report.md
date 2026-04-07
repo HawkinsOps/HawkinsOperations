@@ -189,9 +189,9 @@ No content pages have `noindex`. No `googlebot` directives found.
 | Total cases | 321,351+ | All instances match | YES |
 | Escalations | 6,178 | All instances match | YES |
 | Auto-close rate | ~88% | All instances match | YES |
-| Detection count | 140 | All instances match | YES |
+| Detection count | 210 | All instances match | YES |
 | Sigma rules | 103 | All instances match | YES |
-| Splunk queries | 9 | All instances match | YES |
+| Splunk detection searches | 79 | All instances match | YES |
 | Wazuh rule blocks | 28 | All instances match | YES |
 | IR playbooks | 10 | All instances match | YES |
 

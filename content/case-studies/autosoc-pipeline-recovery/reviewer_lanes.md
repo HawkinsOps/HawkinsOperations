@@ -11,7 +11,7 @@ case_study: autosoc-pipeline-recovery
 
 **Role fit:**
 - **SOC Analyst T1/T2:** Demonstrated alert triage at scale (321,351+ cases), policy-based disposition, and false positive tuning from direct observation of a live environment.
-- **Detection Engineering:** 140 verified detection rules across Sigma, Splunk SPL, and Wazuh XML, organized by MITRE ATT&CK tactics. CI-enforced counts.
+- **Detection Engineering:** 210 verified detection rules across Sigma, Splunk SPL, and Wazuh XML, organized by MITRE ATT&CK tactics. CI-enforced counts.
 - **SOC Automation:** Purpose-built Python+PowerShell pipeline with 8-stage processing, 4-way reconciliation, and evidence sanitization before any artifact leaves the internal store.
 
 **Top metrics (locked 04-07-2026):**
@@ -53,7 +53,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File ".\case-studies\autosoc-pipeline-r
 
 **Prerequisites:** PowerShell 7, Python 3.x, Node.js 20.x
 
-**Single-step failure mode to check:** Run `verify-counts.ps1` — if Sigma count != 103 or total != 140, the source of truth has drifted. This is the same gate CI uses on every push.
+**Single-step failure mode to check:** Run `verify-counts.ps1` — if Sigma count != 103 or total != 210, the source of truth has drifted. This is the same gate CI uses on every push.
 
 **Key artifacts to inspect:**
 1. `PROOF_PACK/VERIFIED_COUNTS.md` — source of truth for all public numbers
@@ -95,7 +95,7 @@ Get-ChildItem .\content\detection-rules\sigma -Directory |
 ```
 
 ### Splunk SPL
-- **Location:** `content/detection-rules/splunk/` — 9 queries
+- **Location:** `content/detection-rules/splunk/` — 79 detection searches across 9 SPL files
 - **Coverage:** Credential Access, Defense Evasion, Discovery, Execution, Lateral Movement, Persistence, Privilege Escalation, Collection/Exfiltration/Impact
 
 ### Wazuh XML

@@ -77,7 +77,7 @@ Get-ChildItem -Recurse .\content\detection-rules\sigma -Filter *.yml |
 ```
 
 ### Cross-reference with Splunk
-The `content/detection-rules/splunk/` directory contains 9 SPL queries covering overlapping tactics. Compare detection logic between Sigma YAML and direct SPL implementation for the same technique.
+The `content/detection-rules/splunk/` directory contains 79 detection searches across 9 SPL files covering overlapping tactics. Compare detection logic between Sigma YAML and direct SPL implementation for the same technique.
 
 ### Tuning notes
 - No untagged rules (every rule has `tags: attack.*`)

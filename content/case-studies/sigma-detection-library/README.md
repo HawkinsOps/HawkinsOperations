@@ -39,7 +39,7 @@ The count (103) is not hand-asserted. It is the output of `(Get-ChildItem -Recur
 - 10 MITRE ATT&CK tactic folders
 - Rule structure and required field analysis
 - Verification pipeline and CI enforcement
-- Cross-reference with Splunk SPL (9 queries covering overlapping tactics)
+- Cross-reference with Splunk SPL (79 detection searches across 9 SPL files covering overlapping tactics)
 
 ### Excluded
 - Sigma compilation output (backend-specific queries not committed to repo)
@@ -194,9 +194,9 @@ The same credential-access detection set exists in both Sigma YAML (platform-agn
 | Platform | Count | Overlapping Tactics |
 |---|---|---|
 | Sigma YAML | 103 | All 10 |
-| Splunk SPL | 9 | Credential Access, Defense Evasion, Discovery, Execution, Lateral Movement, Persistence, Privilege Escalation, Collection/Exfil/Impact |
+| Splunk SPL | 79 (9 files) | Credential Access, Defense Evasion, Discovery, Execution, Lateral Movement, Persistence, Privilege Escalation, Collection/Exfil/Impact |
 | Wazuh XML | 28 blocks | Custom rules with MITRE tags |
-| **Total detections** | **140** | CI-verified |
+| **Total detections** | **210** | CI-verified |
 
 ---
 
