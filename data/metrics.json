@@ -19,7 +19,7 @@
     "known_fp": "85,953",
     "escalated": "8,574",
     "review": 29875,
-    "staged_pending": 8574,
+    "staged_pending": 67,
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
     "last_updated": "2026-04-07T00:00:00Z"
@@ -30,7 +30,7 @@
     "known_fp": 85953,
     "escalated": 8574,
     "review": 29875,
-    "staged_pending": 8574
+    "staged_pending": 67
   },
   "host_coverage": "8/8",
   "reconciliation_mismatch": 0,
