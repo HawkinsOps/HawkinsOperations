@@ -15,7 +15,9 @@ $outPath = if ([System.IO.Path]::IsPathRooted($OutFile)) { $OutFile } else { Joi
 $sigmaYml = (Get-ChildItem -Recurse -Filter *.yml -Path $sigmaPath -ErrorAction SilentlyContinue).Count
 $sigmaYaml = (Get-ChildItem -Recurse -Filter *.yaml -Path $sigmaPath -ErrorAction SilentlyContinue).Count
 $sigma = $sigmaYml + $sigmaYaml
-$splunk = (Get-ChildItem -Recurse -Filter *.spl -Path $splunkPath -ErrorAction SilentlyContinue).Count
+$splunkFiles = (Get-ChildItem -Recurse -Filter *.spl -Path $splunkPath -ErrorAction SilentlyContinue).Count
+$splunk = (Get-ChildItem -Recurse -Filter *.spl -Path $splunkPath -ErrorAction SilentlyContinue |
+    Select-String -Pattern '^# .+ - T\d+|^# MITRE: T\d+' | Measure-Object).Count
 $wazuhXmlFiles = (Get-ChildItem -Recurse -Filter *.xml -Path $wazuhPath -ErrorAction SilentlyContinue).Count
 $wazuhRuleBlocks = (Get-ChildItem -Recurse -Filter *.xml -Path $wazuhPath -ErrorAction SilentlyContinue |
     Select-String -Pattern "<rule id=" | Measure-Object).Count
@@ -33,7 +35,7 @@ This file is generated from live repository file counts.
 | Platform | Count | Location |
 |----------|-------|----------|
 | **Sigma** (YAML) | **$sigma** rules | content/detection-rules/sigma/ |
-| **Splunk** (SPL) | **$splunk** queries | content/detection-rules/splunk/ |
+| **Splunk** (SPL) | **$splunkFiles** files, **$splunk** detection searches | content/detection-rules/splunk/ |
 | **Wazuh** (XML) | **$wazuhXmlFiles** files, **$wazuhRuleBlocks** rule blocks | content/detection-rules/wazuh/rules/ |
 
 ## Incident Response

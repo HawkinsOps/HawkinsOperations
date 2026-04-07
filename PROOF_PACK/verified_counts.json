@@ -3,16 +3,22 @@
   "source_path": "PROOF_PACK/VERIFIED_COUNTS.md",
   "counts": {
     "sigma": 103,
-    "splunk": 9,
+    "splunk_spl_files": 9,
+    "splunk": 79,
     "wazuh_xml_files": 24,
     "wazuh": 28,
     "ir": 10,
-    "detections": 140
+    "detections": 210
   },
   "source_refs": {
     "sigma": {
       "file": "PROOF_PACK/VERIFIED_COUNTS.md",
       "line": 11,
+      "heading": "Detection Rules"
+    },
+    "splunk_spl_files": {
+      "file": "PROOF_PACK/VERIFIED_COUNTS.md",
+      "line": 12,
       "heading": "Detection Rules"
     },
     "splunk": {

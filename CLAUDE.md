@@ -38,7 +38,7 @@ HawkinsOperations/
 │   ├── case-studies/               # Case study writeups (markdown + structured)
 │   ├── detection-rules/            # Multi-platform detection content
 │   │   ├── sigma/                  # 103 Sigma YAML rules, by MITRE tactic
-│   │   ├── splunk/                 # 9 SPL queries
+│   │   ├── splunk/                 # 9 SPL files (79 detection searches)
 │   │   ├── wazuh/rules/            # 24 Wazuh XML files (28 rule blocks)
 │   │   └── mappings/               # MITRE ATT&CK mapping files
 │   ├── incident-response/
@@ -166,10 +166,10 @@ Current verified inventory (as of last CI run):
 | Platform | Count | Location |
 |---|---|---|
 | Sigma (YAML) | 103 rules | `content/detection-rules/sigma/` |
-| Splunk (SPL) | 9 queries | `content/detection-rules/splunk/` |
+| Splunk (SPL) | 9 files / 79 detection searches | `content/detection-rules/splunk/` |
 | Wazuh (XML) | 24 files / 28 rule blocks | `content/detection-rules/wazuh/rules/` |
 | IR Playbooks | 10 playbooks | `content/incident-response/playbooks/` |
-| Total detections | 140 | (Sigma + Wazuh + Splunk) |
+| Total detections | 210 | (Sigma + Wazuh + Splunk) |
 
 **Never hardcode counts. Never inflate claims ("200+ detections").**
 If counts change, run verification scripts to update `VERIFIED_COUNTS.md` first, then

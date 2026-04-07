@@ -19,7 +19,7 @@ abstract: >
 **Recruiter-ready summary:**
 - Built and operates a fully automated SOC triage pipeline processing 321,351+ Wazuh alerts with ~88% auto-close rate
 - Diagnosed a two-failure-mode production outage (poller retry defect + reconciliation scoping error) and restored service in one session
-- Maintains 140 CI-verified detection rules (Sigma + Splunk + Wazuh) and 10 IR playbooks mapped to MITRE ATT&CK
+- Maintains 210 CI-verified detection rules (Sigma + Splunk + Wazuh) and 10 IR playbooks mapped to MITRE ATT&CK
 
 ---
 
@@ -128,7 +128,7 @@ cd HawkinsOperations
 
 # 2. Verify detection counts match VERIFIED_COUNTS.md
 pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
-# Expected: All counts match (Sigma=103, Splunk=9, Wazuh=24/28, IR=10, Total=140)
+# Expected: All counts match (Sigma=103, Splunk=79, Wazuh=24/28, IR=10, Total=210)
 
 # 3. Generate verified counts (regenerate from live file counts)
 pwsh -NoProfile -File ".\scripts\verify\generate-verified-counts.ps1" -OutFile ".\PROOF_PACK\VERIFIED_COUNTS.md"
@@ -262,10 +262,10 @@ pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
 | Platform | Count | Verification |
 |---|---|---|
 | Sigma (YAML) | 103 rules | `(Get-ChildItem -Recurse .\content\detection-rules\sigma -Filter *.yml).Count` |
-| Splunk (SPL) | 9 queries | `(Get-ChildItem .\content\detection-rules\splunk -Filter *.spl).Count` |
+| Splunk (SPL) | 79 detection searches (9 files) | `(Get-ChildItem .\content\detection-rules\splunk -Filter *.spl).Count` |
 | Wazuh (XML) | 24 files / 28 blocks | `(Get-ChildItem .\content\detection-rules\wazuh\rules -Filter *.xml).Count` |
 | IR Playbooks | 10 | `(Get-ChildItem .\content\incident-response\playbooks -Filter "IR-*.md").Count` |
-| **Total** | **140** | CI-enforced via `verify-counts.ps1` |
+| **Total** | **210** | CI-enforced via `verify-counts.ps1` |
 
 ---
 
@@ -344,7 +344,7 @@ The `site/resume.txt` does not cite specific detection counts — it references 
 | 4 | `CURRENT_DECISIONS.md` exists | `Test-Path CURRENT_DECISIONS.md` | **FAIL** |
 | 5 | `SESSION_LOG_LATEST.md` exists | `Test-Path SESSION_LOG_LATEST.md` | **FAIL** |
 | 6 | Sigma count = 103 (JSON) | `(Get-Content PROOF_PACK/verified_counts.json \| ConvertFrom-Json).counts.sigma -eq 103` | **PASS** |
-| 7 | Total detections = 140 (JSON) | `(Get-Content PROOF_PACK/verified_counts.json \| ConvertFrom-Json).counts.detections -eq 140` | **PASS** |
+| 7 | Total detections = 210 (JSON) | `(Get-Content PROOF_PACK/verified_counts.json \| ConvertFrom-Json).counts.detections -eq 210` | **PASS** |
 | 8 | Physical Sigma files = 103 | `(Get-ChildItem -Recurse content/detection-rules/sigma -Filter *.yml).Count -eq 103` | **PASS** |
 | 9 | Physical Splunk files = 9 | `(Get-ChildItem content/detection-rules/splunk -Filter *.spl).Count -eq 9` | **PASS** |
 | 10 | Physical Wazuh files = 24 | `(Get-ChildItem content/detection-rules/wazuh/rules -Filter *.xml).Count -eq 24` | **PASS** |

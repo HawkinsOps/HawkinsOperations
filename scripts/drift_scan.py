@@ -18,7 +18,10 @@ def parse_verified_counts_md(md_path: Path) -> Dict[str, int]:
 
     patterns = {
         "sigma": re.compile(r"\|\s*\*\*Sigma\*\*.*?\|\s*\*\*(\d+)\*\*\s+rules", re.IGNORECASE),
-        "splunk": re.compile(r"\|\s*\*\*Splunk\*\*.*?\|\s*\*\*(\d+)\*\*\s+queries", re.IGNORECASE),
+        "splunk": re.compile(
+            r"\|\s*\*\*Splunk\*\*.*?\|\s*\*\*\d+\*\*\s+files,\s*\*\*(\d+)\*\*\s+detection searches",
+            re.IGNORECASE,
+        ),
         "wazuh_pair": re.compile(
             r"\|\s*\*\*Wazuh\*\*.*?\|\s*\*\*(\d+)\*\*\s+files,\s*\*\*(\d+)\*\*\s+rule blocks",
             re.IGNORECASE,

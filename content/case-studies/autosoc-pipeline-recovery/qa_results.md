@@ -14,7 +14,7 @@
 | CURRENT_DECISIONS.md exists | FAIL | NOT FOUND in repository |
 | SESSION_LOG_LATEST.md exists | FAIL | NOT FOUND in repository |
 | Sigma=103 (JSON) | PASS | Actual: 103 |
-| Total=140 (JSON) | PASS | Actual: 140 |
+| Total=210 (JSON) | PASS | Actual: 210 |
 | IR=10 (JSON) | PASS | Actual: 10 |
 | Physical Sigma=103 | PASS | Found: 103 |
 | Physical Splunk=9 | PASS | Found: 9 |

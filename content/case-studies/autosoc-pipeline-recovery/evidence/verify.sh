@@ -40,11 +40,11 @@ if [ -f "$REPO_ROOT/PROOF_PACK/verified_counts.json" ]; then
   TOTAL=$(python3 -c "import json; print(json.load(open('$REPO_ROOT/PROOF_PACK/verified_counts.json'))['counts']['detections'])")
 
   check "Sigma count = 103" "$([ "$SIGMA" = "103" ] && echo true || echo false)" "Actual: $SIGMA"
-  check "Splunk count = 9" "$([ "$SPLUNK" = "9" ] && echo true || echo false)" "Actual: $SPLUNK"
+  check "Splunk count = 79" "$([ "$SPLUNK" = "79" ] && echo true || echo false)" "Actual: $SPLUNK"
   check "Wazuh XML files = 24" "$([ "$WAZUH_FILES" = "24" ] && echo true || echo false)" "Actual: $WAZUH_FILES"
   check "Wazuh rule blocks = 28" "$([ "$WAZUH_BLOCKS" = "28" ] && echo true || echo false)" "Actual: $WAZUH_BLOCKS"
   check "IR playbooks = 10" "$([ "$IR" = "10" ] && echo true || echo false)" "Actual: $IR"
-  check "Total detections = 140" "$([ "$TOTAL" = "140" ] && echo true || echo false)" "Actual: $TOTAL"
+  check "Total detections = 210" "$([ "$TOTAL" = "210" ] && echo true || echo false)" "Actual: $TOTAL"
 fi
 
 # ── Check 9-12: Physical file counts ──
