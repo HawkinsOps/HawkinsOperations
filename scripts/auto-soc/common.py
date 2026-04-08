@@ -7,8 +7,8 @@ from pathlib import Path
 from typing import Any, Dict
 
 
-OPS_ROOT = Path(os.getenv("OPS_ROOT", r"C:\RH\OPS"))
-AUTOSOC_ROOT = Path(os.getenv("AUTOSOC_ROOT", str(OPS_ROOT / "30_Projects" / "Active" / "AutoSOC")))
+OPS_ROOT = Path(os.getenv("OPS_ROOT") or r"C:\RH\OPS")
+AUTOSOC_ROOT = Path(os.getenv("AUTOSOC_ROOT") or str(OPS_ROOT / "30_Projects" / "Active" / "AutoSOC"))
 BUILD_ROOT = AUTOSOC_ROOT / "Build"
 CONFIG_ROOT = BUILD_ROOT / "Config"
 QUEUE_ROOT = BUILD_ROOT / "Queue"

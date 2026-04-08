@@ -1,8 +1,13 @@
 param(
-    [string]$CsvPath = "C:\RH\OPS\50_System\Runs\Reports\autosoc-triage-quality-history.csv",
-    [string]$OutPath = "C:\RH\OPS\50_System\Runs\Reports\autosoc-triage-quality-trend.png",
+    [string]$CsvPath,
+    [string]$OutPath,
     [int]$LastN = 30
 )
+
+$OpsRoot = if ($env:OPS_ROOT) { $env:OPS_ROOT } else { "C:\RH\OPS" }
+$ReportsDir = Join-Path $OpsRoot "50_System/Runs/Reports"
+if (-not $CsvPath) { $CsvPath = Join-Path $ReportsDir "autosoc-triage-quality-history.csv" }
+if (-not $OutPath) { $OutPath = Join-Path $ReportsDir "autosoc-triage-quality-trend.png" }
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
