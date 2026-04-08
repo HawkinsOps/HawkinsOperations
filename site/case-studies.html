@@ -71,6 +71,7 @@ body {
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
       <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">SignalFoundry</a></li>
       <li><a href="/case-studies">Case Studies</a></li>
       <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/proof">Proof</a></li>
@@ -82,6 +83,7 @@ body {
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
   <a href="/">Home</a>
+  <a href="/case-study-autosoc">SignalFoundry</a>
   <a href="/case-studies">Case Studies</a>
   <a href="/enterprise-security">Enterprise Security</a>
   <a href="/proof">Proof</a>
@@ -95,6 +97,23 @@ body {
     <div class="m-eyebrow">Portfolio</div>
     <h1 class="m-title" style="font-size:clamp(2.2rem,4vw,3.5rem);">Case Studies</h1>
     <p class="m-subtitle" style="max-width:680px;">Technical case studies from the SignalFoundry project. Each documents what happened, what I did, what the evidence shows, and how a reviewer can verify the claims. No sanitized post-mortems &mdash; these are built from session logs and proof artifacts.</p>
+
+    <div class="cs-section-label">Flagship System</div>
+    <div class="cs-index-grid">
+
+      <a class="cs-card" href="/case-study-autosoc" style="border-top:2px solid #00c4d4;">
+        <div class="cs-card-type">Flagship System</div>
+        <div class="cs-card-title">SignalFoundry</div>
+        <div class="cs-card-desc">The 35-script Python pipeline behind HawkinsOps. Ingests Wazuh alerts, triages by policy, enforces redaction, and publishes gated evidence packs. 324,074 cases processed, ~88% auto-closed, 8,574 escalation packs. Architecture, triage logic, pipeline recovery, and system context.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag teal">Flagship</span>
+          <span class="cs-card-tag green">324,074 cases</span>
+          <span class="cs-card-tag green">~88% auto-close</span>
+        </div>
+        <div class="cs-card-arrow">View system page &rarr;</div>
+      </a>
+
+    </div>
 
     <div class="cs-section-label">Case Studies</div>
     <div class="cs-index-grid">
@@ -319,8 +338,8 @@ body {
       <p class="m-copy">The SignalFoundry project processes a live queue of Wazuh security alerts across a home lab environment. These case studies capture the operational and engineering decisions made while keeping that system running and improving its detection capability.</p>
       <div class="m-grid-2" style="margin-top:20px;">
         <a href="/case-study-autosoc" class="m-link-item">
-          <strong>SignalFoundry &mdash; Full Case Study</strong>
-          <span>Architecture, triage logic, and proof strips for the AutoSOC pipeline.</span>
+          <strong>SignalFoundry &mdash; Flagship System Page</strong>
+          <span>Architecture, triage logic, pipeline recovery, and system context for the SignalFoundry engine.</span>
         </a>
         <a href="/proof" class="m-link-item">
           <strong>Proof &amp; Verified Metrics</strong>
