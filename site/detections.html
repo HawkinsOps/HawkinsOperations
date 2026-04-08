@@ -96,9 +96,23 @@
 /* Pipeline strip */
 .pipe-section{padding:40px 0;text-align:center;}
 .pipe-flow{display:flex;justify-content:center;align-items:center;gap:0;flex-wrap:wrap;margin-top:16px;}
-.pipe-node{padding:10px 18px;background:rgba(17,24,39,0.6);border:1px solid rgba(122,184,255,0.12);border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:#d4e0ec;}
+.pipe-node{padding:10px 18px;background:rgba(17,24,39,0.6);border:1px solid rgba(122,184,255,0.12);border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:#d4e0ec;transition:all .25s cubic-bezier(.22,1,.36,1);cursor:default;}
+.pipe-node:hover{border-color:rgba(0,212,255,.4);color:#00d4ff;transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,212,255,.1);}
 .pipe-node.active{border-color:rgba(122,184,255,0.3);color:#7ab8ff;font-weight:600;}
 .pipe-arr{color:#3d5273;font-size:1.2rem;padding:0 6px;}
+
+/* Platform visual bars */
+.det-platform-bars{max-width:600px;margin:32px auto 0;display:flex;flex-direction:column;gap:12px;}
+.det-pbar{display:grid;grid-template-columns:80px 1fr 50px;gap:12px;align-items:center;}
+.det-pbar-label{font-family:'JetBrains Mono',monospace;font-size:0.78rem;font-weight:600;color:#d4e0ec;}
+.det-pbar-track{height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden;position:relative;}
+.det-pbar-fill{height:100%;border-radius:4px;transition:width 1.2s cubic-bezier(.22,1,.36,1);width:0;}
+.det-pbar-fill.animate{/* width set by JS */}
+.det-pbar-count{font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:700;text-align:right;}
+
+/* Hero glow */
+.det-hero{position:relative;overflow:hidden;}
+.det-hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(0,212,255,.06) 0%,transparent 70%);pointer-events:none;}
 
 /* Verification */
 .ver-section{padding:40px 0 60px;}
@@ -199,6 +213,31 @@
         <li>Every rule feeds SignalFoundry&rsquo;s 7-stage triage pipeline and produces auditable evidence</li>
         <li>Pipeline outcome: ~88% auto-close rate, 8,574 escalations with evidence packs attached</li>
       </ul>
+    </div>
+
+    <!-- Platform visual bars -->
+    <div class="det-platform-bars" data-aos="fade-up">
+      <div class="det-pbar">
+        <span class="det-pbar-label" style="color:#7ab8ff;">Sigma</span>
+        <div class="det-pbar-track"><div class="det-pbar-fill" data-bar-width="100" style="background:linear-gradient(90deg,rgba(122,184,255,.5),rgba(122,184,255,.25));"></div></div>
+        <span class="det-pbar-count" style="color:#7ab8ff;" data-verified="sigma">103</span>
+      </div>
+      <div class="det-pbar">
+        <span class="det-pbar-label" style="color:#00c4d4;">Wazuh</span>
+        <div class="det-pbar-track"><div class="det-pbar-fill" data-bar-width="27" style="background:linear-gradient(90deg,rgba(0,196,212,.5),rgba(0,196,212,.25));"></div></div>
+        <span class="det-pbar-count" style="color:#00c4d4;" data-verified="wazuh">28</span>
+      </div>
+      <div class="det-pbar">
+        <span class="det-pbar-label" style="color:#4ade80;">Splunk</span>
+        <div class="det-pbar-track"><div class="det-pbar-fill" data-bar-width="77" style="background:linear-gradient(90deg,rgba(74,222,128,.5),rgba(74,222,128,.25));"></div></div>
+        <span class="det-pbar-count" style="color:#4ade80;" data-verified="splunk">79</span>
+      </div>
+      <div class="det-pbar">
+        <span class="det-pbar-label" style="color:#fbbf24;">IR</span>
+        <div class="det-pbar-track"><div class="det-pbar-fill" data-bar-width="10" style="background:linear-gradient(90deg,rgba(251,191,36,.5),rgba(251,191,36,.25));"></div></div>
+        <span class="det-pbar-count" style="color:#fbbf24;" data-verified="ir">10</span>
+      </div>
+      <div style="text-align:center;margin-top:4px;"><span style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:#3d5273;">Splunk: home lab only. Not an enterprise or production SOC claim.</span></div>
     </div>
   </div>
 
@@ -623,6 +662,21 @@ applyFilters();
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
 <script src="/assets/js/site-effects.js"></script>
+<script>
+(function(){
+  var bars=document.querySelectorAll('.det-pbar-fill[data-bar-width]');
+  if(!bars.length)return;
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting&&!e.target.dataset.animated){
+        e.target.dataset.animated='1';
+        e.target.style.width=e.target.dataset.barWidth+'%';
+      }
+    });
+  },{threshold:0.3});
+  bars.forEach(function(b){obs.observe(b);});
+})();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script>
 (function(){
