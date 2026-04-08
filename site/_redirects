@@ -6,10 +6,10 @@
 /lab /soc-lab 301
 /triage /soc-lab 301
 /march-2026-release /march-2026-release.html 200
-/signalfoundry /case-study-autosoc 301
-/signalfoundry/ /case-study-autosoc 301
-/case-study-autosoc/ /case-study-autosoc 301
-/case-study-autosoc.html /case-study-autosoc 301
+/case-study-autosoc /signalfoundry 301
+/case-study-autosoc/ /signalfoundry 301
+/case-study-autosoc.html /signalfoundry 301
+/signalfoundry/ /signalfoundry 301
 /proof/honeypot /honeypot-proof.html 200
 /blog-python2-to-python3 /404 301
 /blog-python2-to-python3.html /404 301
