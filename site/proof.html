@@ -371,9 +371,10 @@ body.proof-page {
       <!-- Detection inventory strip -->
       <div class="m-proof-strip" style="margin-bottom:24px;">
         <div class="m-proof-inline">
-          <strong><span data-verified="detections">210</span> detections</strong>
+          <strong><span data-verified="detections">210</span> detection rules + 10 IR playbooks</strong>
           <strong><span data-verified="sigma">103</span> Sigma</strong>
           <strong><span data-verified="wazuh">28</span> Wazuh rule blocks</strong>
+          <strong><span data-verified="splunk">79</span> Splunk SPL (lab)</strong>
           <strong><span data-verified="ir">10</span> IR playbooks</strong>
         </div>
       </div>
@@ -446,7 +447,7 @@ body.proof-page {
 
         <!-- Detection Inventory Chart -->
         <div class="sf-card" data-aos="fade-up" style="padding:24px;">
-          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Detection Inventory &mdash; <span data-verified="detections">210</span> Total</div>
+          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted,#8ea4c7);margin-bottom:14px;">Detection Inventory &mdash; <span data-verified="detections">210</span> Rules + 10 IR</div>
           <!-- Sigma -->
           <div style="margin-bottom:14px;">
             <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
@@ -501,9 +502,9 @@ body.proof-page {
         <div class="m-card-kicker" data-aos="fade-up">AutoSOC case</div>
         <h2>TITLE: AutoSOC Noise-Reduction Proof Block (2026-03-24 Snapshot)</h2>
         <p class="m-copy"><strong>CLAIM:</strong> AutoSOC processed <span data-ops="stable_total_cases">324,074</span> alerts, auto-closed <span data-ops="stable_auto_closed_benign">~88%</span>, and produced <span data-ops="stable_escalated">8,574</span> escalations across <span data-ops="stable_coverage_ratio">8/8</span> coverage.</p>
-        <p class="m-copy"><strong>CONTEXT:</strong> Current-facing metrics on this page are locked to the March 24 canonical snapshot. Historical recovery evidence remains linked as historical context only.</p>
+        <p class="m-copy"><strong>CONTEXT:</strong> Current-facing metrics on this page are locked to the April 7, 2026 canonical snapshot. Historical recovery evidence remains linked as historical context only.</p>
         <ul class="m-list-tight">
-          <li><strong>EVIDENCE:</strong> <code>source_of_truth/metrics_canonical_2026-03-20.json</code> -> <code>total_cases=324074</code>, <code>auto_close_rate_label=~88%</code>, <code>escalations_label=8,574</code>, <code>hosts_reporting=8/8</code>; proves canonical quantified baseline.</li>
+          <li><strong>EVIDENCE:</strong> <code>data/truth/current-authority.json</code> -> <code>total_cases=324074</code>, <code>auto_close_rate_label=~88%</code>, <code>escalations_label=8,574</code>, <code>hosts_reporting=8/8</code>; proves canonical quantified baseline.</li>
           <li><strong>EVIDENCE:</strong> <code>docs/execution/AUTOSOC_PIPELINE_RECOVERY_CASE_STUDY_03-13-2026.md</code> -> final run shows <code>run_id=autosoc-20260313T215029Z-31020</code>, <code>status=SUCCESS</code>, <code>cases_processed=173</code>, <code>reconciliation.mismatch_count=0</code>; proves real output and validated recovery.</li>
           <li><strong>EVIDENCE:</strong> <code>/assets/pp_soc_integration/t3-workflow.png</code> -> proves a concrete workflow snapshot of the triage and evidence-pack pipeline surface.</li>
         </ul>
@@ -621,7 +622,7 @@ body.proof-page {
     <div class="m-wrap">
       <div class="m-eyebrow">Historical Reference</div>
       <h2 class="m-title" style="font-size: clamp(1.4rem, 2.5vw, 2rem);">Historical Evidence Artifacts</h2>
-      <p class="m-copy">The following artifacts pre-date the March 24 authority snapshot. They are preserved as supporting evidence for the operational timeline but <strong>must not be read as current authority</strong>.</p>
+      <p class="m-copy">The following artifacts pre-date the April 7, 2026 authority snapshot. They are preserved as supporting evidence for the operational timeline but <strong>must not be read as current authority</strong>.</p>
 
       <div class="m-grid-2" style="margin-top:24px;">
         <article class="m-card">
@@ -764,12 +765,12 @@ body.proof-page {
   <div class="proof-modal-divider"></div>
   <div class="proof-modal-section">
     <h4>Label format</h4>
-    <p>Displayed as <code>~88%</code> (approximate label) because the operational ledger uses integer counts and the displayed percentage is rounded. The raw combined count is <code>auto_closed_benign + known_fp = 284,857</code>.</p>
+    <p>Displayed as <code>~88%</code> (approximate label) because the operational ledger uses integer counts and the displayed percentage is rounded. The raw combined count is <code>auto_closed_benign + known_fp = 285,625</code>.</p>
   </div>
   <div class="proof-modal-section">
-    <span class="proof-modal-tag">284,857 auto-closed</span>
+    <span class="proof-modal-tag">285,625 auto-closed</span>
     <span class="proof-modal-tag">324,074 total</span>
-    <span class="proof-modal-tag">5,898 known_fp</span>
+    <span class="proof-modal-tag">85,953 known_fp</span>
   </div>
 </template>
 
