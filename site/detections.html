@@ -64,8 +64,8 @@
 /* Detection grid */
 .det-grid-section{padding:20px 0 60px;}
 .det-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-.det-card{padding:14px 16px;background:rgba(17,24,39,0.5);border:1px solid rgba(122,184,255,0.08);border-left:3px solid rgba(122,184,255,0.2);border-radius:3px;transition:border-color 0.15s;}
-.det-card:hover{border-color:rgba(122,184,255,0.25);}
+.det-card{padding:14px 16px;background:rgba(17,24,39,0.5);border:1px solid rgba(122,184,255,0.08);border-left:3px solid rgba(122,184,255,0.2);border-radius:3px;transition:all 0.15s ease;}
+.det-card:hover{border-color:rgba(122,184,255,0.25);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.15);}
 .det-card .dtitle{font-size:0.82rem;font-weight:600;color:#e5edff;margin:0 0 6px;line-height:1.3;}
 .det-card .dmeta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
 .det-card .dtag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:2px 6px;border-radius:2px;text-transform:uppercase;letter-spacing:0.04em;}
@@ -121,7 +121,29 @@
 @media(max-width:600px){
   .det-grid{grid-template-columns:1fr;}
   .mitre-bar{grid-template-columns:80px 1fr 30px;}
+  .platform-strip{grid-template-columns:repeat(2,1fr);}
 }
+
+/* Platform inventory strip */
+.platform-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:28px 0;border-bottom:1px solid rgba(122,184,255,0.06);}
+.ps-item{text-align:center;padding:14px 8px;border-right:1px solid rgba(122,184,255,0.04);}
+.ps-item:last-child{border-right:none;}
+.ps-item .ps-count{font-family:'JetBrains Mono',monospace;font-size:1.15rem;font-weight:700;}
+.ps-item .ps-count.c-sigma{color:#7ab8ff;}
+.ps-item .ps-count.c-wazuh{color:#00c4d4;}
+.ps-item .ps-count.c-splunk{color:#4ade80;}
+.ps-item .ps-count.c-ir{color:#fbbf24;}
+.ps-item .ps-label{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.06em;color:#7a94aa;margin-top:3px;}
+.ps-item .ps-detail{font-size:0.56rem;color:#3d5273;margin-top:2px;}
+
+/* Collection card (Splunk grouped) */
+.det-card.collection{border-left-color:rgba(74,222,128,0.35);position:relative;}
+.det-card.collection:hover{border-color:rgba(74,222,128,0.3);border-left-color:rgba(74,222,128,0.5);}
+.det-card .search-badge{display:inline-flex;align-items:center;gap:3px;font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:2px 7px;border-radius:2px;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);color:#4ade80;margin-left:auto;}
+.det-card .collection-label{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.06em;color:#3d5273;margin-top:5px;}
+
+/* Filter context line */
+.filter-context{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#3d5273;margin-top:6px;min-height:1em;}
 </style>
 </head>
 <body>
@@ -285,6 +307,30 @@
     <p class="sec-sub" style="margin:16px auto 0;text-align:center;">Every detection on this page has been counted from the repo, verified by CI, and tested against lab telemetry. Platform-specific claim ceilings apply &mdash; see <a href="/proof" style="color:#7ab8ff;text-decoration:underline;">Proof</a> for reconciled totals.</p>
   </div>
 
+  <!-- PLATFORM INVENTORY -->
+  <div class="platform-strip">
+    <div class="ps-item">
+      <div class="ps-count c-sigma" data-verified="sigma">103</div>
+      <div class="ps-label">Sigma Rules</div>
+      <div class="ps-detail">YAML detection rules</div>
+    </div>
+    <div class="ps-item">
+      <div class="ps-count c-wazuh" data-verified="wazuh">28</div>
+      <div class="ps-label">Wazuh Rule Blocks</div>
+      <div class="ps-detail">across 24 XML files</div>
+    </div>
+    <div class="ps-item">
+      <div class="ps-count c-splunk">79</div>
+      <div class="ps-label">Splunk Searches</div>
+      <div class="ps-detail">across 9 SPL files (lab)</div>
+    </div>
+    <div class="ps-item">
+      <div class="ps-count c-ir" data-verified="ir">10</div>
+      <div class="ps-label">IR Playbooks</div>
+      <div class="ps-detail">7-step structured format</div>
+    </div>
+  </div>
+
   <!-- FILTER BAR -->
   <div class="filter-section" id="filterBar">
     <div class="filter-row">
@@ -294,8 +340,9 @@
       <button class="fbtn" data-filter="wazuh" onclick="filterDet('wazuh')">Wazuh</button>
       <button class="fbtn" data-filter="splunk" onclick="filterDet('splunk')">Splunk</button>
       <button class="fbtn" data-filter="ir" onclick="filterDet('ir')">IR</button>
-      <span class="filter-count" id="filterCount"><span data-verified="detections">210</span> shown</span>
+      <span class="filter-count" id="filterCount">210 detections</span>
     </div>
+    <div class="filter-context" id="filterContext">Splunk shown as 9 grouped collections representing 79 detection searches</div>
   </div>
 
   <!-- DETECTION GRID -->
@@ -476,16 +523,17 @@ var DETECTIONS=[
 {t:"Brute Force \u2014 RDP",p:"wazuh",s:"medium",tac:"credential-access",tech:"T1110"},
 {t:"Log Tampering Detection",p:"wazuh",s:"high",tac:"defense-evasion",tech:"T1070"},
 {t:"Suspicious Cron Modification",p:"wazuh",s:"medium",tac:"persistence",tech:"T1053"},
-// Splunk SPL
-{t:"Execution Detections",p:"splunk",s:"medium",tac:"execution",tech:"T1059"},
-{t:"Persistence Detections",p:"splunk",s:"medium",tac:"persistence",tech:"T1547"},
-{t:"Privilege Escalation Detections",p:"splunk",s:"medium",tac:"privilege-escalation",tech:"T1548"},
-{t:"Defense Evasion Detections",p:"splunk",s:"medium",tac:"defense-evasion",tech:"T1070"},
-{t:"Credential Access Detections",p:"splunk",s:"medium",tac:"credential-access",tech:"T1003"},
-{t:"Discovery Detections",p:"splunk",s:"low",tac:"discovery",tech:"T1087"},
-{t:"Lateral Movement Detections",p:"splunk",s:"medium",tac:"lateral-movement",tech:"T1021"},
-{t:"Collection/Exfil/Impact",p:"splunk",s:"medium",tac:"collection",tech:"T1560"},
-{t:"Windows Security EventLog",p:"splunk",s:"medium",tac:"defense-evasion",tech:"T1070"},
+// Splunk SPL — 79 detection searches across 9 SPL files (lab environment)
+// sc = individual detection search count per SPL file
+{t:"Execution Detections",p:"splunk",s:"medium",tac:"execution",tech:"T1059",sc:8},
+{t:"Persistence Detections",p:"splunk",s:"medium",tac:"persistence",tech:"T1547",sc:7},
+{t:"Privilege Escalation Detections",p:"splunk",s:"medium",tac:"privilege-escalation",tech:"T1548",sc:6},
+{t:"Defense Evasion Detections",p:"splunk",s:"medium",tac:"defense-evasion",tech:"T1070",sc:9},
+{t:"Credential Access Detections",p:"splunk",s:"medium",tac:"credential-access",tech:"T1003",sc:8},
+{t:"Discovery Detections",p:"splunk",s:"low",tac:"discovery",tech:"T1087",sc:9},
+{t:"Lateral Movement Detections",p:"splunk",s:"medium",tac:"lateral-movement",tech:"T1021",sc:8},
+{t:"Collection / Exfiltration / Impact",p:"splunk",s:"medium",tac:"collection",tech:"T1560",sc:20},
+{t:"Windows Security EventLog",p:"splunk",s:"medium",tac:"defense-evasion",tech:"T1070",sc:4},
 // IR Playbooks
 {t:"IR-001: LSASS Access Response",p:"ir",s:"critical",tac:"credential-access",tech:"T1003"},
 {t:"IR-002: Suspicious PowerShell",p:"ir",s:"high",tac:"execution",tech:"T1059"},
@@ -505,11 +553,17 @@ function renderCards(list){
   grid.innerHTML='';
   list.forEach(function(d){
     var card=document.createElement('div');
-    card.className='det-card';
+    card.className='det-card'+(d.sc?' collection':'');
     card.setAttribute('data-platform',d.p);
     card.setAttribute('data-tactic',d.tac);
     card.setAttribute('data-severity',d.s);
-    card.innerHTML='<div class="dtitle">'+d.t+'</div><div class="dmeta"><span class="dtag '+d.p+'">'+d.p+'</span><span class="dtag sev-'+d.s+'">'+d.s+'</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">'+d.tech+'</span></div><div class="dtactic">'+d.tac.replace(/-/g,' ')+'</div>';
+    if(d.sc)card.setAttribute('data-searches',d.sc);
+    var html='<div class="dtitle">'+d.t+'</div><div class="dmeta"><span class="dtag '+d.p+'">'+d.p+'</span><span class="dtag sev-'+d.s+'">'+d.s+'</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">'+d.tech+'</span>';
+    if(d.sc)html+='<span class="search-badge">'+d.sc+' searches</span>';
+    html+='</div>';
+    if(d.sc)html+='<div class="collection-label">SPL collection &middot; '+d.tac.replace(/-/g,' ')+'</div>';
+    else html+='<div class="dtactic">'+d.tac.replace(/-/g,' ')+'</div>';
+    card.innerHTML=html;
     grid.appendChild(card);
   });
 }
@@ -525,16 +579,34 @@ function filterDet(f){
 document.getElementById('detSearch').addEventListener('input',function(){applyFilters();});
 function applyFilters(){
   var q=document.getElementById('detSearch').value.toLowerCase();
-  var shown=0;
+  var shown=0,splunkColl=0,splunkSearches=0;
   var cards=grid.querySelectorAll('.det-card');
   cards.forEach(function(c){
     var matchPlatform=activeFilter==='all'||c.getAttribute('data-platform')===activeFilter;
     var matchSearch=!q||c.textContent.toLowerCase().indexOf(q)!==-1;
     var vis=matchPlatform&&matchSearch;
     c.hidden=!vis;
-    if(vis)shown++;
+    if(vis){
+      shown++;
+      if(c.getAttribute('data-platform')==='splunk'){
+        splunkColl++;
+        splunkSearches+=parseInt(c.getAttribute('data-searches')||'1');
+      }
+    }
   });
-  document.getElementById('filterCount').textContent=shown+' shown';
+  var countEl=document.getElementById('filterCount');
+  var ctxEl=document.getElementById('filterContext');
+  var totalDet=(shown-splunkColl)+splunkSearches;
+  if(activeFilter==='splunk'){
+    countEl.textContent=splunkColl+' collection'+(splunkColl!==1?'s':'')+' shown';
+    ctxEl.textContent=splunkSearches+' detection searches across '+splunkColl+' SPL file'+(splunkColl!==1?'s':'')+' (lab)';
+  } else if(!q&&activeFilter==='all'){
+    countEl.textContent=totalDet+' detections';
+    ctxEl.textContent='Splunk shown as '+splunkColl+' grouped collections representing '+splunkSearches+' searches';
+  } else {
+    countEl.textContent=totalDet+' detection'+(totalDet!==1?'s':'')+' shown';
+    ctxEl.textContent=splunkColl>0?'includes '+splunkColl+' Splunk collection'+(splunkColl!==1?'s':'')+' ('+splunkSearches+' searches)':'';
+  }
 }
 // Set "all" active on load
 document.querySelector('.fbtn[data-filter="all"]').classList.add('active');
