@@ -167,11 +167,12 @@ jobs:
           retention-days: 7
 
   heartbeat:
-    needs: run-pipeline
+    needs: [poll-alerts, triage, run-pipeline]
     if: always()
     runs-on: self-hosted
     permissions:
       contents: read
+      issues: write
 
     steps:
       - name: Checkout repository
@@ -200,6 +201,100 @@ jobs:
           name: heartbeat-output
           path: scripts/auto-soc/heartbeat_output.txt
           retention-days: 30
+
+      - name: Alert on pipeline failure
+        if: >-
+          always() && (
+            needs.poll-alerts.result == 'failure' ||
+            needs.triage.result == 'failure' ||
+            needs.run-pipeline.result == 'failure'
+          )
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          poll_result="${{ needs.poll-alerts.result }}"
+          triage_result="${{ needs.triage.result }}"
+          pipeline_result="${{ needs.run-pipeline.result }}"
+          run_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          # Build failure summary
+          failed_jobs=""
+          [ "$poll_result" = "failure" ] && failed_jobs="poll-alerts ($poll_result)"
+          [ "$triage_result" = "failure" ] && failed_jobs="${failed_jobs:+$failed_jobs, }triage ($triage_result)"
+          [ "$pipeline_result" = "failure" ] && failed_jobs="${failed_jobs:+$failed_jobs, }run-pipeline ($pipeline_result)"
+
+          # Check for existing open alert issue
+          existing=$(gh issue list \
+            --repo "${{ github.repository }}" \
+            --label "pipeline-alert" \
+            --state open \
+            --json number,title \
+            --jq '.[0].number // empty' 2>/dev/null || true)
+
+          if [ -n "$existing" ]; then
+            # Add a comment to the existing issue instead of creating a new one
+            gh issue comment "$existing" \
+              --repo "${{ github.repository }}" \
+              --body "Pipeline still failing at $(date -u +%Y-%m-%dT%H:%M:%SZ). Failed jobs: ${failed_jobs}. [Run log](${run_url})"
+            echo "::error::Pipeline failure — updated existing issue #${existing}"
+          else
+            # Create the pipeline-alert label if it doesn't exist
+            gh label create "pipeline-alert" \
+              --repo "${{ github.repository }}" \
+              --color "D93F0B" \
+              --description "Automated alert: AutoSOC pipeline failure" \
+              --force 2>/dev/null || true
+
+            gh issue create \
+              --repo "${{ github.repository }}" \
+              --title "AutoSOC pipeline failure: ${failed_jobs}" \
+              --label "pipeline-alert" \
+              --body "## AutoSOC Pipeline Failure
+
+          The autosoc-pipeline workflow has failing jobs that require attention.
+
+          **Failed jobs:** ${failed_jobs}
+          **Run:** [${run_url}](${run_url})
+          **Time:** $(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+          ### Common causes
+          - **poll-alerts 401:** Wazuh indexer password was rotated — update \`WAZUH_INDEXER_PASS\` secret
+          - **run-pipeline assemble:** Malformed case data — check runner logs
+          - **triage failure:** Policy config or queue corruption
+
+          ### To resolve
+          1. Fix the root cause
+          2. Verify the pipeline passes
+          3. Close this issue
+
+          _This issue was created automatically. Subsequent failures will be added as comments until this issue is closed._"
+            echo "::error::Pipeline failure — created new alert issue"
+          fi
+
+      - name: Auto-close alert on success
+        if: >-
+          always() &&
+            needs.poll-alerts.result != 'failure' &&
+            needs.triage.result != 'failure' &&
+            needs.run-pipeline.result != 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          existing=$(gh issue list \
+            --repo "${{ github.repository }}" \
+            --label "pipeline-alert" \
+            --state open \
+            --json number \
+            --jq '.[0].number // empty' 2>/dev/null || true)
+
+          if [ -n "$existing" ]; then
+            gh issue close "$existing" \
+              --repo "${{ github.repository }}" \
+              --comment "Pipeline is healthy again as of $(date -u +%Y-%m-%dT%H:%M:%SZ). Auto-closing. [Run log](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+            echo "Pipeline recovered — auto-closed issue #${existing}"
+          fi
 
       - name: Post job summary
         if: always()
