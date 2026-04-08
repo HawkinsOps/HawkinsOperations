@@ -601,7 +601,7 @@ function applyFilters(){
     countEl.textContent=splunkColl+' collection'+(splunkColl!==1?'s':'')+' shown';
     ctxEl.textContent=splunkSearches+' detection searches across '+splunkColl+' SPL file'+(splunkColl!==1?'s':'')+' (lab)';
   } else if(!q&&activeFilter==='all'){
-    countEl.textContent='210 detection rules + 10 IR playbooks';
+    var heroCount=document.querySelector('[data-verified="detections"]');var irCount=document.querySelector('[data-verified="ir"]');countEl.textContent=(heroCount?heroCount.textContent:'210')+' detection rules + '+(irCount?irCount.textContent:'10')+' IR playbooks';
     ctxEl.textContent='Splunk shown as '+splunkColl+' grouped collections representing '+splunkSearches+' searches';
   } else {
     countEl.textContent=totalDet+' detection'+(totalDet!==1?'s':'')+' shown';
