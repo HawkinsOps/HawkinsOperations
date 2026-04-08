@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Wazuh Windows Telemetry Remediation — Three Phases, Zero to Full Visibility | HawkinsOps</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07070b">
+<meta name="description" content="Case study: three-phase restoration of Windows process creation telemetry across a multi-agent Wazuh deployment. Alert-level threshold, broken indexer pipeline, and unconfigured Sysmon — all diagnosed and fixed with end-to-end proof.">
+<link rel="canonical" href="https://hawkinsops.com/case-study-wazuh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Wazuh Windows Telemetry Remediation | HawkinsOps">
+<meta property="og:description" content="Three-phase restoration of Windows process creation telemetry. Alert-level threshold, broken indexer pipeline, unconfigured Sysmon — diagnosed and fixed with proof.">
+<meta property="og:url" content="https://hawkinsops.com/case-study-wazuh">
+<meta property="og:image" content="https://hawkinsops.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Wazuh Windows Telemetry Remediation | HawkinsOps">
+<meta name="twitter:description" content="Three-phase restoration of Windows process creation telemetry. Alert-level threshold, broken indexer pipeline, unconfigured Sysmon — diagnosed and fixed with proof.">
+<meta name="twitter:image" content="https://hawkinsops.com/assets/og-image.png">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.setAttribute('data-theme','dark');</script>
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/modernize.css?v=03-24-2026-1">
+<link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
+<style>
+body {
+  background:
+    radial-gradient(ellipse 100% 55% at 0% 0%,rgba(41,121,200,0.09) 0%,transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 100%,rgba(0,196,212,0.07) 0%,transparent 55%),
+    #03060b !important;
+}
+.cs-meta { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 0; }
+.cs-meta-tag {
+  padding:3px 12px; border-radius:20px; font-size:10px; font-weight:700;
+  font-family:'JetBrains Mono',monospace; letter-spacing:.5px;
+  background:rgba(41,121,200,.1); color:#6aaad8; border:1px solid rgba(41,121,200,.2);
+}
+.cs-meta-tag.green { background:rgba(39,201,122,.1); color:#27c97a; border-color:rgba(39,201,122,.2); }
+.cs-meta-tag.teal  { background:rgba(0,196,212,.1);  color:#00c4d4; border-color:rgba(0,196,212,.2); }
+.cs-meta-tag.orange { background:rgba(232,160,32,.1); color:#e8a020; border-color:rgba(232,160,32,.2); }
+.cs-meta-tag.red { background:rgba(239,68,68,.1); color:#ef4444; border-color:rgba(239,68,68,.2); }
+.cs-prose { max-width:740px; }
+.cs-prose p { margin:0 0 16px; line-height:1.75; color:#b8cce0; font-size:1rem; }
+.cs-prose h2 { font-size:1.25rem; color:#e0eeff; margin:36px 0 10px; font-family:'Sora',sans-serif; }
+.cs-prose h3 { font-size:1rem; color:#00c4d4; margin:24px 0 8px; font-weight:600; }
+.cs-prose strong { color:#e0eeff; }
+.cs-nav-back { font-size:.82rem; color:#486880; margin-bottom:24px; display:inline-block; }
+.cs-nav-back:hover { color:#00c4d4; }
+.outcome-bar {
+  border-left:3px solid #27c97a; padding:14px 18px; background:rgba(39,201,122,.05);
+  border-radius:0 6px 6px 0; margin:24px 0;
+}
+.outcome-bar p { margin:0; color:#b8cce0; line-height:1.7; }
+.outcome-bar strong { color:#27c97a; }
+.finding-bar {
+  border-left:3px solid #fbbf24; padding:14px 18px; background:rgba(251,191,36,.05);
+  border-radius:0 6px 6px 0; margin:16px 0;
+}
+.finding-bar p { margin:0; color:#b8cce0; line-height:1.7; }
+.finding-bar strong { color:#fbbf24; }
+.gap-bar {
+  border-left:3px solid #ef4444; padding:14px 18px; background:rgba(239,68,68,.05);
+  border-radius:0 6px 6px 0; margin:16px 0;
+}
+.gap-bar p { margin:0; color:#b8cce0; line-height:1.7; }
+.gap-bar strong { color:#ef4444; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+</head>
+<body data-ops-scope="stable">
+<nav>
+  <div class="nav-i">
+    <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
+    <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
+    <ul class="nav-l">
+      <li><a href="/">Home</a></li>
+      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/enterprise-security">Enterprise Security</a></li>
+      <li><a href="/proof">Proof</a></li>
+      <li><a href="/detections">Detections</a></li>
+      <li><a href="/resume">Resume</a></li>
+    </ul>
+    <a class="btn btn-p nav-cta" href="/resume">Resume</a>
+  </div>
+</nav>
+<div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
+  <a href="/">Home</a>
+  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/enterprise-security">Enterprise Security</a>
+  <a href="/proof">Proof</a>
+  <a href="/detections">Detections</a>
+  <a href="/resume">Resume</a>
+</div>
+
+<main class="modernize-shell">
+<section class="m-section" data-aos="fade-up" style="padding-top:96px;">
+  <div class="m-wrap">
+    <a class="cs-nav-back" href="/case-studies">&larr; All case studies</a>
+    <div class="m-eyebrow">Case Study &mdash; Detection Engineering</div>
+    <h1 class="m-title" style="font-size:clamp(2rem,3.5vw,3.2rem);max-width:820px;">
+      Wazuh Windows Telemetry Remediation: Three Phases, Zero to Full Visibility
+    </h1>
+    <p class="m-subtitle" style="max-width:680px;">A multi-agent Wazuh deployment looked healthy but was blind to Windows process creation. Three independent failures &mdash; an alert-level threshold, a broken indexer pipeline, and unconfigured Sysmon &mdash; were diagnosed and fixed with end-to-end proof.</p>
+    <div class="cs-meta">
+      <span class="cs-meta-tag">2026-04-08</span>
+      <span class="cs-meta-tag red">Zero visibility</span>
+      <span class="cs-meta-tag teal">3-phase remediation</span>
+      <span class="cs-meta-tag green">2,120+ 4688 alerts</span>
+      <span class="cs-meta-tag green">143 Sysmon EID 1</span>
+    </div>
+  </div>
+</section>
+
+<section class="m-section m-stage" data-aos="fade-up">
+  <div class="m-wrap">
+    <div class="m-wrap m-rail-layout">
+      <div class="cs-prose">
+
+        <h2>Problem</h2>
+        <p>The deployment appeared healthy: daemons running, 5,000+ alerts per day, all agents connected. A configuration audit revealed it was blind to Windows process creation &mdash; zero Security Event 4688 alerts and zero Sysmon Event ID 1 alerts had ever been indexed. Custom rules covering MITRE ATT&amp;CK techniques were loaded but had no data to match against.</p>
+        <p>Without process creation telemetry, credential dumping, PowerShell download cradles, lateral movement tools, and LOLBin abuse are all invisible. The rules existed. The telemetry they needed did not.</p>
+
+        <h2>Environment</h2>
+        <div class="m-terminal" style="margin:20px 0;">
+          <div class="m-terminal-head">
+            <span class="m-terminal-label">Deployment overview</span>
+            <span class="m-frame-tag">Wazuh 4.14.4-rc2</span>
+          </div>
+          <pre class="m-code">Manager:           Ubuntu, single-node (manager + indexer + dashboard)
+Total agents:      10 (9 non-manager)
+Windows agents:    2 (Windows 11 Enterprise)
+Linux agents:      7 (Ubuntu, Debian, Linux Mint)
+Custom rules:      28 detection + 5 local operational
+log_alert_level:   5 (only level 5+ alerts indexed)
+OpenSearch shards: 294</pre>
+        </div>
+
+        <h2>Phase 1 &mdash; Alert-Level Threshold</h2>
+        <h3>Root cause</h3>
+        <p>Rule 67027 (Security 4688) fires at level 3. The manager <span class="m-inline-code">log_alert_level=5</span>. Every 4688 event was decoded, matched, and silently discarded because 3 &lt; 5. A second custom rule was also suppressing all 67027 alerts for the primary Windows workstation.</p>
+
+        <div class="finding-bar">
+          <p><strong>Finding:</strong> Alert-level threshold mismatch. Process creation events decoded and matched by rule 67027, then discarded before reaching the indexer because level 3 &lt; log_alert_level 5.</p>
+        </div>
+
+        <h3>Fix</h3>
+        <p>Removed the host-scoped suppression rule. Added rule 100203 (level 5, child of 67027) to elevate Security 4688 above the indexing threshold. Restarted wazuh-manager (8,490 rules loaded, no errors).</p>
+
+        <h3>Validation</h3>
+        <p>Rule 100203 confirmed loaded via API. Manager receiving 20,343+ Windows events, writing 607+ alerts, 0 dropped. But zero alerts were reaching the indexer &mdash; revealing a second, independent break.</p>
+
+        <h2>Phase 2 &mdash; Indexer Connector Restoration</h2>
+        <h3>Root cause</h3>
+        <p>A prior <span class="m-inline-code">securityadmin.sh -cd</span> command had reloaded ALL 10 OpenSearch security config files from disk defaults. This broke two settings simultaneously: <span class="m-inline-code">clientcert_auth_domain.http_enabled</span> was set to false (rejecting the manager&rsquo;s TLS client cert), and the manager&rsquo;s certificate identity had no role mapping (no write permissions even if auth succeeded).</p>
+
+        <div class="finding-bar">
+          <p><strong>Finding:</strong> <span class="m-inline-code">securityadmin.sh -cd</span> is a shotgun, not a scalpel. The <span class="m-inline-code">-cd</span> flag reloads all 10 security configs from disk, not just the one that changed. The correct approach is <span class="m-inline-code">-f &lt;file&gt; -t &lt;type&gt;</span> to scope the change.</p>
+        </div>
+
+        <h3>Fix</h3>
+        <p>Enabled <span class="m-inline-code">clientcert_auth_domain.http_enabled: true</span> in <span class="m-inline-code">config.yml</span>. Added the manager server identity to <span class="m-inline-code">all_access.users</span> in <span class="m-inline-code">roles_mapping.yml</span>. Applied via <span class="m-inline-code">securityadmin.sh</span>, restarted wazuh-manager.</p>
+
+        <h3>Validation</h3>
+        <div class="m-terminal" style="margin:20px 0;">
+          <div class="m-terminal-head">
+            <span class="m-terminal-label">Indexer connector restored</span>
+            <span class="m-frame-tag">PASS</span>
+          </div>
+          <pre class="m-code">IndexerConnector: initialized for ALL indices (25 sec)
+New alerts index: 2,197+ documents, growing real-time
+Rule 100203 hits: 2,120+ (Security 4688 from primary Windows agent)
+Pipeline: Windows 4688 → agent → manager → rule 100203 → indexer → OpenSearch ✓</pre>
+        </div>
+
+        <h2>Phase 3 &mdash; Sysmon Telemetry</h2>
+        <h3>Root cause</h3>
+        <p>Sysmon v15.15 was installed, running, and generating ~39,318 Event ID 7 (ImageLoad) events. But it had no configuration file &mdash; the registry showed only <span class="m-inline-code">DriverName: SysmonDrv</span> with no ConfigFile parameter. Without a config, Event ID 1 (ProcessCreate) is never generated. Additionally, rule 61603 (Sysmon EID 1) fires at level 0 &mdash; the same threshold pattern as Phase 1.</p>
+
+        <div class="finding-bar">
+          <p><strong>Finding:</strong> Sysmon &ldquo;installed and running&rdquo; does not mean &ldquo;configured and generating.&rdquo; 39,318 ImageLoad events created the appearance of telemetry without the substance.</p>
+        </div>
+
+        <h3>Fix</h3>
+        <p>Deployed a minimal Sysmon config (schema 4.90): EID 1 (ProcessCreate) enabled with noise exclusions, EID 7 (ImageLoad) disabled, targeted rules for LOLBin network connections, registry persistence, LSASS access, and DNS queries. Added rule 100204 (level 5, child of 61603) to elevate Sysmon EID 1 above the indexing threshold.</p>
+
+        <h3>Validation</h3>
+        <div class="m-terminal" style="margin:20px 0;">
+          <div class="m-terminal-head">
+            <span class="m-terminal-label">Sysmon EID 1 telemetry restored</span>
+            <span class="m-frame-tag">PASS</span>
+          </div>
+          <pre class="m-code">Sysmon EID 1 events indexed: 143 in first 5 minutes
+Telemetry fields confirmed: process image, command line,
+  parent process, user context
+User-level and SYSTEM-level processes: both captured
+Sample: net.exe user → parent pwsh.exe → user context confirmed</pre>
+        </div>
+
+        <h2>Before / After</h2>
+        <div class="m-terminal" style="margin:20px 0;">
+          <div class="m-terminal-head">
+            <span class="m-terminal-label">Telemetry delta</span>
+            <span class="m-frame-tag">Results</span>
+          </div>
+          <pre class="m-code">                                Before        After
+Security 4688 indexed:          0             2,120+
+Sysmon EID 1 indexed:           0             143+ (first 5 min)
+Sysmon EID 7 noise:             39,318        Disabled
+Alerts reaching indexer:        0             2,197+ (growing)
+OpenSearch client cert auth:    Disabled      Enabled
+Primary endpoint visibility:    Blind         Full (4688 + Sysmon EID 1)</pre>
+        </div>
+
+        <h2>Remaining Gaps</h2>
+        <div class="gap-bar">
+          <p><strong>Secondary endpoint:</strong> Host offline, unreachable. Zero remediation possible &mdash; still blind to process creation.</p>
+        </div>
+        <div class="gap-bar">
+          <p><strong>FIM limit:</strong> Primary endpoint at 99,999/100,000 files monitored. Near capacity.</p>
+        </div>
+
+        <h2>Lessons Learned</h2>
+        <p><strong>The same threshold pattern broke two independent telemetry sources.</strong> Security 4688 (level 3) and Sysmon EID 1 (level 0) both fell below <span class="m-inline-code">log_alert_level=5</span>. Any Wazuh deployment with <span class="m-inline-code">log_alert_level &gt; 3</span> should audit all base event rules to ensure needed events cross the indexing threshold.</p>
+        <p><strong>A broken indexer pipeline is invisible until you look at the index.</strong> The manager continued processing events, writing alerts, and reporting healthy daemon status. The only sign was in connector logs and the absence of new documents in the index.</p>
+        <p><strong>Before-state evidence is the case study.</strong> Every config file, daemon status, and dashboard screenshot was captured before changes. This made it possible to precisely document what was broken, prove what changed, and demonstrate the delta.</p>
+
+        <h2>Verification</h2>
+        <p>A reviewer can confirm these claims through:</p>
+        <ul style="color:#b8cce0;line-height:1.8;padding-left:20px;">
+          <li><strong>Source case study:</strong> <span class="m-inline-code">content/case-studies/wazuh-telemetry-remediation.md</span></li>
+          <li><strong>Evidence:</strong> 14 before-state screenshots, 7 config exports, 20 after-state rule exports with diffs</li>
+          <li><strong>Phase fix documents:</strong> 3 root cause analyses with validation reports</li>
+          <li><strong>Session log:</strong> Complete START/CHANGE/VALIDATION/END entries for all phases</li>
+        </ul>
+
+      </div>
+
+      <aside class="m-rail">
+        <section class="m-rail-section">
+          <div class="m-card-kicker" data-aos="fade-up">At a glance</div>
+          <h2>What happened</h2>
+          <ul class="m-list-tight">
+            <li>Multi-agent deployment blind to process creation</li>
+            <li>3 independent root causes found</li>
+            <li>Alert threshold, indexer auth, Sysmon config</li>
+            <li>All fixed in one session with proof</li>
+            <li>4688 alerts: <strong style="color:#4ade80;">2,120+</strong></li>
+            <li>Sysmon EID 1: <strong style="color:#4ade80;">143 in 5 min</strong></li>
+          </ul>
+        </section>
+        <section class="m-rail-section">
+          <div class="m-card-kicker" data-aos="fade-up">Related</div>
+          <h2>See also</h2>
+          <div class="m-link-list">
+            <a href="/case-study-detection-harness" class="m-link-item">
+              <strong>Wazuh Detection Harness</strong>
+              <span>Automated detection validation with Atomic Red Team.</span>
+            </a>
+            <a href="/case-study-honeypot" class="m-link-item">
+              <strong>Cowrie Honeypot + Wazuh</strong>
+              <span>SSH honeypot feeding Wazuh Indexer with Grafana visualization.</span>
+            </a>
+            <a href="/proof" class="m-link-item">
+              <strong>Proof page</strong>
+              <span>Verified metrics, reconciliation status, canonical snapshot.</span>
+            </a>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="m-section m-stage" data-aos="fade-up">
+  <div class="m-wrap">
+    <div class="m-card" data-aos="fade-up">
+      <div class="m-card-kicker" data-aos="fade-up">Continue reading</div>
+      <h2>More case studies</h2>
+      <div class="m-grid-2">
+        <a href="/case-study-security-hardening" class="m-link-item">
+          <strong>Enterprise Security Hardening</strong>
+          <span>27 subcategories audited against Microsoft baseline. 11 ATT&amp;CK techniques unblocked.</span>
+        </a>
+        <a href="/case-study-splunk-detection-audit" class="m-link-item">
+          <strong>Splunk Detection Rule Audit</strong>
+          <span>Audited every SPL rule. Found four ways they would flood a real analyst with noise.</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="ctr">
+    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
+    <div class="fl">
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
+      <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
+      <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/fetch-utils.js" defer></script>
+<script src="/data/counts.js" defer></script>
+<script src="/data/ops-metrics.js" defer></script>
+<script src="/assets/app.js" defer></script>
+<div id="tsparticles"></div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="/assets/js/site-effects.js"></script>
+</body>
+</html>
