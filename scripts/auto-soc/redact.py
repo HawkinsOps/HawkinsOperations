@@ -27,6 +27,31 @@ def redact_text(text: str) -> str:
     return out
 
 
+def _redact_json_value(obj):
+    """Walk a parsed JSON structure and redact all string values."""
+    if isinstance(obj, str):
+        return redact_text(obj)
+    if isinstance(obj, list):
+        return [_redact_json_value(v) for v in obj]
+    if isinstance(obj, dict):
+        return {k: _redact_json_value(v) for k, v in obj.items()}
+    return obj
+
+
+def redact_json_file(raw: str) -> str:
+    """Parse JSON, redact string values, re-serialize.
+
+    Operating on parsed values avoids breaking JSON escape sequences
+    (e.g. ``\\"`` inside paths) that raw regex replacement can corrupt.
+    """
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError:
+        # Fallback to raw text redaction if JSON is already malformed.
+        return redact_text(raw)
+    return json.dumps(_redact_json_value(data), indent=2, ensure_ascii=False)
+
+
 def copy_and_redact(case_dir: Path, out_dir: Path) -> tuple[Dict[str, int], Path]:
     stats = {"files_total": 0, "files_text": 0, "files_binary": 0}
     if out_dir.exists():
@@ -48,7 +73,10 @@ def copy_and_redact(case_dir: Path, out_dir: Path) -> tuple[Dict[str, int], Path
         if src.suffix.lower() in TEXT_EXTS:
             stats["files_text"] += 1
             raw = src.read_text(encoding="utf-8", errors="ignore")
-            dst.write_text(redact_text(raw), encoding="utf-8")
+            if src.suffix.lower() == ".json":
+                dst.write_text(redact_json_file(raw), encoding="utf-8")
+            else:
+                dst.write_text(redact_text(raw), encoding="utf-8")
         else:
             stats["files_binary"] += 1
             shutil.copy2(src, dst)
