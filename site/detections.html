@@ -320,7 +320,7 @@
       <div class="ps-detail">across 24 XML files</div>
     </div>
     <div class="ps-item">
-      <div class="ps-count c-splunk">79</div>
+      <div class="ps-count c-splunk" data-verified="splunk">79</div>
       <div class="ps-label">Splunk Searches</div>
       <div class="ps-detail">across 9 SPL files (lab)</div>
     </div>
@@ -340,9 +340,9 @@
       <button class="fbtn" data-filter="wazuh" onclick="filterDet('wazuh')">Wazuh</button>
       <button class="fbtn" data-filter="splunk" onclick="filterDet('splunk')">Splunk</button>
       <button class="fbtn" data-filter="ir" onclick="filterDet('ir')">IR</button>
-      <span class="filter-count" id="filterCount">210 detections</span>
+      <span class="filter-count" id="filterCount"></span>
     </div>
-    <div class="filter-context" id="filterContext">Splunk shown as 9 grouped collections representing 79 detection searches</div>
+    <div class="filter-context" id="filterContext"></div>
   </div>
 
   <!-- DETECTION GRID -->
@@ -523,7 +523,7 @@ var DETECTIONS=[
 {t:"Brute Force \u2014 RDP",p:"wazuh",s:"medium",tac:"credential-access",tech:"T1110"},
 {t:"Log Tampering Detection",p:"wazuh",s:"high",tac:"defense-evasion",tech:"T1070"},
 {t:"Suspicious Cron Modification",p:"wazuh",s:"medium",tac:"persistence",tech:"T1053"},
-// Splunk SPL — 79 detection searches across 9 SPL files (lab environment)
+// Splunk SPL — detection searches grouped by SPL file (lab environment)
 // sc = individual detection search count per SPL file
 {t:"Execution Detections",p:"splunk",s:"medium",tac:"execution",tech:"T1059",sc:8},
 {t:"Persistence Detections",p:"splunk",s:"medium",tac:"persistence",tech:"T1547",sc:7},
@@ -608,8 +608,9 @@ function applyFilters(){
     ctxEl.textContent=splunkColl>0?'includes '+splunkColl+' Splunk collection'+(splunkColl!==1?'s':'')+' ('+splunkSearches+' searches)':'';
   }
 }
-// Set "all" active on load
+// Set "all" active on load and populate initial counts
 document.querySelector('.fbtn[data-filter="all"]').classList.add('active');
+applyFilters();
 </script>
 
 <script src="/assets/fetch-utils.js" defer></script>
