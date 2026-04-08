@@ -1,6 +1,6 @@
 # HawkinsOperations
 
-> **Raylee Hawkins** — Built and operates a live detection and triage pipeline on a self-hosted homelab, using AI-augmented workflows with human-directed architecture and verification.
+> **Raylee Hawkins** — Built and operates a live detection and triage pipeline across a 10-agent Wazuh deployment on self-hosted infrastructure, using AI-augmented workflows with human-directed architecture and verification.
 
 [![pipeline](https://img.shields.io/badge/pipeline-passing-brightgreen)](https://github.com/raylee-hawkins/HawkinsOperations/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE)
@@ -14,7 +14,7 @@
 **HawkinsOperations** is the public portfolio repository.
 **SignalFoundry** is the underlying live detection and triage system this repository documents.
 
-The AutoSOC engine ingests Wazuh alerts, performs policy-driven triage, redacts sensitive fields, and assembles escalation packs as reproducible proof artifacts. This repo contains the detection content, IR playbooks, proof artifacts, and the verification infrastructure that keeps all counts honest.
+The AutoSOC engine ingests Wazuh alerts from a 10-agent deployment, performs policy-driven triage, redacts sensitive fields, and assembles escalation packs as reproducible proof artifacts. This repo contains the detection content, IR playbooks, operational case studies, proof artifacts, and the verification infrastructure that keeps all counts honest.
 
 **If a number is in this repo, a script verified it.**
 
@@ -52,11 +52,12 @@ Source of truth: [`PROOF_PACK/VERIFIED_COUNTS.md`](/PROOF_PACK/VERIFIED_COUNTS.m
 ## How the pipeline works
 
 ```
-Wazuh Manager (live alerts)
+Wazuh Manager (10 agents, live alerts)
         |
         |-- SignalFoundry engine (poll -> triage -> redact -> pack)
         |       |
         |       '-- content/incident-response/incidents/YYYY/  (repo-staged packs)
+        |       '-- GitHub Issues (auto-created on pipeline failure, auto-closed on recovery)
         |
 
 content/detection-rules/*              content/incident-response/playbooks/*
@@ -77,7 +78,20 @@ PROOF_PACK/VERIFIED_COUNTS.md
         '-- drift_scan.py                 -->  fail on markdown/json/site count drift
 ```
 
-Maps to the documented Wazuh deployment flow: modules → bundle → `/var/ossec/etc/rules/local_rules.xml` → restart manager.
+Maps to the documented Wazuh deployment flow: modules -> bundle -> `/var/ossec/etc/rules/local_rules.xml` -> restart manager.
+
+---
+
+## Wazuh deployment
+
+The Wazuh stack is a single-node deployment (manager + indexer + dashboard) managing 10 agents across Windows and Linux hosts. Recent work (April 2026) restored full Windows process creation visibility:
+
+- **Three independent failures diagnosed and fixed:** alert-level threshold silently discarding events, severed manager-to-indexer pipeline from a security config reset, and Sysmon running without a configuration file
+- **Before:** Zero Security 4688 alerts and zero Sysmon EID 1 events had ever been indexed — the deployment appeared healthy but was blind to process creation
+- **After:** 2,120+ Security 4688 alerts and 143 Sysmon EID 1 events indexed, with full telemetry (process image, command line, parent process, user context)
+- **Detection tuning sprint:** 23 exclusions added across 8 Splunk SPL files. Zero MITRE technique coverage removed — all exclusions scoped to specific tool paths and process contexts, not behavior classes
+
+Full case study: [`content/case-studies/wazuh-telemetry-remediation.md`](/content/case-studies/wazuh-telemetry-remediation.md)
 
 ---
 
@@ -89,7 +103,7 @@ Self-hosted Proxmox cluster: Dual Xeon E5-2697 v4, 72 cores, 2TB RAM, ~96TB stor
 | --- | --- |
 | HO-FILESERVER-01 | Canonical storage authority (Z: drive) |
 | HO-RUNNER-01 | GitHub Actions self-hosted runner |
-| Wazuh cluster | Manager + Indexer + Dashboard |
+| Wazuh cluster | Manager + Indexer + Dashboard (10 agents) |
 | Splunk | Threat hunting + SPL detections |
 | Grafana | Pipeline monitoring dashboards |
 | Honeypot | External-facing telemetry source |
@@ -105,12 +119,12 @@ This is a home lab / self-hosted environment, not an enterprise SOC.
 
 - **CI-verified inventory counts** (Sigma, Wazuh, Splunk, IR playbooks) are script-generated and reproducible. These are the strongest evidence in this repo.
 - **Operational telemetry** (case counts, auto-close rates, escalation volumes) is self-reported from a single-operator pipeline. Treat with appropriate weight.
-- **Direct experience:** Sigma rule authoring, pipeline automation, Wazuh deployment and tuning, lab Splunk investigation, verification/reconciliation engineering.
+- **Direct experience:** Sigma rule authoring, pipeline automation, Wazuh deployment and tuning (including three-phase telemetry remediation), Splunk detection logic refinement, lab investigation, verification/reconciliation engineering.
 - **Conceptual overlap only:** Cribl, Torq, Exabeam, enterprise-scale Splunk operations. No production experience with these tools.
 
 ### Escalation count
 
-- **8,574** — April 7 locked canonical snapshot. All public references use this value.
+- **8,574** — April 7 locked canonical snapshot (324,074 total cases, ~88% auto-close rate). All public references use this value.
 
 ---
 
@@ -118,18 +132,18 @@ This is a home lab / self-hosted environment, not an enterprise SOC.
 
 ```
 Rule authoring (Sigma/Wazuh/Splunk)
-        │
-        ▼
-verify-counts.ps1 / generate_verified_counts.py   ← count scripts
-        │
-        ▼
-PROOF_PACK/VERIFIED_COUNTS.md                      ← single source of truth
-        │
-        ▼
-drift_scan.py                                      ← detects markdown/JSON/HTML drift
-        │
-        ▼
-generate-site-data.js → site/assets/data/          ← public proof surface
+        |
+        v
+verify-counts.ps1 / generate_verified_counts.py   <- count scripts
+        |
+        v
+PROOF_PACK/VERIFIED_COUNTS.md                      <- single source of truth
+        |
+        v
+drift_scan.py                                      <- detects markdown/JSON/HTML drift
+        |
+        v
+generate-site-data.js -> site/assets/data/         <- public proof surface
 ```
 
 If a number appears on the site, it traces back through this chain to a counted file on disk.
@@ -155,6 +169,8 @@ Expected: `PROOF_PACK/VERIFIED_COUNTS.md` regenerates with current counts, drift
 
 Selected engineering challenges documented with full context:
 
+- **Wazuh Windows Telemetry Remediation** — Three-phase restoration of process creation visibility across a 10-agent deployment. Diagnosed three independent failures (threshold mismatch, broken indexer pipeline, unconfigured Sysmon). Went from zero process creation alerts to 2,120+ Security 4688 and 143 Sysmon EID 1 events indexed with full telemetry.
+- **Detection Logic Refinement Sprint** — Analysis of 328K alert backlog, 23 targeted exclusions across 8 SPL files covering 10 MITRE ATT&CK tactics. Zero technique coverage removed.
 - **TOCTOU Race Condition** — Diagnosed at 505K queue depth in `enforce_queue_cap()`. 4-site defensive patch, 28/28 tests passing, zero data loss.
 - **AutoSOC Pipeline Recovery** — Six-day outage from stale Wazuh Indexer password + misconfigured scheduled task. Full recovery with ~1.1M alert backlog reconciliation.
 - **Enterprise Security Hardening** — 27 audit subcategories hardened, 11 new MITRE techniques detectable, 60-subcategory Microsoft Security Baseline comparison (zero regressions, 12 settings beyond baseline).
@@ -169,13 +185,13 @@ Selected engineering challenges documented with full context:
 | `PROOF_PACK/` | Verified counts, sample artifacts, evidence checklist, redaction rules |
 | `content/detection-rules/` | Sigma + Splunk + Wazuh XML, organized by MITRE tactic |
 | `content/incident-response/` | 10 IR playbooks + templates + pipeline-generated incident packs |
-| `case-studies/` | Detailed write-ups of significant engineering challenges |
-| `docs/execution/` | Operations runbook, rootcheck closeout, lab change control |
+| `content/case-studies/` | Detailed write-ups of significant engineering challenges |
+| `docs/` | Operations runbook, tuning logs, change control, architecture docs |
 | `data/` | Auto-regenerated site data from source artifacts |
 | `source_of_truth/` | Canonical authority files for metrics and counts |
 | `site/` | Static portfolio site source (Cloudflare Pages) |
 | `scripts/` | Verification, bundle builders, site generators, drift scan |
-| `.github/` | CI workflows: verify, drift-scan, update-site-data, publish-contract, public-safety-gate |
+| `.github/` | CI workflows: verify, drift-scan, update-site-data, deploy-wazuh-pack, autosoc-pipeline, publish-contract, public-safety-gate |
 
 ---
 
@@ -183,7 +199,7 @@ Selected engineering challenges documented with full context:
 
 I used AI as an execution layer, not a substitute for judgment. Claude Code, Codex, ChatGPT, and Gemini were my build tools the way a developer uses an IDE and Stack Overflow. I made the architectural decisions, verified outputs, cross-checked results across multiple AI systems, and iterated until the system behaved predictably under real operational constraints.
 
-I started with zero computer experience in September 2025. Everything in this repo was built in under 6 months while working mandatory 12-hour shifts. The method — recursive problem decomposition aimed through AI tools — is documented in detail on the [portfolio site](https://hawkinsops.com).
+I started with zero computer experience in September 2025. Everything in this repo was built in under 7 months while working mandatory 12-hour shifts. The method — recursive problem decomposition aimed through AI tools — is documented in detail on the [portfolio site](https://hawkinsops.com).
 
 ---
 
@@ -214,6 +230,8 @@ I started with zero computer experience in September 2025. Everything in this re
 - Proof lane index: [`PROOF_PACK/PROOF_INDEX.md`](/PROOF_PACK/PROOF_INDEX.md)
 - Contribution workflow: [`CONTRIBUTING.md`](/CONTRIBUTING.md)
 - Operations runbook: [`docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md`](/docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md)
+- Wazuh operational tuning: [`docs/detection-tuning-sprint-apr2026.md`](/docs/detection-tuning-sprint-apr2026.md)
+- Wazuh telemetry remediation: [`content/case-studies/wazuh-telemetry-remediation.md`](/content/case-studies/wazuh-telemetry-remediation.md)
 
 ---
 

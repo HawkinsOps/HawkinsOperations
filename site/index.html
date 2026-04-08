@@ -103,7 +103,7 @@
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
       <li><a href="/">Home</a></li>
-      <li><a href="/case-study-autosoc">Case Study</a></li>
+      <li><a href="/case-studies">Case Studies</a></li>
       <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/proof">Proof</a></li>
       <li><a href="/detections">Detections</a></li>
@@ -114,7 +114,7 @@
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
   <a href="/">Home</a>
-  <a href="/case-study-autosoc">Case Study</a>
+  <a href="/case-studies">Case Studies</a>
   <a href="/enterprise-security">Enterprise Security</a>
   <a href="/proof">Proof</a>
   <a href="/detections">Detections</a>
@@ -173,6 +173,14 @@
           <div style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:#4ade80;">0</div>
           <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:#7a94aa;margin-top:4px;">Errors</div>
         </div>
+      </div>
+    </section>
+
+    <!-- LATEST ENGINEERING -->
+    <section data-aos="fade-up" style="padding:0 0 12px;">
+      <div style="max-width:800px;margin:0 auto;padding:14px 20px;border:1px solid rgba(0,196,212,0.15);border-left:3px solid #00c4d4;border-radius:6px;background:rgba(0,196,212,0.03);display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;color:#00c4d4;white-space:nowrap;">Latest &mdash; 04-08-2026</div>
+        <div style="font-size:0.88rem;color:#d4e0ec;flex:1;min-width:200px;">Wazuh Windows telemetry remediation: three-phase fix restoring process creation visibility across the lab fleet. <a href="/case-study-wazuh" style="color:#00c4d4;text-decoration:none;font-weight:600;">Read case study &rarr;</a></div>
       </div>
     </section>
 
@@ -533,6 +541,10 @@ node scripts/generate-site-data.js</code></pre>
         <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/case-study-race-condition">
           <h3>Race Condition Recovery</h3>
           <p>TOCTOU race at 505K-file scale. Diagnosed, fixed with 20 lines, verified under live load.</p>
+        </a>
+        <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/case-studies">
+          <h3>Case Studies</h3>
+          <p>15+ engineering case studies: incident response, detection audits, threat hunts, and infrastructure work.</p>
         </a>
         <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/proof">
           <h3>Proof</h3>
