@@ -56,19 +56,13 @@ html body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Scan-line texture overlay */
+/* Scan-line texture overlay — removed, caused visible
+   horizontal artifacts on most displays */
 html body::before {
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 3px,
-      rgba(0, 212, 255, 0.02) 3px,
-      rgba(0, 212, 255, 0.02) 4px
-    ) !important;
+  background: none !important;
   background-size: auto !important;
   animation: none !important;
-  opacity: 1 !important;
+  opacity: 0 !important;
 }
 
 /* Keep starfield-deep layer but darken */
