@@ -44,7 +44,7 @@
 .det-kpi .lbl{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:#7a94aa;margin-top:2px;}
 
 /* MITRE Coverage */
-.mitre-section{padding:40px 0;background:rgba(17,24,39,0.3);border-bottom:1px solid rgba(122,184,255,0.06);}
+.mitre-section{padding:28px 0;background:rgba(17,24,39,0.3);border-bottom:1px solid rgba(122,184,255,0.06);}
 .mitre-bar{display:grid;grid-template-columns:110px 1fr 40px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid rgba(122,184,255,0.03);}
 .mitre-bar .tactic{font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.04em;color:#d4e0ec;}
 .mitre-bar .track{height:20px;background:rgba(255,255,255,0.03);border-radius:2px;overflow:hidden;}
@@ -52,7 +52,7 @@
 .mitre-bar .cnt{font-family:'JetBrains Mono',monospace;font-size:0.82rem;font-weight:700;text-align:right;}
 
 /* Filter bar */
-.filter-section{padding:20px 0 14px;position:sticky;top:59px;z-index:10;background:#080c10;border-bottom:1px solid rgba(122,184,255,0.06);}
+.filter-section{padding:20px 0 14px;position:sticky;top:59px;z-index:10;background:#080c10;border-bottom:1px solid rgba(122,184,255,0.06);will-change:transform;}
 .filter-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
 .filter-row input[type=search]{flex:1;min-width:200px;padding:8px 14px;background:rgba(17,24,39,0.6);border:1px solid rgba(122,184,255,0.12);border-radius:3px;color:#d4e0ec;font-family:'JetBrains Mono',monospace;font-size:0.78rem;}
 .filter-row input::placeholder{color:#4a5568;}
@@ -80,7 +80,7 @@
 .det-card[hidden]{display:none;}
 
 /* High-signal section */
-.hs-section{padding:40px 0;background:rgba(17,24,39,0.3);border-top:1px solid rgba(122,184,255,0.06);border-bottom:1px solid rgba(122,184,255,0.06);}
+.hs-section{padding:28px 0;background:rgba(17,24,39,0.3);border-top:1px solid rgba(122,184,255,0.06);border-bottom:1px solid rgba(122,184,255,0.06);}
 .hs-category{font-family:'JetBrains Mono',monospace;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#7ab8ff;margin:28px 0 12px;padding-bottom:6px;border-bottom:1px solid rgba(122,184,255,0.1);}
 .hs-category:first-child{margin-top:20px;}
 .hs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
@@ -93,7 +93,7 @@
 .dtag.pipeline{background:rgba(251,191,36,0.08);color:#fbbf24;border:1px solid rgba(251,191,36,0.15);}
 
 /* Pipeline strip */
-.pipe-section{padding:40px 0;text-align:center;}
+.pipe-section{padding:24px 0;text-align:center;border-bottom:1px solid rgba(122,184,255,0.06);}
 .pipe-flow{display:flex;justify-content:center;align-items:center;gap:0;flex-wrap:wrap;margin-top:16px;}
 .pipe-node{padding:10px 18px;background:rgba(17,24,39,0.6);border:1px solid rgba(122,184,255,0.12);border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:#d4e0ec;transition:all .25s cubic-bezier(.22,1,.36,1);cursor:default;}
 .pipe-node:hover{border-color:rgba(0,212,255,.4);color:#00d4ff;transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,212,255,.1);}
@@ -116,11 +116,19 @@
 .sec-title{font-family:'JetBrains Mono',monospace;font-size:clamp(1.1rem,2vw,1.5rem);margin:0 0 8px;letter-spacing:0.02em;}
 .sec-sub{color:#7a94aa;font-size:0.85rem;max-width:56ch;}
 
+/* Routing strip */
+.route-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.route-card{display:block;padding:18px 20px;background:rgba(17,24,39,0.4);border:1px solid rgba(122,184,255,0.1);border-radius:3px;text-decoration:none;transition:all 0.15s;}
+.route-card:hover{border-color:rgba(122,184,255,0.25);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+.route-card .rlbl{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;color:#7ab8ff;margin-bottom:4px;}
+.route-card .rdesc{font-size:0.78rem;color:#d4e0ec;}
+
 @media(max-width:900px){
   .det-grid{grid-template-columns:repeat(2,1fr);}
   .hs-grid{grid-template-columns:1fr;}
   .det-kpi-row{grid-template-columns:repeat(2,1fr);}
   .ver-grid{grid-template-columns:1fr;}
+  .route-strip{grid-template-columns:1fr;}
 }
 @media(max-width:600px){
   .det-grid{grid-template-columns:1fr;}
@@ -182,8 +190,6 @@
       <div class="det-kpi"><div class="val" data-verified="ir">10</div><div class="lbl">IR Playbooks</div></div>
     </div>
 
-    <p style="margin:16px 0 0;font-size:0.76rem;color:#5a7a8e;line-height:1.6;max-width:64ch;"><span data-verified="detections">210</span> rules + 10 IR playbooks, all version-controlled, mapped to ATT&amp;CK, and feeding SignalFoundry&rsquo;s pipeline. ~88% auto-close, 8,574 escalations with evidence.</p>
-
   </div>
 
   <!-- MITRE ATT&CK COVERAGE MAP (Chart.js) -->
@@ -200,11 +206,9 @@
     </div>
   </div>
 
-  <!-- PIPELINE INTEGRATION -->
+  <!-- PIPELINE INTEGRATION (compact) -->
   <div class="pipe-section">
     <div class="sec-label">Pipeline Integration</div>
-    <h2 class="sec-title">How detections enter the system</h2>
-    <p class="sec-sub" style="margin:0 auto 0;">Every rule on this page is an entry point. Alerts flow through SignalFoundry&rsquo;s 7-stage pipeline before anything publishes. Result: 324,074 cases triaged, ~88% auto-closed, 8,574 escalated with evidence.</p>
     <div class="pipe-flow">
       <div class="pipe-node active">Detection Fires</div>
       <div class="pipe-arr">&rarr;</div>
@@ -222,31 +226,10 @@
       <div class="pipe-arr">&rarr;</div>
       <a href="/proof" class="pipe-node" style="border-color:rgba(122,184,255,0.3);color:#7ab8ff;text-decoration:none;">Proof &amp; Evidence &nearr;</a>
     </div>
-    <p class="sec-sub" style="margin:16px auto 0;text-align:center;">Every detection on this page has been counted from the repo, verified by CI, and tested against lab telemetry. Platform-specific claim ceilings apply &mdash; see <a href="/proof" style="color:#7ab8ff;text-decoration:underline;">Proof</a> for reconciled totals.</p>
+    <p style="margin:10px auto 0;font-size:0.72rem;color:#5a7a8e;text-align:center;max-width:64ch;">324,074 cases triaged, ~88% auto-closed, 8,574 escalated with evidence. <a href="/proof" style="color:#7ab8ff;text-decoration:underline;">Verify totals &rarr;</a></p>
   </div>
 
-  <!-- FILTER BAR -->
-  <div class="filter-section" id="filterBar">
-    <div class="filter-row">
-      <input type="search" id="detSearch" placeholder="Search detections..." aria-label="Search detections">
-      <button class="fbtn" data-filter="all" onclick="filterDet('all')">All</button>
-      <button class="fbtn" data-filter="sigma" onclick="filterDet('sigma')">Sigma</button>
-      <button class="fbtn" data-filter="wazuh" onclick="filterDet('wazuh')">Wazuh</button>
-      <button class="fbtn" data-filter="splunk" onclick="filterDet('splunk')">Splunk</button>
-      <button class="fbtn" data-filter="ir" onclick="filterDet('ir')">IR</button>
-      <span class="filter-count" id="filterCount"></span>
-    </div>
-    <div class="filter-context" id="filterContext"></div>
-  </div>
-
-  <!-- DETECTION GRID -->
-  <div class="det-grid-section">
-    <div class="det-grid" id="detGrid">
-      <!-- Populated by JS below -->
-    </div>
-  </div>
-
-  <!-- HIGH-SIGNAL DETECTIONS -->
+  <!-- HIGH-SIGNAL DETECTIONS (elevated above grid) -->
   <div class="hs-section">
     <div class="det-page">
       <div class="sec-label">High-Signal Detections</div>
@@ -288,6 +271,27 @@
     </div>
   </div>
 
+  <!-- FILTER BAR -->
+  <div class="filter-section" id="filterBar">
+    <div class="filter-row">
+      <input type="search" id="detSearch" placeholder="Search detections..." aria-label="Search detections">
+      <button class="fbtn" data-filter="all" onclick="filterDet('all')">All</button>
+      <button class="fbtn" data-filter="sigma" onclick="filterDet('sigma')">Sigma</button>
+      <button class="fbtn" data-filter="wazuh" onclick="filterDet('wazuh')">Wazuh</button>
+      <button class="fbtn" data-filter="splunk" onclick="filterDet('splunk')">Splunk</button>
+      <button class="fbtn" data-filter="ir" onclick="filterDet('ir')">IR</button>
+      <span class="filter-count" id="filterCount"></span>
+    </div>
+    <div class="filter-context" id="filterContext"></div>
+  </div>
+
+  <!-- DETECTION GRID -->
+  <div class="det-grid-section">
+    <div class="det-grid" id="detGrid">
+      <!-- Populated by JS below -->
+    </div>
+  </div>
+
   <!-- VERIFICATION -->
   <div class="ver-section">
     <div class="sec-label">Verification</div>
@@ -296,6 +300,24 @@
       <div class="ver-card"><div class="vlbl">Source of Truth</div><div class="vval"><code>PROOF_PACK/VERIFIED_COUNTS.md</code></div></div>
       <div class="ver-card"><div class="vlbl">Verification Command</div><div class="vval"><code>pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1</code></div></div>
       <div class="ver-card"><div class="vlbl">Last Verified</div><div class="vval"><span data-verified-date>04-07-2026</span></div></div>
+    </div>
+  </div>
+
+  <!-- ROUTING -->
+  <div style="padding:28px 0 48px;border-top:1px solid rgba(122,184,255,0.06);">
+    <div class="route-strip">
+      <a href="/signalfoundry" class="route-card">
+        <div class="rlbl">SignalFoundry</div>
+        <div class="rdesc">See the pipeline that processes these detections</div>
+      </a>
+      <a href="/proof" class="route-card">
+        <div class="rlbl">Proof &amp; Evidence</div>
+        <div class="rdesc">Verified metrics and reconciled totals</div>
+      </a>
+      <a href="/case-studies" class="route-card">
+        <div class="rlbl">Case Studies</div>
+        <div class="rdesc">Real incidents, real detections, real outcomes</div>
+      </a>
     </div>
   </div>
 
