@@ -35,7 +35,7 @@
 <style>
 /* Detection page styles */
 .det-page{max-width:1200px;margin:0 auto;padding:0 24px;}
-.det-hero{padding:100px 0 40px;border-bottom:1px solid rgba(122,184,255,0.08);}
+.det-hero{padding:88px 0 28px;border-bottom:1px solid rgba(122,184,255,0.08);}
 .det-hero h1{font-family:'JetBrains Mono',monospace;font-size:clamp(1.6rem,3vw,2.4rem);margin:0 0 8px;letter-spacing:0.02em;}
 .det-hero .sub{color:#7a94aa;font-size:0.9rem;max-width:64ch;margin:0 0 20px;}
 .det-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(122,184,255,0.12);border-radius:4px;background:rgba(17,24,39,0.4);margin-top:20px;}
@@ -45,7 +45,7 @@
 .det-kpi .lbl{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:#7a94aa;margin-top:2px;}
 
 /* MITRE Coverage */
-.mitre-section{padding:60px 0;background:rgba(17,24,39,0.3);border-bottom:1px solid rgba(122,184,255,0.06);}
+.mitre-section{padding:40px 0;background:rgba(17,24,39,0.3);border-bottom:1px solid rgba(122,184,255,0.06);}
 .mitre-bar{display:grid;grid-template-columns:110px 1fr 40px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid rgba(122,184,255,0.03);}
 .mitre-bar .tactic{font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.04em;color:#d4e0ec;}
 .mitre-bar .track{height:20px;background:rgba(255,255,255,0.03);border-radius:2px;overflow:hidden;}
@@ -81,7 +81,7 @@
 .det-card[hidden]{display:none;}
 
 /* High-signal section */
-.hs-section{padding:60px 0;background:rgba(17,24,39,0.3);border-top:1px solid rgba(122,184,255,0.06);border-bottom:1px solid rgba(122,184,255,0.06);}
+.hs-section{padding:40px 0;background:rgba(17,24,39,0.3);border-top:1px solid rgba(122,184,255,0.06);border-bottom:1px solid rgba(122,184,255,0.06);}
 .hs-category{font-family:'JetBrains Mono',monospace;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#7ab8ff;margin:28px 0 12px;padding-bottom:6px;border-bottom:1px solid rgba(122,184,255,0.1);}
 .hs-category:first-child{margin-top:20px;}
 .hs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
@@ -204,19 +204,10 @@
       <div class="det-kpi"><div class="val" data-verified="ir">10</div><div class="lbl">IR Playbooks</div></div>
     </div>
 
-    <!-- WHAT THIS PROVES -->
-    <div style="margin-top:20px;padding:16px 20px;background:rgba(17,24,39,0.35);border:1px solid rgba(122,184,255,0.08);border-radius:4px;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;color:#7ab8ff;margin-bottom:8px;">What this page proves</div>
-      <ul style="margin:0;padding:0 0 0 16px;font-size:0.82rem;color:#9aadbe;line-height:1.7;">
-        <li><span data-verified="detections">210</span> detection rules (+ 10 IR playbooks) written and maintained in version control &mdash; not vendor defaults</li>
-        <li>Coverage spans all major ATT&amp;CK tactics across Sigma, Wazuh, Splunk, and IR playbooks</li>
-        <li>Every rule feeds SignalFoundry&rsquo;s 7-stage triage pipeline and produces auditable evidence</li>
-        <li>Pipeline outcome: ~88% auto-close rate, 8,574 escalations with evidence packs attached</li>
-      </ul>
-    </div>
+    <p style="margin:16px 0 0;font-size:0.76rem;color:#5a7a8e;line-height:1.6;max-width:64ch;"><span data-verified="detections">210</span> rules + 10 IR playbooks, all version-controlled, mapped to ATT&amp;CK, and feeding SignalFoundry&rsquo;s pipeline. ~88% auto-close, 8,574 escalations with evidence.</p>
 
     <!-- Platform visual bars -->
-    <div class="det-platform-bars" data-aos="fade-up">
+    <div class="det-platform-bars">
       <div class="det-pbar">
         <span class="det-pbar-label" style="color:#7ab8ff;">Sigma</span>
         <div class="det-pbar-track"><div class="det-pbar-fill" data-bar-width="100" style="background:linear-gradient(90deg,rgba(122,184,255,.5),rgba(122,184,255,.25));"></div></div>
@@ -247,7 +238,7 @@
       <div class="sec-label">MITRE ATT&amp;CK Coverage</div>
       <h2 class="sec-title">Detection density by tactic</h2>
       <p class="sec-sub" style="margin-bottom:20px;">Sigma rule distribution across ATT&amp;CK tactics (<span data-verified="sigma">103</span> rules shown below). Wazuh, Splunk, and IR playbooks add cross-platform depth not reflected in this chart. Based on actual repo file count.</p>
-      <div data-aos="fade-up" style="max-width:700px;margin:0 auto;padding:24px;background:rgba(17,24,39,0.5);border:1px solid rgba(0,212,255,0.1);border-radius:4px;">
+      <div style="max-width:700px;margin:0 auto;padding:24px;background:rgba(17,24,39,0.5);border:1px solid rgba(0,212,255,0.1);border-radius:4px;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:#00d4ff;margin-bottom:12px;">MITRE ATT&amp;CK Tactic Coverage</div>
         <canvas id="mitreChart" height="280"></canvas>
       </div>
