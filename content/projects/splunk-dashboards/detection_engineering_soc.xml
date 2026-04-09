@@ -1,0 +1,565 @@
+<dashboard version="1.1" theme="dark">
+  <label>HawkinsOps — Detection Engineering &amp; SOC Overview</label>
+  <description>70% Detection Engineering / 30% SOC Overview — 79 rules across 9 MITRE ATT&amp;CK tactics | Built for Splunk Enterprise at 192.168.8.248</description>
+
+  <!-- ============================================================
+       GLOBAL INPUTS
+       ============================================================ -->
+  <fieldset submitButton="true" autoRun="true">
+    <input type="time" token="timeRange" searchWhenChanged="true">
+      <label>Time Range</label>
+      <default>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="dropdown" token="idx" searchWhenChanged="true">
+      <label>Index</label>
+      <default>windows</default>
+      <choice value="windows">windows</choice>
+      <choice value="*">All Indexes</choice>
+    </input>
+    <input type="dropdown" token="host_filter" searchWhenChanged="true">
+      <label>Host</label>
+      <default>*</default>
+      <choice value="*">All Hosts</choice>
+      <populatingSearch>
+        <![CDATA[| tstats count where index=$idx$ by host | fields host]]>
+      </populatingSearch>
+      <fieldForLabel>host</fieldForLabel>
+      <fieldForValue>host</fieldForValue>
+    </input>
+  </fieldset>
+
+  <!-- ============================================================
+       ROW 1 — SOC KPI STRIP  (30% SOC)
+       ============================================================ -->
+  <row>
+    <panel>
+      <title>Critical Alerts (24h)</title>
+      <single>
+        <search>
+          <query>
+            <![CDATA[
+index=$idx$ host=$host_filter$ (EventCode=10 TargetImage="*\\lsass.exe") OR (CommandLine="*sekurlsa::*" OR CommandLine="*comsvcs*MiniDump*" OR CommandLine="*secretsdump*") OR (EventCode=4625) OR (EventCode=4662 Properties="*1131f6aa*")
+| stats count as total
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="rangeColors">["0x65a637","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[5,50]</option>
+        <option name="useColors">true</option>
+        <option name="drilldown">all</option>
+        <option name="underLabel">Credential / Critical Hits</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Total Events Indexed</title>
+      <single>
+        <search>
+          <query>
+            <![CDATA[
+index=$idx$ host=$host_filter$
+| stats count
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="underLabel">Events in Window</option>
+        <option name="colorMode">none</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Unique Hosts Reporting</title>
+      <single>
+        <search>
+          <query>
+            <![CDATA[
+index=$idx$ host=$host_filter$
+| stats dc(host) as hosts
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="underLabel">Active Endpoints</option>
+        <option name="colorMode">none</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Failed Logins</title>
+      <single>
+        <search>
+          <query>
+            <![CDATA[
+index=$idx$ host=$host_filter$ EventCode=4625
+| stats count
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="rangeColors">["0x65a637","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[10,100]</option>
+        <option name="useColors">true</option>
+        <option name="underLabel">EventCode 4625</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Sysmon Process Creates</title>
+      <single>
+        <search>
+          <query>
+            <![CDATA[
+index=$idx$ host=$host_filter$ EventCode=1
+| stats count
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="underLabel">EventCode 1</option>
+        <option name="colorMode">none</option>
+      </single>
+    </panel>
+  </row>
+
+  <!-- ============================================================
+       ROW 2 — ALERT TIMELINE + TOP HOSTS  (SOC + DE)
+       ============================================================ -->
+  <row>
+    <panel>
+      <title>Alert Volume Over Time by EventCode</title>
+      <chart>
+        <search>
+          <query>
+            <![CDATA[
+index=$idx$ host=$host_filter$ (EventCode=1 OR EventCode=3 OR EventCode=7 OR EventCode=10 OR EventCode=11 OR EventCode=13 OR EventCode=4625 OR EventCode=4624 OR EventCode=4662 OR EventCode=4688 OR EventCode=4720 OR EventCode=4732 OR EventCode=7045)
+| timechart span=1h count by EventCode limit=15
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="charting.chart">area</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.legend.placement">bottom</option>
+        <option name="charting.drilldown">all</option>
+        <option name="height">320</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Top 10 Hosts by Event Volume</title>
+      <chart>
+        <search>
+          <query>
+            <![CDATA[
+index=$idx$ host=$host_filter$
+| top limit=10 host
+| fields host count percent
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="charting.chart">bar</option>
+        <option name="charting.drilldown">all</option>
+        <option name="height">320</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- ============================================================
+       ROW 3 — MITRE ATT&CK DETECTION COVERAGE  (DE)
+       ============================================================ -->
+  <row>
+    <panel>
+      <title>MITRE ATT&amp;CK Tactic Coverage — Detection Fires by Category</title>
+      <chart>
+        <search>
+          <query>
+            <![CDATA[
+index=$idx$ host=$host_filter$
+| eval tactic=case(
+    EventCode=10 AND match(TargetImage,"(?i)lsass"), "Credential Access",
+    EventCode=1 AND match(CommandLine,"(?i)(sekurlsa|comsvcs|mimikatz|secretsdump|pypykatz|nanodump|lazagne|reg\.exe.*(save|export).*(sam|system|security))"), "Credential Access",
+    EventCode=4662, "Credential Access",
+    EventCode=1 AND match(Image,"(?i)(rundll32|regsvr32|mshta|cscript|wscript|certutil|msbuild|installutil)\.exe") AND match(CommandLine,"(?i)(http|ftp|\\\\\\\\|encoded|bypass|hidden)"), "Defense Evasion",
+    EventCode=1 AND match(CommandLine,"(?i)(-enc|-nop|-w hidden|downloadstring|iex|invoke-expression|certutil.*decode|mshta.*javascript)"), "Execution",
+    EventCode=1 AND match(CommandLine,"(?i)(net\s+(user|group|localgroup|share|view|session)|nltest|dsquery|whoami|systeminfo|ipconfig|arp\s+-a|netstat)"), "Discovery",
+    EventCode=1 AND match(CommandLine,"(?i)(psexec|wmic.*process.*call|winrm|enter-pssession|invoke-command\s+.*-computer)"), "Lateral Movement",
+    EventCode=13 AND match(TargetObject,"(?i)(Run|RunOnce|Services|Userinit|Shell|Winlogon)"), "Persistence",
+    EventCode=7045, "Persistence",
+    EventCode=1 AND match(CommandLine,"(?i)(named.*pipe|token.*impersonate|potato|printspoofer|godpotato)"), "Privilege Escalation",
+    EventCode=4720 OR EventCode=4732, "Persistence",
+    EventCode=4625, "Credential Access",
+    EventCode=3, "Lateral Movement",
+    EventCode=11, "Collection",
+    1=1, "Unclassified")
+| where tactic!="Unclassified"
+| stats count by tactic
+| sort -count
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="charting.chart">bar</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.legend.placement">none</option>
+        <option name="charting.drilldown">all</option>
+        <option name="height">300</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- ============================================================
+       ROW 4 — DETECTION RULE FIRE RATES  (DE)
+       ============================================================ -->
+  <row>
+    <panel>
+      <title>Detection Rule Fire Rate — Top 20</title>
+      <table>
+        <search>
+          <query>
+            <![CDATA[
+index=$idx$ host=$host_filter$
+| eval rule=case(
+    EventCode=10 AND match(TargetImage,"(?i)lsass"), "CR-01: LSASS Access (T1003.001)",
+    EventCode=1 AND match(CommandLine,"(?i)comsvcs.*(minidump|#24)"), "CR-02: Comsvcs LSASS Dump (T1003.001)",
+    match(CommandLine,"(?i)(sekurlsa|privilege::debug|lsadump|invoke-mimikatz)"), "CR-03: Mimikatz (T1003)",
+    EventCode=1 AND match(Image,"(?i)reg\.exe") AND match(CommandLine,"(?i)(save|export).*(sam|system|security)"), "CR-04: SAM Registry Export (T1003.002)",
+    EventCode=4662 AND match(Properties,"1131f6a"), "CR-05: DCSync (T1003.006)",
+    EventCode=1 AND match(Image,"(?i)rundll32\.exe") AND match(CommandLine,"(?i)(javascript|http|vbscript|mshtml)"), "DE-01: Rundll32 Proxy Exec (T1218.011)",
+    EventCode=1 AND match(Image,"(?i)regsvr32\.exe") AND match(CommandLine,"(?i)(scrobj|/s|/u|/i:http)"), "DE-02: Regsvr32 Proxy (T1218.010)",
+    EventCode=1 AND match(Image,"(?i)mshta\.exe"), "DE-03: MSHTA Execution (T1218.005)",
+    EventCode=1 AND match(Image,"(?i)certutil\.exe") AND match(CommandLine,"(?i)(decode|urlcache|encode)"), "DE-04: Certutil Abuse (T1140)",
+    EventCode=1 AND match(CommandLine,"(?i)(-enc|-encodedcommand)"), "EX-01: Encoded PowerShell (T1059.001)",
+    EventCode=1 AND match(CommandLine,"(?i)(downloadstring|invoke-webrequest|wget|curl|net\.webclient|bitstransfer)"), "EX-02: PowerShell Download (T1059.001)",
+    EventCode=1 AND match(Image,"(?i)(cscript|wscript)\.exe"), "EX-03: Script Host (T1059.005)",
+    EventCode=1 AND match(Image,"(?i)(msbuild|installutil|csc)\.exe"), "EX-04: .NET Build Abuse (T1127)",
+    EventCode=1 AND match(CommandLine,"(?i)(net\s+(user|group|localgroup))"), "DI-01: Account Enumeration (T1087)",
+    EventCode=1 AND match(CommandLine,"(?i)(nltest|dsquery|ldapsearch)"), "DI-02: Domain Trust Enum (T1482)",
+    EventCode=1 AND match(CommandLine,"(?i)(psexec|winrm|wmic.*process.*call.*create)"), "LM-01: Lateral Tool Transfer (T1570)",
+    EventCode=7045, "PE-01: New Service (T1543.003)",
+    EventCode=13 AND match(TargetObject,"(?i)(Run|RunOnce)"), "PE-02: Registry Run Key (T1547.001)",
+    EventCode=4720, "PE-03: User Account Created (T1136)",
+    EventCode=4732, "PE-04: User Added to Admin Group (T1098)",
+    EventCode=4625, "SOC: Failed Login (T1110)",
+    1=1, "Other")
+| where rule!="Other"
+| stats count as fires dc(host) as hosts earliest(_time) as first latest(_time) as last by rule
+| eval first=strftime(first,"%m/%d %H:%M"), last=strftime(last,"%m/%d %H:%M")
+| sort -fires
+| head 20
+| table rule fires hosts first last
+| rename rule as "Detection Rule", fires as "Fire Count", hosts as "Hosts Hit", first as "First Seen", last as "Last Seen"
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="drilldown">row</option>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">heatmap</option>
+      </table>
+    </panel>
+  </row>
+
+  <!-- ============================================================
+       ROW 5 — DETECTION FIRE TIMELINE + SEVERITY  (DE)
+       ============================================================ -->
+  <row>
+    <panel>
+      <title>Detection Fires Over Time by Tactic</title>
+      <chart>
+        <search>
+          <query>
+            <![CDATA[
+index=$idx$ host=$host_filter$
+| eval tactic=case(
+    EventCode=10 AND match(TargetImage,"(?i)lsass"), "Credential Access",
+    match(CommandLine,"(?i)(sekurlsa|comsvcs|mimikatz|secretsdump)"), "Credential Access",
+    EventCode=4662, "Credential Access",
+    EventCode=4625, "Credential Access",
+    EventCode=1 AND match(Image,"(?i)(rundll32|regsvr32|mshta|certutil)\.exe") AND match(CommandLine,"(?i)(http|decode|javascript|scrobj)"), "Defense Evasion",
+    EventCode=1 AND match(CommandLine,"(?i)(-enc|downloadstring|invoke-expression)"), "Execution",
+    EventCode=1 AND match(CommandLine,"(?i)(net\s+(user|group|share|view)|nltest|dsquery|whoami|systeminfo)"), "Discovery",
+    EventCode=1 AND match(CommandLine,"(?i)(psexec|wmic.*process.*call|winrm)"), "Lateral Movement",
+    EventCode=7045 OR EventCode=4720 OR EventCode=4732, "Persistence",
+    EventCode=13 AND match(TargetObject,"(?i)(Run|RunOnce|Services)"), "Persistence",
+    1=1, "skip")
+| where tactic!="skip"
+| timechart span=1h count by tactic
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+        <option name="charting.legend.placement">bottom</option>
+        <option name="charting.chart.nullValueMode">zero</option>
+        <option name="height">280</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Detections by Severity</title>
+      <chart>
+        <search>
+          <query>
+            <![CDATA[
+index=$idx$ host=$host_filter$
+| eval severity=case(
+    EventCode=10 AND match(TargetImage,"(?i)lsass"), "Critical",
+    match(CommandLine,"(?i)(sekurlsa|comsvcs|mimikatz|secretsdump|pypykatz|nanodump)"), "Critical",
+    EventCode=4662 AND match(Properties,"1131f6a"), "Critical",
+    EventCode=1 AND match(Image,"(?i)reg\.exe") AND match(CommandLine,"(?i)(save|export).*(sam|system|security)"), "Critical",
+    EventCode=1 AND match(CommandLine,"(?i)(-enc|downloadstring|invoke-webrequest)"), "High",
+    EventCode=1 AND match(Image,"(?i)(rundll32|regsvr32|mshta|certutil)\.exe") AND match(CommandLine,"(?i)(http|decode|javascript|scrobj)"), "High",
+    EventCode=1 AND match(CommandLine,"(?i)(psexec|wmic.*process.*call|winrm)"), "High",
+    EventCode=7045, "High",
+    EventCode=4625, "Medium",
+    EventCode=1 AND match(CommandLine,"(?i)(net\s+(user|group|share)|nltest|whoami|systeminfo)"), "Medium",
+    EventCode=4720 OR EventCode=4732, "Medium",
+    EventCode=13 AND match(TargetObject,"(?i)(Run|RunOnce)"), "Medium",
+    1=1, "skip")
+| where severity!="skip"
+| stats count by severity
+| eval sort_order=case(severity="Critical",1,severity="High",2,severity="Medium",3,severity="Low",4)
+| sort sort_order
+| fields - sort_order
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.chart.showPercent">true</option>
+        <option name="charting.seriesColors">[0xd93f3c,0xf58f39,0xf7bc38,0x65a637]</option>
+        <option name="height">280</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- ============================================================
+       ROW 6 — SAVED SEARCH HEALTH  (DE)
+       ============================================================ -->
+  <row>
+    <panel>
+      <title>Saved Search / Alert Health — Scheduled Searches</title>
+      <table>
+        <search>
+          <query>
+            <![CDATA[
+| rest /services/saved/searches splunk_server=local
+| where is_scheduled=1
+| eval status=case(
+    disabled=1,"DISABLED",
+    match(qualifiedSearch,"error"),"ERROR",
+    1=1,"ACTIVE")
+| eval last_run=strftime(strptime(updated,"%Y-%m-%dT%H:%M:%S%z"),"%m/%d %H:%M")
+| table title cron_schedule dispatch.earliest_time status last_run alert.severity actions
+| rename title as "Search Name", cron_schedule as "Schedule", dispatch.earliest_time as "Window", status as "Status", last_run as "Last Updated", alert.severity as "Severity", actions as "Actions"
+| sort Status, "Search Name"
+            ]]>
+          </query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">row</option>
+        <option name="count">20</option>
+      </table>
+    </panel>
+  </row>
+
+  <!-- ============================================================
+       ROW 7 — NOISY RULE / FP ANALYSIS  (DE)
+       ============================================================ -->
+  <row>
+    <panel>
+      <title>Potential False Positives — High Volume Single-Host Detections</title>
+      <table>
+        <search>
+          <query>
+            <![CDATA[
+index=$idx$ host=$host_filter$ (EventCode=1 OR EventCode=3 OR EventCode=7 OR EventCode=10 OR EventCode=11 OR EventCode=13 OR EventCode=4625 OR EventCode=4662 OR EventCode=7045)
+| eval rule=case(
+    EventCode=10 AND match(TargetImage,"(?i)lsass"), "LSASS Access",
+    EventCode=1 AND match(CommandLine,"(?i)(-enc|-encodedcommand)"), "Encoded PS",
+    EventCode=1 AND match(CommandLine,"(?i)(net\s+(user|group|localgroup|share|view|session))"), "Net Enum",
+    EventCode=13 AND match(TargetObject,"(?i)(Run|RunOnce)"), "Registry Run",
+    EventCode=7045, "New Service",
+    EventCode=4625, "Failed Login",
+    EventCode=11, "File Create",
+    EventCode=3, "Net Connect",
+    1=1, "skip")
+| where rule!="skip"
+| stats count dc(host) as host_spread by rule host
+| where count > 50 AND host_spread=1
+| eval fp_indicator=case(count>500,"LIKELY FP",count>100,"REVIEW",1=1,"POSSIBLE")
+| sort -count
+| head 15
+| table rule host count fp_indicator
+| rename rule as "Detection", host as "Single Host", count as "Fire Count", fp_indicator as "FP Indicator"
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="drilldown">row</option>
+        <option name="count">15</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Detection Coverage Gaps — EventCodes With Zero Hits</title>
+      <table>
+        <search>
+          <query>
+            <![CDATA[
+| makeresults
+| eval EventCode="1,3,7,10,11,13,4624,4625,4648,4662,4688,4720,4732,7036,7045"
+| makemv EventCode delim=","
+| mvexpand EventCode
+| eval label=case(
+    EventCode=1,"Sysmon Process Create",
+    EventCode=3,"Sysmon Network Connect",
+    EventCode=7,"Sysmon Image Load",
+    EventCode=10,"Sysmon Process Access",
+    EventCode=11,"Sysmon File Create",
+    EventCode=13,"Sysmon Registry Value Set",
+    EventCode=4624,"Logon Success",
+    EventCode=4625,"Logon Failure",
+    EventCode=4648,"Explicit Credential Logon",
+    EventCode=4662,"Directory Service Access",
+    EventCode=4688,"Process Create (native)",
+    EventCode=4720,"User Account Created",
+    EventCode=4732,"Member Added to Group",
+    EventCode=7036,"Service State Change",
+    EventCode=7045,"New Service Installed")
+| map maxsearches=15 search="| tstats count where index=$idx$ EventCode=$$EventCode$$ | eval EventCode=\"$$EventCode$$\", label=\"$$label$$\""
+| where count=0
+| table EventCode label
+| rename EventCode as "EventCode", label as "Description"
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="count">15</option>
+      </table>
+    </panel>
+  </row>
+
+  <!-- ============================================================
+       ROW 8 — LSASS DEEP DIVE  (DE — spotlight rule)
+       ============================================================ -->
+  <row>
+    <panel>
+      <title>LSASS Access Deep Dive — SourceImage x GrantedAccess (Sysmon EventCode 10)</title>
+      <table>
+        <search>
+          <query>
+            <![CDATA[
+index=$idx$ host=$host_filter$ EventCode=10 TargetImage="*\\lsass.exe"
+| stats count by SourceImage GrantedAccess Computer
+| eval suspicious=case(
+    match(GrantedAccess,"(0x1010|0x1410|0x1438|0x143a|0x1fffff|0x1f0fff)"),"YES",
+    1=1,"NO")
+| sort -count
+| head 25
+| table Computer SourceImage GrantedAccess count suspicious
+| rename Computer as "Host", SourceImage as "Source Process", GrantedAccess as "Access Mask", count as "Count", suspicious as "Suspicious"
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="drilldown">row</option>
+        <option name="count">25</option>
+      </table>
+    </panel>
+  </row>
+
+  <!-- ============================================================
+       ROW 9 — PROCESS EXECUTION ANOMALIES  (SOC + DE)
+       ============================================================ -->
+  <row>
+    <panel>
+      <title>Suspicious Process Executions — LOLBins &amp; Credential Tools</title>
+      <table>
+        <search>
+          <query>
+            <![CDATA[
+index=$idx$ host=$host_filter$ EventCode=1
+  (Image="*\\rundll32.exe" OR Image="*\\regsvr32.exe" OR Image="*\\mshta.exe"
+   OR Image="*\\certutil.exe" OR Image="*\\cscript.exe" OR Image="*\\wscript.exe"
+   OR Image="*\\msbuild.exe" OR Image="*\\installutil.exe" OR Image="*\\bitsadmin.exe"
+   OR Image="*\\wmic.exe")
+| eval process_name=replace(Image,".*\\\\","")
+| stats count values(CommandLine) as sample_cmds dc(Computer) as hosts by process_name User
+| sort -count
+| head 15
+| eval sample_cmds=mvindex(sample_cmds,0,2)
+| table process_name User count hosts sample_cmds
+| rename process_name as "LOLBin", User as "User", count as "Executions", hosts as "Hosts", sample_cmds as "Sample Commands"
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="drilldown">row</option>
+        <option name="count">15</option>
+      </table>
+    </panel>
+  </row>
+
+  <!-- ============================================================
+       ROW 10 — INGESTION HEALTH  (SOC)
+       ============================================================ -->
+  <row>
+    <panel>
+      <title>Ingestion Health — Events Per Host Over Time</title>
+      <chart>
+        <search>
+          <query>
+            <![CDATA[
+index=$idx$ host=$host_filter$
+| timechart span=1h count by host limit=15
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+        <option name="charting.legend.placement">bottom</option>
+        <option name="charting.chart.nullValueMode">zero</option>
+        <option name="height">280</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Sourcetype Distribution</title>
+      <chart>
+        <search>
+          <query>
+            <![CDATA[
+index=$idx$ host=$host_filter$
+| top limit=10 sourcetype
+            ]]>
+          </query>
+          <earliest>$timeRange.earliest$</earliest>
+          <latest>$timeRange.latest$</latest>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.chart.showPercent">true</option>
+        <option name="height">280</option>
+      </chart>
+    </panel>
+  </row>
+
+</dashboard>
