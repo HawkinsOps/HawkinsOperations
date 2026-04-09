@@ -7,6 +7,17 @@
   const $ = (sel, root=document) => root.querySelector(sel);
   const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
   const html = document.documentElement;
+
+  // Focus without forcing the browser to scroll the element into view.
+  function safeFocus(el) {
+    if (!el || typeof el.focus !== 'function') return;
+    try {
+      el.focus({ preventScroll: true });
+    } catch (err) {
+      try { el.focus(); } catch (err2) { /* ignore */ }
+    }
+  }
+
   const VERIFIED_TIMEOUT_MS = 1500;
   const OPS_TIMEOUT_MS = 1500;
   const isLocalDebugHost = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
@@ -337,10 +348,10 @@
 
     if (e.shiftKey && document.activeElement === first) {
       e.preventDefault();
-      last.focus();
+      safeFocus(last);
     } else if (!e.shiftKey && document.activeElement === last) {
       e.preventDefault();
-      first.focus();
+      safeFocus(first);
     }
   }
 
@@ -350,7 +361,7 @@
     modalBg.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     if (lastFocused && typeof lastFocused.focus === 'function') {
-      lastFocused.focus();
+      safeFocus(lastFocused);
     }
   }
 
@@ -364,7 +375,7 @@
     modalBg.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
     if (modalClose) {
-      modalClose.focus();
+      safeFocus(modalClose);
     }
   }
 
