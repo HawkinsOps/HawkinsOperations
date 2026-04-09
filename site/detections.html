@@ -30,7 +30,6 @@
 <link rel="stylesheet" href="/assets/coherence.css?v=03-24-2026-3">
 <link rel="stylesheet" href="/assets/galaxy.css?v=03-25-2026-1">
 <link rel="stylesheet" href="/assets/page-shells.css?v=03-16-2026-1">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* Detection page styles */
@@ -101,15 +100,6 @@
 .pipe-node.active{border-color:rgba(122,184,255,0.3);color:#7ab8ff;font-weight:600;}
 .pipe-arr{color:#3d5273;font-size:1.2rem;padding:0 6px;}
 
-/* Platform visual bars */
-.det-platform-bars{max-width:600px;margin:32px auto 0;display:flex;flex-direction:column;gap:12px;}
-.det-pbar{display:grid;grid-template-columns:80px 1fr 50px;gap:12px;align-items:center;}
-.det-pbar-label{font-family:'JetBrains Mono',monospace;font-size:0.78rem;font-weight:600;color:#d4e0ec;}
-.det-pbar-track{height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden;position:relative;}
-.det-pbar-fill{height:100%;border-radius:4px;transition:width 1.2s cubic-bezier(.22,1,.36,1);width:0;}
-.det-pbar-fill.animate{/* width set by JS */}
-.det-pbar-count{font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:700;text-align:right;}
-
 /* Hero glow */
 .det-hero{position:relative;overflow:hidden;}
 .det-hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(0,212,255,.06) 0%,transparent 70%);pointer-events:none;}
@@ -137,18 +127,6 @@
   .mitre-bar{grid-template-columns:80px 1fr 30px;}
   .platform-strip{grid-template-columns:repeat(2,1fr);}
 }
-
-/* Platform inventory strip */
-.platform-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:28px 0;border-bottom:1px solid rgba(122,184,255,0.06);}
-.ps-item{text-align:center;padding:14px 8px;border-right:1px solid rgba(122,184,255,0.04);}
-.ps-item:last-child{border-right:none;}
-.ps-item .ps-count{font-family:'JetBrains Mono',monospace;font-size:1.15rem;font-weight:700;}
-.ps-item .ps-count.c-sigma{color:#7ab8ff;}
-.ps-item .ps-count.c-wazuh{color:#00c4d4;}
-.ps-item .ps-count.c-splunk{color:#4ade80;}
-.ps-item .ps-count.c-ir{color:#fbbf24;}
-.ps-item .ps-label{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.06em;color:#7a94aa;margin-top:3px;}
-.ps-item .ps-detail{font-size:0.56rem;color:#3d5273;margin-top:2px;}
 
 /* Collection card (Splunk grouped) */
 .det-card.collection{border-left-color:rgba(74,222,128,0.35);position:relative;}
@@ -206,30 +184,6 @@
 
     <p style="margin:16px 0 0;font-size:0.76rem;color:#5a7a8e;line-height:1.6;max-width:64ch;"><span data-verified="detections">210</span> rules + 10 IR playbooks, all version-controlled, mapped to ATT&amp;CK, and feeding SignalFoundry&rsquo;s pipeline. ~88% auto-close, 8,574 escalations with evidence.</p>
 
-    <!-- Platform visual bars -->
-    <div class="det-platform-bars">
-      <div class="det-pbar">
-        <span class="det-pbar-label" style="color:#7ab8ff;">Sigma</span>
-        <div class="det-pbar-track"><div class="det-pbar-fill" data-bar-width="100" style="background:linear-gradient(90deg,rgba(122,184,255,.5),rgba(122,184,255,.25));"></div></div>
-        <span class="det-pbar-count" style="color:#7ab8ff;" data-verified="sigma">103</span>
-      </div>
-      <div class="det-pbar">
-        <span class="det-pbar-label" style="color:#00c4d4;">Wazuh</span>
-        <div class="det-pbar-track"><div class="det-pbar-fill" data-bar-width="27" style="background:linear-gradient(90deg,rgba(0,196,212,.5),rgba(0,196,212,.25));"></div></div>
-        <span class="det-pbar-count" style="color:#00c4d4;" data-verified="wazuh">28</span>
-      </div>
-      <div class="det-pbar">
-        <span class="det-pbar-label" style="color:#4ade80;">Splunk</span>
-        <div class="det-pbar-track"><div class="det-pbar-fill" data-bar-width="77" style="background:linear-gradient(90deg,rgba(74,222,128,.5),rgba(74,222,128,.25));"></div></div>
-        <span class="det-pbar-count" style="color:#4ade80;" data-verified="splunk">79</span>
-      </div>
-      <div class="det-pbar">
-        <span class="det-pbar-label" style="color:#fbbf24;">IR</span>
-        <div class="det-pbar-track"><div class="det-pbar-fill" data-bar-width="10" style="background:linear-gradient(90deg,rgba(251,191,36,.5),rgba(251,191,36,.25));"></div></div>
-        <span class="det-pbar-count" style="color:#fbbf24;" data-verified="ir">10</span>
-      </div>
-      <div style="text-align:center;margin-top:4px;"><span style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:#3d5273;">Splunk: home lab only. Not an enterprise or production SOC claim.</span></div>
-    </div>
   </div>
 
   <!-- MITRE ATT&CK COVERAGE MAP (Chart.js) -->
@@ -243,74 +197,6 @@
         <canvas id="mitreChart" height="280"></canvas>
       </div>
       <p style="font-size:0.68rem;color:#4a5568;margin-top:12px;text-align:center;">Source: <code style="font-size:0.65rem;color:#7ab8ff;background:rgba(122,184,255,0.08);padding:1px 5px;border-radius:2px;">content/detection-rules/sigma/</code> &middot; <span data-verified="sigma">103</span> YAML files across tactic folders &middot; Bar color: <span style="color:#ef4444;">red</span>&nbsp;=&nbsp;highest density, <span style="color:#4ade80;">green</span>&nbsp;=&nbsp;above average, <span style="color:#00d4ff;">blue</span>&nbsp;=&nbsp;baseline</p>
-    </div>
-  </div>
-
-  <!-- HIGH-SIGNAL DETECTIONS -->
-  <div class="hs-section">
-    <div class="det-page">
-      <div class="sec-label">High-Signal Detections</div>
-      <h2 class="sec-title">Critical-severity rules &mdash; real attacker TTPs</h2>
-      <p class="sec-sub">These detections target the techniques that matter most. Each maps to a documented attack chain and feeds directly into SignalFoundry&rsquo;s escalation pipeline.</p>
-      <div class="hs-category">Credential Access</div>
-      <div class="hs-grid">
-        <div class="hs-card">
-          <div class="htitle">DCSync Attack Detection</div>
-          <div class="hdesc">Detects directory replication service requests used to extract credential data from Active Directory.</div>
-          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1003</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Cred Access</span></div>
-          <div class="hmeta" style="margin-top:6px;"><span class="dtag datasrc">Security 4662 / DirSync replication</span><span class="dtag validated">Lab-validated</span><span class="dtag pipeline">Escalates &rarr; Evidence Pack</span></div>
-        </div>
-        <div class="hs-card">
-          <div class="htitle">LSASS Memory Dump via Comsvcs.dll</div>
-          <div class="hdesc">Detects credential harvesting through comsvcs.dll MiniDump export targeting the LSASS process.</div>
-          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1003</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Cred Access</span></div>
-          <div class="hmeta" style="margin-top:6px;"><span class="dtag datasrc">Sysmon EventID 1 / Process Creation</span><span class="dtag validated">Lab-validated</span><span class="dtag pipeline">Escalates &rarr; Evidence Pack</span></div>
-        </div>
-        <div class="hs-card">
-          <div class="htitle">NTDS.dit Credential Extraction</div>
-          <div class="hdesc">Detects access to the NTDS.dit Active Directory database file for offline credential extraction.</div>
-          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1003</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Cred Access</span></div>
-          <div class="hmeta" style="margin-top:6px;"><span class="dtag datasrc">Security 4663 / Object Access</span><span class="dtag validated">Lab-validated</span><span class="dtag pipeline">Escalates &rarr; Evidence Pack</span></div>
-        </div>
-      </div>
-
-      <div class="hs-category">Defense Evasion</div>
-      <div class="hs-grid">
-        <div class="hs-card">
-          <div class="htitle">AMSI Bypass Attempt</div>
-          <div class="hdesc">Detects attempts to disable or bypass the Antimalware Scan Interface to execute undetected payloads.</div>
-          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1562</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Def Evasion</span></div>
-          <div class="hmeta" style="margin-top:6px;"><span class="dtag datasrc">PowerShell ScriptBlock / EventID 4104</span><span class="dtag validated">Lab-validated</span><span class="dtag pipeline">Escalates &rarr; Evidence Pack</span></div>
-        </div>
-        <div class="hs-card">
-          <div class="htitle">Masquerading as Windows Process</div>
-          <div class="hdesc">Detects executables mimicking legitimate Windows process names from non-standard paths.</div>
-          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1036</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Def Evasion</span></div>
-          <div class="hmeta" style="margin-top:6px;"><span class="dtag datasrc">Sysmon EventID 1 / Image Path</span><span class="dtag validated">Lab-validated</span><span class="dtag pipeline">Escalates &rarr; Evidence Pack</span></div>
-        </div>
-        <div class="hs-card">
-          <div class="htitle">Potential Rootkit Behavior</div>
-          <div class="hdesc">Detects kernel-level persistence and process hiding patterns characteristic of rootkit deployment.</div>
-          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1014</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Def Evasion</span></div>
-          <div class="hmeta" style="margin-top:6px;"><span class="dtag datasrc">Sysmon EventID 6,13 / Driver Load + Registry</span><span class="dtag validated">Lab-validated</span><span class="dtag pipeline">Escalates &rarr; Evidence Pack</span></div>
-        </div>
-      </div>
-
-      <div class="hs-category">Impact</div>
-      <div class="hs-grid">
-        <div class="hs-card">
-          <div class="htitle">Ransomware File Encryption Activity</div>
-          <div class="hdesc">Detects mass file extension changes and encryption patterns associated with ransomware behavior.</div>
-          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1486</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Impact</span></div>
-          <div class="hmeta" style="margin-top:6px;"><span class="dtag datasrc">Sysmon EventID 11 / File Create</span><span class="dtag validated">Lab-validated</span><span class="dtag pipeline">Escalates &rarr; Evidence Pack</span></div>
-        </div>
-        <div class="hs-card">
-          <div class="htitle">Firmware Corruption Attempt</div>
-          <div class="hdesc">Detects attempts to modify system firmware for persistent, pre-boot level compromise.</div>
-          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1495</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">Impact</span></div>
-          <div class="hmeta" style="margin-top:6px;"><span class="dtag datasrc">Sysmon / System Integrity</span><span class="dtag validated">Lab-validated</span><span class="dtag pipeline">Escalates &rarr; Evidence Pack</span></div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -339,30 +225,6 @@
     <p class="sec-sub" style="margin:16px auto 0;text-align:center;">Every detection on this page has been counted from the repo, verified by CI, and tested against lab telemetry. Platform-specific claim ceilings apply &mdash; see <a href="/proof" style="color:#7ab8ff;text-decoration:underline;">Proof</a> for reconciled totals.</p>
   </div>
 
-  <!-- PLATFORM INVENTORY -->
-  <div class="platform-strip">
-    <div class="ps-item">
-      <div class="ps-count c-sigma" data-verified="sigma">103</div>
-      <div class="ps-label">Sigma Rules</div>
-      <div class="ps-detail">YAML detection rules</div>
-    </div>
-    <div class="ps-item">
-      <div class="ps-count c-wazuh" data-verified="wazuh">28</div>
-      <div class="ps-label">Wazuh Rule Blocks</div>
-      <div class="ps-detail">across 24 XML files</div>
-    </div>
-    <div class="ps-item">
-      <div class="ps-count c-splunk" data-verified="splunk">79</div>
-      <div class="ps-label">Splunk Searches</div>
-      <div class="ps-detail">across 9 SPL files (lab)</div>
-    </div>
-    <div class="ps-item">
-      <div class="ps-count c-ir" data-verified="ir">10</div>
-      <div class="ps-label">IR Playbooks</div>
-      <div class="ps-detail">7-step structured format</div>
-    </div>
-  </div>
-
   <!-- FILTER BAR -->
   <div class="filter-section" id="filterBar">
     <div class="filter-row">
@@ -381,6 +243,48 @@
   <div class="det-grid-section">
     <div class="det-grid" id="detGrid">
       <!-- Populated by JS below -->
+    </div>
+  </div>
+
+  <!-- HIGH-SIGNAL DETECTIONS -->
+  <div class="hs-section">
+    <div class="det-page">
+      <div class="sec-label">High-Signal Detections</div>
+      <h2 class="sec-title">Critical-severity rules</h2>
+      <div class="hs-grid" style="margin-top:16px;">
+        <div class="hs-card">
+          <div class="htitle">DCSync Attack Detection</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1003</span></div>
+        </div>
+        <div class="hs-card">
+          <div class="htitle">LSASS Memory Dump via Comsvcs.dll</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1003</span></div>
+        </div>
+        <div class="hs-card">
+          <div class="htitle">NTDS.dit Credential Extraction</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1003</span></div>
+        </div>
+        <div class="hs-card">
+          <div class="htitle">AMSI Bypass Attempt</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1562</span></div>
+        </div>
+        <div class="hs-card">
+          <div class="htitle">Masquerading as Windows Process</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1036</span></div>
+        </div>
+        <div class="hs-card">
+          <div class="htitle">Ransomware File Encryption</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1486</span></div>
+        </div>
+        <div class="hs-card">
+          <div class="htitle">Potential Rootkit Behavior</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1014</span></div>
+        </div>
+        <div class="hs-card">
+          <div class="htitle">Firmware Corruption Attempt</div>
+          <div class="hmeta"><span class="dtag sigma">Sigma</span><span class="dtag sev-critical">Critical</span><span class="dtag" style="background:rgba(122,184,255,0.06);color:#7a94aa;">T1495</span></div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -648,26 +552,6 @@ applyFilters();
 <script src="/assets/fetch-utils.js" defer></script>
 <script src="/data/counts.js" defer></script>
 <script src="/assets/app.js" defer></script>
-<div id="tsparticles"></div>
-<script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js"></script>
-<script src="/assets/js/site-effects.js"></script>
-<script>
-(function(){
-  var bars=document.querySelectorAll('.det-pbar-fill[data-bar-width]');
-  if(!bars.length)return;
-  var obs=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting&&!e.target.dataset.animated){
-        e.target.dataset.animated='1';
-        e.target.style.width=e.target.dataset.barWidth+'%';
-      }
-    });
-  },{threshold:0.3});
-  bars.forEach(function(b){obs.observe(b);});
-})();
-</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script>
 (function(){
