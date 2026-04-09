@@ -95,7 +95,7 @@ Authoritative source: `data/metrics.json` (lifetime_runtime object)
 | D2 | Lifetime escalated (HTML fallback) | 6,178 | 6,178 | `site/proof.html:442` | **RESOLVED** | -- |
 | D3 | Lifetime known FP (HTML fallback) | 85,185 | 85,185 | `site/proof.html:443` | **RESOLVED** | -- |
 | D4 | EXECUTION_LOG Phase 0 counts | Current: 103/9/24/28/10 | Stale: 105/8/25/29/10 | `PROOF_PACK/EXECUTION_LOG.md:14` | **STALE** | Informational (annotated as historical) |
-| D5 | MITRE technique count | 90 (README claim) | UNVERIFIED | `README.md:45` | **UNRESOLVED** | Medium |
+| D5 | MITRE technique count | 90 / 53 (prior README claim) | **123 techniques / 69 families** (verified) | `README.md:45`, `PROOF_PACK/VERIFIED_MITRE.csv`, `PROOF_PACK/VERIFIED_MITRE.md` | **RESOLVED** | -- |
 
 ---
 
@@ -135,11 +135,11 @@ The rate decreased because the case composition changed as the pipeline processe
 - `site/index.html:455` — "Promoted in under 5 months"
 - `site/resume.html:362` — "Promoted from second-shift operator to third-shift Team Lead in under 5 months"
 
-### 3D. MITRE ATT&CK Coverage (90 technique IDs / 53 families)
+### 3D. MITRE ATT&CK Coverage (verified: 123 techniques / 69 families)
 
-**Status: UNRESOLVED.** The claim appears only in `README.md:45`. No script generates or verifies this count. The detection rules are organized into 10 tactic folders under `content/detection-rules/sigma/`. A full count of unique MITRE technique IDs across all Sigma YAML `tags:` fields, Wazuh `<mitre><id>` elements, and Splunk `# MITRE: T####` comments would be needed to verify or refute the "90 / 53" claim.
+**Status: RESOLVED.** `scripts/verify/verify-mitre.ps1` now parses Sigma YAML `tags:` (`attack.tNNNN[.NNN]`), Wazuh `<mitre><id>` blocks, and Splunk `# MITRE: TNNNN` comments across every detection rule file in the repo, with a generic `\bT\d{4}(?:\.\d+)?\b` fallback. It emits per-technique provenance to `PROOF_PACK/VERIFIED_MITRE.csv` (Technique, Family, FileList, FileCount) and a summary to `PROOF_PACK/VERIFIED_MITRE.md`. `scripts/verify/generate-verified-counts.ps1` reads the CSV and includes a MITRE row in `PROOF_PACK/VERIFIED_COUNTS.md`.
 
-**Recommendation:** Create a verification script (or extend `verify-counts.ps1`) to count unique technique IDs and families from rule files, and add the result to `VERIFIED_COUNTS.md`.
+**Verified values (2026-04-09):** 123 unique technique IDs across 69 technique families, scanned from 103 Sigma YAML files, 24 Wazuh XML files, and 9 Splunk SPL files. The prior `README.md:45` claim of 90/53 has been replaced with the verified 123/69 values and a link to the verifier and provenance CSV.
 
 ### 3E. EXECUTION_LOG Phase 0 Counts (Historical)
 
@@ -260,8 +260,8 @@ These are frozen-in-time values from prior canonical snapshots. They are correct
 | A1 | Lock lifetime_escalated to April 1 benchmark (6,178) across all files | **High** | `data/metrics.json`, `site/assets/data/ops-metrics.json`, `README.md` | **DONE** |
 | A2 | Update HTML fallback in `proof.html:443` — lifetime_known_fp from N/A to 85,185 | **Medium** | `site/proof.html` | **DONE** |
 | A3 | Remove escalation count split from README | **Medium** | `README.md` | **DONE** |
-| A4 | Verify MITRE technique count (90 / 53 claim) or remove from README | **Medium** | `README.md:45` | OPEN |
-| A5 | Consider adding MITRE count to verification pipeline | **Low** | `scripts/verify/verify-counts.ps1` | OPEN |
+| A4 | Verify MITRE technique count (replaces 90 / 53 claim with verified 123 / 69) | **Medium** | `README.md:45`, `PROOF_PACK/VERIFIED_MITRE.csv`, `PROOF_PACK/VERIFIED_MITRE.md` | **DONE** |
+| A5 | Add MITRE count to verification pipeline (`verify-mitre.ps1`, generator integration) | **Low** | `scripts/verify/verify-mitre.ps1`, `scripts/verify/generate-verified-counts.ps1`, `PROOF_PACK/VERIFIED_COUNTS.md` | **DONE** |
 
 ---
 
