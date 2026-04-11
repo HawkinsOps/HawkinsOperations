@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <title>SignalFoundry — Flagship System | HawkinsOps</title>
-<meta name="description" content="SignalFoundry: the flagship 35-script Python triage pipeline behind HawkinsOps. Ingests Wazuh alerts, triages by policy, enforces redaction, and publishes gated evidence packs. Architecture, incident recovery, and system context.">
+<meta name="description" content="SignalFoundry: the flagship 35-script Python triage pipeline behind HawkinsOps. Ingests Wazuh SIEM alerts, classifies by deterministic policy, enforces PII redaction, validates across four surfaces, and publishes CI-gated evidence packs. System architecture, pipeline logic, and proof chain.">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07070b">
 <link rel="canonical" href="https://hawkinsops.com/signalfoundry">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SignalFoundry — Flagship System | HawkinsOps">
-<meta property="og:description" content="SignalFoundry: the flagship triage pipeline behind HawkinsOps. Architecture, incident recovery, and system context.">
+<meta property="og:description" content="SignalFoundry: the flagship triage pipeline behind HawkinsOps. System architecture, deterministic triage logic, redaction gates, and proof chain.">
 <meta property="og:url" content="https://hawkinsops.com/signalfoundry">
 <meta property="og:image" content="https://hawkinsops.com/assets/og-card.png">
 <meta property="og:image:width" content="1200">
@@ -17,7 +17,7 @@
 <meta property="og:image:type" content="image/png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="SignalFoundry — Flagship System | HawkinsOps">
-<meta name="twitter:description" content="SignalFoundry: the flagship triage pipeline behind HawkinsOps. Architecture, incident recovery, and system context.">
+<meta name="twitter:description" content="SignalFoundry: the flagship triage pipeline behind HawkinsOps. System architecture, deterministic triage logic, redaction gates, and proof chain.">
 <meta name="twitter:image" content="https://hawkinsops.com/assets/og-card.png">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
@@ -166,170 +166,26 @@
 <div class="cs-page">
 
   <!-- ════════════════════════════════════════════════════════
-       SECTION 1: CASE STUDY HERO — Incident-first
+       SECTION 1: SYSTEM HERO — System-first
        ════════════════════════════════════════════════════════ -->
   <div class="cs-hero">
     <div class="cs-label incident">SignalFoundry — Flagship System</div>
     <h1 style="font-size:clamp(1.8rem,3.5vw,2.8rem);margin:0 0 10px;line-height:1.15;">SignalFoundry</h1>
-    <p class="cs-sub">The flagship pipeline behind HawkinsOps. 35-script Python system that ingests Wazuh alerts, triages by policy, enforces redaction, and publishes gated evidence packs. Below: the March 13 outage recovery that stress-tested the entire architecture.</p>
-
-    <!-- Incident summary card -->
-    <div class="cs-incident-card">
-      <div style="padding:0;">
-        <div class="cs-incident-row"><span class="cs-incident-key">Incident</span><span class="cs-incident-val warn">Ingestion outage</span></div>
-        <div class="cs-incident-row"><span class="cs-incident-key">System</span><span class="cs-incident-val">SignalFoundry / AutoSOC</span></div>
-        <div class="cs-incident-row"><span class="cs-incident-key">Date</span><span class="cs-incident-val">03-13-2026</span></div>
-        <div class="cs-incident-row"><span class="cs-incident-key">Duration</span><span class="cs-incident-val">Single session</span></div>
-      </div>
-      <div style="padding:0;">
-        <div class="cs-incident-row"><span class="cs-incident-key">Root cause</span><span class="cs-incident-val">Reconciliation-path validation defect</span></div>
-        <div class="cs-incident-row"><span class="cs-incident-key">Resolution</span><span class="cs-incident-val success">Full recovery &mdash; SUCCESS</span></div>
-        <div class="cs-incident-row"><span class="cs-incident-key">Coverage</span><span class="cs-incident-val success" data-ops="stable_coverage_ratio">8/8</span></div>
-        <div class="cs-incident-row"><span class="cs-incident-key">Reconciliation</span><span class="cs-incident-val success">PASS &mdash; 0 mismatches</span></div>
-      </div>
-    </div>
+    <p class="cs-sub">The flagship triage pipeline behind HawkinsOps. A 35-script Python system that continuously ingests Wazuh SIEM alerts, classifies them through a deterministic policy engine, enforces PII redaction, validates state across four independent surfaces, and publishes evidence-backed escalation packs to a public repository &mdash; all CI-gated and reconciled. Specific incidents and remediations live under <a href="/case-studies" style="color:#7ab8ff;">Case Studies</a>. Reconciled metrics and verification commands live under <a href="/proof" style="color:#7ab8ff;">Proof</a>.</p>
 
     <div class="cs-ctas">
-      <a href="/proof" class="cs-cta primary">View Proof Receipts</a>
-      <a href="#related-cases" class="cs-cta">Related Cases</a>
+      <a href="/proof" class="cs-cta primary">View Proof &amp; Evidence</a>
+      <a href="/case-studies" class="cs-cta">Case Studies</a>
       <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" class="cs-cta">Inspect Repository</a>
     </div>
   </div>
 
   <!-- ════════════════════════════════════════════════════════
-       SECTION 2: INCIDENT TIMELINE
-       ════════════════════════════════════════════════════════ -->
-  <div class="cs-section" data-aos="fade-up">
-    <div class="cs-label incident">Incident Timeline</div>
-    <h2 class="cs-title">March 13 &mdash; outage to recovery</h2>
-    <div class="cs-timeline">
-      <div class="cs-tl-event">
-        <div class="cs-tl-dot" style="background:#4ade80;color:#4ade80;"></div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#4ade80;">04-07-2026 &mdash; RESOLVED</div>
-        <div style="font-size:0.88rem;font-weight:600;color:#e5edff;margin-top:2px;">Production race condition &mdash; diagnosed and resolved under live load</div>
-        <div style="font-size:0.75rem;color:#7a94aa;margin-top:4px;">TOCTOU race at 505K queue depth. 4 guard sites, 20 lines, zero behavioral changes. Verified with race actively firing. <a href="/case-study-race-condition" style="color:#7ab8ff;text-decoration:none;">Full case study &rarr;</a></div>
-      </div>
-      <div class="cs-tl-event">
-        <div class="cs-tl-dot" style="background:#ef4444;color:#ef4444;"></div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#ef4444;">03-13-2026 &mdash; DETECTED</div>
-        <div style="font-size:0.88rem;font-weight:600;color:#e5edff;margin-top:2px;">Ingestion outage &mdash; heartbeat dropped to DEGRADED</div>
-        <div style="font-size:0.75rem;color:#7a94aa;margin-top:4px;">Pipeline stopped ingesting Wazuh alerts. No new cases processing. Existing escalation artifacts unaffected.</div>
-      </div>
-      <div class="cs-tl-event">
-        <div class="cs-tl-dot" style="background:#fbbf24;color:#fbbf24;"></div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#fbbf24;">DIAGNOSIS</div>
-        <div style="font-size:0.88rem;font-weight:600;color:#e5edff;margin-top:2px;">Infrastructure reachability separated from application logic</div>
-        <div style="font-size:0.75rem;color:#7a94aa;margin-top:4px;">Network path to Wazuh API confirmed functional. Problem isolated to the reconciliation validation path inside the pipeline.</div>
-      </div>
-      <div class="cs-tl-event">
-        <div class="cs-tl-dot" style="background:#7ab8ff;color:#7ab8ff;"></div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#7ab8ff;">ROOT CAUSE</div>
-        <div style="font-size:0.88rem;font-weight:600;color:#e5edff;margin-top:2px;">Reconciliation-path validation defect isolated</div>
-        <div style="font-size:0.75rem;color:#7a94aa;margin-top:4px;">The ledger reconciliation gate was rejecting valid ingestion batches due to a path validation fault introduced during a prior refactor.</div>
-      </div>
-      <div class="cs-tl-event">
-        <div class="cs-tl-dot" style="background:#4ade80;color:#4ade80;"></div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#4ade80;">RESTORED</div>
-        <div style="font-size:0.88rem;font-weight:600;color:#e5edff;margin-top:2px;">Pipeline returned to SUCCESS</div>
-        <div style="font-size:0.75rem;color:#7a94aa;margin-top:4px;">Fix applied. Full pipeline validated end-to-end. 8/8 host coverage confirmed, 0 reconciliation mismatches, heartbeat SUCCESS.</div>
-      </div>
-      <div class="cs-tl-event">
-        <div class="cs-tl-dot" style="background:#4ade80;color:#4ade80;"></div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#4ade80;"><span data-ops="stable_locked_date">04-07-2026</span> &mdash; LOCKED</div>
-        <div style="font-size:0.88rem;font-weight:600;color:#e5edff;margin-top:2px;">Authority snapshot frozen</div>
-        <div style="font-size:0.75rem;color:#7a94aa;margin-top:4px;">Post-recovery metrics locked as public benchmark: 324,074 cases, ~88% auto-close, 8,574 escalations. Verification commands documented.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════════════════════════════════════════════════════════
-       SECTION 3: CASE BREAKDOWN
+       SECTION 2: SYSTEM STATE
        ════════════════════════════════════════════════════════ -->
   <div class="cs-section alt" data-aos="fade-up">
-    <div class="cs-label">Case Breakdown</div>
-    <h2 class="cs-title">What happened, what I did, how it was validated</h2>
-    <div class="cs-breakdown">
-      <div class="cs-block">
-        <div class="cs-block-label" style="color:#ef4444;"><span class="dot" style="background:#ef4444;"></span>Problem</div>
-        <div class="cs-block-text">SignalFoundry pipeline stopped ingesting Wazuh alerts on March 13. Heartbeat status dropped from SUCCESS to DEGRADED. No new cases were being processed or triaged.</div>
-      </div>
-      <div class="cs-block">
-        <div class="cs-block-label" style="color:#fbbf24;"><span class="dot" style="background:#fbbf24;"></span>Impact</div>
-        <div class="cs-block-text">Complete halt of alert triage automation. New Wazuh alerts were queuing without classification, redaction, or evidence pack generation. Escalation pipeline stalled.</div>
-      </div>
-      <div class="cs-block">
-        <div class="cs-block-label" style="color:#7ab8ff;"><span class="dot" style="background:#7ab8ff;"></span>Root Cause</div>
-        <div class="cs-block-text">The reconciliation-path validation gate was rejecting valid ingestion batches. A prior refactor introduced a path validation defect that caused the ledger check to fail on well-formed input. Infrastructure (Wazuh API, network) was confirmed operational &mdash; this was purely application logic.</div>
-      </div>
-      <div class="cs-block">
-        <div class="cs-block-label" style="color:#00c4d4;"><span class="dot" style="background:#00c4d4;"></span>Fix</div>
-        <div class="cs-block-text">Isolated the defect by separating infrastructure reachability testing from application-layer validation. Corrected the reconciliation-path logic. Applied the fix and re-ran the full pipeline end-to-end in one session.</div>
-      </div>
-      <div class="cs-block">
-        <div class="cs-block-label" style="color:#a78bfa;"><span class="dot" style="background:#a78bfa;"></span>Validation</div>
-        <div class="cs-block-text">Post-fix verification: pipeline heartbeat returned to SUCCESS, 8/8 host coverage confirmed, reconciliation PASS with 0 mismatches, all triage dispositions operating as expected.</div>
-      </div>
-      <div class="cs-block">
-        <div class="cs-block-label" style="color:#4ade80;"><span class="dot" style="background:#4ade80;"></span>Final State</div>
-        <div class="cs-block-text">Authority snapshot locked on 04-07-2026: 324,074 total cases processed, ~88% auto-close rate, 8,574 escalations with auditable evidence packs. All metrics CI-gated and publicly verifiable.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════════════════════════════════════════════════════════
-       SECTION 4: RELATED CASES INDEX
-       ════════════════════════════════════════════════════════ -->
-  <div class="cs-section" data-aos="fade-up" id="related-cases">
-    <div class="cs-label">Related Cases</div>
-    <h2 class="cs-title">Engineering cases from SignalFoundry</h2>
-    <div class="cs-case-grid">
-      <a href="/case-study-race-condition" class="cs-case-card">
-        <div class="cc-date">04-07-2026</div>
-        <strong>Race Condition Recovery</strong>
-        <span>TOCTOU race at 505K queue depth. 4 guards, 20 lines, zero data loss. Verified under live load.</span>
-      </a>
-      <a href="/autosoc-cutover" class="cs-case-card">
-        <div class="cc-date">03-23-2026</div>
-        <strong>Infrastructure Cutover</strong>
-        <span>Production migration to canonical root. Preflight gate, 5 retargeted tasks, legacy ref count = 0.</span>
-      </a>
-      <a href="/autosoc-hotfix-rca" class="cs-case-card">
-        <div class="cc-date">03-23-2026</div>
-        <strong>Hotfix RCA</strong>
-        <span>Assert-CanonicalPath call order defect. Function moved above call site. EXIT=0, pipeline validated.</span>
-      </a>
-      <a href="/case-study-pipeline-recovery" class="cs-case-card">
-        <div class="cc-date">03-13-2026</div>
-        <strong>Pipeline Fault Recovery</strong>
-        <span>Two independent defects diagnosed in one session. Poller retry + reconciliation scoping. SUCCESS restored.</span>
-      </a>
-      <a href="/case-study-splunk-codex-hunt" class="cs-case-card">
-        <div class="cc-date">March 2026</div>
-        <strong>Splunk Threat Hunt &mdash; Codex AI</strong>
-        <span>375 pwsh.exe instances classified as expected AI tool behavior, not LOLBin activity.</span>
-      </a>
-      <a href="/case-study-honeypot" class="cs-case-card">
-        <div class="cc-date">Lab deployment</div>
-        <strong>Cowrie Honeypot Case Study</strong>
-        <span>Docker-based SSH/Telnet honeypot with Wazuh integration and live alert validation.</span>
-      </a>
-      <a href="/case-studies" class="cs-case-card index-card">
-        <div class="cc-date">Index</div>
-        <strong>All Case Studies &rarr;</strong>
-        <span>Complete engineering documentation index across all projects.</span>
-      </a>
-    </div>
-  </div>
-
-  <!-- ════════════════════════════════════════════════════════
-       SECTION 5: SUPPORTING SYSTEM CONTEXT
-       ════════════════════════════════════════════════════════ -->
-  <div class="cs-section alt" data-aos="fade-up">
-    <div class="cs-context-label">SignalFoundry System Context</div>
-
-    <!-- Current system state -->
     <div class="cs-label">System State</div>
-    <h2 class="cs-title">SignalFoundry &mdash; post-recovery metrics</h2>
+    <h2 class="cs-title">SignalFoundry &mdash; current operational metrics</h2>
     <div class="cs-status-strip">
       <div class="ss-item"><span class="ss-val" style="color:#4ade80;" data-ops-status="stable_heartbeat">SUCCESS</span><span class="ss-lbl">Heartbeat</span></div>
       <div class="ss-item"><span class="ss-val" style="color:#7ab8ff;" data-target="324074">324,074</span><span class="ss-lbl">Cases</span></div>
@@ -339,26 +195,73 @@
     </div>
   </div>
 
-  <!-- Pipeline -->
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 3: HOW SIGNALFOUNDRY WORKS
+       ════════════════════════════════════════════════════════ -->
   <div class="cs-section" data-aos="fade-up">
-    <div class="cs-context-label">Supporting Context</div>
-    <div class="cs-label">Pipeline Architecture</div>
-    <h2 class="cs-title">7-stage deterministic workflow</h2>
-    <p class="cs-sub">Every alert passes through every stage in order. No skip paths. No manual overrides. The outage above occurred at the reconciliation gate (stage 05).</p>
+    <div class="cs-label">Pipeline</div>
+    <h2 class="cs-title">How SignalFoundry works</h2>
+    <p class="cs-sub">Every alert passes through every stage in fixed order. No skip paths. No manual overrides. Policy dictates disposition. Every outcome is auditable.</p>
     <div class="cs-pipeline">
       <div class="cs-stage"><div class="sn">01</div><div class="sname">INGEST</div><div class="sdesc">poll-alerts.py</div></div>
-      <div class="cs-stage"><div class="sn">02</div><div class="sname">TRIAGE</div><div class="sdesc">classify.py</div></div>
-      <div class="cs-stage"><div class="sn">03</div><div class="sname">REDACT</div><div class="sdesc">sanitize.py</div></div>
-      <div class="cs-stage"><div class="sn">04</div><div class="sname">PACK</div><div class="sdesc">evidence.py</div></div>
-      <div class="cs-stage" style="border-color:rgba(251,191,36,0.3);background:rgba(251,191,36,0.04);"><div class="sn" style="color:#fbbf24;">05</div><div class="sname" style="color:#fbbf24;">RECONCILE</div><div class="sdesc">ledger.py</div></div>
-      <div class="cs-stage"><div class="sn">06</div><div class="sname">GATE</div><div class="sdesc">quality.py</div></div>
+      <div class="cs-stage"><div class="sn">02</div><div class="sname">TRIAGE</div><div class="sdesc">triage.py</div></div>
+      <div class="cs-stage"><div class="sn">03</div><div class="sname">REDACT</div><div class="sdesc">redact.py</div></div>
+      <div class="cs-stage"><div class="sn">04</div><div class="sname">PACK</div><div class="sdesc">assemble-pack.py</div></div>
+      <div class="cs-stage" style="border-color:rgba(251,191,36,0.3);background:rgba(251,191,36,0.04);"><div class="sn" style="color:#fbbf24;">05</div><div class="sname" style="color:#fbbf24;">RECONCILE</div><div class="sdesc">reconcile-state.py</div></div>
+      <div class="cs-stage"><div class="sn">06</div><div class="sname">GATE</div><div class="sdesc">coverage-check.py</div></div>
       <div class="cs-stage final"><div class="sn">07</div><div class="sname">PUBLISH</div><div class="sdesc">proof output</div></div>
+    </div>
+
+    <div class="cs-breakdown" style="margin-top:24px;">
+      <div class="cs-block">
+        <div class="cs-block-label" style="color:#7ab8ff;"><span class="dot" style="background:#7ab8ff;"></span>Input</div>
+        <div class="cs-block-text">Raw Wazuh alerts polled from the Wazuh Indexer OpenSearch API via exponential-backoff retry. Supports backfill (cursor-based) and realtime (60-minute window) modes. Queue capped at 2,000 files per run.</div>
+      </div>
+      <div class="cs-block">
+        <div class="cs-block-label" style="color:#fbbf24;"><span class="dot" style="background:#fbbf24;"></span>Decision / Policy Layer</div>
+        <div class="cs-block-text">Every alert is evaluated through a multi-layer deterministic policy: known-FP match, always-escalate rules and groups, per-agent rule overrides, Sysmon tiering and suppressions, level thresholds, and protected-agent logic. Each policy entry is environment-derived with a documented reason. No analyst judgment in the main triage path.</div>
+      </div>
+      <div class="cs-block">
+        <div class="cs-block-label" style="color:#a78bfa;"><span class="dot" style="background:#a78bfa;"></span>Validation / Reconciliation</div>
+        <div class="cs-block-text">4-way consistency check cross-references the ledger, portfolio repo incident directories, content index, and staging state. Reports six mismatch categories. Coverage-check validates all required hosts reported within a 168-hour window with legacy alias normalization.</div>
+      </div>
+      <div class="cs-block">
+        <div class="cs-block-label" style="color:#4ade80;"><span class="dot" style="background:#4ade80;"></span>Publish / Evidence Output</div>
+        <div class="cs-block-text">Escalated cases produce 5 structured artifacts: one-pager, full report, timeline, queries, and closure report. All pass mandatory PII redaction with post-redaction validation. Absolute path leak detection enforced. Published to GitHub as PRs. Metrics CI-gated against the proof chain.</div>
+      </div>
     </div>
   </div>
 
-  <!-- Architecture map -->
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 4: SYSTEM LOGIC
+       ════════════════════════════════════════════════════════ -->
   <div class="cs-section alt" data-aos="fade-up">
-    <div class="cs-context-label">Supporting Context</div>
+    <div class="cs-label">System Logic</div>
+    <h2 class="cs-title">Why alerts close, escalate, or block</h2>
+    <div class="cs-breakdown">
+      <div class="cs-block">
+        <div class="cs-block-label" style="color:#4ade80;"><span class="dot" style="background:#4ade80;"></span>Auto-Close (~88%)</div>
+        <div class="cs-block-text">Alerts matching known-FP signatures or expected activity patterns close automatically with a logged reason and audit trail. Each suppression was derived from direct observation of the monitored environment, not vendor defaults. The known-FP library and policy overrides are scoped per-agent, per-rule, and per-content match.</div>
+      </div>
+      <div class="cs-block">
+        <div class="cs-block-label" style="color:#ef4444;"><span class="dot" style="background:#ef4444;"></span>Escalation (~2.6%)</div>
+        <div class="cs-block-text">Alerts matching always-escalate policy entries, high-confidence suspicious patterns, or Sysmon high-risk binary indicators are promoted to full evidence packs. Sysmon process-access events (e.g. LSASS credential access) always escalate. Network-connection events escalate on living-off-the-land binary match. These are the cases that reach the public portfolio.</div>
+      </div>
+      <div class="cs-block">
+        <div class="cs-block-label" style="color:#a78bfa;"><span class="dot" style="background:#a78bfa;"></span>Redaction Gate</div>
+        <div class="cs-block-text">Before any case data leaves the internal store, regex-based sanitization removes IPs, hostnames, usernames, Windows paths, and email addresses. Post-redaction validation hard-fails if any forbidden pattern survives. Absolute path leak detection blocks any internal path reference from reaching published output.</div>
+      </div>
+      <div class="cs-block">
+        <div class="cs-block-label" style="color:#fbbf24;"><span class="dot" style="background:#fbbf24;"></span>Reconciliation Gate</div>
+        <div class="cs-block-text">No output publishes unless the ledger, repo, content index, and staging state agree. Six mismatch categories are checked. If reconciliation fails in strict mode, the pipeline halts. This gate caught a real serialization defect on March 13, 2026 &mdash; the system blocked its own bad output and the defect was fixed within one session. <a href="/case-study-pipeline-recovery" style="color:#7ab8ff;text-decoration:none;">Full case study &rarr;</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 5: ARCHITECTURE
+       ════════════════════════════════════════════════════════ -->
+  <div class="cs-section" data-aos="fade-up">
     <div class="cs-label">Architecture</div>
     <h2 class="cs-title">System map</h2>
     <div style="margin-top:16px;border-radius:4px;overflow:hidden;border:1px solid rgba(122,184,255,0.1);">
@@ -366,10 +269,11 @@
     </div>
   </div>
 
-  <!-- Decision logic -->
-  <div class="cs-section" data-aos="fade-up">
-    <div class="cs-context-label">Supporting Context</div>
-    <div class="cs-label">Decision Logic</div>
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 6: TRIAGE LOGIC
+       ════════════════════════════════════════════════════════ -->
+  <div class="cs-section alt" data-aos="fade-up">
+    <div class="cs-label">Triage Logic</div>
     <h2 class="cs-title">Deterministic dispositions</h2>
     <p class="cs-sub">No analyst judgment in the triage path. Policy dictates disposition. Every outcome is auditable.</p>
     <div style="display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start;">
@@ -395,9 +299,10 @@
     </div>
   </div>
 
-  <!-- Evidence pack -->
-  <div class="cs-section alt" data-aos="fade-up">
-    <div class="cs-context-label">Supporting Context</div>
+  <!-- ════════════════════════════════════════════════════════
+       SECTION 7: EVIDENCE OUTPUT
+       ════════════════════════════════════════════════════════ -->
+  <div class="cs-section" data-aos="fade-up">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
       <div>
         <div class="cs-label">Escalation Output</div>
@@ -418,23 +323,23 @@
   </div>
 
   <!-- ════════════════════════════════════════════════════════
-       SECTION 6: VALIDATE + NEXT
+       SECTION 8: ROUTING
        ════════════════════════════════════════════════════════ -->
-  <div class="cs-section" data-aos="fade-up">
-    <div class="cs-label">Validate</div>
-    <h2 class="cs-title">Verify and continue</h2>
+  <div class="cs-section alt" data-aos="fade-up">
+    <div class="cs-label">Continue</div>
+    <h2 class="cs-title">Explore further</h2>
     <div class="cs-nav-grid">
+      <a href="/case-studies" class="cs-nav-card">
+        <strong>Case Studies</strong>
+        <span>Incidents, remediations, threat hunts, detection audits, and engineering narratives &mdash; each with documented proof.</span>
+      </a>
       <a href="/proof" class="cs-nav-card">
-        <strong>Proof Receipts</strong>
-        <span>Logs, packs, verification commands, artifact references.</span>
+        <strong>Proof &amp; Evidence</strong>
+        <span>Canonical metrics, reconciliation status, verification commands, and artifact references.</span>
       </a>
-      <a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/docs/execution/AUTOSOC_OPERATIONS_RUNBOOK_03-02-2026.md" target="_blank" rel="noopener noreferrer" class="cs-nav-card">
-        <strong>Operations Runbook</strong>
-        <span>Scheduler config, failure playbook, execution reference.</span>
-      </a>
-      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" class="cs-nav-card">
-        <strong>Repository</strong>
-        <span>Source code, commit history, CI pipeline.</span>
+      <a href="/detections" class="cs-nav-card">
+        <strong>Detections</strong>
+        <span>Verified detection inventory across Sigma, Splunk, Wazuh, and IR playbooks &mdash; CI-enforced counts.</span>
       </a>
     </div>
   </div>
