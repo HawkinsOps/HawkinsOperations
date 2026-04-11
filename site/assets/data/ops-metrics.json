@@ -21,7 +21,7 @@
     "known_fp": "85,953",
     "escalated": "8,574",
     "review": 29875,
-    "staged_pending": 67,
+    "staged_pending": 8739,
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
     "last_updated": "04-07-2026"
@@ -31,7 +31,7 @@
     "auto_close_rate": "88.14%",
     "escalated": 8574,
     "review": 29875,
-    "staged_pending": 67,
+    "staged_pending": 8739,
     "known_fp": 85953,
     "auto_closed_benign": 199672,
     "reconciliation": "PASS",

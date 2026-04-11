@@ -23,6 +23,18 @@ $wazuhRuleBlocks = (Get-ChildItem -Recurse -Filter *.xml -Path $wazuhPath -Error
     Select-String -Pattern "<rule id=" | Measure-Object).Count
 $playbooks = (Get-ChildItem -Recurse -Filter IR-*.md -Path $playbookPath -ErrorAction SilentlyContinue).Count
 
+# Read MITRE coverage from PROOF_PACK/VERIFIED_MITRE.csv if present.
+# Produced by scripts/verify/verify-mitre.ps1. If the CSV is missing, the MITRE
+# row is omitted — run verify-mitre.ps1 first to include it.
+$mitreCsvPath = Join-Path $repoRoot "PROOF_PACK\VERIFIED_MITRE.csv"
+$mitreRow = ""
+if (Test-Path -LiteralPath $mitreCsvPath) {
+    $mitreRows = Import-Csv -LiteralPath $mitreCsvPath
+    $mitreTechniques = ($mitreRows | Measure-Object).Count
+    $mitreFamilies = ($mitreRows | Select-Object -ExpandProperty Family -Unique | Measure-Object).Count
+    $mitreRow = "| **MITRE ATT&CK coverage** | **$mitreTechniques** techniques / **$mitreFamilies** families | PROOF_PACK/VERIFIED_MITRE.csv |`r`n"
+}
+
 $content = @"
 # Verified Detection Counts
 
@@ -44,11 +56,16 @@ This file is generated from live repository file counts.
 |------|-------|----------|
 | **IR Playbooks** (IR-*.md) | **$playbooks** playbooks | content/incident-response/playbooks/ |
 
----
+## MITRE ATT&CK Coverage
+
+| Metric | Count | Source |
+|--------|-------|--------|
+$mitreRow---
 
 ## Verification Commands
 
     pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
+    pwsh -NoProfile -File ".\scripts\verify\verify-mitre.ps1"
     pwsh -NoProfile -File ".\scripts\verify\generate-verified-counts.ps1" -OutFile ".\PROOF_PACK\VERIFIED_COUNTS.md"
 
 ## Build Artifact Command

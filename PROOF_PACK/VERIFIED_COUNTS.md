@@ -18,11 +18,17 @@ This file is generated from live repository file counts.
 |------|-------|----------|
 | **IR Playbooks** (IR-*.md) | **10** playbooks | content/incident-response/playbooks/ |
 
+## MITRE ATT&CK Coverage
+
+| Metric | Count | Source |
+|--------|-------|--------|
+| **MITRE ATT&CK coverage** | **123** techniques / **69** families | PROOF_PACK/VERIFIED_MITRE.csv |
 ---
 
 ## Verification Commands
 
     pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
+    pwsh -NoProfile -File ".\scripts\verify\verify-mitre.ps1"
     pwsh -NoProfile -File ".\scripts\verify\generate-verified-counts.ps1" -OutFile ".\PROOF_PACK\VERIFIED_COUNTS.md"
 
 ## Build Artifact Command

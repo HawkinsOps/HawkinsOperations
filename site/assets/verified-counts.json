@@ -1,8 +1,9 @@
 {
-  "generated_at_utc": "2026-04-06T21:48:58+00:00",
-  "source_path": "PROOF_PACK/verified_counts.json",
+  "generated_at_utc": "2026-04-09T16:13:41+00:00",
+  "source_path": "PROOF_PACK/VERIFIED_COUNTS.md",
   "counts": {
     "sigma": 103,
+    "splunk_spl_files": 9,
     "splunk": 79,
     "wazuh_xml_files": 24,
     "wazuh": 28,

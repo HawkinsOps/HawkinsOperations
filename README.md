@@ -42,7 +42,7 @@ Source of truth: [`PROOF_PACK/VERIFIED_COUNTS.md`](/PROOF_PACK/VERIFIED_COUNTS.m
 | Wazuh rules (XML) | 24 files / 28 rule blocks | `content/detection-rules/wazuh/rules/` |
 | Splunk detection searches (SPL) | 9 files / 79 searches | `content/detection-rules/splunk/` |
 | IR Playbooks | 10 | `content/incident-response/playbooks/` |
-| MITRE ATT&CK coverage | 90 technique/sub-technique IDs | Across 53 families |
+| MITRE ATT&CK coverage | 123 technique/sub-technique IDs | Across 69 families — verified by [`scripts/verify/verify-mitre.ps1`](/scripts/verify/verify-mitre.ps1), provenance in [`PROOF_PACK/VERIFIED_MITRE.csv`](/PROOF_PACK/VERIFIED_MITRE.csv) |
 | Pipeline metrics | See verified counts | [`PROOF_PACK/VERIFIED_COUNTS.md`](/PROOF_PACK/VERIFIED_COUNTS.md) |
 
 > **Why two Wazuh counts?** Files and rule blocks differ when XML modules contain multiple `<rule id=...>` blocks.
