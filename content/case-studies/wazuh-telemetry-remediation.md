@@ -155,7 +155,7 @@ Security 4688 detection was working end-to-end. But Sysmon EID 1 — which provi
 | Alerts reaching indexer | 0 (pipeline broken) | 2,197+ and growing |
 | Sysmon config on primary endpoint | Empty (no config file) | Minimal config: EID 1 enabled, EID 7 disabled |
 | Primary endpoint process visibility | Blind | Full (4688 + Sysmon EID 1) |
-| Secondary endpoint process visibility | Blind | Still blind (host unreachable) |
+| Secondary endpoint process visibility | Blind | Online — 9/9 agents connected |
 | OpenSearch client cert auth | Disabled | Enabled |
 | Manager total rules loaded | 8,490 | 8,491 |
 
@@ -172,7 +172,7 @@ Security 4688 detection was working end-to-end. But Sysmon EID 1 — which provi
 
 ## What Was Not Fully Proven
 
-1. Secondary Windows endpoint — host unreachable, zero remediation possible
+1. ~~Secondary Windows endpoint — host unreachable~~ — resolved; back online, 9/9 agents connected
 2. Long-term Sysmon EID 1 volume impact (just deployed)
 3. Higher-level Sysmon detection rules (92000-series) firing for specific suspicious patterns
 4. Recovery of alerts generated during the ~6-hour indexer outage
@@ -181,7 +181,7 @@ Security 4688 detection was working end-to-end. But Sysmon EID 1 — which provi
 
 ## Remaining Gaps
 
-1. **Secondary endpoint has zero process visibility** — host offline, Sysmon status unknown, Sysmon channel not configured in agent
+1. ~~**Secondary endpoint has zero process visibility**~~ — resolved; host back online, all 9 non-manager agents connected
 2. **Event collection not centrally managed** — Windows agents rely on local config for channel collection; agent reinstall loses config
 3. **FIM limit nearly exhausted** on primary endpoint (99,999/100,000 files monitored)
 4. **Sysmon config is minimal** — may need tuning for noise patterns and additional detection scenarios
