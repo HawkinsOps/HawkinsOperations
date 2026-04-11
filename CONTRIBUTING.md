@@ -77,7 +77,7 @@ We welcome the following contributions:
 # Fork the repository on GitHub, then:
 git clone https://github.com/YOUR-USERNAME/HawkinsOperations.git
 cd HawkinsOperations
-git remote add upstream https://github.com/raylee-hawkins/HawkinsOperations.git
+git remote add upstream https://github.com/HawkinsOps/HawkinsOperations.git
 ```
 
 ### 2. Create Feature Branch
