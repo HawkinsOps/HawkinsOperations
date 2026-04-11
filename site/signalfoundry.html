@@ -245,7 +245,7 @@
       </div>
       <div class="cs-block">
         <div class="cs-block-label" style="color:#ef4444;"><span class="dot" style="background:#ef4444;"></span>Escalation (~2.6%)</div>
-        <div class="cs-block-text">Alerts matching always-escalate rules, high-confidence suspicious patterns, or Sysmon high-risk binary indicators are promoted to full evidence packs. Sysmon Event 10 (process access, e.g. LSASS) always escalates. Event 3 (network connection) escalates on living-off-the-land binary match. These are the cases that reach the public portfolio.</div>
+        <div class="cs-block-text">Alerts matching always-escalate policy entries, high-confidence suspicious patterns, or Sysmon high-risk binary indicators are promoted to full evidence packs. Sysmon process-access events (e.g. LSASS credential access) always escalate. Network-connection events escalate on living-off-the-land binary match. These are the cases that reach the public portfolio.</div>
       </div>
       <div class="cs-block">
         <div class="cs-block-label" style="color:#a78bfa;"><span class="dot" style="background:#a78bfa;"></span>Redaction Gate</div>
