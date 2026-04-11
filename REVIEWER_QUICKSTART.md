@@ -42,6 +42,21 @@ Pick any file from:
 
 ---
 
+## CI/CD workflow map
+
+| Workflow | Type | Gates PRs? | What failure means |
+| --- | --- | --- | --- |
+| **verify** | Verification | Yes (required) | Content counts, site data, Wazuh bundle, or hosting checks failed |
+| **drift-scan** | Verification | Yes (required) | Published numbers don't match actual files on disk |
+| **contract-scan** | Security | Yes (required) | Runtime data or oversized files detected in the commit |
+| **public-safety-gate** | Security | No (path-filtered) | Public-facing content failed safety scan — runs only on `site/**` changes |
+| **CodeQL** | Security | No (informational) | Code scanning found potential vulnerabilities — triaged separately |
+| **deploy-wazuh-pack** | Deployment | No (post-merge) | Wazuh rule deployment failed on the self-hosted runner |
+| **update-site-data** | Maintenance | No (automated) | Site data regeneration failed — may need manual rerun |
+| **autosoc-pipeline** | Operational | No (scheduled) | Live pipeline polling/triage failed — heartbeat auto-creates issues |
+
+---
+
 ## Questions?
 
 Open an issue or contact [raylee@hawkinsops.com](mailto:raylee@hawkinsops.com).
