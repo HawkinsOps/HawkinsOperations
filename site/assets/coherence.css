@@ -40,9 +40,6 @@ html[data-theme="dark"] {
   --radius-md: 12px;
   --radius-lg: 12px;
 
-  /* Fix .m-terminal / .m-code white-on-white: --neutral-900 was #eef6ff (light) */
-  --neutral-900: #0b1220;
-
   /* modernize.css primary palette: teal -> blue/cyan */
   --primary-50: rgba(122, 184, 255, 0.08);
   --primary-100: rgba(122, 184, 255, 0.12);
@@ -363,4 +360,13 @@ footer .ctr p {
 .theme-btn,
 #themeToggle {
   display: none !important;
+}
+
+/* §11 TERMINAL / CODE BLOCK DARK BACKGROUND
+   modernize.css sets background: var(--neutral-900) which is #eef6ff (light).
+   Override the elements directly instead of the variable, because --neutral-900
+   is also used for CTA button text color. */
+.m-terminal,
+.m-code {
+  background: #0b1220;
 }
