@@ -17,7 +17,7 @@ If you only upload `index.html`, the resume PDF and styling will 404 (because ho
 
 ## Update counts
 Counts are sourced from your repo releases / verification artifacts:
-- `raylee-hawkins/HawkinsOperations`
+- `HawkinsOps/HawkinsOperations`
 - Local verification script: `scripts/verify/verify-counts.ps1`
 
 When counts change, regenerate verified artifacts from source of truth:

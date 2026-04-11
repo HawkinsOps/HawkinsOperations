@@ -2,7 +2,7 @@
 
 ## What happened
 
-On 2026-04-11, commit `b1fc28c` ("refactor: make /signalfoundry system-first instead of incident-first") refactored the SignalFoundry page to lead with system architecture rather than incident narrative. The `drift-scan` CI workflow failed on [run 24288009328](https://github.com/raylee-hawkins/HawkinsOperations/actions/runs/24288009328).
+On 2026-04-11, commit `b1fc28c` ("refactor: make /signalfoundry system-first instead of incident-first") refactored the SignalFoundry page to lead with system architecture rather than incident narrative. The `drift-scan` CI workflow failed on [run 24288009328](https://github.com/HawkinsOps/HawkinsOperations/actions/runs/24288009328).
 
 ## What drift_scan.py flagged
 
@@ -19,9 +19,9 @@ Commit `9028217` ("fix: reword escalation block to avoid drift-scan false positi
 
 ## Verification
 
-- **Failing run**: [24288009328](https://github.com/raylee-hawkins/HawkinsOperations/actions/runs/24288009328) on `b1fc28c` — `drift-scan` FAIL
-- **Passing run**: [24288056335](https://github.com/raylee-hawkins/HawkinsOperations/actions/runs/24288056335) on `9028217` — `drift-scan` PASS
-- **Merge run**: [24288088530](https://github.com/raylee-hawkins/HawkinsOperations/actions/runs/24288088530) on `ed06ef5` (PR #157 merge) — `drift-scan` PASS
+- **Failing run**: [24288009328](https://github.com/HawkinsOps/HawkinsOperations/actions/runs/24288009328) on `b1fc28c` — `drift-scan` FAIL
+- **Passing run**: [24288056335](https://github.com/HawkinsOps/HawkinsOperations/actions/runs/24288056335) on `9028217` — `drift-scan` PASS
+- **Merge run**: [24288088530](https://github.com/HawkinsOps/HawkinsOperations/actions/runs/24288088530) on `ed06ef5` (PR #157 merge) — `drift-scan` PASS
 
 ## Why this matters
 

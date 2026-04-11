@@ -117,4 +117,4 @@ Every exclusion added in this pass is:
 
 ---
 
-*Detection library: [github.com/raylee-hawkins/HawkinsOperations/tree/main/content/detection-rules/splunk](https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/detection-rules/splunk)*
+*Detection library: [github.com/HawkinsOps/HawkinsOperations/tree/main/content/detection-rules/splunk](https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/detection-rules/splunk)*

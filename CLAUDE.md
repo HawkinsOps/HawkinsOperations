@@ -148,7 +148,7 @@ proof/*  ───────────────→ generate-proof-lanes.j
 | CI/CD | GitHub Actions |
 | Hosting | Cloudflare Pages (publish dir: `site/`) |
 | Lab infra | Proxmox VMs, Wazuh Manager, Grafana |
-| Version control | Git / GitHub (`raylee-hawkins/HawkinsOperations`) |
+| Version control | Git / GitHub (`HawkinsOps/HawkinsOperations`) |
 
 **No `package.json`, no `requirements.txt`** — Node scripts and Python scripts are
 standalone with no external dependencies.

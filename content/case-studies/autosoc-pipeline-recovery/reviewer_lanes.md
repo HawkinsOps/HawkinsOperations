@@ -36,7 +36,7 @@ case_study: autosoc-pipeline-recovery
 
 ```powershell
 # 1. Clone and enter
-git clone https://github.com/raylee-hawkins/HawkinsOperations.git && cd HawkinsOperations
+git clone https://github.com/HawkinsOps/HawkinsOperations.git && cd HawkinsOperations
 
 # 2. Verify detection counts (CI gate)
 pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
@@ -71,7 +71,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File ".\case-studies\autosoc-pipeline-r
 ### Sigma Rules
 - **Location:** `content/detection-rules/sigma/` — 103 rules across 10 tactic folders
 - **MITRE coverage:** 9 of 14 enterprise tactics, 36+ technique IDs
-- **Browse:** [GitHub](https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/detection-rules/sigma)
+- **Browse:** [GitHub](https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/detection-rules/sigma)
 
 **Tactic distribution:**
 | Tactic | Rules | Key Techniques |

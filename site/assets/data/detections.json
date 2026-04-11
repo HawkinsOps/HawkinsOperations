@@ -10,11 +10,11 @@
       "evidence": [
         {
           "label": "Sigma Folder",
-          "url": "https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/detection-rules/sigma"
+          "url": "https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/detection-rules/sigma"
         },
         {
           "label": "Verification Source",
-          "url": "https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md"
+          "url": "https://github.com/HawkinsOps/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md"
         }
       ]
     },
@@ -28,11 +28,11 @@
       "evidence": [
         {
           "label": "Wazuh Rules Folder",
-          "url": "https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/detection-rules/wazuh/rules"
+          "url": "https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/detection-rules/wazuh/rules"
         },
         {
           "label": "Bundle Script",
-          "url": "https://github.com/raylee-hawkins/HawkinsOperations/blob/main/scripts/build-wazuh-bundle.ps1"
+          "url": "https://github.com/HawkinsOps/HawkinsOperations/blob/main/scripts/build-wazuh-bundle.ps1"
         }
       ]
     },
@@ -46,11 +46,11 @@
       "evidence": [
         {
           "label": "Splunk Detections",
-          "url": "https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/detection-rules/splunk"
+          "url": "https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/detection-rules/splunk"
         },
         {
           "label": "Coverage Mapping",
-          "url": "https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/detection-rules/mappings/mitre_coverage_matrix.md"
+          "url": "https://github.com/HawkinsOps/HawkinsOperations/blob/main/content/detection-rules/mappings/mitre_coverage_matrix.md"
         }
       ]
     },
@@ -64,11 +64,11 @@
       "evidence": [
         {
           "label": "Playbooks Folder",
-          "url": "https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/incident-response/playbooks"
+          "url": "https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/incident-response/playbooks"
         },
         {
           "label": "IR Quick Reference",
-          "url": "https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/incident-response/checklists/IR-004-to-030-Quick-Reference.md"
+          "url": "https://github.com/HawkinsOps/HawkinsOperations/blob/main/content/incident-response/checklists/IR-004-to-030-Quick-Reference.md"
         }
       ]
     }
