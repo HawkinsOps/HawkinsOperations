@@ -200,7 +200,7 @@
       <p class="sec-sub" style="margin-bottom:20px;">Sigma rule distribution across ATT&amp;CK tactics (<span data-verified="sigma">103</span> rules shown below). Wazuh, Splunk, and IR playbooks add cross-platform depth not reflected in this chart. Based on actual repo file count.</p>
       <div style="max-width:700px;margin:0 auto;padding:24px;background:rgba(17,24,39,0.5);border:1px solid rgba(0,212,255,0.1);border-radius:4px;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:#00d4ff;margin-bottom:12px;">MITRE ATT&amp;CK Tactic Coverage</div>
-        <canvas id="mitreChart" height="280"></canvas>
+        <div style="position:relative;height:280px;"><canvas id="mitreChart"></canvas></div>
       </div>
       <p style="font-size:0.68rem;color:#4a5568;margin-top:12px;text-align:center;">Source: <code style="font-size:0.65rem;color:#7ab8ff;background:rgba(122,184,255,0.08);padding:1px 5px;border-radius:2px;">content/detection-rules/sigma/</code> &middot; <span data-verified="sigma">103</span> YAML files across tactic folders &middot; Bar color: <span style="color:#ef4444;">red</span>&nbsp;=&nbsp;highest density, <span style="color:#4ade80;">green</span>&nbsp;=&nbsp;above average, <span style="color:#00d4ff;">blue</span>&nbsp;=&nbsp;baseline</p>
     </div>
