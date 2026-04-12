@@ -144,3 +144,8 @@ MIGRATION_PLAN*
 PROPOSED_ARCHITECTURE*
 GITIGNORE_RECOMMENDED*
 MITRE_MAPPING_AUDIT*
+
+# AI assistant config — local-only, not for public view
+# Tools (Claude Code, Codex) read these from disk; they don't need to be in git.
+CLAUDE.md
+AGENTS.md
