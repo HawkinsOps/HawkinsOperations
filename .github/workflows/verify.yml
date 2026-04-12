@@ -31,11 +31,13 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Validate detection content (Sigma + Wazuh)
-        shell: pwsh
-        run: |
-          python -m pip install --quiet pyyaml
-          python ./scripts/verify/validate_detection_content.py
+      - name: Install detection validation deps
+        shell: bash
+        run: python3 -m pip install --quiet pyyaml==6.0.2
+
+      - name: Validate detection rule content
+        shell: bash
+        run: python3 ./scripts/verify/validate_detection_content.py
 
       - name: Generate site data artifacts
         shell: pwsh

@@ -1,5 +1,5 @@
 title: Linux Network Discovery
-id: 617fd796-9fcc-4a5a-90c2-a576e3608d13
+id: 328ace28-0931-4332-8373-60355722b90e
 status: stable
 description: Detects network discovery commands on Linux systems
 references:

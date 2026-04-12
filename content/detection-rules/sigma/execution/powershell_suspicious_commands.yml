@@ -1,5 +1,5 @@
 title: Suspicious PowerShell Command Execution
-id: 347e8d22-639f-4526-a5f5-96b9da33895e
+id: 51772378-880a-4480-8cb8-255d0e93b12f
 status: stable
 description: Detects suspicious PowerShell commands commonly used by attackers
 references:

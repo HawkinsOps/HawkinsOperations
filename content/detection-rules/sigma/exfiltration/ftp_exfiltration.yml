@@ -1,5 +1,5 @@
 title: FTP Exfiltration Detection
-id: f087c975-d0b6-4335-9957-378e11c96473
+id: 1a8b527c-f5b0-411d-b2d3-2caa42b62021
 status: stable
 description: Detects file transfer via FTP which may indicate exfiltration
 references:

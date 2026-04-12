@@ -1,5 +1,5 @@
 title: Print Spooler Privilege Escalation
-id: 5454f7e2-0c23-4e95-b99d-22427ad7966d
+id: 8dbd00c8-8374-48a8-82fd-5b2e6a353860
 status: stable
 description: Detects potential PrintNightmare or similar print spooler exploitation
 references:

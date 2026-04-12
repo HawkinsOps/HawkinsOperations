@@ -1,5 +1,5 @@
 title: Volume Shadow Copy Deletion
-id: bc2a7cf2-f9e8-4263-940d-5ffd75ff5f7f
+id: 42c84ace-a4c8-40e5-86b3-2e2a4e21c065
 status: stable
 description: Detects deletion of volume shadow copies often used by ransomware
 references:

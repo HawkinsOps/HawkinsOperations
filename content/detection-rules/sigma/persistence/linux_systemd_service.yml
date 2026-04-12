@@ -1,5 +1,5 @@
 title: Suspicious Systemd Service Creation
-id: c7db6cc3-d481-4074-a55b-59cb8ee97ed6
+id: ab906b30-69ae-48be-b78b-54280a22732f
 status: stable
 description: Detects creation of suspicious systemd service units for persistence
 references:

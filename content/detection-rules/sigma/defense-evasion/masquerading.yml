@@ -1,5 +1,5 @@
 title: Masquerading as Windows Process
-id: b4162ea3-005c-4fd7-a4f4-610a6ecd01d6
+id: 6e5b0cc6-10d8-4c9b-842f-95f7597a258d
 status: stable
 description: Detects processes masquerading as legitimate Windows processes from suspicious locations
 references:

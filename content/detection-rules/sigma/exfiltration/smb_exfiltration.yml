@@ -1,5 +1,5 @@
 title: SMB Data Exfiltration
-id: 2b87441b-8613-4b5a-abeb-03dae9a08fe8
+id: abd07653-e24b-4a67-a101-52e38dcef8d8
 status: experimental
 description: Detects large file transfers over SMB to external shares
 references:

@@ -1,5 +1,5 @@
 title: Screensaver Registry Modification
-id: 92fc618f-e6cf-43d1-a6e1-49cda287cd29
+id: 1ccd86c5-3796-4672-83f2-2d4e1e5bf635
 status: stable
 description: Detects modification of screensaver registry settings for persistence
 references:

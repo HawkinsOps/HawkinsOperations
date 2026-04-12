@@ -1,5 +1,5 @@
 title: Account Manipulation for Impact
-id: 991b34c2-3a62-4907-a074-dc7c4baa4373
+id: 1ee3ccf4-ed68-4a96-8b40-486b304f0159
 status: stable
 description: Detects account manipulation that may cause service disruption
 references:

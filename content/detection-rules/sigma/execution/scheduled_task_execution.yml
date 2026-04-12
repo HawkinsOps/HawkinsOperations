@@ -1,5 +1,5 @@
 title: Suspicious Scheduled Task Execution
-id: 060a8988-43e7-4771-9391-fcf6b3b194de
+id: f5b79d69-81c0-4942-a9c8-a5e57644f2fa
 status: stable
 description: Detects execution of suspicious scheduled tasks
 references:

@@ -1,5 +1,5 @@
 title: Suspicious File and Directory Discovery
-id: 63811289-5381-474d-84e6-74ab959813ef
+id: 84067633-087f-41c0-9623-d3706a7ed9cf
 status: stable
 description: Detects suspicious file and directory enumeration
 references:

@@ -1,5 +1,5 @@
 title: Potential Rootkit Behavior
-id: 49253b46-2859-4ce4-b5fa-10bd396f4b2b
+id: 7281a99e-3c20-47d5-a1e4-2152c7cb82cd
 status: experimental
 description: Detects suspicious driver loads that may indicate rootkit installation
 references:

@@ -1,5 +1,5 @@
 title: Linux Password File Access
-id: 28ddfd50-33b7-4cf7-b81e-f6cc28b829ed
+id: b33c1e01-00f8-4fa4-bee1-8fc64cae7cd9
 status: stable
 description: Detects suspicious access to /etc/passwd or /etc/shadow files on Linux systems
 references:

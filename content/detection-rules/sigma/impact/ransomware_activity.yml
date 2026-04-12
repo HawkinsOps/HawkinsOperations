@@ -1,5 +1,5 @@
 title: Ransomware File Encryption Activity
-id: f6edde6e-80ee-4018-8cba-9888ec0f677f
+id: d8a8f5dd-b5a4-423a-9774-f87819826dca
 status: stable
 description: Detects potential ransomware file encryption based on file extensions and patterns
 references:

@@ -1,5 +1,5 @@
 title: Suspicious SSH Connection
-id: 8a407fec-b072-458d-971c-53ce48b72928
+id: 8c66f18b-e8eb-4edf-a769-071cf443a507
 status: stable
 description: Detects suspicious SSH connections that may indicate lateral movement
 references:

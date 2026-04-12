@@ -1,5 +1,5 @@
 title: Windows Defender Disabled
-id: 981bedd2-001b-48f0-8904-2ff50b7ed759
+id: 11b6002a-ae7e-4be2-b677-a1739adbd471
 status: stable
 description: Detects attempts to disable Windows Defender via registry or PowerShell
 references:

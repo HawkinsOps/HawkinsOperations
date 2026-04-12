@@ -1,5 +1,5 @@
 title: Linux Cron Job Persistence
-id: 8d64885f-e28f-4de6-9567-17ee5664d652
+id: 784b16bb-12cf-4b3a-9a62-fd02996d45e7
 status: stable
 description: Detects suspicious cron job creation on Linux systems
 references:

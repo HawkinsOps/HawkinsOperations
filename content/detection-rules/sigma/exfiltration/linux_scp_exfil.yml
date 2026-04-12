@@ -1,5 +1,5 @@
 title: Linux SCP Data Exfiltration
-id: fcdb79c7-e85a-4928-8393-0c611f982b0b
+id: 8d358dc8-58d8-4336-9c3f-abbaf2847180
 status: stable
 description: Detects SCP usage for potential data exfiltration
 references:

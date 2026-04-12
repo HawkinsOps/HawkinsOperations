@@ -1,5 +1,5 @@
 title: Suspicious Bash Command Execution
-id: 5aca6120-8b6f-4d44-9279-2d368e462b9e
+id: 6a424e76-dc95-4f8b-a48a-76e5a666a197
 status: stable
 description: Detects suspicious bash commands on Linux systems
 references:

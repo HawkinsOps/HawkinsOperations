@@ -1,5 +1,5 @@
 title: Suspicious DLL Side-Loading
-id: 41b4c996-80f0-4dbc-a3e5-0bbb24be53e4
+id: 7eb9322c-34a1-457d-b4de-7c8818b3bd39
 status: experimental
 description: Detects potential DLL side-loading attacks
 references:

@@ -1,5 +1,5 @@
 title: AlwaysInstallElevated Registry Modification
-id: dbe24dc7-fc85-4e78-9494-7188689b92f7
+id: 6e27804b-4373-487f-8d8b-86d44784da9f
 status: stable
 description: Detects modification of AlwaysInstallElevated registry key for privilege escalation
 references:

@@ -1,5 +1,5 @@
 title: Suspicious Regsvr32 Execution
-id: 30269f27-e7a0-491d-bb80-f5ca897e0206
+id: 9dca5604-d8f8-4233-b526-524d94b6c7d9
 status: stable
 description: Detects suspicious regsvr32 execution for scriptlet execution
 references:

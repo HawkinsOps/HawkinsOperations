@@ -1,5 +1,5 @@
 title: NTDS.dit Credential Extraction
-id: cfd11c7d-76a6-4ed2-aaef-795caee7f6b3
+id: 01dc05c1-96c0-469d-ad47-b23a86d36095
 status: stable
 description: Detects attempts to extract the Active Directory database (NTDS.dit) which contains domain credential hashes
 references:

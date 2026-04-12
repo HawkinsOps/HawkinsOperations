@@ -1,0 +1,15 @@
+# Detection content validator — known exceptions
+#
+# This file quarantines detection-rule validation failures that are
+# recognized debt, not regressions. Items listed here are downgraded
+# from ERROR to WARNING by scripts/verify/validate_detection_content.py
+# so CI can enforce everything else while remediation proceeds.
+#
+# Do NOT add new entries to unblock new bugs. New duplicates must be
+# fixed at the source. This file only exists to carry pre-existing
+# placeholder-ID collisions discovered on first validator run.
+#
+# Remediation plan: plans/sigma_id_remediation_2026-04.md
+#
+# Schema:
+#   sigma_duplicate_ids: []

@@ -1,5 +1,5 @@
 title: DCOM Lateral Movement
-id: 0aeef8ee-f18e-4154-bb88-8c04b02b4785
+id: 319d251f-72ba-442b-bb4e-972d9da2e144
 status: experimental
 description: Detects lateral movement using DCOM objects
 references:

@@ -18,7 +18,7 @@
     <group>scheduled_task,persistence,</group>
   </rule>
 
-  <rule id="100068001" level="11">
+  <rule id="100168" level="11">
     <if_sid>100068</if_sid>
     <field name="win.eventdata.commandLine">\\Temp\\|\\AppData\\|\\Public\\</field>
     <description>Suspicious scheduled task created via XML from unusual location</description>

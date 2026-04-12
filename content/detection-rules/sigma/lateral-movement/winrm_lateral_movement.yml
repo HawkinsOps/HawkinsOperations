@@ -1,5 +1,5 @@
 title: Windows Remote Management Lateral Movement
-id: d1fcdb33-1d6b-483b-8cad-e1c460751972
+id: 79bb4a00-dbeb-4b80-afba-a2ac983b8164
 status: stable
 description: Detects lateral movement using Windows Remote Management (WinRM)
 references:

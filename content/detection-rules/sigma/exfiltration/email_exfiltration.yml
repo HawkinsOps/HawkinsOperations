@@ -1,5 +1,5 @@
 title: Email-Based Data Exfiltration
-id: e608a149-bcdb-402c-b1c4-b3599e9115c8
+id: 2dd05f0d-0ad5-41d2-905c-0501c53979d2
 status: experimental
 description: Detects automated email sending that may indicate data exfiltration
 references:

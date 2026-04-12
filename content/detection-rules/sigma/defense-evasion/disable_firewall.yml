@@ -1,5 +1,5 @@
 title: Windows Firewall Disabled
-id: 48d4c808-ac54-4de3-93df-83ed9d32f18c
+id: 992b956b-2b82-4672-8777-051dd992b189
 status: stable
 description: Detects attempts to disable Windows Firewall
 references:

@@ -1,5 +1,5 @@
 title: Remote File Copy via SMB
-id: b11014c6-27d5-4ce7-b429-a77e02cae3bc
+id: 222409ed-a538-49a7-aba1-c037b5bde6d2
 status: experimental
 description: Detects file copy operations over SMB which may indicate lateral movement staging
 references:

@@ -1,5 +1,5 @@
 title: Office Application Add-in Persistence
-id: c1563aa2-3a4c-41ac-9323-8fe70de4f356
+id: 4b6edc9b-3a79-40b0-8d55-b75ef16b668e
 status: stable
 description: Detects installation of Office add-ins which may be used for persistence
 references:

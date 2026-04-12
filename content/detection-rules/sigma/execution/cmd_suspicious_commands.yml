@@ -1,5 +1,5 @@
 title: Suspicious CMD Command Execution
-id: c115b1c8-bc8e-412b-bddd-30fdcb8c5ce7
+id: 6db5d0fc-eec4-4f8b-8c88-e477d5de4595
 status: stable
 description: Detects suspicious command-line commands
 references:

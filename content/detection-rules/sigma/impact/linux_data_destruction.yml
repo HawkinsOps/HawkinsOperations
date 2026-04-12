@@ -1,5 +1,5 @@
 title: Linux Data Destruction Commands
-id: a5e3adf7-7a41-4e4c-a8c4-47d55593dc26
+id: f01a0ea4-42cd-4572-ac3b-75b585bb10cf
 status: stable
 description: Detects destructive commands on Linux systems
 references:

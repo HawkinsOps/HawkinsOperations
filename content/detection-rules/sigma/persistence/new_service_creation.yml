@@ -1,5 +1,5 @@
 title: Suspicious Windows Service Creation
-id: 88f72a8d-a361-4f16-adfb-283310eb0b58
+id: 870db130-8c97-4aa4-924e-dfaf3477ad0e
 status: stable
 description: Detects creation of new Windows services potentially for persistence
 references:

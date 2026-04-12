@@ -1,5 +1,5 @@
 title: AT Command Scheduled Task
-id: 75d147ea-b4da-4f56-83e4-190ba0edca00
+id: 909ccd47-a487-49d3-ab87-b0b7d41e3880
 status: stable
 description: Detects use of deprecated at.exe for task scheduling
 references:

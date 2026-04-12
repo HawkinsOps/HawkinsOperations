@@ -1,5 +1,5 @@
 title: Data Staging for Exfiltration
-id: 11c39afd-e979-48d3-90d1-73f58b1e738c
+id: 3c6017c7-8f99-4e69-8a0a-668cbedbcdaf
 status: experimental
 description: Detects data being staged in unusual locations before exfiltration
 references:

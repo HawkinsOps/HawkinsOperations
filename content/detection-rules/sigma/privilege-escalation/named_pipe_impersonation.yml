@@ -1,5 +1,5 @@
 title: Named Pipe Impersonation
-id: 18815667-31c9-4460-b5bc-2fbaf06422a1
+id: 6ce896bf-cc8d-452a-99c6-2d9725933e78
 status: experimental
 description: Detects named pipe impersonation attacks for privilege escalation
 references:

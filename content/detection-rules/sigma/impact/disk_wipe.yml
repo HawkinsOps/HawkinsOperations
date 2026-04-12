@@ -1,5 +1,5 @@
 title: Disk Wipe Activity
-id: 85438b93-4da6-4ed7-852d-51126c62478e
+id: 929384a7-675d-4cbb-bd5e-92b2ded8fd6a
 status: stable
 description: Detects disk wiping utilities and commands
 references:

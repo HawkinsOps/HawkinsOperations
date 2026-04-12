@@ -1,5 +1,5 @@
 title: DCSync Attack Detection
-id: 715806a1-1e5e-47cb-b2d1-69f92ad0d784
+id: ae357b74-cfc0-408d-8b22-3124ba52083e
 status: stable
 description: Detects DCSync attack where attackers use Directory Replication Services to extract password hashes
 references:

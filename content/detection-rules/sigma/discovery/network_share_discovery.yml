@@ -1,5 +1,5 @@
 title: Network Share Discovery
-id: 72058316-78b4-4544-a2b4-da32aa7bc649
+id: fc29fe6f-fab7-40de-8f7c-0866bd96a9ec
 status: stable
 description: Detects enumeration of network shares
 references:

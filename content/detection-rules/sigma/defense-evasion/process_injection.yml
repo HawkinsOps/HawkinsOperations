@@ -1,5 +1,5 @@
 title: Process Injection Detected
-id: c39a3f2a-93ab-4742-8248-a338c3f6fb45
+id: 11d7bf59-27d1-47f0-8908-64ab02f1ffe5
 status: stable
 description: Detects process injection techniques via remote thread creation
 references:

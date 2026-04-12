@@ -213,7 +213,7 @@
     {
       "techniqueID": "T1053.005",
       "color": "#006d2c",
-      "comment": "Sigma: scheduled_task_execution + scheduled_task_creation, Wazuh: 100068 + 100068001 (XML import chain), Splunk: Scheduled Task Creation",
+      "comment": "Sigma: scheduled_task_execution + scheduled_task_creation, Wazuh: 100068 + 100168 (XML import chain), Splunk: Scheduled Task Creation",
       "enabled": true,
       "score": 3
     },
@@ -563,7 +563,7 @@
     {
       "techniqueID": "T1543.003",
       "color": "#006d2c",
-      "comment": "Sigma: new_service_creation, Wazuh: 100059 + 100059001 (service + suspicious path chain), Splunk: New Service Creation",
+      "comment": "Sigma: new_service_creation, Wazuh: 100059 + 100159 (service + suspicious path chain), Splunk: New Service Creation",
       "enabled": true,
       "score": 3
     },
@@ -591,7 +591,7 @@
     {
       "techniqueID": "T1547.001",
       "color": "#006d2c",
-      "comment": "Sigma: registry_run_keys + startup_folder_modification, Wazuh: 100070 + 100070001 (autorun + suspicious path chain), Splunk: Registry Run Key + Startup Folder",
+      "comment": "Sigma: registry_run_keys + startup_folder_modification, Wazuh: 100070 + 100170 (autorun + suspicious path chain), Splunk: Registry Run Key + Startup Folder",
       "enabled": true,
       "score": 3
     },
@@ -710,7 +710,7 @@
     {
       "techniqueID": "T1570",
       "color": "#006d2c",
-      "comment": "Sigma: remote_file_copy (EID 5145 executable files), Wazuh: 100069 + 100069001 (PsExec - NOTE: STRETCHED mapping but kept for completeness), Splunk: Remote File Copy via SMB",
+      "comment": "Sigma: remote_file_copy (EID 5145 executable files), Wazuh: 100069 + 100169 (PsExec - NOTE: STRETCHED mapping but kept for completeness), Splunk: Remote File Copy via SMB",
       "enabled": true,
       "score": 3
     },

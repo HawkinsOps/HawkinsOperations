@@ -1,5 +1,5 @@
 title: Linux Shell Profile Modification
-id: 48e1a00f-a36c-43ff-acae-a9d4abd8ae5d
+id: 5e3bea0a-524c-48d1-87b6-d84828af6e7b
 status: stable
 description: Detects modifications to shell profile files for persistence
 references:

@@ -1,261 +1,275 @@
 #!/usr/bin/env python3
-"""Validate HawkinsOperations detection content (Sigma YAML + Wazuh XML).
+"""Validate detection rule content (Sigma + Wazuh).
 
-Scope (Branch A Step 1 — narrow, deterministic, auditable):
+Fails if any rule file is structurally broken. Complements verify-counts.ps1,
+which only counts files — this script checks that each file is actually a
+well-formed rule the relevant engine would accept.
 
-Sigma (.yml/.yaml under content/detection-rules/sigma/):
-  - Required top-level fields: title, id, description, logsource, detection
-  - id must be a syntactically valid UUIDv4 (RFC 4122 shape AND version/variant bits)
-  - id must be globally unique across the Sigma tree
-  - logsource must be a mapping and logsource.product must be present and non-empty
+Sigma (PyYAML):
+  - parses as YAML
+  - top-level is a mapping
+  - required keys: title, id, logsource, detection
+  - id is a UUID
+  - detection is a mapping containing a 'condition' key
+  - logsource is a mapping with at least one of product/service/category
+  - level (if present) is in the standard sigma severity set
+  - rule ids are unique across the tree
 
-Wazuh (.xml under content/detection-rules/wazuh/rules/):
-  - File must be parseable as XML (wrapped in a synthetic root to tolerate
-    multiple top-level <group> blocks and leading/trailing comments)
-  - Each <rule> element must carry id and level attributes
-  - id must be numeric
-  - rule id must be globally unique across the Wazuh tree
-  - Each <rule> must contain a non-empty <description>
+Wazuh (stdlib xml.etree.ElementTree):
+  - file parses as XML
+  - root element is <group>
+  - contains at least one <rule id="...">
+  - every rule/@id is an integer in [100000, 199999]
+  - every rule has a non-empty <description>
+  - rule ids are unique across the tree
 
-Non-goals (explicit): MITRE mapping policy, Sigma detection-logic correctness,
-false-positive policy, level thresholds, naming conventions. Those are
-out-of-scope until policy is decided.
-
-Exit codes:
-  0 — no hard failures
-  1 — one or more hard failures
+Splunk is intentionally out of scope for this validator — see
+scripts/verify/README.md for the justification.
 """
 
 from __future__ import annotations
 
 import re
 import sys
-import uuid
 import xml.etree.ElementTree as ET
-from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import List
 
-try:
-    import yaml
-except ImportError:
-    print("ERROR: PyYAML is required. Install with: pip install pyyaml", file=sys.stderr)
-    sys.exit(2)
+import yaml
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-SIGMA_ROOT = REPO_ROOT / "content" / "detection-rules" / "sigma"
-WAZUH_ROOT = REPO_ROOT / "content" / "detection-rules" / "wazuh" / "rules"
+SIGMA_DIR = REPO_ROOT / "content" / "detection-rules" / "sigma"
+WAZUH_RULES_DIR = REPO_ROOT / "content" / "detection-rules" / "wazuh" / "rules"
+EXCEPTIONS_PATH = REPO_ROOT / "scripts" / "verify" / "validation_exceptions.yml"
 
-SIGMA_REQUIRED_FIELDS = ("title", "id", "description", "logsource", "detection")
-
-
-@dataclass
-class Findings:
-    sigma_files: int = 0
-    wazuh_files: int = 0
-    wazuh_rule_blocks: int = 0
-    failures: List[Tuple[str, Path, str]] = field(default_factory=list)
-
-    def add(self, category: str, path: Path, reason: str) -> None:
-        self.failures.append((category, path, reason))
-
-    def by_category(self) -> Dict[str, int]:
-        counts: Dict[str, int] = {}
-        for cat, _, _ in self.failures:
-            counts[cat] = counts.get(cat, 0) + 1
-        return counts
+UUID_RE = re.compile(
+    r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+    re.IGNORECASE,
+)
+SIGMA_LEVELS = {"informational", "low", "medium", "high", "critical"}
+WAZUH_ID_MIN = 100000
+WAZUH_ID_MAX = 199999
 
 
-def is_uuid_v4(value: str) -> bool:
-    """True iff value is a well-formed UUIDv4 (version=4 AND RFC 4122 variant)."""
-    if not isinstance(value, str):
-        return False
-    try:
-        parsed = uuid.UUID(value)
-    except (ValueError, AttributeError, TypeError):
-        return False
-    if parsed.version != 4:
-        return False
-    # Variant bits: 10xx (RFC 4122). uuid.UUID.variant returns the string 'specified in RFC 4122'.
-    if parsed.variant != uuid.RFC_4122:
-        return False
-    # Guard against normalization: require canonical lowercase hyphenated form match.
-    return str(parsed) == value.lower()
+def load_sigma_duplicate_allowlist() -> dict[str, frozenset[str]]:
+    """Return {uuid: frozenset(repo-relative forward-slash paths)} from the
+    exceptions file. Missing file returns an empty dict — strict mode."""
+    if not EXCEPTIONS_PATH.exists():
+        return {}
+    raw = yaml.safe_load(EXCEPTIONS_PATH.read_text(encoding="utf-8")) or {}
+    entries = raw.get("sigma_duplicate_ids") or []
+    out: dict[str, frozenset[str]] = {}
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        uid = entry.get("id")
+        files = entry.get("files") or []
+        if isinstance(uid, str) and isinstance(files, list):
+            out[uid] = frozenset(str(f).replace("\\", "/") for f in files)
+    return out
 
 
-def validate_sigma(findings: Findings) -> None:
-    if not SIGMA_ROOT.exists():
-        findings.add("sigma_tree_missing", SIGMA_ROOT, "Sigma root directory not found")
-        return
+def validate_sigma(
+    sigma_root: Path,
+    dup_allowlist: dict[str, frozenset[str]],
+) -> tuple[List[str], List[str]]:
+    errors: List[str] = []
+    warnings: List[str] = []
+    if not sigma_root.is_dir():
+        return [f"sigma: directory not found: {sigma_root}"], []
 
-    seen_ids: Dict[str, Path] = {}
-    files = sorted(list(SIGMA_ROOT.rglob("*.yml")) + list(SIGMA_ROOT.rglob("*.yaml")))
-    findings.sigma_files = len(files)
+    files = sorted(
+        list(sigma_root.rglob("*.yml")) + list(sigma_root.rglob("*.yaml"))
+    )
+    if not files:
+        return [f"sigma: no rule files under {sigma_root}"], []
+
+    id_to_paths: dict[str, List[Path]] = {}
 
     for path in files:
+        rel = path.relative_to(REPO_ROOT)
         try:
-            raw = path.read_text(encoding="utf-8")
-        except OSError as exc:
-            findings.add("sigma_read_error", path, f"read failure: {exc}")
-            continue
-
-        try:
-            doc = yaml.safe_load(raw)
+            doc = yaml.safe_load(path.read_text(encoding="utf-8"))
         except yaml.YAMLError as exc:
-            findings.add("sigma_yaml_parse", path, f"YAML parse error: {exc}")
+            errors.append(f"sigma {rel}: YAML parse error: {exc}")
             continue
 
         if not isinstance(doc, dict):
-            findings.add("sigma_not_mapping", path, "top-level YAML is not a mapping")
+            errors.append(f"sigma {rel}: top-level must be a mapping")
             continue
 
-        for field_name in SIGMA_REQUIRED_FIELDS:
-            if field_name not in doc:
-                findings.add("sigma_missing_field", path, f"missing required field '{field_name}'")
-            elif doc[field_name] in (None, ""):
-                findings.add("sigma_empty_field", path, f"required field '{field_name}' is empty")
+        for key in ("title", "id", "logsource", "detection"):
+            if key not in doc:
+                errors.append(f"sigma {rel}: missing required key '{key}'")
 
-        rule_id = doc.get("id")
-        if rule_id is not None:
-            if not isinstance(rule_id, str):
-                findings.add("sigma_id_type", path, f"id must be string, got {type(rule_id).__name__}")
-            elif not is_uuid_v4(rule_id):
-                findings.add("sigma_id_not_uuidv4", path, f"id '{rule_id}' is not a valid UUIDv4")
+        rid = doc.get("id")
+        if isinstance(rid, str):
+            if not UUID_RE.match(rid):
+                errors.append(f"sigma {rel}: id '{rid}' is not a UUID")
             else:
-                prior = seen_ids.get(rule_id)
-                if prior is not None:
-                    findings.add(
-                        "sigma_id_duplicate",
-                        path,
-                        f"id '{rule_id}' already used by {prior.relative_to(REPO_ROOT)}",
-                    )
-                else:
-                    seen_ids[rule_id] = path
+                id_to_paths.setdefault(rid, []).append(path)
+        elif rid is not None:
+            errors.append(f"sigma {rel}: id must be a string UUID")
 
         logsource = doc.get("logsource")
-        if logsource is None:
-            # Already flagged by missing_field check; skip duplicate report.
+        if logsource is not None:
+            if not isinstance(logsource, dict):
+                errors.append(f"sigma {rel}: logsource must be a mapping")
+            elif not any(
+                k in logsource for k in ("product", "service", "category")
+            ):
+                errors.append(
+                    f"sigma {rel}: logsource must define at least one of "
+                    f"product/service/category"
+                )
+
+        detection = doc.get("detection")
+        if detection is not None:
+            if not isinstance(detection, dict):
+                errors.append(f"sigma {rel}: detection must be a mapping")
+            elif "condition" not in detection:
+                errors.append(f"sigma {rel}: detection is missing 'condition'")
+
+        level = doc.get("level")
+        if level is not None and level not in SIGMA_LEVELS:
+            errors.append(
+                f"sigma {rel}: level '{level}' is not one of "
+                f"{sorted(SIGMA_LEVELS)}"
+            )
+
+    # Resolve duplicate-id collisions against the allowlist.
+    for rid, paths in sorted(id_to_paths.items()):
+        if len(paths) < 2:
             continue
-        if not isinstance(logsource, dict):
-            findings.add("sigma_logsource_type", path, "logsource must be a mapping")
-            continue
-        product = logsource.get("product")
-        if product is None or (isinstance(product, str) and product.strip() == ""):
-            findings.add("sigma_logsource_product_missing", path, "logsource.product is missing or empty")
+        rels_posix = sorted(
+            str(p.relative_to(REPO_ROOT)).replace("\\", "/") for p in paths
+        )
+        allowed_set = dup_allowlist.get(rid)
+        involved_set = frozenset(rels_posix)
+        if allowed_set is not None and involved_set == allowed_set:
+            warnings.append(
+                f"sigma: duplicate id '{rid}' is in the known-exceptions "
+                f"allowlist ({len(rels_posix)} files): "
+                f"{', '.join(rels_posix)}"
+            )
+        else:
+            if allowed_set is not None:
+                extra = sorted(involved_set - allowed_set)
+                missing = sorted(allowed_set - involved_set)
+                detail = []
+                if extra:
+                    detail.append(f"unlisted files: {', '.join(extra)}")
+                if missing:
+                    detail.append(f"listed but not seen: {', '.join(missing)}")
+                errors.append(
+                    f"sigma: duplicate id '{rid}' collision set does not "
+                    f"match allowlist — {'; '.join(detail)}"
+                )
+            else:
+                errors.append(
+                    f"sigma: duplicate id '{rid}' across {len(rels_posix)} "
+                    f"files: {', '.join(rels_posix)}"
+                )
+
+    return errors, warnings
 
 
-WAZUH_ID_NUMERIC_RE = re.compile(r"^\d+$")
+def validate_wazuh(wazuh_root: Path) -> tuple[List[str], List[str]]:
+    errors: List[str] = []
+    warnings: List[str] = []
+    if not wazuh_root.is_dir():
+        return [f"wazuh: directory not found: {wazuh_root}"], []
 
+    files = sorted(wazuh_root.glob("*.xml"))
+    if not files:
+        return [f"wazuh: no rule files under {wazuh_root}"], []
 
-def validate_wazuh(findings: Findings) -> None:
-    if not WAZUH_ROOT.exists():
-        findings.add("wazuh_tree_missing", WAZUH_ROOT, "Wazuh rules root directory not found")
-        return
-
-    seen_rule_ids: Dict[str, Path] = {}
-    files = sorted(WAZUH_ROOT.rglob("*.xml"))
-    findings.wazuh_files = len(files)
+    ids_seen: dict[str, Path] = {}
 
     for path in files:
+        rel = path.relative_to(REPO_ROOT)
         try:
-            raw = path.read_text(encoding="utf-8")
-        except OSError as exc:
-            findings.add("wazuh_read_error", path, f"read failure: {exc}")
-            continue
-
-        # Wazuh rule files frequently contain multiple top-level <group> blocks and
-        # leading/trailing comment blocks. Wrap in a synthetic root so ElementTree
-        # can parse them without requiring content edits.
-        wrapped = f"<__root__>{raw}</__root__>"
-        try:
-            root = ET.fromstring(wrapped)
+            root = ET.fromstring(path.read_text(encoding="utf-8"))
         except ET.ParseError as exc:
-            findings.add("wazuh_xml_parse", path, f"XML parse error: {exc}")
+            errors.append(f"wazuh {rel}: XML parse error: {exc}")
             continue
 
-        rules_in_file = root.findall(".//rule")
-        if not rules_in_file:
-            findings.add("wazuh_no_rule_block", path, "no <rule> element found")
+        if root.tag != "group":
+            errors.append(
+                f"wazuh {rel}: root tag is <{root.tag}>, expected <group>"
+            )
             continue
 
-        for rule in rules_in_file:
-            findings.wazuh_rule_blocks += 1
+        rules = root.findall(".//rule[@id]")
+        if not rules:
+            errors.append(f"wazuh {rel}: no <rule id=\"...\"> elements found")
+            continue
 
-            rule_id = rule.attrib.get("id")
-            level = rule.attrib.get("level")
+        for rule in rules:
+            rid = rule.get("id", "")
+            try:
+                rid_int = int(rid)
+            except ValueError:
+                errors.append(
+                    f"wazuh {rel}: rule id '{rid}' is not an integer"
+                )
+                continue
 
-            if rule_id is None:
-                findings.add("wazuh_rule_missing_id", path, "<rule> missing id attribute")
-            elif not WAZUH_ID_NUMERIC_RE.match(rule_id):
-                findings.add("wazuh_rule_id_nonnumeric", path, f"<rule> id '{rule_id}' is not numeric")
+            if not (WAZUH_ID_MIN <= rid_int <= WAZUH_ID_MAX):
+                errors.append(
+                    f"wazuh {rel}: rule id {rid_int} outside allowed local "
+                    f"range [{WAZUH_ID_MIN}, {WAZUH_ID_MAX}]"
+                )
+
+            if rid in ids_seen:
+                errors.append(
+                    f"wazuh {rel}: duplicate rule id {rid} "
+                    f"(also in {ids_seen[rid].relative_to(REPO_ROOT)})"
+                )
             else:
-                prior = seen_rule_ids.get(rule_id)
-                if prior is not None and prior != path:
-                    findings.add(
-                        "wazuh_rule_id_duplicate",
-                        path,
-                        f"rule id '{rule_id}' already used by {prior.relative_to(REPO_ROOT)}",
-                    )
-                elif prior is not None and prior == path:
-                    findings.add(
-                        "wazuh_rule_id_duplicate_in_file",
-                        path,
-                        f"rule id '{rule_id}' duplicated within same file",
-                    )
-                else:
-                    seen_rule_ids[rule_id] = path
+                ids_seen[rid] = path
 
-            if level is None:
-                findings.add(
-                    "wazuh_rule_missing_level",
-                    path,
-                    f"<rule id='{rule_id or '?'}'> missing level attribute",
+            desc = rule.find("description")
+            if desc is None or not (desc.text or "").strip():
+                errors.append(
+                    f"wazuh {rel}: rule id {rid} missing or empty "
+                    f"<description>"
                 )
 
-            description_el = rule.find("description")
-            if description_el is None or (description_el.text or "").strip() == "":
-                findings.add(
-                    "wazuh_rule_missing_description",
-                    path,
-                    f"<rule id='{rule_id or '?'}'> missing or empty <description>",
-                )
-
-
-def print_summary(findings: Findings) -> None:
-    print("=" * 72)
-    print("HawkinsOps Detection Content Validator")
-    print("=" * 72)
-    print(f"Sigma files scanned:       {findings.sigma_files}")
-    print(f"Wazuh files scanned:       {findings.wazuh_files}")
-    print(f"Wazuh <rule> blocks seen:  {findings.wazuh_rule_blocks}")
-    print()
-
-    if not findings.failures:
-        print("RESULT: PASS — no hard failures")
-        return
-
-    print(f"RESULT: FAIL — {len(findings.failures)} hard failure(s)")
-    print()
-    print("Failures by category:")
-    for cat, count in sorted(findings.by_category().items()):
-        print(f"  {cat:40s} {count}")
-    print()
-    print("Details:")
-    for cat, path, reason in findings.failures:
-        try:
-            rel = path.relative_to(REPO_ROOT)
-        except ValueError:
-            rel = path
-        print(f"  [{cat}] {rel}: {reason}")
+    return errors, warnings
 
 
 def main() -> int:
-    findings = Findings()
-    validate_sigma(findings)
-    validate_wazuh(findings)
-    print_summary(findings)
-    return 1 if findings.failures else 0
+    dup_allowlist = load_sigma_duplicate_allowlist()
+
+    sigma_errors, sigma_warnings = validate_sigma(SIGMA_DIR, dup_allowlist)
+    wazuh_errors, wazuh_warnings = validate_wazuh(WAZUH_RULES_DIR)
+
+    errors = sigma_errors + wazuh_errors
+    warnings = sigma_warnings + wazuh_warnings
+
+    if warnings:
+        print(f"detection content validation warnings ({len(warnings)}):")
+        for w in warnings:
+            print(f"- {w}")
+        print()
+
+    if errors:
+        print(
+            f"detection content validation FAILED ({len(errors)} errors):",
+            file=sys.stderr,
+        )
+        for err in errors:
+            print(f"- {err}", file=sys.stderr)
+        return 1
+
+    print("detection content validation passed")
+    print(f"  sigma dir            : {SIGMA_DIR.relative_to(REPO_ROOT)}")
+    print(f"  wazuh dir            : {WAZUH_RULES_DIR.relative_to(REPO_ROOT)}")
+    print(f"  allowlisted dup ids  : {len(dup_allowlist)}")
+    print(f"  warnings emitted     : {len(warnings)}")
+    return 0
 
 
 if __name__ == "__main__":

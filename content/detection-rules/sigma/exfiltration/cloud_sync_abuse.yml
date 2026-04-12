@@ -1,5 +1,5 @@
 title: Cloud Sync Client Abuse
-id: 8ac0bdeb-497e-418c-972f-aa2a834ed6ac
+id: e6bd6b13-3766-4354-9825-6664964235b3
 status: experimental
 description: Detects abuse of cloud sync clients for data exfiltration
 references:

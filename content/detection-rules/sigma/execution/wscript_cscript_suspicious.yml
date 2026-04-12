@@ -1,5 +1,5 @@
 title: Suspicious Script Execution via WScript/CScript
-id: d46644b1-2e53-4b91-ad18-8336ceaa6c7d
+id: 424bddc6-41a4-4b3e-8418-36ca74a23f63
 status: stable
 description: Detects suspicious script execution using WScript or CScript
 references:

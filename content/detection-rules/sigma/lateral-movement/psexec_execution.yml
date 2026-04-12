@@ -1,5 +1,5 @@
 title: PsExec Service Installation
-id: 199f3766-8deb-4b06-b717-0a229cc9431c
+id: ae97cea3-c0bb-41ca-a316-2a8ccdec5afb
 status: stable
 description: Detects PsExec service installation for lateral movement
 references:

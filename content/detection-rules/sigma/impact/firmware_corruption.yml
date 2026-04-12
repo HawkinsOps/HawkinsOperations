@@ -1,5 +1,5 @@
 title: Firmware Corruption Attempt
-id: 40be4e19-f8ba-4f2b-b201-b97e4581d26b
+id: f36fda65-f888-468f-b4a6-83c66def5c0e
 status: experimental
 description: Detects attempts to modify or corrupt system firmware
 references:

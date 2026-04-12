@@ -1,5 +1,5 @@
 title: Suspicious Scheduled Task Creation
-id: c11e5bc6-6368-40ac-bcd2-d86aa3aa98e1
+id: c3268b3a-bebb-4bc0-b768-838602988091
 status: stable
 description: Detects creation of scheduled tasks for persistence
 references:
