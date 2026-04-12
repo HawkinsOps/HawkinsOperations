@@ -83,9 +83,21 @@ function Get-SshOptions {
   # times/modes, a no-arg flag — passing '-p 22' makes scp try to copy a
   # file literally named '22' and fail). The -ForScp switch returns the
   # right shape.
+  #
+  # BatchMode=yes: never prompt the user. On a runner with no tty this
+  # is the difference between hanging forever and failing fast.
+  # StrictHostKeyChecking=accept-new: first contact with a host stores
+  # its key automatically; any subsequent mismatch fails loudly. Safer
+  # than UserKnownHostsFile=/dev/null (which blindly accepts any key).
+  # ConnectTimeout=20: bound the time the TCP handshake can stall.
   param([int]$Port, [string]$KeyPath, [switch]$ForScp)
   $portFlag = if ($ForScp) { "-P" } else { "-p" }
-  $opts = @($portFlag, "$Port")
+  $opts = @(
+    $portFlag, "$Port",
+    "-o", "BatchMode=yes",
+    "-o", "StrictHostKeyChecking=accept-new",
+    "-o", "ConnectTimeout=20"
+  )
   if ($KeyPath) { $opts += @("-i", $KeyPath) }
   return $opts
 }
