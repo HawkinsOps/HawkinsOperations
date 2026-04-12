@@ -29,9 +29,19 @@ if (Test-Path -LiteralPath $rulesPath) {
   if ($ruleXml.Count -eq 0) { $errors.Add("No XML files found in rules directory: $rulesPath") | Out-Null }
 }
 
+function Test-WazuhXml {
+  param([string]$Path)
+  $raw = Get-Content -LiteralPath $Path -Raw -Encoding UTF8
+  # Wazuh rule/decoder files frequently contain multiple top-level <group>
+  # blocks plus leading/trailing comments. Wrap in a synthetic root so the
+  # XML parser can validate well-formedness without requiring content edits.
+  $stripped = $raw -replace '^\s*<\?xml[^?]*\?>\s*', ''
+  [xml]$null = "<__root__>$stripped</__root__>"
+}
+
 foreach ($file in $ruleXml) {
   try {
-    [xml]$null = Get-Content -LiteralPath $file.FullName -Raw -Encoding UTF8
+    Test-WazuhXml -Path $file.FullName
     $validatedXml.Add($file.FullName) | Out-Null
   } catch {
     $errors.Add("XML parse failure in rule file '$($file.FullName)': $($_.Exception.Message)") | Out-Null
@@ -42,7 +52,7 @@ if (Test-Path -LiteralPath $decodersPath) {
   $decoderXml = Get-ChildItem -LiteralPath $decodersPath -Filter *.xml -File
   foreach ($file in $decoderXml) {
     try {
-      [xml]$null = Get-Content -LiteralPath $file.FullName -Raw -Encoding UTF8
+      Test-WazuhXml -Path $file.FullName
       $validatedXml.Add($file.FullName) | Out-Null
     } catch {
       $errors.Add("XML parse failure in decoder file '$($file.FullName)': $($_.Exception.Message)") | Out-Null

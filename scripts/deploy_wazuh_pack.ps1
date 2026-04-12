@@ -12,13 +12,17 @@ function Get-Stamp {
 
 function Get-RuleIdsFromFile {
   param([string]$Path)
-  if (-not (Test-Path -LiteralPath $Path)) { return @() }
-  $content = Get-Content -LiteralPath $Path -Raw
   $ids = [System.Collections.Generic.HashSet[string]]::new()
+  if (-not (Test-Path -LiteralPath $Path)) { return ,$ids }
+  $content = Get-Content -LiteralPath $Path -Raw
   foreach ($m in [regex]::Matches($content, '<rule\s+id="(\d+)"')) {
     [void]$ids.Add($m.Groups[1].Value)
   }
-  return $ids
+  # Comma prevents PowerShell from unrolling the HashSet into the output
+  # stream, which would drop empty collections to $null and downgrade
+  # populated ones to string[] — breaking .Count and .Contains under
+  # Set-StrictMode -Version Latest.
+  return ,$ids
 }
 
 function Get-RemoteRuleIds {
@@ -29,13 +33,15 @@ function Get-RemoteRuleIds {
     [int]$Port,
     [string]$KeyPath
   )
-  $check = "[ -f '$RemotePath' ] && grep -oE 'id=`"[0-9]+`"' '$RemotePath' || true"
+  $check = "sudo -n test -f '$RemotePath' && sudo -n grep -oE 'id=`"[0-9]+`"' '$RemotePath' || true"
   $raw = Invoke-Ssh -RemoteHost $RemoteHost -User $User -Port $Port -KeyPath $KeyPath -Command $check
   $ids = [System.Collections.Generic.HashSet[string]]::new()
-  foreach ($line in ($raw -split "`n")) {
-    if ($line -match 'id="(\d+)"') { [void]$ids.Add($matches[1]) }
+  if ($raw) {
+    foreach ($line in ($raw -split "`n")) {
+      if ($line -match 'id="(\d+)"') { [void]$ids.Add($matches[1]) }
+    }
   }
-  return $ids
+  return ,$ids
 }
 
 function Assert-SafeOverwrite {
@@ -73,8 +79,13 @@ function New-EvidenceDir {
 }
 
 function Get-SshOptions {
-  param([int]$Port, [string]$KeyPath)
-  $opts = @("-p", "$Port")
+  # ssh uses -p <port>. scp uses -P <port> ('-p' in scp means preserve
+  # times/modes, a no-arg flag — passing '-p 22' makes scp try to copy a
+  # file literally named '22' and fail). The -ForScp switch returns the
+  # right shape.
+  param([int]$Port, [string]$KeyPath, [switch]$ForScp)
+  $portFlag = if ($ForScp) { "-P" } else { "-p" }
+  $opts = @($portFlag, "$Port")
   if ($KeyPath) { $opts += @("-i", $KeyPath) }
   return $opts
 }
@@ -88,7 +99,11 @@ function Invoke-Ssh {
     [string]$Command
   )
   $opts = Get-SshOptions -Port $Port -KeyPath $KeyPath
-  & ssh @opts "$User@$RemoteHost" $Command 2>&1
+  # Normalize CRLF → LF so multi-line here-strings authored in PowerShell
+  # on Windows don't ship literal \r bytes to the remote bash, which would
+  # break with: bash: line N: $'\r': command not found.
+  $cmd = $Command -replace "`r`n", "`n"
+  & ssh @opts "$User@$RemoteHost" $cmd 2>&1
 }
 
 function Copy-WithScp {
@@ -100,7 +115,7 @@ function Copy-WithScp {
     [string]$KeyPath,
     [string]$DestinationDir
   )
-  $opts = Get-SshOptions -Port $Port -KeyPath $KeyPath
+  $opts = Get-SshOptions -Port $Port -KeyPath $KeyPath -ForScp
   & scp @opts $SourceGlob "$User@$RemoteHost`:$DestinationDir" 2>&1
 }
 
@@ -155,6 +170,10 @@ $validationOut = Join-Path $runDir "validation_output.txt"
 $deployReport = Join-Path $runDir "deploy_report.md"
 $remoteStamp = Get-Date -Format "MM-dd-yyyy_HHmmss"
 $remoteBackupDir = "$backupRoot/wazuh_pack_$remoteStamp"
+# Staging directory the SSH user can write to. scp uploads here as the
+# SSH user; then sudo cp -a moves files into /var/ossec/etc/... with the
+# correct ownership. Keeps the SSH user out of privileged write paths.
+$remoteStage = "/tmp/wazuh_pack_stage_$remoteStamp"
 
 $summary = New-Object System.Collections.Generic.List[string]
 $summary.Add("# Wazuh Pack Deployment Report") | Out-Null
@@ -175,10 +194,10 @@ try {
   $summary.Add("- Status: PASS") | Out-Null
   $summary.Add("") | Out-Null
 
-  $mkdirCmd = "mkdir -p $backupRoot '$remoteBackupDir' $rulesDest $decodersDest $listsDest"
+  $mkdirCmd = "sudo -n mkdir -p $backupRoot '$remoteBackupDir' $rulesDest $decodersDest $listsDest && mkdir -p '$remoteStage/rules' '$remoteStage/decoders' '$remoteStage/lists'"
   Invoke-Ssh -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command $mkdirCmd | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
 
-  $backupCmd = "cp -a $rulesDest '$remoteBackupDir/rules_backup' && cp -a $decodersDest '$remoteBackupDir/decoders_backup' && cp -a $listsDest '$remoteBackupDir/lists_backup'"
+  $backupCmd = "sudo -n cp -a $rulesDest '$remoteBackupDir/rules_backup' && sudo -n cp -a $decodersDest '$remoteBackupDir/decoders_backup' && sudo -n cp -a $listsDest '$remoteBackupDir/lists_backup'"
   Invoke-Ssh -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command $backupCmd | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
 
   "## Pre-deploy rule-ID diff guard" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
@@ -204,22 +223,47 @@ try {
   }
 
   if (Test-Path -LiteralPath (Join-Path $packPath "rules")) {
-    Copy-WithScp -SourceGlob "$packPath/rules/*.xml" -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -DestinationDir $rulesDest | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
+    Copy-WithScp -SourceGlob "$packPath/rules/*.xml" -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -DestinationDir "$remoteStage/rules/" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
   }
 
   if (Test-Path -LiteralPath (Join-Path $packPath "decoders")) {
-    Copy-WithScp -SourceGlob "$packPath/decoders/*.xml" -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -DestinationDir $decodersDest | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
+    Copy-WithScp -SourceGlob "$packPath/decoders/*.xml" -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -DestinationDir "$remoteStage/decoders/" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
   }
 
   if (Test-Path -LiteralPath (Join-Path $packPath "lists")) {
-    Copy-WithScp -SourceGlob "$packPath/lists/*" -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -DestinationDir $listsDest | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
+    Copy-WithScp -SourceGlob "$packPath/lists/*" -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -DestinationDir "$remoteStage/lists/" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
   }
 
-  $xmllintCmd = "if command -v xmllint >/dev/null 2>&1; then xmllint --noout $rulesDest/*.xml; [ -d $decodersDest ] && ls $decodersDest/*.xml >/dev/null 2>&1 && xmllint --noout $decodersDest/*.xml || true; else echo 'xmllint not available; skipping'; fi"
+  # Install from staging into /var/ossec/etc/... as root, then fix ownership.
+  # Staging keeps the SSH user out of privileged write paths (scp writes to
+  # /tmp, sudo cp promotes). chown matches the standard Wazuh layout
+  # (root:wazuh, 0640 files / 0750 dirs inherited from parent).
+  "## Install staged pack into live /var/ossec/etc paths" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
+  $installCmd = @"
+sudo -n cp -a $remoteStage/rules/. $rulesDest && \
+sudo -n cp -a $remoteStage/decoders/. $decodersDest && \
+sudo -n cp -a $remoteStage/lists/. $listsDest && \
+sudo -n chown -R root:wazuh $rulesDest $decodersDest $listsDest
+"@
+  Invoke-Ssh -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command $installCmd | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
+
+  # xmllint soft check. Wazuh rule files legitimately have multiple top-level
+  # <group> blocks; wrap each file in a synthetic root on the fly before
+  # piping to xmllint so it can actually validate well-formedness.
+  $xmllintCmd = @'
+if command -v xmllint >/dev/null 2>&1; then
+  for f in /var/ossec/etc/rules/*.xml /var/ossec/etc/decoders/*.xml; do
+    [ -f "$f" ] || continue
+    ( printf '<__root__>'; sudo -n cat "$f"; printf '</__root__>' ) | xmllint --noout - 2>&1 | sed "s|^|xmllint($(basename "$f")): |" || true
+  done
+else
+  echo 'xmllint not available; skipping'
+fi
+'@
   Invoke-Ssh -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command $xmllintCmd | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
 
   "## wazuh-analysisd -t (hard gate: fails loudly on any Wazuh semantic error)" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
-  $analysisdOutput = Invoke-Ssh -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command "/var/ossec/bin/wazuh-analysisd -t; echo EXIT=`$?"
+  $analysisdOutput = Invoke-Ssh -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command "sudo -n /var/ossec/bin/wazuh-analysisd -t; echo EXIT=`$?"
   $analysisdOutput | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
   $analysisdExit = $null
   foreach ($line in ($analysisdOutput -split "`n")) {
@@ -228,7 +272,7 @@ try {
   $analysisdBad = ($null -eq $analysisdExit) -or ($analysisdExit -ne 0) -or ($analysisdOutput -match 'ERROR|CRITICAL')
   if ($analysisdBad) {
     "## AUTO-ROLLBACK: analysisd gate failed, restoring from $remoteBackupDir" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
-    $rollbackCmd = "cp -a '$remoteBackupDir/rules_backup/.' $rulesDest && cp -a '$remoteBackupDir/decoders_backup/.' $decodersDest && cp -a '$remoteBackupDir/lists_backup/.' $listsDest && chown -R root:wazuh $rulesDest $decodersDest $listsDest"
+    $rollbackCmd = "sudo -n cp -a '$remoteBackupDir/rules_backup/.' $rulesDest && sudo -n cp -a '$remoteBackupDir/decoders_backup/.' $decodersDest && sudo -n cp -a '$remoteBackupDir/lists_backup/.' $listsDest && sudo -n chown -R root:wazuh $rulesDest $decodersDest $listsDest"
     Invoke-Ssh -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command $rollbackCmd | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
     throw "wazuh-analysisd -t failed (exit=$analysisdExit). Ruleset has a semantic error. Files rolled back from $remoteBackupDir. Manager was NOT restarted. Inspect validation_output.txt."
   }
@@ -243,9 +287,9 @@ try {
     "No local log sample found at $sampleLocal; skipping wazuh-logtest." | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
   }
 
-  Invoke-Ssh -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command "systemctl restart $managerService" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
-  Invoke-Ssh -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command "systemctl is-active $managerService" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
-  Invoke-Ssh -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command "tail -n 80 /var/ossec/logs/ossec.log" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
+  Invoke-Ssh -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command "sudo -n systemctl restart $managerService" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
+  Invoke-Ssh -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command "sudo -n systemctl is-active $managerService" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
+  Invoke-Ssh -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command "sudo -n tail -n 80 /var/ossec/logs/ossec.log" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
 
   $summary.Add("## Deployment") | Out-Null
   $summary.Add("- Status: SUCCESS") | Out-Null
@@ -269,6 +313,13 @@ catch {
 }
 finally {
   $summary | Out-File -LiteralPath $deployReport -Encoding UTF8
+  if ($hostName -and $sshUser -and $remoteStage) {
+    try {
+      Invoke-Ssh -RemoteHost $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command "rm -rf '$remoteStage'" | Out-Null
+    } catch {
+      Write-Warning "Failed to clean up remote staging dir $remoteStage`: $($_.Exception.Message)"
+    }
+  }
   if ($sshKeyTemp -and (Test-Path -LiteralPath $sshKeyTemp)) {
     try { Remove-Item -LiteralPath $sshKeyTemp -Force -ErrorAction Stop }
     catch { Write-Warning "Failed to remove temp SSH key $sshKeyTemp`: $($_.Exception.Message)" }
