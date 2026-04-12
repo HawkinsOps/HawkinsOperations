@@ -69,8 +69,12 @@ jobs:
         id: deploy
         shell: pwsh
         run: |
-          $output = pwsh -NoProfile -File "./scripts/deploy_wazuh_pack.ps1" 2>&1 | Tee-Object -Variable deployLog
-          $deployLog | Out-File -LiteralPath "./deploy_output.log" -Encoding UTF8
+          # Stream the script's stdout/stderr to the Actions log live AND tee
+          # it to deploy_output.log for the job summary step. Previously this
+          # captured into a variable and swallowed output, so failures surfaced
+          # only as "exited with code 1" with no reason.
+          pwsh -NoProfile -File "./scripts/deploy_wazuh_pack.ps1" 2>&1 |
+            Tee-Object -FilePath "./deploy_output.log"
           if ($LASTEXITCODE -ne 0) {
             throw "deploy_wazuh_pack.ps1 exited with code $LASTEXITCODE"
           }
