@@ -19,7 +19,7 @@
     <group>registry_persistence,autorun,</group>
   </rule>
 
-  <rule id="100070001" level="11">
+  <rule id="100170" level="11">
     <if_sid>100070</if_sid>
     <field name="win.eventdata.details">\\Temp\\|\\AppData\\|\\Users\\Public\\|cmd.exe|powershell.exe</field>
     <description>Suspicious registry autorun key - Points to unusual location or script</description>

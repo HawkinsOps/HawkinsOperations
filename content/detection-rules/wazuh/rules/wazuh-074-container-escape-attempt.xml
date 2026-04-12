@@ -47,9 +47,9 @@ Log Sources:
   - System call monitoring
 
 Test Examples:
-  - docker run --privileged -it ubuntu /bin/bash
+  - docker run - -privileged -it ubuntu /bin/bash
   - docker run -v /var/run/docker.sock:/var/run/docker.sock
-  - nsenter --target 1 --mount --uts --ipc --net /bin/bash
+  - nsenter - -target 1 - -mount - -uts - -ipc - -net /bin/bash
   - Mounting host filesystem in container
 
 Tuning Notes:

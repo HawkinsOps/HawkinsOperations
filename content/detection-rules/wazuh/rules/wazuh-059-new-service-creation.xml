@@ -18,7 +18,7 @@
     <group>service_creation,persistence,</group>
   </rule>
 
-  <rule id="100059001" level="10">
+  <rule id="100159" level="10">
     <if_sid>100059</if_sid>
     <field name="win.eventdata.imagePath">\\Temp\\|\\AppData\\|\\Users\\Public\\|cmd.exe|powershell.exe</field>
     <description>Suspicious Windows service created - Unusual executable path</description>

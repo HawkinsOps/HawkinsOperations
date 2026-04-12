@@ -181,7 +181,7 @@ Mar  4 15:23:45 docker-host bash[12345]: docker run --privileged -v /:/mnt alpin
 | 100062 (Ransomware) | Frequency-based: 50+ events in 120s | Batch rename files with encrypted extensions |
 | 100064 (Impossible Travel) | Requires geoip.distance field | Mock geoIP enrichment in test log |
 | 100067 (DNS Tunneling) | Frequency-based: 30+ events in 300s | Generate long DNS queries via nslookup/dig |
-| 100069001 (Mass PsExec) | Frequency-based: 3+ events in 600s | Install PSEXESVC on multiple hosts |
+| 100169 (Mass PsExec) | Frequency-based: 3+ events in 600s | Install PSEXESVC on multiple hosts |
 | 100072 (Kerberoasting) | Frequency-based: 10+ events in 60s | Rubeus kerberoast against multiple SPNs |
 | 100073 (Share Access) | Frequency-based: 5+ events in 300s | Access admin shares on multiple hosts |
 
@@ -206,7 +206,7 @@ Mar  4 15:23:45 docker-host bash[12345]: docker run --privileged -v /:/mnt alpin
 | 100065 | SID 80200 | AWS CloudTrail event | Built-in (AWS rules) |
 | 100067 | SID 5200 | DNS query event | Built-in (DNS rules) |
 
-**Assessment:** All parent SID dependencies reference standard Wazuh built-in rules. No custom decoder dependencies beyond what ships with Wazuh. Rule chain dependencies (100059→100059001, 100068→100068001, 100069→100069001, 100070→100070001) are self-contained within the custom rule set.
+**Assessment:** All parent SID dependencies reference standard Wazuh built-in rules. No custom decoder dependencies beyond what ships with Wazuh. Rule chain dependencies (100059→100159, 100068→100168, 100069→100169, 100070→100170) are self-contained within the custom rule set.
 
 **Deployment requirement:** The full custom rule set (all 24 XML files) must be deployed together. Partial deployment is safe — chained rules will silently not fire if their parent isn't present, but no errors will occur.
 
