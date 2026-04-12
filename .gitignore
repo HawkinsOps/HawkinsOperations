@@ -67,6 +67,7 @@ __pycache__/
 # Runtime artifacts (never commit)
 tokens/
 scripts/runs/
+content/detection-rules/build/
 
 # Secrets and credentials
 .env

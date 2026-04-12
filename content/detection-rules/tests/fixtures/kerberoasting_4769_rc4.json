@@ -1,0 +1,12 @@
+{
+  "EventID": 4769,
+  "Channel": "Security",
+  "Computer": "DC01.corp.hawkinsops.local",
+  "TargetUserName": "alice@corp.hawkinsops.local",
+  "ServiceName": "svc_sql$",
+  "TicketEncryptionType": "0x17",
+  "TicketOptions": "0x40810000",
+  "IpAddress": "10.20.30.41",
+  "IpPort": "51822",
+  "Status": "0x0"
+}
