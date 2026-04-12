@@ -253,12 +253,12 @@ try {
   $summary.Add("- Post-checks captured in validation_output.txt") | Out-Null
   $summary.Add("") | Out-Null
   $summary.Add("## Rollback") | Out-Null
-  $summary.Add("```bash") | Out-Null
+  $summary.Add('```bash') | Out-Null
   $summary.Add("cp -a '$remoteBackupDir/rules_backup/.' $rulesDest") | Out-Null
   $summary.Add("cp -a '$remoteBackupDir/decoders_backup/.' $decodersDest") | Out-Null
   $summary.Add("cp -a '$remoteBackupDir/lists_backup/.' $listsDest") | Out-Null
   $summary.Add("systemctl restart $managerService") | Out-Null
-  $summary.Add("```") | Out-Null
+  $summary.Add('```') | Out-Null
 }
 catch {
   $summary.Add("## Deployment") | Out-Null
