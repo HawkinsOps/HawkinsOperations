@@ -1,5 +1,5 @@
 title: WMI Remote Process Execution
-id: 6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f9a0b1c
+id: 68bd331f-79ad-4158-9467-75e3fe222593
 status: stable
 description: Detects process execution via WMI for lateral movement
 references:

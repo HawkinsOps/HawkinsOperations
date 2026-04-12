@@ -10,7 +10,7 @@
 <group name="web,attack,">
   <rule id="100054" level="11">
     <if_sid>31100</if_sid>
-    <match>union.*select|' or '1'='1|'; DROP TABLE|exec\(|<script>|javascript:</match>
+    <match><![CDATA[union.*select|' or '1'='1|'; DROP TABLE|exec\(|<script>|javascript:]]></match>
     <description>Possible SQL injection or XSS attack detected</description>
     <mitre>
       <id>T1190</id>
@@ -48,8 +48,8 @@ Log Sources:
 
 Test Examples:
   - /search.php?q=' OR '1'='1
-  - /admin.php?id=1' UNION SELECT * FROM users--
-  - /page.asp?id=1; DROP TABLE users;--
+  - /admin.php?id=1' UNION SELECT * FROM users- -
+  - /page.asp?id=1; DROP TABLE users;- -
   - /?q=<script>alert('XSS')</script>
 
 Tuning Notes:

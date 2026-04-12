@@ -1,5 +1,5 @@
 title: DNS Tunneling Detection
-id: 5d6e7f8a-9b0c-1d2e-3f4a-5b6c7d8e9f0a
+id: b0d04843-7173-48cb-b43f-b6efb6cdb623
 status: experimental
 description: Detects potential DNS tunneling based on query characteristics
 references:

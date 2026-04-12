@@ -1,5 +1,5 @@
 title: Suspicious SUID Binary Execution
-id: 7e8f9a0b-1c2d-3e4f-5a6b-7c8d9e0f1a2b
+id: 930da413-56e4-4139-ade0-2b0b4d0facbb
 status: experimental
 description: Detects execution of uncommon SUID binaries that may indicate privilege escalation
 references:

@@ -1,5 +1,5 @@
 title: UAC Bypass via Fodhelper
-id: 4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e
+id: c1274ced-5b8d-4ff5-aa00-f2bb18a9e195
 status: stable
 description: Detects UAC bypass using fodhelper.exe registry modification
 references:

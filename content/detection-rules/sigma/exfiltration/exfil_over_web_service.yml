@@ -1,5 +1,5 @@
 title: Data Exfiltration to Web Service
-id: 4c5d6e7f-8a9b-0c1d-2e3f-4a5b6c7d8e9f
+id: bb0d8797-1bfa-4963-8216-77bbd39dbdbe
 status: stable
 description: Detects data exfiltration to cloud storage and file sharing services
 references:

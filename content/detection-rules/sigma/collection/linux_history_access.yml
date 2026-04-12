@@ -1,5 +1,5 @@
 title: Linux Command History Access
-id: 2a3b4c5d-6e7f-8a9b-0c1d-2e3f4a5b6c7d
+id: 3253cd93-e07d-40b6-8639-4d568a6c4681
 status: stable
 description: Detects access to bash command history files
 references:

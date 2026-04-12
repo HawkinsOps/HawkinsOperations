@@ -1,5 +1,5 @@
 title: Whoami Command Execution
-id: 5a6b7c8d-9e0f-1a2b-3c4d-5e6f7a8b9c0d
+id: eadc1883-5fd9-44b5-88e1-851dc8a50aa0
 status: stable
 description: Detects execution of whoami command for user discovery
 references:

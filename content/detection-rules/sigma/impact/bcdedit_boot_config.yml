@@ -1,5 +1,5 @@
 title: Boot Configuration Modification
-id: 0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+id: cb5ab561-e4c1-4ce2-b82b-2853ce71feb9
 status: stable
 description: Detects modification of boot configuration often used by ransomware
 references:

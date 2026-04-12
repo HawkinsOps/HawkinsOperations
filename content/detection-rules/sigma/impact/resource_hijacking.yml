@@ -1,5 +1,5 @@
 title: Resource Hijacking - Cryptomining
-id: 3d4e5f6a-7b8c-9d0e-1f2a-3b4c5d6e7f8a
+id: 96eb7334-b765-4fde-ac5a-5cc6829f70c0
 status: stable
 description: Detects cryptocurrency mining activity
 references:

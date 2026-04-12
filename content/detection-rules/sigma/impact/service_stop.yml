@@ -1,5 +1,5 @@
 title: Critical Service Stop
-id: 6c7d8e9f-0a1b-2c3d-4e5f-6a7b8c9d0e1f
+id: 1f464f6b-736e-482d-b7c8-1cd4bfc4b405
 status: stable
 description: Detects stopping of critical security services
 references:

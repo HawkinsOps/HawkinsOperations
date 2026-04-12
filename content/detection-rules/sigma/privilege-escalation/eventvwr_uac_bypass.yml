@@ -1,5 +1,5 @@
 title: UAC Bypass via Event Viewer
-id: 3e4f5a6b-7c8d-9e0f-1a2b-3c4d5e6f7a8b
+id: 5671fbfb-f4ab-40b7-9afb-51fa204edc94
 status: stable
 description: Detects UAC bypass using eventvwr.exe registry hijacking
 references:

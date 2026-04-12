@@ -1,5 +1,5 @@
 title: Kerberoasting Attack Detection
-id: 6c3d7e8f-9a0b-1c2d-3e4f-5a6b7c8d9e0f
+id: 6d8fc93b-15e1-4c06-a190-ec02b59f262d
 status: stable
 description: Detects potential Kerberoasting attacks via RC4 ticket requests or suspicious TGS requests
 references:

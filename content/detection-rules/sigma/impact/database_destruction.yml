@@ -1,5 +1,5 @@
 title: Database Destruction Activity
-id: 6a7b8c9d-0e1f-2a3b-4c5d-6e7f8a9b0c1d
+id: cb03afd6-8d0c-4cdd-9a24-545d455e152d
 status: experimental
 description: Detects database deletion or destruction commands
 references:

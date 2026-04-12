@@ -1,5 +1,5 @@
 title: Windows Event Log Cleared
-id: 4f5a6b7c-8d9e-0f1a-2b3c-4d5e6f7a8b9c
+id: 684c8635-babf-4d81-8112-a2ec1e8a0124
 status: stable
 description: Detects clearing of Windows event logs which may indicate anti-forensics activity
 references:

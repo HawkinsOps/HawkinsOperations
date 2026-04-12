@@ -1,5 +1,5 @@
 title: Windows Admin Share Access
-id: 7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d
+id: cb5cf6d0-0c10-45b5-b663-9a9bb3f9b263
 status: stable
 description: Detects access to Windows administrative shares (C$, ADMIN$, IPC$)
 references:

@@ -1,5 +1,5 @@
 title: Clipboard Data Collection
-id: 4e5f6a7b-8c9d-0e1f-2a3b-4c5d6e7f8a9b
+id: 3a94e8a7-d88b-415d-a512-3c581878d2a1
 status: experimental
 description: Detects clipboard data collection via PowerShell
 references:

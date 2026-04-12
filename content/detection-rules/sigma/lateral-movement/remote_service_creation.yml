@@ -1,5 +1,5 @@
 title: Remote Service Creation
-id: 8b9c0d1e-2f3a-4b5c-6d7e-8f9a0b1c2d3e
+id: 52a0c8f3-8e43-4e58-b6fa-119b14b83dab
 status: stable
 description: Detects remote service creation which may indicate lateral movement
 references:

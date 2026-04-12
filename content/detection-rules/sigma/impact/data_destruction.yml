@@ -1,5 +1,5 @@
 title: Data Destruction Activity
-id: 7d8e9f0a-1b2c-3d4e-5f6a-7b8c9d0e1f2a
+id: 2a680d58-7433-41b6-be3b-235f764cdb36
 status: stable
 description: Detects commands used for data destruction
 references:
