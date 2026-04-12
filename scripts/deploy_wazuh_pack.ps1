@@ -1,5 +1,6 @@
 param(
-  [string]$PackRoot = "content/wazuh/pack"
+  [string]$PackRoot = "content/wazuh/pack",
+  [switch]$AllowRuleIdLoss
 )
 
 Set-StrictMode -Version Latest
@@ -7,6 +8,61 @@ $ErrorActionPreference = "Stop"
 
 function Get-Stamp {
   return Get-Date -Format "MM-dd-yyyy_HHmmss"
+}
+
+function Get-RuleIdsFromFile {
+  param([string]$Path)
+  if (-not (Test-Path -LiteralPath $Path)) { return @() }
+  $content = Get-Content -LiteralPath $Path -Raw
+  $ids = [System.Collections.Generic.HashSet[string]]::new()
+  foreach ($m in [regex]::Matches($content, '<rule\s+id="(\d+)"')) {
+    [void]$ids.Add($m.Groups[1].Value)
+  }
+  return $ids
+}
+
+function Get-RemoteRuleIds {
+  param(
+    [string]$RemotePath,
+    [string]$Host,
+    [string]$User,
+    [int]$Port,
+    [string]$KeyPath
+  )
+  $check = "[ -f '$RemotePath' ] && grep -oE 'id=`"[0-9]+`"' '$RemotePath' || true"
+  $raw = Invoke-Ssh -Host $Host -User $User -Port $Port -KeyPath $KeyPath -Command $check
+  $ids = [System.Collections.Generic.HashSet[string]]::new()
+  foreach ($line in ($raw -split "`n")) {
+    if ($line -match 'id="(\d+)"') { [void]$ids.Add($matches[1]) }
+  }
+  return $ids
+}
+
+function Assert-SafeOverwrite {
+  param(
+    [string]$LocalFile,
+    [string]$RemotePath,
+    [string]$Host,
+    [string]$User,
+    [int]$Port,
+    [string]$KeyPath,
+    [bool]$Allow
+  )
+  $localIds  = Get-RuleIdsFromFile -Path $LocalFile
+  $remoteIds = Get-RemoteRuleIds -RemotePath $RemotePath -Host $Host -User $User -Port $Port -KeyPath $KeyPath
+  if ($remoteIds.Count -eq 0) { return }
+  $lost = @($remoteIds | Where-Object { -not $localIds.Contains($_) })
+  if ($lost.Count -gt 0) {
+    $msg = "DESTRUCTIVE OVERWRITE REFUSED for $RemotePath. Live file has " +
+           "$($lost.Count) rule ID(s) that the repo file does not: " +
+           "$($lost -join ', '). Reconcile the repo from live first, " +
+           "or pass -AllowRuleIdLoss to override."
+    if ($Allow) {
+      Write-Warning ("OVERRIDE: " + $msg)
+    } else {
+      throw $msg
+    }
+  }
 }
 
 function New-EvidenceDir {
@@ -91,6 +147,28 @@ try {
   $backupCmd = "cp -a $rulesDest '$remoteBackupDir/rules_backup' && cp -a $decodersDest '$remoteBackupDir/decoders_backup' && cp -a $listsDest '$remoteBackupDir/lists_backup'"
   Invoke-Ssh -Host $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command $backupCmd | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
 
+  "## Pre-deploy rule-ID diff guard" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
+  $rulesLocalDir = Join-Path $packPath "rules"
+  if (Test-Path -LiteralPath $rulesLocalDir) {
+    foreach ($f in Get-ChildItem -LiteralPath $rulesLocalDir -Filter *.xml) {
+      $remote = ($rulesDest.TrimEnd('/')) + "/" + $f.Name
+      Assert-SafeOverwrite -LocalFile $f.FullName -RemotePath $remote `
+        -Host $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey `
+        -Allow ([bool]$AllowRuleIdLoss)
+      "- $($f.Name): rule-ID diff guard PASS" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
+    }
+  }
+  $decodersLocalDir = Join-Path $packPath "decoders"
+  if (Test-Path -LiteralPath $decodersLocalDir) {
+    foreach ($f in Get-ChildItem -LiteralPath $decodersLocalDir -Filter *.xml) {
+      $remote = ($decodersDest.TrimEnd('/')) + "/" + $f.Name
+      Assert-SafeOverwrite -LocalFile $f.FullName -RemotePath $remote `
+        -Host $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey `
+        -Allow ([bool]$AllowRuleIdLoss)
+      "- $($f.Name): rule-ID diff guard PASS" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
+    }
+  }
+
   if (Test-Path -LiteralPath (Join-Path $packPath "rules")) {
     Copy-WithScp -SourceGlob "$packPath/rules/*.xml" -Host $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -DestinationDir $rulesDest | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
   }
@@ -105,6 +183,21 @@ try {
 
   $xmllintCmd = "if command -v xmllint >/dev/null 2>&1; then xmllint --noout $rulesDest/*.xml; [ -d $decodersDest ] && ls $decodersDest/*.xml >/dev/null 2>&1 && xmllint --noout $decodersDest/*.xml || true; else echo 'xmllint not available; skipping'; fi"
   Invoke-Ssh -Host $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command $xmllintCmd | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
+
+  "## wazuh-analysisd -t (hard gate: fails loudly on any Wazuh semantic error)" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
+  $analysisdOutput = Invoke-Ssh -Host $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command "/var/ossec/bin/wazuh-analysisd -t; echo EXIT=`$?"
+  $analysisdOutput | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
+  $analysisdExit = $null
+  foreach ($line in ($analysisdOutput -split "`n")) {
+    if ($line -match '^EXIT=(\d+)') { $analysisdExit = [int]$matches[1] }
+  }
+  $analysisdBad = ($null -eq $analysisdExit) -or ($analysisdExit -ne 0) -or ($analysisdOutput -match 'ERROR|CRITICAL')
+  if ($analysisdBad) {
+    "## AUTO-ROLLBACK: analysisd gate failed, restoring from $remoteBackupDir" | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
+    $rollbackCmd = "cp -a '$remoteBackupDir/rules_backup/.' $rulesDest && cp -a '$remoteBackupDir/decoders_backup/.' $decodersDest && cp -a '$remoteBackupDir/lists_backup/.' $listsDest && chown -R root:wazuh $rulesDest $decodersDest $listsDest"
+    Invoke-Ssh -Host $hostName -User $sshUser -Port $sshPort -KeyPath $sshKey -Command $rollbackCmd | Out-File -LiteralPath $validationOut -Append -Encoding UTF8
+    throw "wazuh-analysisd -t failed (exit=$analysisdExit). Ruleset has a semantic error. Files rolled back from $remoteBackupDir. Manager was NOT restarted. Inspect validation_output.txt."
+  }
 
   $sampleLocal = Join-Path $packPath "tests/log_samples/powershell_encodedcommand.json"
   if (Test-Path -LiteralPath $sampleLocal) {
