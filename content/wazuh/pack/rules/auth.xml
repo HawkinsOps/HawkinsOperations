@@ -1,6 +1,6 @@
 <group name="auth,">
-  <rule id="100203" level="9" frequency="8" timeframe="120">
-    <if_group>authentication_failed,</if_group>
+  <rule id="100320" level="9" frequency="8" timeframe="120">
+    <if_matched_group>authentication_failed</if_matched_group>
     <same_srcip />
     <description>Multiple authentication failures from single source in short window</description>
     <mitre>
