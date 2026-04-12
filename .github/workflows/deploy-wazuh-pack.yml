@@ -26,16 +26,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Check for Wazuh pack changes
         if: github.event_name != 'workflow_dispatch'
         id: filter
         shell: bash
         run: |
-          BASE=${{ github.event.workflow_run.head_sha }}~1
-          CHANGED=$(git diff --name-only "$BASE" "${{ github.event.workflow_run.head_sha }}" -- \
+          HEAD_SHA='${{ github.event.workflow_run.head_sha }}'
+          BASE="${HEAD_SHA}~1"
+          if ! git rev-parse --verify "$BASE" >/dev/null 2>&1; then
+            echo "Base commit $BASE is not reachable; failing loudly instead of silently skipping."
+            exit 1
+          fi
+          CHANGED=$(git diff --name-only "$BASE" "$HEAD_SHA" -- \
             'content/detection-rules/wazuh/**' \
-            'content/wazuh/**' || true)
+            'content/wazuh/**')
           if [ -z "$CHANGED" ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
             echo "No Wazuh pack changes detected — skipping deploy."

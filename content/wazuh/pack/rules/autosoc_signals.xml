@@ -1,0 +1,46 @@
+<group name="local,autosoc,">
+  <rule id="100201" level="8">
+    <if_group>windows,sysmon,</if_group>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i).*encodedcommand.*</field>
+    <description>Potential encoded PowerShell execution detected</description>
+    <mitre>
+      <id>T1059.001</id>
+    </mitre>
+    <group>execution,powershell,</group>
+  </rule>
+
+  <rule id="100310" level="10">
+    <if_group>windows,sysmon,</if_group>
+    <field name="win.system.eventID">^1$</field>
+    <field name="win.eventdata.image" type="pcre2">(?i).*(powershell|pwsh|cmd|wscript|cscript|mshta|rundll32|regsvr32|wmic|certutil|bitsadmin|msbuild|installutil)\.exe$</field>
+    <description>AutoSOC Sysmon EID 1 suspicious process creation</description>
+    <mitre>
+      <id>T1059</id>
+      <id>T1218</id>
+    </mitre>
+    <group>process_creation,execution,autosoc_signal,</group>
+  </rule>
+
+  <rule id="100311" level="12">
+    <if_group>windows,sysmon,</if_group>
+    <field name="win.system.eventID">^3$</field>
+    <field name="win.eventdata.image" type="pcre2">(?i).*(powershell|pwsh|cmd|wscript|cscript|mshta|rundll32|regsvr32|wmic|certutil|bitsadmin)\.exe$</field>
+    <description>AutoSOC Sysmon EID 3 suspicious process network connection</description>
+    <mitre>
+      <id>T1041</id>
+      <id>T1105</id>
+    </mitre>
+    <group>network,exfiltration,command_and_control,autosoc_signal,</group>
+  </rule>
+
+  <rule id="100312" level="13">
+    <if_group>windows,sysmon,</if_group>
+    <field name="win.system.eventID">^10$</field>
+    <field name="win.eventdata.targetImage" type="pcre2">(?i).*\\lsass\.exe$</field>
+    <description>AutoSOC Sysmon EID 10 process access to LSASS</description>
+    <mitre>
+      <id>T1003.001</id>
+    </mitre>
+    <group>credential_access,lsass,autosoc_signal,</group>
+  </rule>
+</group>

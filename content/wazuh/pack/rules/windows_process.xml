@@ -1,8 +1,8 @@
 <group name="windows,process_creation,">
-  <rule id="100202" level="10">
+  <rule id="100321" level="10">
     <if_group>windows,sysmon,</if_group>
-    <field name="win.eventdata.parentImage">(?i).*\\(winword|excel|outlook)\.exe$</field>
-    <field name="win.eventdata.image">(?i).*\\(powershell|cmd)\.exe$</field>
+    <field name="win.eventdata.parentImage" type="pcre2">(?i).*\\(winword|excel|outlook)\.exe$</field>
+    <field name="win.eventdata.image" type="pcre2">(?i).*\\(powershell|cmd)\.exe$</field>
     <description>Office parent spawned shell process</description>
     <mitre>
       <id>T1204.002</id>

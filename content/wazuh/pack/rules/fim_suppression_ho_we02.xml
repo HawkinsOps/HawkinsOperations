@@ -1,0 +1,30 @@
+<!--
+  FIM noise suppression for host HO-WE-02.
+  Extracted from local_rules.xml 2026-04-12. Originally chained off custom rule
+  100052 (Critical system file modified), but 100052's <match> filter only
+  covers /etc/passwd, /etc/shadow, /etc/sudoers, /boot/, and C:\Windows\System32 —
+  paths that do NOT include CryptoNetURLCache or SoftwareProtectionPlatform.
+  The original chain could therefore never fire for these suppression targets.
+  Re-anchored to Wazuh built-in rule 550 (Integrity checksum changed), which is
+  the actual FIM event source, so the hostname + path filter can match.
+-->
+
+<group name="noise_tuning,fim_noise,">
+  <rule id="100255" level="0">
+    <if_sid>550</if_sid>
+    <hostname>HO-WE-02</hostname>
+    <field name="syscheck.path" type="pcre2">(?i)\\cryptneturlcache\\</field>
+    <description>Suppressed: CryptoNetURLCache metadata changes on HO-WE-02</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,fim_noise,</group>
+  </rule>
+
+  <rule id="100256" level="0">
+    <if_sid>550</if_sid>
+    <hostname>HO-WE-02</hostname>
+    <field name="syscheck.path" type="pcre2">(?i)\\softwareprotectionplatform\\</field>
+    <description>Suppressed: Software Protection scheduled task changes on HO-WE-02</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,fim_noise,</group>
+  </rule>
+</group>

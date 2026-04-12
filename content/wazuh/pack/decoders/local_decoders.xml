@@ -1,5 +1,5 @@
 <decoder name="custom_json_windows_security">
-  <prematch>^\{</prematch>
+  <prematch>^{</prematch>
   <plugin_decoder>JSON_Decoder</plugin_decoder>
 </decoder>
 

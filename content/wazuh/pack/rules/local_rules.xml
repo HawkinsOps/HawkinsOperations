@@ -1,46 +1,539 @@
-<group name="local,">
-  <rule id="100201" level="8">
-    <if_group>windows,sysmon,</if_group>
-    <field name="win.eventdata.commandLine">(?i).*encodedcommand.*</field>
-    <description>Potential encoded PowerShell execution detected</description>
-    <mitre>
-      <id>T1059.001</id>
-    </mitre>
-    <group>execution,powershell,</group>
+<!-- Local rules -->
+
+<group name="local,syslog,sshd,honeypot,">
+
+  <!-- Existing: demo SSH rule -->
+  <rule id="100001" level="5">
+    <if_sid>5716</if_sid>
+    <srcip>1.1.1.1</srcip>
+    <description>sshd: authentication failed from IP 1.1.1.1.</description>
+    <group>authentication_failed,pci_dss_10.2.4,pci_dss_10.2.5,</group>
   </rule>
 
-  <rule id="100310" level="10">
-    <if_group>windows,sysmon,</if_group>
-    <field name="win.system.eventID">^1$</field>
-    <field name="win.eventdata.image">(?i).*(powershell|pwsh|cmd|wscript|cscript|mshta|rundll32|regsvr32|wmic|certutil|bitsadmin|msbuild|installutil)\.exe$</field>
-    <description>AutoSOC Sysmon EID 1 suspicious process creation</description>
-    <mitre>
-      <id>T1059</id>
-      <id>T1218</id>
-    </mitre>
-    <group>process_creation,execution,autosoc_signal,</group>
+  <!-- Existing: honeypot demo -->
+  <rule id="100110" level="5">
+    <match>HONEY_DEMO</match>
+    <description>Honeypot deterministic demo alert (HONEY_DEMO).</description>
+    <group>honeypot_demo,</group>
   </rule>
 
-  <rule id="100311" level="12">
-    <if_group>windows,sysmon,</if_group>
-    <field name="win.system.eventID">^3$</field>
-    <field name="win.eventdata.image">(?i).*(powershell|pwsh|cmd|wscript|cscript|mshta|rundll32|regsvr32|wmic|certutil|bitsadmin)\.exe$</field>
-    <description>AutoSOC Sysmon EID 3 suspicious process network connection</description>
-    <mitre>
-      <id>T1041</id>
-      <id>T1105</id>
-    </mitre>
-    <group>network,exfiltration,command_and_control,autosoc_signal,</group>
+  <!-- REMOVED: 100201 (was suppressing 67027 on HO-WE-01)
+       Reason: blanket suppression of process-creation alerts on primary
+       Windows agent defeats telemetry visibility. Removed 2026-04-07. -->
+
+  <!-- Existing: noise tuning for software protection -->
+  <rule id="100202" level="0">
+    <if_sid>60642</if_sid>
+    <field name="win.system.computer">^HO-WE-01$</field>
+    <description>Ignored expected software protection scheduling event on HOWE01.</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_maintenance,</group>
   </rule>
 
-  <rule id="100312" level="13">
-    <if_group>windows,sysmon,</if_group>
-    <field name="win.system.eventID">^10$</field>
-    <field name="win.eventdata.targetImage">(?i).*\\lsass\.exe$</field>
-    <description>AutoSOC Sysmon EID 10 process access to LSASS</description>
-    <mitre>
-      <id>T1003.001</id>
-    </mitre>
-    <group>credential_access,lsass,autosoc_signal,</group>
+  <!-- Override 67027 to level 5 so it crosses log_alert_level threshold.
+       Manager log_alert_level=5; upstream 67027 is level 3.
+       Without this override, process-creation alerts never reach the indexer. -->
+  <rule id="100203" level="3">
+    <if_sid>67027</if_sid>
+    <description>Process creation event (elevated to meet alert threshold).</description>
+    <options>no_full_log</options>
+    <group>process_creation,windows,</group>
+  </rule>
+
+  <!-- Elevate Sysmon EID 1 (Process Create) to level 5 so it crosses log_alert_level.
+       Base rule 61603 is level 0. Without elevation, Sysmon process-creation
+       events are decoded but never indexed. Added 2026-04-08 Phase 3. -->
+  <rule id="100204" level="3">
+    <if_sid>61603</if_sid>
+    <description>Sysmon process creation event (elevated to meet alert threshold).</description>
+    <options>no_full_log</options>
+    <group>sysmon_event1,sysmon_process,windows,</group>
+  </rule>
+
+  <!-- TUNING 2026-04-08: Suppress PowerShell policy test script FPs from rule 92213.
+       All __PSScriptPolicyTest_*.ps1 files dropped by powershell.exe into %TEMP%
+       are standard PowerShell policy test behavior, not malware.
+       Preserves 92213 for real executable drops in Temp. -->
+  <rule id="100205" level="0">
+    <if_sid>92213</if_sid>
+    <field name="win.eventdata.targetFilename" type="pcre2">__PSScriptPolicyTest_.*\.ps1</field>
+    <description>Suppressed: PowerShell policy test script (expected behavior, not malware).</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,sysmon_event_11,</group>
+  </rule>
+
+  <!-- TUNING 2026-04-08: Suppress benign device class churn from rule 60227.
+       Monitor/Bluetooth/HID/Audio/Printer device re-detection is normal OS behavior.
+       Preserves 60227 for USB/WPD/Volume/DiskDrive/SCSIAdapter (removable media). -->
+  <rule id="100206" level="0">
+    <if_sid>60227</if_sid>
+    <field name="win.eventdata.className" type="pcre2">^(Monitor|Bluetooth|MEDIA|HIDClass|System|Ports|AudioEndpoint|SoftwareDevice|Mouse|Keyboard|Image|WSDPrintDevice|PrintQueue|Printer|Display)$</field>
+    <description>Suppressed: benign device class re-detection (not removable media).</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows,</group>
+  </rule>
+
+</group>
+
+
+<!-- =========================================
+     NOISE TUNING - Agent 006 (ho-sr-01)
+     Applied: 2026-04-08
+     Target: rule 40704 systemd noise
+     ========================================= -->
+
+<group name="noise_tuning,">
+
+  <!-- Suppress rule 40704 for hawkinsops-pull.service recurring timer failure.
+       Root cause: timer runs every 15min, service fails because upstream
+       infrastructure (CIFS mount, rsync targets) is broken since 2026-03-20.
+       Benign, operationally persistent, not security-relevant.
+       Preserves 40704 for all other systemd failures. -->
+  <rule id="100301" level="0">
+    <if_sid>40704</if_sid>
+    <match>hawkinsops-pull.service</match>
+    <description>Suppressed: hawkinsops-pull.service timer failure (benign, persistent since 2026-03-20)</description>
+    <group>noise_tuning,systemd,</group>
+  </rule>
+
+</group>
+
+
+<!-- =========================================
+     NOISE TUNING - Agent 013 (win-hawkinsops)
+     Applied: 2026-04-08
+     Layer A: image-name suppressions for process creation rules
+     Scoped to win-hawkinsops only — does not affect fleet
+     Split per parent: 100203 matches newProcessName, 100204 matches image
+     ========================================= -->
+
+<group name="noise_tuning,process_creation,">
+
+  <!-- ===== SPLUNK UNIVERSAL FORWARDER ===== -->
+
+  <rule id="100210" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\splunk-powershell\.exe$</field>
+    <description>Suppressed: Splunk UF splunk-powershell.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,splunk_uf,</group>
+  </rule>
+  <rule id="100211" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\splunk-powershell\.exe$</field>
+    <description>Suppressed: Splunk UF splunk-powershell.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,splunk_uf,</group>
+  </rule>
+
+  <rule id="100212" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\splunk-netmon\.exe$</field>
+    <description>Suppressed: Splunk UF splunk-netmon.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,splunk_uf,</group>
+  </rule>
+  <rule id="100213" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\splunk-netmon\.exe$</field>
+    <description>Suppressed: Splunk UF splunk-netmon.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,splunk_uf,</group>
+  </rule>
+
+  <rule id="100214" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\splunk-MonitorNoHandle\.exe$</field>
+    <description>Suppressed: Splunk UF splunk-MonitorNoHandle.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,splunk_uf,</group>
+  </rule>
+  <rule id="100215" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\splunk-MonitorNoHandle\.exe$</field>
+    <description>Suppressed: Splunk UF splunk-MonitorNoHandle.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,splunk_uf,</group>
+  </rule>
+
+  <rule id="100216" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\splunk-regmon\.exe$</field>
+    <description>Suppressed: Splunk UF splunk-regmon.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,splunk_uf,</group>
+  </rule>
+  <rule id="100217" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\splunk-regmon\.exe$</field>
+    <description>Suppressed: Splunk UF splunk-regmon.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,splunk_uf,</group>
+  </rule>
+
+  <rule id="100218" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\splunk-admon\.exe$</field>
+    <description>Suppressed: Splunk UF splunk-admon.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,splunk_uf,</group>
+  </rule>
+  <rule id="100219" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\splunk-admon\.exe$</field>
+    <description>Suppressed: Splunk UF splunk-admon.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,splunk_uf,</group>
+  </rule>
+
+  <!-- ===== WINDOWS HOUSEKEEPING ===== -->
+
+  <rule id="100220" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\conhost\.exe$</field>
+    <description>Suppressed: conhost.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+  <rule id="100221" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\conhost\.exe$</field>
+    <description>Suppressed: conhost.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+
+  <rule id="100222" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\backgroundTaskHost\.exe$</field>
+    <description>Suppressed: backgroundTaskHost.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+  <rule id="100223" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\backgroundTaskHost\.exe$</field>
+    <description>Suppressed: backgroundTaskHost.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+
+  <rule id="100224" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\SearchProtocolHost\.exe$</field>
+    <description>Suppressed: SearchProtocolHost.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+  <rule id="100225" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\SearchProtocolHost\.exe$</field>
+    <description>Suppressed: SearchProtocolHost.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+
+  <rule id="100226" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\dllhost\.exe$</field>
+    <description>Suppressed: dllhost.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+  <rule id="100227" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\dllhost\.exe$</field>
+    <description>Suppressed: dllhost.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+
+  <rule id="100228" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\taskhostw\.exe$</field>
+    <description>Suppressed: taskhostw.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+  <rule id="100229" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\taskhostw\.exe$</field>
+    <description>Suppressed: taskhostw.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+
+  <rule id="100230" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\tzutil\.exe$</field>
+    <description>Suppressed: tzutil.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+  <rule id="100231" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\tzutil\.exe$</field>
+    <description>Suppressed: tzutil.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+
+  <rule id="100232" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\svchost\.exe$</field>
+    <description>Suppressed: svchost.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+  <rule id="100233" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\svchost\.exe$</field>
+    <description>Suppressed: svchost.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+
+  <!-- ===== LOW-VALUE HELPERS ===== -->
+
+  <rule id="100234" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\updater\.exe$</field>
+    <description>Suppressed: Google updater.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,browser_updater,</group>
+  </rule>
+  <rule id="100235" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\updater\.exe$</field>
+    <description>Suppressed: Google updater.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,browser_updater,</group>
+  </rule>
+
+  <rule id="100236" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\identity_helper\.exe$</field>
+    <description>Suppressed: Edge identity_helper.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,browser_updater,</group>
+  </rule>
+  <rule id="100237" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\identity_helper\.exe$</field>
+    <description>Suppressed: Edge identity_helper.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,browser_updater,</group>
+  </rule>
+
+
+  <!-- === Round 2 suppression: 2026-04-08 === -->
+
+  <!-- Chrome browser noise -->
+  <rule id="100238" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\chrome\.exe$</field>
+    <description>Suppressed: Chrome chrome.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,browser_updater,</group>
+  </rule>
+  <rule id="100239" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\chrome\.exe$</field>
+    <description>Suppressed: Chrome chrome.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,browser_updater,</group>
+  </rule>
+
+  <!-- RuntimeBroker Windows housekeeping -->
+  <rule id="100240" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\RuntimeBroker\.exe$</field>
+    <description>Suppressed: RuntimeBroker.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+  <rule id="100241" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\RuntimeBroker\.exe$</field>
+    <description>Suppressed: RuntimeBroker.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+
+  <!-- EdgeWebView2 browser noise -->
+  <rule id="100242" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\msedgewebview2\.exe$</field>
+    <description>Suppressed: EdgeWebView2 on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,browser_updater,</group>
+  </rule>
+  <rule id="100243" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\msedgewebview2\.exe$</field>
+    <description>Suppressed: EdgeWebView2 on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,browser_updater,</group>
+  </rule>
+
+  <!-- ClipUp Windows housekeeping -->
+  <rule id="100244" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\ClipUp\.exe$</field>
+    <description>Suppressed: ClipUp.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+  <rule id="100245" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\ClipUp\.exe$</field>
+    <description>Suppressed: ClipUp.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+
+  <!-- sppsvc Windows licensing service -->
+  <rule id="100246" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\sppsvc\.exe$</field>
+    <description>Suppressed: sppsvc.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+  <rule id="100247" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\sppsvc\.exe$</field>
+    <description>Suppressed: sppsvc.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+
+  <!-- GitHub CLI polling -->
+  <rule id="100248" level="0">
+    <if_sid>100203</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)\\gh\.exe$</field>
+    <description>Suppressed: GitHub CLI gh.exe on win-hawkinsops (4688)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,dev_tooling,</group>
+  </rule>
+  <rule id="100249" level="0">
+    <if_sid>100204</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\gh\.exe$</field>
+    <description>Suppressed: GitHub CLI gh.exe on win-hawkinsops (sysmon)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,dev_tooling,</group>
+  </rule>
+
+  <!-- =========================================
+       Round 3: Dashboard cleanup for presentation
+       Targets: 92213 (exe in temp - FP from EdgeWebView/PS), 60104 (audit failure noise)
+       Scoped to win-hawkinsops only
+       ========================================= -->
+
+  <!-- Suppress ALL 92213 on win-hawkinsops — verified FPs from PowerShell, Git, EdgeWebView2, Chrome writing to Temp -->
+  <rule id="100250" level="0">
+    <if_sid>92213</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <description>Suppressed: Executable temp file drops on win-hawkinsops (all verified FP)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,temp_file_noise,</group>
+  </rule>
+
+  <!-- Suppress 60104 EID 5061 crypto key operation failures (normal DPAPI churn) -->
+  <rule id="100253" level="0">
+    <if_sid>60104</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.system.eventID" type="pcre2">^5061$</field>
+    <description>Suppressed: EID 5061 crypto operation audit failure on win-hawkinsops</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,audit_noise,</group>
+  </rule>
+
+  <!-- Suppress 60104 EID 4695 DPAPI unprotect failures -->
+  <rule id="100254" level="0">
+    <if_sid>60104</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.system.eventID" type="pcre2">^4695$</field>
+    <description>Suppressed: EID 4695 DPAPI audit failure on win-hawkinsops</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,audit_noise,</group>
+  </rule>
+
+  <!-- Suppress 100052 CryptoNetURLCache and scheduled task churn on HO-WE-02 -->
+  <rule id="100255" level="0">
+    <if_sid>100052</if_sid>
+    <hostname>HO-WE-02</hostname>
+    <field name="syscheck.path" type="pcre2">(?i)\\cryptneturlcache\\</field>
+    <description>Suppressed: CryptoNetURLCache metadata changes on HO-WE-02</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,fim_noise,</group>
+  </rule>
+
+  <rule id="100256" level="0">
+    <if_sid>100052</if_sid>
+    <hostname>HO-WE-02</hostname>
+    <field name="syscheck.path" type="pcre2">(?i)\\softwareprotectionplatform\\</field>
+    <description>Suppressed: Software Protection scheduled task changes on HO-WE-02</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,fim_noise,</group>
+  </rule>
+
+  <!-- Suppress 92058 App Compat Database on win-hawkinsops (benign sdbinst.exe) -->
+  <rule id="100257" level="0">
+    <if_sid>92058</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <description>Suppressed: Application Compatibility Database on win-hawkinsops</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,windows_housekeeping,</group>
+  </rule>
+
+  <!-- Suppress 92900 Lsass accessed by Windows Defender (expected behavior) -->
+  <rule id="100258" level="0">
+    <if_sid>92900</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.sourceImage" type="pcre2">(?i)\\Windows Defender\\</field>
+    <description>Suppressed: Defender scanning lsass on win-hawkinsops (expected)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,defender_noise,</group>
   </rule>
 </group>
