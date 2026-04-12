@@ -1,0 +1,195 @@
+# Detection content validator — known exceptions
+#
+# This file quarantines detection-rule validation failures that are
+# recognized debt, not regressions. Items listed here are downgraded
+# from ERROR to WARNING by scripts/verify/validate_detection_content.py
+# so CI can enforce everything else while remediation proceeds.
+#
+# Do NOT add new entries to unblock new bugs. New duplicates must be
+# fixed at the source. This file only exists to carry pre-existing
+# placeholder-ID collisions discovered on first validator run.
+#
+# Remediation plan: plans/sigma_id_remediation_2026-04.md
+#
+# Schema:
+#   sigma_duplicate_ids:
+#     - id: <uuid string that collides>
+#       files:
+#         - <repo-relative path using forward slashes>
+#         - ...
+#       reason: <short free-text, why it is allowed>
+#
+# Matching rule: a Sigma duplicate-id error is downgraded to warning ONLY
+# when the offending UUID appears here AND every file involved in the
+# collision is listed under that UUID's files: block. If a new file
+# starts using an allowlisted UUID, validation fails hard as intended.
+
+sigma_duplicate_ids:
+- id: 0b1c2d3e-4f5a-6b7c-8d9e-0f1a2b3c4d5e
+  files:
+  - content/detection-rules/sigma/execution/linux_bash_suspicious.yml
+  - content/detection-rules/sigma/privilege-escalation/kernel_module_load.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 0d1e2f3a-4b5c-6d7e-8f9a-0b1c2d3e4f5a
+  files:
+  - content/detection-rules/sigma/lateral-movement/dcom_lateral_movement.yml
+  - content/detection-rules/sigma/persistence/linux_bashrc_modification.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 0f1a2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c
+  files:
+  - content/detection-rules/sigma/defense-evasion/dll_sideloading.yml
+  - content/detection-rules/sigma/discovery/network_share_discovery.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+  files:
+  - content/detection-rules/sigma/credential-access/powershell_credential_prompt.yml
+  - content/detection-rules/sigma/defense-evasion/amsi_bypass.yml
+  - content/detection-rules/sigma/discovery/linux_network_discovery.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 1c2d3e4f-5a6b-7c8d-9e0f-1a2b3c4d5e6f
+  files:
+  - content/detection-rules/sigma/execution/macro_execution.yml
+  - content/detection-rules/sigma/privilege-escalation/printspooler_privilege_escalation.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 1e2f3a4b-5c6d-7e8f-9a0b-1c2d3e4f5a6b
+  files:
+  - content/detection-rules/sigma/lateral-movement/ssh_lateral_movement.yml
+  - content/detection-rules/sigma/persistence/bits_job_persistence.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e
+  files:
+  - content/detection-rules/sigma/credential-access/credential_access_ssh_keys.yml
+  - content/detection-rules/sigma/defense-evasion/disable_firewall.yml
+  - content/detection-rules/sigma/discovery/ad_enumeration.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 2d3e4f5a-6b7c-8d9e-0f1a-2b3c4d5e6f7a
+  files:
+  - content/detection-rules/sigma/execution/scheduled_task_execution.yml
+  - content/detection-rules/sigma/privilege-escalation/runas_execution.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 2f3a4b5c-6d7e-8f9a-0b1c-2d3e4f5a6b7c
+  files:
+  - content/detection-rules/sigma/lateral-movement/winrm_lateral_movement.yml
+  - content/detection-rules/sigma/persistence/office_addins.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d
+  files:
+  - content/detection-rules/sigma/lateral-movement/remote_file_copy.yml
+  - content/detection-rules/sigma/persistence/screensaver_persistence.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f
+  files:
+  - content/detection-rules/sigma/defense-evasion/rootkit_behavior.yml
+  - content/detection-rules/sigma/discovery/cloud_service_enumeration.yml
+  - content/detection-rules/sigma/persistence/scheduled_task_creation.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 3e4f5a6b-7c8d-9e0f-1a2b-3c4d5e6f7a8b
+  files:
+  - content/detection-rules/sigma/execution/at_command.yml
+  - content/detection-rules/sigma/privilege-escalation/eventvwr_uac_bypass.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e
+  files:
+  - content/detection-rules/sigma/execution/powershell_suspicious_commands.yml
+  - content/detection-rules/sigma/privilege-escalation/uac_bypass_fodhelper.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a
+  files:
+  - content/detection-rules/sigma/lateral-movement/psexec_execution.yml
+  - content/detection-rules/sigma/persistence/registry_run_keys.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 4e5f6a7b-8c9d-0e1f-2a3b-4c5d6e7f8a9b
+  files:
+  - content/detection-rules/sigma/collection/clipboard_capture.yml
+  - content/detection-rules/sigma/impact/linux_data_destruction.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 4f5a6b7c-8d9e-0f1a-2b3c-4d5e6f7a8b9c
+  files:
+  - content/detection-rules/sigma/defense-evasion/clear_windows_event_logs.yml
+  - content/detection-rules/sigma/discovery/network_reconnaissance.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 5a6b7c8d-9e0f-1a2b-3c4d-5e6f7a8b9c0d
+  files:
+  - content/detection-rules/sigma/defense-evasion/disable_windows_defender.yml
+  - content/detection-rules/sigma/discovery/whoami_execution.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f9a0b
+  files:
+  - content/detection-rules/sigma/lateral-movement/remote_desktop_logon.yml
+  - content/detection-rules/sigma/persistence/wmi_event_subscription.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 5f6a7b8c-9d0e-1f2a-3b4c-5d6e7f8a9b0c
+  files:
+  - content/detection-rules/sigma/collection/screen_capture.yml
+  - content/detection-rules/sigma/impact/firmware_corruption.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 6a7b8c9d-0e1f-2a3b-4c5d-6e7f8a9b0c1d
+  files:
+  - content/detection-rules/sigma/collection/audio_capture.yml
+  - content/detection-rules/sigma/impact/database_destruction.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 6b7c8d9e-0f1a-2b3c-4d5e-6f7a8b9c0d1e
+  files:
+  - content/detection-rules/sigma/defense-evasion/timestomping.yml
+  - content/detection-rules/sigma/discovery/process_enumeration.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 6d7e8f9a-0b1c-2d3e-4f5a-6b7c8d9e0f1a
+  files:
+  - content/detection-rules/sigma/execution/wscript_cscript_suspicious.yml
+  - content/detection-rules/sigma/privilege-escalation/sudo_abuse.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f9a0b1c
+  files:
+  - content/detection-rules/sigma/lateral-movement/wmi_lateral_movement.yml
+  - content/detection-rules/sigma/persistence/new_service_creation.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d
+  files:
+  - content/detection-rules/sigma/lateral-movement/windows_admin_shares.yml
+  - content/detection-rules/sigma/persistence/startup_folder_modification.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 7c8d9e0f-1a2b-3c4d-5e6f-7a8b9c0d1e2f
+  files:
+  - content/detection-rules/sigma/defense-evasion/indicator_removal_linux.yml
+  - content/detection-rules/sigma/discovery/system_information_discovery.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 7e8f9a0b-1c2d-3e4f-5a6b-7c8d9e0f1a2b
+  files:
+  - content/detection-rules/sigma/execution/mshta_suspicious_execution.yml
+  - content/detection-rules/sigma/privilege-escalation/suid_binary_execution.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 8b9c0d1e-2f3a-4b5c-6d7e-8f9a0b1c2d3e
+  files:
+  - content/detection-rules/sigma/lateral-movement/remote_service_creation.yml
+  - content/detection-rules/sigma/persistence/linux_cron_persistence.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 8d9e0f1a-2b3c-4d5e-6f7a-8b9c0d1e2f3a
+  files:
+  - content/detection-rules/sigma/defense-evasion/process_injection.yml
+  - content/detection-rules/sigma/discovery/domain_trust_discovery.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 8f9a0b1c-2d3e-4f5a-6b7c-8d9e0f1a2b3c
+  files:
+  - content/detection-rules/sigma/execution/cmd_suspicious_commands.yml
+  - content/detection-rules/sigma/privilege-escalation/named_pipe_impersonation.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 9a0b1c2d-3e4f-5a6b-7c8d-9e0f1a2b3c4d
+  files:
+  - content/detection-rules/sigma/execution/regsvr32_suspicious.yml
+  - content/detection-rules/sigma/privilege-escalation/always_install_elevated.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 9c0d1e2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f
+  files:
+  - content/detection-rules/sigma/lateral-movement/pass_the_hash.yml
+  - content/detection-rules/sigma/persistence/linux_systemd_service.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 9e0f1a2b-3c4d-5e6f-7a8b-9c0d1e2f3a4b
+  files:
+  - content/detection-rules/sigma/defense-evasion/masquerading.yml
+  - content/detection-rules/sigma/discovery/file_directory_discovery.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md
+- id: 9f0a1b2c-3d4e-5f6a-7b8c-9d0e1f2a3b4c
+  files:
+  - content/detection-rules/sigma/credential-access/browser_credential_theft.yml
+  - content/detection-rules/sigma/impact/disk_wipe.yml
+  reason: placeholder-pattern UUID from batch-authored sigma library; tracked in plans/sigma_id_remediation_2026-04.md

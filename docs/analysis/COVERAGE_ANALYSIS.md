@@ -194,7 +194,7 @@ If asked "walk me through a detection," lead with these — they show the most s
 
 3. **LSASS Memory Dump via Comsvcs.dll** (Sigma + Wazuh + Splunk) — Detects a specific credential dumping technique using a living-off-the-land binary. Shows knowledge of alternative dumping methods beyond just Mimikatz.
 
-4. **Registry Autorun Persistence with Suspicious Path Chaining** (Wazuh 100070 + 100070001) — Demonstrates rule chaining: base rule detects any autorun modification, child rule elevates severity when the target is a suspicious path. This is how Wazuh rules should be written.
+4. **Registry Autorun Persistence with Suspicious Path Chaining** (Wazuh 100070 + 100170) — Demonstrates rule chaining: base rule detects any autorun modification, child rule elevates severity when the target is a suspicious path. This is how Wazuh rules should be written.
 
 5. **Impossible Travel Detection** (Wazuh 100064) — Shows awareness of identity-based detection beyond simple log monitoring. Requires geoIP enrichment — demonstrates understanding of data pipeline requirements for advanced detections.
 

@@ -19,7 +19,7 @@
     <group>psexec,lateral_movement,</group>
   </rule>
 
-  <rule id="100069001" level="12" frequency="3" timeframe="600">
+  <rule id="100169" level="12" frequency="3" timeframe="600">
     <if_matched_sid>100069</if_matched_sid>
     <description>Multiple PsExec service installations across hosts - Active lateral movement</description>
     <mitre>
