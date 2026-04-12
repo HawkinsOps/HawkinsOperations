@@ -149,3 +149,10 @@ MITRE_MAPPING_AUDIT*
 # Tools (Claude Code, Codex) read these from disk; they don't need to be in git.
 CLAUDE.md
 AGENTS.md
+
+# Private agent configs (not for public repo)
+.agents/
+.codex/
+
+# Work-in-progress tooling not ready for public view
+scripts/operator-console/
