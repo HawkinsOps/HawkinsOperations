@@ -1,0 +1,38 @@
+name: HawkinsOps Splunk pipeline
+priority: 20
+
+transformations:
+  - id: windows_security_index
+    type: set_state
+    key: index
+    val: wineventlog
+    rule_conditions:
+      - type: logsource
+        product: windows
+        service: security
+
+  - id: windows_security_sourcetype
+    type: add_condition
+    conditions:
+      sourcetype: "WinEventLog:Security"
+    rule_conditions:
+      - type: logsource
+        product: windows
+        service: security
+
+  - id: linux_auth_sourcetype
+    type: add_condition
+    conditions:
+      sourcetype: "linux_secure"
+    rule_conditions:
+      - type: logsource
+        product: linux
+        service: auth
+
+  - id: field_event_id_to_eventcode
+    type: field_name_mapping
+    mapping:
+      EventID: EventCode
+    rule_conditions:
+      - type: logsource
+        product: windows

@@ -1,0 +1,62 @@
+name: sigma-ci
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/detection-rules/sigma/**"
+      - "content/detection-rules/ci/**"
+      - "content/detection-rules/tests/**"
+      - ".github/workflows/sigma-ci.yml"
+  pull_request:
+    paths:
+      - "content/detection-rules/sigma/**"
+      - "content/detection-rules/ci/**"
+      - "content/detection-rules/tests/**"
+      - ".github/workflows/sigma-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sigma:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: content/detection-rules
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: content/detection-rules/ci/requirements.txt
+
+      - name: Install sigma toolchain
+        run: pip install -r ci/requirements.txt
+
+      - name: Lint Sigma rules (schema + syntax)
+        run: sigma check sigma/
+
+      - name: Convert Sigma rules to Splunk SPL
+        run: |
+          mkdir -p build
+          sigma convert \
+            --target splunk \
+            --pipeline ci/splunk-pipeline.yml \
+            --output build/rules.spl \
+            sigma/
+          test -s build/rules.spl
+
+      - name: Run pytest (parse + convert + fixture match)
+        run: pytest tests/ -q
+
+      - name: Upload generated SPL
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sigma-splunk-output
+          path: content/detection-rules/build/rules.spl
+          if-no-files-found: warn
