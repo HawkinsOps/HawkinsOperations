@@ -499,25 +499,6 @@
     <group>noise_tuning,audit_noise,</group>
   </rule>
 
-  <!-- Suppress 100052 CryptoNetURLCache and scheduled task churn on HO-WE-02 -->
-  <rule id="100255" level="0">
-    <if_sid>100052</if_sid>
-    <hostname>HO-WE-02</hostname>
-    <field name="syscheck.path" type="pcre2">(?i)\\cryptneturlcache\\</field>
-    <description>Suppressed: CryptoNetURLCache metadata changes on HO-WE-02</description>
-    <options>no_full_log</options>
-    <group>noise_tuning,fim_noise,</group>
-  </rule>
-
-  <rule id="100256" level="0">
-    <if_sid>100052</if_sid>
-    <hostname>HO-WE-02</hostname>
-    <field name="syscheck.path" type="pcre2">(?i)\\softwareprotectionplatform\\</field>
-    <description>Suppressed: Software Protection scheduled task changes on HO-WE-02</description>
-    <options>no_full_log</options>
-    <group>noise_tuning,fim_noise,</group>
-  </rule>
-
   <!-- Suppress 92058 App Compat Database on win-hawkinsops (benign sdbinst.exe) -->
   <rule id="100257" level="0">
     <if_sid>92058</if_sid>
