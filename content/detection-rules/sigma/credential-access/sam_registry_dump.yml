@@ -1,5 +1,5 @@
 title: SAM Registry Hive Dump to Disk
-id: 4a1e8d9f-2b3c-4d5e-6f7a-8b9c0d1e2f3a
+id: d8780d0d-f7b0-4b51-b5f5-6c8fa0878ec5
 status: stable
 description: Detects attempts to save SAM, SYSTEM, or SECURITY registry hives to disk for offline credential extraction
 references:

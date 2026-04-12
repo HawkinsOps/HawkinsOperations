@@ -1,5 +1,5 @@
 title: Pass-the-Hash Attack Detection
-id: 9c0d1e2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f
+id: 0fbc6ab9-7b63-4139-9440-7a0cf04ee6dd
 status: experimental
 description: Detects potential pass-the-hash attacks
 references:

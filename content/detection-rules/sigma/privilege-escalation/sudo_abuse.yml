@@ -1,5 +1,5 @@
 title: Suspicious Sudo Command Execution
-id: 6d7e8f9a-0b1c-2d3e-4f5a-6b7c8d9e0f1a
+id: 037bceb0-e218-4dca-8f03-2541b58a49cd
 status: stable
 description: Detects suspicious sudo command usage for privilege escalation
 references:

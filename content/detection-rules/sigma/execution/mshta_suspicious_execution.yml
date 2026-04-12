@@ -1,5 +1,5 @@
 title: Suspicious MSHTA Execution
-id: 7e8f9a0b-1c2d-3e4f-5a6b-7c8d9e0f1a2b
+id: b71aa3fb-2eb3-49db-9fb2-11e1109c3182
 status: stable
 description: Detects suspicious use of mshta.exe for malicious code execution
 references:

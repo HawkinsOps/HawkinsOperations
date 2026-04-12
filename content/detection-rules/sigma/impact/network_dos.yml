@@ -1,5 +1,5 @@
 title: Network Denial of Service
-id: 1b2c3d4e-5f6a-7b8c-9d0e-1f2a3b4c5d6e
+id: e8f63192-d47c-4a2f-885a-ea9da033fe9e
 status: experimental
 description: Detects tools and commands used for network DoS attacks
 references:

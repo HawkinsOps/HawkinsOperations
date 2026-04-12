@@ -1,5 +1,5 @@
 title: Linux Log File Deletion
-id: 7c8d9e0f-1a2b-3c4d-5e6f-7a8b9c0d1e2f
+id: 93d10f36-2518-4a7e-b6a1-b54a9e5c0fd9
 status: stable
 description: Detects deletion or clearing of Linux log files
 references:

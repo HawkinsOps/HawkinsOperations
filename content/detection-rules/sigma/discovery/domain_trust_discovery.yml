@@ -1,5 +1,5 @@
 title: Domain Trust Discovery
-id: 8d9e0f1a-2b3c-4d5e-6f7a-8b9c0d1e2f3a
+id: 47e4fbaf-5fe1-4fa0-893d-82206f7feb4f
 status: stable
 description: Detects domain trust enumeration
 references:
