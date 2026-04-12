@@ -9,7 +9,9 @@ on:
 
 jobs:
   contract-scan:
-    runs-on: self-hosted
+    # Security: PRs from forks must not run on self-hosted runners (public repo).
+    # PR triggers run on GitHub-hosted ubuntu-latest; push/dispatch stay on self-hosted.
+    runs-on: ${{ github.event_name == 'pull_request' && 'ubuntu-latest' || 'self-hosted' }}
     permissions:
       contents: read
 
