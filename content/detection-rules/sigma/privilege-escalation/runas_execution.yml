@@ -1,5 +1,5 @@
 title: RunAs Command Execution
-id: 2d3e4f5a-6b7c-8d9e-0f1a-2b3c4d5e6f7a
+id: 1db6520c-3871-4aed-b9f4-10dfe3b58aca
 status: stable
 description: Detects use of runas command which may indicate privilege escalation attempts
 references:

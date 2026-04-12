@@ -1,5 +1,5 @@
 title: Suspicious Kernel Module Load
-id: 0b1c2d3e-4f5a-6b7c-8d9e-0f1a2b3c4d5e
+id: 5b67c1d5-017c-420d-8398-6e630780c078
 status: stable
 description: Detects loading of kernel modules which may indicate privilege escalation or rootkit installation
 references:

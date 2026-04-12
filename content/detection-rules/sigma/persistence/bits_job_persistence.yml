@@ -1,5 +1,5 @@
 title: BITS Job Persistence
-id: 1e2f3a4b-5c6d-7e8f-9a0b-1c2d3e4f5a6b
+id: 6ebbe9dd-0337-4e40-b3aa-3dc83122f780
 status: stable
 description: Detects abuse of BITS jobs for persistence or file download
 references:

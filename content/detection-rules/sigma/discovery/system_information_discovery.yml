@@ -1,5 +1,5 @@
 title: System Information Discovery
-id: 7c8d9e0f-1a2b-3c4d-5e6f-7a8b9c0d1e2f
+id: 05ead163-f505-42f3-81e3-e8254ba641bc
 status: stable
 description: Detects system information discovery commands
 references:

@@ -1,5 +1,5 @@
 title: AMSI Bypass Attempt
-id: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+id: 905a3a60-ae18-428a-9ca2-5dc0e52b69ca
 status: stable
 description: Detects attempts to bypass Anti-Malware Scan Interface (AMSI)
 references:

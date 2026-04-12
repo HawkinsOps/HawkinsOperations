@@ -1,5 +1,5 @@
 title: Active Directory Enumeration
-id: 2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e
+id: c19b3560-a543-4905-a748-618dcc9238a8
 status: stable
 description: Detects Active Directory enumeration using PowerShell
 references:

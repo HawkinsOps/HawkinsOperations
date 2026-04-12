@@ -1,5 +1,5 @@
 title: Registry Run Key Persistence
-id: 4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a
+id: a4b94bdd-ee77-4840-bec3-7abd1f7a2a50
 status: stable
 description: Detects modification of registry run keys commonly used for persistence
 references:

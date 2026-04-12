@@ -1,5 +1,5 @@
 title: Startup Folder File Creation
-id: 7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d
+id: ad2ddeaf-3710-49d2-a0ef-ccae0a259a6d
 status: stable
 description: Detects file creation in Windows startup folders for persistence
 references:

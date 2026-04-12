@@ -1,5 +1,5 @@
 title: Exfiltration Over Command and Control
-id: 7f8a9b0c-1d2e-3f4a-5b6c-7d8e9f0a1b2c
+id: 69dad47b-58f8-43d2-ae78-5ff642b773fb
 status: experimental
 description: Detects data exfiltration over established C2 channels
 references:

@@ -1,5 +1,5 @@
 title: Sensitive File Access
-id: 3b4c5d6e-7f8a-9b0c-1d2e-3f4a5b6c7d8e
+id: c8a1dce5-c3b3-47d7-8122-4417967314dc
 status: stable
 description: Detects access to files containing potentially sensitive data
 references:

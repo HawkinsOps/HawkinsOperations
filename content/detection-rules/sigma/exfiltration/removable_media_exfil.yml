@@ -1,5 +1,5 @@
 title: Exfiltration to Removable Media
-id: 8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d
+id: 5c6bbb41-73de-4370-9f4e-6f3aacd03702
 status: stable
 description: Detects large file copies to removable media
 references:
