@@ -33,13 +33,18 @@ function Get-RemoteRuleIds {
     [int]$Port,
     [string]$KeyPath
   )
-  $check = "sudo -n test -f '$RemotePath' && sudo -n grep -oE 'id=`"[0-9]+`"' '$RemotePath' || true"
+  # Sentinel proves the ssh channel delivered. Without it, an unreachable
+  # host / auth failure would return an empty HashSet and Assert-SafeOverwrite
+  # would silently pass (count == 0 short-circuit), defeating the guard.
+  $sentinel = "__WAZUH_DEPLOY_SSH_OK__"
+  $check = "echo $sentinel; if sudo -n test -f '$RemotePath'; then sudo -n grep -oE 'id=`"[0-9]+`"' '$RemotePath' || true; fi"
   $raw = Invoke-Ssh -RemoteHost $RemoteHost -User $User -Port $Port -KeyPath $KeyPath -Command $check
+  if (-not ($raw -match [regex]::Escape($sentinel))) {
+    throw "SSH reachability check failed for ${User}@${RemoteHost}:${Port} — cannot verify remote rule IDs at '$RemotePath'. Raw output: $raw"
+  }
   $ids = [System.Collections.Generic.HashSet[string]]::new()
-  if ($raw) {
-    foreach ($line in ($raw -split "`n")) {
-      if ($line -match 'id="(\d+)"') { [void]$ids.Add($matches[1]) }
-    }
+  foreach ($line in ($raw -split "`n")) {
+    if ($line -match 'id="(\d+)"') { [void]$ids.Add($matches[1]) }
   }
   return ,$ids
 }
