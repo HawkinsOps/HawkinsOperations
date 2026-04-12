@@ -78,7 +78,7 @@ The count (103) is not hand-asserted. It is the output of `(Get-ChildItem -Recur
 
 ```powershell
 # 1. Clone and enter
-git clone https://github.com/raylee-hawkins/HawkinsOperations.git
+git clone https://github.com/HawkinsOps/HawkinsOperations.git
 cd HawkinsOperations
 
 # 2. Count Sigma rules (total)

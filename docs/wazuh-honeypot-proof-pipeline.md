@@ -28,7 +28,7 @@ The honeypot proof pipeline runs on the private Wazuh manager and publishes only
 
 1. Check timestamp and count in `proof/wazuh/honeypot/latest.md`.
 2. Review commit history for updates:
-`https://github.com/raylee-hawkins/HawkinsOperations/commits/main/proof/wazuh/honeypot`
+`https://github.com/HawkinsOps/HawkinsOperations/commits/main/proof/wazuh/honeypot`
 3. Reproduce on the Wazuh manager:
 
 ```bash

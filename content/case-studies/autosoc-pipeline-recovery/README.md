@@ -123,7 +123,7 @@ gantt
 
 ```powershell
 # 1. Clone repository
-git clone https://github.com/raylee-hawkins/HawkinsOperations.git
+git clone https://github.com/HawkinsOps/HawkinsOperations.git
 cd HawkinsOperations
 
 # 2. Verify detection counts match VERIFIED_COUNTS.md
