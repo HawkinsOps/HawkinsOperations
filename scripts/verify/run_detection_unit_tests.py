@@ -122,7 +122,7 @@ def run_logtest(
         "-o",
         "ConnectTimeout=10",
         f"{env['WAZUH_SSH_USER']}@{env['WAZUH_HOST']}",
-        "/var/ossec/bin/wazuh-logtest -q",
+        "/var/ossec/bin/wazuh-logtest",
     ]
     result = subprocess.run(
         ssh_cmd,
@@ -375,12 +375,23 @@ def main() -> int:
             print(f"- {r.path}", file=sys.stderr)
             for err in r.errors:
                 print(f"    - {err}", file=sys.stderr)
-            if r.raw_logtest_output:
-                snippet = r.raw_logtest_output.strip().splitlines()[-20:]
-                print("    --- last 20 lines of logtest output ---", file=sys.stderr)
-                for line in snippet:
+            raw = r.raw_logtest_output or ""
+            print(
+                f"    --- raw logtest output ({len(raw)} bytes) ---",
+                file=sys.stderr,
+            )
+            if raw.strip():
+                for line in raw.splitlines():
                     print(f"    {line}", file=sys.stderr)
-                print("    ---------------------------------------", file=sys.stderr)
+            else:
+                print(
+                    "    (empty — wazuh-logtest produced no stdout/stderr)",
+                    file=sys.stderr,
+                )
+            print(
+                "    ----------------------------------------------",
+                file=sys.stderr,
+            )
         return 1
 
     return 0
