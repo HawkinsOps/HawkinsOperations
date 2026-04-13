@@ -1,0 +1,8 @@
+rule_id: "100066"
+level_min: 10
+mitre_ids:
+  - "T1098"
+groups_contain:
+  - "sudo_abuse"
+description_substring: "Privileged account password changed"
+note: "sudo passwd root — T1098 Account Manipulation via sudo"
