@@ -20,6 +20,7 @@ jobs:
     runs-on: self-hosted
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
       - name: Checkout repository
@@ -45,12 +46,39 @@ jobs:
         run: |
           git diff --quiet data/metrics.json data/metrics.json.sha256 proof/validation/ proof/quality/ site/proof/validation/ site/proof/quality/ site/data/ site/assets/data/ site/assets/verified-counts.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
 
-      - name: Commit and push updated site data
+      - name: Open or update PR with regenerated site data
         if: steps.diff.outputs.changed == 'true'
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/metrics.json data/metrics.json.sha256 proof/validation/ proof/quality/ site/proof/validation/ site/proof/quality/ site/data/ site/assets/data/ site/assets/verified-counts.json
-          git commit -m "chore(site): auto-regenerate site data from source artifacts"
-          git push
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore(site): auto-regenerate site data from source artifacts"
+          committer: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          branch: auto/site-data-regen
+          base: main
+          delete-branch: true
+          title: "chore(site): auto-regenerate site data"
+          body: |
+            Automated PR opened by the `update-site-data` workflow on its scheduled run.
+
+            Regenerated artifacts:
+            - `data/metrics.json` + `data/metrics.json.sha256`
+            - `proof/validation/**`, `proof/quality/**`
+            - `site/proof/validation/**`, `site/proof/quality/**`
+            - `site/data/**`, `site/assets/data/**`
+            - `site/assets/verified-counts.json`
+
+            Merge after required status checks pass. Branch is re-used across runs and deleted after merge.
+          labels: |
+            automated
+            site-data
+          add-paths: |
+            data/metrics.json
+            data/metrics.json.sha256
+            proof/validation
+            proof/quality
+            site/proof/validation
+            site/proof/quality
+            site/data
+            site/assets/data
+            site/assets/verified-counts.json
