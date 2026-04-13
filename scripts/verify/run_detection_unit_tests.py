@@ -244,18 +244,25 @@ def assert_fixture(
 
 
 def discover_fixtures() -> list[Path]:
+    """Discover fixtures by looking for event.log files.
+
+    The event.log is the canonical input — it is what we feed wazuh-logtest.
+    expected.yml is paired metadata. Discovering by event.log means an orphan
+    expected.yml left over from a stale checkout is silently ignored rather
+    than producing a phantom fixture failure.
+    """
     if not FIXTURES_ROOT.is_dir():
         return []
-    return sorted(FIXTURES_ROOT.rglob("expected.yml"))
+    return sorted(FIXTURES_ROOT.rglob("event.log"))
 
 
 def run_fixture(
-    expected_path: Path,
+    event_path: Path,
     env: dict[str, str],
     key_path: Path,
 ) -> FixtureResult:
-    fixture_dir = expected_path.parent
-    event_path = fixture_dir / "event.log"
+    fixture_dir = event_path.parent
+    expected_path = fixture_dir / "expected.yml"
     rel = fixture_dir.relative_to(REPO_ROOT).as_posix()
 
     result = FixtureResult(
@@ -264,6 +271,13 @@ def run_fixture(
         rule_id_expected="",
     )
 
+    if not expected_path.exists():
+        result.errors.append(
+            "expected.yml not found next to event.log — a fixture must "
+            "declare its assertion contract"
+        )
+        return result
+
     try:
         expected = yaml.safe_load(expected_path.read_text(encoding="utf-8")) or {}
     except yaml.YAMLError as exc:
@@ -271,10 +285,6 @@ def run_fixture(
         return result
 
     result.rule_id_expected = str(expected.get("rule_id", "")).strip()
-
-    if not event_path.exists():
-        result.errors.append(f"event.log not found next to expected.yml")
-        return result
 
     event_text = event_path.read_text(encoding="utf-8")
 
