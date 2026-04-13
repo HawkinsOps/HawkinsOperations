@@ -1,8 +1,0 @@
-rule_id: "100054"
-level_min: 11
-mitre_ids:
-  - "T1190"
-groups_contain:
-  - "sql_injection"
-description_substring: "SQL injection"
-note: "Apache access log with classic ' OR '1'='1 payload — T1190 Exploit Public-Facing Application"
