@@ -7,11 +7,15 @@ on:
 
 jobs:
   verify:
-    # Security: PRs from forks must not run on self-hosted runners (public repo).
-    # PR triggers run on GitHub-hosted ubuntu-latest; push/dispatch stay on self-hosted.
-    runs-on: ${{ github.event_name == 'pull_request' && 'ubuntu-latest' || 'self-hosted' }}
+    runs-on: self-hosted
     permissions:
       contents: read
+
+    env:
+      WAZUH_HOST: ${{ secrets.WAZUH_HOST }}
+      WAZUH_SSH_USER: ${{ secrets.WAZUH_SSH_USER }}
+      WAZUH_SSH_PORT: ${{ secrets.WAZUH_SSH_PORT }}
+      WAZUH_SSH_KEY: ${{ secrets.WAZUH_SSH_KEY }}
 
     steps:
       - name: Checkout repository
@@ -40,6 +44,21 @@ jobs:
       - name: Validate detection rule content
         shell: bash
         run: python3 ./scripts/verify/validate_detection_content.py
+
+      - name: Run detection unit tests (Layer 1)
+        shell: bash
+        run: python3 ./scripts/verify/run_detection_unit_tests.py
+
+      - name: Upload detection unit test summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: detection-unit-tests-summary
+          path: |
+            proof/detection_unit_tests/latest.json
+            proof/detection_unit_tests/latest.md
+          if-no-files-found: ignore
+          retention-days: 30
 
       - name: Generate site data artifacts
         shell: pwsh
