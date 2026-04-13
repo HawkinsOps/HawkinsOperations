@@ -44,7 +44,7 @@ RULE_ID_RE = re.compile(r"^\s*id:\s*'(\d+)'", re.MULTILINE)
 LEVEL_RE = re.compile(r"^\s*level:\s*'(\d+)'", re.MULTILINE)
 DESCRIPTION_RE = re.compile(r"^\s*description:\s*'([^']*)'", re.MULTILINE)
 GROUPS_RE = re.compile(r"^\s*groups:\s*'(\[[^\]]*\])'", re.MULTILINE)
-MITRE_RE = re.compile(r"^\s*mitre(?:_id)?(?:s)?:\s*'(\[[^\]]*\])'", re.MULTILINE)
+MITRE_RE = re.compile(r"^\s*mitre\.id:\s*'(\[[^\]]*\])'", re.MULTILINE)
 
 
 @dataclass
