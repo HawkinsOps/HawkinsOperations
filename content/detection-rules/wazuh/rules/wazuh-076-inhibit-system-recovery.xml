@@ -1,9 +1,9 @@
 <!--
   Wazuh Rule: Inhibit System Recovery Commands
-  IDs: 100076, 100176
+  ID: 100076, 100176
   Level: 10 (High), 12 (Critical)
   Description: Detects commands used to remove recovery mechanisms before ransomware impact
-  Author: CHETHAN G S
+  Author: HawkinsOps SOC
   Date: 2026-04-15
 -->
 
