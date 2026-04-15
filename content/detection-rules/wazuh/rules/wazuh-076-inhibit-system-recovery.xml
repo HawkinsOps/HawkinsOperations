@@ -1,0 +1,68 @@
+<!--
+  Wazuh Rule: Inhibit System Recovery Commands
+  IDs: 100076, 100176
+  Level: 10 (High), 12 (Critical)
+  Description: Detects commands used to remove recovery mechanisms before ransomware impact
+  Author: CHETHAN G S
+  Date: 2026-04-15
+-->
+
+<group name="windows,impact,recovery_inhibition,ransomware,">
+  <rule id="100076" level="10">
+    <if_sid>60000</if_sid>
+    <field name="win.eventdata.commandLine">vssadmin.*delete.*shadows|wmic.*shadowcopy.*delete|wbadmin.*delete.*catalog|bcdedit.*recoveryenabled.*no|bcdedit.*bootstatuspolicy.*ignoreallfailures</field>
+    <description>Potential recovery inhibition command execution detected</description>
+    <mitre>
+      <id>T1490</id>
+    </mitre>
+    <group>impact,recovery_inhibit,</group>
+  </rule>
+
+  <rule id="100176" level="12">
+    <if_sid>100076</if_sid>
+    <field name="win.eventdata.commandLine">/all|/quiet|quiet|ignoreallfailures</field>
+    <description>High-risk recovery inhibition command with destructive suppression flags</description>
+    <mitre>
+      <id>T1490</id>
+    </mitre>
+    <group>impact,recovery_inhibit,high_confidence,</group>
+  </rule>
+</group>
+
+<!--
+Summary:
+  Detects common Windows commands used by ransomware operators to remove local recovery
+  paths before encryption or destructive actions.
+
+Fields Used:
+  - win.eventdata.commandLine: Full process command line
+  - win.eventdata.image: Executing process image
+  - win.eventdata.parentImage: Parent process
+  - win.eventdata.user: User context
+
+False Positives:
+  - Planned backup maintenance activities by authorized administrators
+  - Disaster recovery drills in controlled maintenance windows
+  - Gold image preparation scripts in isolated build environments
+
+Severity: High (10), Critical (12 when suppression flags are present)
+
+MITRE ATT&CK: T1490 - Inhibit System Recovery
+
+Log Sources:
+  - Sysmon Event ID 1 (Process Creation)
+  - Windows Security Event 4688
+
+Test Examples:
+  - vssadmin.exe delete shadows /all /quiet
+  - wmic shadowcopy delete
+  - wbadmin delete catalog -quiet
+  - bcdedit /set {default} recoveryenabled no
+  - bcdedit /set {default} bootstatuspolicy ignoreallfailures
+
+Tuning Notes:
+  - Alert immediately when seen on non-admin workstations
+  - Correlate with file-encryption or shadow-copy deletion activity
+  - Allowlist expected backup-service accounts where justified
+  - Escalate if parent process is Office, script host, or remote tool
+-->
