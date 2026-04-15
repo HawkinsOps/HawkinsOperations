@@ -7,15 +7,11 @@ on:
 
 jobs:
   verify:
-    runs-on: self-hosted
+    # Security: PRs from forks must not run on self-hosted runners (public repo).
+    # PR triggers run on GitHub-hosted ubuntu-latest; push/dispatch stay on self-hosted.
+    runs-on: ${{ github.event_name == 'pull_request' && 'ubuntu-latest' || 'self-hosted' }}
     permissions:
       contents: read
-
-    env:
-      WAZUH_HOST: ${{ secrets.WAZUH_HOST }}
-      WAZUH_SSH_USER: ${{ secrets.WAZUH_SSH_USER }}
-      WAZUH_SSH_PORT: ${{ secrets.WAZUH_SSH_PORT }}
-      WAZUH_SSH_KEY: ${{ secrets.WAZUH_SSH_KEY }}
 
     steps:
       - name: Checkout repository
@@ -46,11 +42,20 @@ jobs:
         run: python3 ./scripts/verify/validate_detection_content.py
 
       - name: Run detection unit tests (Layer 1)
+        # Requires SSH to the Wazuh manager via WAZUH_* secrets. Secrets are not
+        # available to fork pull_request runs, and this harness validates the
+        # currently-deployed ruleset (not the in-PR bundle), so skip on PRs.
+        if: github.event_name != 'pull_request'
         shell: bash
+        env:
+          WAZUH_HOST: ${{ secrets.WAZUH_HOST }}
+          WAZUH_SSH_USER: ${{ secrets.WAZUH_SSH_USER }}
+          WAZUH_SSH_PORT: ${{ secrets.WAZUH_SSH_PORT }}
+          WAZUH_SSH_KEY: ${{ secrets.WAZUH_SSH_KEY }}
         run: python3 ./scripts/verify/run_detection_unit_tests.py
 
       - name: Upload detection unit test summary
-        if: always()
+        if: github.event_name != 'pull_request' && always()
         uses: actions/upload-artifact@v4
         with:
           name: detection-unit-tests-summary
