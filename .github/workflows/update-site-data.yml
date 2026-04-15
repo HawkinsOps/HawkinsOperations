@@ -47,8 +47,9 @@ jobs:
           git diff --quiet data/metrics.json data/metrics.json.sha256 proof/validation/ proof/quality/ site/proof/validation/ site/proof/quality/ site/data/ site/assets/data/ site/assets/verified-counts.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Open or update PR with regenerated site data
+        id: cpr
         if: steps.diff.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7 (2025-12-05)
         with:
           token: ${{ secrets.AUTOMATION_PAT }}
           commit-message: "chore(site): auto-regenerate site data from source artifacts"
@@ -82,3 +83,11 @@ jobs:
             site/data
             site/assets/data
             site/assets/verified-counts.json
+
+      - name: Enable auto-merge on PR
+        if: steps.diff.outputs.changed == 'true' && steps.cpr.outputs.pull-request-number != ''
+        uses: peter-evans/enable-pull-request-automerge@a660677d5469627102a1c1e11409dd063606628d # v3 (2023-03-23)
+        with:
+          token: ${{ secrets.AUTOMATION_PAT }}
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: squash
