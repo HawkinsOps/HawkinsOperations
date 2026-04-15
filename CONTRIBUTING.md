@@ -99,7 +99,7 @@ Follow the appropriate guidelines:
 
 ### 4. Test Locally
 
-Run commands from the repository root (`HawkinsOperations/`).
+Run commands from the repository root (the directory containing `CONTRIBUTING.md` / where you ran `git clone`), for example after `cd HawkinsOperations`.
 
 **Verify counts:**
 ```powershell
