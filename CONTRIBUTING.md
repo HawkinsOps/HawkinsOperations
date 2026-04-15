@@ -277,7 +277,7 @@ index=windows EventCode=1
 
 - [ ] Code follows the style guidelines
 - [ ] All files are sanitized (no real IPs, credentials, PII)
-- [ ] Verification scripts pass (`pwsh -NoProfile -File ".\\scripts\\verify\\verify-counts.ps1"` or `powershell -NoProfile -ExecutionPolicy Bypass -File ".\\scripts\\verify\\verify-counts.ps1"`)
+- [ ] Verification scripts pass (`pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"` or `powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\verify\verify-counts.ps1"`)
 - [ ] Commit messages are descriptive
 - [ ] Changes are focused (one logical change per PR)
 
