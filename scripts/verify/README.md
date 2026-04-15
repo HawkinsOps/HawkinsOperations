@@ -38,8 +38,9 @@ pwsh -NoProfile -File ".\scripts\verify\repo-state-grade.ps1" -WarnBelow 80
 # Fallback for Windows PowerShell 5.1 if pwsh is not installed:
 powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\verify\repo-state-grade.ps1" -WarnBelow 80
 pwsh -NoProfile -File ".\scripts\verify\install-precommit-public-safety.ps1"
-# Fallback for Windows PowerShell 5.1 if pwsh is not installed:
+# You can launch the installer from Windows PowerShell 5.1:
 powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\verify\install-precommit-public-safety.ps1"
+# Note: the installed pre-commit hook invokes `pwsh`, so PowerShell 7 is still required for the hook to run.
 node .\scripts\generate-media-manifest.js
 python3 -m pip install --quiet pyyaml==6.0.2
 python3 .\scripts\verify\validate_detection_content.py
