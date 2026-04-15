@@ -23,12 +23,24 @@ Run from repository root:
 
 ```powershell
 pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
+# Fallback for Windows PowerShell 5.1 if pwsh is not installed:
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\verify\verify-counts.ps1"
 pwsh -NoProfile -File ".\scripts\verify\generate-verified-counts.ps1" -OutFile ".\PROOF_PACK\VERIFIED_COUNTS.md"
+# Fallback for Windows PowerShell 5.1 if pwsh is not installed:
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\verify\generate-verified-counts.ps1" -OutFile ".\PROOF_PACK\VERIFIED_COUNTS.md"
 node .\scripts\verify\hosting-cloudflare-only.js
 pwsh -NoProfile -File ".\scripts\verify\public-safety-scan.ps1"
+# Fallback for Windows PowerShell 5.1 if pwsh is not installed:
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\verify\public-safety-scan.ps1"
 pwsh -NoProfile -File ".\scripts\verify\autosoc-publish-contract-scan.ps1"
+# Fallback for Windows PowerShell 5.1 if pwsh is not installed:
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\verify\autosoc-publish-contract-scan.ps1"
 pwsh -NoProfile -File ".\scripts\verify\repo-state-grade.ps1" -WarnBelow 80
+# Fallback for Windows PowerShell 5.1 if pwsh is not installed:
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\verify\repo-state-grade.ps1" -WarnBelow 80
 pwsh -NoProfile -File ".\scripts\verify\install-precommit-public-safety.ps1"
+# Fallback for Windows PowerShell 5.1 if pwsh is not installed:
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\verify\install-precommit-public-safety.ps1"
 node .\scripts\generate-media-manifest.js
 python3 -m pip install --quiet pyyaml==6.0.2
 python3 .\scripts\verify\validate_detection_content.py
