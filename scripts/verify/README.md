@@ -29,9 +29,8 @@ pwsh -NoProfile -File ".\scripts\verify\generate-verified-counts.ps1" -OutFile "
 # Fallback for Windows PowerShell 5.1 if pwsh is not installed:
 powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\verify\generate-verified-counts.ps1" -OutFile ".\PROOF_PACK\VERIFIED_COUNTS.md"
 node .\scripts\verify\hosting-cloudflare-only.js
+# Requires PowerShell 7+ (`pwsh`); no Windows PowerShell 5.1 fallback is supported for this scan.
 pwsh -NoProfile -File ".\scripts\verify\public-safety-scan.ps1"
-# Fallback for Windows PowerShell 5.1 if pwsh is not installed:
-powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\verify\public-safety-scan.ps1"
 pwsh -NoProfile -File ".\scripts\verify\autosoc-publish-contract-scan.ps1"
 # Fallback for Windows PowerShell 5.1 if pwsh is not installed:
 powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\verify\autosoc-publish-contract-scan.ps1"
