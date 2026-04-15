@@ -99,14 +99,20 @@ Follow the appropriate guidelines:
 
 ### 4. Test Locally
 
+Run commands from the repository root (`HawkinsOperations/`).
+
 **Verify counts:**
 ```powershell
 pwsh -NoProfile -File ".\\scripts\\verify\\verify-counts.ps1"
+# Fallback for Windows PowerShell 5.1 if pwsh is not installed:
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\\scripts\\verify\\verify-counts.ps1"
 ```
 
 **Build Wazuh bundle (if applicable):**
 ```powershell
-.\scripts\build-wazuh-bundle.ps1
+pwsh -NoProfile -File ".\\scripts\\build-wazuh-bundle.ps1"
+# Fallback for Windows PowerShell 5.1 if pwsh is not installed:
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\\scripts\\build-wazuh-bundle.ps1"
 ```
 
 **Check for sanitization issues:**
@@ -271,7 +277,7 @@ index=windows EventCode=1
 
 - [ ] Code follows the style guidelines
 - [ ] All files are sanitized (no real IPs, credentials, PII)
-- [ ] Verification scripts pass (`pwsh -NoProfile -File ".\\scripts\\verify\\verify-counts.ps1"`)
+- [ ] Verification scripts pass (`pwsh -NoProfile -File ".\\scripts\\verify\\verify-counts.ps1"` or `powershell -NoProfile -ExecutionPolicy Bypass -File ".\\scripts\\verify\\verify-counts.ps1"`)
 - [ ] Commit messages are descriptive
 - [ ] Changes are focused (one logical change per PR)
 
