@@ -110,9 +110,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File ".\\scripts\\verify\\verify-
 
 **Build Wazuh bundle (if applicable):**
 ```powershell
-pwsh -NoProfile -File ".\\scripts\\build-wazuh-bundle.ps1"
+pwsh -NoProfile -File ".\scripts\build-wazuh-bundle.ps1"
 # Fallback for Windows PowerShell 5.1 if pwsh is not installed:
-powershell -NoProfile -ExecutionPolicy Bypass -File ".\\scripts\\build-wazuh-bundle.ps1"
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\build-wazuh-bundle.ps1"
 ```
 
 **Check for sanitization issues:**
