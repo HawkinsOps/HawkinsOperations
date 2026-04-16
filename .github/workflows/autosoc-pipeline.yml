@@ -44,6 +44,7 @@ env:
 
 jobs:
   poll-alerts:
+    timeout-minutes: 15
     runs-on: self-hosted
     permissions:
       contents: read
@@ -53,7 +54,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Poll Wazuh alerts
         id: poll
@@ -81,13 +82,14 @@ jobs:
 
       - name: Upload poll output
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: poll-alerts-output
           path: scripts/auto-soc/poll_output.txt
           retention-days: 7
 
   triage:
+    timeout-minutes: 15
     needs: poll-alerts
     if: ${{ !(inputs.dry_run || false) }}
     runs-on: self-hosted
@@ -98,7 +100,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Run triage
         id: triage
@@ -119,13 +121,14 @@ jobs:
 
       - name: Upload triage output
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: triage-output
           path: scripts/auto-soc/triage_output.txt
           retention-days: 7
 
   run-pipeline:
+    timeout-minutes: 15
     needs: triage
     runs-on: self-hosted
     permissions:
@@ -135,7 +138,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Run pipeline
         id: pipeline
@@ -160,13 +163,14 @@ jobs:
 
       - name: Upload pipeline output
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: pipeline-output
           path: scripts/auto-soc/pipeline_output.txt
           retention-days: 7
 
   heartbeat:
+    timeout-minutes: 15
     needs: [poll-alerts, triage, run-pipeline]
     if: always()
     runs-on: self-hosted
@@ -176,7 +180,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Run heartbeat trend
         id: heartbeat
@@ -196,7 +200,7 @@ jobs:
 
       - name: Upload heartbeat output
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: heartbeat-output
           path: scripts/auto-soc/heartbeat_output.txt

@@ -9,6 +9,7 @@ on:
 
 jobs:
   contract-scan:
+    timeout-minutes: 5
     # Security: PRs from forks must not run on self-hosted runners (public repo).
     # PR triggers run on GitHub-hosted ubuntu-latest; push/dispatch stay on self-hosted.
     runs-on: ${{ github.event_name == 'pull_request' && 'ubuntu-latest' || 'self-hosted' }}
@@ -17,7 +18,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           fetch-depth: 0
 

@@ -8,6 +8,7 @@ on:
 
 jobs:
   drift-scan:
+    timeout-minutes: 5
     # Security: PRs from forks must not run on self-hosted runners (public repo).
     # PR triggers run on GitHub-hosted ubuntu-latest; push stays on self-hosted.
     runs-on: ${{ github.event_name == 'pull_request' && 'ubuntu-latest' || 'self-hosted' }}
@@ -16,10 +17,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.11"
 

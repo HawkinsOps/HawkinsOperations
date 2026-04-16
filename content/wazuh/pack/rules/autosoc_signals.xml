@@ -9,6 +9,17 @@
     <group>execution,powershell,</group>
   </rule>
 
+  <!-- NOISE TUNING 2026-04-16: Suppress bash.exe false matches on 100201.
+       Claude Code shell-snapshot sources a profile containing the word
+       "encodedcommand" in environment definitions. bash.exe is never PowerShell. -->
+  <rule id="100266" level="0">
+    <if_sid>100201</if_sid>
+    <field name="win.eventdata.image" type="pcre2">(?i)bash\.exe$</field>
+    <description>Suppressed: bash.exe false match on encoded PowerShell rule</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,dev_tooling,</group>
+  </rule>
+
   <rule id="100310" level="10">
     <if_group>windows,sysmon,</if_group>
     <field name="win.system.eventID">^1$</field>
@@ -19,6 +30,54 @@
       <id>T1218</id>
     </mitre>
     <group>process_creation,execution,autosoc_signal,</group>
+  </rule>
+
+  <!-- NOISE TUNING 2026-04-16: Suppress known-benign 100310 matches -->
+  <rule id="100262" level="0">
+    <if_sid>100310</if_sid>
+    <field name="win.eventdata.image" type="pcre2">(?i)splunk-powershell\.exe$</field>
+    <description>Suppressed: Splunk UF splunk-powershell.exe (scheduled TA polling)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,splunk_uf,autosoc_signal,</group>
+  </rule>
+
+  <rule id="100263" level="0">
+    <if_sid>100310</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.parentImage" type="pcre2">(?i)claude\.exe$</field>
+    <description>Suppressed: Claude Code MCP cmd.exe on win-hawkinsops</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,dev_tooling,autosoc_signal,</group>
+  </rule>
+
+  <rule id="100264" level="0">
+    <if_sid>100310</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.parentImage" type="pcre2">(?i)node\.exe$</field>
+    <description>Suppressed: Node.js tooling cmd.exe on win-hawkinsops</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,dev_tooling,autosoc_signal,</group>
+  </rule>
+
+  <rule id="100265" level="0">
+    <if_sid>100310</if_sid>
+    <field name="win.eventdata.parentImage" type="pcre2">(?i)(wazuh-agent|ossec-agent)\.exe$</field>
+    <description>Suppressed: Wazuh agent self-monitoring process creation</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,wazuh_agent,autosoc_signal,</group>
+  </rule>
+
+  <!-- NOISE TUNING 2026-04-16: Suppress cmd.exe -> cmd.exe self-chaining on win-hawkinsops.
+       Claude Code MCP process tree spawns cmd.exe /c CALL node.exe subshells
+       under cmd.exe. Normal dev tooling, zero attacker signal. -->
+  <rule id="100268" level="0">
+    <if_sid>100310</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.parentImage" type="pcre2">(?i)cmd\.exe$</field>
+    <field name="win.eventdata.image" type="pcre2">(?i)cmd\.exe$</field>
+    <description>Suppressed: cmd.exe self-chain on win-hawkinsops (dev tooling subshells)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,dev_tooling,autosoc_signal,</group>
   </rule>
 
   <rule id="100311" level="12">
@@ -33,14 +92,32 @@
     <group>network,exfiltration,command_and_control,autosoc_signal,</group>
   </rule>
 
+  <!-- REWRITTEN 2026-04-16: grantedAccess filter for dangerous access masks only -->
   <rule id="100312" level="13">
     <if_group>windows,sysmon,</if_group>
     <field name="win.system.eventID">^10$</field>
     <field name="win.eventdata.targetImage" type="pcre2">(?i).*\\lsass\.exe$</field>
-    <description>AutoSOC Sysmon EID 10 process access to LSASS</description>
+    <field name="win.eventdata.grantedAccess" type="pcre2">(?i)(0x1010|0x1FFFFF|0x1F0FFF|0x1F1FFF|0x40|0x1410)</field>
+    <description>AutoSOC Sysmon EID 10 suspicious LSASS access (dangerous access mask)</description>
     <mitre>
       <id>T1003.001</id>
     </mitre>
     <group>credential_access,lsass,autosoc_signal,</group>
+  </rule>
+
+
+  <!-- DETECTION 2026-04-16: Promote non-loopback RDP to level 6.
+       Stock rule 92108 drops all RDP (port 3389) at level 0.
+       Stock child 92109 only fires for loopback (reverse tunnel).
+       This rule closes the gap for host-to-host RDP lateral movement.
+       Financial-services attacker relevance: RDP is #1 lateral movement vector. -->
+  <rule id="100267" level="6">
+    <if_sid>92108</if_sid>
+    <description>RDP connection detected: $(win.eventdata.sourceIp) to $(win.eventdata.destinationIp)</description>
+    <mitre>
+      <id>T1021.001</id>
+    </mitre>
+    <options>no_full_log</options>
+    <group>lateral_movement,rdp,</group>
   </rule>
 </group>

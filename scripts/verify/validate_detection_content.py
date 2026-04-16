@@ -130,12 +130,70 @@ def validate_sigma(
                 errors.append(f"sigma {rel}: detection must be a mapping")
             elif "condition" not in detection:
                 errors.append(f"sigma {rel}: detection is missing 'condition'")
+            else:
+                condition_str = detection["condition"]
+                if isinstance(condition_str, str):
+                    tokens = re.findall(r"[a-zA-Z_][a-zA-Z0-9_*]*", condition_str)
+                    keywords = {"and", "or", "not", "1", "of", "all", "them"}
+                    det_keys = {k for k in detection if k != "condition"}
+                    for token in tokens:
+                        if token.lower() in keywords:
+                            continue
+                        if token.endswith("*"):
+                            prefix = token[:-1]
+                            if not any(k.startswith(prefix) for k in det_keys):
+                                errors.append(
+                                    f"sigma {rel}: condition references "
+                                    f"'{token}' but no detection key matches "
+                                    f"that wildcard pattern"
+                                )
+                        elif token not in det_keys:
+                            errors.append(
+                                f"sigma {rel}: condition references '{token}' "
+                                f"but it is not a key in detection"
+                            )
 
         level = doc.get("level")
         if level is not None and level not in SIGMA_LEVELS:
             errors.append(
                 f"sigma {rel}: level '{level}' is not one of "
                 f"{sorted(SIGMA_LEVELS)}"
+            )
+
+        # --- advisory field-quality warnings ---
+        status = doc.get("status")
+        if status is None:
+            warnings.append(f"sigma {rel}: missing recommended field 'status'")
+        elif status not in ("experimental", "test", "stable", "deprecated"):
+            warnings.append(
+                f"sigma {rel}: status '{status}' is not one of "
+                f"experimental/test/stable/deprecated"
+            )
+
+        description = doc.get("description")
+        if not isinstance(description, str) or not description.strip():
+            warnings.append(
+                f"sigma {rel}: missing or empty recommended field 'description'"
+            )
+
+        if level is None:
+            warnings.append(f"sigma {rel}: missing recommended field 'level'")
+
+        falsepositives = doc.get("falsepositives")
+        if not isinstance(falsepositives, list):
+            warnings.append(
+                f"sigma {rel}: missing recommended field 'falsepositives'"
+            )
+
+        tags = doc.get("tags")
+        if not isinstance(tags, list):
+            warnings.append(f"sigma {rel}: missing recommended field 'tags'")
+        elif not any(
+            str(t).lower().startswith("attack.t") for t in tags
+        ):
+            warnings.append(
+                f"sigma {rel}: tags should contain at least one ATT&CK "
+                f"technique (attack.tNNNN)"
             )
 
     # Resolve duplicate-id collisions against the allowlist.
@@ -236,6 +294,17 @@ def validate_wazuh(wazuh_root: Path) -> tuple[List[str], List[str]]:
                     f"wazuh {rel}: rule id {rid} missing or empty "
                     f"<description>"
                 )
+
+            for sid_tag in ("if_sid", "if_matched_sid"):
+                for sid_el in rule.findall(sid_tag):
+                    sid_text = (sid_el.text or "").strip()
+                    try:
+                        int(sid_text)
+                    except ValueError:
+                        errors.append(
+                            f"wazuh {rel}: rule id {rid} <{sid_tag}> value "
+                            f"'{sid_text}' is not an integer"
+                        )
 
     return errors, warnings
 

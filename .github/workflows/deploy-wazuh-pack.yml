@@ -9,6 +9,7 @@ on:
 
 jobs:
   deploy:
+    timeout-minutes: 15
     # Only run when verify succeeded (or manual dispatch)
     if: >-
       github.event_name == 'workflow_dispatch' ||
@@ -25,7 +26,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           fetch-depth: 0
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
