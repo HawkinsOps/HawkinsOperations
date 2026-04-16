@@ -1,0 +1,33 @@
+<!--
+  Rule: wazuh-076-sysmon-run-key-persistence
+  MITRE: T1547.001 - Registry Run Keys / Startup Folder
+  Author: HawkinsOps SOC
+  Date: 2026-04-16
+
+  Purpose:
+    Wazuh's stock ruleset (4.14.x) ships rule 92300 at level 0, which matches
+    Sysmon EID 13 registry writes to \CurrentVersion\Run but suppresses the
+    alert. Child rules (92301-92303) only escalate for .lnk/.vbs extensions
+    or reg.exe as the writing process. This means an attacker using PowerShell,
+    cmd.exe, or any other tool to write a .exe path to a Run key produces zero
+    alerts in a default deployment.
+
+    This rule promotes 92300 to level 8, ensuring all Run-key persistence
+    writes generate a visible alert regardless of the tool or extension used.
+
+  Validated:
+    - Wazuh Manager 4.14.4-1, stock 0860-sysmon_id_13.xml (md5: b629c73b127f055ba15cce1ecc44a04b)
+    - Detonated T1547.001 on HO-WE-02 (agent 023) at 2026-04-16T06:45:23Z
+    - Alert confirmed in Wazuh API within 1 second of detonation
+    - Without this rule: zero alerts for the identical attack pattern
+-->
+<group name="sysmon,persistence,">
+  <rule id="100400" level="8">
+    <if_sid>92300</if_sid>
+    <description>Sysmon: Registry Run key persistence (T1547.001) - promoted from silent parent 92300</description>
+    <mitre>
+      <id>T1547.001</id>
+    </mitre>
+    <options>no_full_log</options>
+  </rule>
+</group>
