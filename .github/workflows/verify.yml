@@ -7,6 +7,7 @@ on:
 
 jobs:
   verify:
+    timeout-minutes: 20
     # Security: PRs from forks must not run on self-hosted runners (public repo).
     # PR triggers run on GitHub-hosted ubuntu-latest; push/dispatch stay on self-hosted.
     runs-on: ${{ github.event_name == 'pull_request' && 'ubuntu-latest' || 'self-hosted' }}
@@ -15,10 +16,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version-file: ".node-version"
 
@@ -29,7 +30,7 @@ jobs:
           pwsh -NoProfile -File "./scripts/verify/verify-counts.ps1"
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.11"
 
@@ -56,7 +57,7 @@ jobs:
 
       - name: Upload detection unit test summary
         if: github.event_name != 'pull_request' && always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: detection-unit-tests-summary
           path: |
@@ -96,14 +97,14 @@ jobs:
           Get-Item -LiteralPath "./dist/wazuh/local_rules.xml" | Select-Object Name, Length
 
       - name: Upload verified counts artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: verified-counts
           path: PROOF_PACK/VERIFIED_COUNTS.md
           retention-days: 30
 
       - name: Upload wazuh bundle artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: wazuh-rules-bundle
           path: dist/wazuh/local_rules.xml

@@ -33,7 +33,7 @@
   <!-- Override 67027 to level 5 so it crosses log_alert_level threshold.
        Manager log_alert_level=5; upstream 67027 is level 3.
        Without this override, process-creation alerts never reach the indexer. -->
-  <rule id="100203" level="3">
+  <rule id="100203" level="5">
     <if_sid>67027</if_sid>
     <description>Process creation event (elevated to meet alert threshold).</description>
     <options>no_full_log</options>
@@ -43,7 +43,7 @@
   <!-- Elevate Sysmon EID 1 (Process Create) to level 5 so it crosses log_alert_level.
        Base rule 61603 is level 0. Without elevation, Sysmon process-creation
        events are decoded but never indexed. Added 2026-04-08 Phase 3. -->
-  <rule id="100204" level="3">
+  <rule id="100204" level="5">
     <if_sid>61603</if_sid>
     <description>Sysmon process creation event (elevated to meet alert threshold).</description>
     <options>no_full_log</options>
@@ -470,11 +470,57 @@
        Scoped to win-hawkinsops only
        ========================================= -->
 
-  <!-- Suppress ALL 92213 on win-hawkinsops — verified FPs from PowerShell, Git, EdgeWebView2, Chrome writing to Temp -->
-  <rule id="100250" level="0">
+  <!-- REPLACED 2026-04-16: Blanket 100250 removed — was suppressing ALL 92213
+       on win-hawkinsops, making malware payload staging in %TEMP% invisible.
+       Replaced with targeted suppression rules 100270-100274 that match specific
+       known-good targetFilename patterns only. Unknown executables in Temp now alert. -->
+
+  <!-- Chrome/Chromium temp update files -->
+  <rule id="100270" level="0">
     <if_sid>92213</if_sid>
     <hostname>win-hawkinsops</hostname>
-    <description>Suppressed: Executable temp file drops on win-hawkinsops (all verified FP)</description>
+    <field name="win.eventdata.targetFilename" type="pcre2">(?i)\\(Google|Chrome|Chromium)\\.*\\Temp\\</field>
+    <description>Suppressed: Chrome/Chromium temp update file on win-hawkinsops</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,temp_file_noise,</group>
+  </rule>
+
+  <!-- Edge/EdgeWebView2 temp update files -->
+  <rule id="100271" level="0">
+    <if_sid>92213</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.targetFilename" type="pcre2">(?i)\\(Microsoft\\Edge|msedgewebview2)\\.*\\Temp\\</field>
+    <description>Suppressed: Edge/EdgeWebView2 temp update file on win-hawkinsops</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,temp_file_noise,</group>
+  </rule>
+
+  <!-- Git temp pack/index files -->
+  <rule id="100272" level="0">
+    <if_sid>92213</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.targetFilename" type="pcre2">(?i)\\\.git\\objects\\pack\\tmp_</field>
+    <description>Suppressed: Git temp pack file on win-hawkinsops</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,temp_file_noise,</group>
+  </rule>
+
+  <!-- Windows Installer temp files (msiexec) -->
+  <rule id="100273" level="0">
+    <if_sid>92213</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.targetFilename" type="pcre2">(?i)\\Windows\\Installer\\MSI[0-9A-F]+\.tmp$</field>
+    <description>Suppressed: Windows Installer temp file on win-hawkinsops</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,temp_file_noise,</group>
+  </rule>
+
+  <!-- Node.js/npm temp cache files (dev tooling) -->
+  <rule id="100274" level="0">
+    <if_sid>92213</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.targetFilename" type="pcre2">(?i)\\(npm-cache|node_modules\\\.cache)\\</field>
+    <description>Suppressed: Node.js/npm cache temp file on win-hawkinsops</description>
     <options>no_full_log</options>
     <group>noise_tuning,temp_file_noise,</group>
   </rule>
@@ -517,4 +563,117 @@
     <options>no_full_log</options>
     <group>noise_tuning,defender_noise,</group>
   </rule>
+</group>
+
+<!-- =========================================
+     NOISE TUNING - FIM 553/554
+     Applied: 2026-04-16
+     Target: Edge setupmetrics PMA file churn
+     ========================================= -->
+
+<group name="noise_tuning,fim_noise,">
+
+  <rule id="100260" level="0">
+    <if_sid>553</if_sid>
+    <field name="syscheck.path" type="pcre2">(?i)edge.application.setupmetrics.</field>
+    <description>Suppressed: Edge setupmetrics PMA file deletion (ephemeral metrics)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,fim_noise,</group>
+  </rule>
+
+  <rule id="100261" level="0">
+    <if_sid>554</if_sid>
+    <field name="syscheck.path" type="pcre2">(?i)edge.application.setupmetrics.</field>
+    <description>Suppressed: Edge setupmetrics PMA file creation (ephemeral metrics)</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,fim_noise,</group>
+  </rule>
+
+</group>
+
+<group name="sysmon,persistence,">
+  <rule id="100400" level="8">
+    <if_sid>92300</if_sid>
+    <description>Sysmon: Registry Run key persistence (T1547.001) - promoted from silent parent 92300</description>
+    <mitre>
+      <id>T1547.001</id>
+    </mitre>
+    <options>no_full_log</options>
+  </rule>
+</group>
+
+<!-- =========================================
+     DEAD-CHAIN REMEDIATION — 2026-04-16
+     Closes silent-parent gaps identified in:
+       R:\AgentOps\audits\wazuh_silent_parent_dead_chain_audit_2026-04-16.md
+     Each rule promotes a specific attacker technique variant that
+     the stock children miss, causing silent discard at level 0.
+     Only "safe to fix now" candidates (low noise, clear logic).
+     ========================================= -->
+
+<group name="sysmon,dead_chain_remediation,">
+
+  <!-- DEAD-CHAIN FIX: Parent 92069 (WmiPrvSE.exe process creation, T1047)
+       Stock child 92070 only catches PowerShell spawned by WMI.
+       cmd.exe, mshta, certutil, rundll32, regsvr32, msiexec via WMI are silent.
+       Example: wmic /node:target process call create "cmd /c whoami" = invisible.
+       Noise risk: Very low — WMI spawning LOLBins is rare in legitimate ops. -->
+  <rule id="100420" level="8">
+    <if_sid>92069</if_sid>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\(cmd|mshta|certutil|rundll32|regsvr32|msiexec)\.exe$</field>
+    <description>WMI spawned suspicious process - lateral movement indicator (T1047)</description>
+    <mitre>
+      <id>T1047</id>
+    </mitre>
+    <group>sysmon,execution,lateral_movement,</group>
+  </rule>
+
+  <!-- DEAD-CHAIN FIX: Parent 92025 (reg.exe process creation, T1003.002)
+       Stock child 92026 catches "save SAM" but misses "save SYSTEM",
+       "save SECURITY", and "export" variants. Offline SAM cracking needs
+       SYSTEM hive too — half the attack chain is silent.
+       Noise risk: Very low — reg save/export of SYSTEM/SECURITY has no
+       legitimate use outside of backup scripts (not present in this fleet). -->
+  <rule id="100425" level="14">
+    <if_sid>92025</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)(save|export).+(SYSTEM|SECURITY)</field>
+    <description>Reg.exe accessing SYSTEM/SECURITY hive - credential extraction prep (T1003.002)</description>
+    <mitre>
+      <id>T1003.002</id>
+    </mitre>
+    <group>sysmon,credential_access,</group>
+  </rule>
+
+  <!-- DEAD-CHAIN FIX: Parent 92028 (PowerShell with script file, T1059.001)
+       Stock child 92029 only catches scripts in Temp/Users paths.
+       ProgramData (common malware staging), UNC paths (lateral delivery),
+       and Windows\Tasks (world-writable) are silent.
+       Noise risk: Low — PowerShell scripts from ProgramData or UNC are
+       uncommon in normal operations. -->
+  <rule id="100430" level="8">
+    <if_sid>92028</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)(ProgramData|\\Tasks\\|\\\\[a-zA-Z])</field>
+    <description>PowerShell script from suspicious staging directory (T1059.001)</description>
+    <mitre>
+      <id>T1059.001</id>
+    </mitre>
+    <group>sysmon,execution,</group>
+  </rule>
+
+  <!-- DEAD-CHAIN FIX: Parent 92042 (netsh.exe process creation, T1090)
+       Stock child only checks "netsh firewall add". Misses portproxy,
+       the standard pivoting command for C2 relay and lateral movement.
+       Example: netsh interface portproxy add v4tov4 listenport=8080
+                connectaddress=10.0.0.5 connectport=3389 = invisible.
+       Noise risk: Very low — portproxy is almost never used legitimately. -->
+  <rule id="100445" level="12">
+    <if_sid>92042</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)portproxy</field>
+    <description>Netsh port proxy configuration - possible pivoting (T1090)</description>
+    <mitre>
+      <id>T1090</id>
+    </mitre>
+    <group>sysmon,defense_evasion,lateral_movement,</group>
+  </rule>
+
 </group>
