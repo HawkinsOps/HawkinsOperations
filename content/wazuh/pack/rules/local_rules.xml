@@ -470,11 +470,57 @@
        Scoped to win-hawkinsops only
        ========================================= -->
 
-  <!-- Suppress ALL 92213 on win-hawkinsops — verified FPs from PowerShell, Git, EdgeWebView2, Chrome writing to Temp -->
-  <rule id="100250" level="0">
+  <!-- REPLACED 2026-04-16: Blanket 100250 removed — was suppressing ALL 92213
+       on win-hawkinsops, making malware payload staging in %TEMP% invisible.
+       Replaced with targeted suppression rules 100270-100274 that match specific
+       known-good targetFilename patterns only. Unknown executables in Temp now alert. -->
+
+  <!-- Chrome/Chromium temp update files -->
+  <rule id="100270" level="0">
     <if_sid>92213</if_sid>
     <hostname>win-hawkinsops</hostname>
-    <description>Suppressed: Executable temp file drops on win-hawkinsops (all verified FP)</description>
+    <field name="win.eventdata.targetFilename" type="pcre2">(?i)\\(Google|Chrome|Chromium)\\.*\\Temp\\</field>
+    <description>Suppressed: Chrome/Chromium temp update file on win-hawkinsops</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,temp_file_noise,</group>
+  </rule>
+
+  <!-- Edge/EdgeWebView2 temp update files -->
+  <rule id="100271" level="0">
+    <if_sid>92213</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.targetFilename" type="pcre2">(?i)\\(Microsoft\\Edge|msedgewebview2)\\.*\\Temp\\</field>
+    <description>Suppressed: Edge/EdgeWebView2 temp update file on win-hawkinsops</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,temp_file_noise,</group>
+  </rule>
+
+  <!-- Git temp pack/index files -->
+  <rule id="100272" level="0">
+    <if_sid>92213</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.targetFilename" type="pcre2">(?i)\\\.git\\objects\\pack\\tmp_</field>
+    <description>Suppressed: Git temp pack file on win-hawkinsops</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,temp_file_noise,</group>
+  </rule>
+
+  <!-- Windows Installer temp files (msiexec) -->
+  <rule id="100273" level="0">
+    <if_sid>92213</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.targetFilename" type="pcre2">(?i)\\Windows\\Installer\\MSI[0-9A-F]+\.tmp$</field>
+    <description>Suppressed: Windows Installer temp file on win-hawkinsops</description>
+    <options>no_full_log</options>
+    <group>noise_tuning,temp_file_noise,</group>
+  </rule>
+
+  <!-- Node.js/npm temp cache files (dev tooling) -->
+  <rule id="100274" level="0">
+    <if_sid>92213</if_sid>
+    <hostname>win-hawkinsops</hostname>
+    <field name="win.eventdata.targetFilename" type="pcre2">(?i)\\(npm-cache|node_modules\\\.cache)\\</field>
+    <description>Suppressed: Node.js/npm cache temp file on win-hawkinsops</description>
     <options>no_full_log</options>
     <group>noise_tuning,temp_file_noise,</group>
   </rule>
