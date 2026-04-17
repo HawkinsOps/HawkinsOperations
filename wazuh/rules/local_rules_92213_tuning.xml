@@ -1,0 +1,30 @@
+<group name="windows,sysmon,local,fp_tune,">
+  <!--
+    Rule 100213 — FP tune for vendor rule 92213
+    ("Executable file dropped in folder commonly used by malware", Sysmon EID 11)
+
+    Scope
+      - agent.id gate: only fires on workstation agents 013 (win-hawkinsops) and 023 (HO-WE-02).
+      - image gate: only fires when the process doing the drop is a known-benign dev/browser/runtime binary.
+
+    Effect
+      - On allowlisted drops from the two workstations, demotes the alert from
+        level 15 (original 92213) to level 10 (noise but retained for audit).
+      - Any drop from a non-allowlisted image on 013/023 continues to match 92213 only → level 15.
+      - Drops on any other agent (servers, honeypot, Linux hosts) cannot match 100213 and
+        continue to fire 92213 at level 15 unchanged.
+
+    Allowlist intentionally excludes generic parents like `Update.exe` and `setup.exe`
+    because those names are too common in real malware staging.
+  -->
+  <rule id="100213" level="10">
+    <if_sid>92213</if_sid>
+    <field name="agent.id" type="pcre2">^(013|023)$</field>
+    <field name="win.eventdata.image" type="pcre2">(?i)\\(msedgewebview2|msedge|MicrosoftEdgeUpdate|chrome|GoogleUpdate|firefox|Teams|Discord|Slack|OneDrive|Code|claude-code|node|npm|pnpm|git|python|python3|pip|cargo|rustc|go|dotnet|msiexec|TiWorker|TrustedInstaller)\.exe$</field>
+    <description>FP-tuned rule 92213: benign unpacker on dev workstation. Image: $(win.eventdata.image). Dropped: $(win.eventdata.targetFilename)</description>
+    <mitre>
+      <id>T1036</id>
+    </mitre>
+    <group>tuned_fp,workstation_dev,</group>
+  </rule>
+</group>
