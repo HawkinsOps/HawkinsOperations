@@ -7,23 +7,49 @@ from pathlib import Path
 from typing import Any, Dict
 
 
-OPS_ROOT = Path(os.getenv("OPS_ROOT") or r"C:\RH\OPS")
-AUTOSOC_ROOT = Path(os.getenv("AUTOSOC_ROOT") or str(OPS_ROOT / "30_Projects" / "Active" / "AutoSOC"))
-BUILD_ROOT = AUTOSOC_ROOT / "Build"
-CONFIG_ROOT = BUILD_ROOT / "Config"
-QUEUE_ROOT = BUILD_ROOT / "Queue"
+# Path resolution: Z:-native layout by default, with legacy OPS_ROOT override
+# for rollback. If OPS_ROOT is set, the old C:\RH\OPS hierarchy is reconstructed;
+# otherwise everything resolves under Z:\AutoSOC\ with the current on-disk layout.
+_LEGACY_OPS_ROOT = os.getenv("OPS_ROOT")
+if _LEGACY_OPS_ROOT:
+    OPS_ROOT = Path(_LEGACY_OPS_ROOT)
+    AUTOSOC_ROOT = Path(os.getenv("AUTOSOC_ROOT", str(OPS_ROOT / "30_Projects" / "Active" / "AutoSOC")))
+    BUILD_ROOT = AUTOSOC_ROOT / "Build"
+    CONFIG_ROOT = Path(os.getenv("AUTOSOC_CONFIG", str(BUILD_ROOT / "Config")))
+    _DATA_ROOT = Path(os.getenv("AUTOSOC_DATA", str(BUILD_ROOT)))
+    QUEUE_ROOT = _DATA_ROOT / "Queue"
+    CASES_ROOT = _DATA_ROOT / "Cases"
+    OUTPUT_ROOT = Path(os.getenv("AUTOSOC_OUTPUT", str(AUTOSOC_ROOT / "Output")))
+    LOGS_ROOT = Path(os.getenv("AUTOSOC_LOGS", str(OPS_ROOT / "50_System" / "Runs" / "Logs")))
+    REPO_ROOT_DEFAULT = Path(os.getenv("AUTOSOC_REPO", str(OPS_ROOT / "10_Portfolio" / "HawkinsOperations")))
+else:
+    AUTOSOC_ROOT = Path(os.getenv("AUTOSOC_ROOT", r"Z:\AutoSOC"))
+    OPS_ROOT = AUTOSOC_ROOT  # legacy alias; scripts referencing OPS_ROOT still resolve
+    BUILD_ROOT = AUTOSOC_ROOT  # legacy alias; BUILD_ROOT is flattened in Z: layout
+    CONFIG_ROOT = Path(os.getenv("AUTOSOC_CONFIG", str(AUTOSOC_ROOT / "config")))
+    _DATA_ROOT = Path(os.getenv("AUTOSOC_DATA", str(AUTOSOC_ROOT / "data")))
+    QUEUE_ROOT = _DATA_ROOT / "Queue"
+    CASES_ROOT = _DATA_ROOT / "Cases"
+    OUTPUT_ROOT = Path(os.getenv("AUTOSOC_OUTPUT", str(_DATA_ROOT / "Output")))
+    LOGS_ROOT = Path(os.getenv("AUTOSOC_LOGS", str(AUTOSOC_ROOT / "logs" / "Runtime")))
+    REPO_ROOT_DEFAULT = Path(os.getenv("AUTOSOC_REPO", r"Z:\GitHub\HawkinsOperations"))
+
 PROCESSED_ROOT = QUEUE_ROOT / "Processed"
-CASES_ROOT = BUILD_ROOT / "Cases"
-OUTPUT_ROOT = AUTOSOC_ROOT / "Output"
 LEDGER_PATH = OUTPUT_ROOT / "ledger.json"
-LOGS_ROOT = OPS_ROOT / "50_System" / "Runs" / "Logs"
-REPO_ROOT_DEFAULT = OPS_ROOT / "10_Portfolio" / "HawkinsOperations"
 
 POLICY_PATH = CONFIG_ROOT / "policy.yaml"
 KNOWN_FPS_PATH = CONFIG_ROOT / "known_fps.yaml"
 ENV_PATH = CONFIG_ROOT / ".env"
 CURSOR_PATH = QUEUE_ROOT / ".cursor.json"
 AGENT_INVENTORY_PATH = CONFIG_ROOT / "agent_inventory.json"
+
+# Secrets live under the config tree. The DPAPI blob is produced by
+# Z:\AutoSOC\scripts\set-wazuh-credential.ps1 and consumed by
+# Z:\AutoSOC\scripts\get-wazuh-credential.ps1 (invoked via subprocess from
+# poll-alerts.py). The plaintext passfile is retained as a legacy fallback.
+SECRETS_DIR = Path(os.getenv("AUTOSOC_SECRETS", str(CONFIG_ROOT / "secrets")))
+PASS_DPAPI_PATH = Path(os.getenv("WAZUH_INDEXER_PASS_DPAPI", str(SECRETS_DIR / "wazuh_indexer_pass.dpapi")))
+GET_CREDENTIAL_SCRIPT = Path(os.getenv("AUTOSOC_GET_CRED_SCRIPT", str(AUTOSOC_ROOT / "scripts" / "get-wazuh-credential.ps1")))
 
 
 def utc_now() -> str:
