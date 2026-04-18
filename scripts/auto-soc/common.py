@@ -32,7 +32,7 @@ else:
     CASES_ROOT = _DATA_ROOT / "Cases"
     OUTPUT_ROOT = Path(os.getenv("AUTOSOC_OUTPUT", str(_DATA_ROOT / "Output")))
     LOGS_ROOT = Path(os.getenv("AUTOSOC_LOGS", str(AUTOSOC_ROOT / "logs" / "Runtime")))
-    REPO_ROOT_DEFAULT = Path(os.getenv("AUTOSOC_REPO", r"Z:\GitHub\HawkinsOperations"))
+    REPO_ROOT_DEFAULT = Path(os.getenv("AUTOSOC_REPO", r"R:\GitHub\HawkinsOperations"))
 
 PROCESSED_ROOT = QUEUE_ROOT / "Processed"
 LEDGER_PATH = OUTPUT_ROOT / "ledger.json"

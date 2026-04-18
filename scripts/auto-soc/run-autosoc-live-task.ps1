@@ -7,6 +7,7 @@ $env:AUTOSOC_PIPELINE        = 'R:\GitHub\HawkinsOperations\scripts\auto-soc'
 $env:AUTOSOC_LOGS            = 'R:\DailyOps\Lab\autosoc\runtime\logs'
 $env:AUTOSOC_CONFIG          = 'R:\DailyOps\Lab\autosoc\runtime\config'
 $env:AUTOSOC_SECRETS         = 'R:\AgentOps\env\credentials_store\wazuh'
+$env:AUTOSOC_REPO            = 'R:\GitHub\HawkinsOperations'
 $env:WAZUH_INDEXER_PASS_FILE = 'R:\AgentOps\env\credentials_store\wazuh\all.txt'
 
 $logDir = 'R:\DailyOps\Lab\autosoc\runtime\logs'
