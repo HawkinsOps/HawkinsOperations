@@ -356,7 +356,7 @@ def main() -> None:
             finalize("FAILED", "tests", 10)
 
     if args.reconcile_only:
-        case_dirs_scanned = len([p for p in CASES_ROOT.iterdir() if p.is_dir()]) if CASES_ROOT.exists() else 0
+        case_dirs_scanned = len([p for p in CASES_ROOT.iterdir() if p.is_dir() and not p.name.startswith((".", "_"))]) if CASES_ROOT.exists() else 0
         reconcile_cmd = [sys.executable, str(SCRIPT_DIR / "reconcile-state.py")]
         if args.reconcile_strict:
             reconcile_cmd.append("--strict")
@@ -420,7 +420,10 @@ def main() -> None:
         )
         step_seconds["triage_quality_chart"] = round(time.time() - t0, 3)
 
-        case_dirs = sorted([p for p in CASES_ROOT.iterdir() if p.is_dir()], key=lambda p: p.stat().st_mtime)
+        # Skip dot- or underscore-prefixed case dirs (quarantine/forensic-hold
+        # convention). Added after 2026-04-18 incident where .FORENSIC_HOLD_*
+        # entries were still enumerated on Windows (no hidden-attribute semantics).
+        case_dirs = sorted([p for p in CASES_ROOT.iterdir() if p.is_dir() and not p.name.startswith((".", "_"))], key=lambda p: p.stat().st_mtime)
         case_dirs_scanned = len(case_dirs)
 
         t_case = time.time()
