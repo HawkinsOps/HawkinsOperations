@@ -13,9 +13,11 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-$opsRoot = "C:\RH\OPS"
-$scriptRoot = Join-Path $opsRoot "50_System\Scripts\Automation\auto-soc"
-$outputRoot = Join-Path $opsRoot "30_Projects\Active\AutoSOC\Output"
+# Path resolution: env-var overrides with canonical R:\ defaults. $PSScriptRoot
+# is the natural default for the pipeline dir since daily-ops.ps1 lives
+# alongside run-pipeline.py in the canonical repo tree.
+$scriptRoot = if ($env:AUTOSOC_PIPELINE) { $env:AUTOSOC_PIPELINE } else { $PSScriptRoot }
+$outputRoot = if ($env:AUTOSOC_OUTPUT)   { $env:AUTOSOC_OUTPUT }   else { 'R:\DailyOps\Data\autosoc\runtime_data\Output' }
 
 $heartbeatPath = Join-Path $outputRoot "heartbeat.json"
 $coveragePath = Join-Path $outputRoot "coverage_latest.json"

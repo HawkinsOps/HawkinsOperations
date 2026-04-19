@@ -1,15 +1,26 @@
 #!/usr/bin/env python3
 import argparse
 import json
+import os
 import re
 import shutil
 from pathlib import Path
 from typing import Dict
 
-from common import utc_now
+from common import CASES_ROOT, utc_now
 
 
 TEXT_EXTS = {".md", ".txt", ".json", ".csv", ".log", ".yaml", ".yml", ".xml", ".ps1", ".sh"}
+
+# Redacted output lives outside the case directory so repeat runs never see
+# prior output as new input. Per-case path: REDACTED_ROOT/<case_name>/redacted.
+# Override with AUTOSOC_REDACTED (consistent with other AUTOSOC_* env vars in
+# common.py). Default parallels CASES_ROOT as a sibling tree.
+REDACTED_ROOT = Path(os.getenv("AUTOSOC_REDACTED", str(CASES_ROOT.parent / "Cases_Redacted")))
+
+
+def default_out_dir(case_dir: Path) -> Path:
+    return REDACTED_ROOT / case_dir.name / "redacted"
 
 REPLACEMENTS = {
     re.compile(r"\b(?:\d{1,3}\.){3}\d{1,3}\b"): "[REDACTED_IP]",
@@ -54,9 +65,14 @@ def redact_json_file(raw: str) -> str:
 
 def copy_and_redact(case_dir: Path, out_dir: Path) -> tuple[Dict[str, int], Path]:
     stats = {"files_total": 0, "files_text": 0, "files_binary": 0}
+    # Output path is now deterministic per case. If an output dir from a prior
+    # run exists, delete it and rewrite: redaction content is idempotent, and
+    # overwrite cleanly handles partial-failure state from aborted prior runs.
+    # This replaces the previous timestamp-suffix collision scheme, which
+    # caused redacted_<ts>/ siblings to accumulate inside case_dir and be
+    # re-ingested by subsequent rglob walks (incident 2026-04-18).
     if out_dir.exists():
-        suffix = utc_now().replace(":", "").replace("-", "").replace("T", "_").replace("Z", "")
-        out_dir = out_dir.parent / f"{out_dir.name}_{suffix}"
+        shutil.rmtree(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     for src in case_dir.rglob("*"):
@@ -102,11 +118,11 @@ def fails_post_redaction(out_dir: Path) -> bool:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Redact case data before assembly/publish.")
     parser.add_argument("--case-dir", type=Path, required=True)
-    parser.add_argument("--output-dir", type=Path, help="Default: <case-dir>/redacted")
+    parser.add_argument("--output-dir", type=Path, help="Default: <Cases_Redacted>/<case-name>/redacted (AUTOSOC_REDACTED overrides root)")
     args = parser.parse_args()
 
     case_dir = args.case_dir
-    out_dir = args.output_dir or (case_dir / "redacted")
+    out_dir = args.output_dir or default_out_dir(case_dir)
     stats, final_out_dir = copy_and_redact(case_dir, out_dir)
     failed = fails_post_redaction(final_out_dir)
 

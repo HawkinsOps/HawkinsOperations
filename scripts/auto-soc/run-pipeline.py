@@ -21,6 +21,15 @@ HEARTBEAT_HISTORY_PATH = OUTPUT_ROOT / "heartbeat_history.jsonl"
 RECONCILE_JSON_PATH = OUTPUT_ROOT / "reconciliation_latest.json"
 COVERAGE_JSON_PATH = OUTPUT_ROOT / "coverage_latest.json"
 
+# Per-step subprocess guardrails. The timeout is the hard last-resort kill;
+# the warn threshold is an early-detection signal (structured log only, no kill).
+# Sized after the 2026-04-18 redact-hang incident: 600s = 2 scheduler intervals,
+# generous enough for legitimate batch cases (seen: <1s on a 30-50 file case,
+# ~60-90s projected worst-case at 5k files), tight enough that a hang gets
+# surfaced within a single missed run rather than cascading for hours.
+STEP_TIMEOUT_SECONDS = 600
+STEP_WARN_SECONDS = 30
+
 
 def hide_console_window() -> None:
     if os.name != "nt":
@@ -35,13 +44,32 @@ def hide_console_window() -> None:
 
 
 def run_step(cmd: list[str], log_path: Path) -> tuple[int, str]:
-    proc = subprocess.run(cmd, capture_output=True, text=True)
-    combined = (proc.stdout or "") + (proc.stderr or "")
+    start = time.monotonic()
+    rc: int
+    combined: str
+    try:
+        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=STEP_TIMEOUT_SECONDS)
+        combined = (proc.stdout or "") + (proc.stderr or "")
+        rc = proc.returncode
+    except subprocess.TimeoutExpired as e:
+        stdout = e.stdout if isinstance(e.stdout, str) else (e.stdout.decode("utf-8", errors="ignore") if e.stdout else "")
+        stderr = e.stderr if isinstance(e.stderr, str) else (e.stderr.decode("utf-8", errors="ignore") if e.stderr else "")
+        # subprocess.run already killed the child process at timeout; we just
+        # record the elapsed time and surface a non-zero rc so the caller's
+        # finalize("FAILED", <stage>, rc) path fires.
+        combined = (
+            f"STEP_TIMEOUT seconds={STEP_TIMEOUT_SECONDS} cmd={' '.join(cmd)}\n"
+            f"{stdout}{stderr}"
+        )
+        rc = 124  # conventional timeout exit code
+    elapsed = time.monotonic() - start
     with log_path.open("a", encoding="utf-8") as log:
         log.write(f"\n$ {' '.join(cmd)}\n")
+        if elapsed >= STEP_WARN_SECONDS:
+            log.write(f"STEP_SLOW elapsed_seconds={elapsed:.1f} threshold={STEP_WARN_SECONDS}\n")
         if combined:
             log.write(combined)
-    return proc.returncode, combined
+    return rc, combined
 
 
 def parse_kv(output: str) -> dict[str, str]:
@@ -328,7 +356,7 @@ def main() -> None:
             finalize("FAILED", "tests", 10)
 
     if args.reconcile_only:
-        case_dirs_scanned = len([p for p in CASES_ROOT.iterdir() if p.is_dir()]) if CASES_ROOT.exists() else 0
+        case_dirs_scanned = len([p for p in CASES_ROOT.iterdir() if p.is_dir() and not p.name.startswith((".", "_"))]) if CASES_ROOT.exists() else 0
         reconcile_cmd = [sys.executable, str(SCRIPT_DIR / "reconcile-state.py")]
         if args.reconcile_strict:
             reconcile_cmd.append("--strict")
@@ -392,7 +420,10 @@ def main() -> None:
         )
         step_seconds["triage_quality_chart"] = round(time.time() - t0, 3)
 
-        case_dirs = sorted([p for p in CASES_ROOT.iterdir() if p.is_dir()], key=lambda p: p.stat().st_mtime)
+        # Skip dot- or underscore-prefixed case dirs (quarantine/forensic-hold
+        # convention). Added after 2026-04-18 incident where .FORENSIC_HOLD_*
+        # entries were still enumerated on Windows (no hidden-attribute semantics).
+        case_dirs = sorted([p for p in CASES_ROOT.iterdir() if p.is_dir() and not p.name.startswith((".", "_"))], key=lambda p: p.stat().st_mtime)
         case_dirs_scanned = len(case_dirs)
 
         t_case = time.time()
