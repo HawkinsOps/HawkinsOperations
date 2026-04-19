@@ -63,7 +63,7 @@ def assert_no_absolute_paths(pack_dir: Path) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Assemble report pack from redacted case data.")
     parser.add_argument("--case-dir", type=Path, required=True)
-    parser.add_argument("--redacted-dir", type=Path, help="Default: <case-dir>/redacted")
+    parser.add_argument("--redacted-dir", type=Path, help="Default: resolved from case_dir/redaction_report.json[output_dir]; falls back to legacy <case-dir>/redacted for pre-fix cases.")
     parser.add_argument("--pack-dir", type=Path, help="Default: <case-dir>/pack")
     args = parser.parse_args()
 
@@ -77,7 +77,10 @@ def main() -> None:
             if out:
                 redacted = Path(out)
     if redacted is None:
-        # Prefer the newest timestamped redaction output when available.
+        # LEGACY FALLBACK (pre-2026-04-18): older cases may still have redacted
+        # output co-located at <case_dir>/redacted* from the previous output-
+        # inside-input scheme. Current redact.py writes to an external tree and
+        # records its path in redaction_report.json (preferred resolution above).
         redacted_dirs = sorted(
             [p for p in case_dir.glob("redacted*") if p.is_dir()],
             key=lambda p: p.stat().st_mtime,
