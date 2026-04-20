@@ -1,5 +1,8 @@
 # HawkinsOperations
 
+> [!WARNING]
+> **LEGACY REPOSITORY (ARCHIVED / READ-ONLY):** This repository is retained as a historical record and donor source only. It is no longer the active system foundation. New architecture, governed workflows, and successor development are tracked separately in V2 repositories.
+
 > **Raylee Hawkins** — Detection engineering, SOC automation, and proof-driven security operations. Built from zero experience to a live 10-agent deployment in 7 months while working mandatory 12-hour shifts.
 
 [![pipeline](https://img.shields.io/badge/pipeline-passing-brightgreen)](https://github.com/HawkinsOps/HawkinsOperations/actions)
