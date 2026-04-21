@@ -118,7 +118,7 @@ system runs on a fifteen-server Proxmox cluster with a V100 handling
 local inference for the agentic triage layer. The detection surface
 spans Sigma, Wazuh XML, and Splunk SPL, with regression harnesses
 verifying that rule edits do not break previously captured true
-positives. The AutoSOC pipeline consumes alerts, applies the verification
+positives. The SignalFoundry AutoSOC engine consumes alerts, applies the verification
 gates, generates escalation packs for the cases that warrant analyst
 attention, and writes evidence to a bundle tree that is indexed for
 audit.
