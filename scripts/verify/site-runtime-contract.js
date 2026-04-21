@@ -203,18 +203,18 @@ function ensureCriticalNamingContract() {
   const rules = [
     {
       path: path.join(root, "README.md"),
-      require: ["SignalFoundry", "AutoSOC engine"],
-      forbid: ["AutoSOC pipeline"]
+      require: ["HawkinsOps system", "successor architecture"],
+      forbid: ["LEGACY REPOSITORY (ARCHIVED / READ-ONLY)", "zero computer experience"]
     },
     {
       path: path.join(siteDir, "index.html"),
-      require: ["SignalFoundry"],
-      forbid: ["AutoSOC pipeline"]
+      require: ["HawkinsOps", "SignalFoundry"],
+      forbid: ["zero computer experience"]
     },
     {
       path: path.join(siteDir, "resume.html"),
-      require: ["SignalFoundry"],
-      forbid: ["AutoSOC pipeline"]
+      require: ["HawkinsOps", "SignalFoundry"],
+      forbid: ["zero computer experience"]
     }
   ];
   const errors = [];
