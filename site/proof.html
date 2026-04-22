@@ -306,17 +306,15 @@ body.proof-page {
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body class="proof-page">
+<!-- @include:nav:start -->
 <nav>
   <div class="nav-i">
     <a class="logo" href="/"><span class="logo-monogram" aria-hidden="true">RH</span><b>Hawkins</b>Ops</a>
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
       <li><a href="/">Home</a></li>
-      <li><a href="/signalfoundry">SignalFoundry</a></li>
-      <li><a href="/case-studies">Case Studies</a></li>
-      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/proof">Proof</a></li>
-      <li><a href="/detections">Detections</a></li>
+      <li><a href="/case-studies">Case Studies</a></li>
       <li><a href="/resume">Resume</a></li>
     </ul>
     <a class="btn btn-p nav-cta" href="/resume">Resume</a>
@@ -324,13 +322,11 @@ body.proof-page {
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
   <a href="/">Home</a>
-  <a href="/signalfoundry">SignalFoundry</a>
-  <a href="/case-studies">Case Studies</a>
-  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/proof">Proof</a>
-  <a href="/detections">Detections</a>
+  <a href="/case-studies">Case Studies</a>
   <a href="/resume">Resume</a>
 </div>
+<!-- @include:nav:end -->
 
 <main>
 
@@ -390,7 +386,7 @@ body.proof-page {
       </ul>
 
       <div class="proof-hero-actions">
-        <a href="/signalfoundry" class="btn btn-p">SignalFoundry &rarr;</a>
+        <a href="/case-studies" class="btn btn-p">Case Studies &rarr;</a>
         <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" class="btn btn-s">GitHub Repo</a>
       </div>
     </div>
@@ -534,19 +530,9 @@ body.proof-page {
       <article class="m-card" style="grid-column:1/-1;">
         <div class="m-card-kicker" data-aos="fade-up">Field notes</div>
         <h2>Engineering case studies</h2>
-        <p class="m-copy">Operational decisions documented from source evidence — pipeline logs, preflight output, scheduler metadata. Not post-hoc summaries.</p>
-        <div class="m-grid-2" style="margin-top:12px;">
-          <a href="/autosoc-cutover" class="m-link-item">
-            <strong>Infrastructure Cutover &mdash; 2026-03-23</strong>
-            <span>Production migration to canonical root. Preflight gate returned legacy refs = 0. Five Task Scheduler tasks retargeted. CUTOVER_READY=YES.</span>
-          </a>
-          <a href="/autosoc-hotfix-rca" class="m-link-item">
-            <strong>Hotfix RCA: Triage Quality Chart &mdash; 2026-03-23</strong>
-            <span>Function-order bug silently breaking chart rendering. Diagnosed from runtime log, fixed, validated EXIT=0. 104KB artifact confirmed.</span>
-          </a>
-        </div>
+        <p class="m-copy">Operational decisions documented from source evidence — pipeline logs, preflight output, scheduler metadata. Not post-hoc summaries. Every case study is indexed on the Case Studies page.</p>
         <div style="margin-top:12px;">
-          <a href="/case-studies" class="m-cta m-cta-secondary">All field notes &rarr;</a>
+          <a href="/case-studies" class="m-cta m-cta-secondary">All case studies &rarr;</a>
         </div>
       </article>
     </div>
@@ -669,11 +655,7 @@ body.proof-page {
         <article class="m-card">
           <div class="m-card-kicker" data-aos="fade-up">Case study</div>
           <h3>Full operational narrative</h3>
-          <p class="m-copy">The SignalFoundry case study covers architecture, detection design, pipeline recovery, and the full operational context behind these metrics.</p>
-          <ul class="m-list-tight" style="margin-top:10px;">
-            <li><a href="/signalfoundry" class="m-link-item"><strong>SignalFoundry — Flagship System Page</strong><span> &mdash; architecture, pipeline recovery, and operational detail</span></a></li>
-            <li><a href="/detections" class="m-link-item"><strong>Detection library</strong><span> &mdash; Sigma, Wazuh, and Splunk rule browser</span></a></li>
-          </ul>
+          <p class="m-copy">Architecture, detection design, pipeline recovery, and the full operational context behind these metrics are documented across the case study set. See the <a href="/signalfoundry">SignalFoundry system page</a> or the <a href="/detections">detection library</a> for engineering detail; both surface on the <a href="/case-studies">Case Studies</a> index.</p>
         </article>
       </div>
 

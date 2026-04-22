@@ -103,11 +103,8 @@
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
       <li><a href="/">Home</a></li>
-      <li><a href="/signalfoundry">SignalFoundry</a></li>
-      <li><a href="/case-studies">Case Studies</a></li>
-      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/proof">Proof</a></li>
-      <li><a href="/detections">Detections</a></li>
+      <li><a href="/case-studies">Case Studies</a></li>
       <li><a href="/resume">Resume</a></li>
     </ul>
     <a class="btn btn-p nav-cta" href="/resume">Resume</a>
@@ -115,11 +112,8 @@
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
   <a href="/">Home</a>
-  <a href="/signalfoundry">SignalFoundry</a>
-  <a href="/case-studies">Case Studies</a>
-  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/proof">Proof</a>
-  <a href="/detections">Detections</a>
+  <a href="/case-studies">Case Studies</a>
   <a href="/resume">Resume</a>
 </div>
 <!-- @include:nav:end -->
@@ -198,8 +192,8 @@
       <div style="max-width:800px;margin:20px auto 0;border-radius:8px;overflow:hidden;border:1px solid rgba(100,140,180,.1);">
         <img src="/assets/autosoc-decision-flow.svg" alt="AutoSOC triage decision flow" loading="lazy" width="900" height="720" style="display:block;width:100%;height:auto;">
       </div>
-      <div style="text-align:center;margin-top:20px;">
-        <a class="sf-button sf-button-primary sf-focus-ring" href="/signalfoundry">SignalFoundry System Page &rarr;</a>
+      <div style="text-align:center;margin-top:20px;font-size:0.85rem;color:var(--muted);">
+        <a href="/signalfoundry" class="sf-inline-link">System page: SignalFoundry &rarr;</a>
       </div>
     </section>
 
@@ -532,21 +526,9 @@ node scripts/generate-site-data.js</code></pre>
       <h2 id="routes-title">Where to go next</h2>
       <p class="sf-body sf-copy-gap-lg">Pick the path that answers your decision fastest.</p>
       <div class="sf-route-grid">
-        <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/enterprise-security">
-          <h3>Enterprise Security</h3>
-          <p>Audit policy hardening, lab infrastructure, baseline comparison, GPO deployment.</p>
-        </a>
-        <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/signalfoundry">
-          <h3>SignalFoundry</h3>
-          <p>Flagship system architecture, triage logic, outputs, and recovery model.</p>
-        </a>
-        <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/case-study-race-condition">
-          <h3>Race Condition Recovery</h3>
-          <p>TOCTOU race at 505K-file scale. Diagnosed, fixed with 20 lines, verified under live load.</p>
-        </a>
         <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/case-studies">
           <h3>Case Studies</h3>
-          <p>15+ engineering case studies: incident response, detection audits, threat hunts, and infrastructure work.</p>
+          <p>Full engineering artifact index: incident response, detection audits, threat hunts, pipeline work, and infrastructure case studies.</p>
         </a>
         <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/proof">
           <h3>Proof</h3>
