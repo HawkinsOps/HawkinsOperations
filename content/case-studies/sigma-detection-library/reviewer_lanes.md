@@ -30,7 +30,7 @@ case_study: sigma-detection-library
 
 ```powershell
 # 1. Clone
-git clone https://github.com/HawkinsOps/HawkinsOperations.git && cd HawkinsOperations
+git clone https://github.com/raylee-hawkins/HawkinsOperations.git && cd HawkinsOperations
 
 # 2. Count Sigma rules
 (Get-ChildItem -Recurse .\content\detection-rules\sigma -Filter *.yml).Count
@@ -55,7 +55,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File ".\case-studies\sigma-detection-li
 ## Detection Engineer Lane (deep dive)
 
 ### Browse the rules
-- [GitHub: content/detection-rules/sigma/](https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/detection-rules/sigma)
+- [GitHub: content/detection-rules/sigma/](https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/detection-rules/sigma)
 
 ### Per-tactic inspection
 ```powershell

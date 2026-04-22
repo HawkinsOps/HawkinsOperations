@@ -2,13 +2,13 @@
 # setup-runner.sh — Install GitHub Actions self-hosted runner on HO-GPU-01 / HO-RUNNER-01
 # Run as: raylee@192.168.8.200
 # Usage: bash setup-runner.sh <GITHUB_RUNNER_TOKEN>
-# Get token from: https://github.com/HawkinsOps/HawkinsOperations/settings/actions/runners/new
+# Get token from: https://github.com/raylee-hawkins/HawkinsOperations/settings/actions/runners/new
 set -euo pipefail
 
 TOKEN="${1:-}"
 if [[ -z "$TOKEN" ]]; then
   echo "Usage: $0 <GITHUB_RUNNER_TOKEN>"
-  echo "Get token at: https://github.com/HawkinsOps/HawkinsOperations/settings/actions/runners/new"
+  echo "Get token at: https://github.com/raylee-hawkins/HawkinsOperations/settings/actions/runners/new"
   exit 1
 fi
 
@@ -53,7 +53,7 @@ tar xzf "${RUNNER_FILENAME}"
 
 echo "=== Step 5: Configure runner ==="
 ./config.sh \
-  --url "https://github.com/HawkinsOps/HawkinsOperations" \
+  --url "https://github.com/raylee-hawkins/HawkinsOperations" \
   --token "${TOKEN}" \
   --name "HO-RUNNER-01" \
   --labels "self-hosted,linux,x64,hawkinsops" \
@@ -66,7 +66,7 @@ sudo ./svc.sh status
 
 echo ""
 echo "=== Done! ==="
-echo "Runner status: https://github.com/HawkinsOps/HawkinsOperations/settings/actions/runners"
+echo "Runner status: https://github.com/raylee-hawkins/HawkinsOperations/settings/actions/runners"
 pwsh --version
 node --version
 python3 --version
