@@ -11,7 +11,7 @@ case_study: autosoc-pipeline-recovery
 
 **Role fit:**
 - **SOC Analyst T1/T2:** Demonstrated alert triage at scale (321,351+ cases), policy-based disposition, and false positive tuning from direct observation of a live environment.
-- **Detection Engineering:** 210 verified detection rules across Sigma, Splunk SPL, and Wazuh XML, organized by MITRE ATT&CK tactics. CI-enforced counts.
+- **Detection Engineering:** 211 verified detection rules across Sigma, Splunk SPL, and Wazuh XML, organized by MITRE ATT&CK tactics. CI-enforced counts.
 - **SOC Automation:** Purpose-built Python+PowerShell pipeline with 8-stage processing, 4-way reconciliation, and evidence sanitization before any artifact leaves the internal store.
 
 **Top metrics (locked 04-07-2026):**
@@ -20,7 +20,7 @@ case_study: autosoc-pipeline-recovery
 | Cases processed | 324,074 |
 | Auto-close rate | ~88% |
 | Escalated cases | 8,574 |
-| Detection rules | 210 (CI-verified) |
+| Detection rules | 211 (CI-verified) |
 | IR Playbooks | 10 |
 | Host coverage | 8/8 |
 
@@ -53,7 +53,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File ".\case-studies\autosoc-pipeline-r
 
 **Prerequisites:** PowerShell 7, Python 3.x, Node.js 20.x
 
-**Single-step failure mode to check:** Run `verify-counts.ps1` — if Sigma count != 103 or total != 210, the source of truth has drifted. This is the same gate CI uses on every push.
+**Single-step failure mode to check:** Run `verify-counts.ps1` — if Sigma count != 103 or total != 211, the source of truth has drifted. This is the same gate CI uses on every push.
 
 **Key artifacts to inspect:**
 1. `PROOF_PACK/VERIFIED_COUNTS.md` — source of truth for all public numbers
@@ -99,7 +99,7 @@ Get-ChildItem .\content\detection-rules\sigma -Directory |
 - **Coverage:** Credential Access, Defense Evasion, Discovery, Execution, Lateral Movement, Persistence, Privilege Escalation, Collection/Exfiltration/Impact
 
 ### Wazuh XML
-- **Location:** `content/detection-rules/wazuh/rules/` — 24 files, 28 rule blocks
+- **Location:** `content/detection-rules/wazuh/rules/` — 25 files, 29 rule blocks
 - **Custom ID range:** 100000+
 - **Deployable bundle:** `pwsh -NoProfile -File ".\scripts\build-wazuh-bundle.ps1"` → `dist/wazuh/local_rules.xml`
 

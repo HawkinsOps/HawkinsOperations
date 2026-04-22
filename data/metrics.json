@@ -52,8 +52,8 @@
   },
   "detection_inventory": {
     "sigma": 103,
-    "wazuh_files": 24,
-    "wazuh_rule_blocks": 28,
+    "wazuh_files": 25,
+    "wazuh_rule_blocks": 29,
     "splunk": 79,
     "ir_playbooks": 10
   },

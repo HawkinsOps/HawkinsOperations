@@ -61,7 +61,7 @@ window.HAWKINSOPS_OPS_METRICS = {
     "lifetime_last_updated": "04-07-2026",
     "sigma": 103,
     "splunk": 79,
-    "wazuh": 28,
+    "wazuh": 29,
     "ir": 10
   }
 };

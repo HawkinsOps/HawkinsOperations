@@ -65,8 +65,8 @@
 <section style="padding-top:110px">
   <div class="ctr" style="max-width:920px">
     <div class="slbl">Case Study</div>
-    <h1 class="stitle">Building and Validating <span data-verified="wazuh">28</span> Wazuh Rule Blocks</h1>
-    <p class="sdesc"><span data-verified="wazuh">28</span> rule blocks across <span data-verified="wazuh_xml_files">24</span> XML files - authored for SOC triage patterns, bundled for deployment, and validated with reproducible commands from repo root.</p>
+    <h1 class="stitle">Building and Validating <span data-verified="wazuh">29</span> Wazuh Rule Blocks</h1>
+    <p class="sdesc"><span data-verified="wazuh">29</span> rule blocks across <span data-verified="wazuh_xml_files">25</span> XML files - authored for SOC triage patterns, bundled for deployment, and validated with reproducible commands from repo root.</p>
 
     <div class="card" style="margin-bottom:14px">
       <h2 class="card-ttl">Context</h2>
@@ -115,7 +115,7 @@ pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1</pre>
       <div class="card-sub">
         <p>The rule source files, bundle script, and verification outputs are all in the public repo:</p>
         <ul style="padding-left:18px;margin:8px 0 0">
-          <li><a href="https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/detection-rules/wazuh/rules" target="_blank" rel="noopener noreferrer">Wazuh rules directory</a> - <span data-verified="wazuh_xml_files">24</span> XML files</li>
+          <li><a href="https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/detection-rules/wazuh/rules" target="_blank" rel="noopener noreferrer">Wazuh rules directory</a> - <span data-verified="wazuh_xml_files">25</span> XML files</li>
           <li><a href="https://github.com/HawkinsOps/HawkinsOperations/blob/main/scripts/build-wazuh-bundle.ps1" target="_blank" rel="noopener noreferrer">Bundle build script</a></li>
           <li><a href="https://github.com/HawkinsOps/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md" target="_blank" rel="noopener noreferrer">VERIFIED_COUNTS.md</a> - locked counts</li>
           <li><a href="https://github.com/HawkinsOps/HawkinsOperations/blob/main/scripts/verify/verify-counts.ps1" target="_blank" rel="noopener noreferrer">verify-counts.ps1</a> - run to reproduce</li>
@@ -129,7 +129,7 @@ pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1</pre>
         <h2 class="card-ttl">Outcome</h2>
         <div class="card-sub">
           <ul style="padding-left:18px;margin:0">
-            <li><span data-verified="wazuh">28</span> rule blocks active and verified against <code>VERIFIED_COUNTS.md</code>.</li>
+            <li><span data-verified="wazuh">29</span> rule blocks active and verified against <code>VERIFIED_COUNTS.md</code>.</li>
             <li>Rule set covers: RDP brute force, encoded PowerShell, suspicious schtasks, process anomalies, and file integrity changes.</li>
             <li>Bundle script produces a deployable archive - no manual assembly required.</li>
             <li>Verification runs in under 10 seconds from repo root.</li>

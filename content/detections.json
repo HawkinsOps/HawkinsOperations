@@ -21,7 +21,7 @@
     {
       "id": "wazuh",
       "platform": "Wazuh",
-      "count": 28,
+      "count": 29,
       "format": "XML rule blocks",
       "location": "content/detection-rules/wazuh/rules/",
       "tags": ["siem", "xml", "deployment"],

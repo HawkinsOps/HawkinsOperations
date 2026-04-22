@@ -195,8 +195,8 @@ The same credential-access detection set exists in both Sigma YAML (platform-agn
 |---|---|---|
 | Sigma YAML | 103 | All 10 |
 | Splunk SPL | 79 (9 files) | Credential Access, Defense Evasion, Discovery, Execution, Lateral Movement, Persistence, Privilege Escalation, Collection/Exfil/Impact |
-| Wazuh XML | 28 blocks | Custom rules with MITRE tags |
-| **Total detections** | **210** | CI-verified |
+| Wazuh XML | 29 blocks | Custom rules with MITRE tags |
+| **Total detections** | **211** | CI-verified |
 
 ---
 

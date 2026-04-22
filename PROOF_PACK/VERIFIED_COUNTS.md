@@ -10,7 +10,7 @@ This file is generated from live repository file counts.
 |----------|-------|----------|
 | **Sigma** (YAML) | **103** rules | content/detection-rules/sigma/ |
 | **Splunk** (SPL) | **9** files, **79** detection searches | content/detection-rules/splunk/ |
-| **Wazuh** (XML) | **24** files, **28** rule blocks | content/detection-rules/wazuh/rules/ |
+| **Wazuh** (XML) | **25** files, **29** rule blocks | content/detection-rules/wazuh/rules/ |
 
 ## Incident Response
 

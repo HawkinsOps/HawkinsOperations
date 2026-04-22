@@ -25,7 +25,7 @@ The hypothesis was straightforward: something between the runner and the Wazuh I
 Pre-failure validated state:
 - 25,167 total cases processed
 - 2,478 escalated cases
-- 210 detection rules (CI-verified)
+- 211 detection rules (CI-verified)
 - 8/8 host coverage
 - `MISMATCH_COUNT=0`
 

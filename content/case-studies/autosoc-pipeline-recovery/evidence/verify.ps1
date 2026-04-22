@@ -53,12 +53,12 @@ if ($jsonExists) {
     Write-Check -Name "Splunk count = $splunkExpected" -Pass ($splunkActual -eq $splunkExpected) -Detail "Actual: $splunkActual"
 
     # ── Check 5: Wazuh XML file count ──
-    $wazuhFilesExpected = 24
+    $wazuhFilesExpected = 25
     $wazuhFilesActual = $vc.counts.wazuh_xml_files
     Write-Check -Name "Wazuh XML files = $wazuhFilesExpected" -Pass ($wazuhFilesActual -eq $wazuhFilesExpected) -Detail "Actual: $wazuhFilesActual"
 
     # ── Check 6: Wazuh rule block count ──
-    $wazuhBlocksExpected = 28
+    $wazuhBlocksExpected = 29
     $wazuhBlocksActual = $vc.counts.wazuh
     Write-Check -Name "Wazuh rule blocks = $wazuhBlocksExpected" -Pass ($wazuhBlocksActual -eq $wazuhBlocksExpected) -Detail "Actual: $wazuhBlocksActual"
 
@@ -68,7 +68,7 @@ if ($jsonExists) {
     Write-Check -Name "IR playbooks = $irExpected" -Pass ($irActual -eq $irExpected) -Detail "Actual: $irActual"
 
     # ── Check 8: Total detections ──
-    $totalExpected = 210
+    $totalExpected = 211
     $totalActual = $vc.counts.detections
     Write-Check -Name "Total detections = $totalExpected" -Pass ($totalActual -eq $totalExpected) -Detail "Actual: $totalActual"
 }
@@ -95,9 +95,9 @@ if (Test-Path $splunkDir) {
 $wazuhDir = Join-Path $RepoRoot "content" "detection-rules" "wazuh" "rules"
 if (Test-Path $wazuhDir) {
     $wazuhFiles = (Get-ChildItem -Recurse $wazuhDir -Filter *.xml).Count
-    Write-Check -Name "Physical Wazuh XML files = 24" -Pass ($wazuhFiles -eq 24) -Detail "Found: $wazuhFiles"
+    Write-Check -Name "Physical Wazuh XML files = 25" -Pass ($wazuhFiles -eq 25) -Detail "Found: $wazuhFiles"
 } else {
-    Write-Check -Name "Physical Wazuh XML files = 24" -Pass $false -Detail "Directory not found: $wazuhDir"
+    Write-Check -Name "Physical Wazuh XML files = 25" -Pass $false -Detail "Directory not found: $wazuhDir"
 }
 
 # ── Check 12: Physical file count verification (IR Playbooks) ──

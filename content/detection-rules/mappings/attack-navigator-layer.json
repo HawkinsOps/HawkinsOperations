@@ -6,7 +6,7 @@
     "layer": "4.5"
   },
   "domain": "enterprise-attack",
-  "description": "Verified MITRE ATT&CK coverage from 210 detection rules (103 Sigma, 28 Wazuh, 79 Splunk detection searches). Only VALID and PARTIAL mappings included — STRETCHED and EXCLUDED removed. 96 verified technique/sub-technique IDs across 67 families. Audit date: 2026-04-04.",
+  "description": "Verified MITRE ATT&CK coverage from 211 detection rules (103 Sigma, 29 Wazuh, 79 Splunk detection searches). Only VALID and PARTIAL mappings included — STRETCHED and EXCLUDED removed. 96 verified technique/sub-technique IDs across 67 families. Audit date: 2026-04-04.",
   "filters": {
     "platforms": ["Windows", "Linux", "macOS", "Azure AD", "Office 365", "Google Workspace", "SaaS", "IaaS", "Network", "Containers"]
   },

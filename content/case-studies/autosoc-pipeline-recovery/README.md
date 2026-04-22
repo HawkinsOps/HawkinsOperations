@@ -19,7 +19,7 @@ abstract: >
 **Recruiter-ready summary:**
 - Built and operates a fully automated SOC triage pipeline processing 321,351+ Wazuh alerts with ~88% auto-close rate
 - Diagnosed a two-failure-mode production outage (poller retry defect + reconciliation scoping error) and restored service in one session
-- Maintains 210 CI-verified detection rules (Sigma + Splunk + Wazuh) and 10 IR playbooks mapped to MITRE ATT&CK
+- Maintains 211 CI-verified detection rules (Sigma + Splunk + Wazuh) and 10 IR playbooks mapped to MITRE ATT&CK
 
 ---
 
@@ -42,7 +42,7 @@ SignalFoundry is a bespoke Python-and-PowerShell SOC automation pipeline built b
 | Escalated cases | 8,574 | Locked authority snapshot |
 | Hosts monitored | 8 / 8 | Coverage check |
 | Hard mismatches | 0 | Reconciliation (strict categories) |
-| Detection inventory | 210 detections | `PROOF_PACK/VERIFIED_COUNTS.md` |
+| Detection inventory | 211 detections | `PROOF_PACK/VERIFIED_COUNTS.md` |
 | IR Playbooks | 10 | `PROOF_PACK/VERIFIED_COUNTS.md` |
 
 ---
@@ -54,7 +54,7 @@ SignalFoundry is a bespoke Python-and-PowerShell SOC automation pipeline built b
 - March 2-4 stress test window: 25,167 cases at 90.1% auto-close
 - Policy tuning cycle: Windows workstation FP suppression, Linux dpkg churn, Sysmon tiering hardening
 - Coverage-check host alias normalization fix
-- Detection inventory verification (210 detections, CI-enforced)
+- Detection inventory verification (211 detections, CI-enforced)
 
 ### Excluded
 - SignalFoundry source code (private repository; architecture and behavior documented)
@@ -128,7 +128,7 @@ cd HawkinsOperations
 
 # 2. Verify detection counts match VERIFIED_COUNTS.md
 pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
-# Expected: All counts match (Sigma=103, Splunk=79, Wazuh=24/28, IR=10, Total=210)
+# Expected: All counts match (Sigma=103, Splunk=79, Wazuh=25/29, IR=10, Total=211)
 
 # 3. Generate verified counts (regenerate from live file counts)
 pwsh -NoProfile -File ".\scripts\verify\generate-verified-counts.ps1" -OutFile ".\PROOF_PACK\VERIFIED_COUNTS.md"
@@ -263,9 +263,9 @@ pwsh -NoProfile -File ".\scripts\verify\verify-counts.ps1"
 |---|---|---|
 | Sigma (YAML) | 103 rules | `(Get-ChildItem -Recurse .\content\detection-rules\sigma -Filter *.yml).Count` |
 | Splunk (SPL) | 79 detection searches (9 files) | `(Get-ChildItem .\content\detection-rules\splunk -Filter *.spl).Count` |
-| Wazuh (XML) | 24 files / 28 blocks | `(Get-ChildItem .\content\detection-rules\wazuh\rules -Filter *.xml).Count` |
+| Wazuh (XML) | 25 files / 29 blocks | `(Get-ChildItem .\content\detection-rules\wazuh\rules -Filter *.xml).Count` |
 | IR Playbooks | 10 | `(Get-ChildItem .\content\incident-response\playbooks -Filter "IR-*.md").Count` |
-| **Total** | **210** | CI-enforced via `verify-counts.ps1` |
+| **Total** | **211** | CI-enforced via `verify-counts.ps1` |
 
 ---
 
@@ -277,10 +277,10 @@ All surfaces agree on detection counts:
 
 | Surface | Sigma | Splunk | Wazuh | IR | Total |
 |---|---|---|---|---|---|
-| `PROOF_PACK/VERIFIED_COUNTS.md` | 103 | 9 | 24/28 | 10 | 140 |
-| `PROOF_PACK/verified_counts.json` | 103 | 9 | 24/28 | 10 | 140 |
+| `PROOF_PACK/VERIFIED_COUNTS.md` | 103 | 79 | 25/29 | 10 | 211 |
+| `PROOF_PACK/verified_counts.json` | 103 | 79 | 25/29 | 10 | 211 |
 | `site/case-study-sigma-library.html` (data-verified) | 103 | — | — | — | — |
-| Physical file count | 103 | 9 | 24 | 10 | 140 |
+| Physical file count | 103 | 79 | 25 | 10 | 211 |
 | `drift_scan.py` | PASS | PASS | PASS | PASS | PASS |
 
 ### Pipeline Metrics: TWO SNAPSHOTS (expected)
@@ -344,10 +344,10 @@ The `site/resume.txt` does not cite specific detection counts — it references 
 | 4 | `CURRENT_DECISIONS.md` exists | `Test-Path CURRENT_DECISIONS.md` | **FAIL** |
 | 5 | `SESSION_LOG_LATEST.md` exists | `Test-Path SESSION_LOG_LATEST.md` | **FAIL** |
 | 6 | Sigma count = 103 (JSON) | `(Get-Content PROOF_PACK/verified_counts.json \| ConvertFrom-Json).counts.sigma -eq 103` | **PASS** |
-| 7 | Total detections = 210 (JSON) | `(Get-Content PROOF_PACK/verified_counts.json \| ConvertFrom-Json).counts.detections -eq 210` | **PASS** |
+| 7 | Total detections = 211 (JSON) | `(Get-Content PROOF_PACK/verified_counts.json \| ConvertFrom-Json).counts.detections -eq 211` | **PASS** |
 | 8 | Physical Sigma files = 103 | `(Get-ChildItem -Recurse content/detection-rules/sigma -Filter *.yml).Count -eq 103` | **PASS** |
 | 9 | Physical Splunk files = 9 | `(Get-ChildItem content/detection-rules/splunk -Filter *.spl).Count -eq 9` | **PASS** |
-| 10 | Physical Wazuh files = 24 | `(Get-ChildItem content/detection-rules/wazuh/rules -Filter *.xml).Count -eq 24` | **PASS** |
+| 10 | Physical Wazuh files = 25 | `(Get-ChildItem content/detection-rules/wazuh/rules -Filter *.xml).Count -eq 25` | **PASS** |
 | 11 | Physical IR playbooks = 10 | `(Get-ChildItem content/incident-response/playbooks -Filter "IR-*.md").Count -eq 10` | **PASS** |
 | 12 | `verify-counts.ps1` exits 0 | `pwsh -File scripts/verify/verify-counts.ps1` | **PASS** (assumed from CI) |
 | 13 | `drift_scan.py` exits 0 | `python scripts/drift_scan.py` | **PASS** (assumed from CI) |

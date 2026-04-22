@@ -41,10 +41,10 @@ if [ -f "$REPO_ROOT/PROOF_PACK/verified_counts.json" ]; then
 
   check "Sigma count = 103" "$([ "$SIGMA" = "103" ] && echo true || echo false)" "Actual: $SIGMA"
   check "Splunk count = 79" "$([ "$SPLUNK" = "79" ] && echo true || echo false)" "Actual: $SPLUNK"
-  check "Wazuh XML files = 24" "$([ "$WAZUH_FILES" = "24" ] && echo true || echo false)" "Actual: $WAZUH_FILES"
-  check "Wazuh rule blocks = 28" "$([ "$WAZUH_BLOCKS" = "28" ] && echo true || echo false)" "Actual: $WAZUH_BLOCKS"
+  check "Wazuh XML files = 25" "$([ "$WAZUH_FILES" = "25" ] && echo true || echo false)" "Actual: $WAZUH_FILES"
+  check "Wazuh rule blocks = 29" "$([ "$WAZUH_BLOCKS" = "29" ] && echo true || echo false)" "Actual: $WAZUH_BLOCKS"
   check "IR playbooks = 10" "$([ "$IR" = "10" ] && echo true || echo false)" "Actual: $IR"
-  check "Total detections = 210" "$([ "$TOTAL" = "210" ] && echo true || echo false)" "Actual: $TOTAL"
+  check "Total detections = 211" "$([ "$TOTAL" = "211" ] && echo true || echo false)" "Actual: $TOTAL"
 fi
 
 # ── Check 9-12: Physical file counts ──
@@ -55,7 +55,7 @@ SPLUNK_PHYS=$(find "$REPO_ROOT/content/detection-rules/splunk" -name "*.spl" 2>/
 check "Physical Splunk SPL files = 9" "$([ "$SPLUNK_PHYS" = "9" ] && echo true || echo false)" "Found: $SPLUNK_PHYS"
 
 WAZUH_PHYS=$(find "$REPO_ROOT/content/detection-rules/wazuh/rules" -name "*.xml" 2>/dev/null | wc -l | tr -d ' ')
-check "Physical Wazuh XML files = 24" "$([ "$WAZUH_PHYS" = "24" ] && echo true || echo false)" "Found: $WAZUH_PHYS"
+check "Physical Wazuh XML files = 25" "$([ "$WAZUH_PHYS" = "25" ] && echo true || echo false)" "Found: $WAZUH_PHYS"
 
 IR_PHYS=$(find "$REPO_ROOT/content/incident-response/playbooks" -name "IR-*.md" 2>/dev/null | wc -l | tr -d ' ')
 check "Physical IR playbooks = 10" "$([ "$IR_PHYS" = "10" ] && echo true || echo false)" "Found: $IR_PHYS"

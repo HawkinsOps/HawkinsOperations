@@ -25,7 +25,7 @@ A three-phase remediation restored both telemetry paths and proved end-to-end de
 | Windows Agents | 2 (Windows 11 Enterprise, Wazuh agents v4.14.0-4.14.3) |
 | Linux Agents | 7 (Ubuntu, Debian, Linux Mint — servers, CI runner, honeypot) |
 | Agent Groups | 5: default, windows_workstations, linux_servers, infrastructure, honeypot |
-| Custom Rules | 28 detection rules + 5 local operational rules |
+| Custom Rules | 29 detection rules + 5 local operational rules |
 | Manager log_alert_level | 5 (only level 5+ alerts are indexed) |
 
 ---
@@ -48,7 +48,7 @@ Process creation is the backbone of Windows threat detection. Without it:
 - LOLBin abuse (certutil, mshta, rundll32) generates no alerts
 - Parent-child process anomalies cannot be correlated
 
-The 28 custom detection rules covering MITRE ATT&CK techniques were technically loaded but had no data to match against. The rules existed. The telemetry they needed did not.
+The 29 custom detection rules covering MITRE ATT&CK techniques were technically loaded but had no data to match against. The rules existed. The telemetry they needed did not.
 
 ---
 

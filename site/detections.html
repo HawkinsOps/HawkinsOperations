@@ -181,11 +181,11 @@
   <!-- HERO -->
   <div class="det-hero">
     <div class="sec-label">Detection Surface</div>
-    <h1>Detection Coverage &mdash; <span data-verified="detections">210</span> detection rules + 10 IR playbooks across 10 MITRE tactics</h1>
+    <h1>Detection Coverage &mdash; <span data-verified="detections">211</span> detection rules + 10 IR playbooks across 10 MITRE tactics</h1>
     <p class="sub">Each detection is repo-counted, mapped to MITRE ATT&amp;CK technique IDs, and routed into SignalFoundry&rsquo;s triage and evidence pipeline.</p>
     <div class="det-kpi-row">
       <div class="det-kpi"><div class="val" data-verified="sigma">103</div><div class="lbl">Sigma</div></div>
-      <div class="det-kpi"><div class="val" data-verified="wazuh">28</div><div class="lbl">Wazuh</div></div>
+      <div class="det-kpi"><div class="val" data-verified="wazuh">29</div><div class="lbl">Wazuh</div></div>
       <div class="det-kpi"><div class="val" data-verified="splunk">79</div><div class="lbl">Splunk (lab)</div></div>
       <div class="det-kpi"><div class="val" data-verified="ir">10</div><div class="lbl">IR Playbooks</div></div>
     </div>
@@ -559,7 +559,7 @@ function applyFilters(){
     countEl.textContent=splunkColl+' collection'+(splunkColl!==1?'s':'')+' shown';
     ctxEl.textContent=splunkSearches+' detection searches across '+splunkColl+' SPL file'+(splunkColl!==1?'s':'')+' (lab)';
   } else if(!q&&activeFilter==='all'){
-    var heroCount=document.querySelector('[data-verified="detections"]');var irCount=document.querySelector('[data-verified="ir"]');countEl.textContent=(heroCount?heroCount.textContent:'210')+' detection rules + '+(irCount?irCount.textContent:'10')+' IR playbooks';
+    var heroCount=document.querySelector('[data-verified="detections"]');var irCount=document.querySelector('[data-verified="ir"]');countEl.textContent=(heroCount?heroCount.textContent:'211')+' detection rules + '+(irCount?irCount.textContent:'10')+' IR playbooks';
     ctxEl.textContent='Splunk shown as '+splunkColl+' grouped collections representing '+splunkSearches+' searches';
   } else {
     countEl.textContent=totalDet+' detection'+(totalDet!==1?'s':'')+' shown';
