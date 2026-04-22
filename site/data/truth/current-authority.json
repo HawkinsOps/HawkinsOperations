@@ -2,22 +2,22 @@
   "_schema": "truth-authority-v1",
   "_layer": "verified_snapshot",
   "_layer_rank": 1,
-  "_authority_date": "2026-04-07",
+  "_authority_date": "2026-04-21",
   "_authority_note": "AUTHORITATIVE - outranks live_operational_feed for all public claims. Only values in this file may be presented as current, canonical, or reviewer-authoritative.",
-  "_source": "source_of_truth/metrics_canonical_2026-04-07.json",
+  "_source": "source_of_truth/metrics_canonical_2026-04-21.json",
   "_provenance_note": "Detection inventory is script-verified via scripts/verify/verify-counts.ps1. Case-volume metrics are transcribed from the AutoSOC pipeline ledger output as of the authority_date; the case-volume transcription step is not yet automated. See /methodology for full provenance map.",
-  "_generated_at": "2026-04-07T00:00:00Z",
+  "_generated_at": "2026-04-21T00:00:00Z",
   "system_name": "SignalFoundry",
   "system_label": "SignalFoundry / AutoSOC",
   "detection_inventory": {
     "sigma_rules": 103,
     "splunk_spl_files": 9,
     "splunk_detection_searches": 79,
-    "wazuh_xml_files": 24,
-    "wazuh_rule_blocks": 28,
+    "wazuh_xml_files": 25,
+    "wazuh_rule_blocks": 29,
     "ir_playbooks": 10,
-    "total_detections": 210,
-    "as_of": "2026-04-07",
+    "total_detections": 211,
+    "as_of": "2026-04-21",
     "source_file": "PROOF_PACK/VERIFIED_COUNTS.md",
     "claim_class": "Fully supported"
   },
@@ -30,8 +30,8 @@
   "public_claim_formats": {
     "sigma": "103 Sigma detection rules",
     "splunk": "79 Splunk detection searches across 9 SPL files",
-    "wazuh": "24 Wazuh XML files (28 rule blocks)",
-    "total_detections": "210 detections",
+    "wazuh": "25 Wazuh XML files (29 rule blocks)",
+    "total_detections": "211 detections",
     "ir_playbooks": "10 IR playbooks"
   },
   "clearance": "Eligible to obtain clearance; willing to pursue sponsorship.",
@@ -66,7 +66,7 @@
     "coverage_status": "PASS",
     "sigma": 103,
     "splunk": 79,
-    "wazuh": 28,
+    "wazuh": 29,
     "ir": 10
   }
 }

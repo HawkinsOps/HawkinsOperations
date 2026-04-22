@@ -1,5 +1,5 @@
 # Raylee Hawkins
-North Alabama (Huntsville-adjacent)
+Open to relocation
 raylee@hawkinsops.com | https://github.com/raylee-hawkins | https://hawkinsops.com | https://linkedin.com/in/raylee-hawkins
 
 ## Headline

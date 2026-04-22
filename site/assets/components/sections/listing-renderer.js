@@ -28,7 +28,7 @@ export function renderListing(container, items, kind = "projects") {
   container.innerHTML = items
     .map((item) => {
       const primaryLink = kind === "detections"
-        ? `https://github.com/HawkinsOps/HawkinsOperations/tree/main/${esc(item.location || "")}`
+        ? `https://github.com/raylee-hawkins/HawkinsOperations/tree/main/${esc(item.location || "")}`
         : esc(item.page_url || item.repo_url || "#");
       const title = esc(item.title || item.platform || "Untitled");
       const summary = esc(item.summary || `${item.count || ""} ${item.format || ""}`.trim());

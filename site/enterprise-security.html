@@ -42,11 +42,8 @@
     <button id="mobBtn" class="mob-btn" type="button" aria-expanded="false" aria-controls="mobMenu" aria-label="Toggle site navigation">Menu</button>
     <ul class="nav-l">
       <li><a href="/">Home</a></li>
-      <li><a href="/signalfoundry">SignalFoundry</a></li>
-      <li><a href="/case-studies">Case Studies</a></li>
-      <li><a href="/enterprise-security">Enterprise Security</a></li>
       <li><a href="/proof">Proof</a></li>
-      <li><a href="/detections">Detections</a></li>
+      <li><a href="/case-studies">Case Studies</a></li>
       <li><a href="/resume">Resume</a></li>
     </ul>
     <a class="btn btn-p nav-cta" href="/resume">Resume</a>
@@ -54,14 +51,10 @@
 </nav>
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
   <a href="/">Home</a>
-  <a href="/signalfoundry">SignalFoundry</a>
-  <a href="/case-studies">Case Studies</a>
-  <a href="/enterprise-security">Enterprise Security</a>
   <a href="/proof">Proof</a>
-  <a href="/detections">Detections</a>
+  <a href="/case-studies">Case Studies</a>
   <a href="/resume">Resume</a>
 </div>
-
 <!-- @include:nav:end -->
 <main class="modernize-shell">
 
@@ -75,7 +68,7 @@
       <p class="m-outcome" style="font-size:0.85rem;">Testbed: 72-core Proxmox with dedicated Wazuh, Splunk, and Grafana VMs. Host coverage: 8/8 (Windows Server 2022).</p>
       <div class="m-actions">
         <a class="m-cta m-cta-dominant" href="/assets/evidence/enterprise-hardening-evidence.zip" download>Download Evidence Pack</a>
-        <a class="m-cta m-cta-accent" href="https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/projects/lab/enterprise-hardening" target="_blank" rel="noopener noreferrer">Source Artifacts</a>
+        <a class="m-cta m-cta-accent" href="https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/projects/lab/enterprise-hardening" target="_blank" rel="noopener noreferrer">Source Artifacts</a>
         <a class="m-cta m-cta-secondary" href="/proof">Proof Receipts</a>
       </div>
       <div class="m-hero-signals">
@@ -333,7 +326,7 @@
           </div>
           <div style="padding:10px 14px;background:rgba(122,184,255,0.04);border:1px solid rgba(122,184,255,0.12);border-radius:8px;margin-top:4px;">
             <div style="font-size:0.78rem;font-weight:600;color:#7ab8ff;">Raw evidence artifacts</div>
-            <div style="font-size:0.72rem;color:var(--muted,#8ea4c7);">4688 before/after JSON exports, 4719 policy change events, and KPI comparison available in the <a href="https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/projects/lab/enterprise-hardening/evidence-pack" target="_blank" rel="noopener noreferrer" style="color:#7ab8ff;">evidence pack</a>.</div>
+            <div style="font-size:0.72rem;color:var(--muted,#8ea4c7);">4688 before/after JSON exports, 4719 policy change events, and KPI comparison available in the <a href="https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/projects/lab/enterprise-hardening/evidence-pack" target="_blank" rel="noopener noreferrer" style="color:#7ab8ff;">evidence pack</a>.</div>
           </div>
         </div>
       </div>
@@ -411,7 +404,7 @@
           </tbody>
         </table>
       </div>
-      <p style="font-size:0.72rem;color:var(--muted,#8ea4c7);margin-top:12px;">S+F = Success and Failure. Full 60-subcategory comparison available in <a href="https://github.com/HawkinsOps/HawkinsOperations/blob/main/content/projects/lab/enterprise-hardening/baseline-comparison.md" target="_blank" rel="noopener noreferrer" style="color:#7ab8ff;">baseline-comparison.md</a>.</p>
+      <p style="font-size:0.72rem;color:var(--muted,#8ea4c7);margin-top:12px;">S+F = Success and Failure. Full 60-subcategory comparison available in <a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/projects/lab/enterprise-hardening/baseline-comparison.md" target="_blank" rel="noopener noreferrer" style="color:#7ab8ff;">baseline-comparison.md</a>.</p>
     </div>
 
     <!-- Additional verified settings -->
@@ -721,7 +714,7 @@ sourcetype="WinEventLog:Security" EventCode=4688
       <div class="m-card-kicker" data-aos="fade-up">Proof links</div>
       <h2>Validate the hardening</h2>
       <div class="m-grid-2">
-        <a href="https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/projects/lab/enterprise-hardening" target="_blank" rel="noopener noreferrer" class="m-link-item">
+        <a href="https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/projects/lab/enterprise-hardening" target="_blank" rel="noopener noreferrer" class="m-link-item">
           <strong>Source artifacts</strong>
           <span>Full markdown documentation, CSV exports, and PowerShell scripts in the repository.</span>
         </a>
@@ -737,7 +730,7 @@ sourcetype="WinEventLog:Security" EventCode=4688
           <strong>Detections</strong>
           <span>Browse the detection rules that benefit from the expanded audit coverage.</span>
         </a>
-        <a href="https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/projects/lab/enterprise-hardening/evidence-pack" target="_blank" rel="noopener noreferrer" class="m-link-item">
+        <a href="https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/projects/lab/enterprise-hardening/evidence-pack" target="_blank" rel="noopener noreferrer" class="m-link-item">
           <strong>Evidence Pack</strong>
           <span>Before/after Splunk exports, GPO export, KPI comparison, and collection metadata with full redaction documentation.</span>
         </a>
@@ -764,7 +757,7 @@ sourcetype="WinEventLog:Security" EventCode=4688
           <strong>Browse Detections</strong>
           <span>See the detection rules that now receive signal from the hardened audit policy.</span>
         </a>
-        <a href="https://github.com/HawkinsOps/HawkinsOperations" target="_blank" rel="noopener noreferrer" class="m-link-item">
+        <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" class="m-link-item">
           <strong>Inspect the repository</strong>
           <span>Trace the public code, docs, and commit history behind the hardening work.</span>
         </a>
@@ -777,15 +770,15 @@ sourcetype="WinEventLog:Security" EventCode=4688
 <!-- @include:footer:start -->
 <footer>
   <div class="ctr">
-    <p><b>HawkinsOps</b> | Huntsville-adjacent (North Alabama)</p>
+    <p><b>HawkinsOps</b> | Open to relocation</p>
     <div class="fl">
-      <a href="https://github.com/HawkinsOps/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
+      <a href="https://github.com/raylee-hawkins/HawkinsOperations" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository (opens in a new tab)">GitHub</a>
       <a href="https://linkedin.com/in/raylee-hawkins" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)">LinkedIn</a>
       <a href="mailto:raylee@hawkinsops.com" aria-label="Email Raylee Hawkins">raylee@hawkinsops.com</a>
     </div>
+    <p class="footer-bridge" style="margin-top:10px;font-size:0.78rem;color:var(--muted,#7a94aa);">Successor architecture: <a href="https://github.com/HawkinsOperations" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">github.com/HawkinsOperations</a></p>
   </div>
 </footer>
-
 <!-- @include:footer:end -->
 <script src="/assets/fetch-utils.js" defer></script>
 <script src="/data/counts.js" defer></script>

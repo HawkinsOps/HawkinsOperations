@@ -172,4 +172,4 @@ this repository is retired today.
 - Site: [hawkinsops.com](https://hawkinsops.com)
 - Email: raylee@hawkinsops.com
 - LinkedIn: [linkedin.com/in/raylee-hawkins](https://linkedin.com/in/raylee-hawkins)
-- Location: Gadsden, AL, relocating to Huntsville, AL
+- Location: Open to relocation

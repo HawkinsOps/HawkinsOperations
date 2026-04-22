@@ -1,9 +1,9 @@
 blank_issues_enabled: false
 contact_links:
   - name: Documentation / Verification
-    url: https://github.com/HawkinsOps/HawkinsOperations/blob/main/docs/VERIFY_COMMANDS_POWERSHELL.md
+    url: https://github.com/raylee-hawkins/HawkinsOperations/blob/main/docs/VERIFY_COMMANDS_POWERSHELL.md
     about: Run the verification commands to confirm counts and paths before filing issues.
   - name: Security policy
-    url: https://github.com/HawkinsOps/HawkinsOperations/blob/main/SECURITY.md
+    url: https://github.com/raylee-hawkins/HawkinsOperations/blob/main/SECURITY.md
     about: Please report security concerns according to SECURITY.md.
 

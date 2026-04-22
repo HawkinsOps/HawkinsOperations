@@ -1,0 +1,38 @@
+{
+  "date": "2026-04-21",
+  "system": "SignalFoundry / AutoSOC",
+  "total_cases": 324074,
+  "auto_closed_benign": 199672,
+  "auto_closed_known_fp": 85953,
+  "escalated": 8574,
+  "review": 29875,
+  "auto_close_rate_label": "~88%",
+  "escalations_label": "8,574",
+  "known_fp_label": "85,953",
+  "hosts_reporting": "8/8",
+  "reconciliation": "PASS (0 mismatches)",
+  "heartbeat": "SUCCESS",
+  "coverage": "8/8",
+  "stable_locked_date": "2026-04-21",
+  "detection_inventory": {
+    "sigma_rules": 103,
+    "splunk_spl_files": 9,
+    "splunk_detection_searches": 79,
+    "wazuh_xml_files": 25,
+    "wazuh_rule_blocks": 29,
+    "ir_playbooks": 10,
+    "total_detections": 211,
+    "as_of": "2026-04-21",
+    "source_command": "pwsh -NoProfile -File ./scripts/verify/verify-counts.ps1"
+  },
+  "authority": "April 21 snapshot. Ledger values unchanged from April 7 (total_cases 324,074, escalated 8,574, auto_closed_benign 199,672, auto_closed_known_fp 85,953, review 29,875). Detection inventory refreshed from scripts/verify/verify-counts.ps1 to reflect one additional Wazuh rule file added since 2026-04-07: Wazuh XML files 24 -> 25, rule blocks 28 -> 29, total detections 210 -> 211.",
+  "notes": [
+    "Supersedes 2026-04-07 canonical for detection inventory. Ledger values unchanged.",
+    "Ledger totals: 324,074 total cases, 8,574 escalations, 85,953 known FP, 199,672 benign auto-closed, 29,875 review.",
+    "Auto-close rate (benign + known_fp): 285,625 / 324,074 = 88.1%, display rounded to ~88%.",
+    "Coverage confirmed 8/8. Reconciliation mismatch count: 0. Scorecard: PASS.",
+    "Detection counts derived from scripts/verify/verify-counts.ps1 at authority_date.",
+    "Do not interpolate or merge values from other files.",
+    "If exact site payloads disagree, treat them as drift and correct them to this file."
+  ]
+}
