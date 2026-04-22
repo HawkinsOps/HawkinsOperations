@@ -13,6 +13,8 @@ const siteCountsJsOutPath = path.join(root, "site", "data", "counts.js");
 const siteOpsJsonOutPath = path.join(root, "site", "assets", "data", "ops-metrics.json");
 const siteOpsJsOutPath = path.join(root, "site", "data", "ops-metrics.js");
 const detectionsDataPath = path.join(root, "site", "assets", "data", "detections.json");
+const siteIndexHtmlPath = path.join(root, "site", "index.html");
+const siteProofHtmlPath = path.join(root, "site", "proof.html");
 const withProofPack = process.argv.includes("--with-proof-pack");
 const regenerateMetricsFlag = process.argv.includes("--regenerate-metrics");
 
@@ -282,6 +284,34 @@ function writeSiteOpsMetrics(payload) {
   fs.writeFileSync(siteOpsJsOutPath, `window.HAWKINSOPS_OPS_METRICS = ${JSON.stringify(payload, null, 2)};\n`, "utf8");
 }
 
+function patchIndexHtmlFallbacks(payload) {
+  // Patches hand-maintained <span data-ops="..."> fallbacks on every page
+  // that site-runtime-contract.js validates. Currently: index.html and proof.html.
+  const targets = [siteIndexHtmlPath, siteProofHtmlPath];
+  const keys = ["stable_locked_date", "lifetime_last_updated"];
+  for (const targetPath of targets) {
+    if (!fs.existsSync(targetPath)) continue;
+    let html = fs.readFileSync(targetPath, "utf8");
+    let changed = false;
+    for (const key of keys) {
+      const value = payload && payload.metrics ? payload.metrics[key] : undefined;
+      if (typeof value !== "string" || !value) {
+        throw new Error(`generate-site-data: metrics.${key} missing or non-string; cannot patch ${path.relative(root, targetPath)} fallback`);
+      }
+      const re = new RegExp(`(<span data-ops="${key}">)[^<]*(</span>)`, "g");
+      const next = html.replace(re, `$1${value}$2`);
+      if (next !== html) {
+        html = next;
+        changed = true;
+      }
+    }
+    if (changed) {
+      fs.writeFileSync(targetPath, html, "utf8");
+      console.log(`Patched ${path.relative(root, targetPath)} (data-ops fallbacks)`);
+    }
+  }
+}
+
 if (!fs.existsSync(srcPath)) {
   console.error(`Missing source file: ${srcPath}`);
   process.exit(1);
@@ -313,6 +343,7 @@ fs.writeFileSync(siteOutPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
 writeSiteCountsJs(payload);
 syncDetectionsData(parsed.counts);
 writeSiteOpsMetrics(metricsPayload);
+patchIndexHtmlFallbacks(metricsPayload);
 
 if (withProofPack) {
   fs.writeFileSync(canonicalOutPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");

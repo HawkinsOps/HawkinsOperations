@@ -1,5 +1,31 @@
 #!/usr/bin/env python3
-"""Fail on drift between VERIFIED_COUNTS.md and website claim surfaces."""
+"""Fail on drift between VERIFIED_COUNTS.md and website claim surfaces.
+
+Scanner features:
+  - Compares VERIFIED_COUNTS.md truth values against generated JSON artifacts.
+  - Scans .html/.md/.txt under site/ for hard-coded numbers that match
+    authority values near claim-context words (detection, sigma, wazuh, etc.).
+  - Verifies data-verified fallback spans match authoritative truth.
+
+Escape hatches for false positives:
+
+  1. Natural-language date masking. The scanner masks these formats so
+     embedded day-of-month digits do not false-positive against authority
+     values:
+       - ISO hyphenated dates:  YYYY-MM-DD and MM-DD-YYYY
+       - Natural-language date: "Month DD, YYYY" (with optional ordinal
+         suffix, e.g. "March 25th, 2026")
+       - Natural-language range: "Month DD-DD" and "Month DD-DD, YYYY"
+       - Numeric ratios:        N/M
+
+  2. Inline ignore directive: <!-- drift-scan-ignore -->
+     Place on the same line as the flagged content, or as a standalone
+     comment on the immediately preceding line. An optional reason after
+     a colon is allowed (and encouraged) for future reviewers:
+       <!-- drift-scan-ignore: short reason -->
+     Use sparingly and document why the literal number is legitimately
+     unrelated to the authority claim it collides with.
+"""
 
 from __future__ import annotations
 
@@ -79,6 +105,55 @@ def compare_counts(expected: Dict[str, int], actual: Dict[str, int], label: str)
     return errors
 
 
+_MONTH_NAMES = (
+    r"(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|"
+    r"Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|"
+    r"Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)"
+)
+
+# Hyphenated ISO-style dates: 04-07-2026 or 2026-04-07.
+ISO_DATE_RE = re.compile(r"\d{2}-\d{2}-\d{4}|\d{4}-\d{2}-\d{2}")
+
+# Natural-language dates and date ranges:
+#   "March 25, 2026"           -> match
+#   "March 25th, 2026"         -> match (ordinal suffix)
+#   "March 11-25"              -> match (day range)
+#   "March 11-25, 2026"        -> match (day range with year)
+#   "Mar 25"                   -> match (bare month+day)
+# Day tokens accept optional ordinal suffix (st/nd/rd/th).
+NATURAL_DATE_RE = re.compile(
+    _MONTH_NAMES
+    + r"\s+\d{1,2}(?:st|nd|rd|th)?"
+    + r"(?:\s*[-–—]\s*\d{1,2}(?:st|nd|rd|th)?)?"
+    + r"(?:,\s*\d{4})?",
+    re.IGNORECASE,
+)
+
+RATIO_RE = re.compile(r"\b\d+/\d+\b")
+
+# <!-- drift-scan-ignore -->   or   <!-- drift-scan-ignore: reason -->
+IGNORE_DIRECTIVE_RE = re.compile(
+    r"<!--\s*drift-scan-ignore(?:\s*:[^>]*?)?\s*-->",
+    re.IGNORECASE,
+)
+
+
+def _mask_dates_and_ratios(line: str) -> str:
+    masked = ISO_DATE_RE.sub("__DATE__", line)
+    masked = NATURAL_DATE_RE.sub("__DATE__", masked)
+    masked = RATIO_RE.sub("__RATIO__", masked)
+    return masked
+
+
+def _has_ignore_directive(line: str) -> bool:
+    return bool(IGNORE_DIRECTIVE_RE.search(line))
+
+
+def _is_standalone_comment_line(line: str) -> bool:
+    stripped = line.strip()
+    return stripped.startswith("<!--") and stripped.endswith("-->")
+
+
 def scan_hardcoded_claim_numbers(site_root: Path, truth: Dict[str, int]) -> List[Tuple[Path, int, str]]:
     claim_files = sorted(
         [
@@ -95,16 +170,13 @@ def scan_hardcoded_claim_numbers(site_root: Path, truth: Dict[str, int]) -> List
     )
     issues: List[Tuple[Path, int, str]] = []
 
-    # Patterns that embed claim numbers inside dates or ratios (false positives).
-    date_re = re.compile(r"\d{2}-\d{2}-\d{4}|\d{4}-\d{2}-\d{2}")
-    ratio_re = re.compile(r"\b\d+/\d+\b")
-
     for path in claim_files:
         if not path.exists():
             continue
+        lines = path.read_text(encoding="utf-8").splitlines()
         in_comment = False
         in_template = False
-        for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+        for lineno, line in enumerate(lines, start=1):
             stripped = line.strip()
             # Track multi-line HTML comments.
             if "<!--" in stripped:
@@ -139,9 +211,17 @@ def scan_hardcoded_claim_numbers(site_root: Path, truth: Dict[str, int]) -> List
             # data-ops spans are runtime-bound (same as data-verified).
             if "data-ops" in line:
                 continue
+            # Honor <!-- drift-scan-ignore --> on the same line.
+            if _has_ignore_directive(line):
+                continue
+            # Honor <!-- drift-scan-ignore --> on the preceding line when it
+            # is a standalone comment (avoids matching markers buried mid-line).
+            if lineno > 1:
+                prev = lines[lineno - 2]
+                if _has_ignore_directive(prev) and _is_standalone_comment_line(prev):
+                    continue
             # Mask dates and ratios so embedded digits don't false-positive.
-            masked = date_re.sub("__DATE__", line)
-            masked = ratio_re.sub("__RATIO__", masked)
+            masked = _mask_dates_and_ratios(line)
             if token_re.search(masked) and claim_context_re.search(masked):
                 issues.append((path, lineno, line.strip()))
     return issues
