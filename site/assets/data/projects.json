@@ -7,16 +7,16 @@
       "type": "detection",
       "status": "active",
       "tags": ["wazuh", "sigma", "splunk", "verification"],
-      "repo_url": "https://github.com/HawkinsOps/HawkinsOperations/tree/main/detection-rules",
+      "repo_url": "https://github.com/raylee-hawkins/HawkinsOperations/tree/main/detection-rules",
       "page_url": "/security.html",
       "evidence": [
         {
           "label": "Verified Counts",
-          "url": "https://github.com/HawkinsOps/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md"
+          "url": "https://github.com/raylee-hawkins/HawkinsOperations/blob/main/PROOF_PACK/VERIFIED_COUNTS.md"
         },
         {
           "label": "Wazuh Rules",
-          "url": "https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/detection-rules/wazuh/rules"
+          "url": "https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/detection-rules/wazuh/rules"
         }
       ]
     },
@@ -27,7 +27,7 @@
       "type": "soc",
       "status": "active",
       "tags": ["soc", "triage", "workflow"],
-      "repo_url": "https://github.com/HawkinsOps/HawkinsOperations/blob/main/site/triage.html",
+      "repo_url": "https://github.com/raylee-hawkins/HawkinsOperations/blob/main/site/triage.html",
       "page_url": "/triage.html",
       "evidence": [
         {
@@ -36,7 +36,7 @@
         },
         {
           "label": "Incident Example",
-          "url": "https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/incident-response/incidents"
+          "url": "https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/incident-response/incidents"
         }
       ]
     },
@@ -47,16 +47,16 @@
       "type": "ir",
       "status": "active",
       "tags": ["ir", "playbooks", "documentation"],
-      "repo_url": "https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/incident-response/playbooks",
+      "repo_url": "https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/incident-response/playbooks",
       "page_url": "/security.html",
       "evidence": [
         {
           "label": "Playbooks Folder",
-          "url": "https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/incident-response/playbooks"
+          "url": "https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/incident-response/playbooks"
         },
         {
           "label": "IR Index",
-          "url": "https://github.com/HawkinsOps/HawkinsOperations/blob/main/content/incident-response/INDEX.md"
+          "url": "https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/incident-response/INDEX.md"
         }
       ]
     },
@@ -67,16 +67,16 @@
       "type": "detection",
       "status": "active",
       "tags": ["wazuh", "python", "detection", "testing", "mitre"],
-      "repo_url": "https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/projects/lab/wazuh-detection-harness",
+      "repo_url": "https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/projects/lab/wazuh-detection-harness",
       "page_url": "/case-study-detection-harness",
       "evidence": [
         {
           "label": "Project README",
-          "url": "https://github.com/HawkinsOps/HawkinsOperations/blob/main/content/projects/lab/wazuh-detection-harness/README.md"
+          "url": "https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/projects/lab/wazuh-detection-harness/README.md"
         },
         {
           "label": "Sample Run Report",
-          "url": "https://github.com/HawkinsOps/HawkinsOperations/blob/main/content/projects/lab/wazuh-detection-harness/runs/run_02-19-2026_034113/report.md"
+          "url": "https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/projects/lab/wazuh-detection-harness/runs/run_02-19-2026_034113/report.md"
         }
       ]
     },
@@ -87,16 +87,16 @@
       "type": "lab",
       "status": "active",
       "tags": ["honeypot", "cowrie", "grafana", "wazuh", "docker"],
-      "repo_url": "https://github.com/HawkinsOps/HawkinsOperations/tree/main/content/projects/lab/honeypot-grafana-wazuh",
+      "repo_url": "https://github.com/raylee-hawkins/HawkinsOperations/tree/main/content/projects/lab/honeypot-grafana-wazuh",
       "page_url": "/case-study-honeypot",
       "evidence": [
         {
           "label": "Project README",
-          "url": "https://github.com/HawkinsOps/HawkinsOperations/blob/main/content/projects/lab/honeypot-grafana-wazuh/README.md"
+          "url": "https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/projects/lab/honeypot-grafana-wazuh/README.md"
         },
         {
           "label": "Docker Compose",
-          "url": "https://github.com/HawkinsOps/HawkinsOperations/blob/main/content/projects/lab/honeypot-grafana-wazuh/docker-compose.yml"
+          "url": "https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/projects/lab/honeypot-grafana-wazuh/docker-compose.yml"
         }
       ]
     }
