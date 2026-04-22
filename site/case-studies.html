@@ -256,9 +256,9 @@ body {
 <main class="modernize-shell">
 <section class="m-section" data-aos="fade-up" style="padding-top:96px;">
   <div class="m-wrap">
-    <div class="m-eyebrow">Portfolio</div>
+    <div class="m-eyebrow">Engineering Artifact Index</div>
     <h1 class="m-title" style="font-size:clamp(2.2rem,4vw,3.5rem);">Case Studies</h1>
-    <p class="m-subtitle" style="max-width:680px;">Technical case studies from the SignalFoundry project. Each documents what happened, what I did, what the evidence shows, and how a reviewer can verify the claims. No sanitized post-mortems &mdash; these are built from session logs and proof artifacts.</p>
+    <p class="m-subtitle" style="max-width:760px;">The full engineering artifact index for SignalFoundry. Every case study, every documented incident, and every piece of infrastructure work that produced the pipeline is indexed here &mdash; because this is where the depth lives. A reviewer skeptical of the pipeline's scope can see the full range of documented work in one place. No curated short list, no sanitized post-mortems. Every artifact is built from the session logs, proof files, and actual work on disk.</p>
 
     <!-- Metrics strip -->
     <div class="cs-metrics" data-aos="fade-up">
@@ -271,8 +271,8 @@ body {
         <div class="cs-metric-lbl">Detection Rules</div>
       </div>
       <div class="cs-metric">
-        <div class="cs-metric-val" data-count="15">0</div>
-        <div class="cs-metric-lbl">Case Studies</div>
+        <div class="cs-metric-val" data-count="24">0</div>
+        <div class="cs-metric-lbl">Artifacts Indexed</div>
       </div>
       <div class="cs-metric">
         <div class="cs-metric-val green">0</div>
@@ -311,13 +311,13 @@ body {
       <div style="text-align:center;margin-top:1rem;"><span style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#486880;">~88% auto-closed &middot; 0 reconciliation mismatches &middot; 0 data loss events</span></div>
     </div>
 
-    <div class="cs-section-label">Flagship System</div>
+    <div class="cs-section-label">System &amp; Flagship</div>
     <div class="cs-index-grid">
 
       <a class="cs-card" href="/signalfoundry" style="border-top:2px solid #00c4d4;">
         <div class="cs-card-type">Flagship System</div>
         <div class="cs-card-title">SignalFoundry</div>
-        <div class="cs-card-desc">System architecture, deterministic triage pipeline, policy logic, redaction enforcement, and publish gating. 324,074 cases processed, ~88% auto-closed, 8,574 escalation packs. The flagship system behind the case studies on this page.</div>
+        <div class="cs-card-desc">The flagship triage pipeline behind HawkinsOps. Policy-driven Wazuh ingest, deterministic triage, mandatory redaction, evidence pack assembly, reconciliation, and gated publish. The engine behind every artifact on this page.</div>
         <div class="cs-card-meta">
           <span class="cs-card-tag teal">Flagship</span>
           <span class="cs-card-tag green">324,074 cases</span>
@@ -326,15 +326,51 @@ body {
         <div class="cs-card-arrow">View system page &rarr;</div>
       </a>
 
+      <a class="cs-card" href="/detections" style="border-top:2px solid #00c4d4;">
+        <div class="cs-card-type">Detection Inventory</div>
+        <div class="cs-card-title">Detection Coverage</div>
+        <div class="cs-card-desc">The full detection surface: <span data-verified="detections">211</span> rules across 10 MITRE ATT&amp;CK tactics plus <span data-verified="ir">10</span> IR playbooks. Each detection is repo-counted, technique-mapped, and routed into SignalFoundry's triage and evidence pipeline.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag teal"><span data-verified="detections">211</span> rules</span>
+          <span class="cs-card-tag">10 MITRE tactics</span>
+          <span class="cs-card-tag"><span data-verified="ir">10</span> playbooks</span>
+        </div>
+        <div class="cs-card-arrow">View detection surface &rarr;</div>
+      </a>
+
+      <a class="cs-card" href="/architecture">
+        <div class="cs-card-type">System Architecture</div>
+        <div class="cs-card-title">Signal Architecture &mdash; AutoSOC System Model</div>
+        <div class="cs-card-desc">Full system diagram: ingest, triage, redaction, pack, reconcile, gate, publish. Signal routing, state boundaries, failure domains, and gating contracts documented end to end.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag teal">System map</span>
+          <span class="cs-card-tag">Data flow</span>
+          <span class="cs-card-tag">Gates</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+      <a class="cs-card" href="/march-2026-deep-dive">
+        <div class="cs-card-type">Deep Dive &mdash; 2026-03</div>
+        <div class="cs-card-title">March 2026 System Hardening &amp; Pipeline Evolution</div>
+        <div class="cs-card-desc">How I built, broke, and recovered a SOC automation pipeline processing ~50,000 alerts during the March 2026 window. What that revealed about detection quality, system trust, and operational reliability.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag">March 2026</span>
+          <span class="cs-card-tag teal">Deep dive</span>
+          <span class="cs-card-tag">System hardening</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
     </div>
 
-    <div class="cs-section-label">Case Studies</div>
+    <div class="cs-section-label">Incident Response &amp; Recovery</div>
     <div class="cs-index-grid">
 
       <a class="cs-card" href="/case-study-race-condition">
         <div class="cs-card-type">Incident / IR &mdash; 2026-04-07</div>
         <div class="cs-card-title">Production Race Condition Recovery</div>
-        <div class="cs-card-desc">TOCTOU race condition in queue-cap enforcement at 505,836-file scale. Diagnosed from production tracebacks, fixed with 4 guard sites across 2 files, confirmed under live load with 1,056 files vanishing during sort &mdash; zero unhandled exceptions. Pipeline recovered from sub-ten-second crashes to 80+ minutes sustained processing.</div>
+        <div class="cs-card-desc">TOCTOU race condition in queue-cap enforcement at 505,836-file scale. Diagnosed from production tracebacks, fixed with 4 guard sites across 2 files, confirmed under live load with 1,056 files vanishing during sort &mdash; zero unhandled exceptions. Pipeline recovered from sub-ten-second crashes to 80+ minutes sustained.</div>
         <div class="cs-card-meta">
           <span class="cs-card-tag red">TOCTOU race</span>
           <span class="cs-card-tag green">VERDICT=PASS</span>
@@ -346,8 +382,8 @@ body {
 
       <a class="cs-card" href="/case-study-pipeline-recovery">
         <div class="cs-card-type">Incident Response &mdash; 2026-03-13</div>
-        <div class="cs-card-title">Pipeline Fault Recovery</div>
-        <div class="cs-card-desc">Two independent defects surfaced simultaneously: poller retry logic failed on URLError, reconciliation scoped against wrong directory set. Both diagnosed and fixed in one session. Pipeline restored to SUCCESS.</div>
+        <div class="cs-card-title">Pipeline Fault Recovery &mdash; Two Failure Domains, One Session</div>
+        <div class="cs-card-desc">Poller retry logic failed on URLError. Reconciliation scoped against the wrong directory set. Two independent defects surfaced simultaneously, both diagnosed and fixed in one session. Pipeline restored to SUCCESS.</div>
         <div class="cs-card-meta">
           <span class="cs-card-tag orange">Dual-fault</span>
           <span class="cs-card-tag green">MISMATCH_COUNT=0</span>
@@ -356,66 +392,35 @@ body {
         <div class="cs-card-arrow">Read &rarr;</div>
       </a>
 
-      <a class="cs-card" href="/case-study-splunk-detection-audit">
-        <div class="cs-card-type">Detection Engineering &mdash; 2026-03-24</div>
-        <div class="cs-card-title">Splunk Detection Rule Audit</div>
-        <div class="cs-card-desc">Audited every Splunk detection rule against 283,976 events. Found four ways they would flood a real analyst with noise: empty CommandLine fields, no failed logon baseline, missing sourcetype coverage, and rex extraction fragility.</div>
+      <a class="cs-card" href="/case-study-ir-howe01">
+        <div class="cs-card-type">Incident Response</div>
+        <div class="cs-card-title">IR Case: Level 12 FIM Alert &mdash; Triage to BENIGN</div>
+        <div class="cs-card-desc">Full IR lifecycle on a Level 12 Wazuh File Integrity Monitoring alert on the primary endpoint. Triaged and closed as BENIGN in 35 minutes, with evidence trail, PowerShell validation, and rule-tuning recommendations.</div>
         <div class="cs-card-meta">
-          <span class="cs-card-tag red">4 noise sources</span>
-          <span class="cs-card-tag">283,976 events</span>
-          <span class="cs-card-tag teal">Self-audit</span>
+          <span class="cs-card-tag orange">Level 12</span>
+          <span class="cs-card-tag green">BENIGN in 35 min</span>
         </div>
         <div class="cs-card-arrow">Read &rarr;</div>
       </a>
 
-      <a class="cs-card" href="/case-study-security-hardening">
-        <div class="cs-card-type">Security Hardening &mdash; 2026-03-29</div>
-        <div class="cs-card-title">Enterprise Security Hardening</div>
-        <div class="cs-card-desc">Windows audit policy baseline assessment against Microsoft Security Baseline. 27 subcategories audited, 14 matched, 9 superset, 12 hardened beyond, zero regressions. 11 MITRE ATT&amp;CK techniques unblocked. CommandLine logging enabled, security log expanded 20MB &rarr; 1GB.</div>
+      <a class="cs-card" href="/case-study-ir-playbooks">
+        <div class="cs-card-type">Incident Response</div>
+        <div class="cs-card-title">IR Playbook Library</div>
+        <div class="cs-card-desc"><span data-verified="ir">10</span> structured analyst playbooks built around a consistent 7-section template: detection, triage, investigation, containment, eradication, recovery, documentation. MITRE ATT&amp;CK coverage and handoff-quality escalation logic.</div>
         <div class="cs-card-meta">
-          <span class="cs-card-tag green">0 regressions</span>
-          <span class="cs-card-tag orange">11 ATT&amp;CK techniques</span>
-          <span class="cs-card-tag teal">Microsoft baseline</span>
+          <span class="cs-card-tag"><span data-verified="ir">10</span> playbooks</span>
+          <span class="cs-card-tag teal">7-step template</span>
         </div>
         <div class="cs-card-arrow">Read &rarr;</div>
       </a>
 
-      <a class="cs-card" href="/case-study-threat-hunt-4688">
-        <div class="cs-card-type">Threat Hunting &mdash; 2026-03-24</div>
-        <div class="cs-card-title">Live Splunk Threat Hunt (EventID 4688)</div>
-        <div class="cs-card-desc">Rex-based field extraction built from scratch, parent-process exclusion logic, surfaced Codex AI tool spawning pwsh.exe 375x. Correctly classified as tool behavior vs LOLBin abuse via temporal profiling and volume characterization.</div>
+      <a class="cs-card" href="/case-study-cve-patch">
+        <div class="cs-card-type">Vulnerability Response</div>
+        <div class="cs-card-title">CVE-2025-55130 &mdash; Detect to Remediation</div>
+        <div class="cs-card-desc">Critical Node.js CVE detected by Wazuh during live monitoring, triaged, patched via winget, and verified closed. Full detect-to-remediation cycle in one operational cycle with complete evidence trail.</div>
         <div class="cs-card-meta">
-          <span class="cs-card-tag green">375x classified</span>
-          <span class="cs-card-tag teal">Rex extraction</span>
-          <span class="cs-card-tag">Parent-child analysis</span>
-        </div>
-        <div class="cs-card-arrow">Read &rarr;</div>
-      </a>
-
-    </div>
-
-    <div class="cs-section-label">Field Notes</div>
-    <div class="cs-index-grid">
-
-      <a class="cs-card" href="/case-study-race-condition">
-        <div class="cs-card-type">Incident / IR &mdash; 2026-04-07</div>
-        <div class="cs-card-title">Race Condition Recovery &mdash; Full Case Study</div>
-        <div class="cs-card-desc">TOCTOU race at 505K queue depth. 4 guard sites, 20 lines, zero behavioral changes. Verified with race actively firing.</div>
-        <div class="cs-card-meta">
-          <span class="cs-card-tag red">TOCTOU</span>
-          <span class="cs-card-tag green">VERDICT=PASS</span>
-        </div>
-        <div class="cs-card-arrow">Read &rarr;</div>
-      </a>
-
-      <a class="cs-card" href="/autosoc-cutover">
-        <div class="cs-card-type">Infrastructure &mdash; 2026-03-23</div>
-        <div class="cs-card-title">AutoSOC Infrastructure Cutover</div>
-        <div class="cs-card-desc">Production migration of the AutoSOC pipeline from two legacy roots to a single canonical path. Preflight gating, five retargeted Task Scheduler tasks, legacy reference scan returning zero. Proof document signed.</div>
-        <div class="cs-card-meta">
-          <span class="cs-card-tag teal">Canonical migration</span>
-          <span class="cs-card-tag green">CUTOVER_READY=YES</span>
-          <span class="cs-card-tag">5 tasks retargeted</span>
+          <span class="cs-card-tag red">CVE-2025-55130</span>
+          <span class="cs-card-tag green">Patched + verified</span>
         </div>
         <div class="cs-card-arrow">Read &rarr;</div>
       </a>
@@ -423,7 +428,7 @@ body {
       <a class="cs-card" href="/autosoc-hotfix-rca">
         <div class="cs-card-type">Incident / RCA &mdash; 2026-03-23</div>
         <div class="cs-card-title">Hotfix RCA: Triage Quality Chart Renderer</div>
-        <div class="cs-card-desc">Function-order bug silently breaking scheduled chart rendering. Assert-CanonicalPath called before declaration at line 10. Fix: reorder. Validation: EXIT=0, 30 data points, 104KB artifact. Parent pipeline confirmed successful.</div>
+        <div class="cs-card-desc">Function-order bug silently breaking scheduled chart rendering. Assert-CanonicalPath called before its declaration. Fix: reorder. Validation: EXIT=0, 30 data points, 104KB artifact. Parent pipeline confirmed successful.</div>
         <div class="cs-card-meta">
           <span class="cs-card-tag orange">PowerShell bug</span>
           <span class="cs-card-tag green">EXIT=0</span>
@@ -432,29 +437,43 @@ body {
         <div class="cs-card-arrow">Read &rarr;</div>
       </a>
 
+      <a class="cs-card" href="/autosoc-cutover">
+        <div class="cs-card-type">Infrastructure &mdash; 2026-03-23</div>
+        <div class="cs-card-title">AutoSOC Infrastructure Cutover</div>
+        <div class="cs-card-desc">Production migration of the AutoSOC pipeline from two legacy roots to a single canonical path. Preflight gating returned legacy refs = 0. Five Task Scheduler tasks retargeted. Proof document signed.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag teal">Canonical migration</span>
+          <span class="cs-card-tag green">CUTOVER_READY=YES</span>
+          <span class="cs-card-tag">5 tasks retargeted</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
     </div>
 
-    <div class="cs-section-label">Detection &amp; Response</div>
+    <div class="cs-section-label">Detection Engineering</div>
     <div class="cs-index-grid">
 
       <a class="cs-card" href="/case-study-sigma-library">
         <div class="cs-card-type">Detection Engineering</div>
         <div class="cs-card-title">Sigma Detection Library</div>
-        <div class="cs-card-desc">Platform-agnostic ATT&amp;CK coverage: logsource schema, false positive filters, technique tagging, and multi-platform portability across <span data-verified="sigma">103</span> Sigma rules.</div>
+        <div class="cs-card-desc">Platform-agnostic ATT&amp;CK coverage: logsource schema, false-positive filters, technique tagging, and multi-platform portability across <span data-verified="sigma">103</span> Sigma rules spanning 10 MITRE tactics.</div>
         <div class="cs-card-meta">
           <span class="cs-card-tag teal"><span data-verified="sigma">103</span> Sigma rules</span>
           <span class="cs-card-tag">MITRE ATT&amp;CK</span>
+          <span class="cs-card-tag">10 tactics</span>
         </div>
         <div class="cs-card-arrow">Read &rarr;</div>
       </a>
 
-      <a class="cs-card" href="/case-study-detection-harness">
-        <div class="cs-card-type">Detection Validation</div>
-        <div class="cs-card-title">Wazuh Detection Harness</div>
-        <div class="cs-card-desc">Python harness querying Wazuh Indexer REST API after Atomic Red Team tests. Pass/fail reports per ATT&amp;CK technique with evidence artifacts.</div>
+      <a class="cs-card" href="/case-study">
+        <div class="cs-card-type">Detection Engineering</div>
+        <div class="cs-card-title">Wazuh Rule Blocks &mdash; Authored and Validated</div>
+        <div class="cs-card-desc"><span data-verified="wazuh">29</span> Wazuh rule blocks across 25 XML files authored for SOC triage patterns, bundled for deployment, and validated with reproducible commands from repo root.</div>
         <div class="cs-card-meta">
-          <span class="cs-card-tag teal">Atomic Red Team</span>
-          <span class="cs-card-tag green">Automated validation</span>
+          <span class="cs-card-tag teal"><span data-verified="wazuh">29</span> rule blocks</span>
+          <span class="cs-card-tag">25 XML files</span>
+          <span class="cs-card-tag green">Reproducible</span>
         </div>
         <div class="cs-card-arrow">Read &rarr;</div>
       </a>
@@ -462,7 +481,7 @@ body {
       <a class="cs-card" href="/case-study-wazuh">
         <div class="cs-card-type">Detection Engineering &mdash; 2026-04-08</div>
         <div class="cs-card-title">Wazuh Windows Telemetry Remediation</div>
-        <div class="cs-card-desc">Three-phase restoration of Windows process creation telemetry. Alert-level threshold, broken indexer pipeline, and unconfigured Sysmon &mdash; all diagnosed and fixed. 2,120+ Security 4688 alerts and 143 Sysmon EID 1 events indexed with full telemetry.</div>
+        <div class="cs-card-desc">Three-phase restoration of Windows process creation telemetry: alert-level threshold, broken indexer pipeline, and unconfigured Sysmon &mdash; all diagnosed and fixed. 2,120+ Security 4688 alerts and 143 Sysmon EID 1 events indexed with full telemetry.</div>
         <div class="cs-card-meta">
           <span class="cs-card-tag red">Zero visibility</span>
           <span class="cs-card-tag green">2,120+ 4688 alerts</span>
@@ -471,24 +490,53 @@ body {
         <div class="cs-card-arrow">Read &rarr;</div>
       </a>
 
-      <a class="cs-card" href="/case-study-ir-playbooks">
-        <div class="cs-card-type">Incident Response</div>
-        <div class="cs-card-title">IR Playbook Library</div>
-        <div class="cs-card-desc"><span data-verified="ir">10</span> structured analyst playbooks built around a 7-section template: from alert detection to documentation, with escalation logic and MITRE ATT&amp;CK coverage.</div>
+      <a class="cs-card" href="/case-study-detection-harness">
+        <div class="cs-card-type">Detection Validation</div>
+        <div class="cs-card-title">Wazuh Detection Harness</div>
+        <div class="cs-card-desc">A Python tool that queries the Wazuh Indexer REST API after Atomic Red Team tests and reports, per technique, whether detection rules actually fired. Pass/fail reporting with evidence artifacts.</div>
         <div class="cs-card-meta">
-          <span class="cs-card-tag"><span data-verified="ir">10</span> playbooks</span>
-          <span class="cs-card-tag teal">7-step template</span>
+          <span class="cs-card-tag teal">Atomic Red Team</span>
+          <span class="cs-card-tag green">Automated validation</span>
         </div>
         <div class="cs-card-arrow">Read &rarr;</div>
       </a>
 
-      <a class="cs-card" href="/case-study-ir-howe01">
-        <div class="cs-card-type">Incident Response</div>
-        <div class="cs-card-title">IR Case: Level 12 FIM Alert</div>
-        <div class="cs-card-desc">Full IR lifecycle on a Level 12 Wazuh FIM alert. Triaged and closed as BENIGN in 35 minutes. Evidence trail, PowerShell validation, and rule-tuning recommendations.</div>
+      <a class="cs-card" href="/case-study-splunk-detection-audit">
+        <div class="cs-card-type">Detection Engineering &mdash; 2026-03-24</div>
+        <div class="cs-card-title">Splunk Detection Rule Audit &mdash; Four Noise Sources</div>
+        <div class="cs-card-desc">Audited every Splunk detection rule against 283,976 events. Found four ways the rules would flood a real analyst with noise: empty CommandLine fields, no failed-logon baseline, missing sourcetype coverage, rex extraction fragility.</div>
         <div class="cs-card-meta">
-          <span class="cs-card-tag orange">Level 12</span>
-          <span class="cs-card-tag green">BENIGN in 35 min</span>
+          <span class="cs-card-tag red">4 noise sources</span>
+          <span class="cs-card-tag">283,976 events</span>
+          <span class="cs-card-tag teal">Self-audit</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+      <a class="cs-card" href="/blog-python2-to-python3">
+        <div class="cs-card-type">Detection Engineering</div>
+        <div class="cs-card-title">Migrating Legacy Detection Rules from Python 2 to Python 3</div>
+        <div class="cs-card-desc">Legacy SOC environments still carry Python 2-era scripts in detection content. Migration write-up covering string handling, urllib-to-requests, and test parity for detection logic that must not change behavior across the port.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag teal">Py2 &rarr; Py3</span>
+          <span class="cs-card-tag">Detection scripts</span>
+        </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+    </div>
+
+    <div class="cs-section-label">Threat Hunting</div>
+    <div class="cs-index-grid">
+
+      <a class="cs-card" href="/case-study-threat-hunt-4688">
+        <div class="cs-card-type">Threat Hunting &mdash; 2026-03-24</div>
+        <div class="cs-card-title">Live Splunk Threat Hunt &mdash; EventID 4688</div>
+        <div class="cs-card-desc">Rex-based field extraction built from scratch, parent-process exclusion logic, and Codex AI tool spawning pwsh.exe 375x &mdash; correctly classified as tool behavior vs. LOLBin abuse through temporal and volume profiling.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag green">375x classified</span>
+          <span class="cs-card-tag teal">Rex extraction</span>
+          <span class="cs-card-tag">Parent-child analysis</span>
         </div>
         <div class="cs-card-arrow">Read &rarr;</div>
       </a>
@@ -496,7 +544,7 @@ body {
       <a class="cs-card" href="/case-study-splunk-codex-hunt">
         <div class="cs-card-type">Threat Hunting</div>
         <div class="cs-card-title">When AI Tooling Looks Like a LOLBin</div>
-        <div class="cs-card-desc">Live Splunk hunt on EventID 4688: codex.exe spawning pwsh.exe 375x per session &mdash; indistinguishable from LOLBin abuse until parent process path told the real story.</div>
+        <div class="cs-card-desc">Live Splunk hunt on EventID 4688: codex.exe spawning pwsh.exe 375x per session, indistinguishable from LOLBin abuse until parent-process path told the real story. Temporal fingerprint vs. adversary tradecraft.</div>
         <div class="cs-card-meta">
           <span class="cs-card-tag orange">pwsh.exe 375x</span>
           <span class="cs-card-tag teal">Splunk hunt</span>
@@ -504,24 +552,31 @@ body {
         <div class="cs-card-arrow">Read &rarr;</div>
       </a>
 
-      <a class="cs-card" href="/case-study-cve-patch">
-        <div class="cs-card-type">Vulnerability Response</div>
-        <div class="cs-card-title">CVE-2025-55130: Detect to Remediation</div>
-        <div class="cs-card-desc">Critical Node.js CVE detected by Wazuh during live monitoring, triaged, patched via winget, and verified closed. Full detect-to-remediation cycle with evidence.</div>
+    </div>
+
+    <div class="cs-section-label">Infrastructure &amp; Hardening</div>
+    <div class="cs-index-grid">
+
+      <a class="cs-card" href="/enterprise-security">
+        <div class="cs-card-type">Enterprise Security</div>
+        <div class="cs-card-title">Enterprise Security Hardening &mdash; Flagship</div>
+        <div class="cs-card-desc">14 attack categories were invisible; we fixed the audit pipeline. 22 audit subcategories hardened to 96% coverage, 11 MITRE ATT&amp;CK techniques unblocked, CommandLine logging enabled. The canonical hardening write-up.</div>
         <div class="cs-card-meta">
-          <span class="cs-card-tag red">CVE-2025-55130</span>
-          <span class="cs-card-tag green">Patched + verified</span>
+          <span class="cs-card-tag teal">96% coverage</span>
+          <span class="cs-card-tag">22 subcategories</span>
+          <span class="cs-card-tag orange">11 ATT&amp;CK techniques</span>
         </div>
         <div class="cs-card-arrow">Read &rarr;</div>
       </a>
 
-      <a class="cs-card" href="/case-study-soc-integration">
-        <div class="cs-card-type">SOC Operations</div>
-        <div class="cs-card-title">PP_SOC Integration: Live Detection Workflow</div>
-        <div class="cs-card-desc">Wazuh rules deployed into a live SOC workflow: active agent coverage, 15,052 alerts in 24h, CVE remediation verified. Evidence-first approach.</div>
+      <a class="cs-card" href="/case-study-security-hardening">
+        <div class="cs-card-type">Security Hardening &mdash; 2026-03-29</div>
+        <div class="cs-card-title">Audit Policy Baseline Assessment</div>
+        <div class="cs-card-desc">Windows Advanced Audit Policy baseline against Microsoft Security Baseline. 27 subcategories audited &mdash; 14 matched, 9 superset, 12 hardened beyond baseline, zero regressions. Security log expanded from 20 MB to 1 GB. Earlier sibling to the Enterprise Security flagship above.</div>
         <div class="cs-card-meta">
-          <span class="cs-card-tag">15,052 alerts/24h</span>
-          <span class="cs-card-tag teal">Live workflow</span>
+          <span class="cs-card-tag green">0 regressions</span>
+          <span class="cs-card-tag orange">11 ATT&amp;CK techniques</span>
+          <span class="cs-card-tag teal">Microsoft baseline</span>
         </div>
         <div class="cs-card-arrow">Read &rarr;</div>
       </a>
@@ -529,7 +584,7 @@ body {
       <a class="cs-card" href="/case-study-honeypot">
         <div class="cs-card-type">Lab Infrastructure</div>
         <div class="cs-card-title">Cowrie Honeypot + Wazuh + Grafana</div>
-        <div class="cs-card-desc">Docker-based SSH/Telnet honeypot feeding Wazuh Indexer with a Grafana dashboard for attacker session visualization. LAN-only, auditable deployment.</div>
+        <div class="cs-card-desc">Minimal, auditable Docker Compose deployment: Cowrie SSH/Telnet honeypot feeds attacker session data to Wazuh Indexer, visualized on a Grafana dashboard provisioned from code.</div>
         <div class="cs-card-meta">
           <span class="cs-card-tag teal">Cowrie SSH</span>
           <span class="cs-card-tag">Grafana</span>
@@ -538,68 +593,28 @@ body {
         <div class="cs-card-arrow">Read &rarr;</div>
       </a>
 
-    </div>
-    <!-- Domain breakdown -->
-    <div data-aos="fade-up" style="margin:56px 0 0;">
-      <div style="text-align:center;margin-bottom:1.5rem;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;color:#00c4d4;text-transform:uppercase;margin-bottom:0.5rem;">Coverage Distribution</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:#e0eeff;">4 engineering domains</div>
-      </div>
-      <div class="cs-domain-bar">
-        <div class="cs-domain-seg" style="flex:4;background:rgba(239,68,68,.7);color:rgba(239,68,68,.5);"></div>
-        <div class="cs-domain-seg" style="flex:4;background:rgba(0,196,212,.7);color:rgba(0,196,212,.5);"></div>
-        <div class="cs-domain-seg" style="flex:4;background:rgba(232,160,32,.7);color:rgba(232,160,32,.5);"></div>
-        <div class="cs-domain-seg" style="flex:3;background:rgba(39,201,122,.7);color:rgba(39,201,122,.5);"></div>
-      </div>
-      <div class="cs-domain-grid">
-        <div class="cs-domain-card" style="--c:#ef4444;" onmouseover="this.style.borderColor='rgba(239,68,68,.3)';this.style.background='rgba(239,68,68,.04)'" onmouseout="this.style.borderColor='';this.style.background=''">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-            <div style="display:flex;align-items:center;gap:0.5rem;"><span style="font-size:0.9rem;">&#9889;</span><span class="cs-domain-name">Incident Response</span></div>
-            <span class="cs-domain-count" style="color:#ef4444;">4</span>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:0.2rem;">
-            <span class="cs-domain-item">SignalFoundry Flagship</span>
-            <span class="cs-domain-item">Race Condition Recovery</span>
-            <span class="cs-domain-item">Pipeline Fault Recovery</span>
-            <span class="cs-domain-item">Hotfix RCA</span>
-          </div>
+      <a class="cs-card" href="/honeypot-proof">
+        <div class="cs-card-type">Lab Proof</div>
+        <div class="cs-card-title">Honeypot (Wazuh) Sanitized Alert Proof</div>
+        <div class="cs-card-desc">Source data exported from a private Wazuh manager, sanitized, and published to GitHub on a scheduled pipeline. Reproducible attacker-session evidence without exposing lab internals.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag teal">Sanitized export</span>
+          <span class="cs-card-tag green">Scheduled publish</span>
         </div>
-        <div class="cs-domain-card" style="--c:#00c4d4;" onmouseover="this.style.borderColor='rgba(0,196,212,.3)';this.style.background='rgba(0,196,212,.04)'" onmouseout="this.style.borderColor='';this.style.background=''">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-            <div style="display:flex;align-items:center;gap:0.5rem;"><span style="font-size:0.9rem;">&#9670;</span><span class="cs-domain-name">Detection &amp; Response</span></div>
-            <span class="cs-domain-count" style="color:#00c4d4;">4</span>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:0.2rem;">
-            <span class="cs-domain-item">Sigma Library &middot; Wazuh Harness</span>
-            <span class="cs-domain-item">Wazuh Telemetry Remediation</span>
-            <span class="cs-domain-item">Splunk Detection Audit</span>
-            <span class="cs-domain-item">IR Playbook Library</span>
-          </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
+      <a class="cs-card" href="/case-study-soc-integration">
+        <div class="cs-card-type">SOC Operations</div>
+        <div class="cs-card-title">PP_SOC Integration &mdash; Live Detection Workflow</div>
+        <div class="cs-card-desc">Transition from a verified static rule library to a running production-sim SOC workflow: active agent coverage, 15,052 alerts in 24 hours, CVE remediation verified end to end.</div>
+        <div class="cs-card-meta">
+          <span class="cs-card-tag">15,052 alerts/24h</span>
+          <span class="cs-card-tag teal">Live workflow</span>
         </div>
-        <div class="cs-domain-card" style="--c:#e8a020;" onmouseover="this.style.borderColor='rgba(232,160,32,.3)';this.style.background='rgba(232,160,32,.04)'" onmouseout="this.style.borderColor='';this.style.background=''">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-            <div style="display:flex;align-items:center;gap:0.5rem;"><span style="font-size:0.9rem;">&#9678;</span><span class="cs-domain-name">Threat Hunting</span></div>
-            <span class="cs-domain-count" style="color:#e8a020;">4</span>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:0.2rem;">
-            <span class="cs-domain-item">Splunk Codex LOLBin Hunt</span>
-            <span class="cs-domain-item">EventID 4688 Analysis</span>
-            <span class="cs-domain-item">CVE Detect-to-Remediation</span>
-            <span class="cs-domain-item">SOC Integration Workflow</span>
-          </div>
-        </div>
-        <div class="cs-domain-card" style="--c:#27c97a;" onmouseover="this.style.borderColor='rgba(39,201,122,.3)';this.style.background='rgba(39,201,122,.04)'" onmouseout="this.style.borderColor='';this.style.background=''">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-            <div style="display:flex;align-items:center;gap:0.5rem;"><span style="font-size:0.9rem;">&#9635;</span><span class="cs-domain-name">Infrastructure &amp; Lab</span></div>
-            <span class="cs-domain-count" style="color:#27c97a;">3</span>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:0.2rem;">
-            <span class="cs-domain-item">AutoSOC Infrastructure Cutover</span>
-            <span class="cs-domain-item">Cowrie Honeypot Stack</span>
-            <span class="cs-domain-item">Security Hardening Baseline</span>
-          </div>
-        </div>
-      </div>
+        <div class="cs-card-arrow">Read &rarr;</div>
+      </a>
+
     </div>
 
   </div>
@@ -609,19 +624,9 @@ body {
   <div class="m-wrap">
     <div class="m-card" data-aos="fade-up">
       <div class="m-card-kicker" data-aos="fade-up">Context</div>
-      <h2>About these case studies</h2>
-      <p class="m-copy">These aren't sanitized post-mortems written weeks after the fact. They're documented from the session logs and proof artifacts that exist on-system from the actual work. The source material &mdash; preflight output, pipeline logs, scheduler metadata, Splunk queries &mdash; is real and reviewable.</p>
-      <p class="m-copy">The SignalFoundry project processes a live queue of Wazuh security alerts across a home lab environment. These case studies capture the operational and engineering decisions made while keeping that system running and improving its detection capability.</p>
-      <div class="m-grid-2" style="margin-top:20px;">
-        <a href="/signalfoundry" class="m-link-item">
-          <strong>SignalFoundry &mdash; Flagship System Page</strong>
-          <span>System overview: pipeline architecture, triage logic, redaction gates, and reconciliation &mdash; the engine behind these case studies.</span>
-        </a>
-        <a href="/proof" class="m-link-item">
-          <strong>Proof &amp; Verified Metrics</strong>
-          <span>Canonical snapshot, reconciliation status, and verification commands.</span>
-        </a>
-      </div>
+      <h2>About these artifacts</h2>
+      <p class="m-copy">These aren't sanitized post-mortems written weeks after the fact. Every artifact indexed above is documented from session logs and proof files that exist on-system from the actual work &mdash; preflight output, pipeline logs, scheduler metadata, Splunk queries &mdash; all real and reviewable.</p>
+      <p class="m-copy">The SignalFoundry project processes a live queue of Wazuh security alerts across a home lab environment. The artifacts on this page capture the operational and engineering decisions made while keeping that system running and improving its detection capability.</p>
     </div>
   </div>
 </section>
