@@ -131,14 +131,9 @@
         <div class="sf-role-line">
           <span class="sf-role-tag typed-target"></span>
         </div>
-        <p class="sf-body" style="line-height:1.7;margin-bottom:6px;font-weight:600;color:#71c7b8;">This is a working security operations system, not a static portfolio.</p>
-        <p class="sf-body" style="line-height:1.7;margin-bottom:14px;">I built and operate <a href="/signalfoundry" class="sf-inline-link">SignalFoundry</a> — a 35-script Python pipeline that ingests Wazuh alerts, performs policy-driven triage, and publishes redacted escalation packs. <span data-verified="detections">211</span> detection rules across Sigma, Wazuh, and Splunk, plus 10 IR playbooks. Every metric is CI-verified. Every claim is <a href="/proof" class="sf-inline-link">reproducible</a>.</p>
-        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:20px;">Sept 2025: transitioned from manufacturing operations into security engineering. Mar 2026: 324,074 verified cases processed through an automated triage pipeline. Previous career: production supervisor — 30+ operators, IATF audit compliance, mandatory 12-hour shifts. The domain changed. The discipline didn't.</p>
-        <div class="sf-actions">
-          <a class="sf-button sf-button-primary sf-focus-ring" href="/signalfoundry">SignalFoundry &rarr;</a>
-          <a class="sf-button sf-button-secondary sf-focus-ring" href="/proof">Proof</a>
-          <a class="sf-button sf-button-secondary sf-focus-ring" href="/resume">Resume</a>
-        </div>
+        <p class="sf-body" style="line-height:1.7;margin-bottom:14px;font-weight:600;color:#71c7b8;">This is a working security operations system, not a static portfolio.</p>
+        <p class="sf-body" style="line-height:1.7;margin-bottom:14px;">SignalFoundry processes Wazuh alerts through a deterministic triage pipeline. <span data-ops="stable_total_cases">324,074</span> cases triaged. Approximately 88 percent auto-closed. <span data-ops="stable_escalated">8,574</span> reviewable evidence packs produced. <span data-verified="detections">211</span> detections across Sigma, Wazuh, and Splunk, plus 10 IR playbooks. Detection content is CI-verified via <code>verify-counts.ps1</code>. Case-volume provenance is documented at <a href="/proof" class="sf-inline-link">/proof</a>, including what is script-verified versus manually transcribed.</p>
+        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:20px;">This site is the canonical proof surface for the current system. The architecture is migrating to a successor organization at <a href="https://github.com/HawkinsOperations" target="_blank" rel="noopener noreferrer" class="sf-inline-link">github.com/HawkinsOperations</a>, which separates detections, validation, platform, proof, and website surfaces into audience-split repositories. The migration is governed in public — both the legacy repository and the successor organization document which surface answers which question.</p>
       </div>
       <!-- RIGHT: Photo -->
       <div style="text-align:center;">
@@ -445,51 +440,6 @@
     </section>
 
     <!--
-         SECTION 7: CAREER BRIDGE — Manufacturing Ops → Security Ops
-          -->
-    <section id="career-bridge" class="sf-section" data-aos="fade-up" aria-labelledby="career-title">
-      <div class="sf-section-label">Operator Origin</div>
-      <h2 id="career-title">Manufacturing discipline, applied to security</h2>
-      <p class="sf-body sf-copy-gap-lg">I didn't break into cybersecurity. I transitioned operator discipline from automotive manufacturing into detection engineering. The systems instinct predates the portfolio.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-        <!-- Manufacturing side -->
-        <div class="sf-card sf-panel" data-aos="fade-up" style="padding:22px;">
-          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:#fbbf24;margin-bottom:10px;">Manufacturing Operations</div>
-          <ul style="margin:0;padding-left:16px;display:grid;gap:8px;font-size:0.9rem;color:var(--muted);">
-            <li><strong style="color:var(--text);">Fehrer Automotive</strong> &mdash; Team Lead, A/B/I lines. Mercedes, BMW, VW, Tesla. IATF 16949 / TISAX. Promoted in under 5 months.</li>
-            <li><strong style="color:var(--text);">Unipres Alabama</strong> &mdash; Team Lead Supervisor, hot stamp + laser for Nissan. Schuler 16,000 kN press. ISO 9001. Mandatory 12-hour shifts.</li>
-            <li><strong style="color:var(--text);">Carrington Foods</strong> &mdash; Quality Control, Tier-1 U.S. Armed Forces supplier. SQF Ed. 9 "Excellent" / Platinum Award.</li>
-          </ul>
-        </div>
-        <!-- Cyber side -->
-        <div class="sf-card sf-panel" data-aos="fade-up" style="padding:22px;">
-          <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:#3b8fd9;margin-bottom:10px;">Security Operations</div>
-          <ul style="margin:0;padding-left:16px;display:grid;gap:8px;font-size:0.9rem;color:var(--muted);">
-            <li><strong style="color:var(--text);">Sept 2025:</strong> Zero computer experience.</li>
-            <li><strong style="color:var(--text);">Dec 2025:</strong> Left Unipres. Started AI Model Evaluator role (detection, scripting, security reasoning).</li>
-            <li><strong style="color:var(--text);">Mar 2026:</strong> Automated pipeline. Verified public benchmark. <span data-verified="detections">211</span> detection rules + 10 IR playbooks. Anthropic MCP + Claude API certified.</li>
-            <li><strong style="color:var(--text);">Result:</strong> <a href="/signalfoundry" class="sf-inline-link">SignalFoundry</a> &mdash; built during mandatory 12-hour shifts.</li>
-          </ul>
-        </div>
-      </div>
-      <!-- Quality framework parallel -->
-      <div class="sf-card sf-panel" data-aos="fade-up" style="padding:22px;margin-top:20px;">
-        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;">The Parallel</div>
-        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:start;font-size:0.88rem;">
-          <div>
-            <strong style="color:var(--text);">Factory floor</strong>
-            <p style="margin:6px 0 0;color:var(--muted);">Quality gates, process control, escalation handling, reconciliation against spec, audit-ready documentation.</p>
-          </div>
-          <div style="color:#3b8fd9;font-size:1.6rem;padding-top:4px;">&rarr;</div>
-          <div>
-            <strong style="color:var(--text);">SOC pipeline</strong>
-            <p style="margin:6px 0 0;color:var(--muted);">Quality gates, policy-driven triage, escalation handling, reconciliation against truth, verified proof artifacts.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!--
          SECTION 8: VERIFICATION TERMINAL
           -->
     <section id="verify" class="sf-section" data-aos="fade-up" aria-labelledby="verify-title">
@@ -515,29 +465,6 @@ node scripts/diagnose-site.js
 
 <span style="color:#7a94aa;"># Full site data pipeline</span>
 node scripts/generate-site-data.js</code></pre>
-      </div>
-    </section>
-
-    <!-- 
-         SECTION 5: REVIEWER ROUTES
-          -->
-    <section id="routes" class="sf-section" data-aos="fade-up" aria-labelledby="routes-title">
-      <div class="sf-section-label">Review Routes</div>
-      <h2 id="routes-title">Where to go next</h2>
-      <p class="sf-body sf-copy-gap-lg">Pick the path that answers your decision fastest.</p>
-      <div class="sf-route-grid">
-        <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/case-studies">
-          <h3>Case Studies</h3>
-          <p>Full engineering artifact index: incident response, detection audits, threat hunts, pipeline work, and infrastructure case studies.</p>
-        </a>
-        <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/proof">
-          <h3>Proof</h3>
-          <p>Stable benchmark source, evidence trail, and verification path.</p>
-        </a>
-        <a class="sf-card sf-route-card sf-focus-ring" data-aos="fade-up" href="/resume">
-          <h3>Resume</h3>
-          <p>Role fit, outcomes, and recruiter-ready resume formats.</p>
-        </a>
       </div>
     </section>
 
