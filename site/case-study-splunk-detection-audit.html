@@ -168,6 +168,7 @@ Wazuh agent forwarding Security Event Log as <span class="m-inline-code">XmlWinE
 
         <h2>Operational Impact</h2>
         <div class="outcome-bar">
+          <!-- drift-scan-ignore: "25 additional subcategories" is Windows Audit Policy subcategory count, unrelated to authority wazuh_xml_files=25 -->
           <p><strong>This audit directly triggered two follow-on actions:</strong> Phase 1 Audit Policy Hardening (command-line logging, failed logon auditing, 25 additional subcategories) and detection rule dependency flags on every SPL rule.</p>
         </div>
         <p>Every new detection now includes a &ldquo;deployment prerequisites&rdquo; section before the SPL, not after. Rules are not marked stable until their dependencies are confirmed present.</p>
