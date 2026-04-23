@@ -10,7 +10,7 @@
 > architectural post-mortem and [hawkinsops.com](https://hawkinsops.com)
 > for current operational metrics.
 
-The public record of the HawkinsOps V1 system: detections, case studies,
+The public record of the HawkinsOps system V1: detections, case studies,
 proof pack, verification infrastructure, and reviewer paths. This repository
 remains publicly accessible as donor history and is tied directly to the
 operational system published at [hawkinsops.com](https://hawkinsops.com).
@@ -165,7 +165,7 @@ produces.
 Active work is being migrated into the
 [HawkinsOperations organization](https://github.com/HawkinsOperations),
 which splits the system into dedicated repositories for detections,
-validation, platform, proof, and the successor website. That
+validation, platform, proof, and the successor architecture website. That
 organization is under construction and is not yet the right surface
 for evaluation. Until the migration completes, this repository stays
 live, stays maintained at the level required to keep the public proof
