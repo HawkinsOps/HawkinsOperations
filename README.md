@@ -2,15 +2,18 @@
 
 **Detection engineering, SOC automation, and proof-backed security operations.**
 
-The public record of the HawkinsOps system: detections, case studies, proof
-pack, verification infrastructure, and reviewer paths. This is the current
-live portfolio, and it is tied directly to the operational system published
-at [hawkinsops.com](https://hawkinsops.com).
+> [!IMPORTANT]
+> **2026-04-23 — V1 retired.** This repository is now archival read-only as
+> an active foundation. Active development has moved to the
+> [HawkinsOperations organization](https://github.com/HawkinsOperations).
+> See [`docs/V1_RETIREMENT.md`](/docs/V1_RETIREMENT.md) for the full
+> architectural post-mortem and [hawkinsops.com](https://hawkinsops.com)
+> for current operational metrics.
 
-A successor architecture is being built in the open at the
-[HawkinsOperations organization](https://github.com/HawkinsOperations).
-Until that migration lands, this repository and hawkinsops.com remain the
-canonical public surfaces.
+The public record of the HawkinsOps V1 system: detections, case studies,
+proof pack, verification infrastructure, and reviewer paths. This repository
+remains publicly accessible as donor history and is tied directly to the
+operational system published at [hawkinsops.com](https://hawkinsops.com).
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-hawkinsops.com-00D4FF)](https://hawkinsops.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE)
