@@ -10,10 +10,13 @@
 > architectural post-mortem and [hawkinsops.com](https://hawkinsops.com)
 > for current operational metrics.
 
-The public record of the HawkinsOps system V1: detections, case studies,
+The archival public record of HawkinsOps V1: detections, case studies,
 proof pack, verification infrastructure, and reviewer paths. This repository
-remains publicly accessible as donor history and is tied directly to the
-operational system published at [hawkinsops.com](https://hawkinsops.com).
+remains publicly accessible as donor history and reference material. It is
+not the primary live proof surface, and it is not the current methodology
+home. Public contested review lives at [rayleeops.com](https://rayleeops.com)
+/ The Ledger, and the methodology and review framing are maintained there and
+in the linked methodology paper.
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-hawkinsops.com-00D4FF)](https://hawkinsops.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE)
@@ -162,19 +165,15 @@ produces.
 
 ## Where this repository is going
 
-Active work is being migrated into the
+Forward-looking architecture work now lives in the
 [HawkinsOperations organization](https://github.com/HawkinsOperations),
-which splits the system into dedicated repositories for detections,
-validation, platform, proof, and the successor architecture website. That
-organization is under construction and is not yet the right surface
-for evaluation. Until the migration completes, this repository stays
-live, stays maintained at the level required to keep the public proof
-surface honest, and remains the canonical public record.
+which is becoming the successor home for the split system. This repository
+remains available as the legacy V1 archive and reference surface.
 
-When the successor system is ready to host operational evidence, this
-repository will be archived with a forward pointer, and
-hawkinsoperations.com will replace the current site. Nothing about
-this repository is retired today.
+Use [hawkinsops.com](https://hawkinsops.com) as the primary live proof surface.
+Use [rayleeops.com](https://rayleeops.com) / The Ledger for public contested
+review and for the current methodology and review framing. Use this
+repository for V1 donor history, case-study reference, and audit context.
 
 ---
 
