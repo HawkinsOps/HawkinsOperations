@@ -10,7 +10,7 @@
 > architectural post-mortem and [hawkinsops.com](https://hawkinsops.com)
 > for current operational metrics.
 
-The archival public record of HawkinsOps V1: detections, case studies,
+The archival public record of the HawkinsOps system V1: detections, case studies,
 proof pack, verification infrastructure, and reviewer paths. This repository
 remains publicly accessible as donor history and reference material. It is
 not the primary live proof surface, and it is not the current methodology
@@ -167,7 +167,7 @@ produces.
 
 Forward-looking architecture work now lives in the
 [HawkinsOperations organization](https://github.com/HawkinsOperations),
-which is becoming the successor home for the split system. This repository
+which is becoming the successor architecture home for the split system. This repository
 remains available as the legacy V1 archive and reference surface.
 
 Use [hawkinsops.com](https://hawkinsops.com) as the primary live proof surface.
