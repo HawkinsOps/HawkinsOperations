@@ -19,6 +19,14 @@ canonical public surfaces.
 
 ---
 
+## Surface routing
+
+- **Closed claims / proof surface:** [hawkinsops.com](https://hawkinsops.com)
+- **Contested claims / public review layer:** [rayleeops.com](https://rayleeops.com) / The Ledger, where paired claims are examined before closure
+- **Methodology paper:** [methodology.md](https://github.com/raylee-hawkins/rayleeops/blob/main/methodology.md)
+
+---
+
 ## For reviewers in a hurry
 
 Start at [`START_HERE.md`](/START_HERE.md) if you are a recruiter or hiring
