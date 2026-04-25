@@ -1,7 +1,7 @@
 window.HAWKINSOPS_COUNTS = {
-  "generated_at_utc": "2026-04-22T00:31:33+00:00",
+  "generated_at_utc": "2026-04-25T06:07:08+00:00",
   "source_path": "PROOF_PACK/verified_counts.json",
-  "last_verified_utc": "2026-04-22T00:31:33+00:00",
+  "last_verified_utc": "2026-04-25T06:07:08+00:00",
   "counts": {
     "sigma": 103,
     "splunk": 79,

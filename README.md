@@ -46,7 +46,7 @@ README exists to give context to those two destinations.
 
 The default pattern for AI in security operations is either hand-waving
 about reliability or treating large language models as opaque copilots
-attached to a human analyst. Both patterns fail at production scale. The
+attached to a human analyst. Both patterns fail in production-scale settings. The
 first produces brittle pipelines that silently drift. The second
 underuses the model while still inheriting its unreliability.
 
@@ -57,7 +57,7 @@ Standard work. Verification gates. Escalation paths. Evidence capture.
 Regression harnesses. Post-incident review. The IATF 16949 and ISO 9001
 frameworks that govern Tier 1 automotive production are, at their core,
 systems for extracting reliable output from unreliable inputs. Applied
-to an AI triage workforce running against a live SOC pipeline, the same
+to an AI triage workforce running against a live lab SOC pipeline, the same
 discipline produces a system that closes the high-confidence cases,
 escalates the genuinely suspicious, and leaves an audit trail for every
 decision.
@@ -74,7 +74,7 @@ a staffed SOC.
 |---|---|
 | Verified cases triaged | **324,074** |
 | Auto-close rate | **88%** |
-| Detection coverage | **210** rules across Sigma, Wazuh XML, Splunk SPL |
+| Detection coverage | **211** rules across Sigma, Wazuh XML, Splunk SPL |
 | Escalation packs produced | **8,574** |
 | Agent fleet | **10** Wazuh agents, 8/8 host coverage |
 | Infrastructure | **15**-server Proxmox homelab, V100 local inference |
@@ -103,7 +103,7 @@ document walks the audit trail behind the metrics table above, with
 paths to the raw evidence for each figure.
 
 **Detection engineers** should browse `content/` for the authored rules
-and `wazuh/rules/` for the production Wazuh pack. The most recent
+and `wazuh/rules/` for the lab Wazuh pack. The most recent
 detection work lives in both directories and is versioned through the
 tagged releases. The tuning work behind the rule pack is documented in
 the case studies rather than inline, because the tuning story is usually

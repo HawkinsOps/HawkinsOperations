@@ -10,8 +10,8 @@
     "escalated": "8,574",
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
-    "locked_date": "04-07-2026",
-    "statement": "April 7 canonical snapshot: 324,074 total cases, ~88% auto-close, 8,574 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS."
+    "locked_date": "04-21-2026",
+    "statement": "April 21 canonical snapshot: 324,074 total cases, ~88% auto-close, 8,574 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS."
   },
   "lifetime_runtime": {
     "total_cases": 324074,
@@ -22,7 +22,7 @@
     "staged_pending": 67,
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
-    "last_updated": "2026-04-07T00:00:00Z"
+    "last_updated": "2026-04-21T00:00:00Z"
   },
   "running_totals": {
     "total_cases": 324074,
@@ -35,7 +35,7 @@
   "host_coverage": "8/8",
   "reconciliation_mismatch": 0,
   "heartbeat": "SUCCESS",
-  "last_updated": "2026-04-07T00:00:00Z",
+  "last_updated": "2026-04-21T00:00:00Z",
   "stress_test_window": {
     "profile": "active_pipeline_snapshot",
     "baseline_window": "C:/RH/OPS/30_Projects/Active/AutoSOC/Output",
@@ -57,5 +57,5 @@
     "splunk": 79,
     "ir_playbooks": 10
   },
-  "canonical_source": "source_of_truth/metrics_canonical_2026-04-07.json"
+  "canonical_source": "source_of_truth/metrics_canonical_2026-04-21.json"
 }

@@ -15,7 +15,7 @@ This repository (`raylee-hawkins/HawkinsOperations`) is the V1 home of the Hawki
 - 324,074 cases triaged through the AutoSOC pipeline
 - ~88% auto-close rate across benign and known-false-positive classes
 - 8,574 escalation packs produced for analyst review
-- 210+ CI-verified detections spanning Sigma, Wazuh XML, and Splunk SPL
+- 211 CI-verified detections spanning Sigma, Wazuh XML, and Splunk SPL
 - 10 Wazuh agents, 8 of 8 host coverage
 - 15-server Proxmox homelab with V100 local inference
 

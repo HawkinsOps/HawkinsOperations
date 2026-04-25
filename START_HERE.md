@@ -29,7 +29,7 @@ deployment.
 
 Key numbers:
 - **103** Sigma detection rules
-- **28** Wazuh rule blocks across 24 files
+- **29** Wazuh rule blocks across 25 files
 - **79** Splunk detection searches across 9 files
 - **10** incident response playbooks
 - **123** MITRE ATT&CK technique/sub-technique IDs across 69 families

@@ -33,7 +33,7 @@
       panel: { title: 'Sigma Detection Rules', role: 'Detection Engineering Layer',
         metrics: [['Rules', '103'], ['Tactics', '9 MITRE ATT&CK'], ['Format', 'YAML portable']],
         desc: 'Behavioral detection rules mapped to MITRE ATT&CK. Process creation, lateral movement, credential access, persistence. These are the brain of the detection layer.' }},
-    { id: 'wazuh-xml', label: 'Wazuh XML', icon: '28', x: 18, y: 10, size: 'minor', color: 'c-detect', delay: 4 },
+    { id: 'wazuh-xml', label: 'Wazuh XML', icon: '29', x: 18, y: 10, size: 'minor', color: 'c-detect', delay: 4 },
     { id: 'ir-playbooks', label: 'IR Playbooks', icon: '10', x: 38, y: 8, size: 'minor', color: 'c-detect', delay: 4 },
     { id: 'honeypot-intel', label: 'Honeypot Intel', icon: 'HI', x: 14, y: 4, size: 'cluster', color: 'c-detect', delay: 4 },
 
