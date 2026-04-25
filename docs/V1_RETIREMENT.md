@@ -1,7 +1,9 @@
 # V1 Retirement Notice
 
 **Date:** 2026-04-23
-**Status:** Archival read-only. No further commits after this date.
+**Status:** Archival reference. No further V1 feature development after this
+date; maintenance commits are limited to CI health, governance alignment,
+truth-boundary corrections, and public-safety fixes.
 **Successor:** [github.com/HawkinsOperations](https://github.com/HawkinsOperations)
 
 ---
@@ -80,4 +82,6 @@ retraction_policy:  broken links are preserved as forensic evidence, not repaire
 
 ---
 
-This document closes V1 as an active foundation. The site at hawkinsops.com continues as the canonical operational surface until the V2 publish bundle is fully wired. The V1 repository remains publicly accessible as donor history.
+This document closes V1 as an active foundation. The site at hawkinsops.com is
+the current public proof surface. The V1 repository remains publicly accessible
+as donor history and reference material.

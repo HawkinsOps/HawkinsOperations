@@ -1,5 +1,11 @@
 name: update-site-data
 
+env:
+  # V1 is retained as a public legacy/reference repository. Scheduled write
+  # automation is retired here; validation stays active so the archived public
+  # surface still fails loudly if committed artifacts are malformed.
+  LEGACY_REFERENCE_MODE: "true"
+
 on:
   push:
     branches: [main]
@@ -26,16 +32,33 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-        with:
-          token: ${{ secrets.AUTOMATION_PAT }}
-          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version-file: ".node-version"
 
+      - name: Validate committed site data contract in legacy mode
+        if: env.LEGACY_REFERENCE_MODE == 'true'
+        shell: bash
+        run: |
+          python3 ./scripts/validate_metrics.py
+          node ./scripts/verify/site-runtime-contract.js
+
+      - name: Report retired write automation
+        if: env.LEGACY_REFERENCE_MODE == 'true'
+        shell: bash
+        run: |
+          {
+            echo "## update-site-data"
+            echo
+            echo "V1 legacy/reference mode is enabled."
+            echo "Scheduled regeneration PR automation is retired for this repository."
+            echo "Committed metrics and site runtime contracts were validated read-only."
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Regenerate site data files
+        if: env.LEGACY_REFERENCE_MODE != 'true'
         shell: bash
         run: |
           node ./scripts/generate-metrics.js
@@ -46,13 +69,14 @@ jobs:
 
       - name: Check for changes
         id: diff
+        if: env.LEGACY_REFERENCE_MODE != 'true'
         shell: bash
         run: |
           git diff --quiet data/metrics.json data/metrics.json.sha256 proof/validation/ proof/quality/ site/proof/validation/ site/proof/quality/ site/data/ site/assets/data/ site/assets/verified-counts.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Open or update PR with regenerated site data
         id: cpr
-        if: steps.diff.outputs.changed == 'true'
+        if: env.LEGACY_REFERENCE_MODE != 'true' && steps.diff.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7 (2025-12-05)
         with:
           token: ${{ secrets.AUTOMATION_PAT }}
@@ -89,7 +113,7 @@ jobs:
             site/assets/verified-counts.json
 
       - name: Enable auto-merge on PR
-        if: steps.diff.outputs.changed == 'true' && steps.cpr.outputs.pull-request-number != ''
+        if: env.LEGACY_REFERENCE_MODE != 'true' && steps.diff.outputs.changed == 'true' && steps.cpr.outputs.pull-request-number != ''
         uses: peter-evans/enable-pull-request-automerge@a660677d5469627102a1c1e11409dd063606628d # v3 (2023-03-23)
         with:
           token: ${{ secrets.AUTOMATION_PAT }}
