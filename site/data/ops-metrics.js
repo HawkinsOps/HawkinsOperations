@@ -1,5 +1,5 @@
 window.HAWKINSOPS_OPS_METRICS = {
-  "generated_at_utc": "2026-04-07T00:00:00Z",
+  "generated_at_utc": "2026-04-21T00:00:00Z",
   "source_note": "Canonical SignalFoundry metrics generated from data/metrics.json.",
   "display_policy": {
     "candidate_default": "stable_benchmark",
@@ -12,8 +12,8 @@ window.HAWKINSOPS_OPS_METRICS = {
     "escalated": "8,574",
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
-    "locked_date": "04-07-2026",
-    "statement": "April 7 canonical snapshot: 324,074 total cases, ~88% auto-close, 8,574 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS."
+    "locked_date": "04-21-2026",
+    "statement": "April 21 canonical snapshot: 324,074 total cases, ~88% auto-close, 8,574 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS."
   },
   "lifetime_runtime": {
     "total_cases": 324074,
@@ -24,7 +24,7 @@ window.HAWKINSOPS_OPS_METRICS = {
     "staged_pending": 67,
     "coverage_ratio": "8/8",
     "heartbeat": "SUCCESS",
-    "last_updated": "04-07-2026"
+    "last_updated": "04-21-2026"
   },
   "metrics": {
     "total_cases": 324074,
@@ -43,22 +43,22 @@ window.HAWKINSOPS_OPS_METRICS = {
     "heartbeat": "SUCCESS",
     "coverage_ratio": "8/8",
     "coverage_status": "PASS",
-    "stable_locked_date": "04-07-2026",
-    "last_updated": "04-07-2026",
+    "stable_locked_date": "04-21-2026",
+    "last_updated": "04-21-2026",
     "stable_total_cases": 324074,
     "stable_auto_closed_benign": "~88%",
     "stable_known_fp": "85,953",
     "stable_escalated": "8,574",
     "stable_coverage_ratio": "8/8",
     "stable_heartbeat": "SUCCESS",
-    "stable_statement": "April 7 canonical snapshot: 324,074 total cases, ~88% auto-close, 8,574 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.",
+    "stable_statement": "April 21 canonical snapshot: 324,074 total cases, ~88% auto-close, 8,574 escalations, 8/8 hosts reporting, reconciliation PASS (0 mismatches), heartbeat SUCCESS.",
     "lifetime_total_cases": 324074,
     "lifetime_auto_closed_benign": "~88%",
     "lifetime_known_fp": "85,953",
     "lifetime_escalated": "8,574",
     "lifetime_auto_close_rate": "88.14%",
     "lifetime_label": "Lifetime processed (runtime snapshot)",
-    "lifetime_last_updated": "04-07-2026",
+    "lifetime_last_updated": "04-21-2026",
     "sigma": 103,
     "splunk": 79,
     "wazuh": 29,

@@ -269,7 +269,7 @@ Lead with: technique definition → what log source → what specific conditions
 ### Phase 2: Automated Validation (Next)
 - PowerShell test runner that executes tests and queries for alerts
 - CI integration: run compilation checks on every PR
-- Wazuh logtest automation for all 28 rule blocks
+- Wazuh logtest automation for all 29 rule blocks
 
 ### Phase 3: Continuous Validation (Future)
 - Scheduled Atomic Red Team runs (weekly)

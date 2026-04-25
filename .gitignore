@@ -10,6 +10,7 @@ detection-rules/wazuh/_incoming/
 
 # Local staging bundles (never commit)
 deploy_*/
+tmp/
 
 # Local duplicates/backups (do not commit)
 HawkinsOperations/
@@ -145,6 +146,7 @@ MIGRATION_PLAN*
 PROPOSED_ARCHITECTURE*
 GITIGNORE_RECOMMENDED*
 MITRE_MAPPING_AUDIT*
+docs/legacy-audit-*.md
 
 # AI assistant config — local-only, not for public view
 # Tools (Claude Code, Codex) read these from disk; they don't need to be in git.

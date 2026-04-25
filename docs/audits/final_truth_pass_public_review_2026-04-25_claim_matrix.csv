@@ -1,0 +1,42 @@
+surface,path,line,claim_category,claim_text,claimed_value,source_of_truth,verdict,action_taken
+repo,README.md,3,career/background,"Detection engineering, SOC automation, and proof-backed security operations.",N/A,README.md,OK,none
+repo,README.md,6,repository routing,"2026-04-23 — V1 retired.",2026-04-23,docs/V1_RETIREMENT.md,VERIFIED,none
+repo,README.md,31,repository routing,"Closed claims / proof surface: hawkinsops.com",hawkinsops.com,site/data/truth/current-authority.json,OK,none
+repo,README.md,32,repository routing,"Contested claims / public review layer: rayleeops.com / The Ledger",rayleeops.com,README.md,OK,none
+repo,README.md,60,infrastructure,"live lab SOC pipeline",lab SOC pipeline,site/data/truth/current-authority.json,TOO_STRONG_FIXED,downgraded from live SOC pipeline
+repo,README.md,75,pipeline/case metrics,"Verified cases triaged: 324,074",324074,site/data/truth/current-authority.json,VERIFIED,none
+repo,README.md,76,pipeline/case metrics,"Auto-close rate: 88%",88%,site/data/truth/current-authority.json,VERIFIED,none
+repo,README.md,77,detection counts,"Detection coverage: 211 rules across Sigma, Wazuh XML, Splunk SPL",211,PROOF_PACK/VERIFIED_COUNTS.md,INCONSISTENT_FIXED,changed from 210 to 211
+repo,README.md,78,pipeline/case metrics,"Escalation packs produced: 8,574",8574,site/data/truth/current-authority.json,VERIFIED,none
+repo,README.md,79,infrastructure,"10 Wazuh agents, 8/8 host coverage",10 and 8/8,site/data/truth/current-authority.json,OK,none
+repo,README.md,80,infrastructure,"15-server Proxmox homelab, V100 local inference",15 and V100,README.md and proof evidence,OK,none
+repo,README.md,106,infrastructure,"lab Wazuh pack",lab,PROOF_PACK/VERIFIED_COUNTS.md,TOO_STRONG_FIXED,downgraded from production Wazuh pack
+repo,README.md,129,career/background,"eight months of focused work",eight months,README.md,OK,none
+repo,README.md,151,career/background,"Self-taught detection engineer",N/A,README.md,OK,none
+repo,README.md,154,career/background,"supervising thirty-plus operators on twelve-hour shifts",30+ operators,site/resume.html,OK,none
+repo,START_HERE.md,10,repository routing,"V1 legacy/reference repository",V1 legacy,docs/V1_RETIREMENT.md,OK,none
+repo,START_HERE.md,31,detection counts,"103 Sigma detection rules",103,PROOF_PACK/VERIFIED_COUNTS.md,VERIFIED,none
+repo,START_HERE.md,32,detection counts,"29 Wazuh rule blocks across 25 files",29 and 25,PROOF_PACK/VERIFIED_COUNTS.md,INCONSISTENT_FIXED,changed from 28/24 to 29/25
+repo,START_HERE.md,33,detection counts,"79 Splunk detection searches across 9 files",79 and 9,PROOF_PACK/VERIFIED_COUNTS.md,VERIFIED,none
+repo,START_HERE.md,34,detection counts,"10 IR playbooks",10,PROOF_PACK/VERIFIED_COUNTS.md,VERIFIED,none
+repo,PROOF_PACK/VERIFIED_COUNTS.md,15,detection counts,"Total Detections: 211",211,verify-counts.ps1,VERIFIED,none
+repo,PROOF_PACK/VERIFIED_COUNTS.md,17,detection counts,"Sigma Rules: 103",103,verify-counts.ps1,VERIFIED,none
+repo,PROOF_PACK/VERIFIED_COUNTS.md,18,detection counts,"Splunk Searches: 79 across 9 .spl files",79 and 9,verify-counts.ps1,VERIFIED,none
+repo,PROOF_PACK/VERIFIED_COUNTS.md,19,detection counts,"Wazuh Rule Blocks: 29 across 25 XML files",29 and 25,verify-counts.ps1,VERIFIED,none
+repo,PROOF_PACK/VERIFIED_COUNTS.md,20,detection counts,"IR Playbooks: 10",10,verify-counts.ps1,VERIFIED,none
+repo,site/data/truth/current-authority.json,4,pipeline/case metrics,"total_cases: 324074",324074,source_of_truth/metrics_canonical_2026-04-21.json,VERIFIED,none
+repo,site/data/truth/current-authority.json,5,pipeline/case metrics,"auto_close_rate_display: ~88%",~88%,source_of_truth/metrics_canonical_2026-04-21.json,VERIFIED,none
+repo,site/data/truth/current-authority.json,6,pipeline/case metrics,"escalations: 8574",8574,source_of_truth/metrics_canonical_2026-04-21.json,VERIFIED,none
+repo,site/data/truth/current-authority.json,14,detection counts,"total_detections: 211",211,PROOF_PACK/VERIFIED_COUNTS.md,VERIFIED,none
+repo,site/data/truth/current-authority.json,16,detection counts,"splunk_searches: 79",79,PROOF_PACK/VERIFIED_COUNTS.md,VERIFIED,none
+repo,site/data/truth/current-authority.json,17,detection counts,"wazuh_rule_blocks: 29",29,PROOF_PACK/VERIFIED_COUNTS.md,VERIFIED,none
+repo,site/data/truth/current-authority.json,21,infrastructure,"wazuh_agents: 10",10,README.md,OK,none
+repo,site/data/truth/current-authority.json,22,infrastructure,"host_coverage: 8/8",8/8,README.md,OK,none
+repo,site/data/truth/current-authority.json,28,infrastructure,"Splunk scope: Home lab only",home lab only,current-authority.json,VERIFIED,none
+repo,site/index.html,145,pipeline/case metrics,"324,074 cases processed",324074,site/data/truth/current-authority.json,VERIFIED,none
+repo,site/index.html,149,pipeline/case metrics,"~88% auto-closed",~88%,site/data/truth/current-authority.json,VERIFIED,none
+repo,site/index.html,153,pipeline/case metrics,"8,574 escalations",8574,site/data/truth/current-authority.json,VERIFIED,none
+repo,site/index.html,157,detection counts,"211 detections",211,PROOF_PACK/VERIFIED_COUNTS.md,VERIFIED,none
+repo,site/proof.html,51,detection counts,"211 total detections",211,PROOF_PACK/VERIFIED_COUNTS.md,VERIFIED,none
+repo,docs/V1_RETIREMENT.md,26,detection counts,"211 CI-verified detections",211,PROOF_PACK/VERIFIED_COUNTS.md,INCONSISTENT_FIXED,changed from 210+
+github,GitHub profile bio,N/A,career/background,"Self-taught detection engineer and security automation builder...",N/A,gh api users/raylee-hawkins,OK,updated via gh
