@@ -1,7 +1,7 @@
 # AutoSOC Pipeline — scheduled alert ingestion, triage, and case processing.
 #
 # Required secrets:
-#   WAZUH_INDEXER_HOST     — Wazuh Indexer URL (e.g. https://192.168.8.x:9200)
+#   WAZUH_INDEXER_HOST     — Wazuh Indexer URL
 #   WAZUH_INDEXER_USER     — Wazuh Indexer API username
 #   WAZUH_INDEXER_PASS     — Wazuh Indexer API password
 #
@@ -24,8 +24,8 @@
 name: autosoc-pipeline
 
 on:
-  schedule:
-    - cron: "*/30 * * * *"
+  # V1 scheduled runtime disabled after retirement.
+  # Manual forensic/demo runs only.
   workflow_dispatch:
     inputs:
       dry_run:
