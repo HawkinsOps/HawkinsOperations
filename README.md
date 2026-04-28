@@ -20,8 +20,24 @@ in the linked methodology paper.
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-hawkinsops.com-00D4FF)](https://hawkinsops.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-raylee--hawkins-0A66C2)](https://linkedin.com/in/raylee-hawkins)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-raylee--hawkins-0A66C2)](https://www.linkedin.com/in/raylee-hawkins)
 [![Successor org](https://img.shields.io/badge/Successor_org-HawkinsOperations-181717?logo=github)](https://github.com/HawkinsOperations)
+
+---
+
+## Public identity
+
+**Raylee Hawkins**
+Detection Engineer | SOC Automation | Detection-as-Code | Security Automation
+
+Official links:
+
+- LinkedIn: <https://www.linkedin.com/in/raylee-hawkins>
+- Portfolio: <https://hawkinsops.com>
+- GitHub: <https://github.com/raylee-hawkins>
+- HawkinsOperations: <https://github.com/HawkinsOperations>
+- RayleeOps / The Ledger: <https://rayleeops.com>
+- Successor governance: <https://hawkinsoperations.com>
 
 ---
 
@@ -181,5 +197,5 @@ repository for V1 donor history, case-study reference, and audit context.
 
 - Site: [hawkinsops.com](https://hawkinsops.com)
 - Email: raylee@hawkinsops.com
-- LinkedIn: [linkedin.com/in/raylee-hawkins](https://linkedin.com/in/raylee-hawkins)
+- LinkedIn: [linkedin.com/in/raylee-hawkins](https://www.linkedin.com/in/raylee-hawkins)
 - Location: Open to relocation

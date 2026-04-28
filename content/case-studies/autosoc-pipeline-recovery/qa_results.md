@@ -44,6 +44,6 @@
 ### Notes
 
 - Evidence checksums are marked `MISSING_CHECKSUM` in evidence.yaml — compute by running the `compute_checksum` commands listed per artifact
-- LinkedIn profile (https://linkedin.com/in/raylee-hawkins) is MANUAL_VERIFICATION_REQUIRED — confirm profile exists and matches portfolio claims
+- LinkedIn profile (https://www.linkedin.com/in/raylee-hawkins) is MANUAL_VERIFICATION_REQUIRED — confirm profile exists and matches portfolio claims
 - Cloudflare Pages deployment status is MANUAL_VERIFICATION_REQUIRED — confirm site is live at hawkinsops.com
 - The 3 missing canonical files (CONTROL_PANEL.md, CURRENT_DECISIONS.md, SESSION_LOG_LATEST.md) are referenced by the case study template but are not part of the established HawkinsOperations repository architecture. They may exist in a private operational context.

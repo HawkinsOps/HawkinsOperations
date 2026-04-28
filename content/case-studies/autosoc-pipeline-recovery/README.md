@@ -63,10 +63,10 @@ SignalFoundry is a bespoke Python-and-PowerShell SOC automation pipeline built b
 - LinkedIn profile validation (MANUAL_VERIFICATION_REQUIRED)
 
 ### Assumptions (explicitly stated)
-- **SOURCE_OF_TRUTH:** `PROOF_PACK/VERIFIED_COUNTS.md` at path `Z:\GitHub\HawkinsOperations\PROOF_PACK\VERIFIED_COUNTS.md`
+- **SOURCE_OF_TRUTH:** `PROOF_PACK/VERIFIED_COUNTS.md`
 - **Locked snapshot timestamp:** 2026-03-25 (as referenced in `site/case-study-autosoc.html`)
 - **verified_counts.json generated_at_utc:** 2026-03-24T10:36:20+00:00
-- **External manual verifications required:** LinkedIn profile (https://linkedin.com/in/raylee-hawkins), Cloudflare Pages deployment status
+- **External manual verifications required:** LinkedIn profile (https://www.linkedin.com/in/raylee-hawkins), Cloudflare Pages deployment status
 - **No data transforms or sanitization applied** — all metrics cited are verbatim from source files
 
 ---

@@ -5,7 +5,7 @@ Location: Open to relocation
 Email: raylee@hawkinsops.com
 GitHub: https://github.com/raylee-hawkins
 Portfolio: https://hawkinsops.com
-LinkedIn: https://linkedin.com/in/raylee-hawkins
+LinkedIn: https://www.linkedin.com/in/raylee-hawkins
 
 SUMMARY
 - Built an automated first-pass SOC triage workflow for Wazuh alerts: classify, redact, package evidence, and escalate suspicious cases.

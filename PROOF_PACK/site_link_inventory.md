@@ -21,7 +21,7 @@ Removed links: none
 - GitHub repository and artifact paths under `https://github.com/raylee-hawkins/HawkinsOperations/...`
 - National Vulnerability Database (NVD): `https://nvd.nist.gov/vuln/detail/CVE-2025-55130`
 - Node.js security advisories: `https://nodejs.org/en/blog/vulnerability`
-- LinkedIn profile: `https://linkedin.com/in/raylee-hawkins`
+- LinkedIn profile: `https://www.linkedin.com/in/raylee-hawkins`
 
 ## Internal route checks (edited scope)
 - Primary nav routes present and unchanged: `/`, `/soc-lab`, `/detections`, `/proof`, `/projects`, `/resume`, `/wildcard`
