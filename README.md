@@ -8,15 +8,15 @@
 > [HawkinsOperations organization](https://github.com/HawkinsOperations).
 > See [`docs/V1_RETIREMENT.md`](/docs/V1_RETIREMENT.md) for the full
 > architectural post-mortem and [hawkinsops.com](https://hawkinsops.com)
-> for current operational metrics.
+> for the closed V1 proof surface and locked reviewer snapshot.
 
 The archival public record of the HawkinsOps system V1: detections, case studies,
 proof pack, verification infrastructure, and reviewer paths. This repository
 remains publicly accessible as donor history and reference material. It is
-not the primary live proof surface, and it is not the current methodology
-home. Public contested review lives at [rayleeops.com](https://rayleeops.com)
-/ The Ledger, and the methodology and review framing are maintained there and
-in the linked methodology paper.
+the closed V1 proof surface, not an active runtime claim or the current
+methodology home. Public contested review lives at
+[rayleeops.com](https://rayleeops.com) / The Ledger, and the methodology and
+review framing are maintained there and in the linked methodology paper.
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-hawkinsops.com-00D4FF)](https://hawkinsops.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE)
@@ -73,7 +73,7 @@ Standard work. Verification gates. Escalation paths. Evidence capture.
 Regression harnesses. Post-incident review. The IATF 16949 and ISO 9001
 frameworks that govern Tier 1 automotive production are, at their core,
 systems for extracting reliable output from unreliable inputs. Applied
-to an AI triage workforce running against a live lab SOC pipeline, the same
+to an AI triage workforce evaluated against a lab SOC pipeline, the same
 discipline produces a system that closes the high-confidence cases,
 escalates the genuinely suspicious, and leaves an audit trail for every
 decision.
@@ -186,7 +186,7 @@ Forward-looking architecture work now lives in the
 which is becoming the successor architecture home for the split system. This repository
 remains available as the legacy V1 archive and reference surface.
 
-Use [hawkinsops.com](https://hawkinsops.com) as the primary live proof surface.
+Use [hawkinsops.com](https://hawkinsops.com) as the closed V1 proof surface.
 Use [rayleeops.com](https://rayleeops.com) / The Ledger for public contested
 review and for the current methodology and review framing. Use this
 repository for V1 donor history, case-study reference, and audit context.

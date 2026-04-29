@@ -425,7 +425,7 @@ body.proof-page {
       <!-- Provenance labels required by site-runtime-contract -->
       <ul style="font-size:0.8rem;color:var(--muted,#8ea4c7);list-style:none;padding:0;margin:0 0 20px;display:grid;gap:3px;">
         <li><strong>Public benchmark snapshot:</strong> reviewer-authoritative values from <code>data/truth/current-authority.json</code>.</li>
-        <li><strong>Runtime snapshot:</strong> telemetry from <code>data/truth/current-live.json</code>, displayed as informational only.</li>
+        <li><strong>Runtime snapshot:</strong> V1 telemetry snapshot from <code>data/truth/current-live.json</code>, displayed as informational only.</li>
         <li><strong>Generated at:</strong> <span data-ops="stable_locked_date">04-21-2026</span></li>
         <li><strong>Source artifact:</strong> <code>site/data/truth/current-authority.json</code></li>
       </ul>
@@ -442,7 +442,7 @@ body.proof-page {
     <div class="m-wrap">
       <div class="m-eyebrow">Proof</div>
       <h1 class="m-title" style="font-size: clamp(2.2rem, 4vw, 3.7rem);">SignalFoundry — Proof &amp; Verified Metrics</h1>
-      <p class="m-outcome">SignalFoundry proof page: public evidence, verified counts, verification commands, and current metrics contract.</p>
+      <p class="m-outcome">SignalFoundry proof page: public evidence, verified counts, verification commands, and locked V1 metrics contract.</p>
       <div class="m-proof-strip" style="margin-top:20px;">
         <div class="m-proof-inline">
           <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0;">
@@ -452,7 +452,7 @@ body.proof-page {
       <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#27c97a;box-shadow:0 0 8px #27c97a;animation:blink 2s ease-in-out infinite;"></span>
       <span data-ops-status="stable_heartbeat">SUCCESS</span>
     </div>
-    <div style="font-size:9px;color:#486880;margin-top:4px;">Pipeline gate — operational</div>
+    <div style="font-size:9px;color:#486880;margin-top:4px;">Pipeline gate — locked snapshot</div>
   </div>
   <div style="padding:16px;background:rgba(8,13,22,.8);border:1px solid rgba(100,140,180,.13);border-radius:8px;border-top:2px solid #27c97a;">
     <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#486880;text-transform:uppercase;margin-bottom:6px;">Host Coverage</div>
@@ -545,7 +545,7 @@ body.proof-page {
         <div class="m-card-kicker" data-aos="fade-up">AutoSOC case</div>
         <h2>TITLE: AutoSOC Noise-Reduction Proof Block (2026-03-24 Snapshot)</h2>
         <p class="m-copy"><strong>CLAIM:</strong> AutoSOC processed <span data-ops="stable_total_cases">324,074</span> alerts, auto-closed <span data-ops="stable_auto_closed_benign">~88%</span>, and produced <span data-ops="stable_escalated">8,574</span> escalations across <span data-ops="stable_coverage_ratio">8/8</span> coverage.</p>
-        <p class="m-copy"><strong>CONTEXT:</strong> Current-facing metrics on this page are locked to the April 7, 2026 canonical snapshot. Historical recovery evidence remains linked as historical context only.</p>
+        <p class="m-copy"><strong>CONTEXT:</strong> Reviewer-facing metrics on this page are locked to the April 7, 2026 canonical snapshot. Historical recovery evidence remains linked as historical context only.</p>
         <ul class="m-list-tight">
           <li><strong>EVIDENCE:</strong> <code>data/truth/current-authority.json</code> -> <code>total_cases=324074</code>, <code>auto_close_rate_label=~88%</code>, <code>escalations_label=8,574</code>, <code>hosts_reporting=8/8</code>; proves canonical quantified baseline.</li>
           <li><strong>EVIDENCE:</strong> <code>docs/execution/AUTOSOC_PIPELINE_RECOVERY_CASE_STUDY_03-13-2026.md</code> -> final run shows <code>run_id=autosoc-20260313T215029Z-31020</code>, <code>status=SUCCESS</code>, <code>cases_processed=173</code>, <code>reconciliation.mismatch_count=0</code>; proves real output and validated recovery.</li>
@@ -575,7 +575,7 @@ body.proof-page {
       <article class="m-card" style="grid-column:1/-1;">
         <div class="m-card-kicker" data-aos="fade-up">Field notes</div>
         <h2>Engineering case studies</h2>
-        <p class="m-copy">Operational decisions documented from source evidence — pipeline logs, preflight output, scheduler metadata. Not post-hoc summaries. Every case study is indexed on the Case Studies page.</p>
+        <p class="m-copy">V1 operating decisions documented from source evidence — pipeline logs, preflight output, scheduler metadata. Not post-hoc summaries. Every case study is indexed on the Case Studies page.</p>
         <div style="margin-top:12px;">
           <a href="/case-studies" class="m-cta m-cta-secondary">All case studies &rarr;</a>
         </div>
@@ -586,13 +586,13 @@ body.proof-page {
   <!-- ── SECTION 2: RECOVERY PROOF ── -->
   <section id="recovery-proof" class="m-section" data-aos="fade-up">
     <div class="m-wrap">
-      <div class="m-eyebrow">Operational Evidence</div>
+      <div class="m-eyebrow">V1 Evidence</div>
       <h2 class="m-title" style="font-size: clamp(1.4rem, 2.5vw, 2rem);">Recovery &amp; Reconciliation Proof</h2>
       <p class="m-copy">The pipeline was exercised through a documented recovery event. The run log below proves a real execution cycle with zero reconciliation mismatches &mdash; not a hand-maintained health claim.</p>
 
       <div class="m-grid-2" style="margin-top:24px;">
         <article class="m-card">
-          <div class="m-card-kicker" data-aos="fade-up">Current authority snapshot</div>
+          <div class="m-card-kicker" data-aos="fade-up">Locked authority snapshot</div>
           <h3>SignalFoundry Pipeline &mdash; Reconciliation Proof</h3>
           <ul class="m-list-tight">
             <li><strong>Total cases processed:</strong> <span data-ops="stable_total_cases">324,074</span></li>
@@ -640,7 +640,7 @@ body.proof-page {
         <article class="m-card">
           <div class="m-card-kicker" data-aos="fade-up">Artifact reference</div>
           <h3>Splunk Ingest Proof</h3>
-          <p class="m-copy">Pipeline proof artifact confirms Splunk ingest was operational for the locked reviewer snapshot. The export remains in the repository under the Splunk evidence path.</p>
+          <p class="m-copy">Pipeline proof artifact confirms Splunk ingest was exercised for the locked reviewer snapshot. The export remains in the repository under the Splunk evidence path.</p>
           <ul class="m-list-tight" style="margin-top:10px;">
             <li><a href="https://github.com/raylee-hawkins/HawkinsOperations/blob/main/content/detection-rules/mappings/technique_map.csv" target="_blank" rel="noopener noreferrer">technique_map.csv &mdash; detection coverage map (GitHub)</a></li>
           </ul>
@@ -661,8 +661,8 @@ body.proof-page {
         <article class="m-card">
           <div class="m-card-kicker" data-aos="fade-up">Historical benchmark reference</div>
           <h3>Canonical Metrics Snapshot</h3>
-          <p class="m-copy">The canonical metrics artifact records the locked benchmark used for the current public authority layer. Treat it as historical support, not live telemetry.</p>
-          <p class="m-copy" style="margin-top:8px;font-size:0.85rem;color:var(--muted,#8ea4c7);">Historical only &mdash; superseded by the current authority snapshot</p>
+          <p class="m-copy">The canonical metrics artifact records the locked benchmark used for the public V1 authority layer. Treat it as historical support, not fresh telemetry.</p>
+          <p class="m-copy" style="margin-top:8px;font-size:0.85rem;color:var(--muted,#8ea4c7);">Historical only &mdash; superseded by the locked authority snapshot</p>
         </article>
 
         <article class="m-card">
@@ -699,13 +699,13 @@ body.proof-page {
 
         <article class="m-card">
           <div class="m-card-kicker" data-aos="fade-up">Case study</div>
-          <h3>Full operational narrative</h3>
-          <p class="m-copy">Architecture, detection design, pipeline recovery, and the full operational context behind these metrics are documented across the case study set. See the <a href="/signalfoundry">SignalFoundry system page</a> or the <a href="/detections">detection library</a> for engineering detail; both surface on the <a href="/case-studies">Case Studies</a> index.</p>
+          <h3>Full V1 engineering narrative</h3>
+          <p class="m-copy">Architecture, detection design, pipeline recovery, and the full V1 context behind these metrics are documented across the case study set. See the <a href="/signalfoundry">SignalFoundry system page</a> or the <a href="/detections">detection library</a> for engineering detail; both surface on the <a href="/case-studies">Case Studies</a> index.</p>
         </article>
       </div>
 
       <!-- Telemetry widget -->
-      <div class="m-telemetry-widget" data-live-widget aria-label="Pipeline telemetry - informational only, non-authoritative" style="margin-top:36px;">
+      <div class="m-telemetry-widget" data-live-widget aria-label="Pipeline snapshot telemetry - informational only, non-authoritative" style="margin-top:36px;">
         <div class="m-telemetry-header" style="font-size:0.82rem;color:var(--muted,#8ea4c7);margin-bottom:6px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;">
           Telemetry Feed &mdash; Informational Only &mdash; Non-Authoritative
         </div>
@@ -717,7 +717,7 @@ body.proof-page {
             <strong>Snapshot <span data-live="snapshot_date">2026-04-07</span></strong>
           </div>
         </div>
-        <p style="font-size:0.78rem;color:var(--muted,#8ea4c7);margin-top:6px;">Source: <code>current-live.json</code> (_layer_rank 2) &mdash; non-authoritative for public claims. Reviewer-authoritative metrics are in the KPI ledger above.</p>
+        <p style="font-size:0.78rem;color:var(--muted,#8ea4c7);margin-top:6px;">Source: <code>current-live.json</code> (_layer_rank 2) &mdash; non-authoritative V1 snapshot data for public claims. Reviewer-authoritative metrics are in the KPI ledger above.</p>
       </div>
     </div>
   </section>
@@ -755,7 +755,7 @@ body.proof-page {
 <template id="modal-cases">
   <div class="proof-modal-section">
     <h4>Metric definition</h4>
-    <p><strong>Total cases</strong> is the cumulative count of alert events ingested and processed by the SignalFoundry pipeline since operational baseline. Each case corresponds to one Wazuh alert that entered the triage loop and received a disposition.</p>
+    <p><strong>Total cases</strong> is the cumulative count of alert events ingested and processed by the SignalFoundry V1 pipeline through the locked baseline. Each case corresponds to one Wazuh alert that entered the triage loop and received a disposition.</p>
   </div>
   <div class="proof-modal-divider"></div>
   <div class="proof-modal-section">
@@ -774,7 +774,7 @@ body.proof-page {
   <div class="proof-modal-divider"></div>
   <div class="proof-modal-section">
     <h4>Provenance</h4>
-    <p>Value sourced from <code>data/truth/current-authority.json</code> &mdash; <code>metrics.stable_total_cases</code>. Derived from the operational ledger at the locked authority snapshot. Confirmed by <code>scripts/verify/verify-counts.ps1</code>.</p>
+    <p>Value sourced from <code>data/truth/current-authority.json</code> &mdash; <code>metrics.stable_total_cases</code>. Derived from the V1 ledger at the locked authority snapshot. Confirmed by <code>scripts/verify/verify-counts.ps1</code>.</p>
     <div class="proof-modal-cmd">pwsh -NoProfile -File .\scripts\verify\verify-counts.ps1</div>
   </div>
   <div class="proof-modal-section">
@@ -910,7 +910,7 @@ reconciliation.status          = PASS</div>
     <h4>SUCCESS definition</h4>
     <p><code>SUCCESS</code> means all four conditions cleared in the last confirmed run. It is the highest-confidence pipeline health signal and is the only state that permits proof artifacts to be published.</p>
     <div class="proof-modal-cmd">heartbeat.status   = SUCCESS
-heartbeat.gate     = LIVE
+heartbeat.gate     = LOCKED
 heartbeat.blocker  = NONE</div>
   </div>
   <div class="proof-modal-divider"></div>
@@ -924,7 +924,7 @@ heartbeat.blocker  = NONE</div>
     <p>Value: <code>heartbeat: "SUCCESS"</code> from <code>data/truth/current-authority.json</code>. Cross-referenced against recovery run log <code>autosoc-20260313T215029Z-31020</code>.</p>
   </div>
   <div class="proof-modal-section">
-    <span class="proof-modal-tag">pipeline live</span>
+    <span class="proof-modal-tag">locked snapshot</span>
     <span class="proof-modal-tag">gate passed</span>
     <span class="proof-modal-tag">no blockers</span>
   </div>

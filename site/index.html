@@ -140,9 +140,9 @@
         <div class="sf-role-line">
           <span class="sf-role-tag typed-target"></span>
         </div>
-        <p class="sf-body" style="line-height:1.7;margin-bottom:14px;font-weight:600;color:#71c7b8;">This is a working security operations system, not a static portfolio.</p>
-        <p class="sf-body" style="line-height:1.7;margin-bottom:14px;">SignalFoundry processes Wazuh alerts through a deterministic triage pipeline. <span data-ops="stable_total_cases">324,074</span> cases triaged. Approximately 88 percent auto-closed. <span data-ops="stable_escalated">8,574</span> reviewable evidence packs produced. <span data-verified="detections">211</span> detections across Sigma, Wazuh, and Splunk, plus 10 IR playbooks. Detection content is CI-verified via <code>verify-counts.ps1</code>. Case-volume provenance is documented at <a href="/proof" class="sf-inline-link">/proof</a>, including what is script-verified versus manually transcribed.</p>
-        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:20px;">This site is the canonical proof surface for the current system. The architecture is migrating to a successor organization at <a href="https://github.com/HawkinsOperations" target="_blank" rel="noopener noreferrer" class="sf-inline-link">github.com/HawkinsOperations</a>, which separates detections, validation, platform, proof, and website surfaces into audience-split repositories. The migration is governed in public — both this repository and the successor organization document which surface answers which question.</p>
+        <p class="sf-body" style="line-height:1.7;margin-bottom:14px;font-weight:600;color:#71c7b8;">This is a closed V1 security operations proof surface, not a static portfolio.</p>
+        <p class="sf-body" style="line-height:1.7;margin-bottom:14px;">SignalFoundry processed Wazuh alerts through a deterministic triage pipeline for the locked V1 reviewer snapshot. <span data-ops="stable_total_cases">324,074</span> cases triaged. Approximately 88 percent auto-closed. <span data-ops="stable_escalated">8,574</span> reviewable evidence packs produced. <span data-verified="detections">211</span> detections across Sigma, Wazuh, and Splunk, plus 10 IR playbooks. Detection content is CI-verified via <code>verify-counts.ps1</code>. Case-volume provenance is documented at <a href="/proof" class="sf-inline-link">/proof</a>, including what is script-verified versus manually transcribed.</p>
+        <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:20px;">This site is the closed HawkinsOps V1 proof surface. The governed successor architecture lives at <a href="https://github.com/HawkinsOperations" target="_blank" rel="noopener noreferrer" class="sf-inline-link">github.com/HawkinsOperations</a>, which separates detections, validation, platform, proof, and website surfaces into audience-split repositories. The migration is governed in public — both this repository and the successor organization document which surface answers which question.</p>
       </div>
       <!-- RIGHT: Photo -->
       <div style="text-align:center;">
@@ -261,7 +261,7 @@
           <div class="det-row dr-wazuh">
             <div class="det-icon" style="color:#00c4d4;">&cir;</div>
             <div class="det-label">Wazuh XML</div>
-            <div class="det-sub">Custom rule blocks &middot; live in Wazuh</div>
+            <div class="det-sub">Custom rule blocks &middot; lab Wazuh pack</div>
             <div class="det-bar-track"><div class="det-bar-fill" data-w="20"></div></div>
             <div class="det-count"><span data-verified="wazuh">29</span></div>
           </div>
@@ -410,7 +410,7 @@
     <section id="proof-snapshot" class="sf-section" data-aos="fade-up" aria-labelledby="health-title" style="padding:60px 0;background:rgba(17,24,39,0.3);border-top:1px solid rgba(122,184,255,0.06);border-bottom:1px solid rgba(122,184,255,0.06);">
       <div class="sf-section-label">Stable Benchmark</div>
       <h2 id="health-title">Pipeline integrity</h2>
-      <p class="sf-body sf-copy-gap-md">Locked snapshot from <code>data/truth/current-authority.json</code>. These values do not change from live telemetry. <a href="/proof" class="sf-inline-link">Full proof &rarr;</a></p>
+      <p class="sf-body sf-copy-gap-md">Locked snapshot from <code>data/truth/current-authority.json</code>. These values do not change from later telemetry. <a href="/proof" class="sf-inline-link">Full proof &rarr;</a></p>
       <ul class="sf-body" style="font-size:0.78rem;color:var(--muted);margin-top:8px;display:grid;gap:3px;list-style:none;padding:0;">
         <li><strong>Public benchmark snapshot:</strong> reviewer-authoritative values from <code>data/truth/current-authority.json</code>.</li>
         <li><strong>Runtime snapshot:</strong> informational telemetry remains subordinate and is disclosed on <a href="/proof" class="sf-inline-link">/proof</a>.</li>
@@ -575,7 +575,7 @@ node scripts/generate-site-data.js</code></pre>
   <div class="modal-detail">
     <div>
       <div class="detail-label">Definition</div>
-      <p>The date the public-facing metrics were locked from the live pipeline output. Once locked, these values remain stable for reviewer reference — they do not update from live telemetry.</p>
+      <p>The date the public-facing metrics were locked from the V1 pipeline output. Once locked, these values remain stable for reviewer reference — they do not update from later telemetry.</p>
     </div>
     <div>
       <div class="detail-label">Lock process</div>

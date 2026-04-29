@@ -21,7 +21,7 @@ EXPERIENCE / PROJECTS
 - HawkinsOperations (Primary Portfolio Repo)
   - Built and maintain a detection and response library with verified detection content
     spanning Sigma (YAML), Wazuh (XML rule blocks), Splunk (SPL), and IR playbooks.
-    Current verified counts and walkthrough: https://hawkinsops.com/start-here (proof links included).
+    Locked verified counts and walkthrough: https://hawkinsops.com/start-here (proof links included).
   - Implemented proof-first validation workflow so reviewers can reproduce claims
     directly from repository artifacts.
   - Diagnosed and restored an AutoSOC ingestion outage by separating infrastructure
@@ -40,7 +40,7 @@ EXPERIENCE / PROJECTS
     detection behavior before publishing artifacts.
   - Use lab runs to validate telemetry assumptions and improve signal quality.
 
-30-SECOND INTERVIEW TALK TRACK
+30-SECOND ROLE TALK TRACK
 - I built a Wazuh-based SOC lab, then automated repeatable first-pass triage steps for a defined alert stream.
 - The workflow classifies alerts, redacts sensitive values, generates evidence packs, and preserves analyst escalation paths.
 - I am not replacing analysts; I can do triage work and build tooling that makes investigations more consistent.
