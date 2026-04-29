@@ -1,10 +1,6 @@
 name: deploy-wazuh-pack
 
 on:
-  workflow_run:
-    workflows: ["verify"]
-    types: [completed]
-    branches: [main]
   workflow_dispatch:
 
 jobs:

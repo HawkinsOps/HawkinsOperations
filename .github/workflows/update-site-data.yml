@@ -17,8 +17,6 @@ on:
       - "scripts/generate-metrics.js"
       - "scripts/generate-proof-lanes.js"
       - "scripts/generate-site-data.js"
-  schedule:
-    - cron: "17 */6 * * *"
   workflow_dispatch:
 
 jobs:
