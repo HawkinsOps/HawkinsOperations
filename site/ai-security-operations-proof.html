@@ -146,9 +146,9 @@
     <h2 id="signalfoundry-proof">SignalFoundry: governed AI-assisted SOC pipeline</h2>
     <p class="ai-copy">SignalFoundry is a 35-script Python SOC automation pipeline for Wazuh alert ingestion, policy-driven triage, sensitive-field redaction, reconciliation, and reviewer-gated evidence packaging.</p>
     <div class="ai-metrics">
-      <div class="ai-metric"><strong>324,074</strong><span>Verified cases processed</span></div>
-      <div class="ai-metric"><strong>88%</strong><span>Auto-close rate</span></div>
-      <div class="ai-metric"><strong>8,574</strong><span>Escalation packs generated</span></div>
+      <div class="ai-metric"><strong data-ops="stable_total_cases">324,074</strong><span>Verified cases processed</span></div>
+      <div class="ai-metric"><strong data-ops="stable_auto_closed_benign">~88%</strong><span>Auto-close rate</span></div>
+      <div class="ai-metric"><strong data-ops="stable_escalated">8,574</strong><span>Escalation packs generated</span></div>
       <div class="ai-metric"><strong>0</strong><span>Reconciliation mismatches</span></div>
       <div class="ai-metric"><strong>Scripts</strong><span>Metrics tied to reproducible validation artifacts</span></div>
     </div>
@@ -161,9 +161,9 @@
     <div class="ai-grid">
       <div class="ai-card">
         <ul class="ai-list">
-          <li>103 Sigma YAML rules</li>
-          <li>79 Splunk detection searches across 9 SPL files</li>
-          <li>25 Wazuh XML files / 29 Wazuh rule blocks</li>
+          <li><span data-verified="sigma">103</span> Sigma YAML rules</li>
+          <li><span data-verified="splunk">79</span> Splunk detection searches across 9 SPL files</li>
+          <li><span data-verified="wazuh_xml_files">25</span> Wazuh XML files / <span data-verified="wazuh">29</span> Wazuh rule blocks</li>
           <li>123 MITRE ATT&amp;CK techniques across 69 families</li>
         </ul>
       </div>
@@ -181,7 +181,7 @@
   <section class="ai-section" aria-labelledby="wazuh-audit">
     <div class="ai-kicker">Concrete AI-assisted example</div>
     <h2 id="wazuh-audit">Wazuh silent-parent audit</h2>
-    <p class="ai-copy">Reviewed 253 Wazuh parent-child relationships, identified 10 dead chains, and shipped four remediation rules covering:</p>
+    <p class="ai-copy">Reviewed Wazuh parent-child relationships, identified dead chains, and shipped remediation rules covering:</p>
     <div class="ai-tag-row" aria-label="Remediation rule coverage">
       <span class="ai-tag">WMI lateral movement / T1047</span>
       <span class="ai-tag">reg.exe credential extraction / T1003.002</span>
