@@ -113,6 +113,7 @@
     <ul class="nav-l">
       <li><a href="/">Home</a></li>
       <li><a href="/proof">Proof</a></li>
+      <li><a href="/ai-security-operations-proof">AI Proof</a></li>
       <li><a href="/case-studies">Case Studies</a></li>
       <li><a href="/resume">Resume</a></li>
     </ul>
@@ -122,6 +123,7 @@
 <div id="mobMenu" class="mob-menu" data-open="false" role="navigation" aria-label="Mobile site navigation">
   <a href="/">Home</a>
   <a href="/proof">Proof</a>
+  <a href="/ai-security-operations-proof">AI Proof</a>
   <a href="/case-studies">Case Studies</a>
   <a href="/resume">Resume</a>
 </div>
@@ -141,7 +143,7 @@
           <span class="sf-role-tag typed-target"></span>
         </div>
         <p class="sf-body" style="line-height:1.7;margin-bottom:14px;font-weight:600;color:#71c7b8;">This is a closed V1 security operations proof surface, not a static portfolio.</p>
-        <p class="sf-body" style="line-height:1.7;margin-bottom:14px;">SignalFoundry processed Wazuh alerts through a deterministic triage pipeline for the locked V1 reviewer snapshot. <span data-ops="stable_total_cases">324,074</span> cases triaged. Approximately 88 percent auto-closed. <span data-ops="stable_escalated">8,574</span> reviewable evidence packs produced. <span data-verified="detections">211</span> detections across Sigma, Wazuh, and Splunk, plus 10 IR playbooks. Detection content is CI-verified via <code>verify-counts.ps1</code>. Case-volume provenance is documented at <a href="/proof" class="sf-inline-link">/proof</a>, including what is script-verified versus manually transcribed.</p>
+        <p class="sf-body" style="line-height:1.7;margin-bottom:14px;">SignalFoundry processed Wazuh alerts through a deterministic triage pipeline for the locked V1 reviewer snapshot. <span data-ops="stable_total_cases">324,074</span> cases triaged. Approximately 88 percent auto-closed. <span data-ops="stable_escalated">8,574</span> reviewable evidence packs produced. <span data-verified="detections">211</span> detections across Sigma, Wazuh, and Splunk, plus 10 IR playbooks. Detection content is CI-verified via <code>verify-counts.ps1</code>. Case-volume provenance is documented at <a href="/proof" class="sf-inline-link">/proof</a>, including what is script-verified versus manually transcribed. The AI Analyst positioning is summarized at <a href="/ai-security-operations-proof" class="sf-inline-link">/ai-security-operations-proof</a>.</p>
         <p class="sf-body" style="line-height:1.7;color:var(--muted);margin-bottom:20px;">This site is the closed HawkinsOps V1 proof surface. The governed successor architecture lives at <a href="https://github.com/HawkinsOperations" target="_blank" rel="noopener noreferrer" class="sf-inline-link">github.com/HawkinsOperations</a>, which separates detections, validation, platform, proof, and website surfaces into audience-split repositories. The migration is governed in public — both this repository and the successor organization document which surface answers which question.</p>
       </div>
       <!-- RIGHT: Photo -->
@@ -446,6 +448,26 @@
       </div>
       <p class="sf-body" style="font-size:.82rem;margin-top:10px;opacity:.45;">Source: <code>/assets/data/ops-metrics.json</code> · Locked: <span data-ops="stable_locked_date">04-21-2026</span> · <a href="/proof" style="color:#00c4d4;">Full verification →</a></p>
       <p class="sf-body" style="font-size:.76rem;margin-top:6px;opacity:.40;">Public benchmark snapshot · Runtime snapshot · Generated at <span data-ops="lifetime_last_updated">04-21-2026</span> · Source artifact <code>/assets/data/ops-metrics.json</code></p>
+    </section>
+
+    <section id="surface-routing" class="sf-section" data-aos="fade-up" aria-labelledby="surface-routing-title" style="padding:44px 0;border-bottom:1px solid rgba(122,184,255,0.08);">
+      <div class="sf-section-label">Architecture &amp; Surface Routing</div>
+      <h2 id="surface-routing-title">Where each public surface belongs</h2>
+      <p class="sf-body sf-copy-gap-md">HawkinsOps is the closed V1 proof surface. HawkinsOperations is the successor governance architecture, split across detection, validation, platform, proof, and website repositories so source, runtime, signal, evidence, and public-proof claims do not collapse into one surface. RayleeOps carries public review/context. Website pages render approved claims; they do not create proof by themselves.</p>
+      <div class="sf-grid-3" style="margin-top:18px;">
+        <a class="sf-card" href="/proof" style="text-decoration:none;padding:18px;">
+          <div class="sf-section-label" style="margin-bottom:6px;">HawkinsOps</div>
+          <p class="sf-body" style="margin:0;">Closed V1 proof surface with reviewer-facing evidence and verification routes.</p>
+        </a>
+        <a class="sf-card" href="/ai-security-operations-proof" style="text-decoration:none;padding:18px;">
+          <div class="sf-section-label" style="margin-bottom:6px;">AI Proof</div>
+          <p class="sf-body" style="margin:0;">Governed AI-assisted SOC workflows, LLM-output validation, evidence packaging, and public-claim discipline.</p>
+        </a>
+        <a class="sf-card" href="https://hawkinsoperations.com" target="_blank" rel="noopener noreferrer" style="text-decoration:none;padding:18px;">
+          <div class="sf-section-label" style="margin-bottom:6px;">HawkinsOperations</div>
+          <p class="sf-body" style="margin:0;">Successor governance architecture public rendering.</p>
+        </a>
+      </div>
     </section>
 
     <!--
